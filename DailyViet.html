@@ -391,15 +391,12 @@
   .ch-stat b{display:block;font-size:22px;font-weight:800;color:var(--rice);}
   .ch-stat span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
   .ch-strip{display:flex;gap:3px;overflow-x:auto;padding-bottom:8px;margin-bottom:16px;-webkit-overflow-scrolling:touch;}
-  .ch-day-pill{flex-shrink:0;width:9px;height:22px;border-radius:3px;background:var(--surface-2);}
+  .ch-day-pill{flex-shrink:0;width:9px;height:22px;border-radius:3px;background:var(--surface-2);border:none;padding:0;-webkit-appearance:none;appearance:none;}
+  button.ch-day-pill{cursor:pointer;}
   .ch-day-pill.secured{background:var(--herb);}
   .ch-day-pill.skipped{background:var(--gold);}
   .ch-day-pill.missed{background:var(--vermillion-dim);}
   .ch-day-pill.today{box-shadow:0 0 0 2px var(--gold);}
-  .ch-footer-row{display:flex;gap:10px;}
-  .ch-footer-row .footer-btn{margin-top:0;}
-  .ch-skip-btn{background:none;border:1px solid rgba(36,28,19,0.15);color:var(--muted);padding:13px;border-radius:12px;font-weight:700;font-size:12.5px;width:100%;}
-  .ch-skip-btn:disabled{opacity:.4;}
   .ch-warn{font-size:11.5px;color:var(--muted);text-align:center;margin:10px 0 0;line-height:1.5;}
   .ch-trophy{font-size:40px;text-align:center;margin-bottom:8px;}
 
@@ -1464,13 +1461,13 @@
     </div>
     <div class="ch-confirm-row">
       <div class="icn">⏩</div>
-      <div><h4 id="chConfirmSkipCount">8 skip days allowed</h4><p>Use wisely</p></div>
+      <div><h4 id="chConfirmSkipCount">8 automatic skip days</h4><p>Used for you when you miss a day</p></div>
     </div>
     <div class="ch-confirm-row">
       <div class="icn">🕐</div>
       <div><h4>Day resets at 6 AM</h4><p>Local time</p></div>
     </div>
-    <div class="ch-confirm-warn"><b>No half measures.</b> Miss more than 2 days in a row without a skip and the challenge resets to Day 1.</div>
+    <div class="ch-confirm-warn"><b>No half measures.</b> Miss a day and a skip is spent automatically to cover it. Run out of skips, and the next missed day resets you to Day 1.</div>
     <div class="ch-confirm-btns">
       <button class="ch-confirm-cancel" onclick="closeChallengeConfirm()">Cancel</button>
       <button class="ch-confirm-start" onclick="confirmStartChallenge()">Start Challenge</button>
@@ -7264,10 +7261,9 @@ const DEFAULT_STATE = {
   challenge:{ // 60-Day Challenge — daily "Learn + Review" quest with a losable streak
     active:false, startDate:null, completed:false,
     securedDates:[], // ['YYYY-MM-DD', ...] — days both missions were finished
-    skippedDates:[], // days a skip token was spent on
+    skippedDates:[], // days a skip token was spent on (auto-spent for any missed day)
     skipTokens:8,
-    missedStreak:0, // consecutive un-secured, un-skipped calendar days since last check
-    lastCheckedDate:null, // last calendar day evaluateChallengeDay() has processed
+    lastCheckedDate:null, // last calendar day evaluateChallengeDays() has processed
     dailyLog:{}, // 'YYYY-MM-DD' -> {learn:bool, reviewCount:number}
     stats:{ dialoguesLearned:0, wordsReviewed:0, phrasesSpoken:0 },
   },
@@ -9858,7 +9854,7 @@ function startChallenge(){
 // confirmation modal before actually starting, matching the Victor AI flow.
 function openChallengeConfirm(){
   const skipCountEl = document.getElementById('chConfirmSkipCount');
-  if(skipCountEl) skipCountEl.textContent = `${DEFAULT_STATE.challenge.skipTokens} skip days allowed`;
+  if(skipCountEl) skipCountEl.textContent = `${DEFAULT_STATE.challenge.skipTokens} automatic skip days`;
   document.getElementById('challengeConfirmBackdrop').classList.add('open');
 }
 function closeChallengeConfirm(){
@@ -9893,6 +9889,36 @@ function abandonChallenge(){
   document.getElementById('challengeReadyBackdrop').classList.remove('open');
   document.getElementById('challengeTasksBackdrop').classList.remove('open');
   renderAll();
+}
+// Same idea as abandonChallenge(), but immediately kicks off a fresh active
+// run starting today instead of dropping back to the inactive "Start the
+// challenge" screen — this is the "just let me start over" button, reachable
+// straight from the main Challenge view (and from the missed-days list)
+// without having to abandon first and re-confirm the intro flow.
+function restartChallenge(){
+  if(!confirm('Restart the 60-day challenge? Your current run resets to Day 1 starting today — lifetime stats are kept.')) return;
+  document.getElementById('challengeMissedDaysBackdrop')?.classList.remove('open');
+  startChallenge(); // preserves state.challenge.stats internally, sets active + startDate=today
+}
+// "N skips left" in the active Challenge view is tappable — this lists out
+// exactly which calendar dates got auto-skipped, most recent first, so
+// "why do I have 5 skips used" has a real answer instead of just a number.
+// Each row reuses the existing per-day detail modal (openDayDetail) rather
+// than duplicating that view.
+function openChallengeMissedDays(){
+  const c = state.challenge;
+  const dates = [...(c.skippedDates||[])].sort().reverse();
+  document.getElementById('toolTitle').textContent = `Missed days (${dates.length})`;
+  document.getElementById('toolBody').innerHTML = (dates.length ? dates.map(dk=>{
+    const d = new Date(dk+'T00:00:00');
+    const label = d.toLocaleDateString(undefined, {weekday:'long', month:'long', day:'numeric'});
+    return `<div class="freq-item" onclick="closeTool();openDayDetail('${dk}');">
+      <div><p class="fw" style="color:var(--gold);">${label}</p><p class="fw-en">Skip used — no lesson completed</p></div>
+      <div class="fc">›</div>
+    </div>`;
+  }).join('') : `<div class="empty"><div class="big">✅</div>No missed days yet — every day so far has been secured.</div>`)
+  + `<button class="skip-link" style="margin-top:14px;" onclick="restartChallenge()">Restart the challenge from Day 1</button>`;
+  document.getElementById('toolBackdrop').classList.add('open');
 }
 // Builds the two-row task checklist — shared by the "Today's Tasks" modal and
 // the inline expandable section on the active Home card.
@@ -10178,9 +10204,14 @@ function chEnsureTodayLog(){
   if(!state.challenge.dailyLog[tk]) state.challenge.dailyLog[tk] = {learn:false, reviewCount:0};
   return state.challenge.dailyLog[tk];
 }
-// Walks forward from lastCheckedDate to today, one calendar day at a time,
-// marking each day secured/skipped/missed and applying the "miss more than
-// 2 days -> reset to Day 1" rule. Safe to call repeatedly (idempotent).
+// Walks forward from lastCheckedDate to today, one real calendar day at a
+// time (never today itself — today still has time to be completed). Every
+// past day is either secured (both missions done), auto-skipped (a skip
+// token gets spent FOR you, no manual tap needed), or — once skip tokens
+// run out — a real miss, which immediately resets the run back to Day 1
+// (today's cursor date becomes the new startDate; lifetime stats survive).
+// Safe to call repeatedly (idempotent): already-secured/already-skipped days
+// are no-ops on a second pass.
 function evaluateChallengeDays(){
   const c = state.challenge;
   if(!c.active || c.completed) return;
@@ -10189,39 +10220,29 @@ function evaluateChallengeDays(){
   while(cursor < tk){
     const log = c.dailyLog[cursor];
     const secured = !!(log && log.learn && log.reviewCount>=CHALLENGE_DAILY_REVIEW_TARGET);
-    const skipped = c.skippedDates.includes(cursor);
+    const alreadySkipped = c.skippedDates.includes(cursor);
     if(secured){
       if(!c.securedDates.includes(cursor)) c.securedDates.push(cursor);
-      c.missedStreak = 0;
-    } else if(skipped){
-      c.missedStreak = 0;
+    } else if(alreadySkipped){
+      // already accounted for on a previous pass — nothing to do
+    } else if(c.skipTokens > 0){
+      c.skipTokens -= 1;
+      c.skippedDates.push(cursor);
     } else {
-      c.missedStreak += 1;
+      // no skips left to cover this missed day — the streak breaks here.
+      const keepStats = c.stats;
+      Object.assign(c, structuredClone(DEFAULT_STATE.challenge));
+      c.active = true; c.startDate = cursor; c.lastCheckedDate = cursor; c.stats = keepStats;
     }
     cursor = chDateOffset(cursor, 1);
   }
   c.lastCheckedDate = tk;
-  if(c.missedStreak > 2){
-    const keepStats = c.stats;
-    Object.assign(c, structuredClone(DEFAULT_STATE.challenge));
-    c.active = true; c.startDate = tk; c.lastCheckedDate = tk; c.stats = keepStats;
-  }
   if(c.securedDates.length >= 60) c.completed = true;
 }
 function challengeDayNumber(){
   const c = state.challenge;
   if(!c.active) return 0;
   return Math.min(60, chDaysBetween(c.startDate, chTodayKey()) + 1);
-}
-function skipToday(){
-  const c = state.challenge;
-  const tk = chTodayKey();
-  if(c.skipTokens<=0 || c.skippedDates.includes(tk)) return;
-  const log = c.dailyLog[tk];
-  if(log && log.learn && log.reviewCount>=CHALLENGE_DAILY_REVIEW_TARGET) return; // already secured — no need to skip
-  c.skippedDates.push(tk);
-  c.skipTokens -= 1;
-  saveState(); renderAll();
 }
 // Hooked from markLessonComplete() and gradeCard() below.
 function registerChallengeLearn(){
@@ -10272,7 +10293,6 @@ function renderChallenge(){
   const learnDone = !!log.learn;
   const reviewDone = log.reviewCount>=CHALLENGE_DAILY_REVIEW_TARGET;
   const bothDone = learnDone && reviewDone;
-  const skippedToday = c.skippedDates.includes(tk);
   const dayNum = challengeDayNumber();
 
   let stripHtml = '';
@@ -10284,7 +10304,10 @@ function renderChallenge(){
     if(c.securedDates.includes(dk)) cls += ' secured';
     else if(c.skippedDates.includes(dk)) cls += ' skipped';
     else if(dk < tk) cls += ' missed';
-    stripHtml += `<div class="${cls}"></div>`;
+    // Future days (dk > today) aren't clickable yet — nothing to show.
+    stripHtml += dk <= tk
+      ? `<button class="${cls}" onclick="openDayDetail('${dk}')"></button>`
+      : `<div class="${cls}"></div>`;
   }
 
   el.innerHTML = `
@@ -10317,10 +10340,9 @@ function renderChallenge(){
       <div class="ch-stat"><b>${c.stats.phrasesSpoken}</b><span>Phrases spoken</span></div>
     </div>
 
-    <div class="ch-footer-row">
-      <button class="ch-skip-btn" ${skippedToday || bothDone || c.skipTokens<=0 ? 'disabled' : ''} onclick="skipToday()">Skip today (${c.skipTokens} left)</button>
-    </div>
-    <p class="ch-warn">Miss more than 2 days in a row and the challenge resets to Day 1. Skips protect your streak without needing to complete a mission.</p>
+    <button class="skip-link" onclick="openChallengeMissedDays()">⏩ ${c.skipTokens} skip${c.skipTokens===1?'':'s'} left · ${c.skippedDates.length} missed day${c.skippedDates.length===1?'':'s'} — tap to view</button>
+    <p class="ch-warn">Miss a day and a skip is used automatically to protect your streak — run out, and the next missed day resets you to Day 1.</p>
+    <button class="skip-link" style="margin-top:6px;color:var(--muted);text-decoration:none;font-size:11.5px;" onclick="restartChallenge()">Restart challenge from Day 1</button>
   `;
 }
 
