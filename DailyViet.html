@@ -7326,9 +7326,26 @@ async function pullStateFromCloud(userId){
     return data ? data.state : null;
   }catch(e){ console.error('Cloud pull failed — falling back to local progress.', e); return null; }
 }
+let _signInInFlight = false;
 async function signInWithGoogle(){
   if(!supabaseClient){ alert('Cloud sync isn\'t available right now.'); return; }
-  await supabaseClient.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.href } });
+  // A double-tap (or a tap while a previous attempt is still in flight) starts
+  // a second OAuth handshake before the first one finishes, which invalidates
+  // the first and is a real-world cause of "OAuth state not found or expired".
+  if(_signInInFlight) return;
+  _signInInFlight = true;
+  try{
+    // Deliberately NOT window.location.href — if the user is retrying from a
+    // page that still has a leftover ?error=... from a previous failed
+    // attempt (see handleOAuthRedirectError below), .href would carry that
+    // query string right back into this new attempt's redirect target. A
+    // clean, stable URL also makes it easy to confirm it's listed in
+    // Supabase's Authentication -> URL Configuration -> Redirect URLs.
+    const cleanRedirect = window.location.origin + window.location.pathname;
+    await supabaseClient.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: cleanRedirect } });
+  } finally {
+    _signInInFlight = false; // only matters if the call above threw before navigating away
+  }
 }
 async function signOutOfSync(){
   if(!supabaseClient) return;
@@ -7350,6 +7367,24 @@ function renderSyncUI(session){
     inEl.style.display = 'none';
     statusEl.textContent = 'Your progress is saved right in this browser.';
   }
+}
+function handleOAuthRedirectError(){
+  // If a Google sign-in attempt fails, Supabase redirects back here with
+  // ?error=...&error_code=...&error_description=... in the URL instead of
+  // showing its own error page. Left alone, that raw query string just sits
+  // in the address bar forever (confusing, and it also gets replayed into
+  // the next attempt's redirectTo — see signInWithGoogle above). Catch it
+  // once on load, scrub it out of the URL, and explain it in plain English.
+  const params = new URLSearchParams(window.location.search);
+  if(!params.has('error')) return;
+  const desc = params.get('error_description') || params.get('error') || 'the sign-in attempt did not complete.';
+  const cleanUrl = window.location.origin + window.location.pathname + window.location.hash;
+  window.history.replaceState({}, '', cleanUrl);
+  alert(
+    "Google sign-in didn't go through (" + desc + ").\n\n" +
+    "This is Google/Supabase's login handshake timing out or getting started twice — not something wrong with your saved progress. " +
+    "Just tap \"Sign in with Google\" again; if it keeps happening, try closing this tab and opening the site fresh first."
+  );
 }
 async function initSync(){
   if(!supabaseClient) return;
@@ -10399,6 +10434,7 @@ function resetProgress(){
 }
 
 /* ========================= INIT ========================= */
+handleOAuthRedirectError();
 loadState();
 </script>
 </body>
