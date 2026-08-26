@@ -791,6 +791,7 @@
   .say-it-wrap .eng{font-size:15px;color:var(--muted);font-style:italic;margin:0 0 30px;}
   .big-mic{width:110px;height:110px;border-radius:50%;background:var(--pink);border:none;color:var(--ink);font-size:38px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;}
   .say-it-wrap .hint{font-size:12px;font-weight:800;letter-spacing:.06em;color:var(--muted);margin:0 0 22px;}
+  .listen-play-btn{width:96px;height:96px;border-radius:50%;background:var(--gold);border:none;color:var(--ink);font-size:34px;margin:4px auto 10px;display:flex;align-items:center;justify-content:center;}
 
   .quiz-label{display:flex;align-items:center;gap:8px;color:var(--vermillion);font-weight:800;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;margin:6px 0 14px;}
   .quiz-q{font-size:20px;font-weight:800;line-height:1.35;margin:0 0 20px;display:flex;justify-content:space-between;gap:10px;align-items:flex-start;}
@@ -1098,6 +1099,7 @@
         <div class="chip-row" id="cardsModeToggle">
           <button class="chip active" data-mode="words" onclick="setCardsMode('words')">Words</button>
           <button class="chip" data-mode="phrases" onclick="setCardsMode('phrases')">Phrases</button>
+          <button class="chip" data-mode="listen" onclick="setCardsMode('listen')">🎧 Listen</button>
         </div>
 
         <div class="wc-hero">
@@ -1116,7 +1118,7 @@
           <div class="core-banner-text">
             <p class="cb-eyebrow">🔥 Start studying</p>
             <p class="cb-title" id="wcStartTitle">Study words</p>
-            <p class="cb-sub">Anki-style — grade yourself Again / Hard / Good / Easy.</p>
+            <p class="cb-sub" id="wcStartSub">Anki-style — grade yourself Again / Hard / Good / Easy.</p>
           </div>
           <span class="cb-arrow">→</span>
         </button>
@@ -7246,6 +7248,7 @@ const CHAT_PERSONAS = {
 /* ========================= STATE ========================= */
 const DEFAULT_STATE = {
   name:'', dailyGoal:10,
+  lastModified:null, // ISO timestamp, stamped on every saveState() — lets sync tell which copy (local vs cloud) is actually newer instead of blindly trusting the cloud
   completedLessons:[], savedPhrases:[], completedChats:[],
   xp:0, streak:0, bestStreak:0, lastStudyDate:null, studyDates:[],
   contentMode:'new', // 'new' (fresh app-within-the-app content) | 'classic' (original word/phrase database) — Cards tab toggle
@@ -7403,12 +7406,28 @@ async function initSync(){
 }
 async function syncOnSignIn(session){
   const cloudState = await pullStateFromCloud(session.user.id);
-  if(cloudState){
+  if(!cloudState){
+    await pushStateToCloud(); // first sync ever for this account — seed the cloud
+    return;
+  }
+  // Don't blindly trust the cloud copy — compare timestamps first. Without
+  // this, a device that made progress while offline and got closed/reloaded
+  // before its push went through would have that progress silently
+  // overwritten the instant it signs back in, since this used to always pull
+  // and overwrite local state unconditionally. ISO strings compare correctly
+  // as plain strings, so no date parsing needed. Only diverges from the old
+  // "always pull" behavior when local is POSITIVELY newer than a timestamped
+  // cloud copy — every other case (missing timestamps, equal, cloud newer)
+  // falls back to the original pull-and-overwrite, so this can't make an
+  // ordinary cross-device sync any less safe than it already was.
+  const localTime = state.lastModified || '';
+  const cloudTime = cloudState.lastModified || '';
+  if(cloudTime && localTime > cloudTime){
+    await pushStateToCloud(); // this device has unsynced progress the cloud doesn't know about yet
+  } else {
     state = Object.assign(structuredClone(DEFAULT_STATE), cloudState);
     await saveState(); // also writes the pulled state back to localStorage
     renderAll();
-  } else {
-    await pushStateToCloud(); // first sync ever for this account — seed the cloud
   }
 }
 
@@ -7588,6 +7607,7 @@ async function loadState(){
   checkOfflineDownloadStatus();
 }
 async function saveState(){
+  state.lastModified = new Date().toISOString(); // powers the "who's actually newer" check in syncOnSignIn()
   try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
   catch(e){ console.error('save failed — storage may be full or unavailable', e); }
   queueCloudPush();
@@ -7818,7 +7838,7 @@ function isDifficultWord(srsId){
   if(!s || s.interval >= 21) return false;
   return (s.lapses||0) > 0 || s.ease < 2.3;
 }
-let cardsTabMode = 'words'; // 'words' | 'phrases'
+let cardsTabMode = 'words'; // 'words' | 'phrases' | 'listen'
 let cardsSubTab = 'study'; // 'study' | 'browse' — Cards tab now merges the old Cards (study) and Words (browse) tabs
 function setContentMode(mode){
   state.contentMode = mode;
@@ -7848,19 +7868,37 @@ function setCardsMode(mode){
   document.querySelectorAll('#cardsModeToggle .chip').forEach(c=>c.classList.toggle('active', c.dataset.mode===mode));
   renderFlashcardsHub();
 }
-function startActiveStudy(bucketId){ cardsTabMode==='words' ? startWordStudy(bucketId) : startPhraseStudy(bucketId); }
-function startActiveDifficultStudy(){ cardsTabMode==='words' ? startDifficultWordsStudy() : startDifficultPhrasesStudy(); }
+function startActiveStudy(bucketId){
+  if(cardsTabMode==='words') startWordStudy(bucketId);
+  else if(cardsTabMode==='listen') startListenStudy(bucketId);
+  else startPhraseStudy(bucketId);
+}
+function startActiveDifficultStudy(){
+  if(cardsTabMode==='words') startDifficultWordsStudy();
+  else if(cardsTabMode==='listen') startDifficultListenStudy();
+  else startDifficultPhrasesStudy();
+}
+// 'listen' shares the exact same phrase deck/srsId's as 'phrases' — same mastered list either way.
 function viewActiveMastered(){ cardsTabMode==='words' ? viewMasteredWords() : viewMasteredPhrases(); }
 function renderFlashcardsHub(){
   const isWords = cardsTabMode==='words';
+  const isListen = cardsTabMode==='listen';
   const dueEl = document.getElementById('wcDue');
   if(!dueEl) return; // view not in DOM yet on first paint, harmless no-op
   document.querySelectorAll('#contentModeToggle .chip').forEach(c=>c.classList.toggle('active', c.dataset.mode===state.contentMode));
 
-  document.getElementById('cardsTabTitle').textContent = isWords ? 'Word flashcards' : 'Phrase flashcards';
-  document.getElementById('cardsTabSub').textContent = isWords
-    ? 'Spaced repetition through every word in your frequency list — same engine as Swipe Learn, just word-by-word.'
-    : 'Spaced repetition through 500 hand-picked everyday phrases — greetings, small talk, daily routine, and more. Hand-curated, not corpus-ranked — there\'s no public dataset of "most common Vietnamese sentences" the way there is for words.';
+  if(isListen){
+    document.getElementById('cardsTabTitle').textContent = 'Listen & guess';
+    document.getElementById('cardsTabSub').textContent = 'The exact same phrase deck as Phrases, just played back-first — hear the clip, guess the meaning, then see the words. Grading still updates the same cards, so this counts toward the same progress either way.';
+  } else {
+    document.getElementById('cardsTabTitle').textContent = isWords ? 'Word flashcards' : 'Phrase flashcards';
+    document.getElementById('cardsTabSub').textContent = isWords
+      ? 'Spaced repetition through every word in your frequency list — same engine as Swipe Learn, just word-by-word.'
+      : 'Spaced repetition through 500 hand-picked everyday phrases — greetings, small talk, daily routine, and more. Hand-curated, not corpus-ranked — there\'s no public dataset of "most common Vietnamese sentences" the way there is for words.';
+  }
+  document.getElementById('wcStartSub').textContent = isListen
+    ? 'Listen first, guess the meaning, then grade yourself Again / Hard / Good / Easy.'
+    : 'Anki-style — grade yourself Again / Hard / Good / Easy.';
   document.getElementById('wcDifficultLabel').textContent = isWords ? 'Difficult words' : 'Difficult phrases';
   document.getElementById('wcMasteredLabel').textContent = isWords ? 'Mastered words' : 'Mastered phrases';
   document.getElementById('wcBreakdownTitle').textContent = isWords ? 'Progress by frequency' : 'Progress by phrase set';
@@ -7868,6 +7906,10 @@ function renderFlashcardsHub(){
     ? "How far you've gotten through each tier of common words."
     : "How far you've gotten through each set of 100 phrases.";
 
+  // 'listen' isn't its own deck — it studies the identical phrase pool as
+  // 'phrases' (same srsId's), just through a different practice screen, per
+  // the "feed the same SRS deck" design. So it reads pool/buckets/goal exactly
+  // like 'phrases' below; only the start button's session type differs.
   const pool = isWords ? wordStudyPool() : phraseStudyPool();
   const buckets = isWords ? buildRankBuckets() : buildPhraseBuckets();
   const newCount = pool.filter(w=>isNewCard(w.srsId)).length;
@@ -7889,8 +7931,9 @@ function renderFlashcardsHub(){
     const remaining = Math.max(0, goal - todayCount);
     document.getElementById('wcDueLabel').textContent = 'Left today';
     dueEl.textContent = remaining;
+    const verb = isListen ? 'Listen to' : 'Study';
     document.getElementById('wcStartTitle').textContent = remaining>0
-      ? `Study ${Math.min(remaining, SRS_SESSION_CAP)} phrases`
+      ? `${verb} ${Math.min(remaining, SRS_SESSION_CAP)} phrases`
       : `Goal reached today! (${todayCount}/${goal}) — study more?`;
   }
 
@@ -8043,7 +8086,7 @@ function formatDuration(seconds){
   const m = Math.round((seconds%3600)/60);
   return h > 0 ? `${h}h ${m}m` : `${m}m`;
 }
-const ACTIVITY_LABELS = { word:'Words', cphrase:'Common Phrases', phrase:'Phrases', lesson:'Lessons', pack:'Survival Packs', chat:'Chat Boss', manual:'Added manually' };
+const ACTIVITY_LABELS = { word:'Words', cphrase:'Common Phrases', phrase:'Phrases', lesson:'Lessons', pack:'Survival Packs', chat:'Chat Boss', manual:'Added manually', listen:'Listen & Guess' };
 
 /* ========================= HOME: TIME TRACKER + LEVEL =========================
    Both reuse existing data (state.studyTime, state.xp) rather than tracking
@@ -8492,6 +8535,16 @@ if(typeof document !== 'undefined'){
     }
   });
 }
+// Push the moment the connection comes back, instead of waiting for the next
+// saveState() call (which only fires on the next card graded / lesson
+// completed etc). Closes most of the "made progress offline, closed the app
+// before it could sync" window — combined with the timestamp check in
+// syncOnSignIn(), the two together mean offline progress either gets pushed
+// out immediately on reconnect, or if the app reloads before that happens,
+// it's still recognized as newer and pushed instead of overwritten.
+if(typeof window !== 'undefined'){
+  window.addEventListener('online', () => { pushStateToCloud(); });
+}
 
 function getTodayWordCount(){
   if(!state.wordStudyLog || state.wordStudyLog.date !== todayStr()) return 0;
@@ -8646,6 +8699,28 @@ function viewMasteredPhrases(){
     </div>`).join('') : `<div class="empty"><div class="big">🏆</div>No phrases mastered yet — keep studying and they'll show up here.</div>`;
   document.getElementById('toolBackdrop').classList.add('open');
 }
+// --- Listen & Guess: same phrase deck/srsId's as the Phrases mode above, just
+// played back-first through a "what did you hear?" multiple-choice screen
+// before revealing the transcript. Grading a card here updates the exact same
+// state.srs[srsId] entry Phrases mode uses, so progress is shared, not separate. ---
+function startListenStudy(bucketId){
+  const bucket = bucketId ? buildPhraseBuckets().find(b=>b.id===bucketId) : null;
+  const pool = phraseStudyPool(bucket);
+  const remaining = Math.max(0, (state.dailyGoal||10) - getTodayPhraseCount());
+  const batchSize = remaining > 0 ? remaining : 30;
+  const queue = buildSrsQueue(pool, false, batchSize, batchSize);
+  swipeState = { deck: queue, idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'listen', listenCardIdx:-1, listenOptions:null, listenCorrectIdx:null, listenChosen:null };
+  document.getElementById('swipeOverlay').classList.add('open');
+  startStudyTimer(swipeState.mode);
+  renderSwipe();
+}
+function startDifficultListenStudy(){
+  const pool = phraseStudyPool().filter(p=>isDifficultWord(p.srsId)).slice(0, SRS_SESSION_CAP);
+  swipeState = { deck: pool, idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'listen', listenCardIdx:-1, listenOptions:null, listenCorrectIdx:null, listenChosen:null };
+  document.getElementById('swipeOverlay').classList.add('open');
+  startStudyTimer(swipeState.mode);
+  renderSwipe();
+}
 function closeSwipe(){
   stopStudyTimer();
   document.getElementById('swipeOverlay').classList.remove('open');
@@ -8720,6 +8795,55 @@ function renderSwipe(){
       <p class="sc-eng" style="display:${swipeState.flipped?'block':'none'};">${c.e}</p>
       <p class="sc-hint">${swipeState.flipped ? '' : 'Tap to flip'}</p>
     </div>`;
+  } else if(swipeState.mode==='listen'){
+    // Multiple-choice options are generated once per card (not on every
+    // re-render) so picking an answer doesn't reshuffle the options out from
+    // under the tap. Regenerate exactly when we've moved to a different card
+    // (listenCardIdx tracks which idx the cached options belong to).
+    if(swipeState.listenCardIdx !== swipeState.idx){
+      const decoyPool = phraseStudyPool().filter(p => p.e !== c.e && p.srsId !== c.srsId); // whole deck, per "decoys from anywhere"
+      const decoys = [];
+      const used = new Set();
+      let guard = 0;
+      while(decoys.length < 2 && decoys.length < decoyPool.length && guard++ < 50){
+        const pick = decoyPool[Math.floor(Math.random()*decoyPool.length)];
+        if(used.has(pick.e)) continue;
+        used.add(pick.e);
+        decoys.push(pick.e);
+      }
+      const options = [c.e, ...decoys];
+      for(let i=options.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [options[i],options[j]]=[options[j],options[i]]; }
+      swipeState.listenOptions = options;
+      swipeState.listenCorrectIdx = options.indexOf(c.e);
+      swipeState.listenChosen = null;
+      swipeState.listenCardIdx = swipeState.idx;
+    }
+    // Autoplay once when the card first appears — not on the re-render that
+    // follows tapping an option, or it'd replay mid-answer.
+    if(!swipeState.flipped && swipeState.listenChosen===null){
+      playAudio(c.srsId, c.v, currentAccent);
+    }
+    const optionsHtml = swipeState.listenOptions.map((opt,i)=>{
+      let cls = 'quiz-option';
+      if(swipeState.flipped){
+        if(i===swipeState.listenCorrectIdx) cls += ' correct';
+        else if(i===swipeState.listenChosen) cls += ' wrong';
+      }
+      return `<button class="${cls}" ${swipeState.flipped?'disabled':''} onclick="answerListenQuiz(${i})">${opt}</button>`;
+    }).join('');
+    cardHtml = `
+    <div class="swipe-card" style="cursor:default;">
+      <div class="quiz-label">🎧 Cold listen</div>
+      <button class="listen-play-btn" onclick="event.stopPropagation();playAudio('${c.srsId}', '${c.v.replace(/'/g,"\\'")}', currentAccent)">🔊</button>
+      <p class="sc-hint" style="margin:0 0 14px;">Tap to hear it again</p>
+      <p class="quiz-q" style="justify-content:center;">What did you hear?</p>
+      <div style="width:100%;">${optionsHtml}</div>
+      ${swipeState.flipped ? `
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(36,28,19,0.08);width:100%;">
+          <p class="sc-viet" style="display:block;">${wrapWords(c.v)}</p>
+          <p class="sc-pron" style="display:block;">${c.p||''}</p>
+        </div>` : ''}
+    </div>`;
   } else {
     const noteHtml = (c.note && c.note.length) ? `
       <div class="sc-notes">
@@ -8753,6 +8877,15 @@ function renderSwipe(){
 }
 function flipSwipe(){
   if(swipeState.flipped) return;
+  swipeState.flipped = true;
+  renderSwipe();
+}
+// Listen mode's equivalent of flipSwipe() — picking an option reveals the
+// transcript and sets swipeState.flipped, the same "answer revealed" gate
+// gradeCard() below already checks, so grading works unchanged for this mode.
+function answerListenQuiz(idx){
+  if(swipeState.flipped) return;
+  swipeState.listenChosen = idx;
   swipeState.flipped = true;
   renderSwipe();
 }
