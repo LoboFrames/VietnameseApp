@@ -491,6 +491,18 @@
   .lsn-concept-card .title{position:absolute;bottom:12px;left:14px;right:14px;color:#fff;font-weight:800;font-size:14.5px;text-shadow:0 1px 4px rgba(0,0,0,.6);}
   .lsn-concept-card.done .title::before{content:'✓ ';color:#7fd99a;}
 
+  /* Mini concept card — a lighter-weight variant nested under one specific
+     lesson (via afterDay + mini:true), for reference-style content like a
+     numbers table that doesn't need its own full illustrated card. Indented
+     slightly so it visually reads as "under" the lesson card above it. */
+  .lsn-concept-card-mini{display:flex;align-items:center;gap:10px;width:calc(100% - 18px);margin:-2px 0 0 18px;background:#3a3226;border:1px solid rgba(36,28,19,0.07);border-radius:14px;padding:10px 12px;text-align:left;}
+  .lsn-concept-card-mini .ico{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0;}
+  .lsn-concept-card-mini .info{flex:1;min-width:0;}
+  .lsn-concept-card-mini .info .title{font-weight:800;font-size:13px;color:#fff;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .lsn-concept-card-mini .info .sub{font-size:10.5px;color:rgba(255,255,255,.55);margin:2px 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .lsn-concept-card-mini .chev{flex-shrink:0;color:rgba(255,255,255,.4);font-size:12px;}
+  .lsn-concept-card-mini.done .title::before{content:'✓ ';color:#7fd99a;}
+
   /* ===== Concept Detail overlay ===== */
   .cd-overlay{position:absolute;inset:0;background:#0b0b0b;z-index:66;display:none;flex-direction:column;border-radius:34px;overflow:hidden;}
   .cd-overlay.open{display:flex;}
@@ -1569,6 +1581,327 @@ const CONCEPT_LESSONS = [
         {v:'mả', e:'hỏi: dips then rises'}, {v:'mã', e:'ngã: broken, rising catch'}, {v:'mạ', e:'nặng: low, heavy, stops short'},
       ]},
       {type:'text', body:'Those six tones are not decoration: ma, má, mà, mả, mã, and mạ are six completely different words (ghost, cheek, but, tomb, horse, rice seedling). Always say the tone - leaving it out is like leaving out a letter.'},
+    ] },
+  { id:'c3', afterDay:1, title:'Kinship Pronouns: I and You', subtitle:"Vietnamese uses family terms for 'I' and 'you' based on the age and gender of the people talking.",
+    img:'images/concept_03.jpg',
+    blocks:[
+      {type:'heading', text:'[Speaker Pronoun] + [Verb] + [Listener Pronoun]'},
+      {type:'text', body:'In Vietnamese, there is no single word for "I" or "you". Instead, you choose pronouns based on your relationship to the person you are speaking with. If you are younger talking to an older man, you call yourself "em" (younger sibling) and him "anh" (older brother). With friends of the same age, you can use "mình" for yourself and "bạn" for them. There is also a neutral word for "I" called "tôi", which is safe to use with strangers. We will learn more family terms for different ages and genders as you progress.'},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'Em chào anh.', e:'Hello (said by a younger person to an older man).'},
+        {v:'Cho mình nước nha.', e:'Get me some water, please (used with a peer).'},
+        {v:'Tôi là học sinh.', e:'I am a student (neutral and formal).'},
+      ]},
+      {type:'text', body:'<em>The core pairs anh/em (older/younger) and mình/bạn (casual peers) are taught here; the full honorific set (chị, chú, ba, cô, ông) opens at Beginner. tôi is the neutral formal self used with strangers.</em>'},
+    ] },
+  { id:'c4', afterDay:2, title:'Negation (không / chưa)', subtitle:"Use 'không' before a verb or adjective to say 'not', and use 'chưa' to talk about things that haven't happened yet.",
+    img:'images/concept_04.jpg',
+    blocks:[
+      {type:'heading', text:'[Subject] + không + [Verb / Adjective] OR [Subject] + [Verb] + chưa'},
+      {type:'text', body:"In Vietnamese, making a sentence negative is incredibly simple because verbs never change form. To say you do not do something or are not a certain way, just place the word \"không\" directly before the verb or adjective. If you want to ask or state that something has not happened yet, use the word \"chưa\". You will often hear \"chưa\" placed at the end of a sentence to ask if you have done something yet, or right before a verb to say you haven't done it. * Note: The word \"chưa\" implies the action might still happen, and its positive counterpart \"rồi\" will be covered in a later lesson."},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'Dạ không, em không hiểu ạ.', e:"No, I don't understand."},
+        {v:'Em hiểu chưa?', e:'Do you understand yet?'},
+        {v:'Tôi chưa ăn.', e:'I have not eaten yet.'},
+      ]},
+      {type:'text', body:'<em>chưa signals not-yet and implies the action is still expected; its paired completion answer rồi is taught with the aspect nodes.</em>'},
+    ] },
+  { id:'c5', afterDay:3, title:'Basic Word Order (Subject-Verb-Object)', subtitle:'Vietnamese uses a strict Subject-Verb-Object word order, and verbs never change their form.',
+    img:'images/concept_05.jpg',
+    blocks:[
+      {type:'heading', text:'[Subject] + [Verb] + [Object]'},
+      {type:'text', body:"If you know English word order, you already know Vietnamese word order. Sentences follow a simple Subject-Verb-Object pattern. Even better, Vietnamese verbs are incredibly easy because they never change shape. You do not need to memorize different verb endings for \"I\", \"you\", or \"they\". The verb stays exactly the same no matter who is doing the action. * We will learn how to show past and future time using simple helper words in a later lesson."},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'Tôi uống cà phê.', e:'I drink coffee.'},
+        {v:'Mình đến từ Mỹ.', e:'I come from America.'},
+      ]},
+      {type:'text', body:'<em>The verb never changes shape; time is added later with the pre-verbal markers đã/đang/sẽ.</em>'},
+    ] },
+  { id:'c6', afterDay:4, title:'Question Words in Place (đâu, gì, ai)', subtitle:'Ask questions easily by placing the question word in the exact spot where the answer will go.',
+    img:'images/concept_06.jpg',
+    blocks:[
+      {type:'heading', text:'[Subject] + [Verb] + [Question Word]'},
+      {type:'text', body:"In English, we usually move question words like \"what\" or \"where\" to the front of the sentence. Vietnamese keeps things simple by leaving the sentence order exactly the same as a normal statement. You just drop the question word - such as \"đâu\" (where), \"gì\" (what), or \"ai\" (who) - into the exact spot where the answer will be. If you want to ask what someone is eating, you literally say \"You eat what?\" in Vietnamese. * Note: Other question words like \"thế nào\" (how) and \"mấy\" (how many) follow this same easy rule, which we will practice later."},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'Bạn cần gì?', e:'What do you need?'},
+        {v:'Ga tàu ở đâu?', e:'Where is the train station?'},
+        {v:'Bạn là ai?', e:'Who are you?'},
+      ]},
+      {type:'text', body:'<em>thế nào (how) and mấy (how many, for small counts) follow the same in-place placement.</em>'},
+    ] },
+  { id:'c7', afterDay:5, title:'Location with ở (at, in, on)', subtitle:"Use the single word 'ở' to mark a location, covering English prepositions like at, in, and on.",
+    img:'images/concept_07.jpg',
+    blocks:[
+      {type:'heading', text:'[Subject] + (Verb) + ở + [Place]'},
+      {type:'text', body:"In Vietnamese, you do not need to worry about choosing between at, in, or on. The single word \"ở\" covers all of these when talking about locations. You simply place \"ở\" right before the place. It can attach to an action verb like \"live\", or it can act as the verb \"to be located\" all by itself. * Note: We will learn how to express existence or having things using \"có\" in a separate lesson."},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'Ở kia ạ.', e:'It is over there.'},
+        {v:'Mình sống ở Hà Nội.', e:'I live in Hanoi.'},
+        {v:'Cô ấy ở nhà.', e:'She is at home.'},
+      ]},
+      {type:'text', body:'<em>ở also serves as the verb to be located; existence and having are carried by có, taught separately.</em>'},
+    ] },
+  { id:'c8', afterDay:7, title:'Classifiers (Number + Classifier + Noun)', subtitle:'Count things in Vietnamese by placing a specific classifier word between the number and the noun.',
+    img:'images/concept_08.jpg',
+    blocks:[
+      {type:'heading', text:'[Number] + [Classifier] + [Noun]'},
+      {type:'text', body:"In Vietnamese, you cannot just put a number directly next to a noun. You must use a classifier in between them. Think of it like saying \"two cups of coffee\" in English, but in Vietnamese, this applies to almost everything. For general objects, you will often use \"cái\". For drinks in a cup, you use \"cốc\". There are many other classifiers for animals, flat objects, and vehicles, but you will learn those later as you build your vocabulary."},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'hai cốc cà phê', e:'two cups of coffee'},
+        {v:'một cái bánh ngọt', e:'one pastry'},
+        {v:'ba cái bàn', e:'three tables'},
+      ]},
+      {type:'text', body:'<em>The wider classifier set (con for animals, bát for bowls, suất for portions, chiếc for vehicles) opens at Beginner.</em>'},
+    ] },
+  { id:'c9', afterDay:8, mini:true, title:'Vietnamese Numbers', subtitle:'Count from zero to a million',
+    img:'images/concept_09.jpg',
+    blocks:[
+      {type:'text', body:"Counting in Vietnamese is highly logical. Once you know the numbers from zero to ten, you can build almost any number by combining them. For example, twenty is simply 'two ten' (hai mươi). Pay attention to a few slight sound changes: five becomes 'lăm' when it follows a ten, and one becomes 'mốt' in numbers twenty-one and above."},
+      {type:'vocab', words:[
+        {v:'không', e:'zero'},
+        {v:'một', e:'one'},
+        {v:'hai', e:'two'},
+        {v:'ba', e:'three'},
+        {v:'bốn', e:'four'},
+        {v:'năm', e:'five'},
+        {v:'sáu', e:'six'},
+        {v:'bảy', e:'seven'},
+        {v:'tám', e:'eight'},
+        {v:'chín', e:'nine'},
+        {v:'mười', e:'ten'},
+        {v:'mười một', e:'eleven'},
+        {v:'mười hai', e:'twelve'},
+        {v:'mười lăm', e:'fifteen'},
+        {v:'hai mươi', e:'twenty'},
+        {v:'hai mươi mốt', e:'twenty-one'},
+        {v:'ba mươi', e:'thirty'},
+        {v:'ba mươi lăm', e:'thirty-five'},
+        {v:'bốn mươi', e:'forty'},
+        {v:'năm mươi', e:'fifty'},
+        {v:'sáu mươi', e:'sixty'},
+        {v:'bảy mươi', e:'seventy'},
+        {v:'tám mươi', e:'eighty'},
+        {v:'chín mươi', e:'ninety'},
+        {v:'một trăm', e:'one hundred'},
+        {v:'hai trăm năm mươi', e:'two hundred fifty'},
+        {v:'một nghìn', e:'one thousand'},
+        {v:'mười nghìn', e:'ten thousand'},
+        {v:'một trăm nghìn', e:'one hundred thousand'},
+        {v:'một triệu', e:'one million'},
+      ]},
+    ] },
+  { id:'c10', afterDay:8, title:'Politeness Particles (Dạ, Ạ, Nhé)', subtitle:'Use small particle words at the beginning or end of your sentences to show respect and friendliness.',
+    img:'images/concept_10.jpg',
+    blocks:[
+      {type:'heading', text:'[Dạ] + [Sentence] + [ạ / nhé]'},
+      {type:'text', body:'In Vietnamese, politeness is built right into the sentence using tiny particles. To show respect to someone older or in a formal setting, start your reply with "dạ" and end your sentence with "ạ". If you want to soften a statement or make a friendly suggestion (like saying "okay?"), just add "nhé" to the end of the sentence. These small words instantly make your Vietnamese sound natural and polite.'},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'Dạ, em hiểu ạ.', e:'Yes, I understand.'},
+        {v:'Anh đi thẳng nhé.', e:'Go straight, okay?'},
+        {v:'Dạ có.', e:'Yes (respectful).'},
+      ]},
+      {type:'text', body:'<em>ạ is the Northern deference marker; the Southern equivalents and finer regional variants come later.</em>'},
+    ] },
+  { id:'c11', afterDay:9, title:"The Verb 'là' (To Be)", subtitle:"Use the verb 'là' to link a subject to a noun, like stating your name or profession.",
+    img:'images/concept_11.jpg',
+    blocks:[
+      {type:'heading', text:'[Subject] + là + [Noun]'},
+      {type:'text', body:"In Vietnamese, the verb 'là' translates to 'to be' (am, is, are). You use it to connect a subject to a noun that describes who or what they are. Unlike English, Vietnamese verbs do not change form depending on the speaker or the time, so 'là' stays exactly the same whether you are saying 'I am' or 'they are'. Note that 'là' is only used before nouns; when describing things with adjectives, Vietnamese drops this verb entirely (*we will cover this later)."},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'Mình là Anna.', e:'I am Anna.'},
+        {v:'Mình là Nam.', e:'I am Nam.'},
+        {v:'Cô ấy là giáo viên.', e:'She is a teacher.'},
+      ]},
+      {type:'text', body:'<em>là links a subject only to a noun; before an adjective Vietnamese drops là and lets the adjective predicate directly (taught in the stative-adjective node).</em>'},
+    ] },
+  { id:'c12', afterDay:11, title:'Present Continuous with đang', subtitle:'Use the word đang before a verb to show that an action is happening right now.',
+    img:'images/concept_12.jpg',
+    blocks:[
+      {type:'heading', text:'[Subject] + đang + [Verb]'},
+      {type:'text', body:'Vietnamese verbs do not change their endings to show tense. Instead, you simply add a time word before the verb. To say that you are doing something right now, place the word đang directly in front of the action. It works just like the -ing ending in English, but it is much easier because the verb itself stays exactly the same.'},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'Mình đang sống ở Sài Gòn.', e:'I am living in Saigon.'},
+        {v:'Cô ấy đang ăn phở.', e:'She is eating pho.'},
+        {v:'Họ đang học tiếng Việt.', e:'They are studying Vietnamese.'},
+      ]},
+    ] },
+  { id:'c13', afterDay:12, title:'Yes/No Questions (có … không)', subtitle:"Ask a simple yes or no question by wrapping the action or description in 'có' and 'không'.",
+    img:'images/concept_13.jpg',
+    blocks:[
+      {type:'heading', text:'[Subject] + có + [Verb / Adjective] + không?'},
+      {type:'text', body:"In Vietnamese, you can turn a statement into a yes/no question by placing 'có' before the main verb or adjective, and 'không' at the very end of the sentence. Think of 'có … không' as a pair of question marks framing the action. To answer, you usually echo the verb back to say yes, or say 'không' plus the verb to say no. * We will practice the exact answering rules and other question types in a later lesson."},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'Bạn có nói tiếng Anh không?', e:'Do you speak English?'},
+        {v:'Bạn có đói không?', e:'Are you hungry?'},
+      ]},
+      {type:'text', body:'<em>Answers echo the verb: Có for yes, Không for no.</em>'},
+      {type:'text', body:'<em>The completion question frame đã … chưa (have you … yet) is taught with the aspect markers.</em>'},
+    ] },
+  { id:'c14', afterDay:14, title:'Numbers and Prices', subtitle:'Build double-digit numbers by combining digits with the word for ten, and state prices using thousands.',
+    img:'images/concept_14.jpg',
+    blocks:[
+      {type:'heading', text:'[Number] + mười + [Number] + nghìn + đồng'},
+      {type:'text', body:'In Vietnamese, building numbers is like simple math. To make a double-digit number, you just say the first digit followed by "mười" (ten), and then add the final digit. When talking about prices, you will frequently hear "nghìn" (thousand) and "đồng" (the Vietnamese currency). Note that the number five changes to "lăm" when it sits at the end of a number greater than ten.'},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'bốn mươi lăm', e:'forty-five'},
+        {v:'năm mươi nghìn đồng', e:'fifty thousand dong'},
+        {v:'ba mươi hai nghìn đồng', e:'thirty-two thousand dong'},
+      ]},
+      {type:'text', body:'<em>lăm is the form five takes in the ones place of a compound number (bốn mươi lăm = forty-five).</em>'},
+    ] },
+  { id:'c15', afterDay:15, title:'Completion Marker (rồi)', subtitle:"Add 'rồi' at the end of a sentence to show that an action is already finished or a new state has been reached.",
+    img:'images/concept_15.jpg',
+    blocks:[
+      {type:'heading', text:'[Subject] + [Verb] + [Details] + rồi'},
+      {type:'text', body:"In Vietnamese, verbs do not change their endings to show past tense. Instead, you can simply add the word 'rồi' at the very end of your sentence. This tiny word acts like 'already' or 'now', signaling that an action is complete or a situation has changed. It is incredibly common in spoken Vietnamese for expressing that something is done. * Note: You might later see 'rồi' paired with another past tense word, but for now, just placing it at the end is all you need."},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'Hôm qua mình xem phim rồi.', e:'I already watched a movie yesterday.'},
+        {v:'Mình hiểu rồi.', e:'I understand now.'},
+        {v:'Tôi ăn rồi.', e:'I already ate.'},
+      ]},
+      {type:'text', body:'<em>rồi pairs with the past marker đã in fuller speech; that interaction is drilled at Beginner.</em>'},
+    ] },
+  { id:'c16', afterDay:16, title:'Time Expressions Before the Verb', subtitle:'Place time words at the very beginning of a sentence to set the scene for when an action happens.',
+    img:'images/concept_16.jpg',
+    blocks:[
+      {type:'heading', text:'[Time phrase] + [Subject] + [Verb] + [Object]'},
+      {type:'text', body:'In Vietnamese, time expressions often sit right at the front of the sentence. By stating the time first, you immediately set the context for the action that follows. Because the time word already makes it clear when the event happens, Vietnamese speakers often skip extra tense markers for the past or future. This keeps sentences short and efficient. * Note: You can also place time words after the subject, but putting them at the very beginning is extremely common and natural.'},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'Chiều nay mình đi uống cà phê nhé?', e:'Shall we go drink coffee this afternoon?'},
+        {v:'Hôm nay chúng ta đi nhé?', e:'Shall we go today?'},
+        {v:'Ngày mai tôi ăn phở.', e:'Tomorrow I will eat pho.'},
+      ]},
+      {type:'text', body:'<em>Because the time word already fixes the moment, the pre-verbal markers đã/đang/sẽ are often left out when a time phrase is present.</em>'},
+    ] },
+  { id:'c17', afterDay:17, title:'Existence and Having (có)', subtitle:'Use the word có to express that someone has something, or that something exists in a place.',
+    img:'images/concept_17.jpg',
+    blocks:[
+      {type:'heading', text:'[Subject or Place] + có / không có + [Noun]'},
+      {type:'text', body:"In Vietnamese, the word 'có' is incredibly versatile. It acts as the verb 'to have' when talking about ownership, but it also translates to 'there is' or 'there are' when talking about existence. To make it negative, simply add 'không' right before it to form 'không có', meaning 'do not have' or 'there is not'. Because Vietnamese doesn't conjugate verbs, 'có' stays exactly the same whether you are talking about yourself, someone else, or a location."},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'Tôi có bánh mì.', e:'I have bread.'},
+        {v:'Ở đây có bánh mì.', e:'There is bread here.'},
+        {v:'Tôi không có.', e:'I do not have any.'},
+      ]},
+    ] },
+  { id:'c18', afterDay:19, title:"Adjectives as Verbs (No 'To Be')", subtitle:"Describe things directly using adjectives without needing a 'to be' verb.",
+    img:'images/concept_18.jpg',
+    blocks:[
+      {type:'heading', text:'[Subject] + (rất) + [Adjective]'},
+      {type:'text', body:"In English, we use the verb 'to be' before an adjective, like saying 'the weather IS cold'. In Vietnamese, adjectives are strong enough to act as their own verbs. You simply state the subject followed directly by the adjective. To make the sentence sound natural and complete, Vietnamese speakers almost always add the word 'rất' (very) before the adjective, even if they do not mean to emphasize it strongly. * Note: We will explore more complex topic-comment structures later, but for now, just link the subject straight to the describing word."},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'Trời rất mát.', e:'The weather is very cool.'},
+        {v:'Trà rất nóng.', e:'The tea is very hot.'},
+        {v:'Cam hôm nay rất tươi.', e:'The oranges today are very fresh.'},
+      ]},
+      {type:'text', body:'<em>The sentence can also front the topic first and then comment on it (Cam hôm nay … = as for the oranges today …), a natural topic-comment shape drilled further at Beginner.</em>'},
+    ] },
+  { id:'c19', afterDay:20, title:'Possession with của', subtitle:'Express ownership by placing the word của between the item and its owner.',
+    img:'images/concept_19.jpg',
+    blocks:[
+      {type:'heading', text:'[Owned Noun] + của + [Owner]'},
+      {type:'text', body:"In Vietnamese, expressing possession is straightforward. You simply state the item that is owned, add the word của (meaning belonging to), and then state the owner. This means the word order is the exact opposite of English phrases like 'my code' or 'your package'. Instead, you are literally saying 'code belonging to me' or 'package belonging to you'. Note that for very close relationships or body parts, native speakers often drop the word của, but we will learn that shortcut later."},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'Gói hàng của bạn đây ạ.', e:'Here is your package.'},
+        {v:'Mã của tôi là tám chín không.', e:'My code is eight-nine-zero.'},
+        {v:'Điện thoại của tôi.', e:'My phone.'},
+      ]},
+      {type:'text', body:'<em>của can be dropped for close relationships and body parts; that shortcut is taught later.</em>'},
+    ] },
+  { id:'c20', afterDay:22, mini:true, title:'Money & Prices', subtitle:'Talk about cost, cash, and change',
+    img:'images/concept_20.jpg',
+    blocks:[
+      {type:'text', body:'When shopping in Vietnam, the local currency is the đồng. Because denominations are in the thousands, locals often drop the word for thousand when speaking, so a coffee that costs thirty thousand đồng might just be called thirty. Cash is still king in street markets, but cards and bank transfers are widely accepted in stores and cafes. Always ask for the price before buying by saying bao nhiêu tiền!'},
+      {type:'vocab', words:[
+        {v:'tiền', e:'money'},
+        {v:'giá', e:'price'},
+        {v:'đồng', e:'Vietnamese currency'},
+        {v:'rẻ', e:'cheap'},
+        {v:'đắt', e:'expensive'},
+        {v:'đắt quá', e:'too expensive'},
+        {v:'bao nhiêu tiền?', e:'how much is it?'},
+        {v:'tổng cộng', e:'total'},
+        {v:'tính tiền', e:'the bill, please'},
+        {v:'tiền mặt', e:'cash'},
+        {v:'thẻ', e:'card'},
+        {v:'trả tiền', e:'to pay'},
+        {v:'tiền thối', e:'change (money)'},
+        {v:'hóa đơn', e:'receipt'},
+        {v:'trả bằng thẻ được không?', e:'can I pay by card?'},
+        {v:'mua', e:'to buy'},
+        {v:'bán', e:'to sell'},
+        {v:'giảm giá', e:'discount'},
+      ]},
+    ] },
+  { id:'c21', afterDay:22, title:'Want & Need: Muốn / Cần', subtitle:'Express your wishes and needs by placing muốn (want) or cần (need) directly before an action verb.',
+    img:'images/concept_21.jpg',
+    blocks:[
+      {type:'heading', text:'[Subject] + muốn / cần + [Verb]'},
+      {type:'text', body:"In Vietnamese, expressing what you want or need to do is incredibly straightforward. You simply place the word muốn (want) or cần (need) right before the action verb. There are no connecting words like the English word 'to', and verbs never change their form. You just chain the words together in a logical sequence. *Note: To say you do not want or need something, just put không before muốn or cần."},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'Tôi muốn trả lại.', e:'I want to return it.'},
+        {v:'Tôi muốn hoàn tiền.', e:'I want a refund.'},
+        {v:'Tôi cần đi.', e:'I need to go.'},
+      ]},
+      {type:'text', body:'<em>cần (need) and có thể (can, be able to) slot into the same pre-verbal position.</em>'},
+      {type:'text', body:'<em>Negate the whole idea by placing không before muốn (không muốn = do not want).</em>'},
+    ] },
+  { id:'c22', afterDay:23, title:'Noun-Adjective Order', subtitle:'A describing word comes immediately after the noun it describes.',
+    img:'images/concept_22.jpg',
+    blocks:[
+      {type:'heading', text:'[Noun] + [Adjective]'},
+      {type:'text', body:"In English, we usually put the adjective before the noun, like 'hot water'. In Vietnamese, it is the exact opposite. The noun comes first, followed immediately by the adjective that describes it. Think of it as saying 'water hot' or 'size big'. *Note: Words for comparing, like 'hơn' (more), simply attach after the adjective, which you will learn more about later."},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'Phòng của tôi không có nước nóng.', e:'My room has no hot water.'},
+        {v:'Có cỡ lớn hơn không?', e:'Do you have a bigger size?'},
+        {v:'Tôi thích trà đá.', e:'I like iced tea.'},
+      ]},
+      {type:'text', body:'<em>The comparative hơn (more, -er) attaches after the adjective (lớn hơn = bigger); full comparison is taught at Beginner.</em>'},
+    ] },
+  { id:'c23', afterDay:35, title:'Future Marker (sẽ)', subtitle:"Place 'sẽ' right before the verb to show that an action will happen in the future.",
+    img:'images/concept_23.jpg',
+    blocks:[
+      {type:'heading', text:'[Subject] + sẽ + [Verb]'},
+      {type:'text', body:"In Vietnamese, verbs never change their spelling to show when an action happens. Instead, you simply add a small marker word right before the verb. To talk about the future, place 'sẽ' before the action word. It works exactly like the English word 'will' and makes talking about your plans incredibly easy. * Note: 'sẽ' is one of three main markers in Vietnamese, alongside markers for the past and present that you will practice later."},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'Tôi sẽ đi.', e:'I will go.'},
+        {v:'Em sẽ ăn.', e:'I will eat.'},
+        {v:'Anh sẽ làm.', e:'I will do it.'},
+      ]},
+      {type:'text', body:'<em>sẽ is one of the three pre-verbal time markers (đã past, đang ongoing, sẽ future); the deep contrast drill opens at Beginner.</em>'},
+    ] },
+  { id:'c24', afterDay:52, title:'Past Marker (đã)', subtitle:"Place 'đã' right before the verb to show that an action happened in the past.",
+    img:'images/concept_24.jpg',
+    blocks:[
+      {type:'heading', text:'[Subject] + đã + [Verb]'},
+      {type:'text', body:"Vietnamese verbs do not change their spelling to show the past tense. Instead, you simply place the word 'đã' directly in front of the verb. It acts like a time marker, letting the listener know the action is already done. Note that if you use a specific time word like 'yesterday', native speakers will often drop 'đã' completely because the past timing is already obvious."},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'Tôi đã làm việc ở một trường học hai năm.', e:'I worked at a school for two years.'},
+        {v:'Cô ấy đã ăn.', e:'She ate.'},
+        {v:'Chúng tôi đã đi.', e:'We went.'},
+      ]},
+      {type:'text', body:'<em>đã is often left out when a time word such as hôm qua already places the action in the past.</em>'},
+      {type:'text', body:'<em>The deep drill of đã/đang/sẽ and their interaction with rồi opens at Beginner.</em>'},
     ] },
 ];
 
@@ -7457,7 +7790,16 @@ if('serviceWorker' in navigator){
 // mode is currently active, so switching modes later doesn't leave audio
 // uncached.
 function getAudioIdsByCategory(){
-  const cats = { 'Lessons':[], 'Survival Packs':[], 'Chat Boss':[], 'SOS Phrasebook':[], 'Core Phrases':[], 'Common Phrases':[], 'Classic Words':[], 'Word Examples':[], 'New Lesson Vocab':[], 'New Lesson Dialogue':[], 'Topics':[], 'Topic Vocab':[], 'Topic Dialogue':[], 'New Lesson Words':[], 'New Lesson Phrases':[] };
+  const cats = { 'Lessons':[], 'Survival Packs':[], 'Chat Boss':[], 'SOS Phrasebook':[], 'Core Phrases':[], 'Common Phrases':[], 'Classic Words':[], 'Word Examples':[], 'New Lesson Vocab':[], 'New Lesson Dialogue':[], 'Topics':[], 'Topic Vocab':[], 'Topic Dialogue':[], 'New Lesson Words':[], 'New Lesson Phrases':[], 'Concept Vocab':[] };
+  // Concept lesson (CONCEPT_LESSONS) vocab-block examples were never tracked
+  // here before — a pre-existing gap, not just for the new Kinship Pronouns
+  // concept but for the original Understanding Vietnamese / Alphabet & Tones
+  // ones too. Only 'vocab' blocks carry a play button (openConceptDetail) —
+  // 'grid' blocks are silent, so they're intentionally skipped here.
+  CONCEPT_LESSONS.forEach(c=>(c.blocks||[]).forEach(b=>{
+    if(b.type!=='vocab') return;
+    b.words.forEach(w=>cats['Concept Vocab'].push(`concept_${c.id}_${w.v.replace(/[^a-z0-9]/gi,'')}`));
+  }));
   LESSONS.forEach(l=>l.cards.forEach((c,i)=>cats['Lessons'].push(`lesson_${l.id}_${i}`)));
   LESSONS.forEach(l=>(l.vocab||[]).forEach((v,i)=>cats['New Lesson Vocab'].push(`lesson_${l.id}_v${i}`)));
   LESSONS.forEach(l=>(l.dialogue||[]).forEach((d,i)=>cats['New Lesson Dialogue'].push(`lesson_${l.id}_d${i}`)));
@@ -10258,11 +10600,22 @@ function renderLessonsTab(){
         // make sense interleaved in the by-day view.
         CONCEPT_LESSONS.filter(c=>c.afterDay===l.day).forEach(c=>{
           const cDone = state.completedConcepts.includes(c.id);
-          html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
-            <img src="${c.img}" alt="" onerror="this.style.display='none';">
-            <div class="shade"></div>
-            <div class="title">${c.title}</div>
-          </button>`;
+          if(c.mini){
+            html += `<button class="lsn-concept-card-mini ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
+              <div class="ico">#</div>
+              <div class="info">
+                <p class="title">${c.title}</p>
+                <p class="sub">${c.subtitle||''}</p>
+              </div>
+              <div class="chev">▶</div>
+            </button>`;
+          } else {
+            html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
+              <img src="${c.img}" alt="" onerror="this.style.display='none';">
+              <div class="shade"></div>
+              <div class="title">${c.title}</div>
+            </button>`;
+          }
         });
         return html;
       };
