@@ -80,7 +80,6 @@
     display:flex;align-items:center;justify-content:center;
     font-size:14px;
     box-shadow: inset 0 0 0 2px rgba(240,169,59,0.5);
-    border:none;padding:0;
   }
   header.appbar h1{font-size:19px; margin:0; font-weight:800; letter-spacing:-0.02em;}
   header.appbar .streak{
@@ -296,7 +295,7 @@
   .home-hero img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;}
   .home-hero-shade{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.12) 40%, rgba(0,0,0,0.78) 100%);}
   .home-hero-loc{position:absolute;top:14px;left:16px;color:#fff;font-weight:700;font-size:13px;text-shadow:0 1px 4px rgba(0,0,0,.6);z-index:2;max-width:65%;}
-  .home-flag-badge{position:absolute;top:12px;right:12px;z-index:2;width:42px;height:42px;border-radius:50%;background:var(--vermillion);display:flex;align-items:center;justify-content:center;font-size:19px;box-shadow:0 2px 8px rgba(0,0,0,.4);border:2px solid rgba(255,255,255,.3);padding:0;}
+  .home-flag-badge{position:absolute;top:12px;right:12px;z-index:2;width:42px;height:42px;border-radius:50%;background:var(--vermillion);display:flex;align-items:center;justify-content:center;font-size:19px;box-shadow:0 2px 8px rgba(0,0,0,.4);border:2px solid rgba(255,255,255,.3);}
   .home-hero-bottomrow{position:absolute;bottom:14px;left:14px;right:14px;display:flex;justify-content:space-between;gap:8px;z-index:2;}
   .home-pill{background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;border:1px solid rgba(255,255,255,0.18);padding:9px 15px;border-radius:999px;font-weight:700;font-size:12.5px;display:inline-flex;align-items:center;gap:6px;}
   .home-pill.icon-only{padding:9px;width:36px;height:36px;justify-content:center;}
@@ -910,8 +909,8 @@
 <div class="phone">
   <header class="appbar">
     <div class="brand">
-      <button class="flag" id="brandFlag" onclick="openLanguagePicker()" title="Switch language">🇻🇳</button>
-      <h1 id="brandTitle">Daily Viet</h1>
+      <div class="flag">🇻🇳</div>
+      <h1>Daily Viet</h1>
     </div>
     <div class="streak" id="streakPill">🌀 0</div>
   </header>
@@ -925,7 +924,7 @@
         <img id="homeHeroImg" src="images/home-hero.jpg" alt="" onerror="this.style.display='none';">
         <div class="home-hero-shade"></div>
         <div class="home-hero-loc" id="homeHeroLoc">Mũi Né Sand Dunes</div>
-        <button class="home-flag-badge" id="homeFlagBadge" onclick="openLanguagePicker()" title="Switch language">🇻🇳</button>
+        <div class="home-flag-badge">🇻🇳</div>
         <div class="home-hero-bottomrow">
           <button class="home-pill" onclick="switchView('profile')" id="homeNamePill">Set your name</button>
           <button class="home-pill icon-only" onclick="switchView('profile')" title="Settings">⚙️</button>
@@ -1056,7 +1055,7 @@
       </button>
 
       <div class="lsn-stat-card">
-        <p class="lsn-stat-title" id="lsnStatTitle">Learn Vietnamese <span>🇻🇳</span></p>
+        <p class="lsn-stat-title">Learn Vietnamese <span>🇻🇳</span></p>
         <div class="lsn-stat-big"><span id="lsnWordsTotal">0</span><span class="lsn-stat-unit">words to master</span></div>
         <p class="lsn-stat-line"><b id="lsnDialogueTotal">0</b> dialogues · <b id="lsnPhraseTotal">0</b> phrases</p>
         <p class="lsn-stat-line"><b id="lsnGrammarTotal">0</b> grammar notes</p>
@@ -1357,16 +1356,6 @@
   </div>
   <div class="cd-learned-bar">
     <button class="cd-learned-btn" id="cdLearnedBtn" onclick="markConceptLearned()">Learned</button>
-  </div>
-</div>
-
-<!-- LANGUAGE PICKER (tap either flag badge on Home) -->
-<div class="modal-backdrop" id="languagePickerBackdrop">
-  <div class="ch-confirm" style="text-align:center;">
-    <h2 style="font-size:19px;margin-bottom:4px;">Choose a language</h2>
-    <p class="ch-confirm-desc" style="margin-bottom:18px;">Switching languages swaps your entire course. Progress in each language is saved separately.</p>
-    <div id="languagePickerList"></div>
-    <button class="ch-confirm-start" style="width:100%;margin-top:8px;background:var(--surface-2);color:var(--text);" onclick="closeLanguagePicker()">Cancel</button>
   </div>
 </div>
 
@@ -1927,97 +1916,6 @@ const LESSON_SECTIONS = [
   { id:8, roman:'VIII', title:"Work & School" },
   { id:9, roman:'IX', title:"Getting Around" },
 ];
-
-/* ========================= MULTI-LANGUAGE SUPPORT =========================
-   Vietnamese (above/below) is the original, fully-built course. Everything
-   in this block sets up a second course — Mandarin — organized around the
-   HSK level system instead of Vietnamese's day-by-day structure, since
-   that's how Mandarin learners actually track progress. Only HSK 1's first
-   section ("Survival On-Ramp") has real, hand-written lesson content right
-   now; the rest of HSK 1-6 are honest placeholders (real target counts,
-   locked) ready to be filled in the same incremental way lesson images are.
-   Mandarin lesson/concept ids are always prefixed 'zh_' so a single id
-   lookup can tell which language's progress bucket it belongs to (see
-   isZhId() near DEFAULT_STATE) without threading a language parameter
-   through every existing Vietnamese function. */
-const LANGUAGES = [
-  { id:'vi', name:'Vietnamese', flag:'🇻🇳', brand:'Daily Viet' },
-  { id:'zh', name:'Mandarin', flag:'🇨🇳', brand:'Daily Mandarin' },
-];
-
-// Target curriculum size for each HSK level — shown on the level card even
-// before that level's lessons are written, same as a real course outline.
-// dialogues/phrases/words/grammar/notes are the FULL course's target scope;
-// unlocked:true is the only level with real, tappable lesson content today.
-const HSK_LEVELS = [
-  { id:'hsk1', num:1, name:'Super Beginner', dialogues:65, phrases:466, words:1067, grammar:257, notes:33, unlocked:true },
-  { id:'hsk2', num:2, name:'Beginner', dialogues:84, phrases:814, words:875, grammar:396, notes:7, unlocked:false },
-  { id:'hsk3', num:3, name:'Intermediate', dialogues:114, phrases:994, words:1639, grammar:464, notes:6, unlocked:false },
-  { id:'hsk4', num:4, name:'Upper Intermediate', dialogues:78, phrases:636, words:1163, grammar:337, notes:1, unlocked:false },
-  { id:'hsk5', num:5, name:'Advanced', dialogues:72, phrases:702, words:1162, grammar:278, notes:1, unlocked:false },
-  { id:'hsk6', num:6, name:'Super Advanced', dialogues:60, phrases:648, words:947, grammar:258, notes:0, unlocked:false },
-];
-
-const HSK1_SECTIONS = [
-  { id:1, roman:'I', title:'Survival On-Ramp' },
-];
-
-const LESSONS_ZH = [
-  { id:'zh_l1', day:1, section:1, level:'HSK1', title:'Hello & Goodbye', tag:'Survival', img:'images/zh_lesson_01.jpg',
-    desc:'Learn how to greet people, ask how they are doing, and say goodbye in Mandarin.',
-    duration:'3 min',
-    exercises:['Lesson'],
-    dialogue:[
-      {speaker:'A', v:'你好！你好吗？', p:'Nǐ hǎo! Nǐ hǎo ma?', e:'Hello! How are you?'},
-      {speaker:'B', v:'我很好，谢谢。你呢？', p:'Wǒ hěn hǎo, xièxie. Nǐ ne?', e:"I'm fine, thank you. And you?"},
-      {speaker:'A', v:'我也很好。', p:'Wǒ yě hěn hǎo.', e:"I'm fine too."},
-      {speaker:'B', v:'再见！', p:'Zàijiàn!', e:'Goodbye!'},
-    ],
-    vocab:[
-      {v:'你好', e:'hello'}, {v:'再见', e:'goodbye'}, {v:'谢谢', e:'thank you'}, {v:'你', e:'you'},
-      {v:'好', e:'good / well'}, {v:'吗', e:'question particle'}, {v:'我', e:'I / me'}, {v:'呢', e:'and you? (follow-up particle)'},
-    ],
-    grammar:[
-      {title:'吗 (ma) — Yes/No Questions', body:'Add "吗" to the very end of a statement to turn it into a yes/no question, with no change to word order. In the dialogue, A asks "你好吗？" (Nǐ hǎo ma?) — literally "you good [question]?" — meaning "How are you?"'},
-      {title:'呢 (ne) — Following Up', body:'Use "呢" right after a noun or pronoun to ask the same question back without repeating it. In the dialogue, B answers the first question, then asks "你呢？" (Nǐ ne?) meaning "And you?"'},
-    ],
-    cards:[
-      {v:'你好！你好吗？', p:'Nǐ hǎo! Nǐ hǎo ma?', e:'Hello! How are you?'},
-      {v:'我很好，谢谢。你呢？', p:'Wǒ hěn hǎo, xièxie. Nǐ ne?', e:"I'm fine, thank you. And you?"},
-      {v:'我也很好。', p:'Wǒ yě hěn hǎo.', e:"I'm fine too."},
-      {v:'再见！', p:'Zàijiàn!', e:'Goodbye!'},
-    ] },
-];
-
-const CONCEPT_LESSONS_ZH = [
-  { id:'zh_c1', afterDay:1, title:'Pinyin & Tones', subtitle:'Mandarin uses four tones plus a neutral tone — the same syllable means something different depending on its pitch shape.',
-    img:'images/zh_concept_01.jpg',
-    blocks:[
-      {type:'text', body:"Pinyin is the standard system for writing Mandarin sounds using the Latin alphabet, and every syllable carries a tone mark that changes its meaning. The four tones are: 1st (flat, high — mā), 2nd (rising — má), 3rd (dipping then rising — mǎ), and 4th (sharp, falling — mà). A syllable with no mark, like the 'ma' in 你好吗, is neutral and toneless."},
-      {type:'heading', text:'The Four Tones of "ma"'},
-      {type:'vocab', words:[
-        {v:'妈 (mā)', e:'mother — 1st tone, flat'},
-        {v:'麻 (má)', e:'hemp — 2nd tone, rising'},
-        {v:'马 (mǎ)', e:'horse — 3rd tone, dip then rise'},
-        {v:'骂 (mà)', e:'to scold — 4th tone, falling'},
-      ]},
-      {type:'text', body:'<em>Initial consonants like b, p, m, f behave mostly like English, but pay attention to aspirated pairs (p vs b, t vs d) — that contrast carries meaning in Mandarin the way tone does.</em>'},
-    ] },
-  { id:'zh_c2', afterDay:1, title:'Basic Sentences: Topic + Comment', subtitle:"Mandarin sentences often introduce a topic first, then comment on it — even more directly than English subject-verb-object order.",
-    img:'images/zh_concept_02.jpg',
-    blocks:[
-      {type:'heading', text:'[Topic] + [Comment]'},
-      {type:'text', body:"Many Mandarin sentences work by naming a topic and then saying something about it, rather than strictly following an English-style subject-verb-object pattern. The comment can be a full verb phrase or, with adjectives, just the adjective itself — Mandarin adjectives act as their own verbs and don't need a 'to be' word."},
-      {type:'heading', text:'Examples'},
-      {type:'vocab', words:[
-        {v:'我是学生。', e:'I am a student. (Wǒ shì xuéshēng.)'},
-        {v:'这个很好。', e:'This is very good. (Zhège hěn hǎo.)'},
-        {v:'中文很有意思。', e:'Chinese is very interesting. (Zhōngwén hěn yǒu yìsi.)'},
-      ]},
-      {type:'text', body:'<em>Adjectives usually need a degree word like 很 (hěn, "very") in front to sound natural, even when not truly emphasizing "very" — much like Vietnamese rất in the same position.</em>'},
-    ] },
-];
-function isZhId(id){ return typeof id === 'string' && id.indexOf('zh_') === 0; }
 
 const LESSONS = [
   { id:'l1', day:1, section:1, level:'A0', title:"Hello and Goodbye", tag:'Survival', img:'images/lesson_01.jpg',
@@ -7684,11 +7582,6 @@ const CHAT_PERSONAS = {
 const DEFAULT_STATE = {
   name:'', dailyGoal:10,
   lastModified:null, // ISO timestamp, stamped on every saveState() — lets sync tell which copy (local vs cloud) is actually newer instead of blindly trusting the cloud
-  language:'vi', // 'vi' | 'zh' — which LANGUAGES entry is active; switched via the flag picker on Home
-  // Mandarin's own progress, fully separate from the Vietnamese fields below
-  // it (completedLessons, xp, streak, srs, etc.) — switching languages must
-  // never let one course's progress leak into or overwrite the other's.
-  zh:{ completedLessons:[], completedConcepts:[], xp:0, streak:0, bestStreak:0, lastStudyDate:null, studyDates:[], srs:{} },
   completedLessons:[], savedPhrases:[], completedChats:[],
   xp:0, streak:0, bestStreak:0, lastStudyDate:null, studyDates:[],
   contentMode:'new', // 'new' (fresh app-within-the-app content) | 'classic' (original word/phrase database) — Cards tab toggle
@@ -8071,47 +7964,9 @@ function switchView(v){
   renderAll();
 }
 
-/* ========================= LANGUAGE SWITCHING ========================= */
-// Only the Lessons tab (renderLessonsTabZh) and TTS locale actually branch
-// on state.language right now — Home, Cards, Pocket, Frequency, and Worlds
-// still show the Vietnamese course regardless of the active language. The
-// flag badges and the Lessons tab header are the only other things that
-// change so the app is honest about what's live per language today.
-function renderLanguageChrome(){
-  const lang = LANGUAGES.find(l=>l.id===state.language) || LANGUAGES[0];
-  const brandFlag = document.getElementById('brandFlag');
-  const brandTitle = document.getElementById('brandTitle');
-  const homeFlagBadge = document.getElementById('homeFlagBadge');
-  const lsnStatTitle = document.getElementById('lsnStatTitle');
-  if(brandFlag) brandFlag.textContent = lang.flag;
-  if(brandTitle) brandTitle.textContent = lang.brand;
-  if(homeFlagBadge) homeFlagBadge.textContent = lang.flag;
-  if(lsnStatTitle) lsnStatTitle.innerHTML = `Learn ${lang.name} <span>${lang.flag}</span>`;
-}
-function openLanguagePicker(){
-  const list = document.getElementById('languagePickerList');
-  if(list){
-    list.innerHTML = LANGUAGES.map(l=>`
-      <button class="prm-option ${state.language===l.id?'selected':''}" onclick="selectLanguage('${l.id}')">
-        <div class="prm-option-head"><span class="left">${l.flag} ${l.name}</span><span class="prm-radio"></span></div>
-      </button>`).join('');
-  }
-  document.getElementById('languagePickerBackdrop').classList.add('open');
-}
-function closeLanguagePicker(){
-  document.getElementById('languagePickerBackdrop').classList.remove('open');
-}
-function selectLanguage(id){
-  if(!LANGUAGES.some(l=>l.id===id)) return;
-  state.language = id;
-  saveState();
-  closeLanguagePicker();
-  renderAll();
-}
-
 /* ========================= RENDER ========================= */
 function renderAll(){
-  renderLanguageChrome(); renderHeader(); renderHome(); renderFoundations(); renderPocket(); renderFrequency(); renderProfile(); renderWorlds(); renderFlashcardsHub(); renderChallenge(); renderHomeTimeTracker(); renderHomeLevel(); renderLessonsTab();
+  renderHeader(); renderHome(); renderFoundations(); renderPocket(); renderFrequency(); renderProfile(); renderWorlds(); renderFlashcardsHub(); renderChallenge(); renderHomeTimeTracker(); renderHomeLevel(); renderLessonsTab();
 }
 function renderHeader(){ document.getElementById('streakPill').textContent = '🌀 ' + state.streak; }
 
@@ -9424,18 +9279,15 @@ function speakQueue(texts, accent, onComplete){
     speechSynthesis.cancel();
     const queue = texts.filter(Boolean);
     if(!queue.length){ if(onComplete) onComplete(); return; }
-    // TTS locale follows the active course, not just Vietnamese — Mandarin
-    // text spoken with a vi-VN voice would badly mispronounce it.
-    const ttsLang = state.language==='zh' ? 'zh-CN' : 'vi-VN';
     const voices = speechSynthesis.getVoices();
-    const langVoice = voices.find(v=>v.lang && v.lang.toLowerCase().startsWith(state.language==='zh' ? 'zh' : 'vi'));
+    const viVoice = voices.find(v=>v.lang && v.lang.toLowerCase().startsWith('vi'));
     let i = 0;
     function playNext(){
       if(i >= queue.length){ if(onComplete) onComplete(); return; }
       const u = new SpeechSynthesisUtterance(queue[i]);
-      u.lang = ttsLang;
+      u.lang = 'vi-VN';
       u.rate = accent==='SG' ? 0.85 : 0.95;
-      if(langVoice) u.voice = langVoice;
+      if(viVoice) u.voice = viVoice;
       i++;
       u.onend = playNext;
       u.onerror = playNext; // don't get stuck if one utterance fails to play
@@ -9525,7 +9377,7 @@ function trySpeak(){
   }
   try{
     recognitionInstance = new SR();
-    recognitionInstance.lang = state.language==='zh' ? 'zh-CN' : 'vi-VN';
+    recognitionInstance.lang = 'vi-VN';
     recognitionInstance.onresult = (e)=>{
       const said = e.results[0][0].transcript;
       if(resultEl) resultEl.textContent = `You said: "${said}" — nice, keep matching the tones!`;
@@ -9634,7 +9486,7 @@ function buildSteps(type, source){
 // pending content show an honest "coming soon" note instead of empty space.
 let lessonDetailId = null;
 function openLessonDetail(id){
-  const l = LESSONS.find(x=>x.id===id) || TOPIC_LESSONS.find(x=>x.id===id) || LESSONS_ZH.find(x=>x.id===id);
+  const l = LESSONS.find(x=>x.id===id) || TOPIC_LESSONS.find(x=>x.id===id);
   if(!l) return;
   lessonDetailId = id;
 
@@ -9705,7 +9557,7 @@ function startLessonFromDetail(){
 const PRACTICE_SPEEDS = [1, 0.7, 0.5];
 let practiceState = null;
 function openPractice(lessonId){
-  const l = LESSONS.find(x=>x.id===lessonId) || TOPIC_LESSONS.find(x=>x.id===lessonId) || LESSONS_ZH.find(x=>x.id===lessonId);
+  const l = LESSONS.find(x=>x.id===lessonId) || TOPIC_LESSONS.find(x=>x.id===lessonId);
   if(!l || !(l.dialogue||[]).length){
     alert("This lesson doesn't have practice dialogue written yet.");
     return;
@@ -9798,7 +9650,7 @@ function startPracticeMic(){
     micBtn.classList.add('listening');
     if(recognitionInstance){ try{ recognitionInstance.abort(); }catch(e){} }
     recognitionInstance = new SR();
-    recognitionInstance.lang = state.language==='zh' ? 'zh-CN' : 'vi-VN';
+    recognitionInstance.lang = 'vi-VN';
     let gotResult = false;
     // Safety net: if nothing fires within 6s (the exact failure mode
     // reported on iOS — mic listens, callback never comes), stop waiting
@@ -10202,29 +10054,13 @@ function completePracticeLesson(){
   const ps = practiceState;
   if(!ps) return;
   const key = ps.lesson.id;
-  const zh = isZhId(key);
-  const bucket = zh ? state.zh : state;
-  if(!bucket.completedLessons.includes(key)){
-    bucket.completedLessons.push(key);
-    bucket.xp += (ps.lesson.cards ? ps.lesson.cards.length : ps.lesson.dialogue.length) * 5;
-    if(zh) bumpZhStreak(); else { bumpStreak(); registerChallengeLearn(); }
+  if(!state.completedLessons.includes(key)){
+    state.completedLessons.push(key);
+    state.xp += (ps.lesson.cards ? ps.lesson.cards.length : ps.lesson.dialogue.length) * 5;
+    bumpStreak();
+    registerChallengeLearn();
     saveState();
   }
-}
-// Mandarin's own losable-free daily streak, kept entirely separate from the
-// Vietnamese state.streak/bestStreak/studyDates fields bumpStreak() updates.
-function bumpZhStreak(){
-  const todayKey = new Date().toISOString().slice(0,10);
-  const z = state.zh;
-  if(!z.studyDates.includes(todayKey)) z.studyDates.push(todayKey);
-  if(z.studyDates.length>60) z.studyDates = z.studyDates.slice(-60);
-  const yesterday = new Date(); yesterday.setDate(yesterday.getDate()-1);
-  const yKey = yesterday.toISOString().slice(0,10);
-  if(z.lastStudyDate === todayKey){ /* unchanged */ }
-  else if(z.lastStudyDate === yKey){ z.streak += 1; }
-  else{ z.streak = 1; }
-  z.lastStudyDate = todayKey;
-  z.bestStreak = Math.max(z.bestStreak||0, z.streak);
 }
 function finishPractice(){
   renderAll();
@@ -10276,7 +10112,7 @@ function renderPractice(){
 // works" lessons) ========================= 
 let conceptDetailId = null;
 function openConceptDetail(id){
-  const c = CONCEPT_LESSONS.find(x=>x.id===id) || CONCEPT_LESSONS_ZH.find(x=>x.id===id);
+  const c = CONCEPT_LESSONS.find(x=>x.id===id);
   if(!c) return;
   conceptDetailId = id;
 
@@ -10307,7 +10143,7 @@ function openConceptDetail(id){
   }).join('');
 
   const learnedBtn = document.getElementById('cdLearnedBtn');
-  const done = (isZhId(id) ? state.zh.completedConcepts : state.completedConcepts).includes(id);
+  const done = state.completedConcepts.includes(id);
   learnedBtn.textContent = done ? '✓ Learned' : 'Learned';
   learnedBtn.classList.toggle('done', done);
 
@@ -10320,8 +10156,7 @@ function closeConceptDetail(){
 function markConceptLearned(){
   const id = conceptDetailId;
   if(!id) return;
-  const bucket = isZhId(id) ? state.zh.completedConcepts : state.completedConcepts;
-  if(!bucket.includes(id)) bucket.push(id);
+  if(!state.completedConcepts.includes(id)) state.completedConcepts.push(id);
   saveState();
   closeConceptDetail();
   renderLessonsTab();
@@ -10709,7 +10544,6 @@ let lsnGroupMode = 'day'; // 'day' | 'topic' — which grouping the Lessons tab 
 let lsnOpenGroups = {}; // { 'day_1': true, 'topic_Survival': false, ... } — collapsed state of lsnLessonList groups; a key defaults to OPEN unless explicitly set to false
 function isLsnGroupOpen(key){ return lsnOpenGroups[key] !== false; }
 function renderLessonsTab(){
-  if(state.language==='zh'){ renderLessonsTabZh(); return; }
   const totalEl = document.getElementById('lsnWordsTotal');
   if(!totalEl) return; // view not in DOM yet, harmless no-op
 
@@ -10806,78 +10640,6 @@ function renderLessonsTab(){
       }).join('');
     }
   }
-}
-// Mandarin's Lessons tab — organized by HSK level instead of by day, since
-// that's the structure HSK1_SECTIONS/LESSONS_ZH/CONCEPT_LESSONS_ZH follow.
-// Only HSK 1 is unlocked; the rest render as locked rows with their real
-// target curriculum size shown, same as a course outline before you've
-// started it. Reuses the day-view's card/group CSS classes for visual
-// consistency with the Vietnamese Lessons tab.
-function renderLessonsTabZh(){
-  const totalEl = document.getElementById('lsnWordsTotal');
-  if(!totalEl) return; // view not in DOM yet, harmless no-op
-
-  const zhWordCount = LESSONS_ZH.reduce((sum,l)=>sum+(l.vocab||[]).length,0)
-    + CONCEPT_LESSONS_ZH.reduce((sum,c)=>sum+(c.blocks||[]).filter(b=>b.type==='vocab').reduce((s,b)=>s+b.words.length,0),0);
-  const zhDialogueCount = LESSONS_ZH.reduce((sum,l)=>sum+(l.dialogue||[]).length,0);
-  const zhGrammarCount = LESSONS_ZH.reduce((sum,l)=>sum+(l.grammar||[]).length,0);
-
-  const nextZhLesson = LESSONS_ZH.find(l=>!state.zh.completedLessons.includes(l.id));
-  document.getElementById('lsnReminderTitle').textContent = nextZhLesson ? nextZhLesson.title : 'Review a completed lesson';
-  totalEl.textContent = zhWordCount;
-  document.getElementById('lsnDialogueTotal').textContent = zhDialogueCount;
-  document.getElementById('lsnPhraseTotal').textContent = zhDialogueCount;
-  document.getElementById('lsnGrammarTotal').textContent = zhGrammarCount;
-
-  const listEl = document.getElementById('lsnLessonList');
-  if(!listEl) return;
-
-  const zhLessonCardHtml = (l)=>{
-    const done = state.zh.completedLessons.includes(l.id);
-    let html = `<button class="lsn-lesson-card" onclick="openLessonDetail('${l.id}')">
-      <img src="${l.img}" alt="" onerror="this.style.display='none';">
-      <div class="shade"></div>
-      <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
-      <div class="tag">${l.tag}</div>
-      <div class="day">HSK 1</div>
-      <div class="title">${l.title}</div>
-    </button>`;
-    CONCEPT_LESSONS_ZH.filter(c=>c.afterDay===l.day).forEach(c=>{
-      const cDone = state.zh.completedConcepts.includes(c.id);
-      html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
-        <img src="${c.img}" alt="" onerror="this.style.display='none';">
-        <div class="shade"></div>
-        <div class="title">${c.title}</div>
-      </button>`;
-    });
-    return html;
-  };
-
-  listEl.innerHTML = HSK_LEVELS.map(lv=>{
-    const key = 'hsk_'+lv.num;
-    if(!lv.unlocked){
-      return `<button class="lsn-group-head" style="opacity:.55;" onclick="alert('HSK ${lv.num} content is coming soon.')">
-        <span class="lsn-group-label">HSK ${lv.num} · ${lv.name}</span>
-        <span class="lsn-group-count">🔒 ${lv.dialogues} Dialogues</span>
-      </button>`;
-    }
-    const isOpen = isLsnGroupOpen(key);
-    const doneCount = LESSONS_ZH.filter(l=>state.zh.completedLessons.includes(l.id)).length;
-    const sectionsHtml = HSK1_SECTIONS.map(sec=>{
-      const cardsHtml = LESSONS_ZH.filter(l=>l.section===sec.id).map(zhLessonCardHtml).join('')
-        + `<div class="lsn-lesson-card locked" style="display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:800;font-size:13px;text-align:center;padding:12px;">🔒 More HSK 1 lessons coming soon</div>`;
-      return `<p class="lsn-section-label" style="font-weight:800;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:10px 2px;">${sec.roman} · ${sec.title}</p>
-        <div class="lsn-group-cards">${cardsHtml}</div>`;
-    }).join('');
-    return `<div class="lsn-group ${isOpen?'open':''}" id="lsnGroup_${key}">
-      <button class="lsn-group-head" onclick="toggleLsnGroup('${key}')">
-        <span class="lsn-group-label">HSK ${lv.num} · ${lv.name}</span>
-        <span class="lsn-group-count">${doneCount}/${lv.dialogues} Dialogues</span>
-        <span class="lsn-group-chevron">▾</span>
-      </button>
-      <div class="lsn-group-body">${sectionsHtml}</div>
-    </div>`;
-  }).join('');
 }
 function setLsnGroupMode(mode){
   if(lsnGroupMode === mode) return;
