@@ -1263,6 +1263,13 @@
         <button class="footer-btn" style="width:100%;margin-bottom:10px;" onclick="signOutOfSync()">Sign out</button>
       </div>
 
+      <p class="section-title">Voice</p>
+      <p class="section-sub">Choose which voice reads Vietnamese audio throughout the app.</p>
+      <div class="chip-row" id="voiceGenderToggle">
+        <button class="chip" data-gender="female" onclick="setVoiceGender('female')">👩 Female</button>
+        <button class="chip active" data-gender="male" onclick="setVoiceGender('male')">👨 Male</button>
+      </div>
+
       <p class="section-title">Offline access</p>
       <p class="section-sub">Cache every audio file on this device so lessons, phrases, and words all play with no internet connection.</p>
       <button class="footer-btn" id="downloadOfflineBtn" style="width:100%;" onclick="downloadAllAudioOffline()">📥 Download for offline use</button>
@@ -1412,8 +1419,8 @@
     <div class="pr-controls">
       <button class="pr-ctrl-btn" id="prSpeedBtn" onclick="cyclePracticeSpeed()"><span class="ic">🐢</span>1x</button>
       <button class="pr-ctrl-btn" id="prHintBtn" onclick="togglePracticeHint()"><span class="ic">💡</span>Hint</button>
-      <button class="pr-mic-btn" id="prPlayBtn" onclick="playPracticeAudio(practiceState.lineIdx)">🔊</button>
-      <button class="pr-ctrl-btn" onclick="advancePracticeLine()"><span class="ic">→</span>Next</button>
+      <button class="pr-mic-btn" id="prPlayBtn" onclick="playCurrentPracticeAudio()">🔊</button>
+      <button class="pr-ctrl-btn" id="prNextBtn" onclick="advancePracticeLine()"><span class="ic">→</span>Next</button>
       <button class="pr-ctrl-btn" onclick="closePractice()"><span class="ic">☰</span>Menu</button>
     </div>
   </div>
@@ -2037,16 +2044,41 @@ const CONCEPT_LESSONS_ZH = [
 ];
 function isZhId(id){ return typeof id === 'string' && id.indexOf('zh_') === 0; }
 
-// Cantonese — day-based structure (mirrors Vietnamese's own day/section shape)
-// rather than HSK levels, since Cantonese has no equivalent standardized test
-// scale. Only Day 1 is real content today; Day 2+ is an honest placeholder,
-// same pattern as HSK2-6 for Mandarin.
-const LESSON_SECTIONS_YUE = [
+// Cantonese — CEFR-style level structure (A1-C1), switched over from an
+// earlier day-based layout (2026-08-26/27). There is no Cantonese equivalent
+// of HSK/JLPT/TOPIK — researched on request (2026-08-27): GAPSK is a
+// Putonghua/Mandarin test despite the name-confusion risk, not Cantonese;
+// the only Cantonese-specific proficiency exams that exist (COPE from
+// HKCALA, CUHK's COPA) are niche academic tools with no public/consumer
+// name recognition, and popular Cantonese course platforms (CantoneseClass101
+// etc.) just use informal Beginner/Intermediate/Advanced labels or plain
+// unit numbering, not a formal level ladder. CEFR (A1-C1) was picked as the
+// most "formal-feeling" option that doesn't fabricate a fake exam — it's a
+// real, globally-used scale, and it's exactly what DELE (Spanish) already
+// uses in this app and close to Thai's/Tagalog's CEFR-flavored level naming.
+// UNLIKE HSK/JLPT/TOPIK/IELTS/DELE, none of these level target sizes
+// (phrases/words/grammar/dialogues) come from a real reference screenshot —
+// there wasn't one for Cantonese leveling to begin with. So CANTONESE_LEVELS
+// deliberately carries NO stat fields at all, not even a locked-level
+// dialogue count — inventing numbers with false precision would be worse
+// than just not showing any. A1's progress row shows the REAL authored
+// lesson count (doneCount/LESSONS_YUE.length) instead of a target size.
+// Only A1 is unlocked; A2-C1 are locked placeholders, same "more coming
+// soon" pattern as every other level-based course's higher tiers.
+const CANTONESE_LEVELS = [
+  { id:'a1', num:'A1', name:'Super Beginner', unlocked:true },
+  { id:'a2', num:'A2', unlocked:false },
+  { id:'b1', num:'B1', unlocked:false },
+  { id:'b2', num:'B2', unlocked:false },
+  { id:'c1', num:'C1', unlocked:false },
+];
+
+const CANTONESE_A1_SECTIONS = [
   { id:1, roman:'I', title:'Survival Basics' },
 ];
 
 const LESSONS_YUE = [
-  { id:'yue_l1', day:1, section:1, level:'A0', title:'Hello & Goodbye', tag:'Survival', img:'images/yue_lesson_01.jpg',
+  { id:'yue_l1', day:1, section:1, level:'A1', title:'Hello & Goodbye', tag:'Survival', img:'images/yue_lesson_01.jpg',
     desc:'Learn how to greet people, thank them the right way, and say goodbye in Cantonese.',
     duration:'3 min',
     exercises:['Lesson'],
@@ -2069,6 +2101,246 @@ const LESSONS_YUE = [
       {v:'我幾好，唔該。你呢？', p:'ngo5 gei2 hou2, m4 goi1. nei5 ne1?', e:"I'm quite good, thanks. And you?"},
       {v:'我都幾好。', p:'ngo5 dou1 gei2 hou2.', e:"I'm good too."},
       {v:'拜拜！', p:'baai1 baai3!', e:'Bye-bye!'},
+    ] },
+  { id:'yue_l2', day:2, section:1, level:'A1', title:'Casual Thanks and Requests', tag:'Survival', img:'images/yue_lesson_02.jpg',
+    desc:'Learn how to ask for something politely and thank someone for a small favor in Cantonese.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'唔該，畀杯水我。', p:'m4 goi1, bei2 bui1 seoi2 ngo5.', e:'Excuse me, could I get a cup of water?'},
+      {speaker:'B', v:'好，呢杯水畀你。', p:'hou2, ni1 bui1 seoi2 bei2 nei5.', e:"Sure, here's your water."},
+      {speaker:'A', v:'唔該晒。', p:'m4 goi1 saai3.', e:'Thanks a lot.'},
+      {speaker:'B', v:'唔使客氣。', p:'m4 sai2 haak3 hei3.', e:"You're welcome."},
+    ],
+    vocab:[
+      {v:'唔該', e:'excuse me / please (asking for a favor)'}, {v:'畀', e:'to give'}, {v:'杯', e:'cup (classifier)'}, {v:'水', e:'water'},
+      {v:'呢', e:'this'}, {v:'你', e:'you'}, {v:'唔該晒', e:'thanks a lot'}, {v:'唔使客氣', e:"you're welcome"},
+    ],
+    grammar:[
+      {title:'畀 (bei2) — To Give', body:'畀 (bei2) is the verb "to give," and it often shows up in a double-object pattern: [give] + [thing] + [to whom]. In the dialogue, "畀杯水我" (bei2 bui1 seoi2 ngo5) literally reads "give cup water me" — meaning "give me a cup of water."'},
+      {title:'晒 (saai3) — Making Something More Emphatic', body:'Adding 晒 (saai3) after a word intensifies it. Plain 唔該 (m4 goi1) is a everyday "thanks," but 唔該晒 (m4 goi1 saai3) is a warmer, more emphatic "thanks a lot" — useful when someone has gone a bit out of their way for you.'},
+    ],
+    cards:[
+      {v:'唔該，畀杯水我。', p:'m4 goi1, bei2 bui1 seoi2 ngo5.', e:'Excuse me, could I get a cup of water?'},
+      {v:'好，呢杯水畀你。', p:'hou2, ni1 bui1 seoi2 bei2 nei5.', e:"Sure, here's your water."},
+      {v:'唔該晒。', p:'m4 goi1 saai3.', e:'Thanks a lot.'},
+      {v:'唔使客氣。', p:'m4 sai2 haak3 hei3.', e:"You're welcome."},
+    ] },
+  { id:'yue_l3', day:3, section:1, level:'A1', title:'Yes, No, and Understanding', tag:'Survival', img:'images/yue_lesson_03.jpg',
+    desc:'Learn how to ask if someone understands, and how to say yes or no about it yourself.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'你明唔明呀？', p:'nei5 ming4 m4 ming4 aa3?', e:'Do you understand?'},
+      {speaker:'B', v:'唔明呀，唔好意思。', p:'m4 ming4 aa3, m4 hou2 ji3 si1.', e:"I don't understand, sorry."},
+      {speaker:'A', v:'冇問題，我再講一次。', p:'mou5 man6 tai4, ngo5 zoi3 gong2 jat1 ci3.', e:"No problem, I'll say it again."},
+      {speaker:'B', v:'呀，明喇！多謝晒。', p:'aa3, ming4 laa3! do1 ze6 saai3.', e:'Ah, I understand now! Thanks a lot.'},
+    ],
+    vocab:[
+      {v:'明', e:'to understand'}, {v:'唔明', e:'to not understand'}, {v:'唔好意思', e:'sorry / excuse me'}, {v:'冇問題', e:'no problem'},
+      {v:'再', e:'again'}, {v:'講', e:'to say / speak'}, {v:'一次', e:'one time'}, {v:'多謝', e:'thank you'},
+    ],
+    grammar:[
+      {title:'V-唔-V Questions', body:'Cantonese often forms yes/no questions by repeating a verb with 唔 in between — 明唔明 (ming4 m4 ming4) literally "understand-not-understand" simply means "do you understand?" This pattern works with a huge range of verbs and is one of the most useful patterns to know early on.'},
+      {title:'喇 (laa3) — Marking a Change of State', body:'Similar to Mandarin\'s 了, the particle 喇 signals that something has just become true. When B says "明喇！" (ming4 laa3!), it means "[Now] I get it!" — marking the moment of realization, not just stating a plain fact.'},
+    ],
+    cards:[
+      {v:'你明唔明呀？', p:'nei5 ming4 m4 ming4 aa3?', e:'Do you understand?'},
+      {v:'唔明呀，唔好意思。', p:'m4 ming4 aa3, m4 hou2 ji3 si1.', e:"I don't understand, sorry."},
+      {v:'冇問題，我再講一次。', p:'mou5 man6 tai4, ngo5 zoi3 gong2 jat1 ci3.', e:"No problem, I'll say it again."},
+      {v:'呀，明喇！多謝晒。', p:'aa3, ming4 laa3! do1 ze6 saai3.', e:'Ah, I understand now! Thanks a lot.'},
+    ] },
+  { id:'yue_l4', day:4, section:1, level:'A1', title:'Asking to Speak Slowly', tag:'Survival', img:'images/yue_lesson_04.jpg',
+    desc:'Explain that you are still learning Cantonese and politely ask someone to slow down.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'總共係五十蚊。', p:'zung2 gung6 hai6 ng5 sap6 man1.', e:'The total is fifty dollars.'},
+      {speaker:'B', v:'唔好意思，我廣東話講得唔好。', p:'m4 hou2 ji3 si1, ngo5 gwong2 dung1 waa2 gong2 dak1 m4 hou2.', e:"Sorry, I don't speak Cantonese well."},
+      {speaker:'A', v:'冇問題，五十蚊。', p:'mou5 man6 tai4, ng5 sap6 man1.', e:'No problem, fifty dollars.'},
+      {speaker:'B', v:'唔該講慢啲。', p:'m4 goi1 gong2 maan6 di1.', e:'Please speak a bit more slowly.'},
+    ],
+    vocab:[
+      {v:'總共', e:'total'}, {v:'蚊', e:'dollar (colloquial)'}, {v:'廣東話', e:'Cantonese language'}, {v:'講得唔好', e:"don't speak well"},
+      {v:'慢', e:'slow'}, {v:'啲', e:'a bit / a little'}, {v:'五十', e:'fifty'}, {v:'冇問題', e:'no problem'},
+    ],
+    grammar:[
+      {title:'講得唔好 — Describing How Well You Do Something', body:'Cantonese uses 得 (dak1) to link a verb to a description of how it\'s carried out. 講得唔好 (gong2 dak1 m4 hou2) literally means "speak, [done] not well" — swap in 好 (hou2) instead of 唔好 to say you do something well.'},
+      {title:'慢啲 — Adding 啲 for "A Bit"', body:'啲 (di1) softens a word into "a bit more/a little" when placed right after it — 慢啲 (maan6 di1) means "a bit slower." It\'s one of the most common small words in everyday Cantonese, used constantly to soften requests.'},
+    ],
+    cards:[
+      {v:'總共係五十蚊。', p:'zung2 gung6 hai6 ng5 sap6 man1.', e:'The total is fifty dollars.'},
+      {v:'唔好意思，我廣東話講得唔好。', p:'m4 hou2 ji3 si1, ngo5 gwong2 dung1 waa2 gong2 dak1 m4 hou2.', e:"Sorry, I don't speak Cantonese well."},
+      {v:'冇問題，五十蚊。', p:'mou5 man6 tai4, ng5 sap6 man1.', e:'No problem, fifty dollars.'},
+      {v:'唔該講慢啲。', p:'m4 goi1 gong2 maan6 di1.', e:'Please speak a bit more slowly.'},
+    ] },
+  { id:'yue_l5', day:5, section:1, level:'A1', title:'Excuse Me and Sorry', tag:'Survival', img:'images/yue_lesson_05.jpg',
+    desc:'Learn how to politely ask someone to let you pass, and how to apologize for a small bump.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'唔該借歪。', p:'m4 goi1 ze3 me2.', e:'Excuse me, coming through.'},
+      {speaker:'B', v:'冇問題，你請先。', p:'mou5 man6 tai4, nei5 cing2 sin1.', e:'No problem, go ahead.'},
+      {speaker:'A', v:'唔好意思，撞親你。', p:'m4 hou2 ji3 si1, zong6 can1 nei5.', e:'Sorry, I bumped into you.'},
+      {speaker:'B', v:'唔緊要。', p:'m4 gan2 jiu3.', e:"It's okay, no worries."},
+    ],
+    vocab:[
+      {v:'借歪', e:'excuse me (let me pass)'}, {v:'請先', e:'go ahead / after you'}, {v:'撞親', e:'to bump into'}, {v:'唔緊要', e:"it's okay / never mind"},
+      {v:'唔好意思', e:'sorry'}, {v:'冇問題', e:'no problem'},
+    ],
+    grammar:[
+      {title:'借歪 — A Polite Way to Ask Someone to Move', body:'Literally "borrow a gap," 借歪 (ze3 me2) is the standard, everyday way to ask someone to step aside so you can get by — far more natural in daily life than a word-for-word translation of "excuse me."'},
+      {title:'唔緊要 vs 冇問題', body:'Both mean roughly "it\'s fine," but they aren\'t interchangeable. 唔緊要 (m4 gan2 jiu3, "not important") is what you say to brush off someone\'s apology, while 冇問題 (mou5 man6 tai4, "no problem") is what you say when agreeing to a request or favor. Mixing the two up is a common early mistake.'},
+    ],
+    cards:[
+      {v:'唔該借歪。', p:'m4 goi1 ze3 me2.', e:'Excuse me, coming through.'},
+      {v:'冇問題，你請先。', p:'mou5 man6 tai4, nei5 cing2 sin1.', e:'No problem, go ahead.'},
+      {v:'唔好意思，撞親你。', p:'m4 hou2 ji3 si1, zong6 can1 nei5.', e:'Sorry, I bumped into you.'},
+      {v:'唔緊要。', p:'m4 gan2 jiu3.', e:"It's okay, no worries."},
+    ] },
+  { id:'yue_l6', day:6, section:1, level:'A1', title:'Where is the Restroom?', tag:'Survival', img:'images/yue_lesson_06.jpg',
+    desc:'Learn how to ask where the restroom is and whether it is far away.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'唔該，洗手間喺邊度？', p:'m4 goi1, sai2 sau2 gaan1 hai2 bin1 dou6?', e:"Excuse me, where's the restroom?"},
+      {speaker:'B', v:'喺嗰度，靠右手邊。', p:'hai2 go2 dou6, kaau3 jau6 sau2 bin1.', e:"It's over there, on the right."},
+      {speaker:'A', v:'遠唔遠呀？', p:'jyun5 m4 jyun5 aa3?', e:'Is it far?'},
+      {speaker:'B', v:'唔遠，好近啫。', p:'m4 jyun5, hou2 kan5 ze1.', e:"Not far, it's very close."},
+    ],
+    vocab:[
+      {v:'洗手間', e:'restroom'}, {v:'喺邊度', e:'where is'}, {v:'嗰度', e:'over there'}, {v:'靠右', e:'to the right'},
+      {v:'遠', e:'far'}, {v:'近', e:'close / near'}, {v:'啫', e:'just / only (softening particle)'},
+    ],
+    grammar:[
+      {title:'喺邊度 — Asking "Where"', body:'喺 (hai2) means "at/in," and 邊度 (bin1 dou6) means "where" — together, 喺邊度 asks where something is located. This is one of the most useful question patterns for getting around.'},
+      {title:'V-唔-V for Adjectives Too', body:'Just like verbs (see Lesson 3), adjectives can also form yes/no questions by repeating with 唔 in the middle — 遠唔遠 (jyun5 m4 jyun5) literally "far-not-far?" simply means "Is it far?"'},
+    ],
+    cards:[
+      {v:'唔該，洗手間喺邊度？', p:'m4 goi1, sai2 sau2 gaan1 hai2 bin1 dou6?', e:"Excuse me, where's the restroom?"},
+      {v:'喺嗰度，靠右手邊。', p:'hai2 go2 dou6, kaau3 jau6 sau2 bin1.', e:"It's over there, on the right."},
+      {v:'遠唔遠呀？', p:'jyun5 m4 jyun5 aa3?', e:'Is it far?'},
+      {v:'唔遠，好近啫。', p:'m4 jyun5, hou2 kan5 ze1.', e:"Not far, it's very close."},
+    ] },
+  { id:'yue_l7', day:7, section:1, level:'A1', title:'How Much Is This?', tag:'Survival', img:'images/yue_lesson_07.jpg',
+    desc:'Learn how to ask the price of something and politely ask for a lower price.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'呢個幾多錢？', p:'ni1 go3 gei2 do1 cin2?', e:'How much is this?'},
+      {speaker:'B', v:'三十蚊。', p:'saam1 sap6 man1.', e:'Thirty dollars.'},
+      {speaker:'A', v:'平啲得唔得？', p:'peng4 di1 dak1 m4 dak1?', e:'Could you make it a bit cheaper?'},
+      {speaker:'B', v:'好呀，二十五蚊啦。', p:'hou2 aa3, ji6 sap6 ng5 man1 laa1.', e:'Sure, twenty-five dollars then.'},
+    ],
+    vocab:[
+      {v:'幾多錢', e:'how much money'}, {v:'呢個', e:'this one'}, {v:'蚊', e:'dollar'}, {v:'平', e:'cheap'},
+      {v:'得唔得', e:'is it OK / can it be done'}, {v:'貴', e:'expensive'}, {v:'啦', e:'suggestion / softening particle'},
+    ],
+    grammar:[
+      {title:'幾多錢 — Asking the Price', body:'幾多 (gei2 do1) means "how much/many," and 錢 (cin2) means "money" — together it\'s the standard way to ask a price. You\'ll also hear the shorter, more casual 幾錢 (gei2 cin2).'},
+      {title:'得唔得 — Asking If Something\'s OK', body:'得 (dak1) alone means "OK, that works." Repeating it with 唔 in between (the same V-唔-V pattern from Lesson 3) turns it into a question — 得唔得 = "is that OK?" — great for haggling or asking a favor.'},
+    ],
+    cards:[
+      {v:'呢個幾多錢？', p:'ni1 go3 gei2 do1 cin2?', e:'How much is this?'},
+      {v:'三十蚊。', p:'saam1 sap6 man1.', e:'Thirty dollars.'},
+      {v:'平啲得唔得？', p:'peng4 di1 dak1 m4 dak1?', e:'Could you make it a bit cheaper?'},
+      {v:'好呀，二十五蚊啦。', p:'hou2 aa3, ji6 sap6 ng5 man1 laa1.', e:'Sure, twenty-five dollars then.'},
+    ] },
+  { id:'yue_l8', day:8, section:1, level:'A1', title:'Ordering Quantities (1 to 10)', tag:'Survival', img:'images/yue_lesson_08.jpg',
+    desc:'Learn the numbers 1 to 10 and how to order a specific quantity of something.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'你想要幾多個？', p:'nei5 soeng2 jiu3 gei2 do1 go3?', e:'How many would you like?'},
+      {speaker:'B', v:'我要五個，唔該。', p:'ngo5 jiu3 ng5 go3, m4 goi1.', e:"I'd like five, please."},
+      {speaker:'A', v:'好，仲要啲乜嘢呀？', p:'hou2, zung6 jiu3 di1 mat1 je5 aa3?', e:'Sure, anything else?'},
+      {speaker:'B', v:'唔使喇，夠喇。', p:'m4 sai2 laa3, gau3 laa3.', e:"No need, that's enough."},
+    ],
+    vocab:[
+      {v:'一', e:'one'}, {v:'二 / 兩', e:'two'}, {v:'三', e:'three'}, {v:'四', e:'four'},
+      {v:'五', e:'five'}, {v:'個', e:'general classifier'}, {v:'幾多個', e:'how many'}, {v:'夠喇', e:"that's enough"},
+    ],
+    grammar:[
+      {title:'個 (go3) — The All-Purpose Classifier', body:'Cantonese nouns need a classifier (measure word) between a number and the noun. 個 (go3) is the most common one, used for people, generic objects, and more whenever you\'re unsure of the specific classifier — 五個 (ng5 go3) means "five of them."'},
+      {title:'兩 vs 二 — Two Ways to Say "Two"', body:'Use 兩 (loeng5) when counting objects with a classifier — 兩個 (loeng5 go3), "two of them." Use 二 (ji6) when reciting numbers in sequence, or inside compound numbers like "twenty" (二十).'},
+    ],
+    cards:[
+      {v:'你想要幾多個？', p:'nei5 soeng2 jiu3 gei2 do1 go3?', e:'How many would you like?'},
+      {v:'我要五個，唔該。', p:'ngo5 jiu3 ng5 go3, m4 goi1.', e:"I'd like five, please."},
+      {v:'好，仲要啲乜嘢呀？', p:'hou2, zung6 jiu3 di1 mat1 je5 aa3?', e:'Sure, anything else?'},
+      {v:'唔使喇，夠喇。', p:'m4 sai2 laa3, gau3 laa3.', e:"No need, that's enough."},
+    ] },
+  { id:'yue_l9', day:9, section:1, level:'A1', title:'Directing a Taxi', tag:'Survival', img:'images/yue_lesson_09.jpg',
+    desc:'Learn how to tell a taxi driver where you want to go and where to stop.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'去邊度呀？', p:'heoi3 bin1 dou6 aa3?', e:'Where to?'},
+      {speaker:'B', v:'去中環，唔該。', p:'heoi3 zung1 waan4, m4 goi1.', e:'To Central, please.'},
+      {speaker:'A', v:'好，我知喇。', p:'hou2, ngo5 zi1 laa3.', e:'OK, got it.'},
+      {speaker:'B', v:'呢度停就得喇，多謝。', p:'ni1 dou6 ting4 zau6 dak1 laa3, do1 ze6.', e:'You can stop here, thanks.'},
+    ],
+    vocab:[
+      {v:'去', e:'to go'}, {v:'邊度', e:'where'}, {v:'中環', e:'Central (a district in Hong Kong)'}, {v:'知', e:'to know'},
+      {v:'停', e:'to stop'}, {v:'就得', e:"that'll do"}, {v:'呢度', e:'here'},
+    ],
+    grammar:[
+      {title:'去 + Place — Saying Where You\'re Going', body:'Just say 去 (heoi3, "to go") directly followed by the destination — 去中環 (heoi3 zung1 waan4) means "go to Central." No preposition is needed between 去 and the place name.'},
+      {title:'就得 — "That\'ll Do"', body:'得 (dak1, "OK, that works") paired with 就 (zau6, "then/just") makes 就得, a handy phrase for telling someone that something is sufficient — 呢度停就得 (ni1 dou6 ting4 zau6 dak1) means "stopping here will do."'},
+    ],
+    cards:[
+      {v:'去邊度呀？', p:'heoi3 bin1 dou6 aa3?', e:'Where to?'},
+      {v:'去中環，唔該。', p:'heoi3 zung1 waan4, m4 goi1.', e:'To Central, please.'},
+      {v:'好，我知喇。', p:'hou2, ngo5 zi1 laa3.', e:'OK, got it.'},
+      {v:'呢度停就得喇，多謝。', p:'ni1 dou6 ting4 zau6 dak1 laa3, do1 ze6.', e:'You can stop here, thanks.'},
+    ] },
+  { id:'yue_l10', day:10, section:1, level:'A1', title:'Name and Country', tag:'Survival', img:'images/yue_lesson_10.jpg',
+    desc:'Learn how to ask and answer someone\'s name and where they are from.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'你叫咩名呀？', p:'nei5 giu3 me1 meng2 aa3?', e:"What's your name?"},
+      {speaker:'B', v:'我叫Peter。你呢？', p:'ngo5 giu3 Peter. nei5 ne1?', e:"I'm Peter. And you?"},
+      {speaker:'A', v:'我叫美玲。你係邊度人呀？', p:'ngo5 giu3 Mei5 Ling4. nei5 hai6 bin1 dou6 jan4 aa3?', e:"I'm Mei Ling. Where are you from?"},
+      {speaker:'B', v:'我係美國人。', p:'ngo5 hai6 mei5 gwok3 jan4.', e:"I'm American."},
+    ],
+    vocab:[
+      {v:'叫', e:'to be called'}, {v:'咩名', e:'what name'}, {v:'邊度人', e:'where [someone] is from'}, {v:'美國人', e:'American person'},
+      {v:'香港人', e:'Hong Kong person'}, {v:'你呢', e:'and you'},
+    ],
+    grammar:[
+      {title:'叫咩名 — Asking Someone\'s Name', body:'叫 (giu3) means "to be called," and 咩名 (me1 meng2) means "what name" — together 你叫咩名呀 asks "What are you called?" Answer with 我叫... (ngo5 giu3..., "I\'m called...").'},
+      {title:'邊度人 — Asking Where Someone Is From', body:'Literally "which-place person," 邊度人 (bin1 dou6 jan4) asks about someone\'s origin. To answer, name the place and add 人 (jan4, "person") — 美國人 (mei5 gwok3 jan4) means "American [person]."'},
+    ],
+    cards:[
+      {v:'你叫咩名呀？', p:'nei5 giu3 me1 meng2 aa3?', e:"What's your name?"},
+      {v:'我叫Peter。你呢？', p:'ngo5 giu3 Peter. nei5 ne1?', e:"I'm Peter. And you?"},
+      {v:'我叫美玲。你係邊度人呀？', p:'ngo5 giu3 Mei5 Ling4. nei5 hai6 bin1 dou6 jan4 aa3?', e:"I'm Mei Ling. Where are you from?"},
+      {v:'我係美國人。', p:'ngo5 hai6 mei5 gwok3 jan4.', e:"I'm American."},
+    ] },
+  { id:'yue_l11', day:11, section:1, level:'A1', title:'Asking a Stranger for Help', tag:'Survival', img:'images/yue_lesson_11.jpg',
+    desc:'Learn how to politely ask a stranger for help when you are lost.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'唔好意思，可唔可以幫我手呀？', p:'m4 hou2 ji3 si1, ho2 m4 ho2 ji5 bong1 ngo5 sau2 aa3?', e:'Excuse me, could you help me?'},
+      {speaker:'B', v:'冇問題，咩事呀？', p:'mou5 man6 tai4, me1 si6 aa3?', e:"Sure, what's going on?"},
+      {speaker:'A', v:'我蕩失路，搵唔到酒店。', p:'ngo5 dong6 sat1 lou6, wan2 m4 dou2 zau2 dim3.', e:"I'm lost, I can't find my hotel."},
+      {speaker:'B', v:'冇問題，我幫你睇吓。', p:'mou5 man6 tai4, ngo5 bong1 nei5 tai2 haa5.', e:'No problem, let me take a look for you.'},
+    ],
+    vocab:[
+      {v:'可唔可以', e:'can you / is it possible'}, {v:'幫手', e:'to help'}, {v:'咩事', e:"what's the matter"}, {v:'蕩失路', e:'to get lost'},
+      {v:'搵唔到', e:"can't find"}, {v:'酒店', e:'hotel'}, {v:'睇吓', e:'to take a look'},
+    ],
+    grammar:[
+      {title:'可唔可以 — Politely Asking Permission or a Favor', body:'可以 (ho2 ji5) means "can / may," and the V-唔-V pattern (see Lesson 3) turns it into a polite question — 可唔可以幫我手呀？means "Could you help me?" One of the most useful patterns for asking a stranger for a favor.'},
+      {title:'搵唔到 — "Can\'t Find"', body:'搵 (wan2) means "to look for," and adding 唔到 (m4 dou2) after a verb means the action was attempted but failed — 搵唔到 means "looked for but couldn\'t find." This "verb + 唔到" pattern works broadly for "tried but couldn\'t."'},
+    ],
+    cards:[
+      {v:'唔好意思，可唔可以幫我手呀？', p:'m4 hou2 ji3 si1, ho2 m4 ho2 ji5 bong1 ngo5 sau2 aa3?', e:'Excuse me, could you help me?'},
+      {v:'冇問題，咩事呀？', p:'mou5 man6 tai4, me1 si6 aa3?', e:"Sure, what's going on?"},
+      {v:'我蕩失路，搵唔到酒店。', p:'ngo5 dong6 sat1 lou6, wan2 m4 dou2 zau2 dim3.', e:"I'm lost, I can't find my hotel."},
+      {v:'冇問題，我幫你睇吓。', p:'mou5 man6 tai4, ngo5 bong1 nei5 tai2 haa5.', e:'No problem, let me take a look for you.'},
     ] },
 ];
 
@@ -8249,6 +8521,7 @@ const DEFAULT_STATE = {
   completedLessons:[], savedPhrases:[], completedChats:[],
   xp:0, streak:0, bestStreak:0, lastStudyDate:null, studyDates:[],
   contentMode:'new', // 'new' (fresh app-within-the-app content) | 'classic' (original word/phrase database) — Cards tab toggle
+  voiceGender:'male', // 'female' | 'male' — which real-audio voice folder (audio/female/ vs audio/male/) plays throughout the app; Profile > Voice toggle. Default is male (both voices are fully recorded as of 2026-08-27; this only affects brand-new installs — anyone with existing saved state keeps whatever they'd already picked, since loadState() merges saved state over these defaults).
   completedConcepts:[], // ids of CONCEPT_LESSONS marked "Learned"
   tutorMode:'guided', // 'guided' | 'immersion' — practice screen tutor voice style
   tutorModeChosen:false, // shows the picker once, before the first practice session
@@ -8546,7 +8819,7 @@ async function downloadAllAudioOffline(){
       while(idx < ids.length){
         const id = ids[idx++];
         try{
-          const res = await fetch(AUDIO_BASE_PATH + id + '.mp3');
+          const res = await fetch(audioBasePath() + id + '.mp3');
           if(!res.ok) failed++;
         }catch(e){ failed++; }
         done++;
@@ -8581,10 +8854,15 @@ async function checkOfflineDownloadStatus(){
     const requests = await cache.keys();
     if(requests.length === 0) return; // nothing cached yet — leave the default "Download" button as-is
 
+    // Matches /audio/<voice>/<id>.mp3 and keeps only files cached under the
+    // CURRENTLY selected voice — a clip cached for the other voice shouldn't
+    // count as "already downloaded" here, or switching voices would wrongly
+    // show 100% offline coverage for a voice that was never actually fetched.
+    const currentVoice = state.voiceGender === 'male' ? 'male' : 'female';
     const cachedIds = new Set(
       requests.map(req => {
-        const m = req.url.match(/\/audio\/([^/]+)\.mp3$/);
-        return m ? m[1] : null;
+        const m = req.url.match(/\/audio\/([^/]+)\/([^/]+)\.mp3$/);
+        return (m && m[1] === currentVoice) ? m[2] : null;
       }).filter(Boolean)
     );
 
@@ -9120,8 +9398,26 @@ function renderProfile(){
   document.getElementById('profileWordGoal').value = state.wordDailyGoal || 500;
   const countEl = document.getElementById('flaggedAudioCount');
   if(countEl) countEl.textContent = (state.flaggedAudio || []).length;
+  const voiceToggle = document.getElementById('voiceGenderToggle');
+  if(voiceToggle){
+    const g = state.voiceGender === 'male' ? 'male' : 'female';
+    voiceToggle.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active', c.dataset.gender===g));
+  }
   renderStudyStats();
   renderStudyCalendar();
+}
+// Switches which real-audio voice folder (audio/female/ vs audio/male/) the
+// whole app plays from — see audioBasePath(). Takes effect immediately for
+// the next audio play, no reload needed, since audioBasePath() reads
+// state.voiceGender fresh on every call rather than caching a base path.
+function setVoiceGender(g){
+  g = g === 'male' ? 'male' : 'female';
+  if(state.voiceGender === g) return;
+  state.voiceGender = g;
+  saveState();
+  const voiceToggle = document.getElementById('voiceGenderToggle');
+  if(voiceToggle) voiceToggle.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active', c.dataset.gender===g));
+  checkOfflineDownloadStatus(); // re-check offline coverage for the newly-selected voice
 }
 function formatDuration(seconds){
   if(!seconds) return '0m';
@@ -9966,10 +10262,17 @@ function gradeCard(grade){
 function isPackDone(id){ return state.completedLessons.includes('pack:'+id); }
 
 /* ========================= AUDIO ========================= */
-// AUDIO_BASE_PATH points at pre-generated mp3 files (see generate_audio.py).
+// Real audio now comes in two voices, each in its own subfolder — audio/female/
+// and audio/male/ — recorded from the exact same phrase list (see
+// vietnamese_audio_master.csv), so every id exists (once available) under
+// both folders. audioBasePath() picks the folder based on state.voiceGender
+// ('female' | 'male', default 'female' — see setVoiceGender() and the Voice
+// toggle in Profile). This is a function (not a constant) specifically so it
+// always reflects the CURRENT preference — it's re-evaluated on every call,
+// never cached, so switching voices takes effect immediately without a reload.
 // Filenames follow the pattern {type}_{lessonOrPackId}_{cardIndex}.mp3
-// e.g. lesson_l1_0.mp3, pack_p21_2.mp3 — see phrases.json for the full list.
-const AUDIO_BASE_PATH = 'audio/';
+// e.g. lesson_l1_0.mp3, pack_p21_2.mp3 — see vietnamese_audio_master.csv for the full list.
+function audioBasePath(){ return `audio/${state.voiceGender === 'male' ? 'male' : 'female'}/`; }
 let currentAudioEl = null;
 
 // Plays one or more texts back-to-back, chaining via onend rather than calling
@@ -10031,7 +10334,7 @@ function playAudio(cardId, text, accent, onEnded){
   unlockSpeechSynthesisForIOS();
   if(currentAudioEl){ try{ currentAudioEl.pause(); }catch(e){} }
   lastPlayedAudio = { id: cardId, text };
-  const el = new Audio(AUDIO_BASE_PATH + cardId + '.mp3');
+  const el = new Audio(audioBasePath() + cardId + '.mp3');
   currentAudioEl = el;
   let fellBack = false;
   const fallback = ()=>{ if(fellBack) return; fellBack = true; speakFallback(text, accent, onEnded); };
@@ -10159,6 +10462,44 @@ function buildQuiz(card){
   const distractors = shuffleArr(pool).slice(0,2);
   return { question: card.v, correct: card.e, options: shuffleArr([card.e, ...distractors]) };
 }
+// Language-aware decoy pool for the Listen & Guess practice quiz (used by
+// renderPracticeGuess() below) — picks wrong-answer options from the SAME
+// course as the lesson being practiced, so a Cantonese line's decoys are
+// other Cantonese lines, not random unrelated Vietnamese phrases pulled
+// from ALL_TRANSLATIONS. Vietnamese's LESSONS/TOPIC_LESSONS keep using
+// ALL_TRANSLATIONS (LESSONS+PACKS), the original, well-established pool.
+const LANGUAGE_DIALOGUE_ARRAYS = [LESSONS_ZH, LESSONS_YUE, LESSONS_JA, LESSONS_KO, LESSONS_TH, LESSONS_TL, LESSONS_EN, LESSONS_ES];
+function decoyPoolForLesson(lesson){
+  if(LESSONS.includes(lesson) || TOPIC_LESSONS.includes(lesson)) return ALL_TRANSLATIONS;
+  const source = LANGUAGE_DIALOGUE_ARRAYS.find(arr => arr.includes(lesson));
+  if(!source) return ALL_TRANSLATIONS; // shouldn't happen, but never leave the quiz with zero options
+  const pool = [];
+  source.forEach(l=>{
+    (l.dialogue||[]).forEach(d=>{ if(d.e) pool.push(d.e); });
+    (l.cards||[]).forEach(c=>{ if(c.e) pool.push(c.e); });
+  });
+  return pool;
+}
+// Builds one Listen & Guess quiz card: correct answer + 2 unique decoys.
+// Dedupes picks explicitly (unlike the older buildQuiz() above) because a
+// single-lesson course's pool is small and often has the SAME English text
+// appearing twice (once from `dialogue`, once from the matching `cards`
+// entry) — a naive shuffle-and-slice could otherwise hand back two options
+// with identical text.
+function buildLessonQuiz(line, lesson){
+  let pool = decoyPoolForLesson(lesson).filter(e => e && e !== line.e);
+  if(pool.length < 2) pool = pool.concat(ALL_TRANSLATIONS.filter(e => e !== line.e)); // tiny/new course fallback
+  const distractors = [];
+  const used = new Set();
+  let guard = 0;
+  while(distractors.length < 2 && distractors.length < pool.length && guard++ < 50){
+    const pick = pool[Math.floor(Math.random()*pool.length)];
+    if(used.has(pick)) continue;
+    used.add(pick);
+    distractors.push(pick);
+  }
+  return { correct: line.e, options: shuffleArr([line.e, ...distractors]) };
+}
 
 /* ========================= STEP BUILDER ========================= */
 function buildSteps(type, source){
@@ -10218,6 +10559,16 @@ function openLessonDetail(id){
     `<button class="ld-exercise-pill ${ex.toLowerCase()}" onclick="startLessonFromDetail()">${ex}</button>`
   ).join('');
 
+  // For lessons on the "Listen & Guess" practice flow (see PRACTICE_GUESS_LESSON_IDS),
+  // showing every English translation right here — before Practice even
+  // starts — would defeat the whole point of a flow built around guessing
+  // meaning from audio alone. Keep translations hidden on this screen until
+  // the lesson is actually marked complete; the Vietnamese text, pronunciation,
+  // and audio all stay visible/playable either way, since those aren't what's
+  // being tested. Legacy (non-guess) lessons are unaffected — they never hid
+  // anything here and have no guess mechanic to justify starting to now.
+  const hideEnglish = isGuessPracticeLesson(l) && !progressBucketFor(l.id).completedLessons.includes(l.id);
+
   const dialogue = l.dialogue || [];
   document.getElementById('ldPhraseCount').textContent = `${dialogue.length} phrase${dialogue.length===1?'':'s'}`;
   document.getElementById('ldPhraseList').innerHTML = dialogue.length ? dialogue.map((d,i)=>`
@@ -10225,7 +10576,7 @@ function openLessonDetail(id){
       <div class="ld-phrase-main">
         <p class="ld-phrase-viet">${d.speaker?`${d.speaker}: `:''}${d.v}</p>
         ${d.p ? `<p class="ld-phrase-pron">(${d.p})</p>` : ''}
-        <p class="ld-phrase-en">${d.e}</p>
+        <p class="ld-phrase-en">${hideEnglish ? '🔒 Guess it in Practice to reveal' : d.e}</p>
       </div>
       <button class="ld-phrase-play" onclick="playAudio('lesson_${l.id}_d${i}','${d.v.replace(/'/g,"\\'")}',currentAccent)">▶</button>
     </div>`).join('') : `<p class="ld-empty-note">Dialogue content for this lesson hasn't been written yet.</p>`;
@@ -10235,7 +10586,7 @@ function openLessonDetail(id){
   document.getElementById('ldVocabGrid').innerHTML = vocab.length ? vocab.map((v,i)=>`
     <button class="ld-vocab-chip" onclick="playAudio('lesson_${l.id}_v${i}','${v.v.replace(/'/g,"\\'")}',currentAccent)">
       <div class="head"><span class="play-ico">▶</span> ${v.v}</div>
-      <div class="gloss">${v.e}</div>
+      <div class="gloss">${hideEnglish ? '🔒 hidden' : v.e}</div>
     </button>`).join('') : '';
   if(!vocab.length) document.getElementById('ldVocabGrid').innerHTML = `<p class="ld-empty-note">Vocab for this lesson hasn't been added yet.</p>`;
 
@@ -10266,20 +10617,51 @@ function startLessonFromDetail(){
 // fresh sentence about it each time the way a live model would.
 const PRACTICE_SPEEDS = [1, 0.7, 0.5];
 let practiceState = null;
+// Every lesson (any language, plus the Vietnamese Topics list) uses the
+// "Listen & Guess" quiz-based practice flow: audio plays, the English
+// translation stays hidden — both here and on the Lesson Detail screen
+// above (see hideEnglish in openLessonDetail()) — until that phrase is
+// guessed correctly (multiple choice, like the Flashcards "🎧 Listen"
+// mode), then a full randomized final-check pass over every line —
+// answered correctly again — is required before the lesson is marked
+// complete. This replaces the old "repeat after me, tap Next" flow, which
+// never actually verified anything the person said or understood.
+// Piloted on Vietnamese Day 1 first (see git history / handoff doc for that
+// rollout), then rolled out everywhere once confirmed working — this used
+// to be an explicit id allowlist (PRACTICE_GUESS_LESSON_IDS = ['l1']); now
+// it's unconditional. The legacy renderPractice() body a bit further down,
+// and its supporting mic/speech-recognition functions above, are no longer
+// reachable from anywhere but are left in place rather than deleted in this
+// pass — they're inert, and removing dead code isn't worth the extra risk
+// in the same change that flips this on for every language at once.
+function isGuessPracticeLesson(lesson){ return true; }
 function openPractice(lessonId){
   const l = LESSONS.find(x=>x.id===lessonId) || TOPIC_LESSONS.find(x=>x.id===lessonId) || LESSONS_ZH.find(x=>x.id===lessonId) || LESSONS_YUE.find(x=>x.id===lessonId) || LESSONS_JA.find(x=>x.id===lessonId) || LESSONS_KO.find(x=>x.id===lessonId) || LESSONS_TH.find(x=>x.id===lessonId) || LESSONS_TL.find(x=>x.id===lessonId) || LESSONS_EN.find(x=>x.id===lessonId) || LESSONS_ES.find(x=>x.id===lessonId);
   if(!l || !(l.dialogue||[]).length){
     alert("This lesson doesn't have practice dialogue written yet.");
     return;
   }
+  const guessMode = isGuessPracticeLesson(l);
   practiceState = {
     lesson:l, lineIdx:0, listenCount:0,
     speedRate:1, hintOpen:false,
+    guessMode,
+    phase: guessMode ? 'learn' : undefined,
+    correctLines: guessMode ? new Set() : undefined,
+    finalOrder: undefined, finalPos: 0, finalCorrectLines: undefined,
+    quiz: null,
   };
   document.getElementById('prTitle').textContent = l.title;
   document.getElementById('prLevelBadge').textContent = l.level || 'A1';
   document.getElementById('prHeroImg').src = l.img || '';
   document.getElementById('prSpeedBtn').lastChild.textContent = '1x';
+  // Speed/Hint/manual-Next don't make sense for the guess flow — Hint would
+  // just hand over the answer being tested, speed applies to a "repeat after
+  // me" line that no longer exists, and Next has to be earned by answering
+  // correctly, not tapped for free.
+  document.getElementById('prSpeedBtn').style.display = guessMode ? 'none' : '';
+  document.getElementById('prHintBtn').style.display = guessMode ? 'none' : '';
+  document.getElementById('prNextBtn').style.display = guessMode ? 'none' : '';
   document.getElementById('practiceOverlay').classList.add('open');
   renderPractice();
 }
@@ -10795,6 +11177,7 @@ function finishPractice(){
 function renderPractice(){
   const ps = practiceState;
   if(!ps) return;
+  if(ps.guessMode){ renderPracticeGuess(); return; }
   const dialogue = ps.lesson.dialogue;
   document.getElementById('prProgressFill').style.width = Math.round((Math.min(ps.lineIdx,dialogue.length)/dialogue.length)*100) + '%';
 
@@ -10831,6 +11214,137 @@ function renderPractice(){
     </div>
     ${ps.hintOpen ? `<p class="pr-feedback">💡 ${line.e}</p>` : ''}
     <button class="pr-next-btn" onclick="advancePracticeLine()">I said it — Next →</button>
+  `;
+}
+
+// ---- "Listen & Guess" practice flow (see PRACTICE_GUESS_LESSON_IDS above) ----
+// Deliberately separate from playPracticeAudio(): that function reads/writes
+// ps.lineIdx and calls renderPractice() when the played line is the active
+// one, which would recurse if called from inside renderPracticeGuess() itself
+// (autoplaying a freshly-built quiz card). This just plays the clip.
+function playGuessAudio(idx){
+  const ps = practiceState;
+  if(!ps) return;
+  const line = ps.lesson.dialogue[idx];
+  if(!line) return;
+  playAudio(`lesson_${ps.lesson.id}_d${idx}`, line.v, currentAccent);
+}
+// Bottom-bar 🔊 button routes through here so it works for both practice
+// flows — legacy mode still calls the original playPracticeAudio(lineIdx).
+function playCurrentPracticeAudio(){
+  const ps = practiceState;
+  if(!ps) return;
+  if(ps.guessMode){
+    const idx = ps.phase==='final' ? ps.finalOrder[ps.finalPos] : ps.lineIdx;
+    playGuessAudio(idx);
+  } else {
+    playPracticeAudio(ps.lineIdx);
+  }
+}
+function answerPracticeGuess(i){
+  const ps = practiceState;
+  if(!ps || !ps.quiz || ps.quiz.chosenIdx !== null) return; // already answered this card, ignore extra taps
+  ps.quiz.chosenIdx = i;
+  const correct = ps.quiz.options[i] === ps.quiz.correct;
+  renderPractice();
+  if(correct){
+    setTimeout(()=>{ if(practiceState===ps) advancePracticeGuess(); }, 1000);
+  } else {
+    // Wrong — let them see the highlight briefly, then reset this same card
+    // (same shuffled options, no reshuffle) so they have to try again. No
+    // skipping ahead on a miss, since the whole point is verifying they
+    // actually recognized the phrase.
+    setTimeout(()=>{ if(practiceState===ps && ps.quiz){ ps.quiz.chosenIdx = null; renderPractice(); } }, 900);
+  }
+}
+function advancePracticeGuess(){
+  const ps = practiceState;
+  if(!ps) return;
+  const total = ps.lesson.dialogue.length;
+  ps.quiz = null;
+  if(ps.phase === 'learn'){
+    ps.correctLines.add(ps.lineIdx);
+    const next = ps.lineIdx + 1;
+    if(next < total){
+      ps.lineIdx = next;
+    } else {
+      // First pass done (every line guessed once) — now a full randomized
+      // final check, every line again, before the lesson counts as complete.
+      ps.phase = 'final';
+      ps.finalOrder = shuffleArr(ps.lesson.dialogue.map((_,i)=>i));
+      ps.finalPos = 0;
+      ps.finalCorrectLines = new Set();
+      ps.lineIdx = ps.finalOrder[0];
+    }
+  } else if(ps.phase === 'final'){
+    ps.finalCorrectLines.add(ps.finalOrder[ps.finalPos]);
+    const nextPos = ps.finalPos + 1;
+    if(nextPos < ps.finalOrder.length){
+      ps.finalPos = nextPos;
+      ps.lineIdx = ps.finalOrder[nextPos];
+    } else {
+      completePracticeLesson();
+      ps.phase = 'done';
+    }
+  }
+  renderPractice();
+}
+function renderPracticeGuess(){
+  const ps = practiceState;
+  if(!ps) return;
+  const dialogue = ps.lesson.dialogue;
+  const total = dialogue.length;
+  const overallDone = ps.phase==='done' ? total*2 : (ps.phase==='final' ? (total + ps.finalCorrectLines.size) : ps.correctLines.size);
+  document.getElementById('prProgressFill').style.width = Math.round((overallDone/(total*2))*100) + '%';
+
+  const activeIdx = ps.phase==='final' ? ps.finalOrder[ps.finalPos] : ps.lineIdx;
+  document.getElementById('prLineList').innerHTML = dialogue.map((d,i)=>{
+    const revealed = ps.correctLines.has(i);
+    const cls = (ps.phase!=='done' && i===activeIdx) ? 'active' : (revealed ? 'done' : '');
+    return `<div class="pr-line ${cls}">
+      <div class="pr-line-main"><b>${d.speaker?d.speaker+': ':''}${d.v}</b><span>${revealed ? d.e : '🔒 Guess it to reveal'}</span></div>
+      <button class="pr-line-play" onclick="event.stopPropagation();playGuessAudio(${i})">▶</button>
+    </div>`;
+  }).join('');
+  document.getElementById('prNoteWrap').innerHTML = '';
+
+  const practiceArea = document.getElementById('prPracticeArea');
+  const doneWrap = document.getElementById('prDoneWrap');
+
+  if(ps.phase === 'done'){
+    practiceArea.innerHTML = '';
+    doneWrap.innerHTML = `<div class="pr-done-banner">
+      <h3>🎉 Lesson complete!</h3>
+      <p>You correctly guessed all ${total} phrase${total===1?'':'s'} from audio alone — once to learn them, once more to confirm.</p>
+      <button onclick="finishPractice()">Finish</button>
+    </div>`;
+    return;
+  }
+  doneWrap.innerHTML = '';
+
+  const line = dialogue[activeIdx];
+  if(!ps.quiz || ps.quiz.forIdx !== activeIdx || ps.quiz.forPhase !== ps.phase){
+    const q = buildLessonQuiz(line, ps.lesson);
+    ps.quiz = { options: q.options, correct: q.correct, chosenIdx: null, forIdx: activeIdx, forPhase: ps.phase };
+    playGuessAudio(activeIdx);
+  }
+  const phaseLabel = ps.phase==='final'
+    ? `🔁 Final check — ${ps.finalPos+1}/${total}`
+    : `🎧 Listen & guess — ${ps.lineIdx+1}/${total}`;
+  const optionsHtml = ps.quiz.options.map((opt,i)=>{
+    let cls = 'quiz-option';
+    if(ps.quiz.chosenIdx !== null){
+      if(opt === ps.quiz.correct) cls += ' correct';
+      else if(i === ps.quiz.chosenIdx) cls += ' wrong';
+    }
+    return `<button class="${cls}" ${ps.quiz.chosenIdx!==null?'disabled':''} onclick="answerPracticeGuess(${i})">${opt}</button>`;
+  }).join('');
+  practiceArea.innerHTML = `
+    <div class="quiz-label">${phaseLabel}</div>
+    <button class="listen-play-btn" onclick="playGuessAudio(${activeIdx})">🔊</button>
+    <p class="sc-hint" style="text-align:center;margin:0 0 14px;">Tap to hear it again</p>
+    <p class="quiz-q" style="justify-content:center;">What does this mean?</p>
+    ${optionsHtml}
   `;
 }
 
@@ -11448,11 +11962,12 @@ function renderLessonsTabZh(){
     </div>`;
   }).join('');
 }
-// Cantonese's Lessons tab — day-based like Vietnamese's original renderer
-// (not HSK-level like Mandarin's), since LESSON_SECTIONS_YUE/LESSONS_YUE
-// follow that same day/section shape. Only Day 1 is unlocked today; a single
-// locked placeholder card communicates that more days are coming, the same
-// pattern HSK1's section uses for its own "more lessons coming soon" card.
+// Cantonese's Lessons tab — CEFR-level UI (like DELE's renderLessonsTabEs()),
+// switched over from an earlier day-based renderer (2026-08-26/27, see
+// CANTONESE_LEVELS' comment for why). Only A1 is unlocked; A2-C1 render as
+// bare locked labels with NO dialogue-count stat, unlike JLPT/TOPIK/IELTS/
+// DELE's locked rows — there's no real reference number to show for those,
+// and inventing one would be worse than omitting it.
 function renderLessonsTabYue(){
   const totalEl = document.getElementById('lsnWordsTotal');
   if(!totalEl) return; // view not in DOM yet, harmless no-op
@@ -11479,7 +11994,7 @@ function renderLessonsTabYue(){
       <div class="shade"></div>
       <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
       <div class="tag">${l.tag}</div>
-      <div class="day">DAY ${l.day}</div>
+      <div class="day">CANTONESE A1</div>
       <div class="title">${l.title}</div>
     </button>`;
     CONCEPT_LESSONS_YUE.filter(c=>c.afterDay===l.day).forEach(c=>{
@@ -11493,22 +12008,31 @@ function renderLessonsTabYue(){
     return html;
   };
 
-  const key = 'day_1';
-  const isOpen = isLsnGroupOpen(key);
-  const doneCount = LESSONS_YUE.filter(l=>state.yue.completedLessons.includes(l.id)).length;
-  const cardsHtml = LESSON_SECTIONS_YUE.map(sec=>{
-    const secCards = LESSONS_YUE.filter(l=>l.section===sec.id).map(yueLessonCardHtml).join('');
-    return secCards;
-  }).join('') + `<div class="lsn-lesson-card locked" style="display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:800;font-size:13px;text-align:center;padding:12px;">🔒 More Cantonese days coming soon</div>`;
-
-  listEl.innerHTML = `<div class="lsn-group ${isOpen?'open':''}" id="lsnGroup_${key}">
-    <button class="lsn-group-head" onclick="toggleLsnGroup('${key}')">
-      <span class="lsn-group-label">${LESSON_SECTIONS_YUE[0].title}</span>
-      <span class="lsn-group-count">${doneCount}/${LESSONS_YUE.length}</span>
-      <span class="lsn-group-chevron">▾</span>
-    </button>
-    <div class="lsn-group-body"><div class="lsn-group-cards">${cardsHtml}</div></div>
-  </div>`;
+  listEl.innerHTML = CANTONESE_LEVELS.map(lv=>{
+    const key = 'yue_'+lv.id;
+    if(!lv.unlocked){
+      return `<button class="lsn-group-head" style="opacity:.55;" onclick="alert('Cantonese ${lv.num} content is coming soon.')">
+        <span class="lsn-group-label">${lv.num}</span>
+        <span class="lsn-group-count">🔒 Locked</span>
+      </button>`;
+    }
+    const isOpen = isLsnGroupOpen(key);
+    const doneCount = LESSONS_YUE.filter(l=>state.yue.completedLessons.includes(l.id)).length;
+    const sectionsHtml = CANTONESE_A1_SECTIONS.map(sec=>{
+      const cardsHtml = LESSONS_YUE.filter(l=>l.section===sec.id).map(yueLessonCardHtml).join('')
+        + `<div class="lsn-lesson-card locked" style="display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:800;font-size:13px;text-align:center;padding:12px;">🔒 More Cantonese ${lv.num} lessons coming soon</div>`;
+      return `<p class="lsn-section-label" style="font-weight:800;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:10px 2px;">${sec.roman} · ${sec.title}</p>
+        <div class="lsn-group-cards">${cardsHtml}</div>`;
+    }).join('');
+    return `<div class="lsn-group ${isOpen?'open':''}" id="lsnGroup_${key}">
+      <button class="lsn-group-head" onclick="toggleLsnGroup('${key}')">
+        <span class="lsn-group-label">${lv.num} · ${lv.name}</span>
+        <span class="lsn-group-count">${doneCount}/${LESSONS_YUE.length}</span>
+        <span class="lsn-group-chevron">▾</span>
+      </button>
+      <div class="lsn-group-body">${sectionsHtml}</div>
+    </div>`;
+  }).join('');
 }
 // Japanese's Lessons tab — organized by JLPT level instead of by day, since
 // that's the structure JLPT_LEVELS/JLPT_N5_SECTIONS/LESSONS_JA/CONCEPT_LESSONS_JA
