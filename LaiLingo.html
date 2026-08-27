@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-<title>Daily Viet - Learn Southern Vietnamese Daily</title>
-<meta name="apple-mobile-web-app-title" content="Daily Viet">
+<title>LaiLingo: Learn Languages</title>
+<meta name="description" content="Learn a little every day. even when changing to different languages">
+<meta name="apple-mobile-web-app-title" content="LaiLingo">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
@@ -825,6 +826,7 @@
   .world-chip .wc-icon{font-size:20px;display:block;margin-bottom:4px;}
   .world-chip .wc-title{font-size:11.5px;font-weight:800;line-height:1.25;}
   .world-tagline{color:var(--muted);font-size:13px;margin:0 0 18px;}
+  .app-tagline{color:var(--muted);font-size:13px;margin:0 0 14px;text-align:center;}
 
   .world-section{background:var(--surface);border-radius:16px;padding:16px;margin-bottom:14px;border:1px solid rgba(36,28,19,0.06);}
   .world-section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:4px;}
@@ -911,7 +913,7 @@
   <header class="appbar">
     <div class="brand">
       <button class="flag" id="brandFlag" onclick="openLanguagePicker()" title="Switch language">🇻🇳</button>
-      <h1 id="brandTitle">Daily Viet</h1>
+      <h1 id="brandTitle">LaiLingo</h1>
     </div>
     <div class="streak" id="streakPill">🌀 0</div>
   </header>
@@ -919,6 +921,8 @@
   <main>
     <!-- HOME -->
     <section class="view active" id="view-home">
+
+      <p class="app-tagline" id="appTagline">Learn a little every day. even when changing to different languages</p>
 
       <!-- HERO -->
       <div class="home-hero" id="homeHero">
@@ -1941,9 +1945,26 @@ const LESSON_SECTIONS = [
    isZhId() near DEFAULT_STATE) without threading a language parameter
    through every existing Vietnamese function. */
 const LANGUAGES = [
-  { id:'vi', name:'Vietnamese', flag:'🇻🇳', brand:'Daily Viet' },
-  { id:'zh', name:'Mandarin', flag:'🇨🇳', brand:'Daily Mandarin' },
+  { id:'vi', name:'Vietnamese', flag:'🇻🇳', brand:'LaiLingo' },
+  { id:'zh', name:'Mandarin', flag:'🇨🇳', brand:'LaiLingo' },
+  { id:'yue', name:'Cantonese', flag:'🇭🇰', brand:'LaiLingo' },
+  { id:'ja', name:'Japanese', flag:'🇯🇵', brand:'LaiLingo' },
+  { id:'ko', name:'Korean', flag:'🇰🇷', brand:'LaiLingo' },
+  { id:'th', name:'Thai', flag:'🇹🇭', brand:'LaiLingo' },
+  { id:'tl', name:'Tagalog', flag:'🇵🇭', brand:'LaiLingo' },
+  { id:'en', name:'English', flag:'🇺🇸', brand:'LaiLingo' },
+  { id:'es', name:'Spanish', flag:'🇪🇸', brand:'LaiLingo' },
 ];
+
+// TTS/speech-recognition locale for each language — kept as one lookup table
+// (rather than a per-language if/else) so a 10th language only needs one new
+// entry here, not a new branch in speakQueue() or the mic recognition setup.
+// Mandarin and Cantonese are BOTH "zh*" tags but must never fuzzy-match each
+// other's voice (a zh-CN voice reading Cantonese, or vice versa, is wrong),
+// so voice lookup elsewhere does an exact match on this string, not a prefix.
+// Tagalog uses the 'fil-PH' (Filipino) BCP-47 tag rather than 'tl-PH' since
+// that's the tag browsers/OSes actually ship voices and recognition under.
+const TTS_LOCALE = { vi:'vi-VN', zh:'zh-CN', yue:'zh-HK', ja:'ja-JP', ko:'ko-KR', th:'th-TH', tl:'fil-PH', en:'en-US', es:'es-ES' };
 
 // Target curriculum size for each HSK level — shown on the level card even
 // before that level's lessons are written, same as a real course outline.
@@ -2018,6 +2039,536 @@ const CONCEPT_LESSONS_ZH = [
     ] },
 ];
 function isZhId(id){ return typeof id === 'string' && id.indexOf('zh_') === 0; }
+
+// Cantonese — day-based structure (mirrors Vietnamese's own day/section shape)
+// rather than HSK levels, since Cantonese has no equivalent standardized test
+// scale. Only Day 1 is real content today; Day 2+ is an honest placeholder,
+// same pattern as HSK2-6 for Mandarin.
+const LESSON_SECTIONS_YUE = [
+  { id:1, roman:'I', title:'Survival Basics' },
+];
+
+const LESSONS_YUE = [
+  { id:'yue_l1', day:1, section:1, level:'A0', title:'Hello & Goodbye', tag:'Survival', img:'images/yue_lesson_01.jpg',
+    desc:'Learn how to greet people, thank them the right way, and say goodbye in Cantonese.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'你好！你好嗎？', p:'nei5 hou2! nei5 hou2 maa3?', e:'Hello! How are you?'},
+      {speaker:'B', v:'我幾好，唔該。你呢？', p:'ngo5 gei2 hou2, m4 goi1. nei5 ne1?', e:"I'm quite good, thanks. And you?"},
+      {speaker:'A', v:'我都幾好。', p:'ngo5 dou1 gei2 hou2.', e:"I'm good too."},
+      {speaker:'B', v:'拜拜！', p:'baai1 baai3!', e:'Bye-bye!'},
+    ],
+    vocab:[
+      {v:'你好', e:'hello'}, {v:'拜拜', e:'bye-bye'}, {v:'唔該', e:'thank you (for a favor/service)'}, {v:'多謝', e:'thank you (for a gift/compliment)'},
+      {v:'你', e:'you'}, {v:'幾好', e:'quite good'}, {v:'我', e:'I / me'}, {v:'呢', e:'and...? (follow-up particle)'},
+    ],
+    grammar:[
+      {title:'唔該 vs 多謝 — Two Words for "Thank You"', body:'Cantonese splits "thank you" into two words depending on what you\'re thanking someone for. Use 唔該 (m4 goi1) for a service, favor, or when asking someone to do something (like getting a waiter\'s attention). Use 多謝 (do1 ze6) for a gift, compliment, or money received. Mixing them up is a very common learner mistake.'},
+      {title:'呢 (ne1) — Following Up', body:'Just like Mandarin\'s 呢, Cantonese 呢 (ne1) attaches to a noun or pronoun to bounce a question back without repeating it. In the dialogue, B answers first, then asks "你呢？" (nei5 ne1?) meaning "And you?"'},
+    ],
+    cards:[
+      {v:'你好！你好嗎？', p:'nei5 hou2! nei5 hou2 maa3?', e:'Hello! How are you?'},
+      {v:'我幾好，唔該。你呢？', p:'ngo5 gei2 hou2, m4 goi1. nei5 ne1?', e:"I'm quite good, thanks. And you?"},
+      {v:'我都幾好。', p:'ngo5 dou1 gei2 hou2.', e:"I'm good too."},
+      {v:'拜拜！', p:'baai1 baai3!', e:'Bye-bye!'},
+    ] },
+];
+
+const CONCEPT_LESSONS_YUE = [
+  { id:'yue_c1', afterDay:1, title:'Jyutping & The Six Tones', subtitle:'Cantonese has six tones (nine if you count entering tones separately) — more than Mandarin\'s four, tracked with tone numbers 1-6 instead of diacritic marks.',
+    img:'images/yue_concept_01.jpg',
+    blocks:[
+      {type:'text', body:"Jyutping is the standard romanization for Cantonese, developed by the Linguistic Society of Hong Kong. Instead of diacritic marks like Pinyin, Jyutping writes the tone as a number (1-6) right after the syllable. The classic teaching example uses the syllable 'si' across all six tones."},
+      {type:'heading', text:'The Six Tones of "si"'},
+      {type:'vocab', words:[
+        {v:'詩 (si1)', e:'poem — tone 1, high level'},
+        {v:'史 (si2)', e:'history — tone 2, mid rising'},
+        {v:'試 (si3)', e:'to try — tone 3, mid level'},
+        {v:'時 (si4)', e:'time — tone 4, low falling'},
+        {v:'市 (si5)', e:'market — tone 5, low rising'},
+        {v:'事 (si6)', e:'matter/affair — tone 6, low level'},
+      ]},
+      {type:'text', body:'<em>Tones 1-3 are the "upper" register and 4-6 are the "lower" register — many learners find it easier to first nail the upper/lower split before fine-tuning each individual tone.</em>'},
+    ] },
+  { id:'yue_c2', afterDay:1, title:'Sentence-Final Particles', subtitle:'Cantonese leans heavily on short particles tacked onto the end of a sentence to carry tone, attitude, and nuance that English shows with intonation alone.',
+    img:'images/yue_concept_02.jpg',
+    blocks:[
+      {type:'heading', text:'Common Particles'},
+      {type:'text', body:"Cantonese is famous for having dozens of sentence-final particles, and using the right one is a big part of sounding natural rather than just grammatically correct. They don't translate word-for-word into English — instead they color the whole sentence with an attitude, like casualness, obviousness, or a suggestion."},
+      {type:'vocab', words:[
+        {v:'啦 (laa1)', e:'softens a suggestion or request — like adding "come on" or a gentle tone'},
+        {v:'喇 (laa3)', e:'marks a change of state — "now/already," similar to Mandarin 了'},
+        {v:'咩 (me1)', e:'turns a statement into a surprised or skeptical question — "really?"'},
+        {v:'㗎 (gaa3)', e:'adds emphasis or a matter-of-fact tone to a statement'},
+      ]},
+      {type:'text', body:'<em>Particles can also stack — 喇咩 (laa3 me1) combines "already" with a skeptical "really?" — but start by learning them one at a time and listening for them in real speech.</em>'},
+    ] },
+];
+function isYueId(id){ return typeof id === 'string' && id.indexOf('yue_') === 0; }
+
+// Japanese — organized by JLPT level (N5 through N1), mirroring Mandarin's
+// HSK-level structure rather than Vietnamese/Cantonese's day-based one, per
+// the reference app screenshot the user provided (JLPT N5 "Super Beginner"
+// card with full phrase/word/grammar/note counts, N4-N1 shown locked with
+// only a target dialogue count each — no further stat breakdown was given
+// for those levels, so JLPT_LEVELS only carries `dialogues` for them).
+const JLPT_LEVELS = [
+  { id:'n5', num:5, name:'Super Beginner', dialogues:56, phrases:417, words:844, grammar:201, notes:34, unlocked:true },
+  { id:'n4', num:4, name:'Beginner', dialogues:142, unlocked:false },
+  { id:'n3', num:3, name:'Intermediate', dialogues:170, unlocked:false },
+  { id:'n2', num:2, name:'Upper Intermediate', dialogues:155, unlocked:false },
+  { id:'n1', num:1, name:'Advanced', dialogues:85, unlocked:false },
+];
+
+const JLPT_N5_SECTIONS = [
+  { id:1, roman:'I', title:'Survival On-Ramp' },
+];
+
+const LESSONS_JA = [
+  { id:'ja_l1', day:1, section:1, level:'JLPT N5', title:'Hello & Goodbye', tag:'Survival', img:'images/ja_lesson_01.jpg',
+    desc:'Learn how to greet people, ask how they are doing, and say goodbye in Japanese.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'こんにちは！お元気ですか？', p:'Konnichiwa! Ogenki desu ka?', e:'Hello! How are you?'},
+      {speaker:'B', v:'はい、元気です。ありがとう。あなたは？', p:'Hai, genki desu. Arigatou. Anata wa?', e:"Yes, I'm fine. Thank you. And you?"},
+      {speaker:'A', v:'私も元気です。', p:'Watashi mo genki desu.', e:"I'm fine too."},
+      {speaker:'B', v:'さようなら！', p:'Sayounara!', e:'Goodbye!'},
+    ],
+    vocab:[
+      {v:'こんにちは', e:'hello'}, {v:'さようなら', e:'goodbye'}, {v:'ありがとう', e:'thank you'}, {v:'あなた', e:'you'},
+      {v:'元気', e:'fine / well'}, {v:'か', e:'question particle'}, {v:'私', e:'I / me'}, {v:'も', e:'also / too'},
+    ],
+    grammar:[
+      {title:'か (ka) — Yes/No Questions', body:'Add "か" to the very end of a statement to turn it into a yes/no question, with no change to word order and no question mark needed (though one is often added anyway in casual writing). In the dialogue, A asks "お元気ですか？" (Ogenki desu ka?) — literally "well [question]?" — meaning "How are you?"'},
+      {title:'は (wa) — The Topic Particle', body:'The character は is written "ha" but pronounced "wa" when used as a particle marking the topic of a sentence — one of the most common early trip-ups for new learners. In the dialogue, B asks "あなたは？" (Anata wa?) meaning "And you?" — literally "As for you?"'},
+    ],
+    cards:[
+      {v:'こんにちは！お元気ですか？', p:'Konnichiwa! Ogenki desu ka?', e:'Hello! How are you?'},
+      {v:'はい、元気です。ありがとう。あなたは？', p:'Hai, genki desu. Arigatou. Anata wa?', e:"Yes, I'm fine. Thank you. And you?"},
+      {v:'私も元気です。', p:'Watashi mo genki desu.', e:"I'm fine too."},
+      {v:'さようなら！', p:'Sayounara!', e:'Goodbye!'},
+    ] },
+];
+
+const CONCEPT_LESSONS_JA = [
+  { id:'ja_c1', afterDay:1, title:'Hiragana, Katakana & Kanji', subtitle:'Japanese is written with three scripts at once — hiragana and katakana are phonetic, while kanji carry meaning, and everyday text mixes all three.',
+    img:'images/ja_concept_01.jpg',
+    blocks:[
+      {type:'text', body:"Hiragana (ひらがな) is a phonetic syllabary used for native Japanese grammar and words, katakana (カタカナ) is a matching phonetic syllabary reserved mostly for foreign loanwords and emphasis, and kanji (漢字) are meaning-based characters borrowed from Chinese. A single sentence like 私はコーヒーを飲みます (I drink coffee) uses all three: 私/飲 are kanji, は/を/み/ます are hiragana, and コーヒー (coffee) is katakana."},
+      {type:'heading', text:'Quick Script Spotting'},
+      {type:'vocab', words:[
+        {v:'ひらがな', e:'hiragana — rounded, native-word script (e.g. です, ます)'},
+        {v:'カタカナ', e:'katakana — angular, loanword script (e.g. コーヒー, テレビ)'},
+        {v:'漢字', e:'kanji — meaning characters borrowed from Chinese (e.g. 私, 元気)'},
+      ]},
+      {type:'text', body:"<em>Unlike Mandarin or Cantonese, Japanese doesn't use lexical tones — instead it has a lighter pitch-accent system, so getting the rhythm right matters more than nailing a tone contour.</em>"},
+    ] },
+  { id:'ja_c2', afterDay:1, title:'Topic + Comment & Basic Word Order', subtitle:'Japanese marks its topic with は (wa) and puts the verb at the very end of the sentence — the reverse of English word order.',
+    img:'images/ja_concept_02.jpg',
+    blocks:[
+      {type:'heading', text:'[Topic] は [Comment], verb LAST'},
+      {type:'text', body:"Japanese is a Subject-Object-Verb (SOV) language: the verb (or an adjective acting as one) always comes at the end of the sentence, and the topic is explicitly marked with the particle は. This is similar in spirit to Mandarin's topic-comment pattern, but Japanese marks the topic with a dedicated particle instead of just word order."},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'私は学生です。', e:'I am a student. (Watashi wa gakusei desu.)'},
+        {v:'これはいいです。', e:'This is good. (Kore wa ii desu.)'},
+        {v:'日本語は面白いです。', e:'Japanese is interesting. (Nihongo wa omoshiroi desu.)'},
+      ]},
+      {type:'text', body:'<em>です (desu) is a polite "to be" that caps off the sentence — it does not change meaning based on the subject the way English "am/is/are" does.</em>'},
+    ] },
+];
+function isJaId(id){ return typeof id === 'string' && id.indexOf('ja_') === 0; }
+
+// Korean — organized by TOPIK level (1 through 6), mirroring Mandarin's HSK
+// and Japanese's JLPT level structures rather than a day-based one, per the
+// reference app screenshot (TOPIK 1 "Super Beginner" card with full
+// phrase/word/grammar/note counts, TOPIK 2-6 shown locked with only a target
+// dialogue count each — same "only the unlocked level gets a full stat
+// breakdown" shape as JLPT, so TOPIK_LEVELS' locked entries only carry
+// `dialogues`, same reasoning as JLPT_LEVELS above).
+const TOPIK_LEVELS = [
+  { id:'topik1', num:1, name:'Super Beginner', dialogues:84, phrases:662, words:1031, grammar:328, notes:29, unlocked:true },
+  { id:'topik2', num:2, name:'Beginner', dialogues:120, unlocked:false },
+  { id:'topik3', num:3, name:'Intermediate', dialogues:118, unlocked:false },
+  { id:'topik4', num:4, name:'Upper Intermediate', dialogues:85, unlocked:false },
+  { id:'topik5', num:5, name:'Advanced', dialogues:91, unlocked:false },
+  { id:'topik6', num:6, name:'Super Advanced', dialogues:30, unlocked:false },
+];
+
+const TOPIK1_SECTIONS = [
+  { id:1, roman:'I', title:'Survival On-Ramp' },
+];
+
+const LESSONS_KO = [
+  { id:'ko_l1', day:1, section:1, level:'TOPIK 1', title:'Hello & Goodbye', tag:'Survival', img:'images/ko_lesson_01.jpg',
+    desc:'Learn how to greet people, ask how they are doing, and say goodbye in Korean.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'안녕하세요! 잘 지내세요?', p:'Annyeonghaseyo! Jal jinaeseyo?', e:'Hello! How are you doing?'},
+      {speaker:'B', v:'네, 잘 지내요. 감사합니다. 당신은요?', p:'Ne, jal jinaeyo. Gamsahamnida. Dangsin-eun-yo?', e:"Yes, I'm doing well. Thank you. And you?"},
+      {speaker:'A', v:'저도 잘 지내요.', p:'Jeodo jal jinaeyo.', e:"I'm doing well too."},
+      {speaker:'B', v:'안녕히 가세요!', p:'Annyeonghi gaseyo!', e:'Goodbye! (to someone leaving)'},
+    ],
+    vocab:[
+      {v:'안녕하세요', e:'hello'}, {v:'안녕히 가세요', e:'goodbye (said to the person leaving)'}, {v:'감사합니다', e:'thank you'}, {v:'당신', e:'you'},
+      {v:'잘', e:'well'}, {v:'지내다', e:'to get along / spend time'}, {v:'저', e:'I / me (humble)'}, {v:'도', e:'also / too (particle)'},
+    ],
+    grammar:[
+      {title:'-요 (yo) — The Polite Speech Level', body:'Adding "요" to the end of a verb creates the standard polite conversational speech level, used with strangers, coworkers, or anyone you\'re not especially close to. In the dialogue, B answers "잘 지내요" (jal jinaeyo) — the same core verb as the more formal "잘 지냅니다" would use, just in the everyday-polite register.'},
+      {title:'안녕히 가세요 vs 안녕히 계세요 — Two Goodbyes', body:'Korean picks a different "goodbye" depending on who is leaving. Say 안녕히 가세요 (annyeonghi gaseyo, "go in peace") to someone who is leaving while you stay, and 안녕히 계세요 (annyeonghi gyeseyo, "stay in peace") to someone who is staying while you leave.'},
+    ],
+    cards:[
+      {v:'안녕하세요! 잘 지내세요?', p:'Annyeonghaseyo! Jal jinaeseyo?', e:'Hello! How are you doing?'},
+      {v:'네, 잘 지내요. 감사합니다. 당신은요?', p:'Ne, jal jinaeyo. Gamsahamnida. Dangsin-eun-yo?', e:"Yes, I'm doing well. Thank you. And you?"},
+      {v:'저도 잘 지내요.', p:'Jeodo jal jinaeyo.', e:"I'm doing well too."},
+      {v:'안녕히 가세요!', p:'Annyeonghi gaseyo!', e:'Goodbye! (to someone leaving)'},
+    ] },
+];
+
+const CONCEPT_LESSONS_KO = [
+  { id:'ko_c1', afterDay:1, title:'Hangul: Korea\'s Phonetic Alphabet', subtitle:'Hangul was purpose-designed in the 15th century to be easy to learn — its consonant shapes even trace the mouth position used to make each sound.',
+    img:'images/ko_concept_01.jpg',
+    blocks:[
+      {type:'text', body:"Unlike Chinese characters or Japanese kanji, Hangul (한글) is a true phonetic alphabet: each letter (자모, jamo) represents one consonant or vowel sound, and letters combine into syllable blocks read left-to-right, top-to-bottom within the block. Because it's featural — the shapes of basic consonants were designed to mimic the tongue/mouth position used to say them — many learners find the writing system itself faster to pick up than in Mandarin, Cantonese, or Japanese."},
+      {type:'heading', text:'Reading a Syllable Block'},
+      {type:'vocab', words:[
+        {v:'한 (han)', e:'ㅎ (h) + ㅏ (a) + ㄴ (n) stacked into one block'},
+        {v:'글 (geul)', e:'ㄱ (g) + ㅡ (eu) + ㄹ (l/r) stacked into one block'},
+        {v:'한글 (hangeul)', e:'"han" + "geul" together — the name of the alphabet itself'},
+      ]},
+      {type:'text', body:'<em>There are 14 basic consonants and 10 basic vowels — everything else is a combination of those, which is why Hangul is often learnable in a single sitting even though full fluency obviously takes much longer.</em>'},
+    ] },
+  { id:'ko_c2', afterDay:1, title:'Speech Levels & the -요 Ending', subtitle:'Korean grammar bakes politeness directly into the verb ending you choose — the same idea can be said several different ways depending on who you\'re talking to.',
+    img:'images/ko_concept_02.jpg',
+    blocks:[
+      {type:'heading', text:'Common Endings, Same Meaning'},
+      {type:'text', body:"Korean has several speech levels, each marked by a different verb ending, roughly tracking formality and social distance. The two a beginner meets first are the polite informal level (verb stem + 요) used in everyday conversation, and the formal level (verb stem + (스)ㅂ니다) used in news broadcasts, presentations, and very formal settings."},
+      {type:'vocab', words:[
+        {v:'가요 (gayo)', e:'goes / going — polite informal (everyday conversation)'},
+        {v:'갑니다 (gamnida)', e:'goes / going — formal (announcements, presentations)'},
+        {v:'가 (ga)', e:'goes / going — casual/intimate (close friends, younger people)'},
+      ]},
+      {type:'text', body:"<em>When in doubt as a learner, the -요 polite informal level is the safest default — it's respectful without sounding stiff, similar in spirit to Japanese's -ます (masu) form.</em>"},
+    ] },
+];
+function isKoId(id){ return typeof id === 'string' && id.indexOf('ko_') === 0; }
+
+// Thai — organized by CEFR level (A1, A2, B1...) rather than a standardized
+// test scale like HSK/JLPT/TOPIK, per the reference screenshot: it showed
+// only ONE level card ("A1 Super Beginner", with a full phrase/word/grammar/
+// note breakdown) and a plain "Request higher levels" link below it — no
+// locked A2/B1/etc rows were shown at all, unlike HSK/JLPT/TOPIK's locked
+// tiers. THAI_LEVELS therefore intentionally holds just the one unlocked
+// level; renderLessonsTabTh() renders that single group plus a "Request
+// higher levels" affordance instead of a list of locked level rows.
+const THAI_LEVELS = [
+  { id:'a1', num:'A1', name:'Super Beginner', dialogues:63, phrases:456, words:483, grammar:236, notes:4, unlocked:true },
+];
+
+const THAI_A1_SECTIONS = [
+  { id:1, roman:'I', title:'Survival On-Ramp' },
+];
+
+const LESSONS_TH = [
+  { id:'th_l1', day:1, section:1, level:'A1', title:'Hello & Goodbye', tag:'Survival', img:'images/th_lesson_01.jpg',
+    desc:'Learn how to greet people, ask how they are doing, and say goodbye in Thai.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'สวัสดีครับ! สบายดีไหม?', p:'Sawatdee khrap! Sabaidee mai?', e:'Hello! How are you? (male speaker)'},
+      {speaker:'B', v:'สบายดีค่ะ ขอบคุณค่ะ แล้วคุณล่ะ?', p:'Sabaidee kha. Khob khun kha. Laeo khun la?', e:"I'm fine, thank you. And you? (female speaker)"},
+      {speaker:'A', v:'ผมก็สบายดีครับ', p:'Phom gor sabaidee khrap.', e:"I'm fine too."},
+      {speaker:'B', v:'ลาก่อนค่ะ!', p:'La gorn kha!', e:'Goodbye!'},
+    ],
+    vocab:[
+      {v:'สวัสดี', e:'hello'}, {v:'ลาก่อน', e:'goodbye'}, {v:'ขอบคุณ', e:'thank you'}, {v:'ครับ', e:'polite particle (male speaker)'},
+      {v:'ค่ะ', e:'polite particle (female speaker)'}, {v:'สบายดี', e:'fine / well'}, {v:'ไหม', e:'question particle'}, {v:'คุณ', e:'you'},
+    ],
+    grammar:[
+      {title:'ครับ/ค่ะ (khrap/kha) — Gendered Politeness Particles', body:'Thai politeness particles depend on the SPEAKER\'s own gender, not the listener\'s. Male speakers end polite sentences with ครับ (khrap); female speakers end them with ค่ะ (kha, or คะ with a rising tone in questions). In the dialogue, A (male) says "...ครับ" and B (female) says "...ค่ะ" — both are being equally polite, just with the particle that matches who is speaking.'},
+      {title:'ไหม (mai) — Yes/No Questions', body:'Add "ไหม" to the very end of a statement to turn it into a yes/no question, with no change to word order — the same principle as Vietnamese\'s "không" or Mandarin\'s "吗". In the dialogue, A asks "สบายดีไหม?" (Sabaidee mai?) — literally "well [question]?" — meaning "How are you?"'},
+    ],
+    cards:[
+      {v:'สวัสดีครับ! สบายดีไหม?', p:'Sawatdee khrap! Sabaidee mai?', e:'Hello! How are you? (male speaker)'},
+      {v:'สบายดีค่ะ ขอบคุณค่ะ แล้วคุณล่ะ?', p:'Sabaidee kha. Khob khun kha. Laeo khun la?', e:"I'm fine, thank you. And you? (female speaker)"},
+      {v:'ผมก็สบายดีครับ', p:'Phom gor sabaidee khrap.', e:"I'm fine too."},
+      {v:'ลาก่อนค่ะ!', p:'La gorn kha!', e:'Goodbye!'},
+    ] },
+];
+
+const CONCEPT_LESSONS_TH = [
+  { id:'th_c1', afterDay:1, title:'The Thai Alphabet & Five Tones', subtitle:'Thai writing has no spaces between words and no capital letters, and — like Mandarin and Cantonese — every syllable carries a tone that changes its meaning.',
+    img:'images/th_concept_01.jpg',
+    blocks:[
+      {type:'text', body:"Thai script is an abugida: 44 consonant letters (split into low, mid, and high classes that help determine tone) combine with vowel marks that can appear before, after, above, or below the consonant. Thai is also a tonal language with five tones — mid, low, falling, high, and rising — so the same string of consonants and vowels can mean entirely different things depending on pitch."},
+      {type:'heading', text:'The Same Syllable, Five Meanings'},
+      {type:'vocab', words:[
+        {v:'มา (maa)', e:'to come — mid tone, flat pitch'},
+        {v:'ม้า (máa)', e:'horse — high tone, sharp and high'},
+        {v:'หมา (mǎa)', e:'dog — rising tone, dips then rises'},
+      ]},
+      {type:'text', body:"<em>Which consonant class a letter belongs to (low/mid/high) interacts with tone marks and syllable structure to determine the actual tone — this is one of the trickier parts of reading Thai aloud correctly, even after the alphabet itself is memorized.</em>"},
+    ] },
+  { id:'th_c2', afterDay:1, title:'Classifiers: Counting Nouns in Thai', subtitle:'Like Vietnamese and Mandarin, Thai can\'t just put a number directly next to most nouns — a classifier word in between describes what kind of thing is being counted.',
+    img:'images/th_concept_02.jpg',
+    blocks:[
+      {type:'heading', text:'[Noun] + [Number] + [Classifier]'},
+      {type:'text', body:"To count something in Thai, the noun comes first, then the number, then a classifier that matches the noun's category — the reverse order from English \"three dogs,\" and the classifier itself is a separate required word, not a suffix. Which classifier to use depends on what's being counted."},
+      {type:'vocab', words:[
+        {v:'คน (khon)', e:'classifier for people — สามคน (sǎam khon) = three people'},
+        {v:'ตัว (tua)', e:'classifier for animals and some objects — หมาสองตัว (mǎa sǎwng tua) = two dogs'},
+        {v:'ใบ (bai)', e:'classifier for round/leaf-like objects — ใบละสามใบ... เช่น จานสามใบ (jaan sǎam bai) = three plates'},
+      ]},
+      {type:'text', body:'<em>There\'s no single default classifier — each noun has its own, so classifiers are usually memorized alongside the noun itself, the same practical approach Vietnamese and Mandarin learners use.</em>'},
+    ] },
+];
+function isThId(id){ return typeof id === 'string' && id.indexOf('th_') === 0; }
+
+// Tagalog — organized by CEFR-style level using the reference app's own
+// "FLAT A1"/"FLAT A2" labels (label prefix kept verbatim from the screenshot
+// rather than normalized to plain "A1"/"A2", since that's literally what the
+// source app shows). Unlike Thai's screenshot (only one level, no locked rows
+// at all), Tagalog's screenshot showed ONE locked level (FLAT A2, dialogue
+// count only) below the unlocked FLAT A1 — same shape as JLPT_LEVELS/
+// TOPIK_LEVELS, just with fewer tiers.
+const TAGALOG_LEVELS = [
+  { id:'a1', num:'A1', name:'Super Beginner', dialogues:54, phrases:488, words:936, grammar:277, notes:26, unlocked:true },
+  { id:'a2', num:'A2', dialogues:101, unlocked:false },
+];
+
+const TAGALOG_A1_SECTIONS = [
+  { id:1, roman:'I', title:'Survival On-Ramp' },
+];
+
+const LESSONS_TL = [
+  { id:'tl_l1', day:1, section:1, level:'FLAT A1', title:'Hello & Goodbye', tag:'Survival', img:'images/tl_lesson_01.jpg',
+    desc:'Learn how to greet people, ask how they are doing, and say goodbye in Tagalog.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Kumusta! Kumusta ka?', p:'Kumusta! Kumusta ka?', e:'Hi! How are you?'},
+      {speaker:'B', v:'Mabuti naman, salamat. Ikaw?', p:'Mabuti naman, salamat. Ikaw?', e:"I'm fine, thanks. You?"},
+      {speaker:'A', v:'Mabuti rin ako.', p:'Mabuti rin ako.', e:"I'm fine too."},
+      {speaker:'B', v:'Paalam!', p:'Paalam!', e:'Goodbye!'},
+    ],
+    vocab:[
+      {v:'kumusta', e:'hello / how are you'}, {v:'paalam', e:'goodbye'}, {v:'salamat', e:'thank you'}, {v:'ikaw', e:'you'},
+      {v:'mabuti', e:'fine / good'}, {v:'rin / din', e:'also / too'}, {v:'ako', e:'I / me'}, {v:'naman', e:"softening/contrast particle (roughly \"on my part\")"},
+    ],
+    grammar:[
+      {title:'Predicate-Initial Word Order', body:'Tagalog typically puts the predicate — the verb or adjective — at the very start of the sentence, before the subject, the reverse of English. In the dialogue, "Mabuti rin ako" literally orders as "Fine also I," meaning "I\'m fine too."'},
+      {title:'rin vs. din — "Also / Too"', body:'Tagalog has two forms of the word for "also," chosen by the sound the previous word ends in: use "rin" after a word ending in a vowel sound (as in "Mabuti rin ako"), and "din" after a word ending in a consonant sound (e.g. "Kumain din siya," "She ate too").'},
+    ],
+    cards:[
+      {v:'Kumusta! Kumusta ka?', p:'Kumusta! Kumusta ka?', e:'Hi! How are you?'},
+      {v:'Mabuti naman, salamat. Ikaw?', p:'Mabuti naman, salamat. Ikaw?', e:"I'm fine, thanks. You?"},
+      {v:'Mabuti rin ako.', p:'Mabuti rin ako.', e:"I'm fine too."},
+      {v:'Paalam!', p:'Paalam!', e:'Goodbye!'},
+    ] },
+];
+
+const CONCEPT_LESSONS_TL = [
+  { id:'tl_c1', afterDay:1, title:'Ang, Ng, Sa — Tagalog\'s Marker System', subtitle:'Instead of relying on word order alone, Tagalog uses three small marker words to signal each noun\'s grammatical role in the sentence.',
+    img:'images/tl_concept_01.jpg',
+    blocks:[
+      {type:'text', body:"Tagalog marks the grammatical role of nouns with short particles placed right before them, rather than through strict word order the way English does. \"Ang\" marks the noun currently in focus (roughly the grammatical subject/topic), \"ng\" (pronounced \"nang\") marks a non-focus actor, object, or possessor, and \"sa\" marks location, direction, or a recipient. This marker system, rather than fixed SVO order, is what tells you \"who did what to whom\" in a Tagalog sentence."},
+      {type:'heading', text:'The Three Markers'},
+      {type:'vocab', words:[
+        {v:'ang', e:'marks the noun in focus — Kumain ang bata. = "The child ate." (child = focus)'},
+        {v:'ng (nang)', e:'marks a non-focus actor/object/possessor — Kumain ng mansanas ang bata. = "The child ate an apple."'},
+        {v:'sa', e:'marks location/direction/recipient — Pumunta siya sa paaralan. = "He/she went to school."'},
+      ]},
+      {type:'text', body:"<em>This marker system is one of the most distinctive features of Tagalog and other Philippine languages — it's genuinely different from how English, Vietnamese, or the CJK languages assign grammatical roles, so give it extra attention early on.</em>"},
+    ] },
+  { id:'tl_c2', afterDay:1, title:'Verb Affixes: mag- and -um-', subtitle:'Tagalog verbs change their prefix or infix depending on which noun is in focus — mag- and -um- are the two most common patterns for a beginner to learn first.',
+    img:'images/tl_concept_02.jpg',
+    blocks:[
+      {type:'heading', text:'Two Common Actor-Focus Patterns'},
+      {type:'text', body:"Tagalog verbs are built from a root word plus an affix, and which affix is used depends on grammatical focus (who or what the sentence is \"about\") as well as aspect — completed, incomplete, or not-yet-started — rather than tense the way English verbs work. Two of the most common beginner patterns both keep the actor in focus: the \"mag-\" prefix, and the \"-um-\" infix inserted after the first consonant of the root."},
+      {type:'vocab', words:[
+        {v:'magluto (root: luto)', e:'to cook — mag- prefix pattern'},
+        {v:'kumain (root: kain)', e:'to eat — -um- infix inserted after the first consonant'},
+        {v:'bumili (root: bili)', e:'to buy — -um- infix inserted after the first consonant'},
+      ]},
+      {type:'text', body:'<em>There isn\'t a simple rule for which root takes "mag-" versus "-um-" — like classifiers in Thai, Vietnamese, and Mandarin, this is usually memorized alongside each verb as it\'s learned.</em>'},
+    ] },
+];
+function isTlId(id){ return typeof id === 'string' && id.indexOf('tl_') === 0; }
+
+// English — organized by IELTS band score (2.0 through 7.5) rather than a
+// standardized test level for a FOREIGN course, since here the target
+// language being taught IS English. Same "only the unlocked first level gets
+// a full stat breakdown" shape as JLPT_LEVELS/TOPIK_LEVELS: locked bands show
+// only a target dialogue count behind a bare "IELTS 4.0" label.
+//
+// Schema note: every other language's dialogue/vocab entries use
+// {v: target-language text, p: pronunciation aid, e: English translation} —
+// that breaks down here since the target language already IS English. For
+// English content, v is the English sentence/word itself, p is a simplified
+// phonetic respelling (pronunciation help, same role p always plays), and e
+// is a short plain-English gloss/usage note instead of a translation. This
+// keeps the existing render code (which just displays v/p/e as three lines)
+// working unmodified.
+const IELTS_LEVELS = [
+  { id:'ielts2', band:'2.0', name:'Super Beginner', dialogues:59, phrases:481, words:1018, grammar:231, notes:19, unlocked:true },
+  { id:'ielts4', band:'4.0', dialogues:117, unlocked:false },
+  { id:'ielts6', band:'6.0', dialogues:114, unlocked:false },
+  { id:'ielts7', band:'7.0', dialogues:115, unlocked:false },
+  { id:'ielts75', band:'7.5', dialogues:80, unlocked:false },
+];
+
+const IELTS2_SECTIONS = [
+  { id:1, roman:'I', title:'Survival On-Ramp' },
+];
+
+const LESSONS_EN = [
+  { id:'en_l1', day:1, section:1, level:'IELTS 2.0', title:'Hello & Goodbye', tag:'Survival', img:'images/en_lesson_01.jpg',
+    desc:'Learn how to greet people, ask how they are doing, and say goodbye in English.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Hello! How are you?', p:'heh-LOH! how ar yoo?', e:'A common way to greet someone and ask how they are doing.'},
+      {speaker:'B', v:"I'm fine, thank you. And you?", p:"I'm fyn, thank yoo. and yoo?", e:'A polite reply that also asks the same question back.'},
+      {speaker:'A', v:"I'm fine too.", p:"I'm fyn too.", e:'A short way of saying you feel the same as the other person.'},
+      {speaker:'B', v:'Goodbye!', p:'good-BY!', e:'A common way to end a conversation and say farewell.'},
+    ],
+    vocab:[
+      {v:'hello', e:'a friendly greeting'}, {v:'goodbye', e:'a farewell, said when leaving'}, {v:'thank you', e:'an expression of gratitude'}, {v:'you', e:'the person being spoken to'},
+      {v:'fine', e:'feeling good / doing well'}, {v:'how', e:'used to ask about condition or manner'}, {v:'I', e:'the speaker, referring to themselves'}, {v:'too', e:'also / as well'},
+    ],
+    grammar:[
+      {title:"Contractions with 'to be'", body:"English commonly shortens a subject pronoun plus \"am/is/are\" into one word: \"I am\" becomes \"I'm,\" \"you are\" becomes \"you're,\" and so on. In the dialogue, B says \"I'm fine\" rather than the more formal-sounding \"I am fine\" — both are correct, but the contraction is far more common in everyday speech."},
+      {title:"Forming Questions with 'How'", body:'To ask about someone\'s condition, "how" moves to the front of the sentence and the verb "are" moves before the subject: the statement "You are fine" becomes the question "How are you?" This subject-verb inversion is how most English yes/no and wh- questions are built.'},
+    ],
+    cards:[
+      {v:'Hello! How are you?', p:'heh-LOH! how ar yoo?', e:'A common way to greet someone and ask how they are doing.'},
+      {v:"I'm fine, thank you. And you?", p:"I'm fyn, thank yoo. and yoo?", e:'A polite reply that also asks the same question back.'},
+      {v:"I'm fine too.", p:"I'm fyn too.", e:'A short way of saying you feel the same as the other person.'},
+      {v:'Goodbye!', p:'good-BY!', e:'A common way to end a conversation and say farewell.'},
+    ] },
+];
+
+const CONCEPT_LESSONS_EN = [
+  { id:'en_c1', afterDay:1, title:'English Word Stress & Rhythm', subtitle:'English has no lexical tones — instead, which syllable gets emphasized (stressed) can change a word\'s meaning or even its part of speech.',
+    img:'images/en_concept_01.jpg',
+    blocks:[
+      {type:'text', body:"Unlike Vietnamese, Mandarin, Cantonese, or Thai, English doesn't use pitch to distinguish word meanings. Instead, English is a stress-timed language: content words (nouns, verbs, adjectives) usually carry stress, while small function words (a, the, of, to) are said quickly and unstressed. Some words even change meaning depending on which syllable is stressed."},
+      {type:'heading', text:'Same Spelling, Different Stress'},
+      {type:'vocab', words:[
+        {v:'REcord (noun)', e:'a stored piece of music or data — stress on the first syllable'},
+        {v:'reCORD (verb)', e:'to capture sound or video — stress on the second syllable'},
+        {v:'PREsent (noun)', e:'a gift — stress on the first syllable'},
+        {v:'preSENT (verb)', e:'to show or give formally — stress on the second syllable'},
+      ]},
+      {type:'text', body:'<em>Getting stress right matters as much as getting individual sounds right — a sentence with correct words but wrong stress patterns can be hard for a native speaker to follow, even if every word is pronounced clearly on its own.</em>'},
+    ] },
+  { id:'en_c2', afterDay:1, title:"Basic Word Order & the Verb 'To Be'", subtitle:'English sentences follow a strict Subject-Verb-Object order, and the verb "to be" (am/is/are) is required even in sentences that wouldn\'t need it in some other languages.',
+    img:'images/en_concept_02.jpg',
+    blocks:[
+      {type:'heading', text:'[Subject] + [Verb] + [Object]'},
+      {type:'text', body:"English word order is comparatively rigid: the subject almost always comes first, then the verb, then the object, and this order rarely changes even for emphasis. English also requires a conjugated form of \"to be\" — am, is, or are — in sentences like \"I am tired\" or \"She is happy,\" where some languages would just place the adjective directly after the subject with no linking verb at all."},
+      {type:'heading', text:'Examples'},
+      {type:'vocab', words:[
+        {v:'I am a student.', e:'Subject (I) + verb (am) + object/complement (a student).'},
+        {v:'She is happy.', e:'Subject (She) + verb (is) + adjective (happy) — "is" is required here.'},
+        {v:'They are here.', e:'Subject (They) + verb (are) + location (here).'},
+      ]},
+      {type:'text', body:"<em>\"Am/is/are\" changes based on the subject (I am, you are, he/she/it is, we/you/they are) — this agreement is one of the first grammar patterns most English learners memorize.</em>"},
+    ] },
+];
+function isEnId(id){ return typeof id === 'string' && id.indexOf('en_') === 0; }
+
+// Spanish — organized by DELE level (A1 through C1, the official Instituto
+// Cervantes proficiency exam) rather than a day-based structure, per the
+// reference screenshot. Same JLPT/TOPIK/IELTS shape: only the unlocked first
+// level shows a full stat breakdown, locked levels show a bare "DELE A2"
+// label with just a target dialogue count.
+const DELE_LEVELS = [
+  { id:'a1', num:'A1', name:'Super Beginner', dialogues:57, phrases:432, words:971, grammar:207, notes:20, unlocked:true },
+  { id:'a2', num:'A2', dialogues:84, unlocked:false },
+  { id:'b1', num:'B1', dialogues:95, unlocked:false },
+  { id:'b2', num:'B2', dialogues:60, unlocked:false },
+  { id:'c1', num:'C1', dialogues:60, unlocked:false },
+];
+
+const DELE_A1_SECTIONS = [
+  { id:1, roman:'I', title:'Survival On-Ramp' },
+];
+
+const LESSONS_ES = [
+  { id:'es_l1', day:1, section:1, level:'DELE A1', title:'Hello & Goodbye', tag:'Survival', img:'images/es_lesson_01.jpg',
+    desc:'Learn how to greet people, ask how they are doing, and say goodbye in Spanish.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'¡Hola! ¿Cómo estás?', p:'OH-lah! KOH-moh ehs-TAHS?', e:'Hello! How are you?'},
+      {speaker:'B', v:'Estoy bien, gracias. ¿Y tú?', p:'ehs-TOY bee-EHN, GRAH-see-ahs. ee too?', e:"I'm fine, thank you. And you?"},
+      {speaker:'A', v:'Yo también estoy bien.', p:'yoh tahm-bee-EHN ehs-TOY bee-EHN.', e:"I'm fine too."},
+      {speaker:'B', v:'¡Adiós!', p:'ah-dee-OHS!', e:'Goodbye!'},
+    ],
+    vocab:[
+      {v:'hola', e:'hello'}, {v:'adiós', e:'goodbye'}, {v:'gracias', e:'thank you'}, {v:'tú', e:'you (informal)'},
+      {v:'bien', e:'fine / well'}, {v:'cómo', e:'how'}, {v:'yo', e:'I / me'}, {v:'también', e:'also / too'},
+    ],
+    grammar:[
+      {title:"Ser vs. Estar — 'Estar' for Temporary States", body:'Spanish has two verbs for "to be." "Ser" describes permanent traits and identity (who/what something is), while "estar" describes temporary states, conditions, and locations. In the dialogue, "¿Cómo estás?" uses "estás" (from estar) because it asks about a temporary condition — how you\'re feeling right now — not a permanent trait.'},
+      {title:'Tú vs. Usted — Formality', body:'Spanish has two words for "you": "tú" (informal, used with friends, family, and peers) and "usted" (formal, used with strangers, elders, or in professional settings). The dialogue uses "tú," appropriate for a casual greeting between people who already know each other.'},
+    ],
+    cards:[
+      {v:'¡Hola! ¿Cómo estás?', p:'OH-lah! KOH-moh ehs-TAHS?', e:'Hello! How are you?'},
+      {v:'Estoy bien, gracias. ¿Y tú?', p:'ehs-TOY bee-EHN, GRAH-see-ahs. ee too?', e:"I'm fine, thank you. And you?"},
+      {v:'Yo también estoy bien.', p:'yoh tahm-bee-EHN ehs-TOY bee-EHN.', e:"I'm fine too."},
+      {v:'¡Adiós!', p:'ah-dee-OHS!', e:'Goodbye!'},
+    ] },
+];
+
+const CONCEPT_LESSONS_ES = [
+  { id:'es_c1', afterDay:1, title:"Ser vs. Estar — Two Verbs for 'To Be'", subtitle:'Spanish splits the English verb "to be" into two separate verbs depending on whether you\'re describing something permanent or something temporary.',
+    img:'images/es_concept_01.jpg',
+    blocks:[
+      {type:'text', body:'"Ser" is used for permanent or defining characteristics — identity, profession, nationality, inherent qualities. "Estar" is used for temporary states, conditions, emotions, and physical location. Mixing them up is one of the most common mistakes English speakers make in Spanish, because English uses just one word for both.'},
+      {type:'heading', text:'Ser vs. Estar, Side by Side'},
+      {type:'vocab', words:[
+        {v:'Soy profesor.', e:'I am a teacher. (ser — a lasting identity/profession)'},
+        {v:'Estoy cansado.', e:'I am tired. (estar — a temporary condition)'},
+        {v:'La comida está fría.', e:'The food is cold. (estar — a temporary state, even for a fact about food)'},
+      ]},
+      {type:'text', body:'<em>A useful shortcut: if the quality could change moment to moment (mood, temperature, location), reach for "estar." If it\'s closer to a lasting label (job, nationality, personality), reach for "ser."</em>'},
+    ] },
+  { id:'es_c2', afterDay:1, title:'Gendered Nouns & Adjective Agreement', subtitle:'Every Spanish noun is grammatically masculine or feminine, and adjectives must change their ending to match — a feature English doesn\'t have at all.',
+    img:'images/es_concept_02.jpg',
+    blocks:[
+      {type:'heading', text:'Matching Adjectives to Nouns'},
+      {type:'text', body:"Spanish nouns carry grammatical gender (masculine or feminine) even for objects with no natural gender — \"el libro\" (the book) is masculine, \"la mesa\" (the table) is feminine. Adjectives describing a noun must agree with it in both gender and number, usually by changing their final vowel and/or adding -s or -es for plural."},
+      {type:'vocab', words:[
+        {v:'el libro rojo', e:'the red book — masculine singular (libro, rojo)'},
+        {v:'la mesa roja', e:'the red table — feminine singular (mesa, roja)'},
+        {v:'los libros rojos', e:'the red books — masculine plural (libros, rojos)'},
+      ]},
+      {type:'text', body:'<em>Most nouns ending in -o are masculine and most ending in -a are feminine, but there are common exceptions (like "el día," the day, which is masculine) — so gender is usually memorized alongside each noun rather than derived from a strict rule.</em>'},
+    ] },
+];
+function isEsId(id){ return typeof id === 'string' && id.indexOf('es_') === 0; }
+
+// Given any lesson/concept id, return which language's progress bucket it
+// belongs in — the top-level `state` object for Vietnamese (the original,
+// untouched shape), or a per-language sub-object for everything else. Keeping
+// this as one function means a 10th language only adds one more branch here,
+// not one more copy of the ternary at every call site.
+function progressBucketFor(id){
+  if(isZhId(id)) return state.zh;
+  if(isYueId(id)) return state.yue;
+  if(isJaId(id)) return state.ja;
+  if(isKoId(id)) return state.ko;
+  if(isThId(id)) return state.th;
+  if(isTlId(id)) return state.tl;
+  if(isEnId(id)) return state.en;
+  if(isEsId(id)) return state.es;
+  return state;
+}
 
 const LESSONS = [
   { id:'l1', day:1, section:1, level:'A0', title:"Hello and Goodbye", tag:'Survival', img:'images/lesson_01.jpg',
@@ -7684,11 +8235,20 @@ const CHAT_PERSONAS = {
 const DEFAULT_STATE = {
   name:'', dailyGoal:10,
   lastModified:null, // ISO timestamp, stamped on every saveState() — lets sync tell which copy (local vs cloud) is actually newer instead of blindly trusting the cloud
-  language:'vi', // 'vi' | 'zh' — which LANGUAGES entry is active; switched via the flag picker on Home
-  // Mandarin's own progress, fully separate from the Vietnamese fields below
-  // it (completedLessons, xp, streak, srs, etc.) — switching languages must
-  // never let one course's progress leak into or overwrite the other's.
+  language:'vi', // 'vi' | 'zh' | 'yue' | 'ja' | 'ko' | 'th' | 'tl' | 'en' | 'es' — which LANGUAGES entry is active; switched via the flag picker on Home
+  // Mandarin's, Cantonese's, Japanese's, Korean's, Thai's, Tagalog's,
+  // English's, and Spanish's own progress, fully separate from the Vietnamese
+  // fields below (completedLessons, xp, streak, srs, etc.) and from each
+  // other — switching languages must never let one course's progress leak
+  // into or overwrite another's.
   zh:{ completedLessons:[], completedConcepts:[], xp:0, streak:0, bestStreak:0, lastStudyDate:null, studyDates:[], srs:{} },
+  yue:{ completedLessons:[], completedConcepts:[], xp:0, streak:0, bestStreak:0, lastStudyDate:null, studyDates:[], srs:{} },
+  ja:{ completedLessons:[], completedConcepts:[], xp:0, streak:0, bestStreak:0, lastStudyDate:null, studyDates:[], srs:{} },
+  ko:{ completedLessons:[], completedConcepts:[], xp:0, streak:0, bestStreak:0, lastStudyDate:null, studyDates:[], srs:{} },
+  th:{ completedLessons:[], completedConcepts:[], xp:0, streak:0, bestStreak:0, lastStudyDate:null, studyDates:[], srs:{} },
+  tl:{ completedLessons:[], completedConcepts:[], xp:0, streak:0, bestStreak:0, lastStudyDate:null, studyDates:[], srs:{} },
+  en:{ completedLessons:[], completedConcepts:[], xp:0, streak:0, bestStreak:0, lastStudyDate:null, studyDates:[], srs:{} },
+  es:{ completedLessons:[], completedConcepts:[], xp:0, streak:0, bestStreak:0, lastStudyDate:null, studyDates:[], srs:{} },
   completedLessons:[], savedPhrases:[], completedChats:[],
   xp:0, streak:0, bestStreak:0, lastStudyDate:null, studyDates:[],
   contentMode:'new', // 'new' (fresh app-within-the-app content) | 'classic' (original word/phrase database) — Cards tab toggle
@@ -9425,10 +9985,15 @@ function speakQueue(texts, accent, onComplete){
     const queue = texts.filter(Boolean);
     if(!queue.length){ if(onComplete) onComplete(); return; }
     // TTS locale follows the active course, not just Vietnamese — Mandarin
-    // text spoken with a vi-VN voice would badly mispronounce it.
-    const ttsLang = state.language==='zh' ? 'zh-CN' : 'vi-VN';
+    // or Cantonese text spoken with a vi-VN voice would badly mispronounce it.
+    // Mandarin (zh-CN) and Cantonese (zh-HK) share the "zh" prefix but are
+    // NOT interchangeable voices, so match the full BCP-47 tag exactly first;
+    // only Vietnamese (which has no such ambiguous sibling) falls back to a
+    // looser prefix match when an exact "vi-VN" voice isn't installed.
+    const ttsLang = TTS_LOCALE[state.language] || 'vi-VN';
     const voices = speechSynthesis.getVoices();
-    const langVoice = voices.find(v=>v.lang && v.lang.toLowerCase().startsWith(state.language==='zh' ? 'zh' : 'vi'));
+    const langVoice = voices.find(v=>v.lang && v.lang.toLowerCase()===ttsLang.toLowerCase())
+      || (state.language==='vi' ? voices.find(v=>v.lang && v.lang.toLowerCase().startsWith('vi')) : undefined);
     let i = 0;
     function playNext(){
       if(i >= queue.length){ if(onComplete) onComplete(); return; }
@@ -9525,7 +10090,7 @@ function trySpeak(){
   }
   try{
     recognitionInstance = new SR();
-    recognitionInstance.lang = state.language==='zh' ? 'zh-CN' : 'vi-VN';
+    recognitionInstance.lang = TTS_LOCALE[state.language] || 'vi-VN';
     recognitionInstance.onresult = (e)=>{
       const said = e.results[0][0].transcript;
       if(resultEl) resultEl.textContent = `You said: "${said}" — nice, keep matching the tones!`;
@@ -9634,7 +10199,7 @@ function buildSteps(type, source){
 // pending content show an honest "coming soon" note instead of empty space.
 let lessonDetailId = null;
 function openLessonDetail(id){
-  const l = LESSONS.find(x=>x.id===id) || TOPIC_LESSONS.find(x=>x.id===id) || LESSONS_ZH.find(x=>x.id===id);
+  const l = LESSONS.find(x=>x.id===id) || TOPIC_LESSONS.find(x=>x.id===id) || LESSONS_ZH.find(x=>x.id===id) || LESSONS_YUE.find(x=>x.id===id) || LESSONS_JA.find(x=>x.id===id) || LESSONS_KO.find(x=>x.id===id) || LESSONS_TH.find(x=>x.id===id) || LESSONS_TL.find(x=>x.id===id) || LESSONS_EN.find(x=>x.id===id) || LESSONS_ES.find(x=>x.id===id);
   if(!l) return;
   lessonDetailId = id;
 
@@ -9705,7 +10270,7 @@ function startLessonFromDetail(){
 const PRACTICE_SPEEDS = [1, 0.7, 0.5];
 let practiceState = null;
 function openPractice(lessonId){
-  const l = LESSONS.find(x=>x.id===lessonId) || TOPIC_LESSONS.find(x=>x.id===lessonId) || LESSONS_ZH.find(x=>x.id===lessonId);
+  const l = LESSONS.find(x=>x.id===lessonId) || TOPIC_LESSONS.find(x=>x.id===lessonId) || LESSONS_ZH.find(x=>x.id===lessonId) || LESSONS_YUE.find(x=>x.id===lessonId) || LESSONS_JA.find(x=>x.id===lessonId) || LESSONS_KO.find(x=>x.id===lessonId) || LESSONS_TH.find(x=>x.id===lessonId) || LESSONS_TL.find(x=>x.id===lessonId) || LESSONS_EN.find(x=>x.id===lessonId) || LESSONS_ES.find(x=>x.id===lessonId);
   if(!l || !(l.dialogue||[]).length){
     alert("This lesson doesn't have practice dialogue written yet.");
     return;
@@ -9798,7 +10363,7 @@ function startPracticeMic(){
     micBtn.classList.add('listening');
     if(recognitionInstance){ try{ recognitionInstance.abort(); }catch(e){} }
     recognitionInstance = new SR();
-    recognitionInstance.lang = state.language==='zh' ? 'zh-CN' : 'vi-VN';
+    recognitionInstance.lang = TTS_LOCALE[state.language] || 'vi-VN';
     let gotResult = false;
     // Safety net: if nothing fires within 6s (the exact failure mode
     // reported on iOS — mic listens, callback never comes), stop waiting
@@ -10202,29 +10767,29 @@ function completePracticeLesson(){
   const ps = practiceState;
   if(!ps) return;
   const key = ps.lesson.id;
-  const zh = isZhId(key);
-  const bucket = zh ? state.zh : state;
+  const bucket = progressBucketFor(key);
+  const isVi = bucket === state;
   if(!bucket.completedLessons.includes(key)){
     bucket.completedLessons.push(key);
     bucket.xp += (ps.lesson.cards ? ps.lesson.cards.length : ps.lesson.dialogue.length) * 5;
-    if(zh) bumpZhStreak(); else { bumpStreak(); registerChallengeLearn(); }
+    if(isVi){ bumpStreak(); registerChallengeLearn(); } else { bumpStreakOn(bucket); }
     saveState();
   }
 }
-// Mandarin's own losable-free daily streak, kept entirely separate from the
+// Shared losable-free daily streak updater for any non-Vietnamese language's
+// progress bucket (state.zh, state.yue, ...), kept entirely separate from the
 // Vietnamese state.streak/bestStreak/studyDates fields bumpStreak() updates.
-function bumpZhStreak(){
+function bumpStreakOn(bucket){
   const todayKey = new Date().toISOString().slice(0,10);
-  const z = state.zh;
-  if(!z.studyDates.includes(todayKey)) z.studyDates.push(todayKey);
-  if(z.studyDates.length>60) z.studyDates = z.studyDates.slice(-60);
+  if(!bucket.studyDates.includes(todayKey)) bucket.studyDates.push(todayKey);
+  if(bucket.studyDates.length>60) bucket.studyDates = bucket.studyDates.slice(-60);
   const yesterday = new Date(); yesterday.setDate(yesterday.getDate()-1);
   const yKey = yesterday.toISOString().slice(0,10);
-  if(z.lastStudyDate === todayKey){ /* unchanged */ }
-  else if(z.lastStudyDate === yKey){ z.streak += 1; }
-  else{ z.streak = 1; }
-  z.lastStudyDate = todayKey;
-  z.bestStreak = Math.max(z.bestStreak||0, z.streak);
+  if(bucket.lastStudyDate === todayKey){ /* unchanged */ }
+  else if(bucket.lastStudyDate === yKey){ bucket.streak += 1; }
+  else{ bucket.streak = 1; }
+  bucket.lastStudyDate = todayKey;
+  bucket.bestStreak = Math.max(bucket.bestStreak||0, bucket.streak);
 }
 function finishPractice(){
   renderAll();
@@ -10276,7 +10841,7 @@ function renderPractice(){
 // works" lessons) ========================= 
 let conceptDetailId = null;
 function openConceptDetail(id){
-  const c = CONCEPT_LESSONS.find(x=>x.id===id) || CONCEPT_LESSONS_ZH.find(x=>x.id===id);
+  const c = CONCEPT_LESSONS.find(x=>x.id===id) || CONCEPT_LESSONS_ZH.find(x=>x.id===id) || CONCEPT_LESSONS_YUE.find(x=>x.id===id) || CONCEPT_LESSONS_JA.find(x=>x.id===id) || CONCEPT_LESSONS_KO.find(x=>x.id===id) || CONCEPT_LESSONS_TH.find(x=>x.id===id) || CONCEPT_LESSONS_TL.find(x=>x.id===id) || CONCEPT_LESSONS_EN.find(x=>x.id===id) || CONCEPT_LESSONS_ES.find(x=>x.id===id);
   if(!c) return;
   conceptDetailId = id;
 
@@ -10307,7 +10872,7 @@ function openConceptDetail(id){
   }).join('');
 
   const learnedBtn = document.getElementById('cdLearnedBtn');
-  const done = (isZhId(id) ? state.zh.completedConcepts : state.completedConcepts).includes(id);
+  const done = progressBucketFor(id).completedConcepts.includes(id);
   learnedBtn.textContent = done ? '✓ Learned' : 'Learned';
   learnedBtn.classList.toggle('done', done);
 
@@ -10320,7 +10885,7 @@ function closeConceptDetail(){
 function markConceptLearned(){
   const id = conceptDetailId;
   if(!id) return;
-  const bucket = isZhId(id) ? state.zh.completedConcepts : state.completedConcepts;
+  const bucket = progressBucketFor(id).completedConcepts;
   if(!bucket.includes(id)) bucket.push(id);
   saveState();
   closeConceptDetail();
@@ -10710,6 +11275,13 @@ let lsnOpenGroups = {}; // { 'day_1': true, 'topic_Survival': false, ... } — c
 function isLsnGroupOpen(key){ return lsnOpenGroups[key] !== false; }
 function renderLessonsTab(){
   if(state.language==='zh'){ renderLessonsTabZh(); return; }
+  if(state.language==='yue'){ renderLessonsTabYue(); return; }
+  if(state.language==='ja'){ renderLessonsTabJa(); return; }
+  if(state.language==='ko'){ renderLessonsTabKo(); return; }
+  if(state.language==='th'){ renderLessonsTabTh(); return; }
+  if(state.language==='tl'){ renderLessonsTabTl(); return; }
+  if(state.language==='en'){ renderLessonsTabEn(); return; }
+  if(state.language==='es'){ renderLessonsTabEs(); return; }
   const totalEl = document.getElementById('lsnWordsTotal');
   if(!totalEl) return; // view not in DOM yet, harmless no-op
 
@@ -10872,6 +11444,497 @@ function renderLessonsTabZh(){
     return `<div class="lsn-group ${isOpen?'open':''}" id="lsnGroup_${key}">
       <button class="lsn-group-head" onclick="toggleLsnGroup('${key}')">
         <span class="lsn-group-label">HSK ${lv.num} · ${lv.name}</span>
+        <span class="lsn-group-count">${doneCount}/${lv.dialogues} Dialogues</span>
+        <span class="lsn-group-chevron">▾</span>
+      </button>
+      <div class="lsn-group-body">${sectionsHtml}</div>
+    </div>`;
+  }).join('');
+}
+// Cantonese's Lessons tab — day-based like Vietnamese's original renderer
+// (not HSK-level like Mandarin's), since LESSON_SECTIONS_YUE/LESSONS_YUE
+// follow that same day/section shape. Only Day 1 is unlocked today; a single
+// locked placeholder card communicates that more days are coming, the same
+// pattern HSK1's section uses for its own "more lessons coming soon" card.
+function renderLessonsTabYue(){
+  const totalEl = document.getElementById('lsnWordsTotal');
+  if(!totalEl) return; // view not in DOM yet, harmless no-op
+
+  const yueWordCount = LESSONS_YUE.reduce((sum,l)=>sum+(l.vocab||[]).length,0)
+    + CONCEPT_LESSONS_YUE.reduce((sum,c)=>sum+(c.blocks||[]).filter(b=>b.type==='vocab').reduce((s,b)=>s+b.words.length,0),0);
+  const yueDialogueCount = LESSONS_YUE.reduce((sum,l)=>sum+(l.dialogue||[]).length,0);
+  const yueGrammarCount = LESSONS_YUE.reduce((sum,l)=>sum+(l.grammar||[]).length,0);
+
+  const nextYueLesson = LESSONS_YUE.find(l=>!state.yue.completedLessons.includes(l.id));
+  document.getElementById('lsnReminderTitle').textContent = nextYueLesson ? nextYueLesson.title : 'Review a completed lesson';
+  totalEl.textContent = yueWordCount;
+  document.getElementById('lsnDialogueTotal').textContent = yueDialogueCount;
+  document.getElementById('lsnPhraseTotal').textContent = yueDialogueCount;
+  document.getElementById('lsnGrammarTotal').textContent = yueGrammarCount;
+
+  const listEl = document.getElementById('lsnLessonList');
+  if(!listEl) return;
+
+  const yueLessonCardHtml = (l)=>{
+    const done = state.yue.completedLessons.includes(l.id);
+    let html = `<button class="lsn-lesson-card" onclick="openLessonDetail('${l.id}')">
+      <img src="${l.img}" alt="" onerror="this.style.display='none';">
+      <div class="shade"></div>
+      <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
+      <div class="tag">${l.tag}</div>
+      <div class="day">DAY ${l.day}</div>
+      <div class="title">${l.title}</div>
+    </button>`;
+    CONCEPT_LESSONS_YUE.filter(c=>c.afterDay===l.day).forEach(c=>{
+      const cDone = state.yue.completedConcepts.includes(c.id);
+      html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
+        <img src="${c.img}" alt="" onerror="this.style.display='none';">
+        <div class="shade"></div>
+        <div class="title">${c.title}</div>
+      </button>`;
+    });
+    return html;
+  };
+
+  const key = 'day_1';
+  const isOpen = isLsnGroupOpen(key);
+  const doneCount = LESSONS_YUE.filter(l=>state.yue.completedLessons.includes(l.id)).length;
+  const cardsHtml = LESSON_SECTIONS_YUE.map(sec=>{
+    const secCards = LESSONS_YUE.filter(l=>l.section===sec.id).map(yueLessonCardHtml).join('');
+    return secCards;
+  }).join('') + `<div class="lsn-lesson-card locked" style="display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:800;font-size:13px;text-align:center;padding:12px;">🔒 More Cantonese days coming soon</div>`;
+
+  listEl.innerHTML = `<div class="lsn-group ${isOpen?'open':''}" id="lsnGroup_${key}">
+    <button class="lsn-group-head" onclick="toggleLsnGroup('${key}')">
+      <span class="lsn-group-label">${LESSON_SECTIONS_YUE[0].title}</span>
+      <span class="lsn-group-count">${doneCount}/${LESSONS_YUE.length}</span>
+      <span class="lsn-group-chevron">▾</span>
+    </button>
+    <div class="lsn-group-body"><div class="lsn-group-cards">${cardsHtml}</div></div>
+  </div>`;
+}
+// Japanese's Lessons tab — organized by JLPT level instead of by day, since
+// that's the structure JLPT_LEVELS/JLPT_N5_SECTIONS/LESSONS_JA/CONCEPT_LESSONS_JA
+// follow (per the reference screenshot). Only N5 is unlocked; N4-N1 render as
+// locked rows. The reference screenshot shows locked rows as a bare "JLPT N4"
+// label (no level name, no stat breakdown — only a target dialogue count),
+// unlike Mandarin's locked HSK rows which do show a name — matched here
+// deliberately rather than unified, since that's what the source data shows.
+function renderLessonsTabJa(){
+  const totalEl = document.getElementById('lsnWordsTotal');
+  if(!totalEl) return; // view not in DOM yet, harmless no-op
+
+  const jaWordCount = LESSONS_JA.reduce((sum,l)=>sum+(l.vocab||[]).length,0)
+    + CONCEPT_LESSONS_JA.reduce((sum,c)=>sum+(c.blocks||[]).filter(b=>b.type==='vocab').reduce((s,b)=>s+b.words.length,0),0);
+  const jaDialogueCount = LESSONS_JA.reduce((sum,l)=>sum+(l.dialogue||[]).length,0);
+  const jaGrammarCount = LESSONS_JA.reduce((sum,l)=>sum+(l.grammar||[]).length,0);
+
+  const nextJaLesson = LESSONS_JA.find(l=>!state.ja.completedLessons.includes(l.id));
+  document.getElementById('lsnReminderTitle').textContent = nextJaLesson ? nextJaLesson.title : 'Review a completed lesson';
+  totalEl.textContent = jaWordCount;
+  document.getElementById('lsnDialogueTotal').textContent = jaDialogueCount;
+  document.getElementById('lsnPhraseTotal').textContent = jaDialogueCount;
+  document.getElementById('lsnGrammarTotal').textContent = jaGrammarCount;
+
+  const listEl = document.getElementById('lsnLessonList');
+  if(!listEl) return;
+
+  const jaLessonCardHtml = (l)=>{
+    const done = state.ja.completedLessons.includes(l.id);
+    let html = `<button class="lsn-lesson-card" onclick="openLessonDetail('${l.id}')">
+      <img src="${l.img}" alt="" onerror="this.style.display='none';">
+      <div class="shade"></div>
+      <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
+      <div class="tag">${l.tag}</div>
+      <div class="day">JLPT N5</div>
+      <div class="title">${l.title}</div>
+    </button>`;
+    CONCEPT_LESSONS_JA.filter(c=>c.afterDay===l.day).forEach(c=>{
+      const cDone = state.ja.completedConcepts.includes(c.id);
+      html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
+        <img src="${c.img}" alt="" onerror="this.style.display='none';">
+        <div class="shade"></div>
+        <div class="title">${c.title}</div>
+      </button>`;
+    });
+    return html;
+  };
+
+  listEl.innerHTML = JLPT_LEVELS.map(lv=>{
+    const key = 'jlpt_'+lv.num;
+    if(!lv.unlocked){
+      return `<button class="lsn-group-head" style="opacity:.55;" onclick="alert('JLPT N${lv.num} content is coming soon.')">
+        <span class="lsn-group-label">JLPT N${lv.num}</span>
+        <span class="lsn-group-count">🔒 ${lv.dialogues} Dialogues</span>
+      </button>`;
+    }
+    const isOpen = isLsnGroupOpen(key);
+    const doneCount = LESSONS_JA.filter(l=>state.ja.completedLessons.includes(l.id)).length;
+    const sectionsHtml = JLPT_N5_SECTIONS.map(sec=>{
+      const cardsHtml = LESSONS_JA.filter(l=>l.section===sec.id).map(jaLessonCardHtml).join('')
+        + `<div class="lsn-lesson-card locked" style="display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:800;font-size:13px;text-align:center;padding:12px;">🔒 More JLPT N5 lessons coming soon</div>`;
+      return `<p class="lsn-section-label" style="font-weight:800;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:10px 2px;">${sec.roman} · ${sec.title}</p>
+        <div class="lsn-group-cards">${cardsHtml}</div>`;
+    }).join('');
+    return `<div class="lsn-group ${isOpen?'open':''}" id="lsnGroup_${key}">
+      <button class="lsn-group-head" onclick="toggleLsnGroup('${key}')">
+        <span class="lsn-group-label">JLPT N${lv.num} · ${lv.name}</span>
+        <span class="lsn-group-count">${doneCount}/${lv.dialogues} Dialogues</span>
+        <span class="lsn-group-chevron">▾</span>
+      </button>
+      <div class="lsn-group-body">${sectionsHtml}</div>
+    </div>`;
+  }).join('');
+}
+// Korean's Lessons tab — organized by TOPIK level instead of by day, mirroring
+// renderLessonsTabJa()'s JLPT-level pattern (same "only the unlocked level
+// shows a full stat breakdown" shape, per the reference screenshot: TOPIK 1
+// shows phrases/words/grammar/notes, TOPIK 2-6 only a target dialogue count
+// behind a bare "TOPIK N" locked label).
+function renderLessonsTabKo(){
+  const totalEl = document.getElementById('lsnWordsTotal');
+  if(!totalEl) return; // view not in DOM yet, harmless no-op
+
+  const koWordCount = LESSONS_KO.reduce((sum,l)=>sum+(l.vocab||[]).length,0)
+    + CONCEPT_LESSONS_KO.reduce((sum,c)=>sum+(c.blocks||[]).filter(b=>b.type==='vocab').reduce((s,b)=>s+b.words.length,0),0);
+  const koDialogueCount = LESSONS_KO.reduce((sum,l)=>sum+(l.dialogue||[]).length,0);
+  const koGrammarCount = LESSONS_KO.reduce((sum,l)=>sum+(l.grammar||[]).length,0);
+
+  const nextKoLesson = LESSONS_KO.find(l=>!state.ko.completedLessons.includes(l.id));
+  document.getElementById('lsnReminderTitle').textContent = nextKoLesson ? nextKoLesson.title : 'Review a completed lesson';
+  totalEl.textContent = koWordCount;
+  document.getElementById('lsnDialogueTotal').textContent = koDialogueCount;
+  document.getElementById('lsnPhraseTotal').textContent = koDialogueCount;
+  document.getElementById('lsnGrammarTotal').textContent = koGrammarCount;
+
+  const listEl = document.getElementById('lsnLessonList');
+  if(!listEl) return;
+
+  const koLessonCardHtml = (l)=>{
+    const done = state.ko.completedLessons.includes(l.id);
+    let html = `<button class="lsn-lesson-card" onclick="openLessonDetail('${l.id}')">
+      <img src="${l.img}" alt="" onerror="this.style.display='none';">
+      <div class="shade"></div>
+      <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
+      <div class="tag">${l.tag}</div>
+      <div class="day">TOPIK 1</div>
+      <div class="title">${l.title}</div>
+    </button>`;
+    CONCEPT_LESSONS_KO.filter(c=>c.afterDay===l.day).forEach(c=>{
+      const cDone = state.ko.completedConcepts.includes(c.id);
+      html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
+        <img src="${c.img}" alt="" onerror="this.style.display='none';">
+        <div class="shade"></div>
+        <div class="title">${c.title}</div>
+      </button>`;
+    });
+    return html;
+  };
+
+  listEl.innerHTML = TOPIK_LEVELS.map(lv=>{
+    const key = 'topik_'+lv.num;
+    if(!lv.unlocked){
+      return `<button class="lsn-group-head" style="opacity:.55;" onclick="alert('TOPIK ${lv.num} content is coming soon.')">
+        <span class="lsn-group-label">TOPIK ${lv.num}</span>
+        <span class="lsn-group-count">🔒 ${lv.dialogues} Dialogues</span>
+      </button>`;
+    }
+    const isOpen = isLsnGroupOpen(key);
+    const doneCount = LESSONS_KO.filter(l=>state.ko.completedLessons.includes(l.id)).length;
+    const sectionsHtml = TOPIK1_SECTIONS.map(sec=>{
+      const cardsHtml = LESSONS_KO.filter(l=>l.section===sec.id).map(koLessonCardHtml).join('')
+        + `<div class="lsn-lesson-card locked" style="display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:800;font-size:13px;text-align:center;padding:12px;">🔒 More TOPIK 1 lessons coming soon</div>`;
+      return `<p class="lsn-section-label" style="font-weight:800;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:10px 2px;">${sec.roman} · ${sec.title}</p>
+        <div class="lsn-group-cards">${cardsHtml}</div>`;
+    }).join('');
+    return `<div class="lsn-group ${isOpen?'open':''}" id="lsnGroup_${key}">
+      <button class="lsn-group-head" onclick="toggleLsnGroup('${key}')">
+        <span class="lsn-group-label">TOPIK ${lv.num} · ${lv.name}</span>
+        <span class="lsn-group-count">${doneCount}/${lv.dialogues} Dialogues</span>
+        <span class="lsn-group-chevron">▾</span>
+      </button>
+      <div class="lsn-group-body">${sectionsHtml}</div>
+    </div>`;
+  }).join('');
+}
+// Thai's Lessons tab — organized by CEFR level like the others, but
+// THAI_LEVELS holds only the one unlocked A1 entry (see the comment on
+// THAI_LEVELS above), so this naturally renders just that single group with
+// no locked rows below it — matching the reference screenshot, which showed
+// no locked A2/B1/etc rows at all, just a "Request higher levels" text link
+// (not built — same "auxiliary reference-app chrome, not requested" category
+// as "Ask Ming" and "Request a lesson topic" elsewhere on that screen).
+function renderLessonsTabTh(){
+  const totalEl = document.getElementById('lsnWordsTotal');
+  if(!totalEl) return; // view not in DOM yet, harmless no-op
+
+  const thWordCount = LESSONS_TH.reduce((sum,l)=>sum+(l.vocab||[]).length,0)
+    + CONCEPT_LESSONS_TH.reduce((sum,c)=>sum+(c.blocks||[]).filter(b=>b.type==='vocab').reduce((s,b)=>s+b.words.length,0),0);
+  const thDialogueCount = LESSONS_TH.reduce((sum,l)=>sum+(l.dialogue||[]).length,0);
+  const thGrammarCount = LESSONS_TH.reduce((sum,l)=>sum+(l.grammar||[]).length,0);
+
+  const nextThLesson = LESSONS_TH.find(l=>!state.th.completedLessons.includes(l.id));
+  document.getElementById('lsnReminderTitle').textContent = nextThLesson ? nextThLesson.title : 'Review a completed lesson';
+  totalEl.textContent = thWordCount;
+  document.getElementById('lsnDialogueTotal').textContent = thDialogueCount;
+  document.getElementById('lsnPhraseTotal').textContent = thDialogueCount;
+  document.getElementById('lsnGrammarTotal').textContent = thGrammarCount;
+
+  const listEl = document.getElementById('lsnLessonList');
+  if(!listEl) return;
+
+  const thLessonCardHtml = (l)=>{
+    const done = state.th.completedLessons.includes(l.id);
+    let html = `<button class="lsn-lesson-card" onclick="openLessonDetail('${l.id}')">
+      <img src="${l.img}" alt="" onerror="this.style.display='none';">
+      <div class="shade"></div>
+      <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
+      <div class="tag">${l.tag}</div>
+      <div class="day">A1</div>
+      <div class="title">${l.title}</div>
+    </button>`;
+    CONCEPT_LESSONS_TH.filter(c=>c.afterDay===l.day).forEach(c=>{
+      const cDone = state.th.completedConcepts.includes(c.id);
+      html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
+        <img src="${c.img}" alt="" onerror="this.style.display='none';">
+        <div class="shade"></div>
+        <div class="title">${c.title}</div>
+      </button>`;
+    });
+    return html;
+  };
+
+  listEl.innerHTML = THAI_LEVELS.map(lv=>{
+    const key = 'cefr_'+lv.id;
+    if(!lv.unlocked){
+      return `<button class="lsn-group-head" style="opacity:.55;" onclick="alert('${lv.num} content is coming soon.')">
+        <span class="lsn-group-label">${lv.num}</span>
+        <span class="lsn-group-count">🔒 ${lv.dialogues} Dialogues</span>
+      </button>`;
+    }
+    const isOpen = isLsnGroupOpen(key);
+    const doneCount = LESSONS_TH.filter(l=>state.th.completedLessons.includes(l.id)).length;
+    const sectionsHtml = THAI_A1_SECTIONS.map(sec=>{
+      const cardsHtml = LESSONS_TH.filter(l=>l.section===sec.id).map(thLessonCardHtml).join('')
+        + `<div class="lsn-lesson-card locked" style="display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:800;font-size:13px;text-align:center;padding:12px;">🔒 More ${lv.num} lessons coming soon</div>`;
+      return `<p class="lsn-section-label" style="font-weight:800;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:10px 2px;">${sec.roman} · ${sec.title}</p>
+        <div class="lsn-group-cards">${cardsHtml}</div>`;
+    }).join('');
+    return `<div class="lsn-group ${isOpen?'open':''}" id="lsnGroup_${key}">
+      <button class="lsn-group-head" onclick="toggleLsnGroup('${key}')">
+        <span class="lsn-group-label">${lv.num} · ${lv.name}</span>
+        <span class="lsn-group-count">${doneCount}/${lv.dialogues} Dialogues</span>
+        <span class="lsn-group-chevron">▾</span>
+      </button>
+      <div class="lsn-group-body">${sectionsHtml}</div>
+    </div>`;
+  }).join('');
+}
+// Tagalog's Lessons tab — organized by CEFR-style level like Thai, but
+// TAGALOG_LEVELS has TWO entries (FLAT A1 unlocked, FLAT A2 locked with only
+// a dialogue count) per the reference screenshot, so — unlike Thai — this
+// does render one locked row, in the same bare-label style as JLPT/TOPIK's
+// locked rows. The "FLAT" prefix is kept verbatim from the screenshot rather
+// than normalized away.
+function renderLessonsTabTl(){
+  const totalEl = document.getElementById('lsnWordsTotal');
+  if(!totalEl) return; // view not in DOM yet, harmless no-op
+
+  const tlWordCount = LESSONS_TL.reduce((sum,l)=>sum+(l.vocab||[]).length,0)
+    + CONCEPT_LESSONS_TL.reduce((sum,c)=>sum+(c.blocks||[]).filter(b=>b.type==='vocab').reduce((s,b)=>s+b.words.length,0),0);
+  const tlDialogueCount = LESSONS_TL.reduce((sum,l)=>sum+(l.dialogue||[]).length,0);
+  const tlGrammarCount = LESSONS_TL.reduce((sum,l)=>sum+(l.grammar||[]).length,0);
+
+  const nextTlLesson = LESSONS_TL.find(l=>!state.tl.completedLessons.includes(l.id));
+  document.getElementById('lsnReminderTitle').textContent = nextTlLesson ? nextTlLesson.title : 'Review a completed lesson';
+  totalEl.textContent = tlWordCount;
+  document.getElementById('lsnDialogueTotal').textContent = tlDialogueCount;
+  document.getElementById('lsnPhraseTotal').textContent = tlDialogueCount;
+  document.getElementById('lsnGrammarTotal').textContent = tlGrammarCount;
+
+  const listEl = document.getElementById('lsnLessonList');
+  if(!listEl) return;
+
+  const tlLessonCardHtml = (l)=>{
+    const done = state.tl.completedLessons.includes(l.id);
+    let html = `<button class="lsn-lesson-card" onclick="openLessonDetail('${l.id}')">
+      <img src="${l.img}" alt="" onerror="this.style.display='none';">
+      <div class="shade"></div>
+      <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
+      <div class="tag">${l.tag}</div>
+      <div class="day">FLAT A1</div>
+      <div class="title">${l.title}</div>
+    </button>`;
+    CONCEPT_LESSONS_TL.filter(c=>c.afterDay===l.day).forEach(c=>{
+      const cDone = state.tl.completedConcepts.includes(c.id);
+      html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
+        <img src="${c.img}" alt="" onerror="this.style.display='none';">
+        <div class="shade"></div>
+        <div class="title">${c.title}</div>
+      </button>`;
+    });
+    return html;
+  };
+
+  listEl.innerHTML = TAGALOG_LEVELS.map(lv=>{
+    const key = 'flat_'+lv.id;
+    if(!lv.unlocked){
+      return `<button class="lsn-group-head" style="opacity:.55;" onclick="alert('FLAT ${lv.num} content is coming soon.')">
+        <span class="lsn-group-label">FLAT ${lv.num}</span>
+        <span class="lsn-group-count">🔒 ${lv.dialogues} Dialogues</span>
+      </button>`;
+    }
+    const isOpen = isLsnGroupOpen(key);
+    const doneCount = LESSONS_TL.filter(l=>state.tl.completedLessons.includes(l.id)).length;
+    const sectionsHtml = TAGALOG_A1_SECTIONS.map(sec=>{
+      const cardsHtml = LESSONS_TL.filter(l=>l.section===sec.id).map(tlLessonCardHtml).join('')
+        + `<div class="lsn-lesson-card locked" style="display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:800;font-size:13px;text-align:center;padding:12px;">🔒 More FLAT A1 lessons coming soon</div>`;
+      return `<p class="lsn-section-label" style="font-weight:800;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:10px 2px;">${sec.roman} · ${sec.title}</p>
+        <div class="lsn-group-cards">${cardsHtml}</div>`;
+    }).join('');
+    return `<div class="lsn-group ${isOpen?'open':''}" id="lsnGroup_${key}">
+      <button class="lsn-group-head" onclick="toggleLsnGroup('${key}')">
+        <span class="lsn-group-label">FLAT ${lv.num} · ${lv.name}</span>
+        <span class="lsn-group-count">${doneCount}/${lv.dialogues} Dialogues</span>
+        <span class="lsn-group-chevron">▾</span>
+      </button>
+      <div class="lsn-group-body">${sectionsHtml}</div>
+    </div>`;
+  }).join('');
+}
+// English's Lessons tab — organized by IELTS band score, same JLPT/TOPIK
+// shape (only the unlocked first band shows a full stat breakdown; locked
+// bands show a bare "IELTS 4.0" label with just a target dialogue count),
+// per the reference screenshot.
+function renderLessonsTabEn(){
+  const totalEl = document.getElementById('lsnWordsTotal');
+  if(!totalEl) return; // view not in DOM yet, harmless no-op
+
+  const enWordCount = LESSONS_EN.reduce((sum,l)=>sum+(l.vocab||[]).length,0)
+    + CONCEPT_LESSONS_EN.reduce((sum,c)=>sum+(c.blocks||[]).filter(b=>b.type==='vocab').reduce((s,b)=>s+b.words.length,0),0);
+  const enDialogueCount = LESSONS_EN.reduce((sum,l)=>sum+(l.dialogue||[]).length,0);
+  const enGrammarCount = LESSONS_EN.reduce((sum,l)=>sum+(l.grammar||[]).length,0);
+
+  const nextEnLesson = LESSONS_EN.find(l=>!state.en.completedLessons.includes(l.id));
+  document.getElementById('lsnReminderTitle').textContent = nextEnLesson ? nextEnLesson.title : 'Review a completed lesson';
+  totalEl.textContent = enWordCount;
+  document.getElementById('lsnDialogueTotal').textContent = enDialogueCount;
+  document.getElementById('lsnPhraseTotal').textContent = enDialogueCount;
+  document.getElementById('lsnGrammarTotal').textContent = enGrammarCount;
+
+  const listEl = document.getElementById('lsnLessonList');
+  if(!listEl) return;
+
+  const enLessonCardHtml = (l)=>{
+    const done = state.en.completedLessons.includes(l.id);
+    let html = `<button class="lsn-lesson-card" onclick="openLessonDetail('${l.id}')">
+      <img src="${l.img}" alt="" onerror="this.style.display='none';">
+      <div class="shade"></div>
+      <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
+      <div class="tag">${l.tag}</div>
+      <div class="day">IELTS 2.0</div>
+      <div class="title">${l.title}</div>
+    </button>`;
+    CONCEPT_LESSONS_EN.filter(c=>c.afterDay===l.day).forEach(c=>{
+      const cDone = state.en.completedConcepts.includes(c.id);
+      html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
+        <img src="${c.img}" alt="" onerror="this.style.display='none';">
+        <div class="shade"></div>
+        <div class="title">${c.title}</div>
+      </button>`;
+    });
+    return html;
+  };
+
+  listEl.innerHTML = IELTS_LEVELS.map(lv=>{
+    const key = 'ielts_'+lv.id;
+    if(!lv.unlocked){
+      return `<button class="lsn-group-head" style="opacity:.55;" onclick="alert('IELTS ${lv.band} content is coming soon.')">
+        <span class="lsn-group-label">IELTS ${lv.band}</span>
+        <span class="lsn-group-count">🔒 ${lv.dialogues} Dialogues</span>
+      </button>`;
+    }
+    const isOpen = isLsnGroupOpen(key);
+    const doneCount = LESSONS_EN.filter(l=>state.en.completedLessons.includes(l.id)).length;
+    const sectionsHtml = IELTS2_SECTIONS.map(sec=>{
+      const cardsHtml = LESSONS_EN.filter(l=>l.section===sec.id).map(enLessonCardHtml).join('')
+        + `<div class="lsn-lesson-card locked" style="display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:800;font-size:13px;text-align:center;padding:12px;">🔒 More IELTS ${lv.band} lessons coming soon</div>`;
+      return `<p class="lsn-section-label" style="font-weight:800;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:10px 2px;">${sec.roman} · ${sec.title}</p>
+        <div class="lsn-group-cards">${cardsHtml}</div>`;
+    }).join('');
+    return `<div class="lsn-group ${isOpen?'open':''}" id="lsnGroup_${key}">
+      <button class="lsn-group-head" onclick="toggleLsnGroup('${key}')">
+        <span class="lsn-group-label">IELTS ${lv.band} · ${lv.name}</span>
+        <span class="lsn-group-count">${doneCount}/${lv.dialogues} Dialogues</span>
+        <span class="lsn-group-chevron">▾</span>
+      </button>
+      <div class="lsn-group-body">${sectionsHtml}</div>
+    </div>`;
+  }).join('');
+}
+// Spanish's Lessons tab — organized by DELE level, same JLPT/TOPIK/IELTS
+// shape (only the unlocked first level shows a full stat breakdown, locked
+// levels show a bare "DELE A2" label with just a target dialogue count),
+// per the reference screenshot.
+function renderLessonsTabEs(){
+  const totalEl = document.getElementById('lsnWordsTotal');
+  if(!totalEl) return; // view not in DOM yet, harmless no-op
+
+  const esWordCount = LESSONS_ES.reduce((sum,l)=>sum+(l.vocab||[]).length,0)
+    + CONCEPT_LESSONS_ES.reduce((sum,c)=>sum+(c.blocks||[]).filter(b=>b.type==='vocab').reduce((s,b)=>s+b.words.length,0),0);
+  const esDialogueCount = LESSONS_ES.reduce((sum,l)=>sum+(l.dialogue||[]).length,0);
+  const esGrammarCount = LESSONS_ES.reduce((sum,l)=>sum+(l.grammar||[]).length,0);
+
+  const nextEsLesson = LESSONS_ES.find(l=>!state.es.completedLessons.includes(l.id));
+  document.getElementById('lsnReminderTitle').textContent = nextEsLesson ? nextEsLesson.title : 'Review a completed lesson';
+  totalEl.textContent = esWordCount;
+  document.getElementById('lsnDialogueTotal').textContent = esDialogueCount;
+  document.getElementById('lsnPhraseTotal').textContent = esDialogueCount;
+  document.getElementById('lsnGrammarTotal').textContent = esGrammarCount;
+
+  const listEl = document.getElementById('lsnLessonList');
+  if(!listEl) return;
+
+  const esLessonCardHtml = (l)=>{
+    const done = state.es.completedLessons.includes(l.id);
+    let html = `<button class="lsn-lesson-card" onclick="openLessonDetail('${l.id}')">
+      <img src="${l.img}" alt="" onerror="this.style.display='none';">
+      <div class="shade"></div>
+      <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
+      <div class="tag">${l.tag}</div>
+      <div class="day">DELE A1</div>
+      <div class="title">${l.title}</div>
+    </button>`;
+    CONCEPT_LESSONS_ES.filter(c=>c.afterDay===l.day).forEach(c=>{
+      const cDone = state.es.completedConcepts.includes(c.id);
+      html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
+        <img src="${c.img}" alt="" onerror="this.style.display='none';">
+        <div class="shade"></div>
+        <div class="title">${c.title}</div>
+      </button>`;
+    });
+    return html;
+  };
+
+  listEl.innerHTML = DELE_LEVELS.map(lv=>{
+    const key = 'dele_'+lv.id;
+    if(!lv.unlocked){
+      return `<button class="lsn-group-head" style="opacity:.55;" onclick="alert('DELE ${lv.num} content is coming soon.')">
+        <span class="lsn-group-label">DELE ${lv.num}</span>
+        <span class="lsn-group-count">🔒 ${lv.dialogues} Dialogues</span>
+      </button>`;
+    }
+    const isOpen = isLsnGroupOpen(key);
+    const doneCount = LESSONS_ES.filter(l=>state.es.completedLessons.includes(l.id)).length;
+    const sectionsHtml = DELE_A1_SECTIONS.map(sec=>{
+      const cardsHtml = LESSONS_ES.filter(l=>l.section===sec.id).map(esLessonCardHtml).join('')
+        + `<div class="lsn-lesson-card locked" style="display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:800;font-size:13px;text-align:center;padding:12px;">🔒 More DELE ${lv.num} lessons coming soon</div>`;
+      return `<p class="lsn-section-label" style="font-weight:800;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:10px 2px;">${sec.roman} · ${sec.title}</p>
+        <div class="lsn-group-cards">${cardsHtml}</div>`;
+    }).join('');
+    return `<div class="lsn-group ${isOpen?'open':''}" id="lsnGroup_${key}">
+      <button class="lsn-group-head" onclick="toggleLsnGroup('${key}')">
+        <span class="lsn-group-label">DELE ${lv.num} · ${lv.name}</span>
         <span class="lsn-group-count">${doneCount}/${lv.dialogues} Dialogues</span>
         <span class="lsn-group-chevron">▾</span>
       </button>

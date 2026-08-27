@@ -1,7 +1,7 @@
 {
-  "name": "Daily Viet - Learn Southern Vietnamese Daily",
-  "short_name": "Daily Viet",
-  "start_url": "./DailyViet.html",
+  "name": "LaiLingo: Learn Languages",
+  "short_name": "LaiLingo",
+  "start_url": "./LaiLingo.html",
   "display": "standalone",
   "background_color": "#0E211D",
   "theme_color": "#0E211D",
