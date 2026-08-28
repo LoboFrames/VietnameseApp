@@ -1950,6 +1950,7 @@ const LESSON_SECTIONS = [
    through every existing Vietnamese function. */
 const LANGUAGES = [
   { id:'vi', name:'Vietnamese', flag:'🇻🇳', brand:'LaiLingo' },
+  { id:'vi2', name:'Vietnamese (New)', flag:'🇻🇳', brand:'LaiLingo' },
   { id:'zh', name:'Mandarin', flag:'🇨🇳', brand:'LaiLingo' },
   { id:'yue', name:'Cantonese', flag:'🇭🇰', brand:'LaiLingo' },
   { id:'ja', name:'Japanese', flag:'🇯🇵', brand:'LaiLingo' },
@@ -1968,7 +1969,7 @@ const LANGUAGES = [
 // so voice lookup elsewhere does an exact match on this string, not a prefix.
 // Tagalog uses the 'fil-PH' (Filipino) BCP-47 tag rather than 'tl-PH' since
 // that's the tag browsers/OSes actually ship voices and recognition under.
-const TTS_LOCALE = { vi:'vi-VN', zh:'zh-CN', yue:'zh-HK', ja:'ja-JP', ko:'ko-KR', th:'th-TH', tl:'fil-PH', en:'en-US', es:'es-ES' };
+const TTS_LOCALE = { vi:'vi-VN', vi2:'vi-VN', zh:'zh-CN', yue:'zh-HK', ja:'ja-JP', ko:'ko-KR', th:'th-TH', tl:'fil-PH', en:'en-US', es:'es-ES' };
 
 // Target curriculum size for each HSK level — shown on the level card even
 // before that level's lessons are written, same as a real course outline.
@@ -1985,6 +1986,7 @@ const HSK_LEVELS = [
 
 const HSK1_SECTIONS = [
   { id:1, roman:'I', title:'Survival On-Ramp' },
+  { id:2, roman:'II', title:'Everyday Life' },
 ];
 
 const LESSONS_ZH = [
@@ -2011,6 +2013,246 @@ const LESSONS_ZH = [
       {v:'我很好，谢谢。你呢？', p:'Wǒ hěn hǎo, xièxie. Nǐ ne?', e:"I'm fine, thank you. And you?"},
       {v:'我也很好。', p:'Wǒ yě hěn hǎo.', e:"I'm fine too."},
       {v:'再见！', p:'Zàijiàn!', e:'Goodbye!'},
+    ] },
+  { id:'zh_l2', day:2, section:2, level:'HSK1', title:'Counting: How Many Do You Want?', tag:'Everyday Life', img:'images/zh_lesson_02.jpg',
+    desc:'Order a small quantity of something and learn the difference between 几 and 多少 for "how many."',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'老板，我要五个包子。', p:'Lǎobǎn, wǒ yào wǔ ge bāozi.', e:'Boss, I’d like five buns.'},
+      {speaker:'B', v:'好，五个包子。你还要几瓶水？', p:'Hǎo, wǔ ge bāozi. Nǐ hái yào jǐ píng shuǐ?', e:'Sure, five buns. How many bottles of water do you want as well?'},
+      {speaker:'A', v:'两瓶就好，谢谢。', p:'Liǎng píng jiù hǎo, xièxie.', e:'Two bottles is fine, thanks.'},
+      {speaker:'B', v:'没问题。', p:'Méi wèntí.', e:'No problem.'},
+    ],
+    vocab:[
+      {v:'老板', e:'boss / shop owner'}, {v:'要', e:'to want'}, {v:'个', e:'measure word (general)'}, {v:'几', e:'how many (small number)'},
+      {v:'瓶', e:'measure word: bottle'}, {v:'两', e:'two (before a measure word)'}, {v:'就', e:'just / then (here: "that’s enough")'}, {v:'没问题', e:'no problem'},
+    ],
+    grammar:[
+      {title:'几 vs 多少 — Asking "How Many"', body:'几 (jǐ) expects a small number (usually under 10) and is always followed directly by a measure word — 几个, 几瓶. 多少 (duōshao) works for any size number and skips the measure word entirely. Pick 几 when you’re guessing "not many," 多少 when the number could be anything.'},
+      {title:'两 vs 二 — Two Ways to Say "Two"', body:'Right before a measure word, Mandarin almost always swaps 二 (èr) for 两 (liǎng) — 两个, 两瓶, never 二个/二瓶. Using 二 there is one of the first things that sounds distinctly "off" to a native ear, even though the number itself is correct.'},
+    ],
+    cards:[
+      {v:'老板，我要五个包子。', p:'Lǎobǎn, wǒ yào wǔ ge bāozi.', e:'Boss, I’d like five buns.'},
+      {v:'好，五个包子。你还要几瓶水？', p:'Hǎo, wǔ ge bāozi. Nǐ hái yào jǐ píng shuǐ?', e:'Sure, five buns. How many bottles of water do you want as well?'},
+      {v:'两瓶就好，谢谢。', p:'Liǎng píng jiù hǎo, xièxie.', e:'Two bottles is fine, thanks.'},
+      {v:'没问题。', p:'Méi wèntí.', e:'No problem.'},
+    ] },
+  { id:'zh_l3', day:3, section:2, level:'HSK1', title:'Meet My Family', tag:'Everyday Life', img:'images/zh_lesson_03.jpg',
+    desc:'Introduce family members and learn why Mandarin has no generic word for "brother" or "sister."',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'这是我爸爸，那是我妈妈。', p:'Zhè shì wǒ bàba, nà shì wǒ māma.', e:'This is my dad, that’s my mom.'},
+      {speaker:'B', v:'你有兄弟姐妹吗？', p:'Nǐ yǒu xiōngdì jiěmèi ma?', e:'Do you have siblings?'},
+      {speaker:'A', v:'有，我有一个哥哥和一个妹妹。', p:'Yǒu, wǒ yǒu yí ge gēge hé yí ge mèimei.', e:'Yes, I have an older brother and a younger sister.'},
+      {speaker:'B', v:'你的家庭很热闹！', p:'Nǐ de jiātíng hěn rènao!', e:'Your family is very lively!'},
+    ],
+    vocab:[
+      {v:'爸爸', e:'dad'}, {v:'妈妈', e:'mom'}, {v:'兄弟姐妹', e:'siblings'}, {v:'哥哥', e:'older brother'},
+      {v:'妹妹', e:'younger sister'}, {v:'和', e:'and'}, {v:'家庭', e:'family'}, {v:'热闹', e:'lively / bustling'},
+    ],
+    grammar:[
+      {title:'No Single Word for "Brother" or "Sister"', body:'Mandarin has no generic word for "brother" or "sister" — birth order is built into the word itself: 哥哥 (older brother), 弟弟 (younger brother), 姐姐 (older sister), 妹妹 (younger sister). Skipping the distinction isn’t really an option — even a casual mention requires picking one.'},
+      {title:'家庭 Runs Deep', body:'Family (家庭, jiātíng) terms keep branching the further out you go — your mom’s brother (舅舅) uses a completely different word than your dad’s brother (伯伯 if older, 叔叔 if younger). This lesson only covers the immediate circle; extended family has its own whole vocabulary.'},
+    ],
+    cards:[
+      {v:'这是我爸爸，那是我妈妈。', p:'Zhè shì wǒ bàba, nà shì wǒ māma.', e:'This is my dad, that’s my mom.'},
+      {v:'你有兄弟姐妹吗？', p:'Nǐ yǒu xiōngdì jiěmèi ma?', e:'Do you have siblings?'},
+      {v:'有，我有一个哥哥和一个妹妹。', p:'Yǒu, wǒ yǒu yí ge gēge hé yí ge mèimei.', e:'Yes, I have an older brother and a younger sister.'},
+      {v:'你的家庭很热闹！', p:'Nǐ de jiātíng hěn rènao!', e:'Your family is very lively!'},
+    ] },
+  { id:'zh_l4', day:4, section:2, level:'HSK1', title:'What Is This?', tag:'Everyday Life', img:'images/zh_lesson_04.jpg',
+    desc:'Point at things and ask what they are — plus a very Chinese snack you’ll want to recognize.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'这是什么？', p:'Zhè shì shénme?', e:'What is this?'},
+      {speaker:'B', v:'这是茶叶蛋。', p:'Zhè shì cháyèdàn.', e:'This is a tea egg.'},
+      {speaker:'A', v:'那个呢？是什么？', p:'Nàge ne? Shì shénme?', e:'What about that one?'},
+      {speaker:'B', v:'那是包子，很好吃。', p:'Nà shì bāozi, hěn hǎochī.', e:'That’s a bun, it’s very tasty.'},
+    ],
+    vocab:[
+      {v:'这', e:'this'}, {v:'那', e:'that'}, {v:'什么', e:'what'}, {v:'是', e:'to be'},
+      {v:'茶叶蛋', e:'tea egg'}, {v:'好吃', e:'tasty / delicious'}, {v:'个', e:'measure word (general)'},
+    ],
+    grammar:[
+      {title:'这个 / 那个 — "This One" / "That One"', body:'这 (zhè, "this") and 那 (nà, "that") pair directly with a measure word before a noun — 这个, 那个 — and can stand in for "this one" / "that one" on their own once the noun is obvious, exactly what B does by just saying 那个呢 instead of repeating the noun.'},
+      {title:'Tea Eggs — A Convenience Store Icon', body:'茶叶蛋 (chá yè dàn, "tea-leaf egg") are eggs slow-simmered in tea, soy sauce, and spices until the shells crack into a marbled pattern. They’re a ubiquitous snack sold hot at convenience stores and street stalls across China — often visible simmering in a pot right by the register.'},
+    ],
+    cards:[
+      {v:'这是什么？', p:'Zhè shì shénme?', e:'What is this?'},
+      {v:'这是茶叶蛋。', p:'Zhè shì cháyèdàn.', e:'This is a tea egg.'},
+      {v:'那个呢？是什么？', p:'Nàge ne? Shì shénme?', e:'What about that one?'},
+      {v:'那是包子，很好吃。', p:'Nà shì bāozi, hěn hǎochī.', e:'That’s a bun, it’s very tasty.'},
+    ] },
+  { id:'zh_l5', day:5, section:2, level:'HSK1', title:'What’s Your Name?', tag:'Everyday Life', img:'images/zh_lesson_05.jpg',
+    desc:'Introduce yourself properly, and learn why Chinese names are said in the opposite order from English.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'你好，你叫什么名字？', p:'Nǐ hǎo, nǐ jiào shénme míngzi?', e:'Hello, what’s your name?'},
+      {speaker:'B', v:'我叫王芳。你呢？', p:'Wǒ jiào Wáng Fāng. Nǐ ne?', e:'My name is Wang Fang. And you?'},
+      {speaker:'A', v:'我姓李，叫大卫。', p:'Wǒ xìng Lǐ, jiào Dàwèi.', e:'My surname is Li, my given name is David.'},
+      {speaker:'B', v:'认识你很高兴。', p:'Rènshi nǐ hěn gāoxìng.', e:'Nice to meet you.'},
+    ],
+    vocab:[
+      {v:'叫', e:'to be called'}, {v:'名字', e:'name'}, {v:'姓', e:'surname / to be surnamed'}, {v:'认识', e:'to know / to meet'},
+      {v:'高兴', e:'happy, glad'}, {v:'先生', e:'Mr. / sir'}, {v:'女士', e:'Ms. / madam'},
+    ],
+    grammar:[
+      {title:'姓 vs 叫 — Surname vs Full Name', body:'姓 (xìng) asks for or gives only the SURNAME — a more formal way to ask is 你贵姓？, literally "what’s your honorable surname?" — while 叫 (jiào) is used for the given name or full name. It’s completely normal to answer with one, the other, or both, exactly as B does.'},
+      {title:'Family Name First', body:'Chinese names are spoken and written surname-first, then given name: 王芳 (Wáng Fāng) means "Wang" is the family name and "Fang" is the given name — the reverse of English order, and worth remembering before you accidentally call someone by their surname like a first name.'},
+    ],
+    cards:[
+      {v:'你好，你叫什么名字？', p:'Nǐ hǎo, nǐ jiào shénme míngzi?', e:'Hello, what’s your name?'},
+      {v:'我叫王芳。你呢？', p:'Wǒ jiào Wáng Fāng. Nǐ ne?', e:'My name is Wang Fang. And you?'},
+      {v:'我姓李，叫大卫。', p:'Wǒ xìng Lǐ, jiào Dàwèi.', e:'My surname is Li, my given name is David.'},
+      {v:'认识你很高兴。', p:'Rènshi nǐ hěn gāoxìng.', e:'Nice to meet you.'},
+    ] },
+  { id:'zh_l6', day:6, section:2, level:'HSK1', title:'Where Are You From?', tag:'Everyday Life', img:'images/zh_lesson_06.jpg',
+    desc:'Talk about nationality and hometown, and learn the simple formula behind every nationality word.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'你是哪国人？', p:'Nǐ shì nǎ guó rén?', e:'What country are you from?'},
+      {speaker:'B', v:'我是美国人。你呢？', p:'Wǒ shì Měiguó rén. Nǐ ne?', e:'I’m American. And you?'},
+      {speaker:'A', v:'我是中国人，我是北京人。', p:'Wǒ shì Zhōngguó rén, wǒ shì Běijīng rén.', e:'I’m Chinese, I’m from Beijing.'},
+      {speaker:'B', v:'北京是一个很大的城市。', p:'Běijīng shì yí ge hěn dà de chéngshì.', e:'Beijing is a very big city.'},
+    ],
+    vocab:[
+      {v:'哪', e:'which'}, {v:'国', e:'country'}, {v:'人', e:'person'}, {v:'美国', e:'America'},
+      {v:'中国', e:'China'}, {v:'北京', e:'Beijing'}, {v:'大', e:'big'}, {v:'城市', e:'city'},
+    ],
+    grammar:[
+      {title:'Country + 人 = Nationality', body:'Add 人 (rén, "person") right after a country name to make a nationality word — 中国+人=中国人 (Chinese person), 美国+人=美国人 (American). The same simple formula works for almost any country, with no separate adjective form to memorize.'},
+      {title:'One Country, Many Hometowns', body:'It’s just as common to answer a nationality question with a specific home city as with "China" — 北京人 (a Beijinger), 上海人 (a Shanghainese person) — since regional identity carries real weight in China: distinct local dialects, food, and customs, even though Mandarin is the shared national language.'},
+    ],
+    cards:[
+      {v:'你是哪国人？', p:'Nǐ shì nǎ guó rén?', e:'What country are you from?'},
+      {v:'我是美国人。你呢？', p:'Wǒ shì Měiguó rén. Nǐ ne?', e:'I’m American. And you?'},
+      {v:'我是中国人，我是北京人。', p:'Wǒ shì Zhōngguó rén, wǒ shì Běijīng rén.', e:'I’m Chinese, I’m from Beijing.'},
+      {v:'北京是一个很大的城市。', p:'Běijīng shì yí ge hěn dà de chéngshì.', e:'Beijing is a very big city.'},
+    ] },
+  { id:'zh_l7', day:7, section:2, level:'HSK1', title:'Ordering Food and Drinks', tag:'Everyday Life', img:'images/zh_lesson_07.jpg',
+    desc:'Order a simple meal, and learn the difference between wanting something in general and actually ordering it.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'你想吃什么？', p:'Nǐ xiǎng chī shénme?', e:'What do you want to eat?'},
+      {speaker:'B', v:'我想吃米饭。你想喝什么？', p:'Wǒ xiǎng chī mǐfàn. Nǐ xiǎng hē shénme?', e:'I want rice. What do you want to drink?'},
+      {speaker:'A', v:'我要一杯茶，谢谢。', p:'Wǒ yào yì bēi chá, xièxie.', e:'I’ll have a cup of tea, thanks.'},
+      {speaker:'B', v:'服务员，请问可以点菜了吗？', p:'Fúwùyuán, qǐngwèn kěyǐ diǎncài le ma?', e:'Waiter, excuse me, can we order now?'},
+    ],
+    vocab:[
+      {v:'想', e:'would like to / feel like'}, {v:'吃', e:'to eat'}, {v:'米饭', e:'rice'}, {v:'喝', e:'to drink'},
+      {v:'杯', e:'measure word: cup'}, {v:'茶', e:'tea'}, {v:'服务员', e:'waiter / waitress'}, {v:'点菜', e:'to order food'},
+    ],
+    grammar:[
+      {title:'要 vs 想 — Two Ways to Want', body:'Both 要 (yào) and 想 (xiǎng) can mean "want," but 要 is more direct and immediate — used for actually placing an order — while 想 + verb softens it to "would like to" or "feel like." That’s why B says 想吃/想喝 talking generally, then A switches to 要 when it’s time to actually order.'},
+      {title:'Rice Bowl, Not Plate', body:'Rice (米饭) is usually served in its own small bowl meant to be lifted close to the mouth while eating with chopsticks, rather than left flat on the table the way a Western plate would be — completely normal table manners, not rude at all.'},
+    ],
+    cards:[
+      {v:'你想吃什么？', p:'Nǐ xiǎng chī shénme?', e:'What do you want to eat?'},
+      {v:'我想吃米饭。你想喝什么？', p:'Wǒ xiǎng chī mǐfàn. Nǐ xiǎng hē shénme?', e:'I want rice. What do you want to drink?'},
+      {v:'我要一杯茶，谢谢。', p:'Wǒ yào yì bēi chá, xièxie.', e:'I’ll have a cup of tea, thanks.'},
+      {v:'服务员，请问可以点菜了吗？', p:'Fúwùyuán, qǐngwèn kěyǐ diǎncài le ma?', e:'Waiter, excuse me, can we order now?'},
+    ] },
+  { id:'zh_l8', day:8, section:2, level:'HSK1', title:'What Time Is It?', tag:'Everyday Life', img:'images/zh_lesson_08.jpg',
+    desc:'Tell time and make a plan to meet up, using one of Mandarin’s most useful casual phrases.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'现在几点？', p:'Xiànzài jǐ diǎn?', e:'What time is it now?'},
+      {speaker:'B', v:'现在三点半。', p:'Xiànzài sān diǎn bàn.', e:'It’s half past three now.'},
+      {speaker:'A', v:'我们几点见面？', p:'Wǒmen jǐ diǎn jiànmiàn?', e:'What time should we meet?'},
+      {speaker:'B', v:'四点怎么样？', p:'Sì diǎn zěnmeyàng?', e:'How about four o’clock?'},
+    ],
+    vocab:[
+      {v:'现在', e:'now'}, {v:'点', e:'o’clock'}, {v:'半', e:'half'}, {v:'见面', e:'to meet up'},
+      {v:'怎么样', e:'how about / how is it'}, {v:'分', e:'minute'}, {v:'早上', e:'morning'}, {v:'晚上', e:'evening'},
+    ],
+    grammar:[
+      {title:'点 and 半 — Telling Time', body:'点 (diǎn) means "o’clock," and 半 (bàn, "half") right after it means ":30" — 三点半 is 3:30. For any other minute, add the number plus 分 (fēn, "minutes") after 点 instead — 三点十分 for 3:10.'},
+      {title:'怎么样 — The All-Purpose "How About It?"', body:'怎么样 (zěnmeyàng) is one of the most useful phrases in casual Mandarin — tack it onto almost any suggestion, a time, a place, an idea, to mean "how does that sound?" Exactly how B uses it here to float four o’clock.'},
+    ],
+    cards:[
+      {v:'现在几点？', p:'Xiànzài jǐ diǎn?', e:'What time is it now?'},
+      {v:'现在三点半。', p:'Xiànzài sān diǎn bàn.', e:'It’s half past three now.'},
+      {v:'我们几点见面？', p:'Wǒmen jǐ diǎn jiànmiàn?', e:'What time should we meet?'},
+      {v:'四点怎么样？', p:'Sì diǎn zěnmeyàng?', e:'How about four o’clock?'},
+    ] },
+  { id:'zh_l9', day:9, section:2, level:'HSK1', title:'Making Weekend Plans', tag:'Everyday Life', img:'images/zh_lesson_09.jpg',
+    desc:'Talk about the days of the week and plan a weekend outing.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'你今天忙吗？', p:'Nǐ jīntiān máng ma?', e:'Are you busy today?'},
+      {speaker:'B', v:'不忙。你呢？周末想做什么？', p:'Bù máng. Nǐ ne? Zhōumò xiǎng zuò shénme?', e:'Not busy. And you? What do you want to do this weekend?'},
+      {speaker:'A', v:'星期六我想去公园。', p:'Xīngqīliù wǒ xiǎng qù gōngyuán.', e:'On Saturday I want to go to the park.'},
+      {speaker:'B', v:'好啊，星期天呢？', p:'Hǎo a, xīngqītiān ne?', e:'Sounds good, what about Sunday?'},
+    ],
+    vocab:[
+      {v:'今天', e:'today'}, {v:'忙', e:'busy'}, {v:'周末', e:'weekend'}, {v:'做', e:'to do'},
+      {v:'星期六', e:'Saturday'}, {v:'去', e:'to go'}, {v:'公园', e:'park'}, {v:'星期天', e:'Sunday'},
+    ],
+    grammar:[
+      {title:'Days of the Week Are Just Numbers', body:'Monday through Saturday are literally "week + number" — 星期一 (week-one, Monday) through 星期六 (week-six, Saturday). Only Sunday breaks the pattern, using 星期天 or 星期日 ("week-day/sun") instead of a number. Once you know 1 through 6, you already know almost the whole week.'},
+      {title:'啊 — A Warm, Casual Tone Softener', body:'Tacking 啊 (a) onto the end of a sentence, like B’s 好啊, adds warmth and casualness without changing the meaning at all — a bit like ending a sentence with "yeah!" in English. It shows up constantly in relaxed, friendly conversation.'},
+    ],
+    cards:[
+      {v:'你今天忙吗？', p:'Nǐ jīntiān máng ma?', e:'Are you busy today?'},
+      {v:'不忙。你呢？周末想做什么？', p:'Bù máng. Nǐ ne? Zhōumò xiǎng zuò shénme?', e:'Not busy. And you? What do you want to do this weekend?'},
+      {v:'星期六我想去公园。', p:'Xīngqīliù wǒ xiǎng qù gōngyuán.', e:'On Saturday I want to go to the park.'},
+      {v:'好啊，星期天呢？', p:'Hǎo a, xīngqītiān ne?', e:'Sounds good, what about Sunday?'},
+    ] },
+  { id:'zh_l10', day:10, section:2, level:'HSK1', title:'How Much Is This?', tag:'Everyday Life', img:'images/zh_lesson_10.jpg',
+    desc:'Ask a price, haggle a little, and learn how most people actually pay for things in China today.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'老板，这个多少钱？', p:'Lǎobǎn, zhège duōshao qián?', e:'Boss, how much is this?'},
+      {speaker:'B', v:'三十块。', p:'Sānshí kuài.', e:'Thirty yuan.'},
+      {speaker:'A', v:'太贵了，便宜一点吧。', p:'Tài guì le, piányi yìdiǎn ba.', e:'That’s too expensive, make it a bit cheaper.'},
+      {speaker:'B', v:'好吧，二十五块，可以微信支付。', p:'Hǎo ba, èrshíwǔ kuài, kěyǐ Wēixìn zhīfù.', e:'Alright, twenty-five yuan, you can pay with WeChat Pay.'},
+    ],
+    vocab:[
+      {v:'多少钱', e:'how much money'}, {v:'块', e:'yuan (colloquial unit)'}, {v:'贵', e:'expensive'}, {v:'便宜', e:'cheap'},
+      {v:'一点', e:'a little'}, {v:'微信支付', e:'WeChat Pay'}, {v:'可以', e:'can / may'},
+    ],
+    grammar:[
+      {title:'太...了 — Saying Something Is "Too" Much', body:'Sandwiching an adjective between 太 (tài) and 了 (le) means "too ___" — 太贵了 (tài guì le) is "too expensive." The same pattern works for almost any adjective: 太好了 ("too good," i.e. "great!"), 太难了 ("too hard").'},
+      {title:'Cash Is Increasingly Rare', body:'In most Chinese cities today, mobile QR-code payment apps — WeChat Pay (微信支付) and Alipay (支付宝) — are the default way to pay for nearly everything, from street stalls to taxis. Some small vendors don’t even keep change for cash anymore, so having one of these apps set up matters more than carrying bills.'},
+    ],
+    cards:[
+      {v:'老板，这个多少钱？', p:'Lǎobǎn, zhège duōshao qián?', e:'Boss, how much is this?'},
+      {v:'三十块。', p:'Sānshí kuài.', e:'Thirty yuan.'},
+      {v:'太贵了，便宜一点吧。', p:'Tài guì le, piányi yìdiǎn ba.', e:'That’s too expensive, make it a bit cheaper.'},
+      {v:'好吧，二十五块，可以微信支付。', p:'Hǎo ba, èrshíwǔ kuài, kěyǐ Wēixìn zhīfù.', e:'Alright, twenty-five yuan, you can pay with WeChat Pay.'},
+    ] },
+  { id:'zh_l11', day:11, section:2, level:'HSK1', title:'Talking About the Weather', tag:'Everyday Life', img:'images/zh_lesson_11.jpg',
+    desc:'Chat about today’s and tomorrow’s weather — one of the safest small-talk openers in any language.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'今天天气怎么样？', p:'Jīntiān tiānqì zěnmeyàng?', e:'How’s the weather today?'},
+      {speaker:'B', v:'今天很冷，还刮风。', p:'Jīntiān hěn lěng, hái guāfēng.', e:'It’s very cold today, and windy too.'},
+      {speaker:'A', v:'明天呢？会下雨吗？', p:'Míngtiān ne? Huì xià yǔ ma?', e:'What about tomorrow? Will it rain?'},
+      {speaker:'B', v:'不会，明天应该是晴天。', p:'Bú huì, míngtiān yīnggāi shì qíngtiān.', e:'No, tomorrow should be sunny.'},
+    ],
+    vocab:[
+      {v:'天气', e:'weather'}, {v:'冷', e:'cold'}, {v:'刮风', e:'windy / to blow wind'}, {v:'明天', e:'tomorrow'},
+      {v:'下雨', e:'to rain'}, {v:'会', e:'will / likely to'}, {v:'晴天', e:'sunny day'}, {v:'应该', e:'should / probably'},
+    ],
+    grammar:[
+      {title:'会 — Talking About What Will Happen', body:'会 (huì) before a verb expresses a future possibility or prediction — 会下雨吗 ("will it rain?"). That’s a different sense from its other common meaning, "to know how to" (我会说中文, "I can speak Chinese") — context makes clear which one is meant.'},
+      {title:'Weather as Small Talk', body:'Just like in English, commenting on the weather (天气怎么样) is one of the most common ways to open a casual conversation in Mandarin — a safe, friendly topic with almost anyone, from a taxi driver to a new coworker.'},
+    ],
+    cards:[
+      {v:'今天天气怎么样？', p:'Jīntiān tiānqì zěnmeyàng?', e:'How’s the weather today?'},
+      {v:'今天很冷，还刮风。', p:'Jīntiān hěn lěng, hái guāfēng.', e:'It’s very cold today, and windy too.'},
+      {v:'明天呢？会下雨吗？', p:'Míngtiān ne? Huì xià yǔ ma?', e:'What about tomorrow? Will it rain?'},
+      {v:'不会，明天应该是晴天。', p:'Bú huì, míngtiān yīnggāi shì qíngtiān.', e:'No, tomorrow should be sunny.'},
     ] },
 ];
 
@@ -2067,7 +2309,7 @@ function isZhId(id){ return typeof id === 'string' && id.indexOf('zh_') === 0; }
 // soon" pattern as every other level-based course's higher tiers.
 const CANTONESE_LEVELS = [
   { id:'a1', num:'A1', name:'Super Beginner', unlocked:true },
-  { id:'a2', num:'A2', unlocked:false },
+  { id:'a2', num:'A2', name:'Everyday Flow', unlocked:true },
   { id:'b1', num:'B1', unlocked:false },
   { id:'b2', num:'B2', unlocked:false },
   { id:'c1', num:'C1', unlocked:false },
@@ -2075,272 +2317,1004 @@ const CANTONESE_LEVELS = [
 
 const CANTONESE_A1_SECTIONS = [
   { id:1, roman:'I', title:'Survival Basics' },
+  { id:2, roman:'II', title:'Everyday Life' },
+  { id:3, roman:'III', title:'Getting Things Done' },
+];
+
+// A2 moves past survival vocab into the small set of aspect markers
+// (咗/緊/過) and connector patterns (因為...所以, 如果...就, 比, 覺得, 不如...啦)
+// that do most of the heavy lifting in real spoken Cantonese — these aren't
+// from any official standard (no Cantonese equivalent to HSK has real
+// consumer recognition, see CANTONESE_LEVELS' comment above), just genuinely
+// high-frequency, high-utility patterns any A2 learner needs early.
+const CANTONESE_A2_SECTIONS = [
+  { id:1, roman:'I', title:'Talking It Through' },
 ];
 
 const LESSONS_YUE = [
   { id:'yue_l1', day:1, section:1, level:'A1', title:'Hello & Goodbye', tag:'Survival', img:'images/yue_lesson_01.jpg',
-    desc:'Learn how to greet people, thank them the right way, and say goodbye in Cantonese.',
+    desc:'Greet an old acquaintance on the street and learn a warmer alternative to a plain "hello."',
     duration:'3 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'你好！你好嗎？', p:'nei5 hou2! nei5 hou2 maa3?', e:'Hello! How are you?'},
-      {speaker:'B', v:'我幾好，唔該。你呢？', p:'ngo5 gei2 hou2, m4 goi1. nei5 ne1?', e:"I'm quite good, thanks. And you?"},
-      {speaker:'A', v:'我都幾好。', p:'ngo5 dou1 gei2 hou2.', e:"I'm good too."},
-      {speaker:'B', v:'拜拜！', p:'baai1 baai3!', e:'Bye-bye!'},
+      {speaker:'A', v:'喂，你好呀！好耐冇見喇。', p:'wai3, nei5 hou2 aa3! hou2 noi6 mou5 gin3 laa3.', e:'Hey, hello! Long time no see.'},
+      {speaker:'B', v:'係呀，你最近點呀？', p:'hai6 aa3, nei5 zeoi3 gan6 dim2 aa3?', e:'Yeah, how have you been lately?'},
+      {speaker:'A', v:'幾好呀，多謝關心。', p:'gei2 hou2 aa3, do1 ze6 gwaan1 sam1.', e:'Pretty good, thanks for asking.'},
+      {speaker:'B', v:'咁就好，遲啲再傾，拜拜！', p:'gam2 zau6 hou2, ci4 di1 zoi3 king1, baai1 baai3!', e:'Glad to hear, catch up later, bye!'},
     ],
     vocab:[
-      {v:'你好', e:'hello'}, {v:'拜拜', e:'bye-bye'}, {v:'唔該', e:'thank you (for a favor/service)'}, {v:'多謝', e:'thank you (for a gift/compliment)'},
-      {v:'你', e:'you'}, {v:'幾好', e:'quite good'}, {v:'我', e:'I / me'}, {v:'呢', e:'and...? (follow-up particle)'},
+      {v:'好耐冇見', e:'long time no see'}, {v:'最近', e:'recently / lately'}, {v:'點', e:'how'}, {v:'多謝關心', e:'thanks for asking / caring'},
+      {v:'遲啲再傾', e:'catch up later'}, {v:'拜拜', e:'bye-bye'}, {v:'係', e:'yes / to be'}, {v:'幾好', e:'pretty good'},
     ],
     grammar:[
-      {title:'唔該 vs 多謝 — Two Words for "Thank You"', body:'Cantonese splits "thank you" into two words depending on what you\'re thanking someone for. Use 唔該 (m4 goi1) for a service, favor, or when asking someone to do something (like getting a waiter\'s attention). Use 多謝 (do1 ze6) for a gift, compliment, or money received. Mixing them up is a very common learner mistake.'},
-      {title:'呢 (ne1) — Following Up', body:'Just like Mandarin\'s 呢, Cantonese 呢 (ne1) attaches to a noun or pronoun to bounce a question back without repeating it. In the dialogue, B answers first, then asks "你呢？" (nei5 ne1?) meaning "And you?"'},
+      {title:'好耐冇見 — A Warm Greeting for Old Friends', body:'好耐冇見 (hou2 noi6 mou5 gin3, "long time no see") is the natural go-to greeting when running into someone you haven\'t seen in a while — much warmer in casual daily life than a plain 你好.'},
+      {title:'點 — A Tiny Word for "How"', body:'點 (dim2) alone means "how," and shows up everywhere: 你點呀 ("how are you/how\'s it going"), 點算 ("what do we do"), 點解 ("why," literally "how explain"). Learning this one syllable unlocks a whole family of everyday questions.'},
     ],
     cards:[
-      {v:'你好！你好嗎？', p:'nei5 hou2! nei5 hou2 maa3?', e:'Hello! How are you?'},
-      {v:'我幾好，唔該。你呢？', p:'ngo5 gei2 hou2, m4 goi1. nei5 ne1?', e:"I'm quite good, thanks. And you?"},
-      {v:'我都幾好。', p:'ngo5 dou1 gei2 hou2.', e:"I'm good too."},
-      {v:'拜拜！', p:'baai1 baai3!', e:'Bye-bye!'},
+      {v:'喂，你好呀！好耐冇見喇。', p:'wai3, nei5 hou2 aa3! hou2 noi6 mou5 gin3 laa3.', e:'Hey, hello! Long time no see.'},
+      {v:'係呀，你最近點呀？', p:'hai6 aa3, nei5 zeoi3 gan6 dim2 aa3?', e:'Yeah, how have you been lately?'},
+      {v:'幾好呀，多謝關心。', p:'gei2 hou2 aa3, do1 ze6 gwaan1 sam1.', e:'Pretty good, thanks for asking.'},
+      {v:'咁就好，遲啲再傾，拜拜！', p:'gam2 zau6 hou2, ci4 di1 zoi3 king1, baai1 baai3!', e:'Glad to hear, catch up later, bye!'},
     ] },
-  { id:'yue_l2', day:2, section:1, level:'A1', title:'Casual Thanks and Requests', tag:'Survival', img:'images/yue_lesson_02.jpg',
-    desc:'Learn how to ask for something politely and thank someone for a small favor in Cantonese.',
+  { id:'yue_l2', day:2, section:1, level:'A1', title:'Yes or No? Confirming Things', tag:'Survival', img:'images/yue_lesson_02.jpg',
+    desc:'Confirm a restaurant table and learn why Cantonese doesn\'t really have standalone words for "yes" or "no."',
     duration:'3 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'唔該，畀杯水我。', p:'m4 goi1, bei2 bui1 seoi2 ngo5.', e:'Excuse me, could I get a cup of water?'},
-      {speaker:'B', v:'好，呢杯水畀你。', p:'hou2, ni1 bui1 seoi2 bei2 nei5.', e:"Sure, here's your water."},
-      {speaker:'A', v:'唔該晒。', p:'m4 goi1 saai3.', e:'Thanks a lot.'},
-      {speaker:'B', v:'唔使客氣。', p:'m4 sai2 haak3 hei3.', e:"You're welcome."},
+      {speaker:'A', v:'唔該，你哋係咪陳生嗰枱呀？', p:'m4 goi1, nei5 dei6 hai6 mai6 can4 saang1 go2 toi2 aa3?', e:'Excuse me, are you Mr. Chan\'s table?'},
+      {speaker:'B', v:'係呀，我哋係。', p:'hai6 aa3, ngo5 dei6 hai6.', e:'Yes, that\'s us.'},
+      {speaker:'A', v:'咁係咪三位呢？', p:'gam2 hai6 mai6 saam1 wai2 ne1?', e:'So is that three people?'},
+      {speaker:'B', v:'唔係，我哋四位。', p:'m4 hai6, ngo5 dei6 sei3 wai2.', e:"No, we're four."},
     ],
     vocab:[
-      {v:'唔該', e:'excuse me / please (asking for a favor)'}, {v:'畀', e:'to give'}, {v:'杯', e:'cup (classifier)'}, {v:'水', e:'water'},
-      {v:'呢', e:'this'}, {v:'你', e:'you'}, {v:'唔該晒', e:'thanks a lot'}, {v:'唔使客氣', e:"you're welcome"},
+      {v:'係', e:'to be / yes'}, {v:'唔係', e:'to not be / no'}, {v:'係咪', e:'is it...? (question form)'}, {v:'位', e:'measure word: people (polite)'},
+      {v:'枱', e:'table'}, {v:'陳生', e:'Mr. Chan'}, {v:'咁', e:'so / then'},
     ],
     grammar:[
-      {title:'畀 (bei2) — To Give', body:'畀 (bei2) is the verb "to give," and it often shows up in a double-object pattern: [give] + [thing] + [to whom]. In the dialogue, "畀杯水我" (bei2 bui1 seoi2 ngo5) literally reads "give cup water me" — meaning "give me a cup of water."'},
-      {title:'晒 (saai3) — Making Something More Emphatic', body:'Adding 晒 (saai3) after a word intensifies it. Plain 唔該 (m4 goi1) is a everyday "thanks," but 唔該晒 (m4 goi1 saai3) is a warmer, more emphatic "thanks a lot" — useful when someone has gone a bit out of their way for you.'},
+      {title:'係 / 唔係 — Cantonese Doesn\'t Really Have "Yes" or "No"', body:'There\'s no standalone word for "yes" or "no" — you confirm or deny by repeating the verb from the question. Since the question here uses 係 (hai6, "to be"), the answer is either 係 (yes) or 唔係 (no). This applies to almost every yes/no question, not just this one verb.'},
+      {title:'係咪 — A Ready-Made Way to Ask "Is It...?"', body:'係咪 (hai6 mai6) is a shortcut version of the 係-唔係 question pattern, meaning "is it/are you...?" — faster and extremely common in casual speech than spelling out both halves.'},
     ],
     cards:[
-      {v:'唔該，畀杯水我。', p:'m4 goi1, bei2 bui1 seoi2 ngo5.', e:'Excuse me, could I get a cup of water?'},
-      {v:'好，呢杯水畀你。', p:'hou2, ni1 bui1 seoi2 bei2 nei5.', e:"Sure, here's your water."},
-      {v:'唔該晒。', p:'m4 goi1 saai3.', e:'Thanks a lot.'},
-      {v:'唔使客氣。', p:'m4 sai2 haak3 hei3.', e:"You're welcome."},
+      {v:'唔該，你哋係咪陳生嗰枱呀？', p:'m4 goi1, nei5 dei6 hai6 mai6 can4 saang1 go2 toi2 aa3?', e:'Excuse me, are you Mr. Chan\'s table?'},
+      {v:'係呀，我哋係。', p:'hai6 aa3, ngo5 dei6 hai6.', e:'Yes, that\'s us.'},
+      {v:'咁係咪三位呢？', p:'gam2 hai6 mai6 saam1 wai2 ne1?', e:'So is that three people?'},
+      {v:'唔係，我哋四位。', p:'m4 hai6, ngo5 dei6 sei3 wai2.', e:"No, we're four."},
     ] },
-  { id:'yue_l3', day:3, section:1, level:'A1', title:'Yes, No, and Understanding', tag:'Survival', img:'images/yue_lesson_03.jpg',
-    desc:'Learn how to ask if someone understands, and how to say yes or no about it yourself.',
+  { id:'yue_l3', day:3, section:1, level:'A1', title:'I Have / I Don\'t Have', tag:'Survival', img:'images/yue_lesson_03.jpg',
+    desc:'Ask a convenience store if they carry something, using Cantonese\'s other essential yes/no pair.',
     duration:'3 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'你明唔明呀？', p:'nei5 ming4 m4 ming4 aa3?', e:'Do you understand?'},
-      {speaker:'B', v:'唔明呀，唔好意思。', p:'m4 ming4 aa3, m4 hou2 ji3 si1.', e:"I don't understand, sorry."},
-      {speaker:'A', v:'冇問題，我再講一次。', p:'mou5 man6 tai4, ngo5 zoi3 gong2 jat1 ci3.', e:"No problem, I'll say it again."},
-      {speaker:'B', v:'呀，明喇！多謝晒。', p:'aa3, ming4 laa3! do1 ze6 saai3.', e:'Ah, I understand now! Thanks a lot.'},
+      {speaker:'A', v:'唔該，呢度有冇充電器賣呀？', p:'m4 goi1, ni1 dou6 jau5 mou5 cung1 din6 hei3 maai6 aa3?', e:'Excuse me, do you sell chargers here?'},
+      {speaker:'B', v:'有呀，喺嗰邊。', p:'jau5 aa3, hai2 go2 bin1.', e:'Yes, over there.'},
+      {speaker:'A', v:'咁有冇尿袋呢？', p:'gam2 jau5 mou5 niu6 doi2 ne1?', e:'What about power banks?'},
+      {speaker:'B', v:'冇喎，賣晒喇。', p:'mou5 wo3, maai6 saai3 laa3.', e:'No, sold out.'},
     ],
     vocab:[
-      {v:'明', e:'to understand'}, {v:'唔明', e:'to not understand'}, {v:'唔好意思', e:'sorry / excuse me'}, {v:'冇問題', e:'no problem'},
-      {v:'再', e:'again'}, {v:'講', e:'to say / speak'}, {v:'一次', e:'one time'}, {v:'多謝', e:'thank you'},
+      {v:'有', e:'to have'}, {v:'冇', e:'to not have'}, {v:'有冇', e:'do you have...? (question form)'}, {v:'充電器', e:'charger'},
+      {v:'尿袋', e:'power bank (colloquial)'}, {v:'賣', e:'to sell'}, {v:'賣晒', e:'sold out'}, {v:'喎', e:'particle: mild surprise/contrast'},
     ],
     grammar:[
-      {title:'V-唔-V Questions', body:'Cantonese often forms yes/no questions by repeating a verb with 唔 in between — 明唔明 (ming4 m4 ming4) literally "understand-not-understand" simply means "do you understand?" This pattern works with a huge range of verbs and is one of the most useful patterns to know early on.'},
-      {title:'喇 (laa3) — Marking a Change of State', body:'Similar to Mandarin\'s 了, the particle 喇 signals that something has just become true. When B says "明喇！" (ming4 laa3!), it means "[Now] I get it!" — marking the moment of realization, not just stating a plain fact.'},
+      {title:'有 / 冇 — Cantonese\'s Other Yes/No Pair', body:'有 (jau5, "to have/there is") and its negative 冇 (mou5, "to not have/there isn\'t") form their own V-唔-V-style question: 有冇...？ ("do you have...?"). One of the single most useful question patterns for shopping.'},
+      {title:'尿袋 — A Very Literal Nickname', body:'尿袋 (niu6 doi2), literally "urine bag," is the affectionate slang term for a portable power bank — named for its shape and the way it "leaks" charge into your phone. The more formal 充電寶 also works but sounds noticeably less local.'},
     ],
     cards:[
-      {v:'你明唔明呀？', p:'nei5 ming4 m4 ming4 aa3?', e:'Do you understand?'},
-      {v:'唔明呀，唔好意思。', p:'m4 ming4 aa3, m4 hou2 ji3 si1.', e:"I don't understand, sorry."},
-      {v:'冇問題，我再講一次。', p:'mou5 man6 tai4, ngo5 zoi3 gong2 jat1 ci3.', e:"No problem, I'll say it again."},
-      {v:'呀，明喇！多謝晒。', p:'aa3, ming4 laa3! do1 ze6 saai3.', e:'Ah, I understand now! Thanks a lot.'},
+      {v:'唔該，呢度有冇充電器賣呀？', p:'m4 goi1, ni1 dou6 jau5 mou5 cung1 din6 hei3 maai6 aa3?', e:'Excuse me, do you sell chargers here?'},
+      {v:'有呀，喺嗰邊。', p:'jau5 aa3, hai2 go2 bin1.', e:'Yes, over there.'},
+      {v:'咁有冇尿袋呢？', p:'gam2 jau5 mou5 niu6 doi2 ne1?', e:'What about power banks?'},
+      {v:'冇喎，賣晒喇。', p:'mou5 wo3, maai6 saai3 laa3.', e:'No, sold out.'},
     ] },
-  { id:'yue_l4', day:4, section:1, level:'A1', title:'Asking to Speak Slowly', tag:'Survival', img:'images/yue_lesson_04.jpg',
-    desc:'Explain that you are still learning Cantonese and politely ask someone to slow down.',
+  { id:'yue_l4', day:4, section:1, level:'A1', title:'This One or That One?', tag:'Survival', img:'images/yue_lesson_04.jpg',
+    desc:'Pick out fruit at a market stall using 呢個 and 嗰個 — Cantonese\'s near-and-far pointing words.',
     duration:'3 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'總共係五十蚊。', p:'zung2 gung6 hai6 ng5 sap6 man1.', e:'The total is fifty dollars.'},
-      {speaker:'B', v:'唔好意思，我廣東話講得唔好。', p:'m4 hou2 ji3 si1, ngo5 gwong2 dung1 waa2 gong2 dak1 m4 hou2.', e:"Sorry, I don't speak Cantonese well."},
-      {speaker:'A', v:'冇問題，五十蚊。', p:'mou5 man6 tai4, ng5 sap6 man1.', e:'No problem, fifty dollars.'},
-      {speaker:'B', v:'唔該講慢啲。', p:'m4 goi1 gong2 maan6 di1.', e:'Please speak a bit more slowly.'},
+      {speaker:'A', v:'呢個橙靚唔靚呀？', p:'ni1 go3 caang2 leng3 m4 leng3 aa3?', e:'Is this orange good?'},
+      {speaker:'B', v:'呢個幾靚，不過嗰個更加甜。', p:'ni1 go3 gei2 leng3, bat1 gwo3 go2 go3 gang3 gaa1 tim4.', e:'This one\'s decent, but that one\'s sweeter.'},
+      {speaker:'A', v:'咁我要嗰個啦。', p:'gam2 ngo5 jiu3 go2 go3 laa1.', e:"Then I'll take that one."},
+      {speaker:'B', v:'好，仲要唔要呢個呀？', p:'hou2, zung6 jiu3 m4 jiu3 ni1 go3 aa3?', e:'Sure, do you still want this one too?'},
     ],
     vocab:[
-      {v:'總共', e:'total'}, {v:'蚊', e:'dollar (colloquial)'}, {v:'廣東話', e:'Cantonese language'}, {v:'講得唔好', e:"don't speak well"},
-      {v:'慢', e:'slow'}, {v:'啲', e:'a bit / a little'}, {v:'五十', e:'fifty'}, {v:'冇問題', e:'no problem'},
+      {v:'呢個', e:'this one'}, {v:'嗰個', e:'that one'}, {v:'靚', e:'good / pretty'}, {v:'更加', e:'even more'},
+      {v:'甜', e:'sweet'}, {v:'橙', e:'orange'}, {v:'仲', e:'still / also'},
     ],
     grammar:[
-      {title:'講得唔好 — Describing How Well You Do Something', body:'Cantonese uses 得 (dak1) to link a verb to a description of how it\'s carried out. 講得唔好 (gong2 dak1 m4 hou2) literally means "speak, [done] not well" — swap in 好 (hou2) instead of 唔好 to say you do something well.'},
-      {title:'慢啲 — Adding 啲 for "A Bit"', body:'啲 (di1) softens a word into "a bit more/a little" when placed right after it — 慢啲 (maan6 di1) means "a bit slower." It\'s one of the most common small words in everyday Cantonese, used constantly to soften requests.'},
+      {title:'呢 vs 嗰 — Near and Far', body:'呢 (ni1, "this") points at something close to the speaker, and 嗰 (go2, "that") points at something farther away — pair either with 個 (go3) to mean "this one" / "that one." A physical, pointing-based distinction that maps directly onto how close or far the thing is.'},
+      {title:'更加 — Making a Comparison Stronger', body:'更加 (gang3 gaa1, "even more") sharpens a comparison — 更加甜 means "even sweeter," not just "sweet." Handy whenever a plain adjective alone doesn\'t capture the difference between two things.'},
     ],
     cards:[
-      {v:'總共係五十蚊。', p:'zung2 gung6 hai6 ng5 sap6 man1.', e:'The total is fifty dollars.'},
-      {v:'唔好意思，我廣東話講得唔好。', p:'m4 hou2 ji3 si1, ngo5 gwong2 dung1 waa2 gong2 dak1 m4 hou2.', e:"Sorry, I don't speak Cantonese well."},
-      {v:'冇問題，五十蚊。', p:'mou5 man6 tai4, ng5 sap6 man1.', e:'No problem, fifty dollars.'},
-      {v:'唔該講慢啲。', p:'m4 goi1 gong2 maan6 di1.', e:'Please speak a bit more slowly.'},
+      {v:'呢個橙靚唔靚呀？', p:'ni1 go3 caang2 leng3 m4 leng3 aa3?', e:'Is this orange good?'},
+      {v:'呢個幾靚，不過嗰個更加甜。', p:'ni1 go3 gei2 leng3, bat1 gwo3 go2 go3 gang3 gaa1 tim4.', e:'This one\'s decent, but that one\'s sweeter.'},
+      {v:'咁我要嗰個啦。', p:'gam2 ngo5 jiu3 go2 go3 laa1.', e:"Then I'll take that one."},
+      {v:'好，仲要唔要呢個呀？', p:'hou2, zung6 jiu3 m4 jiu3 ni1 go3 aa3?', e:'Sure, do you still want this one too?'},
     ] },
-  { id:'yue_l5', day:5, section:1, level:'A1', title:'Excuse Me and Sorry', tag:'Survival', img:'images/yue_lesson_05.jpg',
-    desc:'Learn how to politely ask someone to let you pass, and how to apologize for a small bump.',
+  { id:'yue_l5', day:5, section:1, level:'A1', title:'What\'s That?', tag:'Survival', img:'images/yue_lesson_05.jpg',
+    desc:'Ask about an unfamiliar street food, and meet one of Hong Kong\'s most iconic snacks.',
     duration:'3 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'唔該借歪。', p:'m4 goi1 ze3 me2.', e:'Excuse me, coming through.'},
-      {speaker:'B', v:'冇問題，你請先。', p:'mou5 man6 tai4, nei5 cing2 sin1.', e:'No problem, go ahead.'},
-      {speaker:'A', v:'唔好意思，撞親你。', p:'m4 hou2 ji3 si1, zong6 can1 nei5.', e:'Sorry, I bumped into you.'},
-      {speaker:'B', v:'唔緊要。', p:'m4 gan2 jiu3.', e:"It's okay, no worries."},
+      {speaker:'A', v:'唔該，嗰個係乜嘢嚟㗎？', p:'m4 goi1, go2 go3 hai6 mat1 je5 lai4 gaa3?', e:'Excuse me, what is that?'},
+      {speaker:'B', v:'嗰個係雞蛋仔，好多人鍾意食。', p:'go2 go3 hai6 gai1 daan2 zai2, hou2 do1 jan4 zung1 ji3 sik6.', e:'That\'s egg waffle, lots of people love it.'},
+      {speaker:'A', v:'好唔好食㗎？', p:'hou2 m4 hou2 sik6 gaa3?', e:'Is it good?'},
+      {speaker:'B', v:'好食，你試吓啦。', p:'hou2 sik6, nei5 si3 haa5 laa1.', e:'It\'s tasty, give it a try.'},
     ],
     vocab:[
-      {v:'借歪', e:'excuse me (let me pass)'}, {v:'請先', e:'go ahead / after you'}, {v:'撞親', e:'to bump into'}, {v:'唔緊要', e:"it's okay / never mind"},
-      {v:'唔好意思', e:'sorry'}, {v:'冇問題', e:'no problem'},
+      {v:'乜嘢', e:'what'}, {v:'嚟', e:'to be / to come from (sentence-ending "is")'}, {v:'雞蛋仔', e:'egg waffle'}, {v:'鍾意', e:'to like'},
+      {v:'試吓', e:'to give it a try'}, {v:'好食', e:'tasty'},
     ],
     grammar:[
-      {title:'借歪 — A Polite Way to Ask Someone to Move', body:'Literally "borrow a gap," 借歪 (ze3 me2) is the standard, everyday way to ask someone to step aside so you can get by — far more natural in daily life than a word-for-word translation of "excuse me."'},
-      {title:'唔緊要 vs 冇問題', body:'Both mean roughly "it\'s fine," but they aren\'t interchangeable. 唔緊要 (m4 gan2 jiu3, "not important") is what you say to brush off someone\'s apology, while 冇問題 (mou5 man6 tai4, "no problem") is what you say when agreeing to a request or favor. Mixing the two up is a common early mistake.'},
+      {title:'乜嘢...嚟㗎 — A Natural Way to Ask "What Is It?"', body:'While 係乜嘢 alone works, adding 嚟 (lai4) before the sentence-final particle — 係乜嘢嚟㗎 — sounds noticeably more natural and conversational than the bare version.'},
+      {title:'雞蛋仔 — A Hong Kong Street Food Icon', body:'雞蛋仔 (gai1 daan2 zai2, "egg waffle") is a bubble-shaped waffle sold hot from street carts across Hong Kong — one of the most recognizable local snacks, and a near-guaranteed answer if you ask a local what to try first.'},
     ],
     cards:[
-      {v:'唔該借歪。', p:'m4 goi1 ze3 me2.', e:'Excuse me, coming through.'},
-      {v:'冇問題，你請先。', p:'mou5 man6 tai4, nei5 cing2 sin1.', e:'No problem, go ahead.'},
-      {v:'唔好意思，撞親你。', p:'m4 hou2 ji3 si1, zong6 can1 nei5.', e:'Sorry, I bumped into you.'},
-      {v:'唔緊要。', p:'m4 gan2 jiu3.', e:"It's okay, no worries."},
+      {v:'唔該，嗰個係乜嘢嚟㗎？', p:'m4 goi1, go2 go3 hai6 mat1 je5 lai4 gaa3?', e:'Excuse me, what is that?'},
+      {v:'嗰個係雞蛋仔，好多人鍾意食。', p:'go2 go3 hai6 gai1 daan2 zai2, hou2 do1 jan4 zung1 ji3 sik6.', e:'That\'s egg waffle, lots of people love it.'},
+      {v:'好唔好食㗎？', p:'hou2 m4 hou2 sik6 gaa3?', e:'Is it good?'},
+      {v:'好食，你試吓啦。', p:'hou2 sik6, nei5 si3 haa5 laa1.', e:'It\'s tasty, give it a try.'},
     ] },
-  { id:'yue_l6', day:6, section:1, level:'A1', title:'Where is the Restroom?', tag:'Survival', img:'images/yue_lesson_06.jpg',
-    desc:'Learn how to ask where the restroom is and whether it is far away.',
+  { id:'yue_l6', day:6, section:1, level:'A1', title:'How Many? Getting a Table', tag:'Survival', img:'images/yue_lesson_06.jpg',
+    desc:'Get seated for a group, and learn Cantonese\'s two different ways to count people and objects.',
     duration:'3 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'唔該，洗手間喺邊度？', p:'m4 goi1, sai2 sau2 gaan1 hai2 bin1 dou6?', e:"Excuse me, where's the restroom?"},
-      {speaker:'B', v:'喺嗰度，靠右手邊。', p:'hai2 go2 dou6, kaau3 jau6 sau2 bin1.', e:"It's over there, on the right."},
+      {speaker:'A', v:'幾多位呀？', p:'gei2 do1 wai2 aa3?', e:'How many people?'},
+      {speaker:'B', v:'我哋三個人。', p:'ngo5 dei6 saam1 go3 jan4.', e:'There are three of us.'},
+      {speaker:'A', v:'好，跟我嚟啦。', p:'hou2, gan1 ngo5 lai4 laa1.', e:'Sure, follow me.'},
+      {speaker:'B', v:'唔該，可唔可以要多張凳呀？', p:'m4 goi1, ho2 m4 ho2 ji5 jiu3 do1 zoeng1 dang3 aa3?', e:'Excuse me, could we get an extra chair?'},
+    ],
+    vocab:[
+      {v:'幾多', e:'how many / how much'}, {v:'位', e:'measure word: people (polite)'}, {v:'個人', e:'person (general)'}, {v:'跟', e:'to follow'},
+      {v:'張', e:'measure word: flat objects'}, {v:'凳', e:'chair'}, {v:'多', e:'extra / more'},
+    ],
+    grammar:[
+      {title:'位 vs 個 — Counting People Politely', body:'位 (wai2) is the polite measure word for counting people — used by staff addressing customers, exactly as in 幾多位. 個 (go3) also works for people but is more casual/neutral, as when B answers 三個人 about their own group.'},
+      {title:'張 — The Measure Word for Flat Things', body:'張 (zoeng1) is the classifier for flat objects — chairs (凳), tables (檯), paper, tickets — an easy one to reuse once you notice the pattern of "roughly flat and rigid."'},
+    ],
+    cards:[
+      {v:'幾多位呀？', p:'gei2 do1 wai2 aa3?', e:'How many people?'},
+      {v:'我哋三個人。', p:'ngo5 dei6 saam1 go3 jan4.', e:'There are three of us.'},
+      {v:'好，跟我嚟啦。', p:'hou2, gan1 ngo5 lai4 laa1.', e:'Sure, follow me.'},
+      {v:'唔該，可唔可以要多張凳呀？', p:'m4 goi1, ho2 m4 ho2 ji5 jiu3 do1 zoeng1 dang3 aa3?', e:'Excuse me, could we get an extra chair?'},
+    ] },
+  { id:'yue_l7', day:7, section:1, level:'A1', title:'How Much Does It Cost?', tag:'Survival', img:'images/yue_lesson_07.jpg',
+    desc:'Buy a snack at a market stall with small bills, Hong Kong dollar style.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'呢串魚蛋幾多錢呀？', p:'ni1 cyun3 jyu4 daan2 gei2 do1 cin2 aa3?', e:'How much is this skewer of fish balls?'},
+      {speaker:'B', v:'十蚊一串。', p:'sap6 man1 jat1 cyun3.', e:'Ten dollars a skewer.'},
+      {speaker:'A', v:'好，畀你，唔使找喇。', p:'hou2, bei2 nei5, m4 sai2 zaau2 laa3.', e:'Here you go, keep the change.'},
+      {speaker:'B', v:'唔使喇，我有散紙。', p:'m4 sai2 laa3, ngo5 jau5 saan2 zi2.', e:'No need, I have small change.'},
+    ],
+    vocab:[
+      {v:'幾多錢', e:'how much money'}, {v:'串', e:'measure word: skewer'}, {v:'魚蛋', e:'fish balls'}, {v:'蚊', e:'dollar (colloquial)'},
+      {v:'唔使找', e:'keep the change'}, {v:'散紙', e:'small change / loose bills'},
+    ],
+    grammar:[
+      {title:'唔使找 — "Keep the Change"', body:'唔使 (m4 sai2, "no need") plus 找 (zaau2, "to give change") together mean "keep the change" — genuinely useful, even though Hong Kong doesn\'t have a general tipping culture the way North America does.'},
+      {title:'散紙 — Why Small Bills Matter', body:'散紙 (saan2 zi2, "loose/small bills") matters a lot at street stalls and wet markets, where vendors often can\'t break a large note — carrying small change is a genuinely practical habit, not just a phrase to memorize.'},
+    ],
+    cards:[
+      {v:'呢串魚蛋幾多錢呀？', p:'ni1 cyun3 jyu4 daan2 gei2 do1 cin2 aa3?', e:'How much is this skewer of fish balls?'},
+      {v:'十蚊一串。', p:'sap6 man1 jat1 cyun3.', e:'Ten dollars a skewer.'},
+      {v:'好，畀你，唔使找喇。', p:'hou2, bei2 nei5, m4 sai2 zaau2 laa3.', e:'Here you go, keep the change.'},
+      {v:'唔使喇，我有散紙。', p:'m4 sai2 laa3, ngo5 jau5 saan2 zi2.', e:'No need, I have small change.'},
+    ] },
+  { id:'yue_l8', day:8, section:1, level:'A1', title:'Which Way? Asking for Directions', tag:'Survival', img:'images/yue_lesson_08.jpg',
+    desc:'Ask a passerby for directions to the nearest MTR station.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'唔該，港鐵站邊度行呀？', p:'m4 goi1, gong2 tit3 zaam6 bin1 dou6 haang4 aa3?', e:'Excuse me, which way to the MTR station?'},
+      {speaker:'B', v:'直行，見到燈位轉右就到喇。', p:'zik6 haang4, gin3 dou3 dang1 wai2 zyun3 jau6 zau6 dou3 laa3.', e:"Go straight, turn right at the traffic light and you're there."},
       {speaker:'A', v:'遠唔遠呀？', p:'jyun5 m4 jyun5 aa3?', e:'Is it far?'},
-      {speaker:'B', v:'唔遠，好近啫。', p:'m4 jyun5, hou2 kan5 ze1.', e:"Not far, it's very close."},
+      {speaker:'B', v:'唔遠，行五分鐘啫。', p:'m4 jyun5, haang4 ng5 fan1 zung1 ze1.', e:"Not far, just a five-minute walk."},
     ],
     vocab:[
-      {v:'洗手間', e:'restroom'}, {v:'喺邊度', e:'where is'}, {v:'嗰度', e:'over there'}, {v:'靠右', e:'to the right'},
-      {v:'遠', e:'far'}, {v:'近', e:'close / near'}, {v:'啫', e:'just / only (softening particle)'},
+      {v:'邊度行', e:'which way to go'}, {v:'直行', e:'go straight'}, {v:'燈位', e:'traffic light'}, {v:'轉右', e:'turn right'},
+      {v:'遠', e:'far'}, {v:'五分鐘', e:'five minutes'}, {v:'啫', e:'just / only (softening particle)'},
     ],
     grammar:[
-      {title:'喺邊度 — Asking "Where"', body:'喺 (hai2) means "at/in," and 邊度 (bin1 dou6) means "where" — together, 喺邊度 asks where something is located. This is one of the most useful question patterns for getting around.'},
-      {title:'V-唔-V for Adjectives Too', body:'Just like verbs (see Lesson 3), adjectives can also form yes/no questions by repeating with 唔 in the middle — 遠唔遠 (jyun5 m4 jyun5) literally "far-not-far?" simply means "Is it far?"'},
+      {title:'直行...轉右/左 — Giving Simple Directions', body:'Basic directions chain together naturally: 直行 (go straight), 轉右/轉左 (turn right/left), and a landmark like 燈位 (traffic light) to mark where. Locals give directions this way constantly, since street names in busy districts aren\'t always the fastest way to explain a route.'},
+      {title:'啫 — Downplaying Something', body:'啫 (ze1) at the end of a sentence downplays what was just said — 行五分鐘啫 feels like "it\'s only a five-minute walk," reassuring the listener it\'s no big deal.'},
     ],
     cards:[
-      {v:'唔該，洗手間喺邊度？', p:'m4 goi1, sai2 sau2 gaan1 hai2 bin1 dou6?', e:"Excuse me, where's the restroom?"},
-      {v:'喺嗰度，靠右手邊。', p:'hai2 go2 dou6, kaau3 jau6 sau2 bin1.', e:"It's over there, on the right."},
+      {v:'唔該，港鐵站邊度行呀？', p:'m4 goi1, gong2 tit3 zaam6 bin1 dou6 haang4 aa3?', e:'Excuse me, which way to the MTR station?'},
+      {v:'直行，見到燈位轉右就到喇。', p:'zik6 haang4, gin3 dou3 dang1 wai2 zyun3 jau6 zau6 dou3 laa3.', e:"Go straight, turn right at the traffic light and you're there."},
       {v:'遠唔遠呀？', p:'jyun5 m4 jyun5 aa3?', e:'Is it far?'},
-      {v:'唔遠，好近啫。', p:'m4 jyun5, hou2 kan5 ze1.', e:"Not far, it's very close."},
+      {v:'唔遠，行五分鐘啫。', p:'m4 jyun5, haang4 ng5 fan1 zung1 ze1.', e:"Not far, just a five-minute walk."},
     ] },
-  { id:'yue_l7', day:7, section:1, level:'A1', title:'How Much Is This?', tag:'Survival', img:'images/yue_lesson_07.jpg',
-    desc:'Learn how to ask the price of something and politely ask for a lower price.',
+  { id:'yue_l9', day:9, section:1, level:'A1', title:'Sorry, No Worries', tag:'Survival', img:'images/yue_lesson_09.jpg',
+    desc:'Handle a small bump on a crowded MTR platform — a very Hong Kong moment.',
     duration:'3 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'呢個幾多錢？', p:'ni1 go3 gei2 do1 cin2?', e:'How much is this?'},
-      {speaker:'B', v:'三十蚊。', p:'saam1 sap6 man1.', e:'Thirty dollars.'},
-      {speaker:'A', v:'平啲得唔得？', p:'peng4 di1 dak1 m4 dak1?', e:'Could you make it a bit cheaper?'},
-      {speaker:'B', v:'好呀，二十五蚊啦。', p:'hou2 aa3, ji6 sap6 ng5 man1 laa1.', e:'Sure, twenty-five dollars then.'},
+      {speaker:'A', v:'唔好意思，撞親你，你有冇事呀？', p:'m4 hou2 ji3 si1, zong6 can1 nei5, nei5 jau5 mou5 si6 aa3?', e:'Sorry, I bumped into you, are you okay?'},
+      {speaker:'B', v:'冇事冇事，唔緊要。', p:'mou5 si6 mou5 si6, m4 gan2 jiu3.', e:"I'm fine, no worries."},
+      {speaker:'A', v:'呢度成日咁迫，真係唔好意思。', p:'ni1 dou6 sing4 jat6 gam3 bik1, zan1 hai6 m4 hou2 ji3 si1.', e:"It's always this crowded here, really sorry."},
+      {speaker:'B', v:'冇問題，香港就係咁㗎喇。', p:'mou5 man6 tai4, hoeng1 gong2 zau6 hai6 gam2 gaa3 laa3.', e:"No problem, that's just how Hong Kong is."},
     ],
     vocab:[
-      {v:'幾多錢', e:'how much money'}, {v:'呢個', e:'this one'}, {v:'蚊', e:'dollar'}, {v:'平', e:'cheap'},
-      {v:'得唔得', e:'is it OK / can it be done'}, {v:'貴', e:'expensive'}, {v:'啦', e:'suggestion / softening particle'},
+      {v:'撞親', e:'to bump into'}, {v:'有冇事', e:'are you okay'}, {v:'唔緊要', e:'never mind / no worries'}, {v:'成日', e:'always / all the time'},
+      {v:'迫', e:'crowded'}, {v:'真係', e:'really / truly'}, {v:'香港', e:'Hong Kong'},
     ],
     grammar:[
-      {title:'幾多錢 — Asking the Price', body:'幾多 (gei2 do1) means "how much/many," and 錢 (cin2) means "money" — together it\'s the standard way to ask a price. You\'ll also hear the shorter, more casual 幾錢 (gei2 cin2).'},
-      {title:'得唔得 — Asking If Something\'s OK', body:'得 (dak1) alone means "OK, that works." Repeating it with 唔 in between (the same V-唔-V pattern from Lesson 3) turns it into a question — 得唔得 = "is that OK?" — great for haggling or asking a favor.'},
+      {title:'有冇事 — Checking If Someone\'s Okay', body:'有冇事呀 (jau5 mou5 si6 aa3), literally "have-not-have matter," is the standard way to ask "are you alright?" after a bump or small accident — a natural extension of the 有/冇 pattern from Lesson 3.'},
+      {title:'Crowded Platforms Are Just Life Here', body:'迫 (bik1, "crowded") describing rush-hour MTR platforms is such a shared experience that acknowledging it — 呢度成日咁迫 — is practically small talk on its own, and bumping into someone in a crowd rarely draws more than a quick, genuinely casual apology.'},
     ],
     cards:[
-      {v:'呢個幾多錢？', p:'ni1 go3 gei2 do1 cin2?', e:'How much is this?'},
-      {v:'三十蚊。', p:'saam1 sap6 man1.', e:'Thirty dollars.'},
-      {v:'平啲得唔得？', p:'peng4 di1 dak1 m4 dak1?', e:'Could you make it a bit cheaper?'},
-      {v:'好呀，二十五蚊啦。', p:'hou2 aa3, ji6 sap6 ng5 man1 laa1.', e:'Sure, twenty-five dollars then.'},
+      {v:'唔好意思，撞親你，你有冇事呀？', p:'m4 hou2 ji3 si1, zong6 can1 nei5, nei5 jau5 mou5 si6 aa3?', e:'Sorry, I bumped into you, are you okay?'},
+      {v:'冇事冇事，唔緊要。', p:'mou5 si6 mou5 si6, m4 gan2 jiu3.', e:"I'm fine, no worries."},
+      {v:'呢度成日咁迫，真係唔好意思。', p:'ni1 dou6 sing4 jat6 gam3 bik1, zan1 hai6 m4 hou2 ji3 si1.', e:"It's always this crowded here, really sorry."},
+      {v:'冇問題，香港就係咁㗎喇。', p:'mou5 man6 tai4, hoeng1 gong2 zau6 hai6 gam2 gaa3 laa3.', e:"No problem, that's just how Hong Kong is."},
     ] },
-  { id:'yue_l8', day:8, section:1, level:'A1', title:'Ordering Quantities (1 to 10)', tag:'Survival', img:'images/yue_lesson_08.jpg',
-    desc:'Learn the numbers 1 to 10 and how to order a specific quantity of something.',
+  { id:'yue_l10', day:10, section:1, level:'A1', title:'Nice to Meet You', tag:'Survival', img:'images/yue_lesson_10.jpg',
+    desc:'Exchange names at a language exchange meetup, and ask someone if they\'re free to hang out.',
     duration:'3 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'你想要幾多個？', p:'nei5 soeng2 jiu3 gei2 do1 go3?', e:'How many would you like?'},
-      {speaker:'B', v:'我要五個，唔該。', p:'ngo5 jiu3 ng5 go3, m4 goi1.', e:"I'd like five, please."},
-      {speaker:'A', v:'好，仲要啲乜嘢呀？', p:'hou2, zung6 jiu3 di1 mat1 je5 aa3?', e:'Sure, anything else?'},
-      {speaker:'B', v:'唔使喇，夠喇。', p:'m4 sai2 laa3, gau3 laa3.', e:"No need, that's enough."},
+      {speaker:'A', v:'你好，我未問過你叫咩名。', p:'nei5 hou2, ngo5 mei6 man6 gwo3 nei5 giu3 me1 meng2.', e:"Hi, I haven't asked your name yet."},
+      {speaker:'B', v:'我叫嘉怡，你呢？', p:'ngo5 giu3 gaa1 ji4, nei5 ne1?', e:"I'm Ka Yi, and you?"},
+      {speaker:'A', v:'我叫Tom，識得你好開心。', p:'ngo5 giu3 Tom, sik1 dak1 nei5 hou2 hoi1 sam1.', e:"I'm Tom, nice to meet you."},
+      {speaker:'B', v:'我都係，聽日得唔得閒一齊飲杯嘢？', p:'ngo5 dou1 hai6, ting1 jat6 dak1 m4 dak1 haan4 jat1 cai4 jam2 bui1 je5?', e:'Likewise, are you free tomorrow to grab a drink together?'},
     ],
     vocab:[
-      {v:'一', e:'one'}, {v:'二 / 兩', e:'two'}, {v:'三', e:'three'}, {v:'四', e:'four'},
-      {v:'五', e:'five'}, {v:'個', e:'general classifier'}, {v:'幾多個', e:'how many'}, {v:'夠喇', e:"that's enough"},
+      {v:'叫咩名', e:"what's your name"}, {v:'識得', e:'to know / to meet'}, {v:'開心', e:'happy'}, {v:'得閒', e:'free / available'},
+      {v:'一齊', e:'together'}, {v:'飲杯嘢', e:'to grab a drink'},
     ],
     grammar:[
-      {title:'個 (go3) — The All-Purpose Classifier', body:'Cantonese nouns need a classifier (measure word) between a number and the noun. 個 (go3) is the most common one, used for people, generic objects, and more whenever you\'re unsure of the specific classifier — 五個 (ng5 go3) means "five of them."'},
-      {title:'兩 vs 二 — Two Ways to Say "Two"', body:'Use 兩 (loeng5) when counting objects with a classifier — 兩個 (loeng5 go3), "two of them." Use 二 (ji6) when reciting numbers in sequence, or inside compound numbers like "twenty" (二十).'},
+      {title:'識得 vs 認識 — Two Ways to Say "Know"', body:'識得 (sik1 dak1) is the everyday, casual way to say you know or have met someone — 識得你好開心 ("nice to meet/know you"). The more formal 認識 also exists but sounds a touch stiffer in casual conversation.'},
+      {title:'得閒 — Hong Kong\'s All-Purpose "Free Time" Word', body:'得閒 (dak1 haan4, "free/available") is essential for making any social plan — 你幾時得閒 ("when are you free"), 我唔得閒 ("I\'m busy"). Combined with the V-唔-V pattern, 得唔得閒 asks "are you free?" in one breath.'},
     ],
     cards:[
-      {v:'你想要幾多個？', p:'nei5 soeng2 jiu3 gei2 do1 go3?', e:'How many would you like?'},
-      {v:'我要五個，唔該。', p:'ngo5 jiu3 ng5 go3, m4 goi1.', e:"I'd like five, please."},
-      {v:'好，仲要啲乜嘢呀？', p:'hou2, zung6 jiu3 di1 mat1 je5 aa3?', e:'Sure, anything else?'},
-      {v:'唔使喇，夠喇。', p:'m4 sai2 laa3, gau3 laa3.', e:"No need, that's enough."},
+      {v:'你好，我未問過你叫咩名。', p:'nei5 hou2, ngo5 mei6 man6 gwo3 nei5 giu3 me1 meng2.', e:"Hi, I haven't asked your name yet."},
+      {v:'我叫嘉怡，你呢？', p:'ngo5 giu3 gaa1 ji4, nei5 ne1?', e:"I'm Ka Yi, and you?"},
+      {v:'我叫Tom，識得你好開心。', p:'ngo5 giu3 Tom, sik1 dak1 nei5 hou2 hoi1 sam1.', e:"I'm Tom, nice to meet you."},
+      {v:'我都係，聽日得唔得閒一齊飲杯嘢？', p:'ngo5 dou1 hai6, ting1 jat6 dak1 m4 dak1 haan4 jat1 cai4 jam2 bui1 je5?', e:'Likewise, are you free tomorrow to grab a drink together?'},
     ] },
-  { id:'yue_l9', day:9, section:1, level:'A1', title:'Directing a Taxi', tag:'Survival', img:'images/yue_lesson_09.jpg',
-    desc:'Learn how to tell a taxi driver where you want to go and where to stop.',
+  { id:'yue_l11', day:11, section:1, level:'A1', title:'Come Again? Asking for Clarification', tag:'Survival', img:'images/yue_lesson_11.jpg',
+    desc:'Ask a friend what a word means and get them to repeat an earlier sentence.',
     duration:'3 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'去邊度呀？', p:'heoi3 bin1 dou6 aa3?', e:'Where to?'},
-      {speaker:'B', v:'去中環，唔該。', p:'heoi3 zung1 waan4, m4 goi1.', e:'To Central, please.'},
-      {speaker:'A', v:'好，我知喇。', p:'hou2, ngo5 zi1 laa3.', e:'OK, got it.'},
-      {speaker:'B', v:'呢度停就得喇，多謝。', p:'ni1 dou6 ting4 zau6 dak1 laa3, do1 ze6.', e:'You can stop here, thanks.'},
+      {speaker:'A', v:'唔好意思，"至叻"係乜嘢意思呀？', p:'m4 hou2 ji3 si1, "zi3 lek1" hai6 mat1 je5 ji3 si1 aa3?', e:'Sorry, what does "至叻" mean?'},
+      {speaker:'B', v:'即係"最叻"嘅意思，即係"最叻嗰個"。', p:'zik1 hai6 "zeoi3 lek1" ge3 ji3 si1, zik1 hai6 "zeoi3 lek1 go2 go3".', e:'It means the same as "最叻" — "the best/smartest one."'},
+      {speaker:'A', v:'明喇，唔該你講多次先前嗰句。', p:'ming4 laa3, m4 goi1 nei5 gong2 do1 ci3 sin1 cin4 go2 geoi3.', e:'Got it, could you say that earlier sentence again please?'},
+      {speaker:'B', v:'冇問題，我講慢啲。', p:'mou5 man6 tai4, ngo5 gong2 maan6 di1.', e:"No problem, I'll speak slower."},
     ],
     vocab:[
-      {v:'去', e:'to go'}, {v:'邊度', e:'where'}, {v:'中環', e:'Central (a district in Hong Kong)'}, {v:'知', e:'to know'},
-      {v:'停', e:'to stop'}, {v:'就得', e:"that'll do"}, {v:'呢度', e:'here'},
+      {v:'乜嘢意思', e:'what does it mean'}, {v:'即係', e:'that means / i.e.'}, {v:'至叻', e:'the best (colloquial)'}, {v:'講多次', e:'say again'},
+      {v:'先前', e:'earlier'}, {v:'講慢啲', e:'speak slower'},
     ],
     grammar:[
-      {title:'去 + Place — Saying Where You\'re Going', body:'Just say 去 (heoi3, "to go") directly followed by the destination — 去中環 (heoi3 zung1 waan4) means "go to Central." No preposition is needed between 去 and the place name.'},
-      {title:'就得 — "That\'ll Do"', body:'得 (dak1, "OK, that works") paired with 就 (zau6, "then/just") makes 就得, a handy phrase for telling someone that something is sufficient — 呢度停就得 (ni1 dou6 ting4 zau6 dak1) means "stopping here will do."'},
+      {title:'即係 — Cantonese\'s "That Means"', body:'即係 (zik1 hai6) is the go-to phrase for rephrasing or clarifying — "that means" or "in other words" — and shows up constantly whenever someone explains a word, corrects themselves, or simplifies what they just said.'},
+      {title:'至 as an Intensifier', body:'至 (zi3) before an adjective works like "the most" — 至叻 (zi3 lek1, "the smartest/best") is a punchier, more colloquial alternative to the more standard 最 (zeoi3) — both mean the same thing, but 至 has a distinctly local, casual flavor.'},
     ],
     cards:[
-      {v:'去邊度呀？', p:'heoi3 bin1 dou6 aa3?', e:'Where to?'},
-      {v:'去中環，唔該。', p:'heoi3 zung1 waan4, m4 goi1.', e:'To Central, please.'},
-      {v:'好，我知喇。', p:'hou2, ngo5 zi1 laa3.', e:'OK, got it.'},
-      {v:'呢度停就得喇，多謝。', p:'ni1 dou6 ting4 zau6 dak1 laa3, do1 ze6.', e:'You can stop here, thanks.'},
+      {v:'唔好意思，"至叻"係乜嘢意思呀？', p:'m4 hou2 ji3 si1, "zi3 lek1" hai6 mat1 je5 ji3 si1 aa3?', e:'Sorry, what does "至叻" mean?'},
+      {v:'即係"最叻"嘅意思，即係"最叻嗰個"。', p:'zik1 hai6 "zeoi3 lek1" ge3 ji3 si1, zik1 hai6 "zeoi3 lek1 go2 go3".', e:'It means the same as "最叻" — "the best/smartest one."'},
+      {v:'明喇，唔該你講多次先前嗰句。', p:'ming4 laa3, m4 goi1 nei5 gong2 do1 ci3 sin1 cin4 go2 geoi3.', e:'Got it, could you say that earlier sentence again please?'},
+      {v:'冇問題，我講慢啲。', p:'mou5 man6 tai4, ngo5 gong2 maan6 di1.', e:"No problem, I'll speak slower."},
     ] },
-  { id:'yue_l10', day:10, section:1, level:'A1', title:'Name and Country', tag:'Survival', img:'images/yue_lesson_10.jpg',
-    desc:'Learn how to ask and answer someone\'s name and where they are from.',
+  { id:'yue_l12', day:12, section:2, level:'A1', title:'Ordering at a Cha Chaan Teng', tag:'Everyday Life', img:'images/yue_lesson_12.jpg',
+    desc:'Order a drink at a Hong Kong cha chaan teng and say whether you want it hot or iced, dine-in or takeout.',
     duration:'3 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'你叫咩名呀？', p:'nei5 giu3 me1 meng2 aa3?', e:"What's your name?"},
-      {speaker:'B', v:'我叫Peter。你呢？', p:'ngo5 giu3 Peter. nei5 ne1?', e:"I'm Peter. And you?"},
-      {speaker:'A', v:'我叫美玲。你係邊度人呀？', p:'ngo5 giu3 Mei5 Ling4. nei5 hai6 bin1 dou6 jan4 aa3?', e:"I'm Mei Ling. Where are you from?"},
-      {speaker:'B', v:'我係美國人。', p:'ngo5 hai6 mei5 gwok3 jan4.', e:"I'm American."},
+      {speaker:'A', v:'你好，想食啲乜嘢？', p:'nei5 hou2, soeng2 sik6 di1 mat1 je5?', e:'Hello, what would you like?'},
+      {speaker:'B', v:'我要一杯凍檸茶，唔該。', p:'ngo5 jiu3 jat1 bui1 dung3 ning4 caa4, m4 goi1.', e:"I'd like an iced lemon tea, please."},
+      {speaker:'A', v:'堂食定外賣？', p:'tong4 sik6 ding6 ngoi6 maai6?', e:'Dine in or takeout?'},
+      {speaker:'B', v:'堂食，唔該。', p:'tong4 sik6, m4 goi1.', e:'Dine in, please.'},
     ],
     vocab:[
-      {v:'叫', e:'to be called'}, {v:'咩名', e:'what name'}, {v:'邊度人', e:'where [someone] is from'}, {v:'美國人', e:'American person'},
-      {v:'香港人', e:'Hong Kong person'}, {v:'你呢', e:'and you'},
+      {v:'凍', e:'cold / iced'}, {v:'熱', e:'hot'}, {v:'檸茶', e:'lemon tea'}, {v:'堂食', e:'dine in'},
+      {v:'外賣', e:'takeout'}, {v:'走冰', e:'no ice'}, {v:'走糖', e:'no sugar'}, {v:'茶餐廳', e:'cha chaan teng (HK cafe)'},
     ],
     grammar:[
-      {title:'叫咩名 — Asking Someone\'s Name', body:'叫 (giu3) means "to be called," and 咩名 (me1 meng2) means "what name" — together 你叫咩名呀 asks "What are you called?" Answer with 我叫... (ngo5 giu3..., "I\'m called...").'},
-      {title:'邊度人 — Asking Where Someone Is From', body:'Literally "which-place person," 邊度人 (bin1 dou6 jan4) asks about someone\'s origin. To answer, name the place and add 人 (jan4, "person") — 美國人 (mei5 gwok3 jan4) means "American [person]."'},
+      {title:'Cha Chaan Teng Ordering Shorthand', body:'At a 茶餐廳 (cha chaan teng), ordering is fast-paced — regulars often abbreviate with shorthand like 走冰 ("no ice") or 走糖 ("no sugar") instead of full sentences, and staff jot the order straight onto a paper slip at your table. Being quick and direct is completely normal here, not rude.'},
+      {title:'堂食 vs 外賣', body:'Almost every food order in Hong Kong starts with this fork in the road — dine-in (堂食, tong4 sik6) or takeout (外賣, ngoi6 maai6) — since seating and packaging differ. Staff will almost always ask if you don\'t say it first.'},
     ],
     cards:[
-      {v:'你叫咩名呀？', p:'nei5 giu3 me1 meng2 aa3?', e:"What's your name?"},
-      {v:'我叫Peter。你呢？', p:'ngo5 giu3 Peter. nei5 ne1?', e:"I'm Peter. And you?"},
-      {v:'我叫美玲。你係邊度人呀？', p:'ngo5 giu3 Mei5 Ling4. nei5 hai6 bin1 dou6 jan4 aa3?', e:"I'm Mei Ling. Where are you from?"},
-      {v:'我係美國人。', p:'ngo5 hai6 mei5 gwok3 jan4.', e:"I'm American."},
+      {v:'你好，想食啲乜嘢？', p:'nei5 hou2, soeng2 sik6 di1 mat1 je5?', e:'Hello, what would you like?'},
+      {v:'我要一杯凍檸茶，唔該。', p:'ngo5 jiu3 jat1 bui1 dung3 ning4 caa4, m4 goi1.', e:"I'd like an iced lemon tea, please."},
+      {v:'堂食定外賣？', p:'tong4 sik6 ding6 ngoi6 maai6?', e:'Dine in or takeout?'},
+      {v:'堂食，唔該。', p:'tong4 sik6, m4 goi1.', e:'Dine in, please.'},
     ] },
-  { id:'yue_l11', day:11, section:1, level:'A1', title:'Asking a Stranger for Help', tag:'Survival', img:'images/yue_lesson_11.jpg',
-    desc:'Learn how to politely ask a stranger for help when you are lost.',
+  { id:'yue_l13', day:13, section:2, level:'A1', title:'Taking the MTR', tag:'Everyday Life', img:'images/yue_lesson_13.jpg',
+    desc:'Ask which line and how many stops to reach your destination on the MTR.',
     duration:'3 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'唔好意思，可唔可以幫我手呀？', p:'m4 hou2 ji3 si1, ho2 m4 ho2 ji5 bong1 ngo5 sau2 aa3?', e:'Excuse me, could you help me?'},
-      {speaker:'B', v:'冇問題，咩事呀？', p:'mou5 man6 tai4, me1 si6 aa3?', e:"Sure, what's going on?"},
-      {speaker:'A', v:'我蕩失路，搵唔到酒店。', p:'ngo5 dong6 sat1 lou6, wan2 m4 dou2 zau2 dim3.', e:"I'm lost, I can't find my hotel."},
-      {speaker:'B', v:'冇問題，我幫你睇吓。', p:'mou5 man6 tai4, ngo5 bong1 nei5 tai2 haa5.', e:'No problem, let me take a look for you.'},
+      {speaker:'A', v:'唔該，去中環搭邊條線？', p:'m4 goi1, heoi3 zung1 waan4 daap3 bin1 tiu4 sin3?', e:'Excuse me, which line goes to Central?'},
+      {speaker:'B', v:'搭港島線，喺呢度轉車。', p:'daap3 gong2 dou2 sin3, hai2 ni1 dou6 zyun3 ce1.', e:'Take the Island Line, transfer here.'},
+      {speaker:'A', v:'幾多個站呀？', p:'gei2 do1 go3 zaam6 aa3?', e:'How many stops?'},
+      {speaker:'B', v:'三個站就到喇。', p:'saam1 go3 zaam6 zau6 dou3 laa3.', e:"Three stops and you're there."},
     ],
     vocab:[
-      {v:'可唔可以', e:'can you / is it possible'}, {v:'幫手', e:'to help'}, {v:'咩事', e:"what's the matter"}, {v:'蕩失路', e:'to get lost'},
-      {v:'搵唔到', e:"can't find"}, {v:'酒店', e:'hotel'}, {v:'睇吓', e:'to take a look'},
+      {v:'港鐵', e:'MTR'}, {v:'線', e:'(train) line'}, {v:'轉車', e:'to transfer'}, {v:'站', e:'station / stop'},
+      {v:'八達通', e:'Octopus card'}, {v:'出口', e:'exit'}, {v:'落車', e:'to get off'}, {v:'上車', e:'to get on'},
     ],
     grammar:[
-      {title:'可唔可以 — Politely Asking Permission or a Favor', body:'可以 (ho2 ji5) means "can / may," and the V-唔-V pattern (see Lesson 3) turns it into a polite question — 可唔可以幫我手呀？means "Could you help me?" One of the most useful patterns for asking a stranger for a favor.'},
-      {title:'搵唔到 — "Can\'t Find"', body:'搵 (wan2) means "to look for," and adding 唔到 (m4 dou2) after a verb means the action was attempted but failed — 搵唔到 means "looked for but couldn\'t find." This "verb + 唔到" pattern works broadly for "tried but couldn\'t."'},
+      {title:'The Octopus Card is Essential', body:'八達通 (baat3 daat6 tung1, the Octopus card) is used for the MTR, buses, and even convenience stores across Hong Kong — nearly everyone taps in and out rather than buying paper tickets.'},
+      {title:'Escalator Etiquette', body:'On MTR escalators, the Hong Kong convention is stand on the right, walk on the left — worth knowing since the opposite is the norm in some other cities, and standing on the wrong side draws impatient looks during rush hour.'},
     ],
     cards:[
-      {v:'唔好意思，可唔可以幫我手呀？', p:'m4 hou2 ji3 si1, ho2 m4 ho2 ji5 bong1 ngo5 sau2 aa3?', e:'Excuse me, could you help me?'},
-      {v:'冇問題，咩事呀？', p:'mou5 man6 tai4, me1 si6 aa3?', e:"Sure, what's going on?"},
-      {v:'我蕩失路，搵唔到酒店。', p:'ngo5 dong6 sat1 lou6, wan2 m4 dou2 zau2 dim3.', e:"I'm lost, I can't find my hotel."},
-      {v:'冇問題，我幫你睇吓。', p:'mou5 man6 tai4, ngo5 bong1 nei5 tai2 haa5.', e:'No problem, let me take a look for you.'},
+      {v:'唔該，去中環搭邊條線？', p:'m4 goi1, heoi3 zung1 waan4 daap3 bin1 tiu4 sin3?', e:'Excuse me, which line goes to Central?'},
+      {v:'搭港島線，喺呢度轉車。', p:'daap3 gong2 dou2 sin3, hai2 ni1 dou6 zyun3 ce1.', e:'Take the Island Line, transfer here.'},
+      {v:'幾多個站呀？', p:'gei2 do1 go3 zaam6 aa3?', e:'How many stops?'},
+      {v:'三個站就到喇。', p:'saam1 go3 zaam6 zau6 dou3 laa3.', e:"Three stops and you're there."},
+    ] },
+  { id:'yue_l14', day:14, section:2, level:'A1', title:'Ordering Dim Sum', tag:'Everyday Life', img:'images/yue_lesson_14.jpg',
+    desc:'Order tea and a classic dish at a dim sum restaurant.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'想飲咩茶呀？', p:'soeng2 jam2 me1 caa4 aa3?', e:'What tea would you like to drink?'},
+      {speaker:'B', v:'香片，唔該。', p:'hoeng1 pin2, m4 goi1.', e:'Jasmine tea, please.'},
+      {speaker:'A', v:'呢個蝦餃幾好食㗎。', p:'ni1 go3 haa1 gaau2 gei2 hou2 sik6 gaa3.', e:'This shrimp dumpling is quite good.'},
+      {speaker:'B', v:'好呀，嚟一籠啦。', p:'hou2 aa3, lei4 jat1 lung4 laa1.', e:"Sure, let's get a basket."},
+    ],
+    vocab:[
+      {v:'蝦餃', e:'shrimp dumpling'}, {v:'燒賣', e:'siu mai'}, {v:'籠', e:'steamer basket'}, {v:'香片', e:'jasmine tea'},
+      {v:'普洱', e:'pu-erh tea'}, {v:'飲茶', e:'to have dim sum ("drink tea")'}, {v:'點心', e:'dim sum'},
+    ],
+    grammar:[
+      {title:'Lift the Teapot Lid for a Refill', body:'A real, widely-used custom: propping the teapot lid open (or flipping it upside down in some restaurants) silently signals to staff that you\'d like a hot water refill — no need to flag anyone down.'},
+      {title:'一盅兩件 — "One Pot, Two Bites"', body:'This four-character phrase describes the classic dim sum experience: a pot of tea plus at least two small dishes. It\'s literally how 飲茶 ("yum cha," drinking tea) began as a simple teahouse custom before growing into the dim sum culture Hong Kong is known for today.'},
+    ],
+    cards:[
+      {v:'想飲咩茶呀？', p:'soeng2 jam2 me1 caa4 aa3?', e:'What tea would you like to drink?'},
+      {v:'香片，唔該。', p:'hoeng1 pin2, m4 goi1.', e:'Jasmine tea, please.'},
+      {v:'呢個蝦餃幾好食㗎。', p:'ni1 go3 haa1 gaau2 gei2 hou2 sik6 gaa3.', e:'This shrimp dumpling is quite good.'},
+      {v:'好呀，嚟一籠啦。', p:'hou2 aa3, lei4 jat1 lung4 laa1.', e:"Sure, let's get a basket."},
+    ] },
+  { id:'yue_l15', day:15, section:2, level:'A1', title:'Talking About the Weather', tag:'Everyday Life', img:'images/yue_lesson_15.jpg',
+    desc:'Describe the weather and ask whether it will rain tomorrow.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'今日天氣點呀？', p:'gam1 jat6 tin1 hei3 dim2 aa3?', e:"How's the weather today?"},
+      {speaker:'B', v:'好熱，仲落緊雨。', p:'hou2 jit6, zung6 lok6 gan2 jyu5.', e:"Very hot, and it's raining."},
+      {speaker:'A', v:'聽日落唔落雨呀？', p:'ting1 jat6 lok6 m4 lok6 jyu5 aa3?', e:'Will it rain tomorrow?'},
+      {speaker:'B', v:'天文台話會打八號風球。', p:'tin1 man4 toi4 waa6 wui5 daa2 baat3 hou6 fung1 kau4.', e:"The Observatory says there'll be a Signal No. 8."},
+    ],
+    vocab:[
+      {v:'天氣', e:'weather'}, {v:'落雨', e:'to rain'}, {v:'熱', e:'hot'}, {v:'凍', e:'cold'},
+      {v:'天文台', e:'the (Hong Kong) Observatory'}, {v:'風球', e:'typhoon signal'}, {v:'打風', e:'a typhoon hitting'}, {v:'涼', e:'cool'},
+    ],
+    grammar:[
+      {title:'The Typhoon Signal System', body:'Hong Kong\'s Observatory (天文台) issues numbered typhoon signals — 1, 3, 8, 9, 10. Signal No. 8 (八號風球) is the big one: schools and most workplaces close citywide the moment it\'s raised, making it one of the most closely watched weather alerts in daily HK life.'},
+      {title:'落雨 vs 下雨', body:'Cantonese typically says 落雨 (lok6 jyu5) for "to rain," while Mandarin uses 下雨 (xià yǔ) — same idea, different verb, a small but telling vocabulary difference between the two languages.'},
+    ],
+    cards:[
+      {v:'今日天氣點呀？', p:'gam1 jat6 tin1 hei3 dim2 aa3?', e:"How's the weather today?"},
+      {v:'好熱，仲落緊雨。', p:'hou2 jit6, zung6 lok6 gan2 jyu5.', e:"Very hot, and it's raining."},
+      {v:'聽日落唔落雨呀？', p:'ting1 jat6 lok6 m4 lok6 jyu5 aa3?', e:'Will it rain tomorrow?'},
+      {v:'天文台話會打八號風球。', p:'tin1 man4 toi4 waa6 wui5 daa2 baat3 hou6 fung1 kau4.', e:"The Observatory says there'll be a Signal No. 8."},
+    ] },
+  { id:'yue_l16', day:16, section:2, level:'A1', title:'Shopping for Clothes', tag:'Everyday Life', img:'images/yue_lesson_16.jpg',
+    desc:'Ask about sizes, colors, and trying on clothes at a shop.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'呢件衫有冇細碼㗎？', p:'ni1 gin6 saam1 jau5 mou5 sai3 maa5 gaa3?', e:'Does this shirt come in a small size?'},
+      {speaker:'B', v:'有呀，你想要咩顏色？', p:'jau5 aa3, nei5 soeng2 jiu3 me1 ngaan4 sik1?', e:'Yes, what color would you like?'},
+      {speaker:'A', v:'有冇黑色㗎？', p:'jau5 mou5 hak1 sik1 gaa3?', e:'Do you have black?'},
+      {speaker:'B', v:'有，呢度俾你試吓。', p:'jau5, ni1 dou6 bei2 nei5 si3 haa5.', e:'Yes, here, try it on.'},
+    ],
+    vocab:[
+      {v:'衫', e:'clothes / shirt'}, {v:'碼', e:'size'}, {v:'顏色', e:'color'}, {v:'試身', e:'to try on'},
+      {v:'平啲', e:'a bit cheaper'}, {v:'貴', e:'expensive'}, {v:'黑色', e:'black'}, {v:'白色', e:'white'},
+    ],
+    grammar:[
+      {title:'Bargaining Depends on Where You Are', body:'Haggling is expected and normal at street markets like Ladies\' Market or Temple Street, but not in department stores or chain shops — trying to bargain at a fixed-price mall register will just get you a polite "sorry, no discount."'},
+      {title:'試身 — "Trial Body"', body:'Literally "trial body," 試身 (si3 san1) is the standard way to ask to try on clothes — look for a 試身室 (fitting room) sign in any Hong Kong clothing shop.'},
+    ],
+    cards:[
+      {v:'呢件衫有冇細碼㗎？', p:'ni1 gin6 saam1 jau5 mou5 sai3 maa5 gaa3?', e:'Does this shirt come in a small size?'},
+      {v:'有呀，你想要咩顏色？', p:'jau5 aa3, nei5 soeng2 jiu3 me1 ngaan4 sik1?', e:'Yes, what color would you like?'},
+      {v:'有冇黑色㗎？', p:'jau5 mou5 hak1 sik1 gaa3?', e:'Do you have black?'},
+      {v:'有，呢度俾你試吓。', p:'jau5, ni1 dou6 bei2 nei5 si3 haa5.', e:'Yes, here, try it on.'},
+    ] },
+  { id:'yue_l17', day:17, section:2, level:'A1', title:'At the Pharmacy', tag:'Everyday Life', img:'images/yue_lesson_17.jpg',
+    desc:'Describe a symptom and ask how to take medicine at a pharmacy.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'唔該，我頭痛，有咩藥好呀？', p:'m4 goi1, ngo5 tau4 tung3, jau5 me1 joek6 hou2 aa3?', e:'Excuse me, I have a headache, what medicine is good?'},
+      {speaker:'B', v:'呢隻頭痛藥幾有效㗎。', p:'ni1 zek3 tau4 tung3 joek6 gei2 jau5 haau6 gaa3.', e:'This headache medicine is quite effective.'},
+      {speaker:'A', v:'要點食呀？', p:'jiu3 dim2 sik6 aa3?', e:'How should I take it?'},
+      {speaker:'B', v:'一日三次，飯後食。', p:'jat1 jat6 saam1 ci3, faan6 hau6 sik6.', e:'Three times a day, after meals.'},
+    ],
+    vocab:[
+      {v:'頭痛', e:'headache'}, {v:'藥', e:'medicine'}, {v:'有效', e:'effective'}, {v:'飯後', e:'after meals'},
+      {v:'發燒', e:'fever'}, {v:'咳', e:'cough'}, {v:'藥房', e:'pharmacy'},
+    ],
+    grammar:[
+      {title:'藥房 vs 涼茶舖', body:'A 藥房 (Western-style pharmacy) sells packaged medicine like in the dialogue above, while a 涼茶舖 (herbal tea shop) sells traditional Chinese cooling herbal teas for minor ailments — both are common sights on Hong Kong streets, and locals often pick one over the other based on the complaint.'},
+      {title:'飯前 vs 飯後', body:'Dosage instructions almost always specify before meals (飯前, faan6 cin4) or after meals (飯後, faan6 hau6) — worth listening for carefully, since it changes how the medicine should be taken.'},
+    ],
+    cards:[
+      {v:'唔該，我頭痛，有咩藥好呀？', p:'m4 goi1, ngo5 tau4 tung3, jau5 me1 joek6 hou2 aa3?', e:'Excuse me, I have a headache, what medicine is good?'},
+      {v:'呢隻頭痛藥幾有效㗎。', p:'ni1 zek3 tau4 tung3 joek6 gei2 jau5 haau6 gaa3.', e:'This headache medicine is quite effective.'},
+      {v:'要點食呀？', p:'jiu3 dim2 sik6 aa3?', e:'How should I take it?'},
+      {v:'一日三次，飯後食。', p:'jat1 jat6 saam1 ci3, faan6 hau6 sik6.', e:'Three times a day, after meals.'},
+    ] },
+  { id:'yue_l18', day:18, section:2, level:'A1', title:'Talking About Family', tag:'Everyday Life', img:'images/yue_lesson_18.jpg',
+    desc:'Describe your family members and ask about someone else\'s.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'你屋企有幾多人呀？', p:'nei5 uk1 kei2 jau5 gei2 do1 jan4 aa3?', e:'How many people are in your family?'},
+      {speaker:'B', v:'四個人，爸爸媽媽同埋一個妹妹。', p:'sei3 go3 jan4, baa4 baa1 maa4 maa1 tung4 maai4 jat1 go3 mui4 mui2.', e:'Four — my dad, mom, and a younger sister.'},
+      {speaker:'A', v:'你妹妹讀緊書未呀？', p:'nei5 mui4 mui2 duk6 gan2 syu1 mei6 aa3?', e:'Is your sister still in school?'},
+      {speaker:'B', v:'係呀，佢讀緊中學。', p:'hai6 aa3, keoi5 duk6 gan2 zung1 hok6.', e:"Yes, she's in secondary school."},
+    ],
+    vocab:[
+      {v:'屋企', e:'home / family'}, {v:'爸爸', e:'dad'}, {v:'媽媽', e:'mom'}, {v:'妹妹', e:'younger sister'},
+      {v:'哥哥', e:'older brother'}, {v:'姐姐', e:'older sister'}, {v:'細佬', e:'younger brother'}, {v:'讀書', e:'to study / go to school'},
+    ],
+    grammar:[
+      {title:'屋企 — More Than Just "House"', body:'屋企 (uk1 kei2) literally suggests a "house base," but it\'s the everyday word for "home" or "family," used constantly in casual speech — much more common than the more formal 家 (gaa1) a Mandarin speaker might expect.'},
+      {title:'Cantonese Kinship Terms Are Precise', body:'Unlike English, Cantonese has distinct words for older vs. younger siblings — 哥哥/細佬 for older/younger brother, 姐姐/妹妹 for older/younger sister. There\'s no single generic word for "brother" or "sister."'},
+    ],
+    cards:[
+      {v:'你屋企有幾多人呀？', p:'nei5 uk1 kei2 jau5 gei2 do1 jan4 aa3?', e:'How many people are in your family?'},
+      {v:'四個人，爸爸媽媽同埋一個妹妹。', p:'sei3 go3 jan4, baa4 baa1 maa4 maa1 tung4 maai4 jat1 go3 mui4 mui2.', e:'Four — my dad, mom, and a younger sister.'},
+      {v:'你妹妹讀緊書未呀？', p:'nei5 mui4 mui2 duk6 gan2 syu1 mei6 aa3?', e:'Is your sister still in school?'},
+      {v:'係呀，佢讀緊中學。', p:'hai6 aa3, keoi5 duk6 gan2 zung1 hok6.', e:"Yes, she's in secondary school."},
+    ] },
+  { id:'yue_l19', day:19, section:2, level:'A1', title:'Making Weekend Plans', tag:'Everyday Life', img:'images/yue_lesson_19.jpg',
+    desc:'Ask if a friend is free and suggest a weekend activity together.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'你聽日得唔得閒呀？', p:'nei5 ting1 jat6 dak1 m4 dak1 haan4 aa3?', e:'Are you free tomorrow?'},
+      {speaker:'B', v:'得閒呀，做咩呀？', p:'dak1 haan4 aa3, zou6 me1 aa3?', e:"I'm free, what's up?"},
+      {speaker:'A', v:'一齊去睇戲好唔好？', p:'jat1 cai4 heoi3 tai2 hei3 hou2 m4 hou2?', e:'Want to go watch a movie together?'},
+      {speaker:'B', v:'好呀，幾點呀？', p:'hou2 aa3, gei2 dim2 aa3?', e:'Sure, what time?'},
+    ],
+    vocab:[
+      {v:'得閒', e:'free (time)'}, {v:'睇戲', e:'to watch a movie'}, {v:'一齊', e:'together'}, {v:'幾點', e:'what time'},
+      {v:'週末', e:'weekend'}, {v:'行街', e:'to go out / stroll around'}, {v:'唱K', e:'to sing karaoke'},
+    ],
+    grammar:[
+      {title:'得閒 — The Go-To Word for "Free Time"', body:'得閒 (dak1 haan4) is used constantly in daily conversation to ask if someone\'s available — far more common in casual speech than a more literal way of saying "have free time."'},
+      {title:'行街 and 唱K — Classic HK Weekend Activities', body:'行街 (literally "walk street," meaning to go out shopping or strolling) and 唱K (karaoke, from the Cantonese-English blend "sing K") are two of the most iconic ways people in Hong Kong spend a weekend.'},
+    ],
+    cards:[
+      {v:'你聽日得唔得閒呀？', p:'nei5 ting1 jat6 dak1 m4 dak1 haan4 aa3?', e:'Are you free tomorrow?'},
+      {v:'得閒呀，做咩呀？', p:'dak1 haan4 aa3, zou6 me1 aa3?', e:"I'm free, what's up?"},
+      {v:'一齊去睇戲好唔好？', p:'jat1 cai4 heoi3 tai2 hei3 hou2 m4 hou2?', e:'Want to go watch a movie together?'},
+      {v:'好呀，幾點呀？', p:'hou2 aa3, gei2 dim2 aa3?', e:'Sure, what time?'},
+    ] },
+  { id:'yue_l20', day:20, section:2, level:'A1', title:'Paying the Bill', tag:'Everyday Life', img:'images/yue_lesson_20.jpg',
+    desc:'Ask for the check and pay by Octopus card at a restaurant.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'唔該，埋單。', p:'m4 goi1, maai4 daan1.', e:'Check, please.'},
+      {speaker:'B', v:'一共三百蚊，包咗一成服務費。', p:'jat1 gung6 saam1 baak3 man1, baau1 zo2 jat1 sing4 fuk6 mou6 fai3.', e:"That's $300 total, including a 10% service charge."},
+      {speaker:'A', v:'可唔可以用八達通俾錢呀？', p:'ho2 m4 ho2 ji5 jung6 baat3 daat6 tung1 bei2 cin2 aa3?', e:'Can I pay with an Octopus card?'},
+      {speaker:'B', v:'可以，呢度嘟一嘟就得。', p:'ho2 ji5, ni1 dou6 dyut1 jat1 dyut1 zau6 dak1.', e:'Yes, just tap it here.'},
+    ],
+    vocab:[
+      {v:'埋單', e:'the bill / check'}, {v:'服務費', e:'service charge'}, {v:'一成', e:'10%'}, {v:'找錢', e:'change (money)'},
+      {v:'現金', e:'cash'}, {v:'嘟', e:'to tap (a card)'},
+    ],
+    grammar:[
+      {title:'埋單 — The Universal Way to Ask for the Check', body:'埋單 (maai4 daan1, literally "close the bill") is what you say almost anywhere in Hong Kong to ask for the check — far more common than a literal translation of "bill" or "check."'},
+      {title:'The 10% Service Charge', body:'Many Hong Kong restaurants automatically add a 一成 (10%) service charge to the bill, similar to a built-in tip — it\'s normal and usually not optional, so don\'t be surprised to see it added without being asked.'},
+    ],
+    cards:[
+      {v:'唔該，埋單。', p:'m4 goi1, maai4 daan1.', e:'Check, please.'},
+      {v:'一共三百蚊，包咗一成服務費。', p:'jat1 gung6 saam1 baak3 man1, baau1 zo2 jat1 sing4 fuk6 mou6 fai3.', e:"That's $300 total, including a 10% service charge."},
+      {v:'可唔可以用八達通俾錢呀？', p:'ho2 m4 ho2 ji5 jung6 baat3 daat6 tung1 bei2 cin2 aa3?', e:'Can I pay with an Octopus card?'},
+      {v:'可以，呢度嘟一嘟就得。', p:'ho2 ji5, ni1 dou6 dyut1 jat1 dyut1 zau6 dak1.', e:'Yes, just tap it here.'},
+    ] },
+  { id:'yue_l21', day:21, section:2, level:'A1', title:'At the Wet Market', tag:'Everyday Life', img:'images/yue_lesson_21.jpg',
+    desc:'Ask the price of produce and try a bit of friendly haggling at a wet market.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'呢啲蘋果幾多錢一斤呀？', p:'ni1 di1 ping4 gwo2 gei2 do1 cin2 jat1 gan1 aa3?', e:'How much is a catty of these apples?'},
+      {speaker:'B', v:'十五蚊一斤。', p:'sap6 ng5 man1 jat1 gan1.', e:"$15 a catty."},
+      {speaker:'A', v:'平啲得唔得呀？', p:'peng4 di1 dak1 m4 dak1 aa3?', e:'Can you make it cheaper?'},
+      {speaker:'B', v:'好啦，十二蚊俾你。', p:'hou2 laa1, sap6 ji6 man1 bei2 nei5.', e:'Alright, $12 for you.'},
+    ],
+    vocab:[
+      {v:'斤', e:'catty (~600g)'}, {v:'平', e:'cheap'}, {v:'新鮮', e:'fresh'}, {v:'蘋果', e:'apple'},
+      {v:'菜', e:'vegetables'}, {v:'街市', e:'wet market'},
+    ],
+    grammar:[
+      {title:'斤 — A Unit That Predates the Metric System', body:'斤 (gan1, "catty") is still the everyday unit for produce and meat at wet markets, roughly 600 grams. Supermarkets use kilograms, but market vendors and older generations still think in catties.'},
+      {title:'街市 Haggling is a Skill', body:'At a 街市 (wet market), a little friendly haggling over produce prices is completely normal and even expected, unlike at a supermarket — regulars often get better prices just by being recognized.'},
+    ],
+    cards:[
+      {v:'呢啲蘋果幾多錢一斤呀？', p:'ni1 di1 ping4 gwo2 gei2 do1 cin2 jat1 gan1 aa3?', e:'How much is a catty of these apples?'},
+      {v:'十五蚊一斤。', p:'sap6 ng5 man1 jat1 gan1.', e:"$15 a catty."},
+      {v:'平啲得唔得呀？', p:'peng4 di1 dak1 m4 dak1 aa3?', e:'Can you make it cheaper?'},
+      {v:'好啦，十二蚊俾你。', p:'hou2 laa1, sap6 ji6 man1 bei2 nei5.', e:'Alright, $12 for you.'},
+    ] },
+  { id:'yue_l22', day:22, section:3, level:'A1', title:'Feeling Unwell', tag:'Getting Things Done', img:'images/yue_lesson_22.jpg',
+    desc:'Say you\'re not feeling well and ask to book a same-day doctor\'s appointment.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'你有冇事呀？', p:'nei5 jau5 mou5 si6 aa3?', e:'Are you okay?'},
+      {speaker:'B', v:'我有啲唔舒服，想睇醫生。', p:'ngo5 jau5 di1 m4 syu1 fuk6, soeng2 tai2 ji1 sang1.', e:"I'm not feeling well, I want to see a doctor."},
+      {speaker:'A', v:'想預約幾時呀？', p:'soeng2 jyu6 joek3 gei2 si4 aa3?', e:'When would you like the appointment?'},
+      {speaker:'B', v:'今日得唔得呀？', p:'gam1 jat6 dak1 m4 dak1 aa3?', e:'Can it be today?'},
+    ],
+    vocab:[
+      {v:'唔舒服', e:'not feeling well'}, {v:'睇醫生', e:'to see a doctor'}, {v:'預約', e:'to book / appointment'}, {v:'診所', e:'clinic'},
+      {v:'醫院', e:'hospital'}, {v:'肚痛', e:'stomachache'}, {v:'感冒', e:'a cold'},
+    ],
+    grammar:[
+      {title:'睇醫生 — "Look at a Doctor"', body:'睇 (tai2) usually means "to look/watch," but 睇醫生 uses it idiomatically to mean "see a doctor" — one of many everyday verbs that don\'t translate literally, word for word.'},
+      {title:'Public vs Private Clinics', body:'Hong Kong runs a dual healthcare system — very cheap public hospitals and clinics with long wait times, and pricier private 診所 (clinics) that can often see you the same day. That trade-off is exactly why asking "今日得唔得?" (can it be today?) is such a normal, practical question here.'},
+    ],
+    cards:[
+      {v:'你有冇事呀？', p:'nei5 jau5 mou5 si6 aa3?', e:'Are you okay?'},
+      {v:'我有啲唔舒服，想睇醫生。', p:'ngo5 jau5 di1 m4 syu1 fuk6, soeng2 tai2 ji1 sang1.', e:"I'm not feeling well, I want to see a doctor."},
+      {v:'想預約幾時呀？', p:'soeng2 jyu6 joek3 gei2 si4 aa3?', e:'When would you like the appointment?'},
+      {v:'今日得唔得呀？', p:'gam1 jat6 dak1 m4 dak1 aa3?', e:'Can it be today?'},
+    ] },
+  { id:'yue_l23', day:23, section:3, level:'A1', title:'Losing Something', tag:'Getting Things Done', img:'images/yue_lesson_23.jpg',
+    desc:'Report a lost wallet and ask for help finding it.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'唔該，我唔見咗個銀包。', p:'m4 goi1, ngo5 m4 gin3 zo2 go3 ngan4 baau1.', e:"Excuse me, I've lost my wallet."},
+      {speaker:'B', v:'幾時唔見嘅呀？', p:'gei2 si4 m4 gin3 ge3 aa3?', e:'When did you lose it?'},
+      {speaker:'A', v:'可能喺巴士度唔見嘅。', p:'ho2 nang4 hai2 baa1 si2 dou6 m4 gin3 ge3.', e:'I might have lost it on the bus.'},
+      {speaker:'B', v:'我幫你打去失物認領處。', p:'ngo5 bong1 nei5 daa2 heoi3 sat1 mat6 jing6 ling5 cyu3.', e:"I'll call the lost and found for you."},
+    ],
+    vocab:[
+      {v:'唔見', e:'to lose / go missing'}, {v:'銀包', e:'wallet'}, {v:'手機', e:'phone'}, {v:'失物認領處', e:'lost and found'},
+      {v:'報警', e:'to report to police'}, {v:'護照', e:'passport'},
+    ],
+    grammar:[
+      {title:'唔見 — Literally "Not See"', body:'唔見 (m4 gin3) is the standard way to say something is lost or missing — literally "not see" — used for objects the same way an English speaker says "I can\'t find my..."'},
+      {title:'MTR Lost and Found is Remarkably Reliable', body:'Hong Kong\'s MTR lost-and-found (失物認領處) has a strong reputation for returning items — a reflection of the city\'s generally low petty-theft rate, so it\'s always worth checking there first before assuming something is gone for good.'},
+    ],
+    cards:[
+      {v:'唔該，我唔見咗個銀包。', p:'m4 goi1, ngo5 m4 gin3 zo2 go3 ngan4 baau1.', e:"Excuse me, I've lost my wallet."},
+      {v:'幾時唔見嘅呀？', p:'gei2 si4 m4 gin3 ge3 aa3?', e:'When did you lose it?'},
+      {v:'可能喺巴士度唔見嘅。', p:'ho2 nang4 hai2 baa1 si2 dou6 m4 gin3 ge3.', e:'I might have lost it on the bus.'},
+      {v:'我幫你打去失物認領處。', p:'ngo5 bong1 nei5 daa2 heoi3 sat1 mat6 jing6 ling5 cyu3.', e:"I'll call the lost and found for you."},
+    ] },
+  { id:'yue_l24', day:24, section:3, level:'A1', title:'Asking for the WiFi Password', tag:'Getting Things Done', img:'images/yue_lesson_24.jpg',
+    desc:'Ask whether WiFi is available and where to find the password.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'唔該，呢度有冇WiFi呀？', p:'m4 goi1, ni1 dou6 jau5 mou5 WiFi aa3?', e:'Excuse me, is there WiFi here?'},
+      {speaker:'B', v:'有呀，密碼喺張收據度。', p:'jau5 aa3, mat6 maa5 hai2 zoeng1 sau1 geoi3 dou6.', e:'Yes, the password is on the receipt.'},
+      {speaker:'A', v:'正呀，唔該。', p:'zeng3 aa3, m4 goi1.', e:'Great, thanks.'},
+      {speaker:'B', v:'小事啦。', p:'siu2 si6 laa1.', e:'No big deal.'},
+    ],
+    vocab:[
+      {v:'密碼', e:'password'}, {v:'收據', e:'receipt'}, {v:'連接', e:'to connect'}, {v:'上網', e:'to go online'},
+      {v:'熱點', e:'hotspot'}, {v:'正', e:'great / awesome'}, {v:'小事啦', e:'no big deal'},
+    ],
+    grammar:[
+      {title:'正 — A One-Word "Great!"', body:'正 (zeng3) is a punchy, casual way to say "great" or "awesome" about pretty much anything — one of those small words that instantly makes your Cantonese sound more natural.'},
+      {title:'Free WiFi is Everywhere', body:'Cafes, malls, and even MTR stations across Hong Kong commonly offer free WiFi, sometimes through the government-backed "Wi-Fi.HK" network — the password-on-the-receipt trick above is especially common at small local shops.'},
+    ],
+    cards:[
+      {v:'唔該，呢度有冇WiFi呀？', p:'m4 goi1, ni1 dou6 jau5 mou5 WiFi aa3?', e:'Excuse me, is there WiFi here?'},
+      {v:'有呀，密碼喺張收據度。', p:'jau5 aa3, mat6 maa5 hai2 zoeng1 sau1 geoi3 dou6.', e:'Yes, the password is on the receipt.'},
+      {v:'正呀，唔該。', p:'zeng3 aa3, m4 goi1.', e:'Great, thanks.'},
+      {v:'小事啦。', p:'siu2 si6 laa1.', e:'No big deal.'},
+    ] },
+  { id:'yue_l25', day:25, section:3, level:'A1', title:'Topping Up Your Phone', tag:'Getting Things Done', img:'images/yue_lesson_25.jpg',
+    desc:'Ask a shop clerk to top up your SIM card by a set amount.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'唔該，幫我張SIM卡增值。', p:'m4 goi1, bong1 ngo5 zoeng1 SIM kaat1 zang1 zik6.', e:'Please top up my SIM card.'},
+      {speaker:'B', v:'想加幾多錢呀？', p:'soeng2 gaa1 gei2 do1 cin2 aa3?', e:'How much would you like to add?'},
+      {speaker:'A', v:'一百蚊，唔該。', p:'jat1 baak3 man1, m4 goi1.', e:'$100, please.'},
+      {speaker:'B', v:'得，幫你搞掂喇。', p:'dak1, bong1 nei5 gaau2 dim6 laa3.', e:'Sure, all done for you.'},
+    ],
+    vocab:[
+      {v:'增值', e:'to top up'}, {v:'SIM卡', e:'SIM card'}, {v:'數據', e:'data'}, {v:'儲值', e:'stored value'},
+      {v:'搞掂', e:'all done / sorted'}, {v:'便利店', e:'convenience store'},
+    ],
+    grammar:[
+      {title:'搞掂 — Hong Kong\'s Favorite "All Done"', body:'搞掂 (gaau2 dim6) is one of the most-used casual phrases in Cantonese, meaning "sorted" or "all set" — you\'ll hear it constantly, well beyond just phone top-ups.'},
+      {title:'Convenience Stores Do More Than Snacks', body:'7-Eleven and Circle K locations across Hong Kong double as bill-payment and phone top-up counters — a big share of daily errands happens at the corner convenience store, not a dedicated office.'},
+    ],
+    cards:[
+      {v:'唔該，幫我張SIM卡增值。', p:'m4 goi1, bong1 ngo5 zoeng1 SIM kaat1 zang1 zik6.', e:'Please top up my SIM card.'},
+      {v:'想加幾多錢呀？', p:'soeng2 gaa1 gei2 do1 cin2 aa3?', e:'How much would you like to add?'},
+      {v:'一百蚊，唔該。', p:'jat1 baak3 man1, m4 goi1.', e:'$100, please.'},
+      {v:'得，幫你搞掂喇。', p:'dak1, bong1 nei5 gaau2 dim6 laa3.', e:'Sure, all done for you.'},
+    ] },
+  { id:'yue_l26', day:26, section:3, level:'A1', title:'At the Bank / ATM', tag:'Getting Things Done', img:'images/yue_lesson_26.jpg',
+    desc:'Find the ATM and ask whether it can dispense cash.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'唔該，櫃員機喺邊度呀？', p:'m4 goi1, gwai6 jyun4 gei1 hai2 bin1 dou6 aa3?', e:"Excuse me, where's the ATM?"},
+      {speaker:'B', v:'出咗門口右手邊。', p:'ceot1 zo2 mun4 hau2 jau6 sau2 bin1.', e:'Out the door, on the right.'},
+      {speaker:'A', v:'呢部機可唔可以提款呀？', p:'ni1 bou6 gei1 ho2 m4 ho2 ji5 tai4 fun2 aa3?', e:'Can this machine withdraw cash?'},
+      {speaker:'B', v:'可以，記得帶提款卡。', p:'ho2 ji5, gei3 dak1 daai3 tai4 fun2 kaat1.', e:'Yes, remember to bring your bank card.'},
+    ],
+    vocab:[
+      {v:'櫃員機', e:'ATM'}, {v:'提款', e:'to withdraw cash'}, {v:'提款卡', e:'bank / debit card'}, {v:'戶口', e:'bank account'},
+      {v:'密碼', e:'PIN / password'}, {v:'存錢', e:'to deposit money'},
+    ],
+    grammar:[
+      {title:'櫃員機 — The Formal Word for ATM', body:'櫃員機 (literally "counter-staff machine") is the standard term for ATM, though many people also just say the English "ATM" in casual conversation — a common pattern in Hong Kong Cantonese, which freely mixes in English loanwords.'},
+      {title:'密碼 Does Double Duty', body:'The same word 密碼 (mat6 maa5) covers both a WiFi "password" (Lesson 24) and a bank PIN here — context alone tells you which one is meant.'},
+    ],
+    cards:[
+      {v:'唔該，櫃員機喺邊度呀？', p:'m4 goi1, gwai6 jyun4 gei1 hai2 bin1 dou6 aa3?', e:"Excuse me, where's the ATM?"},
+      {v:'出咗門口右手邊。', p:'ceot1 zo2 mun4 hau2 jau6 sau2 bin1.', e:'Out the door, on the right.'},
+      {v:'呢部機可唔可以提款呀？', p:'ni1 bou6 gei1 ho2 m4 ho2 ji5 tai4 fun2 aa3?', e:'Can this machine withdraw cash?'},
+      {v:'可以，記得帶提款卡。', p:'ho2 ji5, gei3 dak1 daai3 tai4 fun2 kaat1.', e:'Yes, remember to bring your bank card.'},
+    ] },
+  { id:'yue_l27', day:27, section:3, level:'A1', title:'Giving Your Phone Number', tag:'Getting Things Done', img:'images/yue_lesson_27.jpg',
+    desc:'Share your phone number and ask someone to repeat theirs.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'可唔可以俾個電話號碼我呀？', p:'ho2 m4 ho2 ji5 bei2 go3 din6 waa2 hou6 maa5 ngo5 aa3?', e:'Could you give me your phone number?'},
+      {speaker:'B', v:'得，我部電話係九二三四五六七八。', p:'dak1, ngo5 bou6 din6 waa2 hai6 gau2 ji6 saam1 sei3 ng5 luk6 cat1 baat3.', e:'Sure, my number is 9-2-3-4-5-6-7-8.'},
+      {speaker:'A', v:'唔該再講一次得唔得呀？', p:'m4 goi1 zoi3 gong2 jat1 ci3 dak1 m4 dak1 aa3?', e:'Could you say that again please?'},
+      {speaker:'B', v:'冇問題，九二三四五六七八。', p:'mou5 man6 tai4, gau2 ji6 saam1 sei3 ng5 luk6 cat1 baat3.', e:'No problem, 9-2-3-4-5-6-7-8.'},
+    ],
+    vocab:[
+      {v:'電話號碼', e:'phone number'}, {v:'再講一次', e:'say it again'}, {v:'數字', e:'number / digit'}, {v:'短訊', e:'text message'},
+      {v:'打畀你', e:'call you'}, {v:'零', e:'zero'}, {v:'手提電話', e:'mobile phone'},
+    ],
+    grammar:[
+      {title:'Reading Numbers One Digit at a Time', body:'Hong Kong phone numbers (8 digits) are read one digit at a time rather than grouped, exactly as in the dialogue — worth drilling digits 0-9 on their own until they come out automatically.'},
+      {title:'再講一次 — Your Best Friend as a Learner', body:'再講一次得唔得呀？ ("could you say that again?") reuses the same 得唔得 pattern from earlier lessons — one phrase that will save you constantly as a beginner, in almost any situation.'},
+    ],
+    cards:[
+      {v:'可唔可以俾個電話號碼我呀？', p:'ho2 m4 ho2 ji5 bei2 go3 din6 waa2 hou6 maa5 ngo5 aa3?', e:'Could you give me your phone number?'},
+      {v:'得，我部電話係九二三四五六七八。', p:'dak1, ngo5 bou6 din6 waa2 hai6 gau2 ji6 saam1 sei3 ng5 luk6 cat1 baat3.', e:'Sure, my number is 9-2-3-4-5-6-7-8.'},
+      {v:'唔該再講一次得唔得呀？', p:'m4 goi1 zoi3 gong2 jat1 ci3 dak1 m4 dak1 aa3?', e:'Could you say that again please?'},
+      {v:'冇問題，九二三四五六七八。', p:'mou5 man6 tai4, gau2 ji6 saam1 sei3 ng5 luk6 cat1 baat3.', e:'No problem, 9-2-3-4-5-6-7-8.'},
+    ] },
+  { id:'yue_l28', day:28, section:3, level:'A1', title:'Reporting Something Broken', tag:'Getting Things Done', img:'images/yue_lesson_28.jpg',
+    desc:'Report a broken air conditioner and ask when it will be fixed.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'唔該，呢個冷氣壞咗。', p:'m4 goi1, ni1 go3 laang5 hei3 waai6 zo2.', e:'Excuse me, this air conditioner is broken.'},
+      {speaker:'B', v:'唔好意思，我哋幫你叫人嚟整。', p:'m4 hou2 ji3 si1, ngo5 dei6 bong1 nei5 giu3 jan4 lei4 zing2.', e:"Sorry about that, we'll call someone to fix it."},
+      {speaker:'A', v:'幾時嚟到呀？', p:'gei2 si4 lei4 dou3 aa3?', e:'When will they arrive?'},
+      {speaker:'B', v:'半個鐘之內。', p:'bun3 go3 zung1 zi1 noi6.', e:'Within half an hour.'},
+    ],
+    vocab:[
+      {v:'壞咗', e:'broken'}, {v:'冷氣', e:'air conditioner'}, {v:'整', e:'to fix'}, {v:'電燈', e:'light'},
+      {v:'廁所', e:'toilet / bathroom'}, {v:'半個鐘', e:'half an hour'},
+    ],
+    grammar:[
+      {title:'壞咗 — The 咗 Completed-Action Marker', body:'咗 (zo2) marks a completed action or a change of state, similar to an English "-ed" — 壞咗 means "has become broken," not just "broken" as a plain description.'},
+      {title:'整 — A Very Flexible Verb', body:'整 (zing2) broadly means "to make / fix / do" and shows up constantly in casual Cantonese — from fixing an appliance here to 整餐飯 ("make a meal") elsewhere.'},
+    ],
+    cards:[
+      {v:'唔該，呢個冷氣壞咗。', p:'m4 goi1, ni1 go3 laang5 hei3 waai6 zo2.', e:'Excuse me, this air conditioner is broken.'},
+      {v:'唔好意思，我哋幫你叫人嚟整。', p:'m4 hou2 ji3 si1, ngo5 dei6 bong1 nei5 giu3 jan4 lei4 zing2.', e:"Sorry about that, we'll call someone to fix it."},
+      {v:'幾時嚟到呀？', p:'gei2 si4 lei4 dou3 aa3?', e:'When will they arrive?'},
+      {v:'半個鐘之內。', p:'bun3 go3 zung1 zi1 noi6.', e:'Within half an hour.'},
+    ] },
+  { id:'yue_l29', day:29, section:3, level:'A1', title:'Asking Someone to Write It Down', tag:'Getting Things Done', img:'images/yue_lesson_29.jpg',
+    desc:'Ask someone to write something down instead of just saying it.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'唔好意思，可唔可以寫低俾我睇呀？', p:'m4 hou2 ji3 si1, ho2 m4 ho2 ji5 se2 dai1 bei2 ngo5 tai2 aa3?', e:'Excuse me, could you write it down for me?'},
+      {speaker:'B', v:'冇問題，等我寫低先。', p:'mou5 man6 tai4, dang2 ngo5 se2 dai1 sin1.', e:'No problem, let me write it down first.'},
+      {speaker:'A', v:'唔該晒，我睇中文字冇問題。', p:'m4 goi1 saai3, ngo5 tai2 zung1 man4 zi6 mou5 man6 tai4.', e:"Thanks so much, I'm fine reading Chinese characters."},
+      {speaker:'B', v:'好呀，呢度。', p:'hou2 aa3, ni1 dou6.', e:'Sure, here you go.'},
+    ],
+    vocab:[
+      {v:'寫低', e:'to write down'}, {v:'中文字', e:'Chinese characters'}, {v:'睇唔明', e:"can't understand (reading)"}, {v:'聽唔明', e:"can't understand (hearing)"},
+      {v:'英文', e:'English'}, {v:'筆', e:'pen'}, {v:'紙', e:'paper'},
+    ],
+    grammar:[
+      {title:'寫低 vs 寫', body:'Adding 低 (dai1) after 寫 (se2, "to write") suggests writing something down for reference — a common verb+低 pattern also seen in 記低 ("jot down") and 留低 ("leave behind").'},
+      {title:'睇唔明 vs 聽唔明', body:'These pair with the 唔明 ("don\'t understand") pattern from Lesson 3 — 睇唔明 is for something read, 聽唔明 for something heard, letting you specify exactly which kind of confusion you mean.'},
+    ],
+    cards:[
+      {v:'唔好意思，可唔可以寫低俾我睇呀？', p:'m4 hou2 ji3 si1, ho2 m4 ho2 ji5 se2 dai1 bei2 ngo5 tai2 aa3?', e:'Excuse me, could you write it down for me?'},
+      {v:'冇問題，等我寫低先。', p:'mou5 man6 tai4, dang2 ngo5 se2 dai1 sin1.', e:'No problem, let me write it down first.'},
+      {v:'唔該晒，我睇中文字冇問題。', p:'m4 goi1 saai3, ngo5 tai2 zung1 man4 zi6 mou5 man6 tai4.', e:"Thanks so much, I'm fine reading Chinese characters."},
+      {v:'好呀，呢度。', p:'hou2 aa3, ni1 dou6.', e:'Sure, here you go.'},
+    ] },
+  { id:'yue_l30', day:30, section:3, level:'A1', title:'Booking a Taxi', tag:'Getting Things Done', img:'images/yue_lesson_30.jpg',
+    desc:'Ask the front desk to call a taxi and confirm the pickup time.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'唔該，可唔可以幫我叫架的士呀？', p:'m4 goi1, ho2 m4 ho2 ji5 bong1 ngo5 giu3 gaa3 dik1 si2 aa3?', e:'Excuse me, could you call me a taxi?'},
+      {speaker:'B', v:'得，你想幾點嚟接你呀？', p:'dak1, nei5 soeng2 gei2 dim2 lei4 zip3 nei5 aa3?', e:'Sure, what time would you like it to pick you up?'},
+      {speaker:'A', v:'十分鐘之後，唔該。', p:'sap6 fan1 zung1 zi1 hau6, m4 goi1.', e:'In 10 minutes, please.'},
+      {speaker:'B', v:'冇問題，落嚟大堂等就得。', p:'mou5 man6 tai4, lok6 lei4 daai6 tong4 dang2 zau6 dak1.', e:'No problem, just come down and wait in the lobby.'},
+    ],
+    vocab:[
+      {v:'的士', e:'taxi'}, {v:'叫車', e:'to call a car'}, {v:'接', e:'to pick up (someone)'}, {v:'大堂', e:'lobby'},
+      {v:'咪錶', e:'taxi meter'}, {v:'加錢', e:'extra charge'},
+    ],
+    grammar:[
+      {title:'的士 — A Cantonese Loanword from English', body:'的士 (dik1 si2) is a phonetic borrowing of the English word "taxi" — one of many loanwords absorbed into everyday Cantonese thanks to Hong Kong\'s history as a former British colony.'},
+      {title:'Three Colors of Taxi', body:'Hong Kong taxis come in three colors serving different areas — red (most of the city), green (New Territories), and blue (Lantau Island) — worth knowing which one to flag down depending on where you\'re headed.'},
+    ],
+    cards:[
+      {v:'唔該，可唔可以幫我叫架的士呀？', p:'m4 goi1, ho2 m4 ho2 ji5 bong1 ngo5 giu3 gaa3 dik1 si2 aa3?', e:'Excuse me, could you call me a taxi?'},
+      {v:'得，你想幾點嚟接你呀？', p:'dak1, nei5 soeng2 gei2 dim2 lei4 zip3 nei5 aa3?', e:'Sure, what time would you like it to pick you up?'},
+      {v:'十分鐘之後，唔該。', p:'sap6 fan1 zung1 zi1 hau6, m4 goi1.', e:'In 10 minutes, please.'},
+      {v:'冇問題，落嚟大堂等就得。', p:'mou5 man6 tai4, lok6 lei4 daai6 tong4 dang2 zau6 dak1.', e:'No problem, just come down and wait in the lobby.'},
+    ] },
+  { id:'yue_l31', day:31, section:3, level:'A1', title:'Renting an Apartment', tag:'Getting Things Done', img:'images/yue_lesson_31.jpg',
+    desc:'Ask if an apartment is still available and arrange a viewing.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'唔該，呢間屋仲租唔租得呀？', p:'m4 goi1, ni1 gaan1 uk1 zung6 zou1 m4 zou1 dak1 aa3?', e:'Excuse me, is this apartment still available to rent?'},
+      {speaker:'B', v:'得，你想幾時睇樓呀？', p:'dak1, nei5 soeng2 gei2 si4 tai2 lau2 aa3?', e:'Yes, when would you like to view it?'},
+      {speaker:'A', v:'聽日得唔得呀？', p:'ting1 jat6 dak1 m4 dak1 aa3?', e:'Is tomorrow okay?'},
+      {speaker:'B', v:'得，租金係一萬蚊一個月。', p:'dak1, zou1 gam1 hai6 jat1 maan6 man1 jat1 go3 jyut6.', e:'Sure, the rent is $10,000 a month.'},
+    ],
+    vocab:[
+      {v:'租', e:'to rent'}, {v:'租金', e:'rent (price)'}, {v:'睇樓', e:'to view a property'}, {v:'業主', e:'landlord'},
+      {v:'按金', e:'deposit'}, {v:'一個月', e:'one month'},
+    ],
+    grammar:[
+      {title:'睇樓 — A Whole Hong Kong Pastime', body:'睇樓 (literally "look at buildings") specifically means viewing a property before renting or buying — given Hong Kong\'s famously tiny, expensive apartments, 睇樓 (and complaining about prices) is a genuine part of daily conversation here.'},
+      {title:'按金 — Usually Two Months\' Rent', body:'A rental deposit (按金) in Hong Kong is typically two months\' rent, paid alongside the first month up front — worth knowing before apartment hunting so the total doesn\'t come as a shock.'},
+    ],
+    cards:[
+      {v:'唔該，呢間屋仲租唔租得呀？', p:'m4 goi1, ni1 gaan1 uk1 zung6 zou1 m4 zou1 dak1 aa3?', e:'Excuse me, is this apartment still available to rent?'},
+      {v:'得，你想幾時睇樓呀？', p:'dak1, nei5 soeng2 gei2 si4 tai2 lau2 aa3?', e:'Yes, when would you like to view it?'},
+      {v:'聽日得唔得呀？', p:'ting1 jat6 dak1 m4 dak1 aa3?', e:'Is tomorrow okay?'},
+      {v:'得，租金係一萬蚊一個月。', p:'dak1, zou1 gam1 hai6 jat1 maan6 man1 jat1 go3 jyut6.', e:'Sure, the rent is $10,000 a month.'},
+    ] },
+  { id:'yue_l32', day:32, section:1, level:'A2', title:'Talking About What You Did', tag:'Talking It Through', img:'images/yue_lesson_32.jpg',
+    desc:'Recap your day using 咗, the aspect marker behind most of what English handles with past tense.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'你琴日做咗啲乜嘢呀？', p:'nei5 kam4 jat6 zou6 zo2 di1 mat1 je5 aa3?', e:'What did you do yesterday?'},
+      {speaker:'B', v:'我琴日去咗睇戲。', p:'ngo5 kam4 jat6 heoi3 zo2 tai2 hei3.', e:'I went to watch a movie yesterday.'},
+      {speaker:'A', v:'好唔好睇呀？', p:'hou2 m4 hou2 tai2 aa3?', e:'Was it good?'},
+      {speaker:'B', v:'幾好睇㗎，我睇咗兩個鐘。', p:'gei2 hou2 tai2 gaa3, ngo5 tai2 zo2 loeng5 go3 zung1.', e:'It was pretty good, I watched for two hours.'},
+    ],
+    vocab:[
+      {v:'琴日', e:'yesterday'}, {v:'做', e:'to do'}, {v:'乜嘢', e:'what / something'}, {v:'咗', e:'aspect marker: completed action'},
+      {v:'睇戲', e:'to watch a movie'}, {v:'幾', e:'quite / fairly'}, {v:'鐘', e:'hour (colloquial)'}, {v:'㗎', e:'sentence-final particle: matter-of-fact'},
+    ],
+    grammar:[
+      {title:'咗 — Marking a Completed Action', body:"Adding 咗 (zo2) right after a verb marks that the action is finished — 去咗 (\"went\"), 睇咗 (\"watched\") — roughly Cantonese's version of English past tense, though it's really about completion, not time. It's genuinely one of the single most-used particles in everyday spoken Cantonese."},
+      {title:'㗎 — Adding Certainty', body:'㗎 (gaa3) tacked onto the end of a sentence adds a tone of matter-of-fact certainty or mild emphasis — 幾好睇㗎 feels like "it really was pretty good." Native speakers use it constantly; learners often skip it entirely.'},
+    ],
+    cards:[
+      {v:'你琴日做咗啲乜嘢呀？', p:'nei5 kam4 jat6 zou6 zo2 di1 mat1 je5 aa3?', e:'What did you do yesterday?'},
+      {v:'我琴日去咗睇戲。', p:'ngo5 kam4 jat6 heoi3 zo2 tai2 hei3.', e:'I went to watch a movie yesterday.'},
+      {v:'好唔好睇呀？', p:'hou2 m4 hou2 tai2 aa3?', e:'Was it good?'},
+      {v:'幾好睇㗎，我睇咗兩個鐘。', p:'gei2 hou2 tai2 gaa3, ngo5 tai2 zo2 loeng5 go3 zung1.', e:'It was pretty good, I watched for two hours.'},
+    ] },
+  { id:'yue_l33', day:33, section:1, level:'A2', title:'Have You Ever...?', tag:'Talking It Through', img:'images/yue_lesson_33.jpg',
+    desc:'Ask about life experience with 過, and meet Hong Kong’s signature "silk-stocking" milk tea.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'你飲過絲襪奶茶未呀？', p:'nei5 jam2 gwo3 si1 mat6 naai5 caa4 mei6 aa3?', e:'Have you ever had silk-stocking milk tea?'},
+      {speaker:'B', v:'飲過，好好飲！', p:'jam2 gwo3, hou2 hou2 jam2!', e:"I have, it's really good!"},
+      {speaker:'A', v:'你去過台灣未呀？', p:'nei5 heoi3 gwo3 toi4 waan1 mei6 aa3?', e:'Have you ever been to Taiwan?'},
+      {speaker:'B', v:'未去過，不過我好想去。', p:'mei6 heoi3 gwo3, bat1 gwo3 ngo5 hou2 soeng2 heoi3.', e:"Not yet, but I really want to go."},
+    ],
+    vocab:[
+      {v:'飲', e:'to drink'}, {v:'過', e:'aspect marker: have ever done'}, {v:'絲襪奶茶', e:'silk-stocking milk tea'}, {v:'未', e:'not yet'},
+      {v:'台灣', e:'Taiwan'}, {v:'不過', e:'but / however'}, {v:'好想', e:'really want to'},
+    ],
+    grammar:[
+      {title:'過 vs 咗 — "Have Ever" vs "Did"', body:'過 (gwo3) asks about or states LIFE EXPERIENCE — "have you ever...?" — while 咗 (last lesson) marks a specific completed action. 你去過日本未？ ("have you ever been to Japan") is a different question from 你今日去咗邊度？ ("where did you go today").'},
+      {title:'Silk-Stocking Milk Tea', body:'絲襪奶茶 (si1 mat6 naai5 caa4) is Hong Kong’s signature strong milk tea, named for the fine-mesh cloth strainer used to brew it, which resembles a stocking. Found at nearly every cha chaan teng, it’s a genuine point of local pride.'},
+    ],
+    cards:[
+      {v:'你飲過絲襪奶茶未呀？', p:'nei5 jam2 gwo3 si1 mat6 naai5 caa4 mei6 aa3?', e:'Have you ever had silk-stocking milk tea?'},
+      {v:'飲過，好好飲！', p:'jam2 gwo3, hou2 hou2 jam2!', e:"I have, it's really good!"},
+      {v:'你去過台灣未呀？', p:'nei5 heoi3 gwo3 toi4 waan1 mei6 aa3?', e:'Have you ever been to Taiwan?'},
+      {v:'未去過，不過我好想去。', p:'mei6 heoi3 gwo3, bat1 gwo3 ngo5 hou2 soeng2 heoi3.', e:"Not yet, but I really want to go."},
+    ] },
+  { id:'yue_l34', day:34, section:1, level:'A2', title:'What Are You Doing Right Now?', tag:'Talking It Through', img:'images/yue_lesson_34.jpg',
+    desc:'Say what’s happening in the moment with 緊, and handle a phone call politely.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'喂，你而家做緊乜嘢呀？', p:'wai3, nei5 ji4 gaa1 zou6 gan2 mat1 je5 aa3?', e:'Hello, what are you doing right now?'},
+      {speaker:'B', v:'我而家食緊飯，遲啲覆你得唔得？', p:'ngo5 ji4 gaa1 sik6 gan2 faan6, ci4 di1 fuk1 nei5 dak1 m4 dak1?', e:"I'm eating right now, can I call you back later?"},
+      {speaker:'A', v:'得，唔緊要。', p:'dak1, m4 gan2 jiu3.', e:'Sure, no worries.'},
+      {speaker:'B', v:'多謝晒，遲啲傾。', p:'do1 ze6 saai3, ci4 di1 king1.', e:'Thanks so much, talk later.'},
+    ],
+    vocab:[
+      {v:'而家', e:'right now'}, {v:'緊', e:'aspect marker: ongoing action'}, {v:'食飯', e:'to eat'}, {v:'遲啲', e:'later'},
+      {v:'覆', e:'to call back / reply'}, {v:'唔緊要', e:"no worries / it doesn't matter"}, {v:'傾', e:'to chat'},
+    ],
+    grammar:[
+      {title:'緊 — Marking an Action in Progress', body:'緊 (gan2) right after a verb shows the action is happening right now — 做緊 ("doing"), 食緊 ("eating") — Cantonese’s equivalent of English "-ing." Together with 咗 and 過 from the last two lessons, these three small syllables cover most of what English uses tense for.'},
+      {title:'Phone Etiquette: Call Back Later', body:'Saying you’re in the middle of something and offering to call back (遲啲覆你) is a completely normal, polite way to end a call quickly in Hong Kong — nobody expects you to drop what you’re doing.'},
+    ],
+    cards:[
+      {v:'喂，你而家做緊乜嘢呀？', p:'wai3, nei5 ji4 gaa1 zou6 gan2 mat1 je5 aa3?', e:'Hello, what are you doing right now?'},
+      {v:'我而家食緊飯，遲啲覆你得唔得？', p:'ngo5 ji4 gaa1 sik6 gan2 faan6, ci4 di1 fuk1 nei5 dak1 m4 dak1?', e:"I'm eating right now, can I call you back later?"},
+      {v:'得，唔緊要。', p:'dak1, m4 gan2 jiu3.', e:'Sure, no worries.'},
+      {v:'多謝晒，遲啲傾。', p:'do1 ze6 saai3, ci4 di1 king1.', e:'Thanks so much, talk later.'},
+    ] },
+  { id:'yue_l35', day:35, section:1, level:'A2', title:'Comparing Things', tag:'Talking It Through', img:'images/yue_lesson_35.jpg',
+    desc:'Weigh up two options with 比, and soften a comparison with 啲.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'呢間餐廳比嗰間平。', p:'ni1 gaan1 caan1 teng1 bei2 go2 gaan1 peng4.', e:'This restaurant is cheaper than that one.'},
+      {speaker:'B', v:'但係嗰間好食啲。', p:'daan6 hai6 go2 gaan1 hou2 sik6 di1.', e:'But that one is a bit tastier.'},
+      {speaker:'A', v:'咁我哋去邊間好呢？', p:'gam2 ngo5 dei6 heoi3 bin1 gaan1 hou2 ne1?', e:'So which one should we go to?'},
+      {speaker:'B', v:'我哋今次去平嗰間，下次去好食嗰間，好唔好？', p:'ngo5 dei6 gam1 ci3 heoi3 peng4 go2 gaan1, haa6 ci3 heoi3 hou2 sik6 go2 gaan1, hou2 m4 hou2?', e:'Let’s go to the cheaper one this time and the tasty one next time, how about that?'},
+    ],
+    vocab:[
+      {v:'比', e:'compared to'}, {v:'平', e:'cheap'}, {v:'但係', e:'but'}, {v:'啲', e:'a bit (after an adjective)'},
+      {v:'咁', e:'so / then'}, {v:'邊間', e:'which one'}, {v:'下次', e:'next time'}, {v:'好唔好', e:'is that okay? / how about it'},
+    ],
+    grammar:[
+      {title:'A 比 B + Adjective — Making Comparisons', body:'比 (bei2) sits directly between the two things being compared, followed by the adjective — 呢間比嗰間平 ("this one is cheaper than that one"). Word order is the whole trick: subject, 比, the thing compared to, then the adjective.'},
+      {title:'啲 After an Adjective — "A Little More"', body:'Adding 啲 (di1) right after an adjective, especially in a comparison, softens it to "a bit more" — 平啲 ("a bit cheaper"), 好食啲 ("a bit tastier") — a small syllable that shows up constantly whenever Cantonese speakers hedge or soften a statement.'},
+    ],
+    cards:[
+      {v:'呢間餐廳比嗰間平。', p:'ni1 gaan1 caan1 teng1 bei2 go2 gaan1 peng4.', e:'This restaurant is cheaper than that one.'},
+      {v:'但係嗰間好食啲。', p:'daan6 hai6 go2 gaan1 hou2 sik6 di1.', e:'But that one is a bit tastier.'},
+      {v:'咁我哋去邊間好呢？', p:'gam2 ngo5 dei6 heoi3 bin1 gaan1 hou2 ne1?', e:'So which one should we go to?'},
+      {v:'我哋今次去平嗰間，下次去好食嗰間，好唔好？', p:'ngo5 dei6 gam1 ci3 heoi3 peng4 go2 gaan1, haa6 ci3 heoi3 hou2 sik6 go2 gaan1, hou2 m4 hou2?', e:'Let’s go to the cheaper one this time and the tasty one next time, how about that?'},
+    ] },
+  { id:'yue_l36', day:36, section:1, level:'A2', title:'Giving a Reason', tag:'Talking It Through', img:'images/yue_lesson_36.jpg',
+    desc:'Explain why you’re running late with 因為...所以, Hong Kong’s most universally accepted excuse.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'你點解遲到呀？', p:'nei5 dim2 gaai2 ci4 dou3 aa3?', e:'Why are you late?'},
+      {speaker:'B', v:'因為塞車，所以遲咗。', p:'jan1 wai6 sak1 ce1, so2 ji5 ci4 zo2.', e:"Because of traffic, so I'm late."},
+      {speaker:'A', v:'冇問題，我哋等緊你。', p:'mou5 man6 tai4, ngo5 dei6 dang2 gan2 nei5.', e:"No problem, we're waiting for you."},
+      {speaker:'B', v:'唔好意思，我五分鐘就到。', p:'m4 hou2 ji3 si1, ngo5 ng5 fan1 zung1 zau6 dou3.', e:"Sorry, I'll be there in five minutes."},
+    ],
+    vocab:[
+      {v:'點解', e:'why'}, {v:'遲到', e:'to be late'}, {v:'因為', e:'because'}, {v:'塞車', e:'traffic jam'},
+      {v:'所以', e:'so / therefore'}, {v:'等', e:'to wait'}, {v:'唔好意思', e:'sorry / excuse me'}, {v:'就', e:'then / soon'},
+    ],
+    grammar:[
+      {title:'因為...所以 — Because...So', body:'因為 (jan1 wai6, "because") introduces the reason and 所以 (so2 ji5, "so") introduces the result — and unlike English, Cantonese is completely comfortable using BOTH halves in the same sentence rather than picking just one, exactly as B does here.'},
+      {title:'Traffic Jams Are a Real Excuse', body:'塞車 (sak1 ce1, "traffic jam") is one of the most universally accepted excuses for being late in Hong Kong — with narrow streets and heavy traffic in the busiest districts, nobody questions it.'},
+    ],
+    cards:[
+      {v:'你點解遲到呀？', p:'nei5 dim2 gaai2 ci4 dou3 aa3?', e:'Why are you late?'},
+      {v:'因為塞車，所以遲咗。', p:'jan1 wai6 sak1 ce1, so2 ji5 ci4 zo2.', e:"Because of traffic, so I'm late."},
+      {v:'冇問題，我哋等緊你。', p:'mou5 man6 tai4, ngo5 dei6 dang2 gan2 nei5.', e:"No problem, we're waiting for you."},
+      {v:'唔好意思，我五分鐘就到。', p:'m4 hou2 ji3 si1, ngo5 ng5 fan1 zung1 zau6 dou3.', e:"Sorry, I'll be there in five minutes."},
+    ] },
+  { id:'yue_l37', day:37, section:1, level:'A2', title:'If This, Then That', tag:'Talking It Through', img:'images/yue_lesson_37.jpg',
+    desc:'Make a weather-dependent plan using 如果...就, and seal the deal.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'聽日如果落雨，我哋就唔好去沙灘啦。', p:'ting1 jat6 jyu4 gwo2 lok6 jyu5, ngo5 dei6 zau6 m4 hou2 heoi3 saa1 taan1 laa1.', e:"If it rains tomorrow, let's not go to the beach."},
+      {speaker:'B', v:'好呀，如果落雨就去睇戲，好唔好？', p:'hou2 aa3, jyu4 gwo2 lok6 jyu5 zau6 heoi3 tai2 hei3, hou2 m4 hou2?', e:"Okay, if it rains then let's watch a movie instead, sounds good?"},
+      {speaker:'A', v:'得，咁就話定咗先。', p:'dak1, gam2 zau6 waa6 ding6 zo2 sin1.', e:"Sure, let's settle on that then."},
+      {speaker:'B', v:'好，就係咁話。', p:'hou2, zau6 hai6 gam2 waa6.', e:"Great, it's settled."},
+    ],
+    vocab:[
+      {v:'如果', e:'if'}, {v:'落雨', e:'to rain'}, {v:'就', e:'then'}, {v:'沙灘', e:'beach'},
+      {v:'話定', e:'to settle / decide on'}, {v:'就係咁話', e:"it's settled / that's that"}, {v:'聽日', e:'tomorrow'},
+    ],
+    grammar:[
+      {title:'如果...就 — If...Then', body:'如果 (jyu4 gwo2, "if") sets up the condition, and 就 (zau6, "then") introduces the result — 如果落雨就唔去 ("if it rains, then we won’t go"). 如果 is often dropped in fast casual speech, leaving just the 就 clause to carry the meaning, but keeping both is clearer for a learner.'},
+      {title:'就係咁話 — Sealing the Deal', body:'就係咁話 (zau6 hai6 gam2 waa6) is a set phrase for confirming a plan is locked in, roughly "that’s settled" or "it’s a deal" — a natural way to close out a conversation once everyone’s agreed.'},
+    ],
+    cards:[
+      {v:'聽日如果落雨，我哋就唔好去沙灘啦。', p:'ting1 jat6 jyu4 gwo2 lok6 jyu5, ngo5 dei6 zau6 m4 hou2 heoi3 saa1 taan1 laa1.', e:"If it rains tomorrow, let's not go to the beach."},
+      {v:'好呀，如果落雨就去睇戲，好唔好？', p:'hou2 aa3, jyu4 gwo2 lok6 jyu5 zau6 heoi3 tai2 hei3, hou2 m4 hou2?', e:"Okay, if it rains then let's watch a movie instead, sounds good?"},
+      {v:'得，咁就話定咗先。', p:'dak1, gam2 zau6 waa6 ding6 zo2 sin1.', e:"Sure, let's settle on that then."},
+      {v:'好，就係咁話。', p:'hou2, zau6 hai6 gam2 waa6.', e:"Great, it's settled."},
+    ] },
+  { id:'yue_l38', day:38, section:1, level:'A2', title:'Sharing an Opinion', tag:'Talking It Through', img:'images/yue_lesson_38.jpg',
+    desc:'Say what you thought of a movie using 覺得, the everyday word for "I think."',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'你覺得套戲點呀？', p:'nei5 gok3 dak1 tou3 hei3 dim2 aa3?', e:'What did you think of the movie?'},
+      {speaker:'B', v:'我覺得幾好睇，不過有啲長。', p:'ngo5 gok3 dak1 gei2 hou2 tai2, bat1 gwo3 jau5 di1 coeng4.', e:'I thought it was pretty good, but a bit long.'},
+      {speaker:'A', v:'我都係咁諗，尾段有啲悶。', p:'ngo5 dou1 hai6 gam2 nam2, mei5 dyun6 jau5 di1 mun6.', e:'I think so too, the ending part was a bit boring.'},
+      {speaker:'B', v:'係呀，不過整體都算好。', p:'hai6 aa3, bat1 gwo3 zing2 tai2 dou1 syun3 hou2.', e:'Yeah, but overall it was still good.'},
+    ],
+    vocab:[
+      {v:'覺得', e:'to feel / think'}, {v:'套', e:'measure word: for movies/shows'}, {v:'長', e:'long'}, {v:'都係咁諗', e:'to think the same way'},
+      {v:'尾段', e:'ending part'}, {v:'悶', e:'boring'}, {v:'整體', e:'overall'}, {v:'算', e:'counts as / considered'},
+    ],
+    grammar:[
+      {title:'覺得 — The Everyday Word for "I Think"', body:'覺得 (gok3 dak1) is the default, casual way to share an opinion — "I feel/think that..." — used constantly for reviews of movies, food, plans, anything. It’s softer and far more common in daily speech than more formal ways of stating an opinion.'},
+      {title:'算 — "Counts As" Good Enough', body:'算 (syun3) softens a judgment to "counts as" or "considered" — 算好 means "good enough" or "decent," not an unqualified "good." It’s a handy way to give a mixed or moderate opinion without sounding overly critical or overly enthusiastic.'},
+    ],
+    cards:[
+      {v:'你覺得套戲點呀？', p:'nei5 gok3 dak1 tou3 hei3 dim2 aa3?', e:'What did you think of the movie?'},
+      {v:'我覺得幾好睇，不過有啲長。', p:'ngo5 gok3 dak1 gei2 hou2 tai2, bat1 gwo3 jau5 di1 coeng4.', e:'I thought it was pretty good, but a bit long.'},
+      {v:'我都係咁諗，尾段有啲悶。', p:'ngo5 dou1 hai6 gam2 nam2, mei5 dyun6 jau5 di1 mun6.', e:'I think so too, the ending part was a bit boring.'},
+      {v:'係呀，不過整體都算好。', p:'hai6 aa3, bat1 gwo3 zing2 tai2 dou1 syun3 hou2.', e:'Yeah, but overall it was still good.'},
+    ] },
+  { id:'yue_l39', day:39, section:1, level:'A2', title:'How Often Do You...?', tag:'Talking It Through', img:'images/yue_lesson_39.jpg',
+    desc:'Talk about habits with a simple frequency ladder: 通常, 有時, 好少.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'你通常幾點瞓覺呀？', p:'nei5 tung1 soeng4 gei2 dim2 fan3 gaau3 aa3?', e:'What time do you usually go to sleep?'},
+      {speaker:'B', v:'我通常十一點瞓，不過有時會遲啲。', p:'ngo5 tung1 soeng4 sap6 jat1 dim2 fan3, bat1 gwo3 jau5 si4 wui5 ci4 di1.', e:"I usually sleep at eleven, but sometimes it's later."},
+      {speaker:'A', v:'你有冇運動㗎？', p:'nei5 jau5 mou5 wan6 dung6 gaa3?', e:'Do you exercise?'},
+      {speaker:'B', v:'好少，不過我間中會行山。', p:'hou2 siu2, bat1 gwo3 ngo5 gaan1 zung1 wui5 haang4 saan1.', e:'Rarely, but I occasionally go hiking.'},
+    ],
+    vocab:[
+      {v:'通常', e:'usually'}, {v:'瞓覺', e:'to sleep'}, {v:'有時', e:'sometimes'}, {v:'運動', e:'to exercise'},
+      {v:'好少', e:'rarely'}, {v:'間中', e:'occasionally'}, {v:'行山', e:'to hike'},
+    ],
+    grammar:[
+      {title:'通常 / 有時 / 好少 — A Frequency Ladder', body:'These three words form a natural scale from most to least often: 通常 (tung1 soeng4, "usually") → 有時 (jau5 si4, "sometimes") → 好少 (hou2 siu2, "rarely"). All three sit right before the verb, just like English frequency adverbs.'},
+      {title:'行山 — Hong Kong’s National Pastime', body:'行山 (haang4 saan1, "hiking") is a hugely popular weekend activity in Hong Kong thanks to the city’s extensive network of country parks and trails — a surprising contrast to its reputation as a dense concrete skyline, and a genuinely common answer to "what do you do for exercise?"'},
+    ],
+    cards:[
+      {v:'你通常幾點瞓覺呀？', p:'nei5 tung1 soeng4 gei2 dim2 fan3 gaau3 aa3?', e:'What time do you usually go to sleep?'},
+      {v:'我通常十一點瞓，不過有時會遲啲。', p:'ngo5 tung1 soeng4 sap6 jat1 dim2 fan3, bat1 gwo3 jau5 si4 wui5 ci4 di1.', e:"I usually sleep at eleven, but sometimes it's later."},
+      {v:'你有冇運動㗎？', p:'nei5 jau5 mou5 wan6 dung6 gaa3?', e:'Do you exercise?'},
+      {v:'好少，不過我間中會行山。', p:'hou2 siu2, bat1 gwo3 ngo5 gaan1 zung1 wui5 haang4 saan1.', e:'Rarely, but I occasionally go hiking.'},
+    ] },
+  { id:'yue_l40', day:40, section:1, level:'A2', title:'Making a Suggestion', tag:'Talking It Through', img:'images/yue_lesson_40.jpg',
+    desc:'Float a plan with 不如...啦, one of the most useful patterns for sounding natural with friends.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'我肚餓喇，不如而家去食飯啦。', p:'ngo5 tou5 ngo6 laa3, bat1 jyu4 ji4 gaa1 heoi3 sik6 faan6 laa1.', e:"I'm hungry, how about we go eat now."},
+      {speaker:'B', v:'好呀，不如去食火鍋啦，好耐冇食過。', p:'hou2 aa3, bat1 jyu4 heoi3 sik6 fo2 wo1 laa1, hou2 noi6 mou5 sik6 gwo3.', e:"Sure, how about hot pot, haven't had it in ages."},
+      {speaker:'A', v:'正呀，就去嗰間我哋成日去嗰間。', p:'zeng3 aa3, zau6 heoi3 go2 gaan1 ngo5 dei6 sing4 jat6 heoi3 go2 gaan1.', e:"Great, let's go to that place we always go to."},
+      {speaker:'B', v:'冇問題，行喇！', p:'mou5 man6 tai4, haang4 laa3!', e:"No problem, let's go!"},
+    ],
+    vocab:[
+      {v:'肚餓', e:'hungry'}, {v:'不如...啦', e:"how about... / why don't we..."}, {v:'火鍋', e:'hot pot'}, {v:'好耐', e:'a long time'},
+      {v:'成日', e:'always / all the time'}, {v:'行', e:"to go / let's go (casual)"}, {v:'喇', e:'sentence-final particle: "now / already"'},
+    ],
+    grammar:[
+      {title:'不如...啦 — Hong Kong’s Favorite Way to Suggest', body:'不如 (bat1 jyu4) starts almost every casual suggestion in Cantonese — "how about..." or "why don’t we..." — usually finished off with 啦 (laa1) at the end for a light, easy-going tone. It’s one of THE most useful patterns for sounding natural when hanging out with friends.'},
+      {title:'火鍋 — A Social, Shared Meal', body:'火鍋 (fo2 wo1, hot pot) is as much a social event as a meal — a shared pot of broth simmers at the table while everyone cooks their own meat, vegetables, and noodles in it, making it a favorite choice for group gatherings.'},
+    ],
+    cards:[
+      {v:'我肚餓喇，不如而家去食飯啦。', p:'ngo5 tou5 ngo6 laa3, bat1 jyu4 ji4 gaa1 heoi3 sik6 faan6 laa1.', e:"I'm hungry, how about we go eat now."},
+      {v:'好呀，不如去食火鍋啦，好耐冇食過。', p:'hou2 aa3, bat1 jyu4 heoi3 sik6 fo2 wo1 laa1, hou2 noi6 mou5 sik6 gwo3.', e:"Sure, how about hot pot, haven't had it in ages."},
+      {v:'正呀，就去嗰間我哋成日去嗰間。', p:'zeng3 aa3, zau6 heoi3 go2 gaan1 ngo5 dei6 sing4 jat6 heoi3 go2 gaan1.', e:"Great, let's go to that place we always go to."},
+      {v:'冇問題，行喇！', p:'mou5 man6 tai4, haang4 laa3!', e:"No problem, let's go!"},
+    ] },
+  { id:'yue_l41', day:41, section:1, level:'A2', title:'Declining Politely', tag:'Talking It Through', img:'images/yue_lesson_41.jpg',
+    desc:'Turn down an invitation without any awkwardness, Hong Kong style.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'今晚得唔得閒呀？一齊食飯啦。', p:'gam1 maan5 dak1 m4 dak1 haan4 aa3? jat1 cai4 sik6 faan6 laa1.', e:"Are you free tonight? Let's eat together."},
+      {speaker:'B', v:'唔好意思，今晚唔得閒，我要加班。', p:'m4 hou2 ji3 si1, gam1 maan5 m4 dak1 haan4, ngo5 jiu3 gaa1 baan1.', e:"Sorry, I'm not free tonight, I have to work overtime."},
+      {speaker:'A', v:'冇問題，咁下次啦。', p:'mou5 man6 tai4, gam2 haa6 ci3 laa1.', e:'No problem, next time then.'},
+      {speaker:'B', v:'好呀，下次一定去。', p:'hou2 aa3, haa6 ci3 jat1 ding6 heoi3.', e:"Sure, I'll definitely go next time."},
+    ],
+    vocab:[
+      {v:'得閒', e:'free / available'}, {v:'一齊', e:'together'}, {v:'加班', e:'to work overtime'}, {v:'下次啦', e:'next time / rain check'},
+      {v:'一定', e:'definitely'}, {v:'今晚', e:'tonight'},
+    ],
+    grammar:[
+      {title:'下次啦 — The Polite Rain Check', body:'Declining an invitation outright can feel abrupt, so Cantonese speakers almost always soften a "no" with a reason plus 下次啦 (haa6 ci3 laa1, "next time then") — it keeps the door open and avoids any awkwardness, even without a firm plan to actually reschedule.'},
+      {title:'加班 — A Very Real Excuse', body:'加班 (gaa1 baan1, "to work overtime") is an extremely common, immediately understood reason for turning down evening plans in Hong Kong’s famously long-hours work culture — nobody needs further explanation.'},
+    ],
+    cards:[
+      {v:'今晚得唔得閒呀？一齊食飯啦。', p:'gam1 maan5 dak1 m4 dak1 haan4 aa3? jat1 cai4 sik6 faan6 laa1.', e:"Are you free tonight? Let's eat together."},
+      {v:'唔好意思，今晚唔得閒，我要加班。', p:'m4 hou2 ji3 si1, gam1 maan5 m4 dak1 haan4, ngo5 jiu3 gaa1 baan1.', e:"Sorry, I'm not free tonight, I have to work overtime."},
+      {v:'冇問題，咁下次啦。', p:'mou5 man6 tai4, gam2 haa6 ci3 laa1.', e:'No problem, next time then.'},
+      {v:'好呀，下次一定去。', p:'hou2 aa3, haa6 ci3 jat1 ding6 heoi3.', e:"Sure, I'll definitely go next time."},
     ] },
 ];
 
@@ -2821,6 +3795,572 @@ const CONCEPT_LESSONS_ES = [
     ] },
 ];
 function isEsId(id){ return typeof id === 'string' && id.indexOf('es_') === 0; }
+function isVi2Id(id){ return typeof id === 'string' && id.indexOf('vi2_') === 0; }
+
+// Vietnamese (New) — a second, fully ORIGINAL Vietnamese course, written
+// from scratch this session rather than reusing the existing 62-lesson
+// course's Victor-AI-derived content (see the handoff doc's "no more
+// copying" policy). The original Vietnamese course keeps its exact current
+// content, ids, images, and recorded audio untouched — this is a parallel
+// course, not a replacement, exactly like adding a 10th language. No
+// official global proficiency standard exists for Vietnamese (no
+// Vietnamese equivalent to HSK/JLPT/TOPIK with real consumer recognition),
+// so — same reasoning as Cantonese (see CANTONESE_LEVELS) — this uses CEFR
+// (A1-C1) with no fabricated stats, and A1's lesson order is built around
+// genuinely high-frequency Vietnamese function words/patterns (có/không,
+// phải, này/đó/kia, cái gì, mấy/bao nhiêu, ở đâu, xin lỗi/không sao,
+// rảnh, nghĩa là) introduced through fresh, original scenarios — not the
+// same "phrasebook situations" sequence the original Vietnamese course or
+// old Cantonese A1 used.
+const VI2_LEVELS = [
+  { id:'a1', num:'A1', name:'Super Beginner', unlocked:true },
+  { id:'a2', num:'A2', unlocked:false },
+  { id:'b1', num:'B1', unlocked:false },
+  { id:'b2', num:'B2', unlocked:false },
+  { id:'c1', num:'C1', unlocked:false },
+];
+
+const VI2_A1_SECTIONS = [
+  { id:1, roman:'I', title:'Survival Basics' },
+  { id:2, roman:'II', title:'Everyday Life' },
+];
+
+const LESSONS_VI2 = [
+  { id:'vi2_l1', day:1, section:1, level:'A1', title:'Hello & Goodbye', tag:'Survival', img:'images/vi2_lesson_01.jpg',
+    desc:'Greet someone casually and learn a safe, neutral way to say "you" before tackling Vietnamese\'s fuller pronoun system.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Chào bạn! Bạn khỏe không?', p:'', e:'Hello! How are you?'},
+      {speaker:'B', v:'Mình khỏe, cảm ơn bạn. Còn bạn thì sao?', p:'', e:"I'm fine, thank you. And you?"},
+      {speaker:'A', v:'Mình cũng khỏe.', p:'', e:"I'm fine too."},
+      {speaker:'B', v:'Tạm biệt nhé!', p:'', e:'Goodbye then!'},
+    ],
+    vocab:[
+      {v:'chào', e:'hello'}, {v:'khỏe', e:'well / healthy'}, {v:'cảm ơn', e:'thank you'}, {v:'còn...thì sao', e:'what about...?'},
+      {v:'cũng', e:'also / too'}, {v:'tạm biệt', e:'goodbye'}, {v:'mình', e:'I / me (casual)'}, {v:'bạn', e:'you (neutral / friend)'},
+    ],
+    grammar:[
+      {title:'Bạn — A Simple, Neutral Way to Say "You"', body:'Vietnamese has a whole system of pronouns that shift based on age and relationship (more on that in a later concept lesson), but "bạn" (originally meaning "friend") works as a safe, neutral "you" between people of a similar age or in a casual setting — a great starting point before learning the fuller system.'},
+      {title:'Còn...Thì Sao? — Bouncing a Question Back', body:'Adding "còn [topic] thì sao?" after answering a question is a natural way to ask the same thing back — "còn bạn thì sao?" means "and what about you?" — similar in spirit to English "and you?"'},
+    ],
+    cards:[
+      {v:'Chào bạn! Bạn khỏe không?', p:'', e:'Hello! How are you?'},
+      {v:'Mình khỏe, cảm ơn bạn. Còn bạn thì sao?', p:'', e:"I'm fine, thank you. And you?"},
+      {v:'Mình cũng khỏe.', p:'', e:"I'm fine too."},
+      {v:'Tạm biệt nhé!', p:'', e:'Goodbye then!'},
+    ] },
+  { id:'vi2_l2', day:2, section:1, level:'A1', title:'Yes or No? Confirming Things', tag:'Survival', img:'images/vi2_lesson_02.jpg',
+    desc:'Confirm a restaurant table and learn Vietnamese\'s all-purpose "is it true that...?" question frame.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Xin lỗi, đây có phải là bàn của anh Long không?', p:'', e:"Excuse me, is this Mr. Long's table?"},
+      {speaker:'B', v:'Phải, đúng bàn của tôi.', p:'', e:"Yes, that's my table."},
+      {speaker:'A', v:'Vậy có phải ba người không?', p:'', e:'So is that three people?'},
+      {speaker:'B', v:'Không phải, chúng tôi có bốn người.', p:'', e:"No, we're four people."},
+    ],
+    vocab:[
+      {v:'có phải...không', e:'is it the case that...?'}, {v:'phải', e:'yes / correct'}, {v:'không phải', e:'no / not correct'}, {v:'đúng', e:'correct'},
+      {v:'vậy', e:'so / then'}, {v:'bàn', e:'table'}, {v:'chúng tôi', e:'we (excluding listener)'},
+    ],
+    grammar:[
+      {title:'Có Phải...Không? — An All-Purpose Confirmation Question', body:'Vietnamese doesn\'t have single words that always mean "yes" or "no" — "có phải...không?" wraps around a statement to ask "is it true that...?", and the answer echoes back "phải" (yes/correct) or "không phải" (no/not correct). This frame works for confirming almost anything.'},
+      {title:'Chúng Tôi vs Chúng Ta — Two Ways to Say "We"', body:'"Chúng tôi" ("we," excluding the listener) is what B uses here since he\'s describing his own group, separate from the person asking. "Chúng ta" ("we," including the listener) is used instead when speaker and listener are part of the same group.'},
+    ],
+    cards:[
+      {v:'Xin lỗi, đây có phải là bàn của anh Long không?', p:'', e:"Excuse me, is this Mr. Long's table?"},
+      {v:'Phải, đúng bàn của tôi.', p:'', e:"Yes, that's my table."},
+      {v:'Vậy có phải ba người không?', p:'', e:'So is that three people?'},
+      {v:'Không phải, chúng tôi có bốn người.', p:'', e:"No, we're four people."},
+    ] },
+  { id:'vi2_l3', day:3, section:1, level:'A1', title:'I Have / I Don\'t Have', tag:'Survival', img:'images/vi2_lesson_03.jpg',
+    desc:'Ask a convenience store if they carry something, using Vietnamese\'s other essential yes/no pair.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Xin lỗi, ở đây có bán sim điện thoại không?', p:'', e:'Excuse me, do you sell SIM cards here?'},
+      {speaker:'B', v:'Có, ở đằng kia.', p:'', e:'Yes, over there.'},
+      {speaker:'A', v:'Vậy có sạc dự phòng không?', p:'', e:'What about power banks?'},
+      {speaker:'B', v:'Không có, bán hết rồi.', p:'', e:'No, sold out.'},
+    ],
+    vocab:[
+      {v:'có', e:'to have / yes'}, {v:'không có', e:'to not have / no'}, {v:'có...không', e:'do you have...? (question form)'}, {v:'bán', e:'to sell'},
+      {v:'sạc dự phòng', e:'power bank'}, {v:'đằng kia', e:'over there'}, {v:'bán hết rồi', e:'sold out'},
+    ],
+    grammar:[
+      {title:'Có / Không Có — Vietnamese\'s Other Yes/No Pair', body:'Separate from "phải" (last lesson), "có" (to have/there is) and "không có" (to not have/there isn\'t) form their own yes/no question: "có...không?" — one of the single most useful patterns for shopping and asking what\'s available.'},
+      {title:'Rồi — Marking a Completed Change', body:'"Rồi" tacked onto the end of a sentence signals a completed change of state — "bán hết rồi" means "[it has] already sold out," not just "is sold out" in the abstract. A small word that shows up constantly in everyday speech.'},
+    ],
+    cards:[
+      {v:'Xin lỗi, ở đây có bán sim điện thoại không?', p:'', e:'Excuse me, do you sell SIM cards here?'},
+      {v:'Có, ở đằng kia.', p:'', e:'Yes, over there.'},
+      {v:'Vậy có sạc dự phòng không?', p:'', e:'What about power banks?'},
+      {v:'Không có, bán hết rồi.', p:'', e:'No, sold out.'},
+    ] },
+  { id:'vi2_l4', day:4, section:1, level:'A1', title:'This or That?', tag:'Survival', img:'images/vi2_lesson_04.jpg',
+    desc:'Pick out fruit at a market using this/that/that-over-there — Vietnamese has three degrees, not two.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Trái xoài này có ngon không?', p:'', e:'Is this mango good?'},
+      {speaker:'B', v:'Trái này cũng ngon, nhưng trái kia ngọt hơn.', p:'', e:"This one's decent, but that one over there is sweeter."},
+      {speaker:'A', v:'Vậy tôi lấy trái kia nhé.', p:'', e:"Then I'll take that one."},
+      {speaker:'B', v:'Được, còn trái này chị có lấy luôn không?', p:'', e:'Sure, will you take this one too?'},
+    ],
+    vocab:[
+      {v:'này', e:'this'}, {v:'đó', e:'that (nearby)'}, {v:'kia', e:'that (farther away)'}, {v:'ngon', e:'tasty / good'},
+      {v:'ngọt', e:'sweet'}, {v:'hơn', e:'more (comparative)'}, {v:'trái', e:'fruit / classifier for round fruit'}, {v:'lấy', e:'to take / get'},
+    ],
+    grammar:[
+      {title:'Này / Đó / Kia — Three Degrees of "That"', body:'Vietnamese distinguishes not just "this" vs "that" but "that near you" (đó) from "that farther away from both of us" (kia). "Này" always means "this," close to the speaker.'},
+      {title:'Adjective + Hơn — Making Comparisons', body:'Adding "hơn" right after an adjective makes a comparison — "ngọt hơn" means "sweeter." Simple, and works with almost any adjective — no special comparative form to memorize.'},
+    ],
+    cards:[
+      {v:'Trái xoài này có ngon không?', p:'', e:'Is this mango good?'},
+      {v:'Trái này cũng ngon, nhưng trái kia ngọt hơn.', p:'', e:"This one's decent, but that one over there is sweeter."},
+      {v:'Vậy tôi lấy trái kia nhé.', p:'', e:"Then I'll take that one."},
+      {v:'Được, còn trái này chị có lấy luôn không?', p:'', e:'Sure, will you take this one too?'},
+    ] },
+  { id:'vi2_l5', day:5, section:1, level:'A1', title:'What\'s That?', tag:'Survival', img:'images/vi2_lesson_05.jpg',
+    desc:'Ask about an unfamiliar street food and meet a Vietnamese snack sometimes nicknamed "Vietnamese pizza."',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Xin lỗi, cái đó là cái gì vậy?', p:'', e:'Excuse me, what is that?'},
+      {speaker:'B', v:'Đó là bánh tráng nướng, nhiều người thích lắm.', p:'', e:'That\'s grilled rice paper, a lot of people love it.'},
+      {speaker:'A', v:'Có ngon không?', p:'', e:'Is it good?'},
+      {speaker:'B', v:'Ngon lắm, chị thử đi.', p:'', e:"It's really tasty, give it a try."},
+    ],
+    vocab:[
+      {v:'cái gì', e:'what'}, {v:'cái đó', e:'that thing'}, {v:'bánh tráng nướng', e:'grilled rice paper'}, {v:'thích', e:'to like'},
+      {v:'lắm', e:'very (informal)'}, {v:'thử', e:'to try'},
+    ],
+    grammar:[
+      {title:'Cái Gì Vậy? — A Natural Way to Ask "What Is That?"', body:'Adding "vậy" at the end of a question softens it and makes it sound more like natural spoken conversation, rather than a blunt or written-sounding question — "cái gì vậy?" feels more like "what\'s that, anyway?"'},
+      {title:'Bánh Tráng Nướng — A Vietnamese Street Food Icon', body:'"Bánh tráng nướng" (grilled rice paper, sometimes nicknamed "Vietnamese pizza") is a popular street snack — rice paper grilled over coals and topped with egg, dried shrimp, and scallions — a near-guaranteed answer if you ask a local what to try.'},
+    ],
+    cards:[
+      {v:'Xin lỗi, cái đó là cái gì vậy?', p:'', e:'Excuse me, what is that?'},
+      {v:'Đó là bánh tráng nướng, nhiều người thích lắm.', p:'', e:'That\'s grilled rice paper, a lot of people love it.'},
+      {v:'Có ngon không?', p:'', e:'Is it good?'},
+      {v:'Ngon lắm, chị thử đi.', p:'', e:"It's really tasty, give it a try."},
+    ] },
+  { id:'vi2_l6', day:6, section:1, level:'A1', title:'How Many People? Getting a Table', tag:'Survival', img:'images/vi2_lesson_06.jpg',
+    desc:'Get seated at a phở restaurant, and meet a small word that signals politeness.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Mấy người vậy anh?', p:'', e:'How many people?'},
+      {speaker:'B', v:'Dạ, ba người.', p:'', e:'Three people.'},
+      {speaker:'A', v:'Được, mời anh đi theo em.', p:'', e:'Sure, please follow me.'},
+      {speaker:'B', v:'Cho hỏi có thêm cái ghế được không?', p:'', e:'Excuse me, could we get an extra chair?'},
+    ],
+    vocab:[
+      {v:'mấy người', e:'how many people'}, {v:'dạ', e:'polite / respectful particle'}, {v:'đi theo', e:'to follow'}, {v:'cho hỏi', e:'excuse me / may I ask'},
+      {v:'thêm', e:'extra / more'}, {v:'cái ghế', e:'chair'},
+    ],
+    grammar:[
+      {title:'Mấy vs Bao Nhiêu — Two Ways to Ask "How Many"', body:'"Mấy" is used when guessing the number is small (usually under 10) — "mấy người" — while "bao nhiêu" works for any size number, like asking a price. Worth telling apart early since both mean "how many/much."'},
+      {title:'Dạ — A Small Word That Shows Respect', body:'"Dạ" at the start of a reply signals politeness and respect toward the listener — very common when responding to someone older or in a service context, even though it doesn\'t translate to any single English word.'},
+    ],
+    cards:[
+      {v:'Mấy người vậy anh?', p:'', e:'How many people?'},
+      {v:'Dạ, ba người.', p:'', e:'Three people.'},
+      {v:'Được, mời anh đi theo em.', p:'', e:'Sure, please follow me.'},
+      {v:'Cho hỏi có thêm cái ghế được không?', p:'', e:'Excuse me, could we get an extra chair?'},
+    ] },
+  { id:'vi2_l7', day:7, section:1, level:'A1', title:'How Much Does It Cost?', tag:'Survival', img:'images/vi2_lesson_07.jpg',
+    desc:'Buy something at a market with small bills, Vietnamese đồng style.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Cái này bao nhiêu tiền vậy chị?', p:'', e:'How much is this?'},
+      {speaker:'B', v:'Ba mươi nghìn.', p:'', e:'Thirty thousand.'},
+      {speaker:'A', v:'Dạ, gửi chị, khỏi thối lại.', p:'', e:'Here you go, keep the change.'},
+      {speaker:'B', v:'Khỏi đâu, em có tiền lẻ mà.', p:'', e:'No need, I have small change.'},
+    ],
+    vocab:[
+      {v:'bao nhiêu tiền', e:'how much money'}, {v:'nghìn', e:'thousand'}, {v:'gửi', e:'to hand / give'}, {v:'khỏi thối lại', e:'keep the change'},
+      {v:'tiền lẻ', e:'small change / loose bills'}, {v:'khỏi', e:'no need'},
+    ],
+    grammar:[
+      {title:'Khỏi Thối Lại — "Keep the Change"', body:'"Khỏi" (no need) plus "thối lại" (to give change back) together mean "keep the change" — genuinely handy even though Vietnam doesn\'t have a strong tipping culture the way North America does.'},
+      {title:'Counting in Thousands', body:'Vietnamese currency is counted in "nghìn" (thousand) for everyday amounts — "ba mươi nghìn" (30,000 đồng) is just "thirty thousand," dropping "đồng" entirely in casual speech since the unit is assumed.'},
+    ],
+    cards:[
+      {v:'Cái này bao nhiêu tiền vậy chị?', p:'', e:'How much is this?'},
+      {v:'Ba mươi nghìn.', p:'', e:'Thirty thousand.'},
+      {v:'Dạ, gửi chị, khỏi thối lại.', p:'', e:'Here you go, keep the change.'},
+      {v:'Khỏi đâu, em có tiền lẻ mà.', p:'', e:'No need, I have small change.'},
+    ] },
+  { id:'vi2_l8', day:8, section:1, level:'A1', title:'Which Way? Asking for Directions', tag:'Survival', img:'images/vi2_lesson_08.jpg',
+    desc:'Ask a passerby for directions to the nearest bus stop.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Xin lỗi, trạm xe buýt ở đâu vậy?', p:'', e:"Excuse me, where's the bus stop?"},
+      {speaker:'B', v:'Đi thẳng, tới đèn đỏ thì quẹo phải là tới.', p:'', e:"Go straight, turn right at the traffic light and you're there."},
+      {speaker:'A', v:'Có xa không?', p:'', e:'Is it far?'},
+      {speaker:'B', v:'Không xa, đi bộ năm phút thôi.', p:'', e:'Not far, just a five-minute walk.'},
+    ],
+    vocab:[
+      {v:'ở đâu', e:'where'}, {v:'đi thẳng', e:'go straight'}, {v:'đèn đỏ', e:'traffic light'}, {v:'quẹo phải', e:'turn right'},
+      {v:'xa', e:'far'}, {v:'đi bộ', e:'to walk'}, {v:'thôi', e:'only / just (softening particle)'},
+    ],
+    grammar:[
+      {title:'Đi Thẳng...Quẹo Phải/Trái — Giving Simple Directions', body:'Directions chain together naturally: "đi thẳng" (go straight), "quẹo phải/trái" (turn right/left), and a landmark like "đèn đỏ" (traffic light) to mark where. This pattern covers most everyday direction-giving.'},
+      {title:'Thôi — Downplaying Something', body:'"Thôi" at the end of a sentence downplays what was just said — "năm phút thôi" feels like "only five minutes," reassuring the listener it\'s no big deal.'},
+    ],
+    cards:[
+      {v:'Xin lỗi, trạm xe buýt ở đâu vậy?', p:'', e:"Excuse me, where's the bus stop?"},
+      {v:'Đi thẳng, tới đèn đỏ thì quẹo phải là tới.', p:'', e:"Go straight, turn right at the traffic light and you're there."},
+      {v:'Có xa không?', p:'', e:'Is it far?'},
+      {v:'Không xa, đi bộ năm phút thôi.', p:'', e:'Not far, just a five-minute walk.'},
+    ] },
+  { id:'vi2_l9', day:9, section:1, level:'A1', title:'Sorry, No Worries', tag:'Survival', img:'images/vi2_lesson_09.jpg',
+    desc:'Handle a small bump in busy street traffic — a very Vietnamese moment.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Xin lỗi, tôi va phải bạn, bạn có sao không?', p:'', e:'Sorry, I bumped into you, are you okay?'},
+      {speaker:'B', v:'Không sao không sao, không có gì đâu.', p:'', e:"I'm fine, it's really nothing."},
+      {speaker:'A', v:'Ở đây lúc nào cũng đông, thật xin lỗi bạn.', p:'', e:"It's always crowded here, really sorry."},
+      {speaker:'B', v:'Không sao đâu, ở Việt Nam là vậy mà.', p:'', e:"No worries, that's just how it is in Vietnam."},
+    ],
+    vocab:[
+      {v:'va phải', e:'to bump into'}, {v:'có sao không', e:'are you okay'}, {v:'không sao', e:"it's fine / no worries"}, {v:'lúc nào cũng', e:'always'},
+      {v:'đông', e:'crowded'}, {v:'thật', e:'really / truly'},
+    ],
+    grammar:[
+      {title:'Có Sao Không? — Checking If Someone\'s Okay', body:'"Có sao không?", literally "is there something wrong?", is the standard way to ask "are you alright?" after a bump or small accident — pairs naturally with "không sao" (it\'s fine) as the reassuring reply.'},
+      {title:'Đâu — Softening a Denial', body:'Adding "đâu" at the end of a negative statement softens and emphasizes it at the same time — "không có gì đâu" feels like "it\'s really nothing at all," reassuring the other person more warmly than a plain "không có gì."'},
+    ],
+    cards:[
+      {v:'Xin lỗi, tôi va phải bạn, bạn có sao không?', p:'', e:'Sorry, I bumped into you, are you okay?'},
+      {v:'Không sao không sao, không có gì đâu.', p:'', e:"I'm fine, it's really nothing."},
+      {v:'Ở đây lúc nào cũng đông, thật xin lỗi bạn.', p:'', e:"It's always crowded here, really sorry."},
+      {v:'Không sao đâu, ở Việt Nam là vậy mà.', p:'', e:"No worries, that's just how it is in Vietnam."},
+    ] },
+  { id:'vi2_l10', day:10, section:1, level:'A1', title:'Nice to Meet You', tag:'Survival', img:'images/vi2_lesson_10.jpg',
+    desc:'Exchange names at a coffee shop and ask someone if they\'re free — Vietnamese cafe culture at its most typical.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Chào bạn, mình chưa hỏi tên bạn.', p:'', e:"Hi, I haven't asked your name yet."},
+      {speaker:'B', v:'Mình tên là Lan, còn bạn?', p:'', e:'My name is Lan, and you?'},
+      {speaker:'A', v:'Mình tên Tom, rất vui được quen bạn.', p:'', e:"I'm Tom, very nice to meet you."},
+      {speaker:'B', v:'Mình cũng vậy, mai bạn có rảnh đi uống cà phê không?', p:'', e:'Same here, are you free tomorrow to grab coffee?'},
+    ],
+    vocab:[
+      {v:'tên là gì', e:"what's your name"}, {v:'rất vui được quen', e:'very nice to meet'}, {v:'rảnh', e:'free / available'}, {v:'uống cà phê', e:'to drink coffee'},
+      {v:'mai', e:'tomorrow'}, {v:'cũng vậy', e:'same here / likewise'},
+    ],
+    grammar:[
+      {title:'Rất Vui Được Quen Bạn — A Warm "Nice to Meet You"', body:'Literally "very happy to get to know you," this phrase is the standard warm way to respond after learning someone\'s name — noticeably friendlier than a bare "vui quá" (so happy).'},
+      {title:'Rảnh — Vietnam\'s All-Purpose "Free Time" Word', body:'"Rảnh" (free/available) is essential for making any plan — "bạn rảnh không?" ("are you free?") — and coffee culture (uống cà phê) is such a central part of Vietnamese social life that it\'s often the default suggestion for hanging out, the way "grabbing a drink" might be elsewhere.'},
+    ],
+    cards:[
+      {v:'Chào bạn, mình chưa hỏi tên bạn.', p:'', e:"Hi, I haven't asked your name yet."},
+      {v:'Mình tên là Lan, còn bạn?', p:'', e:'My name is Lan, and you?'},
+      {v:'Mình tên Tom, rất vui được quen bạn.', p:'', e:"I'm Tom, very nice to meet you."},
+      {v:'Mình cũng vậy, mai bạn có rảnh đi uống cà phê không?', p:'', e:'Same here, are you free tomorrow to grab coffee?'},
+    ] },
+  { id:'vi2_l11', day:11, section:1, level:'A1', title:'Come Again? Asking for Clarification', tag:'Survival', img:'images/vi2_lesson_11.jpg',
+    desc:'Ask a friend what a word means and get them to repeat an earlier sentence.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Xin lỗi, "chill" nghĩa là gì vậy?', p:'', e:'Sorry, what does "chill" mean?'},
+      {speaker:'B', v:'Nghĩa là thư giãn, thoải mái đó.', p:'', e:'It means to relax, to take it easy.'},
+      {speaker:'A', v:'À hiểu rồi, bạn nói lại câu hồi nãy được không?', p:'', e:'Ah I get it, could you say that earlier sentence again?'},
+      {speaker:'B', v:'Được, để mình nói chậm lại.', p:'', e:'Sure, let me say it slower.'},
+    ],
+    vocab:[
+      {v:'nghĩa là gì', e:'what does it mean'}, {v:'nghĩa là', e:'it means'}, {v:'thư giãn', e:'to relax'}, {v:'nói lại', e:'say again'},
+      {v:'hồi nãy', e:'a moment ago / earlier'}, {v:'nói chậm lại', e:'speak slower'},
+    ],
+    grammar:[
+      {title:'Nghĩa Là — Vietnam\'s "That Means"', body:'"Nghĩa là" is the go-to phrase for explaining or rephrasing something — "that means" or "in other words" — used constantly whenever someone defines a word or clarifies what they just said.'},
+      {title:'Hồi Nãy — Talking About a Moment Ago', body:'"Hồi nãy" refers to something that happened just a little while ago, within the same conversation or a few minutes back — more precise than "trước đây" (before, more distant past) for something this recent.'},
+    ],
+    cards:[
+      {v:'Xin lỗi, "chill" nghĩa là gì vậy?', p:'', e:'Sorry, what does "chill" mean?'},
+      {v:'Nghĩa là thư giãn, thoải mái đó.', p:'', e:'It means to relax, to take it easy.'},
+      {v:'À hiểu rồi, bạn nói lại câu hồi nãy được không?', p:'', e:'Ah I get it, could you say that earlier sentence again?'},
+      {v:'Được, để mình nói chậm lại.', p:'', e:'Sure, let me say it slower.'},
+    ] },
+  { id:'vi2_l12', day:12, section:2, level:'A1', title:'Ordering Vietnamese Coffee', tag:'Everyday Life', img:'images/vi2_lesson_12.jpg',
+    desc:'Order Vietnam\'s iconic iced milk coffee, and learn the everyday way to say "I\'d like."',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Cho mình một ly cà phê sữa đá.', p:'', e:"I'd like an iced milk coffee."},
+      {speaker:'B', v:'Dạ, uống ở đây hay mang đi ạ?', p:'', e:'Sure, for here or to go?'},
+      {speaker:'A', v:'Mang đi giúp mình nhé.', p:'', e:'To go, please.'},
+      {speaker:'B', v:'Dạ được, đợi mình chút xíu.', p:'', e:'Sure, just a moment.'},
+    ],
+    vocab:[
+      {v:'cho mình', e:"give me / I'd like"}, {v:'ly', e:'cup (classifier)'}, {v:'cà phê sữa đá', e:'iced milk coffee'}, {v:'mang đi', e:'to go / take away'},
+      {v:'uống ở đây', e:'for here / to drink here'}, {v:'chút xíu', e:'a little bit / a moment'}, {v:'giúp', e:'to help (polite request softener)'},
+    ],
+    grammar:[
+      {title:'Cho Mình — A Simple Way to Order', body:'"Cho mình" (literally "give me") is the standard, natural way to order something in a casual setting — far more common in everyday speech than the more formal "tôi muốn" ("I want"), though both are understood.'},
+      {title:'Cà Phê Sữa Đá — Vietnam\'s Iconic Drink', body:'"Cà phê sữa đá" (iced coffee with condensed milk) is one of Vietnam\'s most iconic drinks — strong dark-roast coffee dripped slowly through a small metal phin filter directly over sweetened condensed milk, then poured over ice.'},
+    ],
+    cards:[
+      {v:'Cho mình một ly cà phê sữa đá.', p:'', e:"I'd like an iced milk coffee."},
+      {v:'Dạ, uống ở đây hay mang đi ạ?', p:'', e:'Sure, for here or to go?'},
+      {v:'Mang đi giúp mình nhé.', p:'', e:'To go, please.'},
+      {v:'Dạ được, đợi mình chút xíu.', p:'', e:'Sure, just a moment.'},
+    ] },
+  { id:'vi2_l13', day:13, section:2, level:'A1', title:'Taking a Grab Ride', tag:'Everyday Life', img:'images/vi2_lesson_13.jpg',
+    desc:'Confirm a ride-hailing booking — Vietnam\'s modern default over hailing a taxi on the street.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Bạn đặt xe Grab chưa?', p:'', e:'Have you booked the Grab yet?'},
+      {speaker:'B', v:'Đặt rồi, tài xế sắp tới rồi.', p:'', e:'Booked already, the driver is almost here.'},
+      {speaker:'A', v:'Xe màu gì vậy?', p:'', e:"What color is the car?"},
+      {speaker:'B', v:'Xe màu trắng, biển số là 51G-1234.', p:'', e:"It's a white car, license plate 51G-1234."},
+    ],
+    vocab:[
+      {v:'đặt xe', e:'to book a ride'}, {v:'chưa', e:'yet? (question particle)'}, {v:'tài xế', e:'driver'}, {v:'sắp', e:'about to / soon'},
+      {v:'màu', e:'color'}, {v:'biển số', e:'license plate'},
+    ],
+    grammar:[
+      {title:'Chưa — Asking "Have You...Yet?"', body:'"Chưa" at the end of a question asks whether something has happened yet — "đặt xe chưa?" ("have you booked the ride yet?"). Answer "rồi" (already done) or "chưa" (not yet) — the same word doing double duty as both the question particle and the "not yet" answer.'},
+      {title:'Grab — Vietnam\'s Everyday Ride App', body:'Grab (and similar apps) has largely replaced hailing a taxi or xe ôm (motorbike taxi) on the street in most Vietnamese cities — checking the driver\'s car color and license plate before getting in, as B does here, is standard practice for safety.'},
+    ],
+    cards:[
+      {v:'Bạn đặt xe Grab chưa?', p:'', e:'Have you booked the Grab yet?'},
+      {v:'Đặt rồi, tài xế sắp tới rồi.', p:'', e:'Booked already, the driver is almost here.'},
+      {v:'Xe màu gì vậy?', p:'', e:"What color is the car?"},
+      {v:'Xe màu trắng, biển số là 51G-1234.', p:'', e:"It's a white car, license plate 51G-1234."},
+    ] },
+  { id:'vi2_l14', day:14, section:2, level:'A1', title:'At the Bánh Mì Stand', tag:'Everyday Life', img:'images/vi2_lesson_14.jpg',
+    desc:'Customize a classic Vietnamese sandwich order.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Cho mình một ổ bánh mì thịt.', p:'', e:"I'd like a pork bánh mì."},
+      {speaker:'B', v:'Dạ, có ăn rau ngò không?', p:'', e:'Sure, do you eat cilantro?'},
+      {speaker:'A', v:'Không ăn ngò, cho mình thêm chút ớt.', p:'', e:'No cilantro, please add a bit of chili.'},
+      {speaker:'B', v:'Dạ được, đợi mình một chút.', p:'', e:'Sure, just a moment.'},
+    ],
+    vocab:[
+      {v:'ổ', e:'loaf (classifier for bánh mì)'}, {v:'bánh mì thịt', e:'pork bánh mì'}, {v:'rau ngò', e:'cilantro'}, {v:'thêm', e:'to add'},
+      {v:'ớt', e:'chili pepper'}, {v:'đợi', e:'to wait'},
+    ],
+    grammar:[
+      {title:'Không Ăn — Saying You Don\'t Eat Something', body:'"Không ăn [food]" is the simplest way to say you don\'t eat or don\'t want a specific ingredient — "không ăn ngò" ("no cilantro") — essential for customizing an order, since cilantro, chili, and pâté are all things people love or skip entirely.'},
+      {title:'Bánh Mì — A Vietnamese Sandwich Icon', body:'"Bánh mì" (a baguette-based sandwich, French-influenced but distinctly Vietnamese) is endlessly customizable — meat, pâté, pickled vegetables, cilantro, chili — and one of Vietnam\'s most famous street foods worldwide.'},
+    ],
+    cards:[
+      {v:'Cho mình một ổ bánh mì thịt.', p:'', e:"I'd like a pork bánh mì."},
+      {v:'Dạ, có ăn rau ngò không?', p:'', e:'Sure, do you eat cilantro?'},
+      {v:'Không ăn ngò, cho mình thêm chút ớt.', p:'', e:'No cilantro, please add a bit of chili.'},
+      {v:'Dạ được, đợi mình một chút.', p:'', e:'Sure, just a moment.'},
+    ] },
+  { id:'vi2_l15', day:15, section:2, level:'A1', title:'Talking About the Weather', tag:'Everyday Life', img:'images/vi2_lesson_15.jpg',
+    desc:'Discuss a sudden downpour during Vietnam\'s rainy season.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Hôm nay trời thế nào?', p:'', e:"How's the weather today?"},
+      {speaker:'B', v:'Trời đang mưa to lắm.', p:'', e:"It's raining really hard right now."},
+      {speaker:'A', v:'Vậy chắc phải mang áo mưa rồi.', p:'', e:'Then I probably need to bring a raincoat.'},
+      {speaker:'B', v:'Đúng rồi, mùa này hay mưa bất chợt.', p:'', e:'Right, this season it often rains suddenly.'},
+    ],
+    vocab:[
+      {v:'trời', e:'sky / weather'}, {v:'thế nào', e:'how'}, {v:'mưa to', e:'heavy rain'}, {v:'áo mưa', e:'raincoat'},
+      {v:'mùa', e:'season'}, {v:'bất chợt', e:'suddenly / unexpectedly'}, {v:'hay', e:'often'},
+    ],
+    grammar:[
+      {title:'Đang — Marking Something Happening Right Now', body:'"Đang" placed before a verb shows the action is in progress right now — "trời đang mưa" ("it\'s raining right now") — Vietnamese\'s version of the English "-ing."'},
+      {title:'Vietnam\'s Rainy Season', body:'Much of Vietnam has a distinct rainy season (roughly May–October in the south) with sudden, heavy downpours that can start and stop within an hour — carrying a compact áo mưa (raincoat) or poncho is a genuinely practical daily habit, not just a phrase to memorize.'},
+    ],
+    cards:[
+      {v:'Hôm nay trời thế nào?', p:'', e:"How's the weather today?"},
+      {v:'Trời đang mưa to lắm.', p:'', e:"It's raining really hard right now."},
+      {v:'Vậy chắc phải mang áo mưa rồi.', p:'', e:'Then I probably need to bring a raincoat.'},
+      {v:'Đúng rồi, mùa này hay mưa bất chợt.', p:'', e:'Right, this season it often rains suddenly.'},
+    ] },
+  { id:'vi2_l16', day:16, section:2, level:'A1', title:'Bargaining at a Market', tag:'Everyday Life', img:'images/vi2_lesson_16.jpg',
+    desc:'Negotiate a lower price at a market, and learn when bargaining is (and isn\'t) appropriate.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Cái này giá bao nhiêu vậy chị?', p:'', e:'How much is this?'},
+      {speaker:'B', v:'Một trăm năm mươi nghìn.', p:'', e:'One hundred fifty thousand.'},
+      {speaker:'A', v:'Trả giá được không? Bớt chút được không?', p:'', e:'Can I bargain? Can you lower it a bit?'},
+      {speaker:'B', v:'Được, một trăm hai mươi nghìn cho em nhé.', p:'', e:'Sure, one hundred twenty thousand for you.'},
+    ],
+    vocab:[
+      {v:'giá', e:'price'}, {v:'trả giá', e:'to bargain'}, {v:'bớt', e:'to reduce / lower'}, {v:'một trăm', e:'one hundred'},
+      {v:'được không', e:'is it okay? / can you...?'}, {v:'cho em', e:'for you (to someone younger)'},
+    ],
+    grammar:[
+      {title:'Được Không? — A Flexible Way to Ask "Can You...?"', body:'"Được không?" tacked onto almost anything turns it into a polite request or permission question — "bớt chút được không?" ("can you lower it a bit?"). One of the single most flexible, reusable patterns in casual Vietnamese.'},
+      {title:'Bargaining Norms', body:'Bargaining (trả giá) is expected and normal at open markets and with street vendors, but NOT at fixed-price stores or supermarkets, where prices are printed and non-negotiable — reading which situation you\'re in matters more than the specific words used.'},
+    ],
+    cards:[
+      {v:'Cái này giá bao nhiêu vậy chị?', p:'', e:'How much is this?'},
+      {v:'Một trăm năm mươi nghìn.', p:'', e:'One hundred fifty thousand.'},
+      {v:'Trả giá được không? Bớt chút được không?', p:'', e:'Can I bargain? Can you lower it a bit?'},
+      {v:'Được, một trăm hai mươi nghìn cho em nhé.', p:'', e:'Sure, one hundred twenty thousand for you.'},
+    ] },
+  { id:'vi2_l17', day:17, section:2, level:'A1', title:'At the Pharmacy', tag:'Everyday Life', img:'images/vi2_lesson_17.jpg',
+    desc:'Describe a minor ailment and ask about buying medicine.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Chào chị, em bị đau đầu, có thuốc gì không?', p:'', e:'Hi, I have a headache, is there any medicine?'},
+      {speaker:'B', v:'Có, uống thuốc này hai lần một ngày nhé.', p:'', e:'Yes, take this medicine twice a day.'},
+      {speaker:'A', v:'Có cần toa bác sĩ không?', p:'', e:"Do I need a doctor's prescription?"},
+      {speaker:'B', v:'Không cần, thuốc này mua tự do được.', p:'', e:'No need, this medicine can be bought over the counter.'},
+    ],
+    vocab:[
+      {v:'hiệu thuốc', e:'pharmacy'}, {v:'đau đầu', e:'headache'}, {v:'thuốc', e:'medicine'}, {v:'hai lần một ngày', e:'twice a day'},
+      {v:'toa bác sĩ', e:"doctor's prescription"}, {v:'mua tự do', e:'to buy freely / over the counter'},
+    ],
+    grammar:[
+      {title:'Bị — Marking Something Bad Happening to You', body:'"Bị" placed before a word for an ailment or misfortune shows something unwanted is happening — "bị đau đầu" ("to have/suffer a headache"). The same "bị" pattern extends to other bad situations, like "bị mất" (to lose something) or "bị trễ" (to be late).'},
+      {title:'Pharmacies Are a Common First Stop', body:'For minor ailments, Vietnamese pharmacies (hiệu thuốc) commonly sell many medicines over the counter without a prescription, making them a fast, normal first stop before considering a doctor\'s visit for something small.'},
+    ],
+    cards:[
+      {v:'Chào chị, em bị đau đầu, có thuốc gì không?', p:'', e:'Hi, I have a headache, is there any medicine?'},
+      {v:'Có, uống thuốc này hai lần một ngày nhé.', p:'', e:'Yes, take this medicine twice a day.'},
+      {v:'Có cần toa bác sĩ không?', p:'', e:"Do I need a doctor's prescription?"},
+      {v:'Không cần, thuốc này mua tự do được.', p:'', e:'No need, this medicine can be bought over the counter.'},
+    ] },
+  { id:'vi2_l18', day:18, section:2, level:'A1', title:'Talking About Family', tag:'Everyday Life', img:'images/vi2_lesson_18.jpg',
+    desc:'Describe your siblings and birth order — Vietnamese builds both into the vocabulary itself.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Gia đình bạn có mấy anh chị em?', p:'', e:'How many siblings are in your family?'},
+      {speaker:'B', v:'Mình có một anh trai và một em gái.', p:'', e:'I have one older brother and one younger sister.'},
+      {speaker:'A', v:'Vậy bạn là con thứ hai à?', p:'', e:"So you're the second child?"},
+      {speaker:'B', v:'Đúng rồi, mình ở giữa.', p:'', e:"That's right, I'm in the middle."},
+    ],
+    vocab:[
+      {v:'gia đình', e:'family'}, {v:'anh chị em', e:'siblings'}, {v:'anh trai', e:'older brother'}, {v:'em gái', e:'younger sister'},
+      {v:'con thứ hai', e:'second child'}, {v:'ở giữa', e:'in the middle'},
+    ],
+    grammar:[
+      {title:'No Single Word for "Sibling" Without Birth Order', body:'Vietnamese doesn\'t have a generic word for "brother" or "sister" alone — birth order and gender are built into the word itself: anh trai (older brother), em trai (younger brother), chị gái (older sister), em gái (younger sister).'},
+      {title:'Con Thứ — Talking About Birth Order', body:'"Con thứ [number]" describes which child you are by birth order — "con thứ hai" (second child). The oldest child is often called "con cả" or "con đầu" instead of "con thứ nhất."'},
+    ],
+    cards:[
+      {v:'Gia đình bạn có mấy anh chị em?', p:'', e:'How many siblings are in your family?'},
+      {v:'Mình có một anh trai và một em gái.', p:'', e:'I have one older brother and one younger sister.'},
+      {v:'Vậy bạn là con thứ hai à?', p:'', e:"So you're the second child?"},
+      {v:'Đúng rồi, mình ở giữa.', p:'', e:"That's right, I'm in the middle."},
+    ] },
+  { id:'vi2_l19', day:19, section:2, level:'A1', title:'Making Weekend Plans', tag:'Everyday Life', img:'images/vi2_lesson_19.jpg',
+    desc:'Invite a friend out and agree on a time to meet.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Bạn có rảnh vào cuối tuần này không?', p:'', e:'Are you free this weekend?'},
+      {speaker:'B', v:'Rảnh, sao vậy?', p:'', e:"I'm free, why?"},
+      {speaker:'A', v:'Đi chơi công viên với mình không?', p:'', e:'Want to go hang out at the park with me?'},
+      {speaker:'B', v:'Được đó, mấy giờ mình gặp nhau?', p:'', e:'Sounds good, what time should we meet?'},
+    ],
+    vocab:[
+      {v:'cuối tuần', e:'weekend'}, {v:'rảnh', e:'free'}, {v:'sao vậy', e:"why / what's up"}, {v:'đi chơi', e:'to go hang out / have fun'},
+      {v:'công viên', e:'park'}, {v:'gặp nhau', e:'to meet each other'},
+    ],
+    grammar:[
+      {title:'Đi Chơi — A Catch-All for "Going Out"', body:'"Đi chơi" literally means "go play," but it\'s used broadly by people of any age to mean "go out and have fun" — going to a park, a cafe, or just wandering around with friends all count.'},
+      {title:'Được Đó — A Casual Way to Agree', body:'"Được đó" is a relaxed, enthusiastic way to say "sounds good" or "that works" — a notch warmer than a plain "được" (okay/fine) on its own.'},
+    ],
+    cards:[
+      {v:'Bạn có rảnh vào cuối tuần này không?', p:'', e:'Are you free this weekend?'},
+      {v:'Rảnh, sao vậy?', p:'', e:"I'm free, why?"},
+      {v:'Đi chơi công viên với mình không?', p:'', e:'Want to go hang out at the park with me?'},
+      {v:'Được đó, mấy giờ mình gặp nhau?', p:'', e:'Sounds good, what time should we meet?'},
+    ] },
+  { id:'vi2_l20', day:20, section:2, level:'A1', title:'Splitting the Bill', tag:'Everyday Life', img:'images/vi2_lesson_20.jpg',
+    desc:'Divide a restaurant bill evenly and settle up with a bank transfer.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Tổng cộng hết bao nhiêu vậy?', p:'', e:'How much does it come to in total?'},
+      {speaker:'B', v:'Hết sáu trăm nghìn.', p:'', e:'It comes to six hundred thousand total.'},
+      {speaker:'A', v:'Vậy chia đều, mỗi người hai trăm nghìn nhé.', p:'', e:"So let's split evenly, two hundred thousand each."},
+      {speaker:'B', v:'Được, mình chuyển khoản cho bạn nhé.', p:'', e:"Sure, I'll transfer it to you."},
+    ],
+    vocab:[
+      {v:'tổng cộng', e:'total'}, {v:'hết bao nhiêu', e:'how much does it come to'}, {v:'chia đều', e:'to split evenly'}, {v:'mỗi người', e:'each person'},
+      {v:'chuyển khoản', e:'to transfer money / bank transfer'}, {v:'chia tiền', e:'to split the bill'},
+    ],
+    grammar:[
+      {title:'Hết Bao Nhiêu vs Bao Nhiêu Tiền', body:'"Hết bao nhiêu?" specifically asks what a total comes to, often after a meal or several items, while "bao nhiêu tiền?" more generally asks the price of one thing. Both are common; "hết" flags you\'re asking about a final total.'},
+      {title:'Chuyển Khoản — Splitting Bills the Modern Way', body:'Bank transfer apps (chuyển khoản, often via a QR code on the spot) have become the default way friends settle up a shared bill in Vietnam, similar to apps like Venmo elsewhere — usually faster than digging for exact cash.'},
+    ],
+    cards:[
+      {v:'Tổng cộng hết bao nhiêu vậy?', p:'', e:'How much does it come to in total?'},
+      {v:'Hết sáu trăm nghìn.', p:'', e:'It comes to six hundred thousand total.'},
+      {v:'Vậy chia đều, mỗi người hai trăm nghìn nhé.', p:'', e:"So let's split evenly, two hundred thousand each."},
+      {v:'Được, mình chuyển khoản cho bạn nhé.', p:'', e:"Sure, I'll transfer it to you."},
+    ] },
+  { id:'vi2_l21', day:21, section:2, level:'A1', title:'At a Local Market Buying Produce', tag:'Everyday Life', img:'images/vi2_lesson_21.jpg',
+    desc:'Buy vegetables by the kilo, and meet the age-aware terms real market conversations often slip into.',
+    duration:'3 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'Cô ơi, rau muống bao nhiêu một kí?', p:'', e:'Excuse me, how much is water spinach per kilo?'},
+      {speaker:'B', v:'Mười lăm nghìn một kí con.', p:'', e:'Fifteen thousand a kilo, dear.'},
+      {speaker:'A', v:'Cho con nửa kí thôi.', p:'', e:'Just half a kilo for me, please.'},
+      {speaker:'B', v:'Được rồi, con đợi cô một chút.', p:'', e:'Sure, wait a moment.'},
+    ],
+    vocab:[
+      {v:'chợ', e:'market'}, {v:'rau muống', e:'water spinach'}, {v:'một kí', e:'one kilogram'}, {v:'nửa kí', e:'half a kilogram'},
+      {v:'cô', e:'auntie / madam (older woman)'}, {v:'con', e:'I / me (to someone much older)'},
+    ],
+    grammar:[
+      {title:'Cô / Con — Age-Aware Address at the Market', body:'Even though this course keeps "tôi"/"mình"/"bạn" as the default (see the pronoun concept card), real market interactions often use age-based terms naturally — "cô" (madam, for an older woman) and "con" (I, a humble term used by someone much younger) are extremely common at markets specifically, since vendors are often older.'},
+      {title:'Kí — The Everyday Word for Kilogram', body:'"Kí" (from the French "kilo") is the everyday spoken word for kilogram — "một kí" (one kilo), "nửa kí" (half a kilo) — used constantly at markets for produce, meat, and seafood.'},
+    ],
+    cards:[
+      {v:'Cô ơi, rau muống bao nhiêu một kí?', p:'', e:'Excuse me, how much is water spinach per kilo?'},
+      {v:'Mười lăm nghìn một kí con.', p:'', e:'Fifteen thousand a kilo, dear.'},
+      {v:'Cho con nửa kí thôi.', p:'', e:'Just half a kilo for me, please.'},
+      {v:'Được rồi, con đợi cô một chút.', p:'', e:'Sure, wait a moment.'},
+    ] },
+];
+
+const CONCEPT_LESSONS_VI2 = [
+  { id:'vi2_c1', afterDay:1, title:'Vietnamese Tones & Diacritics', subtitle:'Six tones turn the same base syllable into six different words.',
+    img:'images/vi2_concept_01.jpg',
+    blocks:[
+      {type:'text', body:'Vietnamese is written with the Latin alphabet plus diacritic marks that show tone — and tone is not optional decoration, it changes the word entirely. The classic teaching example is the syllable "ma," which means something completely different depending on which of the six tones it carries.'},
+      {type:'heading', text:'The Six Tones of "ma"'},
+      {type:'vocab', words:[
+        {v:'ma (level tone, no mark)', e:'ghost'},
+        {v:'má (rising tone)', e:'mother / cheek'},
+        {v:'mà (falling tone)', e:'but'},
+        {v:'mả (dipping-rising tone)', e:'tomb / grave'},
+        {v:'mã (broken-rising tone)', e:'horse (in compounds) / code'},
+        {v:'mạ (heavy, low tone)', e:'rice seedling'},
+      ]},
+      {type:'text', body:'<em>The tone marks sit directly above (or below, for the heavy tone) the main vowel — getting comfortable reading them is worth the early investment, since guessing a word\'s tone from context alone is a losing strategy in Vietnamese.</em>'},
+    ] },
+  { id:'vi2_c2', afterDay:1, title:'Pronouns Made Simple: Tôi & Bạn', subtitle:'Vietnamese\'s full pronoun system is nuanced — here\'s the neutral starting point.',
+    img:'images/vi2_concept_02.jpg',
+    blocks:[
+      {type:'text', body:'Vietnamese pronouns for "I" and "you" change based on the relative age, gender, and closeness of the two speakers — a system that takes real time to master. Rather than front-loading all of that on day one, this course starts with two neutral, always-safe options and layers in the fuller system later.'},
+      {type:'heading', text:'Two Safe Defaults'},
+      {type:'vocab', words:[
+        {v:'tôi', e:'I / me — neutral, works in almost any situation, slightly formal'},
+        {v:'mình', e:'I / me — casual, warm, common between friends'},
+        {v:'bạn', e:'you — neutral "friend," safe for people around your own age'},
+      ]},
+      {type:'text', body:'<em>Once these feel natural, later lessons introduce age-based terms like anh (older male), chị (older female), and em (younger person) — used constantly in real conversation, but much easier to pick up after the basic sentence patterns are already comfortable.</em>'},
+    ] },
+];
 
 // Given any lesson/concept id, return which language's progress bucket it
 // belongs in — the top-level `state` object for Vietnamese (the original,
@@ -2828,6 +4368,7 @@ function isEsId(id){ return typeof id === 'string' && id.indexOf('es_') === 0; }
 // this as one function means a 10th language only adds one more branch here,
 // not one more copy of the ternary at every call site.
 function progressBucketFor(id){
+  if(isVi2Id(id)) return state.vi2;
   if(isZhId(id)) return state.zh;
   if(isYueId(id)) return state.yue;
   if(isJaId(id)) return state.ja;
@@ -8504,12 +10045,16 @@ const CHAT_PERSONAS = {
 const DEFAULT_STATE = {
   name:'', dailyGoal:10,
   lastModified:null, // ISO timestamp, stamped on every saveState() — lets sync tell which copy (local vs cloud) is actually newer instead of blindly trusting the cloud
-  language:'vi', // 'vi' | 'zh' | 'yue' | 'ja' | 'ko' | 'th' | 'tl' | 'en' | 'es' — which LANGUAGES entry is active; switched via the flag picker on Home
-  // Mandarin's, Cantonese's, Japanese's, Korean's, Thai's, Tagalog's,
-  // English's, and Spanish's own progress, fully separate from the Vietnamese
-  // fields below (completedLessons, xp, streak, srs, etc.) and from each
-  // other — switching languages must never let one course's progress leak
-  // into or overwrite another's.
+  language:'vi', // 'vi' | 'vi2' | 'zh' | 'yue' | 'ja' | 'ko' | 'th' | 'tl' | 'en' | 'es' — which LANGUAGES entry is active; switched via the flag picker on Home
+  // Vietnamese (New)'s, Mandarin's, Cantonese's, Japanese's, Korean's,
+  // Thai's, Tagalog's, English's, and Spanish's own progress, fully separate
+  // from the original Vietnamese fields below (completedLessons, xp, streak,
+  // srs, etc.) and from each other — switching languages must never let one
+  // course's progress leak into or overwrite another's. Vietnamese (New) —
+  // 'vi2' — is a second, fully original Vietnamese course (see LESSONS_VI2)
+  // that sits alongside the original 'vi' course rather than replacing it,
+  // since the original already has real recorded audio and hero images.
+  vi2:{ completedLessons:[], completedConcepts:[], xp:0, streak:0, bestStreak:0, lastStudyDate:null, studyDates:[], srs:{} },
   zh:{ completedLessons:[], completedConcepts:[], xp:0, streak:0, bestStreak:0, lastStudyDate:null, studyDates:[], srs:{} },
   yue:{ completedLessons:[], completedConcepts:[], xp:0, streak:0, bestStreak:0, lastStudyDate:null, studyDates:[], srs:{} },
   ja:{ completedLessons:[], completedConcepts:[], xp:0, streak:0, bestStreak:0, lastStudyDate:null, studyDates:[], srs:{} },
@@ -10468,7 +12013,7 @@ function buildQuiz(card){
 // other Cantonese lines, not random unrelated Vietnamese phrases pulled
 // from ALL_TRANSLATIONS. Vietnamese's LESSONS/TOPIC_LESSONS keep using
 // ALL_TRANSLATIONS (LESSONS+PACKS), the original, well-established pool.
-const LANGUAGE_DIALOGUE_ARRAYS = [LESSONS_ZH, LESSONS_YUE, LESSONS_JA, LESSONS_KO, LESSONS_TH, LESSONS_TL, LESSONS_EN, LESSONS_ES];
+const LANGUAGE_DIALOGUE_ARRAYS = [LESSONS_VI2, LESSONS_ZH, LESSONS_YUE, LESSONS_JA, LESSONS_KO, LESSONS_TH, LESSONS_TL, LESSONS_EN, LESSONS_ES];
 function decoyPoolForLesson(lesson){
   if(LESSONS.includes(lesson) || TOPIC_LESSONS.includes(lesson)) return ALL_TRANSLATIONS;
   const source = LANGUAGE_DIALOGUE_ARRAYS.find(arr => arr.includes(lesson));
@@ -10537,7 +12082,7 @@ function buildSteps(type, source){
 // pending content show an honest "coming soon" note instead of empty space.
 let lessonDetailId = null;
 function openLessonDetail(id){
-  const l = LESSONS.find(x=>x.id===id) || TOPIC_LESSONS.find(x=>x.id===id) || LESSONS_ZH.find(x=>x.id===id) || LESSONS_YUE.find(x=>x.id===id) || LESSONS_JA.find(x=>x.id===id) || LESSONS_KO.find(x=>x.id===id) || LESSONS_TH.find(x=>x.id===id) || LESSONS_TL.find(x=>x.id===id) || LESSONS_EN.find(x=>x.id===id) || LESSONS_ES.find(x=>x.id===id);
+  const l = LESSONS.find(x=>x.id===id) || TOPIC_LESSONS.find(x=>x.id===id) || LESSONS_VI2.find(x=>x.id===id) || LESSONS_ZH.find(x=>x.id===id) || LESSONS_YUE.find(x=>x.id===id) || LESSONS_JA.find(x=>x.id===id) || LESSONS_KO.find(x=>x.id===id) || LESSONS_TH.find(x=>x.id===id) || LESSONS_TL.find(x=>x.id===id) || LESSONS_EN.find(x=>x.id===id) || LESSONS_ES.find(x=>x.id===id);
   if(!l) return;
   lessonDetailId = id;
 
@@ -10636,7 +12181,7 @@ let practiceState = null;
 // in the same change that flips this on for every language at once.
 function isGuessPracticeLesson(lesson){ return true; }
 function openPractice(lessonId){
-  const l = LESSONS.find(x=>x.id===lessonId) || TOPIC_LESSONS.find(x=>x.id===lessonId) || LESSONS_ZH.find(x=>x.id===lessonId) || LESSONS_YUE.find(x=>x.id===lessonId) || LESSONS_JA.find(x=>x.id===lessonId) || LESSONS_KO.find(x=>x.id===lessonId) || LESSONS_TH.find(x=>x.id===lessonId) || LESSONS_TL.find(x=>x.id===lessonId) || LESSONS_EN.find(x=>x.id===lessonId) || LESSONS_ES.find(x=>x.id===lessonId);
+  const l = LESSONS.find(x=>x.id===lessonId) || TOPIC_LESSONS.find(x=>x.id===lessonId) || LESSONS_VI2.find(x=>x.id===lessonId) || LESSONS_ZH.find(x=>x.id===lessonId) || LESSONS_YUE.find(x=>x.id===lessonId) || LESSONS_JA.find(x=>x.id===lessonId) || LESSONS_KO.find(x=>x.id===lessonId) || LESSONS_TH.find(x=>x.id===lessonId) || LESSONS_TL.find(x=>x.id===lessonId) || LESSONS_EN.find(x=>x.id===lessonId) || LESSONS_ES.find(x=>x.id===lessonId);
   if(!l || !(l.dialogue||[]).length){
     alert("This lesson doesn't have practice dialogue written yet.");
     return;
@@ -11352,7 +12897,7 @@ function renderPracticeGuess(){
 // works" lessons) ========================= 
 let conceptDetailId = null;
 function openConceptDetail(id){
-  const c = CONCEPT_LESSONS.find(x=>x.id===id) || CONCEPT_LESSONS_ZH.find(x=>x.id===id) || CONCEPT_LESSONS_YUE.find(x=>x.id===id) || CONCEPT_LESSONS_JA.find(x=>x.id===id) || CONCEPT_LESSONS_KO.find(x=>x.id===id) || CONCEPT_LESSONS_TH.find(x=>x.id===id) || CONCEPT_LESSONS_TL.find(x=>x.id===id) || CONCEPT_LESSONS_EN.find(x=>x.id===id) || CONCEPT_LESSONS_ES.find(x=>x.id===id);
+  const c = CONCEPT_LESSONS.find(x=>x.id===id) || CONCEPT_LESSONS_VI2.find(x=>x.id===id) || CONCEPT_LESSONS_ZH.find(x=>x.id===id) || CONCEPT_LESSONS_YUE.find(x=>x.id===id) || CONCEPT_LESSONS_JA.find(x=>x.id===id) || CONCEPT_LESSONS_KO.find(x=>x.id===id) || CONCEPT_LESSONS_TH.find(x=>x.id===id) || CONCEPT_LESSONS_TL.find(x=>x.id===id) || CONCEPT_LESSONS_EN.find(x=>x.id===id) || CONCEPT_LESSONS_ES.find(x=>x.id===id);
   if(!c) return;
   conceptDetailId = id;
 
@@ -11785,6 +13330,7 @@ let lsnGroupMode = 'day'; // 'day' | 'topic' — which grouping the Lessons tab 
 let lsnOpenGroups = {}; // { 'day_1': true, 'topic_Survival': false, ... } — collapsed state of lsnLessonList groups; a key defaults to OPEN unless explicitly set to false
 function isLsnGroupOpen(key){ return lsnOpenGroups[key] !== false; }
 function renderLessonsTab(){
+  if(state.language==='vi2'){ renderLessonsTabVi2(); return; }
   if(state.language==='zh'){ renderLessonsTabZh(); return; }
   if(state.language==='yue'){ renderLessonsTabYue(); return; }
   if(state.language==='ja'){ renderLessonsTabJa(); return; }
@@ -11987,14 +13533,20 @@ function renderLessonsTabYue(){
   const listEl = document.getElementById('lsnLessonList');
   if(!listEl) return;
 
-  const yueLessonCardHtml = (l)=>{
+  // Each unlocked level has its own SECTIONS array — A1 and A2 both keep
+  // their own `section` id numbering (1, 2, 3...), so lookups must always
+  // go through this per-level map rather than a single shared sections
+  // array, or A1's section:1 and A2's section:1 would collide.
+  const CANTONESE_SECTIONS_BY_LEVEL = { A1: CANTONESE_A1_SECTIONS, A2: CANTONESE_A2_SECTIONS };
+
+  const yueLessonCardHtml = (l, levelNum)=>{
     const done = state.yue.completedLessons.includes(l.id);
     let html = `<button class="lsn-lesson-card" onclick="openLessonDetail('${l.id}')">
       <img src="${l.img}" alt="" onerror="this.style.display='none';">
       <div class="shade"></div>
       <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
       <div class="tag">${l.tag}</div>
-      <div class="day">CANTONESE A1</div>
+      <div class="day">CANTONESE ${levelNum}</div>
       <div class="title">${l.title}</div>
     </button>`;
     CONCEPT_LESSONS_YUE.filter(c=>c.afterDay===l.day).forEach(c=>{
@@ -12017,9 +13569,11 @@ function renderLessonsTabYue(){
       </button>`;
     }
     const isOpen = isLsnGroupOpen(key);
-    const doneCount = LESSONS_YUE.filter(l=>state.yue.completedLessons.includes(l.id)).length;
-    const sectionsHtml = CANTONESE_A1_SECTIONS.map(sec=>{
-      const cardsHtml = LESSONS_YUE.filter(l=>l.section===sec.id).map(yueLessonCardHtml).join('')
+    const levelLessons = LESSONS_YUE.filter(l=>l.level===lv.num);
+    const doneCount = levelLessons.filter(l=>state.yue.completedLessons.includes(l.id)).length;
+    const sections = CANTONESE_SECTIONS_BY_LEVEL[lv.num] || [];
+    const sectionsHtml = sections.map(sec=>{
+      const cardsHtml = levelLessons.filter(l=>l.section===sec.id).map(l=>yueLessonCardHtml(l, lv.num)).join('')
         + `<div class="lsn-lesson-card locked" style="display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:800;font-size:13px;text-align:center;padding:12px;">🔒 More Cantonese ${lv.num} lessons coming soon</div>`;
       return `<p class="lsn-section-label" style="font-weight:800;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:10px 2px;">${sec.roman} · ${sec.title}</p>
         <div class="lsn-group-cards">${cardsHtml}</div>`;
@@ -12027,7 +13581,87 @@ function renderLessonsTabYue(){
     return `<div class="lsn-group ${isOpen?'open':''}" id="lsnGroup_${key}">
       <button class="lsn-group-head" onclick="toggleLsnGroup('${key}')">
         <span class="lsn-group-label">${lv.num} · ${lv.name}</span>
-        <span class="lsn-group-count">${doneCount}/${LESSONS_YUE.length}</span>
+        <span class="lsn-group-count">${doneCount}/${levelLessons.length}</span>
+        <span class="lsn-group-chevron">▾</span>
+      </button>
+      <div class="lsn-group-body">${sectionsHtml}</div>
+    </div>`;
+  }).join('');
+}
+// Vietnamese (New)'s Lessons tab — same CEFR-level, multi-section shape as
+// Cantonese's renderLessonsTabYue() above (copied deliberately rather than
+// generalized into one shared function, to avoid touching Cantonese's
+// already-verified renderer while building this one). Only A1 is unlocked;
+// A2-C1 render as bare locked labels, same "no fabricated stats" honesty
+// as Cantonese, since there's no real Vietnamese-specific proficiency
+// standard to source target numbers from either.
+function renderLessonsTabVi2(){
+  const totalEl = document.getElementById('lsnWordsTotal');
+  if(!totalEl) return; // view not in DOM yet, harmless no-op
+
+  const vi2WordCount = LESSONS_VI2.reduce((sum,l)=>sum+(l.vocab||[]).length,0)
+    + CONCEPT_LESSONS_VI2.reduce((sum,c)=>sum+(c.blocks||[]).filter(b=>b.type==='vocab').reduce((s,b)=>s+b.words.length,0),0);
+  const vi2DialogueCount = LESSONS_VI2.reduce((sum,l)=>sum+(l.dialogue||[]).length,0);
+  const vi2GrammarCount = LESSONS_VI2.reduce((sum,l)=>sum+(l.grammar||[]).length,0);
+
+  const nextVi2Lesson = LESSONS_VI2.find(l=>!state.vi2.completedLessons.includes(l.id));
+  document.getElementById('lsnReminderTitle').textContent = nextVi2Lesson ? nextVi2Lesson.title : 'Review a completed lesson';
+  totalEl.textContent = vi2WordCount;
+  document.getElementById('lsnDialogueTotal').textContent = vi2DialogueCount;
+  document.getElementById('lsnPhraseTotal').textContent = vi2DialogueCount;
+  document.getElementById('lsnGrammarTotal').textContent = vi2GrammarCount;
+
+  const listEl = document.getElementById('lsnLessonList');
+  if(!listEl) return;
+
+  // Same per-level sections map pattern as Cantonese — future levels (A2+)
+  // each keep their own `section` id numbering, so lookups always go
+  // through this map rather than a single shared sections array.
+  const VI2_SECTIONS_BY_LEVEL = { A1: VI2_A1_SECTIONS };
+
+  const vi2LessonCardHtml = (l, levelNum)=>{
+    const done = state.vi2.completedLessons.includes(l.id);
+    let html = `<button class="lsn-lesson-card" onclick="openLessonDetail('${l.id}')">
+      <img src="${l.img}" alt="" onerror="this.style.display='none';">
+      <div class="shade"></div>
+      <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
+      <div class="tag">${l.tag}</div>
+      <div class="day">VIETNAMESE (NEW) ${levelNum}</div>
+      <div class="title">${l.title}</div>
+    </button>`;
+    CONCEPT_LESSONS_VI2.filter(c=>c.afterDay===l.day).forEach(c=>{
+      const cDone = state.vi2.completedConcepts.includes(c.id);
+      html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
+        <img src="${c.img}" alt="" onerror="this.style.display='none';">
+        <div class="shade"></div>
+        <div class="title">${c.title}</div>
+      </button>`;
+    });
+    return html;
+  };
+
+  listEl.innerHTML = VI2_LEVELS.map(lv=>{
+    const key = 'vi2_'+lv.id;
+    if(!lv.unlocked){
+      return `<button class="lsn-group-head" style="opacity:.55;" onclick="alert('Vietnamese (New) ${lv.num} content is coming soon.')">
+        <span class="lsn-group-label">${lv.num}</span>
+        <span class="lsn-group-count">🔒 Locked</span>
+      </button>`;
+    }
+    const isOpen = isLsnGroupOpen(key);
+    const levelLessons = LESSONS_VI2.filter(l=>l.level===lv.num);
+    const doneCount = levelLessons.filter(l=>state.vi2.completedLessons.includes(l.id)).length;
+    const sections = VI2_SECTIONS_BY_LEVEL[lv.num] || [];
+    const sectionsHtml = sections.map(sec=>{
+      const cardsHtml = levelLessons.filter(l=>l.section===sec.id).map(l=>vi2LessonCardHtml(l, lv.num)).join('')
+        + `<div class="lsn-lesson-card locked" style="display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:800;font-size:13px;text-align:center;padding:12px;">🔒 More Vietnamese (New) ${lv.num} lessons coming soon</div>`;
+      return `<p class="lsn-section-label" style="font-weight:800;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:10px 2px;">${sec.roman} · ${sec.title}</p>
+        <div class="lsn-group-cards">${cardsHtml}</div>`;
+    }).join('');
+    return `<div class="lsn-group ${isOpen?'open':''}" id="lsnGroup_${key}">
+      <button class="lsn-group-head" onclick="toggleLsnGroup('${key}')">
+        <span class="lsn-group-label">${lv.num} · ${lv.name}</span>
+        <span class="lsn-group-count">${doneCount}/${levelLessons.length}</span>
         <span class="lsn-group-chevron">▾</span>
       </button>
       <div class="lsn-group-body">${sectionsHtml}</div>
