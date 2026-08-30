@@ -13974,6 +13974,12 @@ function activeLessons(){
   }
 }
 function isVietnameseCourse(){ return state.language === 'vi' || state.language === 'vi2'; }
+// Vietnamese is already written in a Latin alphabet with the tones marked on the
+// letters, so a pseudo-phonetic respelling ("sin chow" under "Xin chào")
+// competes with the real spelling instead of helping — and the real spelling is
+// the thing to learn. Cantonese keeps its Jyutping, which is the only way to
+// read the characters at all. Lessons are untouched; this is the Cards tab.
+function showRomanisation(){ return !isVietnameseCourse(); }
 function activeLanguageName(){
   const l = LANGUAGES.find(x=>x.id===state.language);
   return l ? l.name.replace(/\s*\(New\)$/,'') : 'Vietnamese';
@@ -17344,7 +17350,7 @@ function renderFrequency(){
       return `${head}
       <div class="freq-item" onclick="playAudio('${audioId}', '${wEsc}', currentAccent)">
         <div style="flex:1;min-width:0;">
-          <p class="fw"><span class="tap-word${cjkCls()}" onclick="event.stopPropagation();showWordInfo('${wEsc}')">${w.word}</span>${w.p?`<span class="fw-rom-inline">${w.p}</span>`:''}${gloss?`<span class="fw-en"> — ${gloss}</span>`:''}</p>
+          <p class="fw"><span class="tap-word${cjkCls()}" onclick="event.stopPropagation();showWordInfo('${wEsc}')">${w.word}</span>${(w.p && showRomanisation())?`<span class="fw-rom-inline">${w.p}</span>`:''}${gloss?`<span class="fw-en"> — ${gloss}</span>`:''}</p>
         </div>
         <div class="freq-num-pill${isSlangWords?" sev-"+(w.sev||"mild"):""}" style="${isSlangWords?"":"background:"+TIER_COLOR[w.star]}">${rankLabel}</div>
       </div>`;
@@ -17383,7 +17389,7 @@ function renderFrequency(){
       <div class="freq-item" onclick="playAudio('${audioId}', '${p.v.replace(/'/g,"\\'")}', currentAccent)">
         ${p.sev ? `<span class="sev-tag sev-${p.sev}">${p.sev}</span>` : ''}
         <p class="fw${cjkCls()}">${p.v}</p>
-        ${p.p ? `<p class="fw-rom">${p.p}</p>` : ''}
+        ${(p.p && showRomanisation()) ? `<p class="fw-rom">${p.p}</p>` : ''}
         <p class="fw-en2">${p.e}</p>
       </div>`;
     }).join('');
@@ -18278,7 +18284,7 @@ function renderSwipe(){
     cardHtml = `
     <div class="swipe-card ${swipeState.flipped?'flipped':''}" onclick="flipSwipe()">
       <p class="sc-viet${cjkCls()}" style="display:block;">${c.word}</p>
-      ${c.p ? `<p class="sc-pron" style="display:block;">${c.p}</p>` : ''}
+      ${(c.p && showRomanisation()) ? `<p class="sc-pron" style="display:block;">${c.p}</p>` : ''}
       <div class="freq-num-pill" style="background:${TIER_COLOR[c.star]};margin:8px 0;">${rankLabel} most common</div>
       <p class="sc-eng" style="display:${swipeState.flipped?'block':'none'};">${gloss || '(no gloss yet for this word)'}</p>
       ${examples.length ? `
@@ -18305,7 +18311,7 @@ function renderSwipe(){
     cardHtml = `
     <div class="swipe-card ${swipeState.flipped?'flipped':''}" onclick="flipSwipe()">
       <p class="sc-viet" style="display:block;">${wrapWords(c.v)}</p>
-      <p class="sc-pron" style="display:${swipeState.flipped?'block':'none'};">${c.p||''}</p>
+      ${showRomanisation() ? `<p class="sc-pron" style="display:${swipeState.flipped?'block':'none'};">${c.p||''}</p>` : ''}
       <p class="sc-eng" style="display:${swipeState.flipped?'block':'none'};">${c.e}</p>
       <p class="sc-hint">${swipeState.flipped ? '' : 'Tap to flip'}</p>
     </div>`;
@@ -18394,7 +18400,7 @@ function renderSwipe(){
       ${swipeState.flipped ? `
         <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(36,28,19,0.08);width:100%;">
           <p class="sc-viet" style="display:block;">${wrapWords(c.v)}</p>
-          <p class="sc-pron" style="display:block;">${c.p||''}</p>
+          ${showRomanisation() ? `<p class="sc-pron" style="display:block;">${c.p||''}</p>` : ''}
         </div>` : ''}
     </div>`;
   } else {
@@ -18413,7 +18419,7 @@ function renderSwipe(){
     <div class="swipe-card ${swipeState.flipped?'flipped':''}" onclick="flipSwipe()">
       <p class="sc-eng">${c.e}</p>
       <p class="sc-viet">${wrapWords(c.v)}</p>
-      <p class="sc-pron">${c.p||''}</p>
+      ${showRomanisation() ? `<p class="sc-pron">${c.p||''}</p>` : ''}
       ${noteHtml}
       <p class="sc-hint">${swipeState.flipped ? '' : 'Tap to flip'}</p>
     </div>`;
