@@ -1,0 +1,1 @@
+note:VietLearnTTS (Vietnamese_Text:gi* OR Vietnamese_Text:gì OR Vietnamese_Text:gìn) -"Vietnamese_Text:* *"
