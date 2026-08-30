@@ -841,6 +841,18 @@
   opacity:0;pointer-events:none;transition:opacity .18s ease,transform .18s ease;}
 .app-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 @media (prefers-reduced-motion: reduce){ .flag-pill,.app-toast{transition:none;} }
+/* Severity is the single most useful thing on a slang card, so it is coloured
+   rather than left as text: green through to red as it gets less sayable. */
+.freq-num-pill.sev-mild{background:var(--herb);}
+.freq-num-pill.sev-medium{background:var(--gold);color:#2a2000;}
+.freq-num-pill.sev-strong{background:#C9601F;}
+.freq-num-pill.sev-extreme{background:var(--vermillion);}
+.sev-tag{display:inline-block;margin-bottom:5px;padding:2px 8px;border-radius:999px;
+  font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#fff;}
+.sev-tag.sev-mild{background:var(--herb);}
+.sev-tag.sev-medium{background:var(--gold);color:#2a2000;}
+.sev-tag.sev-strong{background:#C9601F;}
+.sev-tag.sev-extreme{background:var(--vermillion);}
 .freq-group{margin:18px 0 6px;font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);}
 .freq-group:first-child{margin-top:2px;}
 .fw-rom{color:var(--muted);font-size:11.5px;font-weight:500;font-family:'IBM Plex Mono',monospace;margin:3px 0 0;}
@@ -14095,103 +14107,180 @@ const CORE_PHRASES = [
 
 /* ========================= WORLDS ========================= */
 /* ========================= CANTONESE SLANG AND SWEARING =========================
-   General Cantonese, not workplace vocabulary — this is its own filter, separate
-   from the facility world. Cantonese swearing is not decoration; it is
-   load-bearing in casual speech, and a learner who cannot hear it is missing
-   half of what is said around him. So it is taught properly, strong words
-   included.
+   General Cantonese, not workplace vocabulary — its own filter, separate from
+   the facility world. Written from scratch for this app.
 
-   What matters far more than the words is the STRENGTH, because that is what
-   gets someone in trouble. Every entry carries one of three markers:
+   Two axes, because one is not enough to keep you out of trouble:
 
-     everyday  — no edge to it. Nobody blinks.
-     rough     — real swearing. Fine among friends who swear back; not to
-                 someone senior, not to someone you have just met.
-     strong    — genuinely offensive. Recognise it, understand it, and know that
-                 saying it in the wrong room would be a serious problem. Listed
-                 so he knows what he is hearing, not so he uses it.
+     cat — what KIND of thing it is. Knowing that 屌你老母 is a family curse and
+           屎忽 is bathroom humour tells you why one ends a friendship and the
+           other gets a laugh, even though both are "swearing".
 
-   A learner who swears with native fluency but the wrong pitch of politeness
-   sounds far worse than one who never swears at all. */
+     sev — how HARD it lands:
+             mild     no edge at all, say it to anyone
+             medium   casual and a bit rough, fine among friends
+             strong   real swearing, only with people who swear back at you
+             extreme  fighting words. Listed so you recognise them, not so you
+                      use them.
+
+   Cantonese swearing is load-bearing in ordinary speech — a learner who cannot
+   hear it is missing half of what is said around him — so the strong end is
+   here in full. But a learner who swears with native fluency and the wrong
+   pitch of politeness sounds far worse than one who never swears at all, which
+   is why every single entry carries its strength. */
 
 const SLANG_VOCAB = [
-  // --- everyday colloquial: no edge to it ---
-  {v:'好正', p:'hou2zeng3', e:'brilliant / spot on — everyday', group:'Everyday slang'},
-  {v:'掂', p:'dim6', e:'sorted / fine — everyday', group:'Everyday slang'},
-  {v:'弊', p:'bai6', e:'damn / uh-oh — everyday', group:'Everyday slang'},
-  {v:'慘', p:'caam2', e:'rough / miserable — everyday', group:'Everyday slang'},
-  {v:'攰', p:'gui6', e:'knackered — everyday', group:'Everyday slang'},
-  {v:'頂唔順', p:'ding2m4seon6', e:'can’t stand it any more — everyday', group:'Everyday slang'},
-  {v:'醒目', p:'sing2muk6', e:'sharp / on the ball — everyday', group:'Everyday slang'},
-  {v:'論盡', p:'leon6zeon6', e:'clumsy / all fingers and thumbs — everyday', group:'Everyday slang'},
-  {v:'執生', p:'zap1saang1', e:'to improvise / wing it — everyday', group:'Everyday slang'},
-  {v:'蛇王', p:'se4wong2', e:'to skive off — everyday (王 shifts wong4→wong2, as it often does in slang)', group:'Everyday slang'},
-  {v:'撞板', p:'zong6baan2', e:'to come unstuck / mess it up — everyday', group:'Everyday slang'},
-  {v:'大鑊', p:'daai6wok6', e:'big trouble — everyday', group:'Everyday slang'},
-  {v:'冇眼睇', p:'mou5ngaan5tai2', e:'can’t bear to watch — everyday', group:'Everyday slang'},
-  {v:'玩嘢', p:'waan2je5', e:'to mess about / pull a stunt — everyday', group:'Everyday slang'},
-  {v:'黐線', p:'ci1sin3', e:'mad / off your head — everyday between friends', group:'Everyday slang'},
-  {v:'傻仔', p:'so4zai2', e:'daft lad — everyday, often affectionate', group:'Everyday slang'},
-  {v:'頂你個肺', p:'ding2nei5go3fai3', e:'“damn you” — a deliberately silly, softened curse, everyday', group:'Everyday slang'},
-  {v:'死啦', p:'sei2laa3', e:'oh no / I’m done for — everyday, not about dying', group:'Everyday slang'},
-  {v:'唔係啩', p:'m4hai6gwaa3', e:'you’re kidding / no way — everyday', group:'Everyday slang'},
-  {v:'講笑啫', p:'gong2siu3ze1', e:'only joking — everyday', group:'Everyday slang'},
-  {v:'慳返啖氣', p:'haan1faan1daam6hei3', e:'save your breath — everyday', group:'Everyday slang'},
-  {v:'冇所謂', p:'mou5so2wai6', e:'don’t mind / makes no odds — everyday', group:'Everyday slang'},
-  {v:'唔好嘈', p:'m4hou2cou4', e:'shut up / stop the noise — everyday, blunt but clean', group:'Everyday slang'},
-  {v:'點呀', p:'dim2aa3', e:'what’s up? / well? — everyday, the standard casual opener', group:'Everyday slang'},
-  {v:'冇乜點', p:'mou5mat1dim2', e:'not much / nothing special — everyday, the standard reply to 點呀', group:'Everyday slang'},
-  {v:'噉點呀', p:'gam2dim2aa3', e:'so what now? / where does that leave us? — everyday', group:'Everyday slang'},
-  {v:'點都好', p:'dim2dou1hou2', e:'either way / whatever happens — everyday', group:'Everyday slang'},
-  {v:'喂', p:'wai3', e:'oi / hey — everyday, how you get someone’s attention', group:'Everyday slang'},
+  // ---------- everyday: no edge at all ----------
+  {v:'點呀', p:'dim2aa3', e:'what’s up? / well?', cat:'General slang', sev:'mild'},
+  {v:'冇乜點', p:'mou5mat1dim2', e:'not much — the standard reply to 點呀', cat:'General slang', sev:'mild'},
+  {v:'噉點呀', p:'gam2dim2aa3', e:'so what now? where does that leave us?', cat:'General slang', sev:'mild'},
+  {v:'點都好', p:'dim2dou1hou2', e:'either way / whatever happens', cat:'General slang', sev:'mild'},
+  {v:'喂', p:'wai3', e:'oi / hey — how you get someone’s attention', cat:'General slang', sev:'mild'},
+  {v:'好正', p:'hou2zeng3', e:'brilliant / spot on', cat:'General slang', sev:'mild'},
+  {v:'好嘢', p:'hou2je5', e:'nice one / well done', cat:'General slang', sev:'mild'},
+  {v:'掂', p:'dim6', e:'sorted / all good', cat:'General slang', sev:'mild'},
+  {v:'唔掂', p:'m4dim6', e:'not going well / not working out', cat:'General slang', sev:'mild'},
+  {v:'弊', p:'bai6', e:'damn / uh-oh', cat:'General slang', sev:'mild'},
+  {v:'死啦', p:'sei2laa3', e:'oh no / I’m done for — nothing to do with dying', cat:'General slang', sev:'mild'},
+  {v:'慘', p:'caam2', e:'rough / miserable', cat:'General slang', sev:'mild'},
+  {v:'攰', p:'gui6', e:'knackered', cat:'General slang', sev:'mild'},
+  {v:'頂唔順', p:'ding2m4seon6', e:'can’t stand it any more', cat:'General slang', sev:'mild'},
+  {v:'醒目', p:'sing2muk6', e:'sharp / on the ball', cat:'General slang', sev:'mild'},
+  {v:'有型', p:'jau5jing4', e:'stylish / cool', cat:'General slang', sev:'mild'},
+  {v:'老友', p:'lou5jau5', e:'mate / old friend', cat:'General slang', sev:'mild'},
+  {v:'論盡', p:'leon6zeon6', e:'clumsy / all fingers and thumbs', cat:'General slang', sev:'mild'},
+  {v:'執生', p:'zap1saang1', e:'to improvise / wing it', cat:'General slang', sev:'mild'},
+  {v:'蛇王', p:'se4wong2', e:'to skive off (王 shifts wong4→wong2, as it often does in slang)', cat:'General slang', sev:'mild'},
+  {v:'撞板', p:'zong6baan2', e:'to come unstuck / mess it up', cat:'General slang', sev:'mild'},
+  {v:'大鑊', p:'daai6wok6', e:'big trouble', cat:'General slang', sev:'mild'},
+  {v:'冇眼睇', p:'mou5ngaan5tai2', e:'can’t bear to watch', cat:'General slang', sev:'mild'},
+  {v:'玩嘢', p:'waan2je5', e:'to mess about / pull a stunt', cat:'General slang', sev:'mild'},
+  {v:'唔係啩', p:'m4hai6gwaa3', e:'you’re kidding / no way', cat:'General slang', sev:'mild'},
+  {v:'講笑啫', p:'gong2siu3ze1', e:'only joking', cat:'General slang', sev:'mild'},
+  {v:'慳返啖氣', p:'haan1faan1daam6hei3', e:'save your breath', cat:'General slang', sev:'mild'},
+  {v:'冇所謂', p:'mou5so2wai6', e:'don’t mind / makes no odds', cat:'General slang', sev:'mild'},
+  {v:'求其', p:'kau4kei4', e:'any old way / not fussed', cat:'General slang', sev:'mild'},
+  {v:'是但', p:'si6daan6', e:'whatever / either will do', cat:'General slang', sev:'mild'},
+  {v:'有排', p:'jau5paai4', e:'a long way to go yet', cat:'General slang', sev:'mild'},
+  {v:'冇符', p:'mou5fu4', e:'nothing you can do about it', cat:'General slang', sev:'mild'},
+  {v:'頭痕', p:'tau4han4', e:'a headache / a real problem', cat:'General slang', sev:'mild'},
+  {v:'唔使旨意', p:'m4sai2zi2ji3', e:'don’t count on it', cat:'General slang', sev:'mild'},
+  {v:'黐線', p:'ci1sin3', e:'mad / off your head — friendly between mates', cat:'Personal insult', sev:'mild'},
+  {v:'傻仔', p:'so4zai2', e:'daft lad — often affectionate', cat:'Personal insult', sev:'mild'},
+  {v:'頂你個肺', p:'ding2nei5go3fai3', e:'“damn you” — a deliberately silly, softened curse', cat:'General slang', sev:'mild'},
 
-  // --- rough: real swearing, friends only ---
-  {v:'仆街', p:'puk1gaai1', e:'bastard / drop dead — ROUGH. Said constantly, still a swear', group:'Rough'},
-  {v:'收皮', p:'sau1pei4', e:'pack it in / give it up — ROUGH', group:'Rough'},
-  {v:'死開', p:'sei2hoi1', e:'piss off — ROUGH', group:'Rough'},
-  {v:'廢柴', p:'fai3caai4', e:'waster / useless — ROUGH when aimed at a person', group:'Rough'},
-  {v:'戇居', p:'ngong6geoi1', e:'thick / stupid — ROUGH', group:'Rough'},
-  {v:'柒', p:'cat6', e:'one of the five swear syllables; 好柒 = pathetic — ROUGH', group:'Rough'},
-  {v:'冇撚用', p:'mou5lan2jung6', e:'bloody useless — ROUGH (撚 is a swear infix)', group:'Rough'},
+  // ---------- dismissal: telling someone to leave it ----------
+  {v:'唔好煩我', p:'m4hou2faan4ngo5', e:'stop bothering me', cat:'Dismissal', sev:'mild'},
+  {v:'咪搞我', p:'mai5gaau2ngo5', e:'leave me alone', cat:'Dismissal', sev:'mild'},
+  {v:'唔關你事', p:'m4gwaan1nei5si6', e:'none of your business', cat:'Dismissal', sev:'medium'},
+  {v:'行開啲', p:'haang4hoi1di1', e:'move along / give me room', cat:'Dismissal', sev:'medium'},
+  {v:'走開', p:'zau2hoi1', e:'go away', cat:'Dismissal', sev:'medium'},
+  {v:'收聲', p:'sau1seng1', e:'shut up', cat:'Dismissal', sev:'medium'},
+  {v:'唔好嘈', p:'m4hou2cou4', e:'stop the noise — blunt but clean', cat:'Dismissal', sev:'mild'},
+  {v:'收皮', p:'sau1pei4', e:'pack it in / give it up', cat:'Dismissal', sev:'strong'},
+  {v:'死開', p:'sei2hoi1', e:'piss off', cat:'Dismissal', sev:'strong'},
 
-  // --- strong: know them, don’t say them ---
-  {v:'屌', p:'diu2', e:'the big one, “f---”. STRONG — recognise it, don’t use it', group:'Strong'},
-  {v:'屌你老母', p:'diu2nei5lou5mou2', e:'the worst thing you can say to someone. STRONG', group:'Strong'},
-  {v:'冚家鏟', p:'ham6gaa1caan2', e:'curses the person’s whole family. STRONG', group:'Strong'},
-  {v:'閪', p:'hai1', e:'a swear syllable, very crude. STRONG', group:'Strong'},
-  {v:'鳩', p:'gau1', e:'a swear syllable; 戇鳩 = idiot. STRONG', group:'Strong'},
-  {v:'撚', p:'lan2', e:'a swear syllable used as an infix for emphasis. STRONG', group:'Strong'},
+  // ---------- personal insult ----------
+  {v:'蠢', p:'ceon2', e:'stupid', cat:'Personal insult', sev:'medium'},
+  {v:'冇用', p:'mou5jung6', e:'useless', cat:'Personal insult', sev:'medium'},
+  {v:'白痴', p:'baak6ci1', e:'idiot', cat:'Personal insult', sev:'medium'},
+  {v:'神經病', p:'san4ging1beng6', e:'nutcase / mental', cat:'Personal insult', sev:'medium'},
+  {v:'傻佬', p:'so4lou2', e:'fool / idiot (of a man)', cat:'Personal insult', sev:'medium'},
+  {v:'衰人', p:'seoi1jan4', e:'rotten so-and-so — can be playful between couples', cat:'Personal insult', sev:'medium'},
+  {v:'廢柴', p:'fai3caai4', e:'waster / deadweight', cat:'Personal insult', sev:'strong'},
+  {v:'廢青', p:'fai3cing1', e:'useless youth — pointed, and politically loaded in HK', cat:'Personal insult', sev:'strong'},
+  {v:'戇居', p:'ngong6geoi1', e:'thick / dense', cat:'Personal insult', sev:'strong'},
+  {v:'麻甩佬', p:'maa4lat1lou2', e:'a coarse bloke / lad-ish man', cat:'Personal insult', sev:'medium'},
+  {v:'老屎忽', p:'lou5si2fat1', e:'an old-timer who throws his weight around', cat:'Personal insult', sev:'strong'},
+  {v:'硬膠', p:'ngaang6gaau1', e:'idiot — internet-born, now said out loud', cat:'Personal insult', sev:'strong'},
+  {v:'仆街', p:'puk1gaai1', e:'bastard / drop dead — said constantly, still a swear', cat:'Personal insult', sev:'strong'},
+  {v:'撲街', p:'pok3gaai1', e:'the same word, the other common spelling', cat:'Personal insult', sev:'strong'},
+  {v:'戇鳩', p:'ngong6gau1', e:'thick as anything — contains a swear syllable', cat:'Personal insult', sev:'extreme'},
+  {v:'柒頭', p:'cat6tau4', e:'idiot — contains a swear syllable', cat:'Personal insult', sev:'strong'},
+  {v:'撚樣', p:'lan2joeng2', e:'stupid-looking sod — contains a swear syllable', cat:'Personal insult', sev:'extreme'},
+
+  // ---------- body and bathroom ----------
+  {v:'屎', p:'si2', e:'shit', cat:'Body humour', sev:'medium'},
+  {v:'屎忽', p:'si2fat1', e:'backside / arse', cat:'Body humour', sev:'medium'},
+  {v:'屎眼', p:'si2ngaan5', e:'arsehole (the body part)', cat:'Body humour', sev:'strong'},
+  {v:'放屁', p:'fong3pei3', e:'to fart; also “talking rubbish”', cat:'Body humour', sev:'medium'},
+  {v:'核突', p:'wat6dat6', e:'disgusting / hideous', cat:'Body humour', sev:'mild'},
+  {v:'嘔心', p:'au2sam1', e:'sickening / makes you want to throw up', cat:'Body humour', sev:'mild'},
+  {v:'臭', p:'cau3', e:'stinking', cat:'Body humour', sev:'mild'},
+
+  // ---------- sexual profanity: the five syllables ----------
+  {v:'屌', p:'diu2', e:'the big one, “f---”. The root of most hard swearing', cat:'Sexual profanity', sev:'extreme'},
+  {v:'閪', p:'hai1', e:'the crudest word for female genitals', cat:'Sexual profanity', sev:'extreme'},
+  {v:'撚', p:'lan2', e:'a male-anatomy swear, used as an emphasis infix', cat:'Sexual profanity', sev:'extreme'},
+  {v:'鳩', p:'gau1', e:'a male-anatomy swear, used as an emphasis infix', cat:'Sexual profanity', sev:'extreme'},
+  {v:'柒', p:'cat6', e:'the mildest of the five; 好柒 = pathetic', cat:'Sexual profanity', sev:'strong'},
+  {v:'冇撚用', p:'mou5lan2jung6', e:'bloody useless — 撚 wedged in for force', cat:'Sexual profanity', sev:'strong'},
+  {v:'好撚煩', p:'hou2lan2faan4', e:'bloody annoying — same infix pattern', cat:'Sexual profanity', sev:'strong'},
+  {v:'屌你', p:'diu2nei5', e:'f--- you', cat:'Sexual profanity', sev:'extreme'},
+
+  // ---------- family curses: the ones that end friendships ----------
+  {v:'屌你老母', p:'diu2nei5lou5mou2', e:'the worst thing you can say to someone in Cantonese', cat:'Family insult', sev:'extreme'},
+  {v:'你老母', p:'nei5lou5mou2', e:'“your mother” — the short form, no less serious', cat:'Family insult', sev:'extreme'},
+  {v:'冚家鏟', p:'ham6gaa1caan2', e:'may your whole family be wiped out', cat:'Family insult', sev:'extreme'},
+  {v:'冚家富貴', p:'ham6gaa1fu3gwai3', e:'“may your whole family prosper” — said sarcastically, it means the opposite', cat:'Family insult', sev:'extreme'},
+  {v:'仆你個街', p:'puk1nei5go3gaai1', e:'an expanded, angrier 仆街', cat:'Family insult', sev:'extreme'},
+
+  // ---------- threats and fights ----------
+  {v:'想點呀', p:'soeng2dim2aa3', e:'what’s your problem? — the line before a fight starts', cat:'Threat or fight', sev:'medium'},
+  {v:'你想死呀', p:'nei5soeng2sei2aa3', e:'are you asking for it?', cat:'Threat or fight', sev:'strong'},
+  {v:'唔好惹我', p:'m4hou2je5ngo5', e:'don’t start with me', cat:'Threat or fight', sev:'strong'},
+  {v:'出去講', p:'ceot1heoi3gong2', e:'take it outside', cat:'Threat or fight', sev:'strong'},
+  {v:'打交', p:'daa2gaau1', e:'to have a fight / scrap', cat:'Threat or fight', sev:'medium'},
+  {v:'我打死你', p:'ngo5daa2sei2nei5', e:'I’ll batter you — often an empty threat between mates', cat:'Threat or fight', sev:'strong'},
+  {v:'睇死你', p:'tai2sei2nei5', e:'I reckon you haven’t got it in you', cat:'Threat or fight', sev:'medium'},
 ];
 
 const SLANG_PHRASES = [
-  {v:'今日好攰呀，頂唔順。', p:'gam1 jat6 hou2 gui6 aa3, ding2 m4 seon6.', e:'Knackered today — I’m done in.', group:'Everyday slang'},
-  {v:'搞掂晒，好正！', p:'gaau2 dim6 saai3, hou2 zeng3!', e:'All done — brilliant!', group:'Everyday slang'},
-  {v:'弊喇，我唔記得咗。', p:'bai6 laa3, ngo5 m4 gei3 dak1 zo2.', e:'Damn — I forgot.', group:'Everyday slang'},
-  {v:'大鑊喇，我唔見咗個銀包。', p:'daai6 wok6 laa3, ngo5 m4 gin3 zo2 go3 ngan4 baau1.', e:'Big trouble — I’ve lost my wallet.', group:'Everyday slang'},
-  {v:'死啦，我遲到喇。', p:'sei2 laa3, ngo5 ci4 dou3 laa3.', e:'Oh no — I’m late.', group:'Everyday slang'},
-  {v:'唔係啩，咁都得？', p:'m4 hai6 gwaa3, gam3 dou1 dak1?', e:'You’re kidding — that’s allowed?', group:'Everyday slang'},
-  {v:'講笑啫，唔好嬲。', p:'gong2 siu3 ze1, m4 hou2 nau1.', e:'Only joking — don’t be cross.', group:'Everyday slang'},
-  {v:'唔知點做就執生啦。', p:'m4 zi1 dim2 zou6 zau6 zap1 saang1 laa1.', e:'If you don’t know how, just wing it.', group:'Everyday slang'},
-  {v:'我今次撞板喇。', p:'ngo5 gam1 ci3 zong6 baan2 laa3.', e:'I’ve really messed up this time.', group:'Everyday slang'},
-  {v:'你咁論盡㗎！', p:'nei5 gam3 leon6 zeon6 gaa3!', e:'You’re so clumsy!', group:'Everyday slang'},
-  {v:'冇眼睇，我唔理喇。', p:'mou5 ngaan5 tai2, ngo5 m4 lei5 laa3.', e:'I can’t watch — I’m done with it.', group:'Everyday slang'},
-  {v:'你玩嘢呀？', p:'nei5 waan2 je5 aa3?', e:'Are you having me on?', group:'Everyday slang'},
-  {v:'頂你個肺，又壞咗。', p:'ding2 nei5 go3 fai3, jau6 waai6 zo2.', e:'For crying out loud — it’s broken again.', group:'Everyday slang'},
-  {v:'你黐咗線呀？', p:'nei5 ci1 zo2 sin3 aa3?', e:'Are you out of your mind?', group:'Everyday slang'},
-  {v:'慳返啖氣啦，佢唔會聽。', p:'haan1 faan1 daam6 hei3 laa1, keoi5 m4 wui5 teng1.', e:'Save your breath — he won’t listen.', group:'Everyday slang'},
-  {v:'佢又蛇王喇。', p:'keoi5 jau6 se4 wong2 laa3.', e:'He’s skiving off again.', group:'Everyday slang'},
-  {v:'邊個都得，我冇所謂。', p:'bin1 go3 dou1 dak1, ngo5 mou5 so2 wai6.', e:'Either’s fine — I don’t mind.', group:'Everyday slang'},
-  {v:'喂，點呀？', p:'wai3, dim2 aa3?', e:'Oi — what’s up?', group:'Everyday slang'},
-  {v:'你最近點呀？', p:'nei5 zeoi3 gan6 dim2 aa3?', e:'How’ve you been lately?', group:'Everyday slang'},
-  {v:'冇乜點，你呢？', p:'mou5 mat1 dim2, nei5 ne1?', e:'Not much — you?', group:'Everyday slang'},
-  {v:'噉點呀？做唔做？', p:'gam2 dim2 aa3? zou6 m4 zou6?', e:'So what now — are we doing it or not?', group:'Everyday slang'},
-  {v:'點都好，我聽你講。', p:'dim2 dou1 hou2, ngo5 teng1 nei5 gong2.', e:'Either way — I’ll go with what you say.', group:'Everyday slang'},
+  {v:'喂，點呀？', p:'wai3, dim2 aa3?', e:'Oi — what’s up?', cat:'General slang', sev:'mild'},
+  {v:'你最近點呀？', p:'nei5 zeoi3 gan6 dim2 aa3?', e:'How’ve you been lately?', cat:'General slang', sev:'mild'},
+  {v:'冇乜點，你呢？', p:'mou5 mat1 dim2, nei5 ne1?', e:'Not much — you?', cat:'General slang', sev:'mild'},
+  {v:'噉點呀？做唔做？', p:'gam2 dim2 aa3? zou6 m4 zou6?', e:'So what now — are we doing it or not?', cat:'General slang', sev:'mild'},
+  {v:'點都好，我聽你講。', p:'dim2 dou1 hou2, ngo5 teng1 nei5 gong2.', e:'Either way — I’ll go with what you say.', cat:'General slang', sev:'mild'},
+  {v:'今日好攰呀，頂唔順。', p:'gam1 jat6 hou2 gui6 aa3, ding2 m4 seon6.', e:'Knackered today — I’m done in.', cat:'General slang', sev:'mild'},
+  {v:'搞掂晒，好正！', p:'gaau2 dim6 saai3, hou2 zeng3!', e:'All done — brilliant!', cat:'General slang', sev:'mild'},
+  {v:'弊喇，我唔記得咗。', p:'bai6 laa3, ngo5 m4 gei3 dak1 zo2.', e:'Damn — I forgot.', cat:'General slang', sev:'mild'},
+  {v:'大鑊喇，我唔見咗個銀包。', p:'daai6 wok6 laa3, ngo5 m4 gin3 zo2 go3 ngan4 baau1.', e:'Big trouble — I’ve lost my wallet.', cat:'General slang', sev:'mild'},
+  {v:'死啦，我遲到喇。', p:'sei2 laa3, ngo5 ci4 dou3 laa3.', e:'Oh no — I’m late.', cat:'General slang', sev:'mild'},
+  {v:'唔係啩，咁都得？', p:'m4 hai6 gwaa3, gam3 dou1 dak1?', e:'You’re kidding — that’s allowed?', cat:'General slang', sev:'mild'},
+  {v:'講笑啫，唔好嬲。', p:'gong2 siu3 ze1, m4 hou2 nau1.', e:'Only joking — don’t be cross.', cat:'General slang', sev:'mild'},
+  {v:'唔知點做就執生啦。', p:'m4 zi1 dim2 zou6 zau6 zap1 saang1 laa1.', e:'If you don’t know how, just wing it.', cat:'General slang', sev:'mild'},
+  {v:'我今次撞板喇。', p:'ngo5 gam1 ci3 zong6 baan2 laa3.', e:'I’ve really messed up this time.', cat:'General slang', sev:'mild'},
+  {v:'你咁論盡㗎！', p:'nei5 gam3 leon6 zeon6 gaa3!', e:'You’re so clumsy!', cat:'General slang', sev:'mild'},
+  {v:'冇眼睇，我唔理喇。', p:'mou5 ngaan5 tai2, ngo5 m4 lei5 laa3.', e:'I can’t watch — I’m done with it.', cat:'General slang', sev:'mild'},
+  {v:'你玩嘢呀？', p:'nei5 waan2 je5 aa3?', e:'Are you having me on?', cat:'General slang', sev:'mild'},
+  {v:'頂你個肺，又壞咗。', p:'ding2 nei5 go3 fai3, jau6 waai6 zo2.', e:'For crying out loud — it’s broken again.', cat:'General slang', sev:'mild'},
+  {v:'慳返啖氣啦，佢唔會聽。', p:'haan1 faan1 daam6 hei3 laa1, keoi5 m4 wui5 teng1.', e:'Save your breath — he won’t listen.', cat:'General slang', sev:'mild'},
+  {v:'佢又蛇王喇。', p:'keoi5 jau6 se4 wong2 laa3.', e:'He’s skiving off again.', cat:'General slang', sev:'mild'},
+  {v:'邊個都得，我是但。', p:'bin1 go3 dou1 dak1, ngo5 si6 daan6.', e:'Either’s fine — I’m not fussed.', cat:'General slang', sev:'mild'},
+  {v:'仲有排先做完。', p:'zung6 jau5 paai4 sin1 zou6 jyun4.', e:'We’ve a long way to go yet.', cat:'General slang', sev:'mild'},
 
-  {v:'仆街，我唔記得咗帶。', p:'puk1 gaai1, ngo5 m4 gei3 dak1 zo2 daai3.', e:'Bugger — I forgot to bring it. (ROUGH, but said constantly)', group:'Rough'},
-  {v:'唔好玩喇，收皮啦。', p:'m4 hou2 waan2 laa3, sau1 pei4 laa1.', e:'Stop messing about, pack it in. (ROUGH)', group:'Rough'},
-  {v:'部電話真係冇撚用。', p:'bou6 din6 waa2 zan1 hai6 mou5 lan2 jung6.', e:'This phone is bloody useless. (ROUGH — 撚 is a swear infix)', group:'Rough'},
-  {v:'好柒呀，唔好俾人見到。', p:'hou2 cat6 aa3, m4 hou2 bei2 jan4 gin3 dou2.', e:'That’s pathetic — don’t let anyone see. (ROUGH)', group:'Rough'},
-  {v:'死開啦，唔好煩我。', p:'sei2 hoi1 laa1, m4 hou2 faan4 ngo5.', e:'Piss off and leave me alone. (ROUGH)', group:'Rough'},
+  {v:'你黐咗線呀？', p:'nei5 ci1 zo2 sin3 aa3?', e:'Are you out of your mind?', cat:'Personal insult', sev:'mild'},
+  {v:'咪搞我啦，我做緊嘢。', p:'mai5 gaau2 ngo5 laa1, ngo5 zou6 gan2 je5.', e:'Leave me be — I’m working.', cat:'Dismissal', sev:'mild'},
+  {v:'唔關你事。', p:'m4 gwaan1 nei5 si6.', e:'None of your business.', cat:'Dismissal', sev:'medium'},
+  {v:'收聲啦，聽人講嘢。', p:'sau1 seng1 laa1, teng1 jan4 gong2 je5.', e:'Shut up and listen to what’s being said.', cat:'Dismissal', sev:'medium'},
+  {v:'唔好玩喇，收皮啦。', p:'m4 hou2 waan2 laa3, sau1 pei4 laa1.', e:'Stop messing about, pack it in.', cat:'Dismissal', sev:'strong'},
+  {v:'死開啦，唔好煩我。', p:'sei2 hoi1 laa1, m4 hou2 faan4 ngo5.', e:'Piss off and leave me alone.', cat:'Dismissal', sev:'strong'},
+
+  {v:'佢真係好蠢。', p:'keoi5 zan1 hai6 hou2 ceon2.', e:'He really is thick.', cat:'Personal insult', sev:'medium'},
+  {v:'咪扮傻啦。', p:'mai5 baan6 so4 laa1.', e:'Don’t play dumb.', cat:'Personal insult', sev:'medium'},
+  {v:'仆街，我唔記得咗帶。', p:'puk1 gaai1, ngo5 m4 gei3 dak1 zo2 daai3.', e:'Bugger — I forgot to bring it.', cat:'Personal insult', sev:'strong'},
+  {v:'哩個人真係廢柴。', p:'ni1 go3 jan4 zan1 hai6 fai3 caai4.', e:'This bloke is completely useless.', cat:'Personal insult', sev:'strong'},
+
+  {v:'哩度好臭，好核突。', p:'ni1 dou6 hou2 cau3, hou2 wat6 dat6.', e:'It stinks in here — it’s disgusting.', cat:'Body humour', sev:'mild'},
+  {v:'你講嘢好似放屁噉。', p:'nei5 gong2 je5 hou2 ci5 fong3 pei3 gam2.', e:'You’re talking out of your backside.', cat:'Body humour', sev:'medium'},
+
+  {v:'部電話真係冇撚用。', p:'bou6 din6 waa2 zan1 hai6 mou5 lan2 jung6.', e:'This phone is bloody useless.', cat:'Sexual profanity', sev:'strong'},
+  {v:'好柒呀，唔好俾人見到。', p:'hou2 cat6 aa3, m4 hou2 bei2 jan4 gin3 dou2.', e:'That’s pathetic — don’t let anyone see.', cat:'Sexual profanity', sev:'strong'},
+  {v:'今日好撚煩。', p:'gam1 jat6 hou2 lan2 faan4.', e:'Today has been bloody annoying.', cat:'Sexual profanity', sev:'strong'},
+
+  {v:'你想點呀？', p:'nei5 soeng2 dim2 aa3?', e:'What’s your problem?', cat:'Threat or fight', sev:'medium'},
+  {v:'唔好惹我呀。', p:'m4 hou2 je5 ngo5 aa3.', e:'Don’t start with me.', cat:'Threat or fight', sev:'strong'},
+  {v:'再講我打死你。', p:'zoi3 gong2 ngo5 daa2 sei2 nei5.', e:'Say that again and I’ll batter you.', cat:'Threat or fight', sev:'strong'},
 ];
 
 /* ========================= CANTONESE WORLDS ========================= */
@@ -16877,7 +16966,7 @@ function renderFrequency(){
     document.getElementById('freqList').innerHTML = filtered.map(w=>{
       // Off-corpus job words have no rank, and "Not ranked" reads like a fault.
       // They are simply not the kind of word a conversation corpus records.
-      const rankLabel = w.rank >= 999999 ? (isWorkWords ? 'Job word' : isSlangWords ? 'Slang' : 'Not ranked') : w.rank.toLocaleString();
+      const rankLabel = w.rank >= 999999 ? (isWorkWords ? 'Job word' : isSlangWords ? (w.sev||'slang') : 'Not ranked') : w.rank.toLocaleString();
       const gloss = isOwnList ? w.e : activeWordGloss(w.word);
       let head = '';
       if(isOwnList && w.group && w.group !== lastWordGroup){ lastWordGroup = w.group; head = `<p class="freq-group">${w.group}</p>`; }
@@ -16888,7 +16977,7 @@ function renderFrequency(){
         <div style="flex:1;min-width:0;">
           <p class="fw"><span class="tap-word${cjkCls()}" onclick="event.stopPropagation();showWordInfo('${wEsc}')">${w.word}</span>${w.p?`<span class="fw-rom-inline">${w.p}</span>`:''}${gloss?`<span class="fw-en"> — ${gloss}</span>`:''}</p>
         </div>
-        <div class="freq-num-pill" style="background:${TIER_COLOR[w.star]}">${rankLabel}</div>
+        <div class="freq-num-pill${isSlangWords?" sev-"+(w.sev||"mild"):""}" style="${isSlangWords?"":"background:"+TIER_COLOR[w.star]}">${rankLabel}</div>
       </div>`;
     }).join('');
   } else {
@@ -16922,6 +17011,7 @@ function renderFrequency(){
       if(isWork && p.group && p.group !== lastGroup){ lastGroup = p.group; head = `<p class="freq-group">${p.group}</p>`; }
       return `${head}
       <div class="freq-item" onclick="playAudio('${audioId}', '${p.v.replace(/'/g,"\\'")}', currentAccent)">
+        ${p.sev ? `<span class="sev-tag sev-${p.sev}">${p.sev}</span>` : ''}
         <p class="fw${cjkCls()}">${p.v}</p>
         ${p.p ? `<p class="fw-rom">${p.p}</p>` : ''}
         <p class="fw-en2">${p.e}</p>
@@ -17603,22 +17693,31 @@ function viewMasteredWords(){
 // world — it is its own filter and has nothing to do with the job. srsIds are
 // namespaced so a slang card never collides with a frequency or job word.
 let _slangVocabCache = null, _slangPhraseCache = null;
+// Ordered by category, then by how hard it lands inside each — so browsing a
+// category walks you from safe to unsayable rather than jumping about.
+const SEV_ORDER = { mild:0, medium:1, strong:2, extreme:3 };
+const CAT_ORDER = ['General slang','Dismissal','Personal insult','Body humour',
+                   'Sexual profanity','Family insult','Threat or fight'];
+function bySlangOrder(a,b){
+  const c = CAT_ORDER.indexOf(a.group) - CAT_ORDER.indexOf(b.group);
+  return c || (SEV_ORDER[a.sev] - SEV_ORDER[b.sev]);
+}
 function slangVocab(){
   if(state.language !== 'yue') return [];
   if(_slangVocabCache) return _slangVocabCache;
-  _slangVocabCache = SLANG_VOCAB.map((t,i)=>({
-    word:t.v, p:t.p, e:t.e, group:t.group, rank:999999, star:1,
+  _slangVocabCache = SLANG_VOCAB.map(t=>({
+    word:t.v, p:t.p, e:t.e, group:t.cat, sev:t.sev, rank:999999, star:1,
     srsId:`slang_${srsNs()}${t.v}`,
-  }));
+  })).sort(bySlangOrder);
   return _slangVocabCache;
 }
 function slangPhrases(){
   if(state.language !== 'yue') return [];
   if(_slangPhraseCache) return _slangPhraseCache;
   _slangPhraseCache = SLANG_PHRASES.map((c,i)=>({
-    v:c.v, p:c.p, e:c.e, group:c.group, rank:i+1,
+    v:c.v, p:c.p, e:c.e, group:c.cat, sev:c.sev, rank:i+1,
     srsId:`slangp_${srsNs()}${i}`,
-  }));
+  })).sort(bySlangOrder);
   return _slangPhraseCache;
 }
 let _facilityVocabCache = null;
