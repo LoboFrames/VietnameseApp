@@ -1,0 +1,49 @@
+VietLearnTTS — card template with audio preview
+================================================
+In Anki:  Browse -> click any VietLearnTTS note -> "Cards..." button
+Paste each block into the matching pane, then close. Applies to all 8,345 notes.
+
+Both play buttons sit on the FRONT so you can A/B male vs female on the same
+word without flipping. An empty sound field renders as nothing, so notes with
+no female audio just show one button.
+
+------------------------- FRONT TEMPLATE -------------------------
+<div class="vn">{{Vietnamese_Text}}</div>
+
+<div class="lbl">male</div>
+{{Vietnamese_Male_Sound}}
+
+<div class="lbl">female</div>
+{{Vietnamese_Female_Sound}}
+
+------------------------- BACK TEMPLATE --------------------------
+{{FrontSide}}
+
+<hr id=answer>
+
+<div class="en">{{English_Text}}</div>
+<div class="id">{{ID}}</div>
+
+------------------------- STYLING --------------------------------
+.card {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-align: center;
+  background: #fbf3e3;
+  color: #1a1409;
+  padding: 20px;
+}
+.vn  { font-size: 34px; font-weight: 700; margin: 20px 0 4px; }
+.en  { font-size: 18px; color: #6b5a45; margin-top: 14px; }
+.lbl { font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+       color: #8a7860; margin: 16px 0 2px; }
+.id  { font-size: 11px; color: #b0a48e; margin-top: 20px;
+       font-family: ui-monospace, Menlo, monospace; }
+hr#answer { border: none; border-top: 1px solid rgba(36,28,19,.15); margin: 20px 0; }
+==================================================================
+
+Anki turns any field containing [sound:...] into a play button automatically,
+so no extra markup is needed — just referencing the field is enough.
+
+To audit the 53 gi- words, paste this into the Browse search bar first:
+
+note:VietLearnTTS (Vietnamese_Text:gi* OR Vietnamese_Text:gì OR Vietnamese_Text:gìn) -"Vietnamese_Text:* *"
