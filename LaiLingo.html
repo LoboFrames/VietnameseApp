@@ -14094,6 +14094,96 @@ const CORE_PHRASES = [
 ];
 
 /* ========================= WORLDS ========================= */
+/* ========================= CANTONESE SLANG AND SWEARING =========================
+   General Cantonese, not workplace vocabulary — this is its own filter, separate
+   from the facility world. Cantonese swearing is not decoration; it is
+   load-bearing in casual speech, and a learner who cannot hear it is missing
+   half of what is said around him. So it is taught properly, strong words
+   included.
+
+   What matters far more than the words is the STRENGTH, because that is what
+   gets someone in trouble. Every entry carries one of three markers:
+
+     everyday  — no edge to it. Nobody blinks.
+     rough     — real swearing. Fine among friends who swear back; not to
+                 someone senior, not to someone you have just met.
+     strong    — genuinely offensive. Recognise it, understand it, and know that
+                 saying it in the wrong room would be a serious problem. Listed
+                 so he knows what he is hearing, not so he uses it.
+
+   A learner who swears with native fluency but the wrong pitch of politeness
+   sounds far worse than one who never swears at all. */
+
+const SLANG_VOCAB = [
+  // --- everyday colloquial: no edge to it ---
+  {v:'好正', p:'hou2zeng3', e:'brilliant / spot on — everyday', group:'Everyday slang'},
+  {v:'掂', p:'dim6', e:'sorted / fine — everyday', group:'Everyday slang'},
+  {v:'弊', p:'bai6', e:'damn / uh-oh — everyday', group:'Everyday slang'},
+  {v:'慘', p:'caam2', e:'rough / miserable — everyday', group:'Everyday slang'},
+  {v:'攰', p:'gui6', e:'knackered — everyday', group:'Everyday slang'},
+  {v:'頂唔順', p:'ding2m4seon6', e:'can’t stand it any more — everyday', group:'Everyday slang'},
+  {v:'醒目', p:'sing2muk6', e:'sharp / on the ball — everyday', group:'Everyday slang'},
+  {v:'論盡', p:'leon6zeon6', e:'clumsy / all fingers and thumbs — everyday', group:'Everyday slang'},
+  {v:'執生', p:'zap1saang1', e:'to improvise / wing it — everyday', group:'Everyday slang'},
+  {v:'蛇王', p:'se4wong2', e:'to skive off — everyday (王 shifts wong4→wong2, as it often does in slang)', group:'Everyday slang'},
+  {v:'撞板', p:'zong6baan2', e:'to come unstuck / mess it up — everyday', group:'Everyday slang'},
+  {v:'大鑊', p:'daai6wok6', e:'big trouble — everyday', group:'Everyday slang'},
+  {v:'冇眼睇', p:'mou5ngaan5tai2', e:'can’t bear to watch — everyday', group:'Everyday slang'},
+  {v:'玩嘢', p:'waan2je5', e:'to mess about / pull a stunt — everyday', group:'Everyday slang'},
+  {v:'黐線', p:'ci1sin3', e:'mad / off your head — everyday between friends', group:'Everyday slang'},
+  {v:'傻仔', p:'so4zai2', e:'daft lad — everyday, often affectionate', group:'Everyday slang'},
+  {v:'頂你個肺', p:'ding2nei5go3fai3', e:'“damn you” — a deliberately silly, softened curse, everyday', group:'Everyday slang'},
+  {v:'死啦', p:'sei2laa3', e:'oh no / I’m done for — everyday, not about dying', group:'Everyday slang'},
+  {v:'唔係啩', p:'m4hai6gwaa3', e:'you’re kidding / no way — everyday', group:'Everyday slang'},
+  {v:'講笑啫', p:'gong2siu3ze1', e:'only joking — everyday', group:'Everyday slang'},
+  {v:'慳返啖氣', p:'haan1faan1daam6hei3', e:'save your breath — everyday', group:'Everyday slang'},
+  {v:'冇所謂', p:'mou5so2wai6', e:'don’t mind / makes no odds — everyday', group:'Everyday slang'},
+  {v:'唔好嘈', p:'m4hou2cou4', e:'shut up / stop the noise — everyday, blunt but clean', group:'Everyday slang'},
+
+  // --- rough: real swearing, friends only ---
+  {v:'仆街', p:'puk1gaai1', e:'bastard / drop dead — ROUGH. Said constantly, still a swear', group:'Rough'},
+  {v:'收皮', p:'sau1pei4', e:'pack it in / give it up — ROUGH', group:'Rough'},
+  {v:'死開', p:'sei2hoi1', e:'piss off — ROUGH', group:'Rough'},
+  {v:'廢柴', p:'fai3caai4', e:'waster / useless — ROUGH when aimed at a person', group:'Rough'},
+  {v:'戇居', p:'ngong6geoi1', e:'thick / stupid — ROUGH', group:'Rough'},
+  {v:'柒', p:'cat6', e:'one of the five swear syllables; 好柒 = pathetic — ROUGH', group:'Rough'},
+  {v:'冇撚用', p:'mou5lan2jung6', e:'bloody useless — ROUGH (撚 is a swear infix)', group:'Rough'},
+
+  // --- strong: know them, don’t say them ---
+  {v:'屌', p:'diu2', e:'the big one, “f---”. STRONG — recognise it, don’t use it', group:'Strong'},
+  {v:'屌你老母', p:'diu2nei5lou5mou2', e:'the worst thing you can say to someone. STRONG', group:'Strong'},
+  {v:'冚家鏟', p:'ham6gaa1caan2', e:'curses the person’s whole family. STRONG', group:'Strong'},
+  {v:'閪', p:'hai1', e:'a swear syllable, very crude. STRONG', group:'Strong'},
+  {v:'鳩', p:'gau1', e:'a swear syllable; 戇鳩 = idiot. STRONG', group:'Strong'},
+  {v:'撚', p:'lan2', e:'a swear syllable used as an infix for emphasis. STRONG', group:'Strong'},
+];
+
+const SLANG_PHRASES = [
+  {v:'今日好攰呀，頂唔順。', p:'gam1 jat6 hou2 gui6 aa3, ding2 m4 seon6.', e:'Knackered today — I’m done in.', group:'Everyday slang'},
+  {v:'搞掂晒，好正！', p:'gaau2 dim6 saai3, hou2 zeng3!', e:'All done — brilliant!', group:'Everyday slang'},
+  {v:'弊喇，我唔記得咗。', p:'bai6 laa3, ngo5 m4 gei3 dak1 zo2.', e:'Damn — I forgot.', group:'Everyday slang'},
+  {v:'大鑊喇，我唔見咗個銀包。', p:'daai6 wok6 laa3, ngo5 m4 gin3 zo2 go3 ngan4 baau1.', e:'Big trouble — I’ve lost my wallet.', group:'Everyday slang'},
+  {v:'死啦，我遲到喇。', p:'sei2 laa3, ngo5 ci4 dou3 laa3.', e:'Oh no — I’m late.', group:'Everyday slang'},
+  {v:'唔係啩，咁都得？', p:'m4 hai6 gwaa3, gam3 dou1 dak1?', e:'You’re kidding — that’s allowed?', group:'Everyday slang'},
+  {v:'講笑啫，唔好嬲。', p:'gong2 siu3 ze1, m4 hou2 nau1.', e:'Only joking — don’t be cross.', group:'Everyday slang'},
+  {v:'唔知點做就執生啦。', p:'m4 zi1 dim2 zou6 zau6 zap1 saang1 laa1.', e:'If you don’t know how, just wing it.', group:'Everyday slang'},
+  {v:'我今次撞板喇。', p:'ngo5 gam1 ci3 zong6 baan2 laa3.', e:'I’ve really messed up this time.', group:'Everyday slang'},
+  {v:'你咁論盡㗎！', p:'nei5 gam3 leon6 zeon6 gaa3!', e:'You’re so clumsy!', group:'Everyday slang'},
+  {v:'冇眼睇，我唔理喇。', p:'mou5 ngaan5 tai2, ngo5 m4 lei5 laa3.', e:'I can’t watch — I’m done with it.', group:'Everyday slang'},
+  {v:'你玩嘢呀？', p:'nei5 waan2 je5 aa3?', e:'Are you having me on?', group:'Everyday slang'},
+  {v:'頂你個肺，又壞咗。', p:'ding2 nei5 go3 fai3, jau6 waai6 zo2.', e:'For crying out loud — it’s broken again.', group:'Everyday slang'},
+  {v:'你黐咗線呀？', p:'nei5 ci1 zo2 sin3 aa3?', e:'Are you out of your mind?', group:'Everyday slang'},
+  {v:'慳返啖氣啦，佢唔會聽。', p:'haan1 faan1 daam6 hei3 laa1, keoi5 m4 wui5 teng1.', e:'Save your breath — he won’t listen.', group:'Everyday slang'},
+  {v:'佢又蛇王喇。', p:'keoi5 jau6 se4 wong2 laa3.', e:'He’s skiving off again.', group:'Everyday slang'},
+  {v:'邊個都得，我冇所謂。', p:'bin1 go3 dou1 dak1, ngo5 mou5 so2 wai6.', e:'Either’s fine — I don’t mind.', group:'Everyday slang'},
+
+  {v:'仆街，我唔記得咗帶。', p:'puk1 gaai1, ngo5 m4 gei3 dak1 zo2 daai3.', e:'Bugger — I forgot to bring it. (ROUGH, but said constantly)', group:'Rough'},
+  {v:'唔好玩喇，收皮啦。', p:'m4 hou2 waan2 laa3, sau1 pei4 laa1.', e:'Stop messing about, pack it in. (ROUGH)', group:'Rough'},
+  {v:'部電話真係冇撚用。', p:'bou6 din6 waa2 zan1 hai6 mou5 lan2 jung6.', e:'This phone is bloody useless. (ROUGH — 撚 is a swear infix)', group:'Rough'},
+  {v:'好柒呀，唔好俾人見到。', p:'hou2 cat6 aa3, m4 hou2 bei2 jan4 gin3 dou2.', e:'That’s pathetic — don’t let anyone see. (ROUGH)', group:'Rough'},
+  {v:'死開啦，唔好煩我。', p:'sei2 hoi1 laa1, m4 hou2 faan4 ngo5.', e:'Piss off and leave me alone. (ROUGH)', group:'Rough'},
+];
+
 /* ========================= CANTONESE WORLDS ========================= */
 // Built 2026-08-30 for Lobo, who coordinates at an indoor cannabis facility and
 // works with Cantonese-speaking crew. He sets the plan and passes it to 林生,
@@ -14335,6 +14425,19 @@ const PACKS_YUE = [
     {v:'太熱喇，開大啲冷氣。', p:'taai3 jit6 laa3, hoi1 daai6 di1 laang5 hei3.', e:'Too hot — turn the AC up.'},
     {v:'哩間房幾多度呀？', p:'ni1 gaan1 fong2 gei2 do1 dou6 aa3?', e:'What’s this room reading?'},
     {v:'啲葉跌晒喺地下，執下啦。', p:'di1 jip6 dit3 saai3 hai2 dei6 haa2, zap1 haa5 laa1.', e:'There’s leaf all over the floor — give it a tidy.'}]},
+  { id:'yp21', icon:'🔁', title:'Same, Different, Together', tag:'Crew', color:'stool-bar', cards:[
+    {v:'哩兩樣一樣㗎。', p:'ni1 loeng5 joeng6 jat1 joeng6 gaa3.', e:'These two are the same.'},
+    {v:'哩兩樣唔同㗎，睇清楚。', p:'ni1 loeng5 joeng6 m4 tung4 gaa3, tai2 cing1 co2.', e:'These two are different — look properly.'},
+    {v:'全部一齊做。', p:'cyun4 bou6 jat1 cai4 zou6.', e:'Do them all together.'},
+    {v:'大家一齊做就快啲。', p:'daai6 gaa1 jat1 cai4 zou6 zau6 faai3 di1.', e:'If we all do it together it’s quicker.'},
+    {v:'分開做，唔好撈亂。', p:'fan1 hoi1 zou6, m4 hou2 lou1 lyun6.', e:'Do them separately — don’t mix them up.'},
+    {v:'慢慢嚟，唔使咁快。', p:'maan6 maan2 lai4, m4 sai2 gam3 faai3.', e:'Slowly does it — no need to rush.'},
+    {v:'快啲手啦，趕住走。', p:'faai3 di1 sau2 laa1, gon2 zyu6 zau2.', e:'Hurry up — we’re pressed to get off.'},
+    {v:'走啦，收工喇。', p:'zau2 laa1, sau1 gung1 laa3.', e:'Come on, let’s go — we’re done.'},
+    {v:'你聽日幾點返工？', p:'nei5 ting1 jat6 gei2 dim2 faan1 gung1?', e:'What time are you in tomorrow?'},
+    {v:'聽日八點開工。', p:'ting1 jat6 baat3 dim2 hoi1 gung1.', e:'We start at eight tomorrow.'},
+    {v:'全部做晒未？', p:'cyun4 bou6 zou6 saai3 mei6?', e:'Is it all finished?'},
+    {v:'哩批同嗰批一樣，一齊擺。', p:'ni1 pai1 tung4 go2 pai1 jat1 joeng6, jat1 cai4 baai2.', e:'This lot and that lot are the same — put them together.'}]},
 ];
 
 // The vocabulary of the job itself, pulled out of the facility packs so the
@@ -14460,7 +14563,17 @@ const FACILITY_VOCAB = [
   {v:'熱', p:'jit6', e:'hot', group:'Room conditions'},
   {v:'度', p:'dou6', e:'degree (of temperature)', group:'Room conditions'},
   {v:'發霉', p:'faat3mui4', e:'to go mouldy', group:'Pests and mildew'},
+  {v:'一樣', p:'jat1joeng6', e:'the same', group:'Everyday calls'},
+  {v:'唔同', p:'m4tung4', e:'different', group:'Everyday calls'},
+  {v:'全部', p:'cyun4bou6', e:'all / the whole lot', group:'Everyday calls'},
+  {v:'晒', p:'saai3', e:'(after a verb — all of it, completely)', group:'Everyday calls'},
+  {v:'一齊', p:'jat1cai4', e:'together', group:'Everyday calls'},
+  {v:'慢慢', p:'maan6maan2', e:'slowly', group:'Everyday calls'},
+  {v:'快啲', p:'faai3di1', e:'faster / hurry up', group:'Everyday calls'},
+  {v:'走', p:'zau2', e:'to go / to leave', group:'Everyday calls'},
+  {v:'返工', p:'faan1gung1', e:'to come in to work', group:'Crew and shifts'},
 ];
+
 
 const SOS_PHRASES_YUE = {
   yw_grow: [
@@ -16492,6 +16605,9 @@ function buildRankBuckets(){
     if(count>0) buckets.push({ id:`${start}-${end}`, label:`${start.toLocaleString()}–${end.toLocaleString()}`, min:start, max:end });
   }
   if(list.some(w=>w.rank===999999)) buckets.push({ id:'unranked', label:'Unranked', min:999999, max:999999 });
+  if(state.language === 'yue' && SLANG_VOCAB.length){
+    buckets.unshift({ id:'slang', label:'\ud83d\ude43 Slang', kind:'slang', min:1, max:99999 });
+  }
   if(state.language === 'yue' && FACILITY_VOCAB.length){
     buckets.unshift({ id:'work', label:'\ud83c\udf3f Work', kind:'work', min:1, max:99999 });
   }
@@ -16652,6 +16768,7 @@ function renderFlashcardsHub(){
   document.getElementById('wcTierBreakdown').innerHTML = buckets.map(b=>{
     // The work bucket is a different pool, not a rank slice of this one.
     const inBucket = b.kind==='work' ? (isWords ? facilityVocab() : facilityPhrases())
+      : b.kind==='slang' ? (isWords ? slangVocab() : slangPhrases())
       : pool.filter(w=> b.id==='unranked' ? w.rank===999999 : (w.rank>=b.min && w.rank<=b.max));
     if(!inBucket.length) return '';
     const m = inBucket.filter(w=>isMasteredWord(w.srsId)).length;
@@ -16706,8 +16823,11 @@ function renderFrequency(){
 
   if(isWords){
     const bucket = freqBucketFilter==='all' ? null : buildRankBuckets().find(b=>b.id===freqBucketFilter);
-    const isWorkWords = !!(bucket && bucket.kind === 'work');
+    const isWorkWords  = !!(bucket && bucket.kind === 'work');
+    const isSlangWords = !!(bucket && bucket.kind === 'slang');
+    const isOwnList = isWorkWords || isSlangWords;   // its own pool, not a rank slice
     const list = isWorkWords ? facilityVocab()
+      : isSlangWords ? slangVocab()
       : (state.contentMode==='new' ? newVocabPool() : buildWordFrequencyList());
     const searchFolded = stripDiacritics(freqSearchTerm.toLowerCase());
 
@@ -16721,7 +16841,7 @@ function renderFrequency(){
     }
 
     let filtered = list.filter(w=>{
-      if(bucket && !isWorkWords){
+      if(bucket && !isOwnList){
         if(bucket.id==='unranked'){ if(w.rank!==999999) return false; }
         else if(w.rank < bucket.min || w.rank > bucket.max) return false;
       }
@@ -16738,6 +16858,8 @@ function renderFrequency(){
 
     document.getElementById('freqCount').textContent = isWorkWords
       ? `${totalMatches} words from the job — tap Study to drill them`
+      : isSlangWords
+      ? `${totalMatches} slang and swear words — check the strength before you use one`
       : (capped
         ? `Showing first ${RENDER_CAP.toLocaleString()} of ${totalMatches.toLocaleString()} words — narrow your search`
         : `${totalMatches} word${totalMatches===1?'':'s'}`);
@@ -16745,10 +16867,10 @@ function renderFrequency(){
     document.getElementById('freqList').innerHTML = filtered.map(w=>{
       // Off-corpus job words have no rank, and "Not ranked" reads like a fault.
       // They are simply not the kind of word a conversation corpus records.
-      const rankLabel = w.rank >= 999999 ? (isWorkWords ? 'Job word' : 'Not ranked') : w.rank.toLocaleString();
-      const gloss = isWorkWords ? w.e : activeWordGloss(w.word);
+      const rankLabel = w.rank >= 999999 ? (isWorkWords ? 'Job word' : isSlangWords ? 'Slang' : 'Not ranked') : w.rank.toLocaleString();
+      const gloss = isOwnList ? w.e : activeWordGloss(w.word);
       let head = '';
-      if(isWorkWords && w.group && w.group !== lastWordGroup){ lastWordGroup = w.group; head = `<p class="freq-group">${w.group}</p>`; }
+      if(isOwnList && w.group && w.group !== lastWordGroup){ lastWordGroup = w.group; head = `<p class="freq-group">${w.group}</p>`; }
       const wEsc = w.word.replace(/'/g,"\\'");
       const audioId = w.srsId || wordAudioId(w.word);
       return `${head}
@@ -16764,7 +16886,7 @@ function renderFrequency(){
     const searchFolded = stripDiacritics(freqSearchTerm.toLowerCase());
     const searchLower = freqSearchTerm.toLowerCase();
     const bucket = freqBucketFilter==='all' ? null : buildPhraseBuckets().find(b=>b.id===freqBucketFilter);
-    const isWork = !!(bucket && bucket.kind === 'work');
+    const isWork = !!(bucket && (bucket.kind === 'work' || bucket.kind === 'slang'));
     const sourceList = !isVietnameseCourse() ? phraseStudyPool(isWork ? bucket : null)
       : (state.contentMode==='new' ? newPhrasePool() : COMMON_PHRASES);
     const filtered = sourceList.filter(p=>{
@@ -16776,7 +16898,9 @@ function renderFrequency(){
       }
       return true;
     });
-    document.getElementById('freqCount').textContent = isWork
+    document.getElementById('freqCount').textContent = (bucket && bucket.kind==='slang')
+      ? `${filtered.length} slang lines \u2014 check the strength before you use one`
+      : isWork
       ? `${filtered.length} phrases from the facility \u2014 tap Study to drill them`
       : `${filtered.length} phrase${filtered.length===1?'':'s'}`;
     let lastGroup = null;
@@ -17398,6 +17522,7 @@ function wordStudyPool(bucket){
     return list;
   }
   if(bucket && bucket.kind === 'work') return facilityVocab();
+  if(bucket && bucket.kind === 'slang') return slangVocab();
   let list = buildWordFrequencyList();
   if(bucket){
     list = list.filter(w => bucket.id==='unranked' ? w.rank===999999 : (w.rank>=bucket.min && w.rank<=bucket.max));
@@ -17464,6 +17589,28 @@ function viewMasteredWords(){
 // The job's vocabulary as a studiable deck. srsIds follow the same
 // word_<lang>_<word> shape the rest of the Cantonese word deck uses, so a term
 // that also appears in the frequency list is the SAME card in both places.
+// General Cantonese slang and swearing. Deliberately NOT part of the facility
+// world — it is its own filter and has nothing to do with the job. srsIds are
+// namespaced so a slang card never collides with a frequency or job word.
+let _slangVocabCache = null, _slangPhraseCache = null;
+function slangVocab(){
+  if(state.language !== 'yue') return [];
+  if(_slangVocabCache) return _slangVocabCache;
+  _slangVocabCache = SLANG_VOCAB.map((t,i)=>({
+    word:t.v, p:t.p, e:t.e, group:t.group, rank:999999, star:1,
+    srsId:`slang_${srsNs()}${t.v}`,
+  }));
+  return _slangVocabCache;
+}
+function slangPhrases(){
+  if(state.language !== 'yue') return [];
+  if(_slangPhraseCache) return _slangPhraseCache;
+  _slangPhraseCache = SLANG_PHRASES.map((c,i)=>({
+    v:c.v, p:c.p, e:c.e, group:c.group, rank:i+1,
+    srsId:`slangp_${srsNs()}${i}`,
+  }));
+  return _slangPhraseCache;
+}
 let _facilityVocabCache = null;
 function facilityVocab(){
   if(state.language !== 'yue') return [];
@@ -17504,6 +17651,9 @@ function buildPhraseBuckets(){
     if(state.language === 'yue' && facilityPhrases().length){
       buckets.push({ id:'work', label:'\ud83c\udf3f Work', kind:'work', min:1, max:99999 });
     }
+    if(state.language === 'yue' && SLANG_PHRASES.length){
+      buckets.push({ id:'slang', label:'\ud83d\ude43 Slang', kind:'slang', min:1, max:99999 });
+    }
     const n = phraseStudyPool().length;
     for(let start=1; start<=n; start+=100){
       const end = Math.min(start+99, n);
@@ -17525,6 +17675,7 @@ function phraseStudyPool(bucket){
   }
   if(!isVietnameseCourse()){
     if(bucket && bucket.kind === 'work') return facilityPhrases();
+    if(bucket && bucket.kind === 'slang') return slangPhrases();
     // Every course writes its own dialogue, so that is the phrase deck for it.
     const out = [];
     activeLessons().forEach(l => (l.dialogue||[]).forEach(d => {
