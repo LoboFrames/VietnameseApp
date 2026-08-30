@@ -12620,12 +12620,69 @@ function speakWordInfo(){ playAudio(`word_${currentWordInfoText}`, currentWordIn
 // still care whether a word has real example sentences to show. Computed once
 // and cached.
 let _wordListCache = null;
+/* ========================= CORPUS NOISE =========================
+   FREQ_TIER5/FREQ_TIER4 come from an OpenSubtitles frequency dump, and the
+   Vietnamese side of that corpus carries three kinds of junk: untranslated
+   English lines, Western character names from the shows themselves, and raw
+   .ass subtitle formatting codes. None of it is Vietnamese, and some of it
+   ranks alarmingly high — "john" sits at #776.
+
+   The rule the user set: an English-looking token STAYS if Vietnamese has
+   genuinely borrowed it and has no native word of its own (fan, pizza, web,
+   cà-phê). It goes if it is a name, a formatting code, or English that
+   Vietnamese has a perfectly good word for.
+
+   Filtered at DISPLAY time rather than edited out of the tier strings on
+   purpose: rank comes from tier index, and all 121 vi2 lesson descriptions
+   quote rank ranges ("ranks #2287-2313"). Removing entries would silently
+   shift every rank after the first deletion and make those descriptions
+   wrong. This way the surviving ranks stay true to the corpus and the list
+   simply has gaps where the junk was.
+
+   NOT filtered — real Vietnamese words that merely spell like English ones,
+   listed here so nobody "helpfully" adds them later:
+     do (by/due to)  an (peace)   may (lucky/to sew)  to (big)
+     can (to dissuade)  say (drunk)  in (to print)  so (to compare)
+     no (full from eating)  long (dragon)  than (coal/to complain)
+     me (tamarind)  am (small temple)  a (exclamation particle)
+     man (man rợ)  um (um sùm)  go (gay go)
+   Those last three were caught by cross-checking this blocklist against every
+   Vietnamese sentence the app itself authors — if a token appears there, it is
+   real. Re-run that check before adding anything here. */
+const CORPUS_NOISE = new Set([
+  // --- .ass subtitle formatting codes ---
+  'ch00ffff','chffffff','3chff1000','blur12','fscx70','fscy120','fscx110','bord0','phudeviet.org',
+  // --- names, places, initialisms from the source shows ---
+  'john','jack','frank','james','jim','joey','jimmy','jane','jake','william','johnny','jesus',
+  'walter','francis','wilson','finch','jones','wayne','edward','jesse','jason','walt','fiona',
+  'jackson','ward','underwood','walker','jerry','jordan','elizabeth','jessica','julie','jay',
+  'matthew','wells','felicity','andrew','shaw','jacob','howard','brown','jean','foreman','snow',
+  'wyatt','joseph','scofield','lawrence','jenny','julia','lewis','jon','felix','johnson','fitz',
+  'jeff','justin','josh','benjamin','jill','zoe','jamie','fred','jo','alfred','judy','joe',
+  'white','arrow','west','moscow','washington','california','florida','fbi','s.h.i.e.l.d.',
+  'h-san','mr.','dr.','st.','a.','j','flash',
+  // --- untranslated English (Vietnamese has its own word for every one) ---
+  'new','of','whoa','well','wow','what','we','will','for','know','with','just','ow','now','was',
+  'if','when','down','whoo','who','from','how','want','way','world','feet','where','show','why',
+  'aw','would','won','uh-huh','mm-hmm','i','oh','yeah','the','you','okay','hey','uh','ok','hi',
+  'and','ah','it','that','all','is','huh','your','house','be','this','god','by',
+  'he','right','yes','come','up','like','but','are','got','love','baby','not','get','out','have',
+  'city','there','hello','they','good','here','time','let','bye','at','see','little','him','as',
+  'take','about','son','day','night','men','she','look','buddy','thank','make','us','guy','back',
+  'more','sir','over','think','could','his','then','need','our','her','or','boy','my','on',
+  // --- not a Vietnamese letter at all (g with acute) ---
+  'ǵ',
+]);
+
 function buildWordFrequencyList(){
   if(_wordListCache) return _wordListCache;
+  // Rank is assigned BEFORE the noise filter, so surviving words keep the
+  // exact rank they have in the corpus and every lesson's quoted rank range
+  // stays correct. See CORPUS_NOISE above.
   const list = [
     ...FREQ_TIER5.map((word,i)=>({ word, rank:i+1, star:5 })),
     ...FREQ_TIER4.slice(0,1500).map((word,i)=>({ word, rank:1500+i+1, star:4 })),
-  ];
+  ].filter(w => !CORPUS_NOISE.has(w.word.toLowerCase()));
 
   const allText = [];
   LESSONS.forEach(l=>l.cards.forEach(c=>allText.push(c.v)));
@@ -16780,6 +16837,18 @@ function answerPracticeGuess(i){
     setTimeout(()=>{ if(practiceState===ps && ps.quiz){ ps.quiz.chosenIdx = null; renderPractice(); } }, 900);
   }
 }
+// Called from the between-rounds screen. Builds the randomized second pass.
+function startFinalCheck(){
+  const ps = practiceState;
+  if(!ps || ps.phase !== 'review') return;
+  ps.phase = 'final';
+  ps.quiz = null;
+  ps.finalOrder = shuffleArr(ps.lesson.dialogue.map((_,i)=>i));
+  ps.finalPos = 0;
+  ps.finalCorrectLines = new Set();
+  ps.lineIdx = ps.finalOrder[0];
+  renderPractice();
+}
 function advancePracticeGuess(){
   const ps = practiceState;
   if(!ps) return;
@@ -16791,13 +16860,11 @@ function advancePracticeGuess(){
     if(next < total){
       ps.lineIdx = next;
     } else {
-      // First pass done (every line guessed once) — now a full randomized
-      // final check, every line again, before the lesson counts as complete.
-      ps.phase = 'final';
-      ps.finalOrder = shuffleArr(ps.lesson.dialogue.map((_,i)=>i));
-      ps.finalPos = 0;
-      ps.finalCorrectLines = new Set();
-      ps.lineIdx = ps.finalOrder[0];
+      // First pass done. Rather than dropping straight into the final check,
+      // stop and let them choose: read the phrases over with the English
+      // showing, or go again now. The break is the only moment in the lesson
+      // where the translations are deliberately on the table.
+      ps.phase = 'review';
     }
   } else if(ps.phase === 'final'){
     ps.finalCorrectLines.add(ps.finalOrder[ps.finalPos]);
@@ -16817,12 +16884,23 @@ function renderPracticeGuess(){
   if(!ps) return;
   const dialogue = ps.lesson.dialogue;
   const total = dialogue.length;
-  const overallDone = ps.phase==='done' ? total*2 : (ps.phase==='final' ? (total + ps.finalCorrectLines.size) : ps.correctLines.size);
+  const overallDone = ps.phase==='done' ? total*2
+    : ps.phase==='final' ? (total + ps.finalCorrectLines.size)
+    : ps.phase==='review' ? total
+    : ps.correctLines.size;
   document.getElementById('prProgressFill').style.width = Math.round((overallDone/(total*2))*100) + '%';
 
   const activeIdx = ps.phase==='final' ? ps.finalOrder[ps.finalPos] : ps.lineIdx;
+  // English shows while you're earning it in round one, and on the review
+  // break and the summary. It goes back behind the lock for the final check —
+  // otherwise "one more time to confirm" is just reading the answers off the
+  // list, which is exactly what it looked like before this screen existed.
+  // Flip SHOW_ENGLISH_IN_FINAL to true to go back to the old behaviour.
+  const SHOW_ENGLISH_IN_FINAL = false;
   document.getElementById('prLineList').innerHTML = dialogue.map((d,i)=>{
-    const revealed = ps.correctLines.has(i);
+    const revealed = (ps.phase==='final' && !SHOW_ENGLISH_IN_FINAL)
+      ? false
+      : ps.correctLines.has(i);
     const cls = (ps.phase!=='done' && i===activeIdx) ? 'active' : (revealed ? 'done' : '');
     return `<div class="pr-line ${cls}">
       <div class="pr-line-main"><b>${d.speaker?d.speaker+': ':''}${d.v}</b><span>${revealed ? d.e : '🔒 Guess it to reveal'}</span></div>
@@ -16833,6 +16911,19 @@ function renderPracticeGuess(){
 
   const practiceArea = document.getElementById('prPracticeArea');
   const doneWrap = document.getElementById('prDoneWrap');
+
+  if(ps.phase === 'review'){
+    practiceArea.innerHTML = '';
+    doneWrap.innerHTML = `<div class="pr-done-banner">
+      <h3>✓ Round one done</h3>
+      <p>You got all ${total} phrase${total===1?'':'s'} from audio alone. The translations are showing above — read them over for as long as you like, then go again with the English hidden and the order shuffled.</p>
+      <div class="pr-done-btns">
+        <button onclick="startFinalCheck()">Start the final check →</button>
+        <button class="secondary" onclick="closePractice()">Pause — I'll come back</button>
+      </div>
+    </div>`;
+    return;
+  }
 
   if(ps.phase === 'done'){
     practiceArea.innerHTML = '';
