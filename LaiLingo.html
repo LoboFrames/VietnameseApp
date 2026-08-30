@@ -847,6 +847,15 @@
 .freq-num-pill.sev-medium{background:var(--gold);color:#2a2000;}
 .freq-num-pill.sev-strong{background:#C9601F;}
 .freq-num-pill.sev-extreme{background:var(--vermillion);}
+.rom-marked{margin-left:10px;padding-left:10px;border-left:1px solid rgba(255,255,255,.16);opacity:.72;}
+.ws-chip{display:inline-block;margin:0 6px 8px 0;padding:3px 10px;border-radius:999px;
+  background:rgba(255,255,255,.09);font-size:11px;font-weight:600;letter-spacing:.02em;}
+.ws-repeat{width:100%;margin:10px 0 4px;}
+.ws-note{margin-top:12px;padding:11px 13px;border-radius:12px;background:rgba(255,255,255,.05);
+  border-left:2px solid rgba(255,255,255,.16);}
+.ws-note-h{margin:0 0 4px;font-size:10.5px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;opacity:.6;}
+.ws-note p{margin:0;font-size:13px;line-height:1.5;}
 .sev-tag{display:inline-block;margin-bottom:5px;padding:2px 8px;border-radius:999px;
   font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#fff;}
 .sev-tag.sev-mild{background:var(--herb);}
@@ -13783,20 +13792,42 @@ function findExampleSentences(word, limit){
   COMMON_PHRASES.forEach(c=>consider(c.v,c.e,`cphrase_${c.rank}`));
   return examples;
 }
+// The two hand-built decks carry more than a rank: a category, how hard the
+// word lands, what its pieces literally mean and how it behaves in use. Look
+// the word up in both so a term that is in each (房 is a job word AND rank 680)
+// shows everything it has.
+function customWordEntry(word){
+  return slangVocab().find(w=>w.word===word) || facilityVocab().find(w=>w.word===word) || null;
+}
 function showWordInfo(word){
   currentWordInfoText = word;
   const star = wordStar(word);
   const rank = wordRank(word);
-  const rankLabel = rank >= 999999 ? freqUnrankedLabel() : ('#' + rank.toLocaleString() + ' most common');
-  const gloss = activeWordGloss(word.toLowerCase().normalize('NFC')) || activeWordGloss(word);
+  const custom = customWordEntry(word);
+  const isSlang = !!(custom && custom.sev);
+  const rankLabel = rank >= 999999
+    ? (isSlang ? 'Slang' : custom ? 'Job word' : freqUnrankedLabel())
+    : ('#' + rank.toLocaleString() + ' most common');
+  const gloss = (custom && custom.e) || activeWordGloss(word.toLowerCase().normalize('NFC')) || activeWordGloss(word);
   const examples = findExampleSentences(word, 4);
+  const notes = WORD_NOTES[word] || {};
   document.getElementById('wordSheetWord').textContent = word;
   const romEl = document.getElementById('wordSheetRom');
-  const rom = (buildWordFrequencyList().find(x=>x.word===word)||{}).p || '';
-  if(romEl){ romEl.textContent = rom; romEl.style.display = rom ? '' : 'none'; }
+  const rom = (custom && custom.p) || (buildWordFrequencyList().find(x=>x.word===word)||{}).p || '';
+  // Numbers stay — they are the canonical form. The marks sit beside them so
+  // the pitch shape is readable without decoding a digit.
+  if(romEl){
+    romEl.innerHTML = rom ? `${mineEsc(rom)}<span class="rom-marked">${mineEsc(toneMark(rom))}</span>` : '';
+    romEl.style.display = rom ? '' : 'none';
+  }
   document.getElementById('wordSheetBadge').innerHTML = `
     <div class="freq-pill" style="background:${TIER_COLOR[star]}">${rankLabel}</div>
+    ${custom && custom.group ? `<span class="ws-chip">${custom.group}</span>` : ''}
+    ${isSlang ? `<span class="ws-chip sev-tag sev-${custom.sev}">${custom.sev}</span>` : ''}
     ${gloss ? `<p class="word-gloss">${gloss}</p>` : ''}
+    ${rom ? `<button class="footer-btn ws-repeat" onclick="repeatWordAudio()">🔁 Say it 3 times</button>` : ''}
+    ${notes.lit && notes.lit !== '—' ? `<div class="ws-note"><p class="ws-note-h">Literally</p><p>${mineEsc(notes.lit)}</p></div>` : ''}
+    ${notes.note ? `<div class="ws-note"><p class="ws-note-h">How it’s used</p><p>${mineEsc(notes.note)}</p></div>` : ''}
     ${(()=>{ const k = wordKnowledge(word); return `
       <div class="wk-picker">
         <button class="wk-btn unknown ${k==='unknown'?'on':''}" onclick="setWordInfoKnowledge('unknown')"><span class="ic">○</span>New</button>
@@ -13825,6 +13856,25 @@ function showWordInfo(word){
 }
 function closeWordInfo(){ document.getElementById('wordSheetBackdrop').classList.remove('open'); }
 function speakWordInfo(){ playAudio(wordAudioId(currentWordInfoText), currentWordInfoText, currentAccent); }
+// Three passes with a beat between, for drilling a tone you keep missing.
+// Chains on 'ended' where a real clip exists; falls back to a fixed gap when
+// playback is browser TTS, which reports nothing back.
+let _repeatTimer = null;
+function repeatWordAudio(times){
+  const word = currentWordInfoText;
+  if(!word) return;
+  clearTimeout(_repeatTimer);
+  let left = times || 3;
+  const entry = customWordEntry(word);
+  const id = (entry && entry.srsId) || wordAudioId(word);
+  (function go(){
+    if(left-- <= 0) return;
+    let advanced = false;
+    const next = ()=>{ if(advanced) return; advanced = true; _repeatTimer = setTimeout(go, 450); };
+    playAudio(id, word, currentAccent, next);
+    _repeatTimer = setTimeout(next, 1600);   // TTS never calls back, so time it out
+  })();
+}
 // Builds the Vietnamese frequency list — capped at the top 3,000 words by real
 // corpus rank, matching exactly what has real HyperTTS audio generated. Words
 // ranked 3,001+ exist in the raw corpus data but are deliberately excluded here
@@ -14106,6 +14156,126 @@ const CORE_PHRASES = [
 ];
 
 /* ========================= WORLDS ========================= */
+// Numbered Jyutping -> tone-marked, for display beside the numbers.
+//
+// IMPORTANT: there is no single agreed diacritic scheme for Jyutping. The
+// NUMBERS are the canonical form and stay on the card; the marks are a reading
+// aid so the pitch shape is visible without decoding a digit. The scheme below
+// is stated plainly in the UI so nothing here is mistaken for a standard:
+//   1 ā high level   2 á rising   3 a mid level
+//   4 à low falling  5 ǎ low rising   6 â low level
+// The mark lands on the FIRST vowel of the syllable (maa4 -> màa), which is
+// where every scheme that uses marks puts it.
+const TONE_MARKS = {
+  a:['ā','á','a','à','ǎ','â'], e:['ē','é','e','è','ě','ê'],
+  i:['ī','í','i','ì','ǐ','î'], o:['ō','ó','o','ò','ǒ','ô'],
+  u:['ū','ú','u','ù','ǔ','û'], m:['m̄','ḿ','m','m̀','m̌','m̂'],
+};
+function toneMarkSyllable(syl){
+  const m = /^([a-z]+)([1-6])$/.exec(syl);
+  if(!m) return syl;
+  const [, letters, tone] = m;
+  const t = +tone - 1;
+  // syllabic m / ng carry the tone on the m itself
+  if(letters === 'm' || letters === 'ng'){
+    const set = TONE_MARKS.m;
+    return letters.replace('m', set[t]);
+  }
+  const i = letters.search(/[aeiou]/);
+  if(i < 0) return syl;
+  const v = letters[i];
+  const set = TONE_MARKS[v];
+  if(!set) return syl;
+  return letters.slice(0,i) + set[t] + letters.slice(i+1);
+}
+function toneMark(jyut){
+  return String(jyut||'').split(/(\s+)/).map(part =>
+    /^\s+$/.test(part) ? part : toneMarkSyllable(part)).join('');
+}
+
+/* ========================= WORD NOTES =========================
+   Per-word depth for the two hand-built Cantonese decks: what the pieces
+   literally mean (lit) and how the word actually behaves in use (note).
+   Keyed by the word so coverage can grow without rewriting the decks, and so
+   an entry with no note simply shows less rather than showing filler. */
+const WORD_NOTES = {
+  // ---------- the five swear syllables and what they build ----------
+  '屌': {lit:'“to f---”, the verb itself', note:'The root of hard Cantonese swearing. On its own it is an exclamation; in front of a person it becomes a direct attack. Also written 𨳒 to avoid the character.'},
+  '閪': {lit:'the crudest word for female genitals', note:'Rarely stands alone — it attaches to other words (好閪煩) or lands in insults. Among the five, this one and 屌 carry the most weight.'},
+  '撚': {lit:'a male-anatomy swear', note:'Its real job is as an INFIX: wedge it inside an existing word for force. 麻煩 (annoying) → 麻撚煩. 冇用 (useless) → 冇撚用. The word keeps its meaning and gains a swear.'},
+  '鳩': {lit:'a male-anatomy swear', note:'Works like 撚 as an intensifier, and forms 戇鳩 (thick as anything). Written 尻 in some places to soften the look of it.'},
+  '柒': {lit:'literally the number seven, used as a swear', note:'The mildest of the five and the one you will hear most in mixed company. 好柒 means pathetic or cringeworthy rather than obscene.'},
+  '冇撚用': {lit:'冇用 (useless) with 撚 wedged in', note:'The clearest example of the infix pattern. Learn this shape and you can build the others yourself.'},
+  '好撚煩': {lit:'好煩 (very annoying) with 撚 wedged in', note:'Same pattern again. Note this is 撚 lan2 — not 閪 hai1, which is a different syllable and a different word.'},
+  '屌你': {lit:'屌 + you', note:'Direct and personal. Unlike the exclamation 屌, this is aimed at someone and will be taken that way.'},
+
+  // ---------- family curses ----------
+  '屌你老母': {lit:'屌 + your + mother', note:'The heaviest thing you can say to a Cantonese speaker. Not banter, not softenable by tone. Recognise it; do not deploy it.'},
+  '你老母': {lit:'your + mother', note:'The short form. Dropping 屌 does not make it mild — everyone hears the missing word.'},
+  '冚家鏟': {lit:'whole + family + shovelled away', note:'Curses the person’s entire family, not just them. In Cantonese, family curses outrank personal ones — this is worse than anything aimed at the individual.'},
+  '冚家富貴': {lit:'may your whole family prosper', note:'Reads like a blessing and functions as the opposite. The sarcasm is the point, and it is understood instantly.'},
+  '仆你個街': {lit:'仆街 with 你個 (your) pushed inside', note:'The expanded, angrier form of 仆街. The insertion makes it personal rather than an exclamation.'},
+
+  // ---------- the ones that look worse or milder than they are ----------
+  '仆街': {lit:'to fall face-down in the street', note:'Said constantly — dropped as an exclamation when you forget something, aimed at someone as a real insult. Context does all the work. It is still a swear word, so not to someone senior.'},
+  '撲街': {lit:'the same word', note:'Just the other common spelling. 仆 is the older form; 撲 is what you will see written more often now.'},
+  '黐線': {lit:'crossed wires, from crossed telephone lines', note:'Sounds harsh, lands soft. Between friends it is affectionate exasperation. Said coldly to a stranger it is an insult, so the delivery is doing the work.'},
+  '死啦': {lit:'die + particle', note:'Nothing to do with dying. It is “oh no” — you say it when you realise you are late or you have forgotten something. Completely everyday.'},
+  '頂你個肺': {lit:'poke your lung', note:'A deliberately absurd substitute for a real curse. The silliness is the point — it lets you swear without swearing, and nobody takes offence.'},
+  '衰人': {lit:'rotten person', note:'Between couples it is almost a term of endearment. From a stranger it is a genuine insult. One of the widest ranges of any word here.'},
+  '傻仔': {lit:'silly + lad', note:'Usually affectionate, the way you would call a friend an idiot. 傻佬 is the same idea aimed at an adult man and lands harder.'},
+  '屎忽': {lit:'the backside', note:'Ordinary crude anatomy. Feeds 老屎忽, an old-timer who throws his weight around — which is an insult about attitude, not age.'},
+  '老屎忽': {lit:'old + backside', note:'Not about being old. It names someone senior who coasts and pulls rank. Sharp, and unmistakably about character.'},
+  '蛇王': {lit:'snake + king', note:'To skive off. The 王 shifts from wong4 to wong2 — a tone change Cantonese does constantly in slang, which is why the dictionary tone and the spoken one differ here.'},
+  '硬膠': {lit:'hard plastic', note:'Born online as a pun and now said out loud. Means idiot. Younger speakers will get it instantly; older ones may not.'},
+  '廢青': {lit:'useless + youth', note:'Carries political weight in Hong Kong beyond the literal insult. Worth understanding before using — it is not a neutral word.'},
+  '大鑊': {lit:'a big wok', note:'A big wok means a big mess. Completely clean, said in any company, and one of the most useful exclamations there is.'},
+  '執生': {lit:'grab + life', note:'To improvise when the plan fails. A compliment as often as an instruction — someone who 識執生 is someone you want on the job.'},
+  '撞板': {lit:'to hit the beat wrong, from Cantonese opera', note:'To come unstuck. The image is a musician missing the rhythm, so it means a mistake you brought on yourself.'},
+  '論盡': {lit:'—', note:'Clumsy, awkward with your hands, forever knocking things over. Affectionate more often than cutting.'},
+  '慳返啖氣': {lit:'save + a mouthful of + breath', note:'Save your breath. Said when arguing further is pointless, usually with a shrug rather than anger.'},
+  '冇眼睇': {lit:'no + eyes + to watch', note:'“I can’t bear to look.” Used for something badly done or embarrassing, and usually more amused than angry.'},
+  '頭痕': {lit:'itchy head', note:'A problem that makes you scratch your head. Means a headache in the figurative sense — a situation with no easy answer.'},
+  '冇符': {lit:'no + talisman', note:'From Taoist charms: no charm will fix this. Means there is genuinely nothing to be done.'},
+  '是但': {lit:'—', note:'“Whatever, either will do.” Genuinely neutral — it does not carry the passive-aggressive edge English “whatever” has.'},
+  '求其': {lit:'—', note:'Any old way, without much care. 求求其其 is the doubled form and means even more slapdash.'},
+  '有排': {lit:'—', note:'A long way to go yet. 有排等 (a long wait ahead) is the commonest use.'},
+  '唔使旨意': {lit:'no need + to count on', note:'“Don’t count on it.” Blunt but not rude — it is the standard way to shut down an unrealistic expectation.'},
+  '收皮': {lit:'pack up your hide / your goods', note:'Comes from a stallholder packing up. Means give it up, you are finished. Rough, and dismissive in a way that stings.'},
+  '死開': {lit:'die + away', note:'Piss off. Blunt and rough, though between close friends it can be almost jokey.'},
+  '收聲': {lit:'collect your voice', note:'Shut up. Direct, and normal from a parent to a child — sharper between adults.'},
+  '想點呀': {lit:'want + how + particle', note:'“What’s your problem?” This is the line before a fight starts, not a real question. Tone makes it unmistakable.'},
+  '我打死你': {lit:'I + hit + dead + you', note:'Usually an empty threat between friends, in the same register as English “I’ll kill you.” From a stranger it is not.'},
+  '睇死你': {lit:'look + dead + you', note:'“I reckon you haven’t got it in you.” A challenge to someone’s nerve rather than a threat of violence.'},
+  '放屁': {lit:'to release wind', note:'Literally to fart, figuratively to talk rubbish. The second sense is the common one: 你放屁 = you’re talking nonsense.'},
+  '核突': {lit:'—', note:'Disgusting to look at — a filthy room, a bad haircut, an unappetising plate. About appearance, not smell; for smell you want 臭.'},
+
+  // ---------- everyday openers ----------
+  '點呀': {lit:'how + particle', note:'The everyday opener, equivalent to “what’s up?” Answered with 冇乜點 (not much). Also used mid-conversation to mean “well? what now?”'},
+  '冇乜點': {lit:'not + much + how', note:'The standard reply to 點呀. Saying nothing is happening, in the same way English answers “not much.”'},
+  '噉點呀': {lit:'so + how + particle', note:'“So what now?” The 噉 is gam2, the consequence word — not 咁 gam3, which means “so” in the sense of degree. Getting these two mixed up is the commonest Cantonese spelling error there is.'},
+  '喂': {lit:'—', note:'Answers the phone and gets someone’s attention across a room. Neutral in both, though shouted at a stranger it is abrupt.'},
+  '好正': {lit:'very + proper', note:'Brilliant. Note the tone: zeng3 is the slang praise. The same character read zing3 means genuine or official (正版), which is a different word.'},
+  '好嘢': {lit:'good + stuff', note:'“Nice one.” Shouted at a match or said to someone who has just pulled something off.'},
+
+  // ---------- job words worth explaining ----------
+  '摘葉': {lit:'pick + leaf', note:'Your crew’s own word for de-leafing. General Cantonese would reach for 剪葉 (cut leaf); 摘 is the picking motion, which is what the job actually is.'},
+  '插枝': {lit:'insert + shoot', note:'Taking cuttings. The formal horticultural term is 扦插 hin1 caap3; 插枝 is the plainer, spoken version. Worth checking which one your crew uses.'},
+  '拆枝': {lit:'break down + branch', note:'Bucking — stripping buds off the stems after drying. Built from the same 枝 as 插枝, so the pair is easy to hold together.'},
+  '母株': {lit:'mother + plant', note:'Standard horticultural Cantonese, not slang. 株 is the classifier-like word for a whole plant.'},
+  '生根粉': {lit:'grow + root + powder', note:'Rooting hormone. Transparently built from its parts, which is how most technical Cantonese works — you can often guess a term you have never heard.'},
+  '抽濕機': {lit:'draw out + damp + machine', note:'Dehumidifier. The 機 ending marks a machine, so 洗衣機 is a washer and 抽氣機 an extractor fan. A productive pattern worth knowing.'},
+  '苗仔': {lit:'seedling + little one', note:'The 仔 suffix makes something small or young, and adds warmth. It is why a clone is a 苗仔 rather than just a 苗.'},
+  '南廠': {lit:'south + plant', note:'Our handle for NLT — N to 南. Invented for this app, not a name anyone gave it, so agree it with the crew before relying on it.'},
+  '東廠': {lit:'east + plant', note:'Our handle for ESG — E to 東. Same caveat: agree it with the crew first.'},
+  '執葉': {lit:'tidy + leaf', note:'Cleaning the leaf off a cutting. Different job from 摘葉, which is the whole plant in the flower room.'},
+  '個八': {lit:'one + eight', note:'A dollar eighty. Cantonese drops the units in small amounts — 兩個半 is $2.50. Nobody says the full form in a shop.'},
+  '師傅': {lit:'master + tutor', note:'What you call anyone whose trade you respect — a chef, a mechanic, a stallholder. Not a name and not a rank, and always a compliment.'},
+  '搞掂': {lit:'sort + straight', note:'Done, sorted. The single most useful word on any Cantonese worksite. 搞掂未 asks if it is finished; 搞掂喇 says it is.'},
+  '得閒': {lit:'get + idle', note:'To have free time. 得閒死唔得閒病 (free to die, not free to fall ill) is the fixed joke about being overworked.'},
+  '返工': {lit:'return + work', note:'To go in to work. Cantonese uses 返 for going to a place you belong — 返屋企 is going home, 返學 going to school.'},
+};
+
 /* ========================= CANTONESE SLANG AND SWEARING =========================
    General Cantonese, not workplace vocabulary — its own filter, separate from
    the facility world. Written from scratch for this app.
@@ -14671,6 +14841,8 @@ const FACILITY_VOCAB = [
   {v:'快啲', p:'faai3di1', e:'faster / hurry up', group:'Everyday calls'},
   {v:'走', p:'zau2', e:'to go / to leave', group:'Everyday calls'},
   {v:'返工', p:'faan1gung1', e:'to come in to work', group:'Crew and shifts'},
+  {v:'得閒', p:'dak1haan4', e:'free / to have time', group:'Crew and shifts'},
+  {v:'個八', p:'go3baat3', e:'a dollar eighty (money said the short way)', group:'Supplies and counting'},
 ];
 
 
