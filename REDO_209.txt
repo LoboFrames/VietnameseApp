@@ -1,0 +1,250 @@
+209 notes whose Vietnamese_Male_Sound field holds FEMALE audio.
+
+WHAT HAPPENED
+These 209 are one unbroken run of notes in the collection —
+word_mãnh through word_ngơi, rows 4527-4735 of AllViet_MASTER.csv.
+Their male field was never regenerated with NamMinh; it still points
+at a clip from an earlier female HyperTTS run. The notes on either
+side of the run (word_mánh before, word_ngợi after) are correct, so
+this was a single batch that got skipped, not a scattered failure.
+
+HOW I FOUND THEM
+Every file in the batch encodes at 24000 Hz / 96 kbps except these,
+which are 22050 Hz / 56 kbps — a different engine. That split is a
+clean binary with no borderline cases, and it matched the one file
+you identified by ear (word_mãnh).
+
+Pitch was NOT used. Calibrating it on these 209 against 250 known-good
+single-word clips gave medians of 168 Hz vs 133 Hz but distributions
+that overlap by more than half — 72% of the male clips sit above the
+female 5th percentile. In a tonal language, F0 on an isolated syllable
+is mostly the tone, not the speaker. It cannot identify a voice here.
+
+HOW TO FIX
+1. Paste the search below into the Anki browser. Confirm 209 notes.
+2. Select all. CLEAR Vietnamese_Male_Sound first —
+   Notes > Find and Replace, field Vietnamese_Male_Sound,
+   find  .*  with 'treat input as regular expression' ticked,
+   replace with nothing. HyperTTS skips notes that already have
+   audio, which is why this batch was missed.
+3. Run HyperTTS on the selection with the same Azure NamMinh voice.
+4. Export the deck again and tell me. I will re-verify by profile.
+
+WORTH SPOT-CHECKING AFTER
+  word_mánh  (row 4526, just before the run — should already be male)
+  word_ngợi  (row 4736, just after  — should already be male)
+  word_mãnh  (row 4527, first of the run — female now, male after)
+
+ANKI SEARCH
+"ID:re:^word_(manhattan|manny|marcus|maria|marie|mark|marshall|martin|marty|mary|mason|matt|matthew|mau|max|may|maya|me|megan|men|merlyn|mexico|mi|mia|miami|michael|michelle|mike|miles|miller|minh|miêu|miếng|miền|miễn|miện|mm|mm\-hmm|mmm|moi|molly|mong|monica|more|morgan|moscow|moses|mr|mr\.|mu|music|muôn|muội|muộn|my|mày|máu|mây|mãnh|mét|mê|mì|mò|mòn|móc|móng|mô|môi|môn|mông|mù|mùi|múa|mĩ|mũ|mũi|mơ|mưu|mươi|mạnh|mạo|mảnh|mẫu|mập|mật|mắt|mặt|mẻ|mẽ|mến|mềm|mệnh|mọc|mọi|mỏ|mỏi|mỏng|mối|mồ|mồi|mồm|mổ|mỗi|mộ|mộc|mộng|mớ|mới|mờ|mỡ|mợ|mụ|mục|mức|mừng|mực|mỹ|n|na|nam|nancy|nathan|nay|ned|need|neo|never|new|ng|nga|ngai|ngang|ngh|nghi|nghiêm|nghiên|nghiêng|nghiền|nghiệm|nghiện|nghiệp|nghiệt|nghèo|nghĩ|nghĩa|nghệ|nghỉ|nghị|nghịch|ngoan|ngoài|ngoái|ngoại|ngài|ngành|ngào|ngân|ngây|ngã|ngô|ngôi|ngăn|ngơi|ngạc|ngại|ngạo|ngầm|ngầu|ngẩn|ngẫu|ngậm|ngập|ngắm|ngắt|ngọc|ngốc|ngộ|ngớ|ngờ|nàn|nàng|náo|nát|nâng|nâu|nã|não|nãy|nè|né|ném|nét|năng|nạ|nạn|nạp|nạt|nản|nảy|nấm|nấp|nắm|nằm|nặng|nếm|nến|nếu|nề|nền)$"
+
+THE 209 WORDS
+manhattan
+manny
+marcus
+maria
+marie
+mark
+marshall
+martin
+marty
+mary
+mason
+matt
+matthew
+mau
+max
+may
+maya
+me
+megan
+men
+merlyn
+mexico
+mi
+mia
+miami
+michael
+michelle
+mike
+miles
+miller
+minh
+miêu
+miếng
+miền
+miễn
+miện
+mm
+mm-hmm
+mmm
+moi
+molly
+mong
+monica
+more
+morgan
+moscow
+moses
+mr
+mr.
+mu
+music
+muôn
+muội
+muộn
+my
+mày
+máu
+mây
+mãnh
+mét
+mê
+mì
+mò
+mòn
+móc
+móng
+mô
+môi
+môn
+mông
+mù
+mùi
+múa
+mĩ
+mũ
+mũi
+mơ
+mưu
+mươi
+mạnh
+mạo
+mảnh
+mẫu
+mập
+mật
+mắt
+mặt
+mẻ
+mẽ
+mến
+mềm
+mệnh
+mọc
+mọi
+mỏ
+mỏi
+mỏng
+mối
+mồ
+mồi
+mồm
+mổ
+mỗi
+mộ
+mộc
+mộng
+mớ
+mới
+mờ
+mỡ
+mợ
+mụ
+mục
+mức
+mừng
+mực
+mỹ
+n
+na
+nam
+nancy
+nathan
+nay
+ned
+need
+neo
+never
+new
+ng
+nga
+ngai
+ngang
+ngh
+nghi
+nghiêm
+nghiên
+nghiêng
+nghiền
+nghiệm
+nghiện
+nghiệp
+nghiệt
+nghèo
+nghĩ
+nghĩa
+nghệ
+nghỉ
+nghị
+nghịch
+ngoan
+ngoài
+ngoái
+ngoại
+ngài
+ngành
+ngào
+ngân
+ngây
+ngã
+ngô
+ngôi
+ngăn
+ngơi
+ngạc
+ngại
+ngạo
+ngầm
+ngầu
+ngẩn
+ngẫu
+ngậm
+ngập
+ngắm
+ngắt
+ngọc
+ngốc
+ngộ
+ngớ
+ngờ
+nàn
+nàng
+náo
+nát
+nâng
+nâu
+nã
+não
+nãy
+nè
+né
+ném
+nét
+năng
+nạ
+nạn
+nạp
+nạt
+nản
+nảy
+nấm
+nấp
+nắm
+nằm
+nặng
+nếm
+nến
+nếu
+nề
+nền
