@@ -14110,6 +14110,18 @@ const CORE_PHRASES = [
 // 師傅 si1 fu2 stays in the phrases as the general term for a skilled hand — it is
 // what you call someone whose trade you respect, and it is not a name.
 //
+// THE THREE SITES. Lobo asked for Cantonese names rather than saying "NLT" and
+// "ESG" in English mid-sentence, so:
+//   南廠 naam4 cong2   NLT      (N -> 南, "south plant")
+//   東廠 dung1 cong2   ESG      (E -> 東, "east plant")
+//   東廠一座 / 二座     ESG Building A / B   (座 zo6 is how HK numbers blocks)
+//   乾房二號 / 三號     Dry Room B / C       (letters -> numbers, same as 座)
+// These are invented handles, not names anyone gave him — worth agreeing them
+// with the crew before relying on them. Same for the strains, which have no
+// Cantonese name at all: 糖果 tong4 gwo2 (Candy Runtz), 藍種 laam4 zung2 (Blue
+// Andeze), 酒紅 zau2 hung4 (Ron Burgundy) — picked to be short and to echo
+// something memorable in the English.
+//
 // REGISTER: this is how workmates who know each other actually talk — not how a
 // manual writes it. Subjects get dropped, particles do the work (呀 喎 㗎 啦 囉
 // 咋 喇), and the polite scaffolding comes off: 唔該你通知啲阿姨 becomes 同啲阿姨
@@ -14232,6 +14244,174 @@ const PACKS_YUE = [
     {v:'食咗飯未呀？我去買嘢飲，幫你哋買埋。', p:'sik6 zo2 faan6 mei6 aa3? ngo5 heoi3 maai5 je5 jam2, bong1 nei5 dei6 maai5 maai4.', e:'Eaten yet? I’m going for drinks — I’ll grab you lot some.'},
     {v:'今日好攰呀，頂唔順。', p:'gam1 jat6 hou2 gui6 aa3, ding2 m4 seon6.', e:'Knackered today — I’m done in.'},
     {v:'辛苦晒，聽日見。', p:'san1 fu2 saai3, ting1 jat6 gin3.', e:'Thanks for the graft — see you tomorrow.'}]},
+
+  { id:'yp13', icon:'🏭', title:'The Three Sites', tag:'Crew', color:'stool-blue', cards:[
+    {v:'南廠今日收成，東廠聽日先。', p:'naam4 cong2 gam1 jat6 sau1 sing4, dung1 cong2 ting1 jat6 sin1.', e:'NLT harvests today, ESG not till tomorrow.'},
+    {v:'哩批係東廠二座嘅，唔好送去南廠。', p:'ni1 pai1 hai6 dung1 cong2 ji6 zo6 ge3, m4 hou2 sung3 heoi3 naam4 cong2.', e:'This lot is for ESG Building B — don’t send it to NLT.'},
+    {v:'你今日去邊個廠？南廠定東廠？', p:'nei5 gam1 jat6 heoi3 bin1 go3 cong2? naam4 cong2 ding6 dung1 cong2?', e:'Which site are you at today — NLT or ESG?'},
+    {v:'東廠一座同二座嘅嘢要分開擺。', p:'dung1 cong2 jat1 zo6 tung4 ji6 zo6 ge3 je5 jiu3 fan1 hoi1 baai2.', e:'Building A and Building B material has to be kept apart.'},
+    {v:'東廠嘅做法同南廠一樣。', p:'dung1 cong2 ge3 zou6 faat3 tung4 naam4 cong2 jat1 joeng6.', e:'ESG does it the same way as NLT.'},
+    {v:'八號房今日做，九號房聽日。', p:'baat3 hou6 fong2 gam1 jat6 zou6, gau2 hou6 fong2 ting1 jat6.', e:'Room 8 today, Room 9 tomorrow.'},
+    {v:'乾房二號同三號都要落。', p:'gon1 fong2 ji6 hou6 tung4 saam1 hou6 dou1 jiu3 lok6.', e:'Dry rooms B and C both need bringing down.'}]},
+
+  { id:'yp14', icon:'🌾', title:'Dry Rooms and Bucking', tag:'Harvest', color:'stool-red', cards:[
+    {v:'今日落乾房二號嘅花。', p:'gam1 jat6 lok6 gon1 fong2 ji6 hou6 ge3 faa1.', e:'We’re bringing down the flower in Dry Room B today.'},
+    {v:'落完就開始拆枝。', p:'lok6 jyun4 zau6 hoi1 ci2 caak3 zi1.', e:'Once it’s down, start bucking.'},
+    {v:'有個新做法，記得照住做。', p:'jau5 go3 san1 zou6 faat3, gei3 dak1 ziu3 zyu6 zou6.', e:'There’s a new procedure — make sure you follow it.'},
+    {v:'前面同角落嗰啲乾得晒，中間仲有啲濕。', p:'cin4 min6 tung4 gok3 lok6 go2 di1 gon1 dak1 saai3, zung1 gaan1 zung6 jau5 di1 sap1.', e:'The front and the corners are dry, but the middle is still a bit moist.'},
+    {v:'未夠乾嗰啲留返喺度，遲啲先落。', p:'mei6 gau3 gon1 go2 di1 lau4 faan1 hai2 dou6, ci4 di1 sin1 lok6.', e:'Leave the ones that aren’t dry enough — bring them down later.'},
+    {v:'你想聽日落定係等到禮拜三？', p:'nei5 soeng2 ting1 jat6 lok6 ding6 hai6 dang2 dou3 lai5 baai3 saam1?', e:'Do you want to bring it down tomorrow, or wait till Wednesday?'},
+    {v:'拆枝嗰陣輕手啲，唔好整散啲花。', p:'caak3 zi1 go2 zan6 hing1 sau2 di1, m4 hou2 zing2 saan3 di1 faa1.', e:'Go gently when you buck — don’t break the buds up.'}]},
+
+  { id:'yp15', icon:'📅', title:'Day Counts and Leaf Removal', tag:'Grow', color:'stool-yellow', cards:[
+    {v:'八號房今日第四十三日。', p:'baat3 hou6 fong2 gam1 jat6 dai6 sei3 sap6 saam1 jat6.', e:'Room 8 is on day 43 today.'},
+    {v:'第四十五日要做第二次打葉。', p:'dai6 sei3 sap6 ng5 jat6 jiu3 zou6 dai6 ji6 ci3 daa2 jip6.', e:'The second leaf removal is at day 45.'},
+    {v:'哩間房打過一次喇，今次係第二次。', p:'ni1 gaan1 fong2 daa2 gwo3 jat1 ci3 laa3, gam1 ci3 hai6 dai6 ji6 ci3.', e:'This room’s been done once — this is the second pass.'},
+    {v:'禮拜日要打六號同七號房嘅葉。', p:'lai5 baai3 jat6 jiu3 daa2 luk6 hou6 tung4 cat1 hou6 fong2 ge3 jip6.', e:'Rooms 6 and 7 need de-leafing on Sunday.'},
+    {v:'一號同九號房嘅嘢，全部斬晒佢。', p:'jat1 hou6 tung4 gau2 hou6 fong2 ge3 je5, cyun4 bou6 zaam2 saai3 keoi5.', e:'Rooms 1 and 9 — cut all the plants down.'},
+    {v:'仲爭幾日先收成？', p:'zung6 zaang1 gei2 jat6 sin1 sau1 sing4?', e:'How many days until harvest?'},
+    {v:'哩間房遲兩日先夠日子。', p:'ni1 gaan1 fong2 ci4 loeng5 jat6 sin1 gau3 jat6 zi2.', e:'This room needs two more days before it’s ready.'}]},
+
+  { id:'yp16', icon:'🪴', title:'Clone Runs and Trays', tag:'Grow', color:'stool-yellow', cards:[
+    {v:'東廠要千二苗，南廠要九百五。', p:'dung1 cong2 jiu3 cin1 ji6 miu4, naam4 cong2 jiu3 gau2 baak3 ng5.', e:'ESG needs 1,200 clones, NLT needs 950.'},
+    {v:'一共兩千一百五十棵苗仔。', p:'jat1 gung6 loeng5 cin1 jat1 baak3 ng5 sap6 po1 miu4 zai2.', e:'Two thousand one hundred and fifty baby plants in total.'},
+    {v:'東廠嘅苗要喺下晝一點前搞掂。', p:'dung1 cong2 ge3 miu4 jiu3 hai2 haa6 zau3 jat1 dim2 cin4 gaau2 dim6.', e:'ESG’s clones have to be finished before one o’clock.'},
+    {v:'東廠同南廠嘅苗一定要分開。', p:'dung1 cong2 tung4 naam4 cong2 ge3 miu4 jat1 ding6 jiu3 fan1 hoi1.', e:'ESG and NLT cuttings must be kept separate.'},
+    {v:'要留夠時間插落苗盤，所以趕住剪。', p:'jiu3 lau4 gau3 si4 gaan3 caap3 lok6 miu4 pun4, so2 ji5 gon2 zyu6 zin2.', e:'We need time left to stick them in the trays — that’s why we’re rushing the cutting.'},
+    {v:'東廠嘅枝可以剪長啲，執葉就同南廠一樣。', p:'dung1 cong2 ge3 zi1 ho2 ji5 zin2 coeng4 di1, zap1 jip6 zau6 tung4 naam4 cong2 jat1 joeng6.', e:'ESG cuttings can stay longer — clean the leaf the same way as NLT.'},
+    {v:'東廠要七百糖果、兩百藍種、三百酒紅。', p:'dung1 cong2 jiu3 cat1 baak3 tong4 gwo2, loeng5 baak3 laam4 zung2, saam1 baak3 zau2 hung4.', e:'ESG wants 700 Candy Runtz, 200 Blue Andeze, 300 Ron Burgundy.'}]},
+
+  { id:'yp17', icon:'📦', title:'Supplies and Asking Around', tag:'Crew', color:'stool-bar', cards:[
+    {v:'泥盆嗰間供應商有冇一加侖嘅布盆？', p:'nai4 pun4 go2 gaan1 gung1 jing3 soeng1 jau5 mou5 jat1 gaa1 leon2 ge3 bou3 pun4?', e:'Does the pot supplier have one-gallon fabric pots?'},
+    {v:'一加侖半嗰款有冇貨？', p:'jat1 gaa1 leon2 bun3 go2 fun2 jau5 mou5 fo3?', e:'Do they have the one-and-a-half gallon ones in stock?'},
+    {v:'唔夠盤用，要再叫多啲。', p:'m4 gau3 pun4 jung6, jiu3 zoi3 giu3 do1 di1.', e:'We haven’t got enough trays — we need to order more.'},
+    {v:'幾時到貨？我哋等住用。', p:'gei2 si4 dou3 fo3? ngo5 dei6 dang2 zyu6 jung6.', e:'When does it arrive? We’re waiting on it.'},
+    {v:'我問下先，遲啲覆你。', p:'ngo5 man6 haa5 sin1, ci4 di1 fuk1 nei5.', e:'Let me ask, I’ll get back to you.'},
+    {v:'今次唔夠人，我叫多兩個阿姨返嚟。', p:'gam1 ci3 m4 gau3 jan4, ngo5 giu3 do1 loeng5 go3 aa3 ji1 faan1 lai4.', e:'We’re short-handed — I’ll get two more aunties in.'},
+    {v:'加埋阿勝，一共六個人。', p:'gaa1 maai4 aa3 sing3, jat1 gung6 luk6 go3 jan4.', e:'With Tsing that’s six of us in total.'}]},
+
+  { id:'yp18', icon:'💬', title:'Messages You’ve Sent', tag:'Crew', color:'stool-blue', cards:[
+    {v:'林生，星期一落乾房二號同三號嘅花。有個新做法，記得照住做。', p:'lam4 saang1, sing1 kei4 jat1 lok6 gon1 fong2 ji6 hou6 tung4 saam1 hou6 ge3 faa1. jau5 go3 san1 zou6 faat3, gei3 dak1 ziu3 zyu6 zou6.', e:'Uncle — Monday, bring down the flower from Dry Rooms B and C. There’s a new procedure, make sure you follow it.'},
+    {v:'八號房今日第四十三日。禮拜日要打第二次葉。', p:'baat3 hou6 fong2 gam1 jat6 dai6 sei3 sap6 saam1 jat6. lai5 baai3 jat6 jiu3 daa2 dai6 ji6 ci3 jip6.', e:'Room 8 is on day 43 today. The second leaf removal is due Sunday.'},
+    {v:'南廠星期一一號同九號房收成，成棵斬晒佢。', p:'naam4 cong2 sing1 kei4 jat1 jat1 hou6 tung4 gau2 hou6 fong2 sau1 sing4, seng4 po1 zaam2 saai3 keoi5.', e:'NLT, Monday — Rooms 1 and 9 get harvested. Cut all the plants down.'},
+    {v:'東廠嘅枝可以留長啲，執葉就同南廠一樣。', p:'dung1 cong2 ge3 zi1 ho2 ji5 lau4 coeng4 di1, zap1 jip6 zau6 tung4 naam4 cong2 jat1 joeng6.', e:'For ESG you can keep the clone cuttings long — just clean the leaf the same way as NLT.'},
+    {v:'要留夠時間插苗，所以要早啲剪完。', p:'jiu3 lau4 gau3 si4 gaan3 caap3 miu4, so2 ji5 jiu3 zou2 di1 zin2 jyun4.', e:'There has to be enough time to stick the clones in the trays — that’s why we’re rushing to finish the cuttings early.'},
+    {v:'東廠千二苗，南廠九百五。', p:'dung1 cong2 cin1 ji6 miu4, naam4 cong2 gau2 baak3 ng5.', e:'1,200 clones for ESG and 950 for NLT.'},
+    {v:'我叫咗林生帶多兩個阿姨嚟。阿勝都可以幫手，一共六個人。', p:'ngo5 giu3 zo2 lam4 saang1 daai3 do1 loeng5 go3 aa3 ji1 lai4. aa3 sing3 dou1 ho2 ji5 bong1 sau2, jat1 gung6 luk6 go3 jan4.', e:'I asked Uncle to bring two more aunties. Tsing can help too, so six people in total.'},
+    {v:'東廠要喺一點前攞晒千二苗。你哋三個而家剪緊南廠嘅，所以我再叫兩個阿姨。', p:'dung1 cong2 jiu3 hai2 jat1 dim2 cin4 lo2 saai3 cin1 ji6 miu4. nei5 dei6 saam1 go3 ji4 gaa1 zin2 gan2 naam4 cong2 ge3, so2 ji5 ngo5 zoi3 giu3 loeng5 go3 aa3 ji1.', e:'ESG needs all 1,200 of their cuttings before 1pm. The three of you are on NLT’s first, so I’ll get two more aunties in.'},
+    {v:'你想聽日落乾花定係等到禮拜三？', p:'nei5 soeng2 ting1 jat6 lok6 gon1 faa1 ding6 hai6 dang2 dou3 lai5 baai3 saam1?', e:'Do you want to take the dry flower down tomorrow, or wait until Wednesday?'},
+    {v:'記得要分開東廠同南廠嘅苗。', p:'gei3 dak1 jiu3 fan1 hoi1 dung1 cong2 tung4 naam4 cong2 ge3 miu4.', e:'Remember we need to separate the ESG and NLT cuttings.'},
+    {v:'南廠乾房二號，前面同角落嗰啲得喇，中間仲有啲濕。', p:'naam4 cong2 gon1 fong2 ji6 hou6, cin4 min6 tung4 gok3 lok6 go2 di1 dak1 laa3, zung1 gaan1 zung6 jau5 di1 sap1.', e:'NLT Dry Room B — the front and the corners are ready, but the middle is still a little moist.'},
+    {v:'禮拜三朝早八點嚟南廠幫手剪苗，一共兩千一百五十棵。', p:'lai5 baai3 saam1 ziu1 zou2 baat3 dim2 lai4 naam4 cong2 bong1 sau2 zin2 miu4, jat1 gung6 loeng5 cin1 jat1 baak3 ng5 sap6 po1.', e:'Wednesday 8am, come to NLT to help cut the baby clones — 2,150 in total.'},
+    {v:'泥盆供應商有冇一加侖或者一加侖半嘅布盆？', p:'nai4 pun4 gung1 jing3 soeng1 jau5 mou5 jat1 gaa1 leon2 waak6 ze2 jat1 gaa1 leon2 bun3 ge3 bou3 pun4?', e:'Does the soil pot supplier have one-gallon or one-and-a-half gallon fabric pots?'},
+    {v:'南廠星期一落乾房二號嘅嘢，跟住開始拆枝。', p:'naam4 cong2 sing1 kei4 jat1 lok6 gon1 fong2 ji6 hou6 ge3 je5, gan1 zyu6 hoi1 ci2 caak3 zi1.', e:'NLT, Monday — bring down what’s in Dry Room B and start the bucking.'},
+    {v:'南廠要阿姨幫手打六號同七號房嘅葉，第四十五日第二次。', p:'naam4 cong2 jiu3 aa3 ji1 bong1 sau2 daa2 luk6 hou6 tung4 cat1 hou6 fong2 ge3 jip6, dai6 sei3 sap6 ng5 jat6 dai6 ji6 ci3.', e:'NLT needs the aunties to de-leaf Rooms 6 and 7 — second removal, day 45.'}]},
+];
+
+// The vocabulary of the job itself, pulled out of the facility packs so the
+// words can be drilled on their own rather than only inside whole sentences.
+// Most of these are off the HKCanCor frequency list entirely — a corpus of
+// recorded Hong Kong conversation has no reason to contain 生根粉 — so they
+// carry no rank and show as job words. The handful that DO appear in the
+// corpus (房, 花, 燈, 根) keep their real rank, because knowing 房 is a top-700
+// word and 抽濕機 is not is genuinely useful information.
+const FACILITY_VOCAB = [
+  // --- the crew and the week ---
+  {v:'師傅', p:'si1fu2', e:'skilled hand / master (how you address one)', group:'Crew and shifts'},
+  {v:'人手', p:'jan4sau2', e:'manpower / hands available', group:'Crew and shifts'},
+  {v:'更', p:'gaang1', e:'shift', group:'Crew and shifts'},
+  {v:'早更', p:'zou2gaang1', e:'early shift', group:'Crew and shifts'},
+  {v:'夜更', p:'je6gaang1', e:'night shift', group:'Crew and shifts'},
+  {v:'排更', p:'paai4gaang1', e:'to roster the shifts', group:'Crew and shifts'},
+  {v:'開工', p:'hoi1gung1', e:'to start work', group:'Crew and shifts'},
+  {v:'收工', p:'sau1gung1', e:'to knock off', group:'Crew and shifts'},
+  {v:'加班', p:'gaa1baan1', e:'overtime', group:'Crew and shifts'},
+  {v:'鐘數', p:'zung1sou3', e:'hours worked', group:'Crew and shifts'},
+  {v:'食晏', p:'sik6aan3', e:'lunch break', group:'Crew and shifts'},
+  {v:'唞', p:'tau2', e:'to rest / take a breather', group:'Crew and shifts'},
+
+  // --- de-leafing ---
+  {v:'打葉', p:'daa2jip6', e:'to de-leaf (some crews say 剪葉)', group:'De-leafing'},
+  {v:'葉', p:'jip6', e:'leaf', group:'De-leafing'},
+  {v:'剪', p:'zin2', e:'to cut / to trim', group:'De-leafing'},
+  {v:'花', p:'faa1', e:'flower / bud', group:'De-leafing'},
+  {v:'行', p:'hong4', e:'row', group:'De-leafing'},
+  {v:'棵', p:'po1', e:'(classifier for a plant)', group:'De-leafing'},
+  {v:'桶', p:'tung2', e:'bin / bucket', group:'De-leafing'},
+  {v:'郁', p:'juk1', e:'to move / to touch', group:'De-leafing'},
+  {v:'掟', p:'deng3', e:'to chuck / to throw', group:'De-leafing'},
+
+  // --- clones and veg ---
+  {v:'插枝', p:'caap3zi1', e:'to take cuttings (some say 扦插)', group:'Clones and veg'},
+  {v:'苗', p:'miu4', e:'seedling / clone', group:'Clones and veg'},
+  {v:'母株', p:'mou5zyu1', e:'mother plant', group:'Clones and veg'},
+  {v:'枝', p:'zi1', e:'shoot / branch', group:'Clones and veg'},
+  {v:'生根粉', p:'sang1gan1fan2', e:'rooting powder', group:'Clones and veg'},
+  {v:'根', p:'gan1', e:'root', group:'Clones and veg'},
+  {v:'盆', p:'pun4', e:'pot', group:'Clones and veg'},
+  {v:'剪刀', p:'zin2dou1', e:'shears / scissors', group:'Clones and veg'},
+  {v:'消毒', p:'siu1duk6', e:'to sanitise', group:'Clones and veg'},
+
+  // --- watering and feeding ---
+  {v:'淋水', p:'lam4seoi2', e:'to water', group:'Water and feed'},
+  {v:'落肥', p:'lok6fei4', e:'to feed / to fertilise', group:'Water and feed'},
+  {v:'營養液', p:'jing4joeng5jik6', e:'nutrient solution', group:'Water and feed'},
+  {v:'乾', p:'gon1', e:'dry', group:'Water and feed'},
+  {v:'浸', p:'zam3', e:'to soak / to drown', group:'Water and feed'},
+  {v:'撈勻', p:'lou1wan4', e:'to mix evenly', group:'Water and feed'},
+
+  // --- the room ---
+  {v:'房', p:'fong2', e:'room', group:'Room conditions'},
+  {v:'抽濕機', p:'cau1sap1gei1', e:'dehumidifier', group:'Room conditions'},
+  {v:'濕', p:'sap1', e:'humid / wet', group:'Room conditions'},
+  {v:'溫度', p:'wan1dou6', e:'temperature', group:'Room conditions'},
+  {v:'風扇', p:'fung1sin3', e:'fan', group:'Room conditions'},
+  {v:'燈', p:'dang1', e:'light', group:'Room conditions'},
+  {v:'熄', p:'sik1', e:'to switch off', group:'Room conditions'},
+  {v:'焗', p:'guk6', e:'stuffy / airless', group:'Room conditions'},
+  {v:'漏光', p:'lau6gwong1', e:'light leak', group:'Room conditions'},
+
+  // --- pests and mildew ---
+  {v:'蟲', p:'cung4', e:'bug / insect', group:'Pests and mildew'},
+  {v:'紅蜘蛛', p:'hung4zi1zyu1', e:'spider mite', group:'Pests and mildew'},
+  {v:'霉', p:'mui4', e:'mould', group:'Pests and mildew'},
+  {v:'噴藥', p:'pan3joek6', e:'to spray', group:'Pests and mildew'},
+  {v:'口罩', p:'hau2zaau3', e:'mask', group:'Pests and mildew'},
+  {v:'手套', p:'sau2tou3', e:'gloves', group:'Pests and mildew'},
+
+  // --- harvest and processing ---
+  {v:'收成', p:'sau1sing4', e:'harvest / to harvest', group:'Harvest and processing'},
+  {v:'斬', p:'zaam2', e:'to cut down (a whole plant)', group:'Harvest and processing'},
+  {v:'掛', p:'gwaa3', e:'to hang', group:'Harvest and processing'},
+  {v:'架', p:'gaa2', e:'rack', group:'Harvest and processing'},
+  {v:'修剪', p:'sau1zin2', e:'to trim (the finishing cut)', group:'Harvest and processing'},
+  {v:'磅', p:'bong2', e:'to weigh / a pound', group:'Harvest and processing'},
+  {v:'標籤', p:'biu1cim1', e:'label', group:'Harvest and processing'},
+  {v:'入袋', p:'jap6doi2', e:'to bag', group:'Harvest and processing'},
+  {v:'撈亂', p:'lou1lyun6', e:'to mix up / to muddle', group:'Harvest and processing'},
+
+  // --- the three sites, day counts and supplies (added from Lobo's own messages) ---
+  {v:'廠', p:'cong2', e:'plant / site', group:'Sites and rooms'},
+  {v:'南廠', p:'naam4cong2', e:'NLT (\u201csouth plant\u201d \u2014 our name for it)', group:'Sites and rooms'},
+  {v:'東廠', p:'dung1cong2', e:'ESG (\u201ceast plant\u201d \u2014 our name for it)', group:'Sites and rooms'},
+  {v:'座', p:'zo6', e:'block / building (一座 = A, 二座 = B)', group:'Sites and rooms'},
+  {v:'乾房', p:'gon1fong2', e:'dry room', group:'Sites and rooms'},
+  {v:'號', p:'hou6', e:'number (of a room or date)', group:'Sites and rooms'},
+  {v:'落', p:'lok6', e:'to bring down (off the drying line)', group:'Harvest and processing'},
+  {v:'拆枝', p:'caak3zi1', e:'to buck \u2014 strip the buds off the stems', group:'Harvest and processing'},
+  {v:'做法', p:'zou6faat3', e:'procedure / the way it\u2019s done', group:'Harvest and processing'},
+  {v:'角落', p:'gok3lok6', e:'corner', group:'Harvest and processing'},
+  {v:'苗盤', p:'miu4pun4', e:'tray', group:'Clones and veg'},
+  {v:'苗仔', p:'miu4zai2', e:'baby plant / clone', group:'Clones and veg'},
+  {v:'執葉', p:'zap1jip6', e:'to clean up the leaf on a cutting', group:'Clones and veg'},
+  {v:'分開', p:'fan1hoi1', e:'to separate / keep apart', group:'Clones and veg'},
+  {v:'布盆', p:'bou3pun4', e:'fabric pot', group:'Supplies and counting'},
+  {v:'加侖', p:'gaa1leon2', e:'gallon', group:'Supplies and counting'},
+  {v:'供應商', p:'gung1jing3soeng1', e:'supplier', group:'Supplies and counting'},
+  {v:'一共', p:'jat1gung6', e:'in total / all together', group:'Supplies and counting'},
+  {v:'次', p:'ci3', e:'time / occurrence (第二次 = the second time)', group:'Supplies and counting'},
+  {v:'日子', p:'jat6zi2', e:'the number of days / the count', group:'Supplies and counting'},
+  {v:'趕', p:'gon2', e:'to rush / be pressed for time', group:'Supplies and counting'},
 ];
 
 const SOS_PHRASES_YUE = {
@@ -14266,7 +14446,7 @@ const CHAT_PERSONAS_YUE = {
       { youOptions:[
           {v:'四個都夠喇，做半日就得。', e:'Four’s enough — half a day will do it.', correct:true},
           {v:'四個唔夠，叫多啲人返嚟', e:'Four’s not enough, call more in', correct:false, tip:"Telling him to pull people in at short notice puts him on the spot. Ask if it's possible, don't instruct."},
-          {v:'咁算啦，唔做喇', e:'Forget it then', correct:false, tip:"Binning the job the second the number is lower than you wanted wastes his day and theirs."},
+          {v:'噉算啦，唔做喇', e:'Forget it then', correct:false, tip:"Binning the job the second the number is lower than you wanted wastes his day and theirs."},
         ], them:{v:'好。我而家同佢哋講。八點啱唔啱？', e:'Right. I’ll tell them now. Eight alright?'} },
       { youOptions:[
           {v:'八點啱。唔該晒你。', e:'Eight’s good. Cheers.', correct:true},
@@ -14334,7 +14514,7 @@ const CHAT_PERSONAS_YUE = {
         ], them:{v:'哦，明喇。噉底下嗰啲呢？', e:'Ah, got it. What about down the bottom?'} },
       { youOptions:[
           {v:'底下嗰啲，剪晒佢。', e:'Down the bottom — take it all off.', correct:true},
-          {v:'一樣咁做', e:'Same as the rest', correct:false, tip:"Lower growth gets treated differently from the canopy — 'same as the rest' is the one answer that isn't true."},
+          {v:'一樣噉做', e:'Same as the rest', correct:false, tip:"Lower growth gets treated differently from the canopy — 'same as the rest' is the one answer that isn't true."},
           {v:'留返晒佢', e:'Leave all of it', correct:false, tip:"The lower growth is exactly what you're de-leafing to get rid of. This undoes the job."},
         ], them:{v:'好。剪落嚟啲葉擺邊呀？', e:'Alright. Where do the cut leaves go?'} },
       { youOptions:[
@@ -16248,10 +16428,12 @@ function renderPocket(){
 // only non-empty buckets are included, since the tail is sparse (most buckets past
 // ~5,000 have just 1-2 words). Shared by the Words tab filter and the Cards tab
 // progress breakdown so both stay perfectly in sync. Computed once and cached.
-let _rankBucketsCache = null;
+let _rankBucketsCache = null, _rankBucketsCacheLang = null;
 function buildRankBuckets(){
   if(state.contentMode==='new') return [{ id:'all', label:'All', min:1, max:9999 }];
-  if(_rankBucketsCache) return _rankBucketsCache;
+  // Keyed by language — the Vietnamese ranges run to 3,000 and the Cantonese
+  // list stops at 856, so a cache shared between them showed empty chips.
+  if(_rankBucketsCache && _rankBucketsCacheLang === state.language) return _rankBucketsCache;
   const list = buildWordFrequencyList();
   const ranked = list.filter(w=>w.rank!==999999);
   const maxRank = ranked.length ? Math.max(...ranked.map(w=>w.rank)) : 0;
@@ -16262,7 +16444,11 @@ function buildRankBuckets(){
     if(count>0) buckets.push({ id:`${start}-${end}`, label:`${start.toLocaleString()}–${end.toLocaleString()}`, min:start, max:end });
   }
   if(list.some(w=>w.rank===999999)) buckets.push({ id:'unranked', label:'Unranked', min:999999, max:999999 });
+  if(state.language === 'yue' && FACILITY_VOCAB.length){
+    buckets.unshift({ id:'work', label:'\ud83c\udf3f Work', kind:'work', min:1, max:99999 });
+  }
   _rankBucketsCache = buckets;
+  _rankBucketsCacheLang = state.language;
   return buckets;
 }
 function isMasteredWord(srsId){
@@ -16417,7 +16603,7 @@ function renderFlashcardsHub(){
 
   document.getElementById('wcTierBreakdown').innerHTML = buckets.map(b=>{
     // The work bucket is a different pool, not a rank slice of this one.
-    const inBucket = b.kind==='work' ? facilityPhrases()
+    const inBucket = b.kind==='work' ? (isWords ? facilityVocab() : facilityPhrases())
       : pool.filter(w=> b.id==='unranked' ? w.rank===999999 : (w.rank>=b.min && w.rank<=b.max));
     if(!inBucket.length) return '';
     const m = inBucket.filter(w=>isMasteredWord(w.srsId)).length;
@@ -16471,9 +16657,11 @@ function renderFrequency(){
   }
 
   if(isWords){
-    const list = state.contentMode==='new' ? newVocabPool() : buildWordFrequencyList();
-    const searchFolded = stripDiacritics(freqSearchTerm.toLowerCase());
     const bucket = freqBucketFilter==='all' ? null : buildRankBuckets().find(b=>b.id===freqBucketFilter);
+    const isWorkWords = !!(bucket && bucket.kind === 'work');
+    const list = isWorkWords ? facilityVocab()
+      : (state.contentMode==='new' ? newVocabPool() : buildWordFrequencyList());
+    const searchFolded = stripDiacritics(freqSearchTerm.toLowerCase());
 
     // The full corpus is 30,000 words — rendering that many DOM nodes at once would
     // lag mobile browsers badly, so "All" with no search just prompts for a range
@@ -16485,11 +16673,14 @@ function renderFrequency(){
     }
 
     let filtered = list.filter(w=>{
-      if(bucket){
+      if(bucket && !isWorkWords){
         if(bucket.id==='unranked'){ if(w.rank!==999999) return false; }
         else if(w.rank < bucket.min || w.rank > bucket.max) return false;
       }
-      if(freqSearchTerm && !stripDiacritics(w.word).includes(searchFolded)) return false;
+      // Job words are searchable by their English gloss too — you are far more
+      // likely to remember "dehumidifier" than to reproduce 抽濕機 from memory.
+      if(freqSearchTerm && !stripDiacritics(w.word).includes(searchFolded)
+         && !(w.e||'').toLowerCase().includes(freqSearchTerm.toLowerCase())) return false;
       return true;
     });
     const RENDER_CAP = 1000;
@@ -16497,15 +16688,22 @@ function renderFrequency(){
     const capped = totalMatches > RENDER_CAP;
     if(capped) filtered = filtered.slice(0, RENDER_CAP);
 
-    document.getElementById('freqCount').textContent = capped
-      ? `Showing first ${RENDER_CAP.toLocaleString()} of ${totalMatches.toLocaleString()} words — narrow your search`
-      : `${totalMatches} word${totalMatches===1?'':'s'}`;
+    document.getElementById('freqCount').textContent = isWorkWords
+      ? `${totalMatches} words from the job — tap Study to drill them`
+      : (capped
+        ? `Showing first ${RENDER_CAP.toLocaleString()} of ${totalMatches.toLocaleString()} words — narrow your search`
+        : `${totalMatches} word${totalMatches===1?'':'s'}`);
+    let lastWordGroup = null;
     document.getElementById('freqList').innerHTML = filtered.map(w=>{
-      const rankLabel = w.rank >= 999999 ? 'Not ranked' : w.rank.toLocaleString();
-      const gloss = activeWordGloss(w.word);
+      // Off-corpus job words have no rank, and "Not ranked" reads like a fault.
+      // They are simply not the kind of word a conversation corpus records.
+      const rankLabel = w.rank >= 999999 ? (isWorkWords ? 'Job word' : 'Not ranked') : w.rank.toLocaleString();
+      const gloss = isWorkWords ? w.e : activeWordGloss(w.word);
+      let head = '';
+      if(isWorkWords && w.group && w.group !== lastWordGroup){ lastWordGroup = w.group; head = `<p class="freq-group">${w.group}</p>`; }
       const wEsc = w.word.replace(/'/g,"\\'");
       const audioId = w.srsId || wordAudioId(w.word);
-      return `
+      return `${head}
       <div class="freq-item" onclick="playAudio('${audioId}', '${wEsc}', currentAccent)">
         <div style="flex:1;min-width:0;">
           <p class="fw"><span class="tap-word${cjkCls()}" onclick="event.stopPropagation();showWordInfo('${wEsc}')">${w.word}</span>${w.p?`<span class="fw-rom-inline">${w.p}</span>`:''}${gloss?`<span class="fw-en"> — ${gloss}</span>`:''}</p>
@@ -17151,6 +17349,7 @@ function wordStudyPool(bucket){
     if(bucket) list = list.filter(w => bucket.id==='unranked' ? false : (w.rank>=bucket.min && w.rank<=bucket.max));
     return list;
   }
+  if(bucket && bucket.kind === 'work') return facilityVocab();
   let list = buildWordFrequencyList();
   if(bucket){
     list = list.filter(w => bucket.id==='unranked' ? w.rank===999999 : (w.rank>=bucket.min && w.rank<=bucket.max));
@@ -17214,6 +17413,23 @@ function viewMasteredWords(){
 // list. srsIds are the SAME ones the Worlds tab uses (pack_yp3_0, sos_yw_grow_2),
 // so studying a card here and studying it there are the same card — grade it in
 // either place and the schedule moves once.
+// The job's vocabulary as a studiable deck. srsIds follow the same
+// word_<lang>_<word> shape the rest of the Cantonese word deck uses, so a term
+// that also appears in the frequency list is the SAME card in both places.
+let _facilityVocabCache = null;
+function facilityVocab(){
+  if(state.language !== 'yue') return [];
+  if(_facilityVocabCache) return _facilityVocabCache;
+  const ranked = new Map(buildWordFrequencyList().map(w=>[w.word, w]));
+  _facilityVocabCache = FACILITY_VOCAB.map(t=>{
+    const hit = ranked.get(t.v);
+    return { word:t.v, p:t.p, e:t.e, group:t.group,
+             rank: hit ? hit.rank : 999999,
+             star: hit ? hit.star : 1,
+             srsId: `word_${srsNs()}${t.v}` };
+  });
+  return _facilityVocabCache;
+}
 let _facilityCache = null;
 function facilityPhrases(){
   if(state.language !== 'yue') return [];
