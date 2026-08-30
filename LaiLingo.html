@@ -250,8 +250,8 @@
   .wc-stat{background:var(--surface);border-radius:14px;padding:14px 8px;text-align:center;}
   .wc-stat .num{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;color:var(--rice);}
   .wc-stat .lab{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:3px;}
-  .wc-special-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0;}
-  .wc-special-card{background:var(--surface);border-radius:14px;padding:16px 10px;text-align:center;cursor:pointer;transition:background .1s ease;}
+  .wc-special-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0;}
+  .wc-special-card{background:var(--surface);border-radius:14px;padding:14px 6px;text-align:center;cursor:pointer;transition:background .1s ease;}
   .wc-special-card:active{background:var(--surface-2);}
   .wc-special-icon{font-size:20px;margin:0 0 4px;}
   .wc-special-num{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:700;color:var(--gold);margin:0;}
@@ -504,6 +504,64 @@
   .lsn-concept-card-mini .info .sub{font-size:10.5px;color:rgba(255,255,255,.55);margin:2px 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .lsn-concept-card-mini .chev{flex-shrink:0;color:rgba(255,255,255,.4);font-size:12px;}
   .lsn-concept-card-mini.done .title::before{content:'✓ ';color:#7fd99a;}
+
+  /* ===== PLAN TAB =====
+     These sit INSIDE .world-section, whose background is --surface (a mid
+     tan), so every card here is --bg-elev (near-white) to lift off it. The
+     tab previously borrowed .lsn-concept-card-mini from the Lessons list —
+     a DARK card (#3a3226) whose own .title/.sub children are white — but
+     filled it with .ws-title/.ws-sub, which are dark ink and muted brown.
+     Dark text on a dark card. Hence this dedicated set. */
+  .pl-progress{margin:10px 0 2px;}
+  .pl-progress-track{height:8px;border-radius:999px;background:rgba(36,28,19,0.10);overflow:hidden;}
+  .pl-progress-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--herb),#5cb87d);transition:width .35s ease;}
+  .pl-progress-label{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 6px;}
+  .pl-progress-label .big{font-size:20px;font-weight:800;color:var(--ink);}
+  .pl-progress-label .big span{font-size:12px;font-weight:700;color:var(--muted);}
+  .pl-progress-label .pct{font-size:12px;font-weight:800;color:var(--herb);}
+
+  /* Engine checklist — a real tappable row with a checkbox affordance. */
+  .pl-task{display:flex;align-items:flex-start;gap:11px;width:100%;text-align:left;background:var(--bg-elev);border:1px solid rgba(36,28,19,0.09);border-radius:13px;padding:11px 13px;margin-top:8px;font-family:inherit;}
+  .pl-task:active{transform:scale(.995);}
+  .pl-task .box{width:21px;height:21px;border-radius:7px;border:2px solid rgba(36,28,19,0.22);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;line-height:1;}
+  .pl-task .body{flex:1;min-width:0;}
+  .pl-task .t{font-size:13.5px;font-weight:800;color:var(--ink);margin:0 0 2px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+  .pl-task .min{font-size:10.5px;font-weight:800;color:var(--muted);background:rgba(36,28,19,0.07);border-radius:999px;padding:2px 7px;}
+  .pl-task .d{font-size:11.5px;line-height:1.45;color:var(--muted);margin:0;}
+  .pl-task.done{background:rgba(62,142,90,0.10);border-color:rgba(62,142,90,0.34);}
+  .pl-task.done .box{background:var(--herb);border-color:var(--herb);}
+  .pl-task.done .t{color:var(--rice-dim);}
+
+  /* Block cards — colour-coded by which tool the step belongs to. */
+  .pl-card{background:var(--bg-elev);border:1px solid rgba(36,28,19,0.09);border-left:3px solid var(--muted);border-radius:12px;padding:11px 13px;margin-top:8px;}
+  .pl-card .t{font-size:12.5px;font-weight:800;color:var(--ink);margin:0 0 3px;}
+  .pl-card .d{font-size:12px;line-height:1.5;color:var(--rice-dim);margin:0;}
+  .pl-card.lailingo{border-left-color:var(--sky);}
+  .pl-card.migaku{border-left-color:var(--pink);}
+  .pl-card.gate{border-left-color:var(--herb);background:rgba(62,142,90,0.07);}
+  .pl-card.caveat{border-left-color:var(--vermillion);background:rgba(225,75,42,0.06);}
+  .pl-why{font-size:12.5px;line-height:1.55;color:var(--rice-dim);margin:0 0 4px;}
+
+  /* Weekly log */
+  .pl-field{margin-top:9px;}
+  .pl-field label{display:block;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:0 0 4px;}
+  .pl-field input{width:100%;box-sizing:border-box;background:var(--bg-elev);border:1px solid rgba(36,28,19,0.14);border-radius:10px;padding:9px 11px;font-size:13.5px;font-family:inherit;color:var(--ink);}
+  .pl-field input:focus{outline:none;border-color:var(--sky);}
+  .pl-field input::placeholder{color:rgba(138,120,96,.65);}
+  .pl-gate-row{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;}
+  .pl-gate-btn{flex:1;min-width:130px;background:var(--bg-elev);border:1.5px solid rgba(36,28,19,0.14);color:var(--muted);border-radius:10px;padding:10px 12px;font-family:inherit;font-size:12.5px;font-weight:800;}
+  .pl-gate-btn.yes.on{background:rgba(62,142,90,0.16);border-color:var(--herb);color:#2f7d52;}
+  .pl-gate-btn.no.on{background:rgba(225,75,42,0.12);border-color:var(--vermillion);color:var(--vermillion-dim);}
+
+  /* Week selector — 12 small squares read better than 12 wide pills. */
+  .pl-weeks{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:10px;}
+  .pl-week{aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:var(--bg-elev);border:1px solid rgba(36,28,19,0.10);border-radius:9px;font-family:inherit;font-size:12.5px;font-weight:800;color:var(--muted);padding:0;}
+  .pl-week.done{background:rgba(62,142,90,0.13);color:#2f7d52;border-color:rgba(62,142,90,0.28);}
+  .pl-week.now{border-color:var(--gold);border-width:2px;color:var(--ink);}
+  .pl-week.active{background:var(--herb);border-color:var(--herb);color:#fff;}
+  .pl-legend{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 0;font-size:10.5px;font-weight:700;color:var(--muted);}
+  .pl-legend i{font-style:normal;display:inline-flex;align-items:center;gap:4px;}
+  .pl-legend .sw{width:9px;height:9px;border-radius:3px;display:inline-block;}
 
   /* ===== Concept Detail overlay ===== */
   .cd-overlay{position:absolute;inset:0;background:#0b0b0b;z-index:66;display:none;flex-direction:column;border-radius:34px;overflow:hidden;}
@@ -920,6 +978,7 @@
 .mine-tokens{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px;}
 .mine-tok{border:none;font-family:inherit;font-size:15px;font-weight:600;padding:6px 11px;border-radius:10px;cursor:pointer;}
 .mine-tok.known{background:rgba(58,157,102,0.14);color:#2f7d52;}
+.mine-tok.learning{background:rgba(240,169,59,0.20);color:#8a5a10;box-shadow:inset 0 0 0 1.5px rgba(240,169,59,0.45);}
 .mine-tok.unknown{background:rgba(232,137,74,0.18);color:#b25e21;box-shadow:inset 0 0 0 1.5px rgba(232,137,74,0.5);}
 .mine-tok.target{background:#e8894a;color:#fff;box-shadow:inset 0 0 0 2px #b25e21;}
 .mine-verdict{border-radius:14px;padding:13px 15px;margin:14px 0 0;font-size:13.5px;line-height:1.55;}
@@ -934,6 +993,24 @@
 .mine-card-row .mc-sent{font-size:12.5px;color:var(--muted);margin:0;line-height:1.45;}
 .mine-card-row .mc-del{background:none;border:none;font-size:15px;cursor:pointer;color:var(--muted);padding:2px 4px;}
 .mine-empty{text-align:center;color:var(--muted);font-size:13px;padding:26px 10px;line-height:1.6;}
+.wk-picker{display:flex;gap:6px;margin:14px 0 2px;}
+.wk-btn{flex:1;background:var(--bg-elev);border:1.5px solid rgba(36,28,19,0.14);color:var(--muted);border-radius:11px;padding:9px 6px;font-family:inherit;font-size:12px;font-weight:800;line-height:1.2;}
+.wk-btn .ic{display:block;font-size:14px;margin-bottom:2px;}
+.wk-btn.on.unknown{background:rgba(232,137,74,0.16);border-color:#e8894a;color:#b25e21;}
+.wk-btn.on.learning{background:rgba(240,169,59,0.20);border-color:var(--gold);color:#8a5a10;}
+.wk-btn.on.known{background:rgba(58,157,102,0.16);border-color:var(--herb);color:#2f7d52;}
+.wk-note{font-size:11px;color:var(--muted);margin:6px 0 0;line-height:1.45;}
+.sc-know{background:none;border:1px solid rgba(36,28,19,0.18);color:var(--muted);border-radius:999px;padding:7px 14px;font-family:inherit;font-size:11.5px;font-weight:800;margin-top:12px;}
+.mine-legend{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 0;font-size:10.5px;font-weight:700;color:var(--muted);}
+.mine-legend i{font-style:normal;display:inline-flex;align-items:center;gap:5px;}
+.mine-legend .sw{width:10px;height:10px;border-radius:3px;display:inline-block;}
+.mine-counts{display:flex;gap:8px;margin:10px 0 0;}
+.mine-count{flex:1;background:var(--bg-elev);border:1px solid rgba(36,28,19,0.08);border-radius:12px;padding:9px 6px;text-align:center;}
+.mine-count .n{font-size:17px;font-weight:800;line-height:1.1;}
+.mine-count .l{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px;}
+.mine-count.known .n{color:#2f7d52;}
+.mine-count.learning .n{color:#8a5a10;}
+.mine-count.unknown .n{color:#b25e21;}
 .mine-cloze{display:inline-block;min-width:64px;border-bottom:3px solid #e8894a;}
 .mine-hit{color:#e8894a;font-weight:900;}
 
@@ -1155,7 +1232,7 @@
 
         <div class="wc-hero">
           <div class="wc-hero-num" id="wcMasteredPct">0%</div>
-          <p class="wc-hero-label">of your deck mastered</p>
+          <p class="wc-hero-label">of your deck known</p>
           <div class="wc-progress-track"><div class="wc-progress-fill" id="wcProgressFill" style="width:0%"></div></div>
         </div>
 
@@ -1175,6 +1252,11 @@
         </button>
 
         <div class="wc-special-row">
+          <div class="wc-special-card" onclick="startActiveUnknownStudy()">
+            <p class="wc-special-icon">🆕</p>
+            <p class="wc-special-num" id="wcUnknownCount">0</p>
+            <p class="wc-special-label" id="wcUnknownLabel">Unknown words</p>
+          </div>
           <div class="wc-special-card" onclick="startActiveDifficultStudy()">
             <p class="wc-special-icon">🎯</p>
             <p class="wc-special-num" id="wcDifficultCount">0</p>
@@ -1183,7 +1265,7 @@
           <div class="wc-special-card" onclick="viewActiveMastered()">
             <p class="wc-special-icon">🏆</p>
             <p class="wc-special-num" id="wcMasteredCount">0</p>
-            <p class="wc-special-label" id="wcMasteredLabel">Mastered words</p>
+            <p class="wc-special-label" id="wcMasteredLabel">Known words</p>
           </div>
         </div>
 
@@ -1244,7 +1326,7 @@
         <div id="mineList"></div>
 
         <p class="section-title">Words you've marked known</p>
-        <p class="section-sub">Everything from the lessons you've finished counts automatically. Tap any word in a sentence above to override it either way — that's the same known/unknown marking Migaku does while you read.</p>
+        <p class="section-sub">Words move themselves: a card that survives 21 days counts as known, anything younger counts as learning. Tap any word in a sentence above to cycle it yourself — new → learning → known — the same three marks Migaku puts on text while you read.</p>
         <p class="section-sub" id="mineKnownSummary"></p>
       </div>
     </section>
@@ -1317,7 +1399,12 @@
             <div><p class="ws-title" id="planWeekTitle">Week 1 of 12</p><p class="ws-sub" id="planBlockName"></p></div>
             <button class="ws-go" onclick="resetPlan()">Reset</button>
           </div>
-          <div class="chip-row" id="planWeekChips"></div>
+          <div class="pl-weeks" id="planWeekChips"></div>
+          <div class="pl-legend">
+            <i><span class="sw" style="background:rgba(62,142,90,.45);"></span>done</i>
+            <i><span class="sw" style="background:var(--gold);"></span>this week</i>
+            <i><span class="sw" style="background:var(--herb);"></span>viewing</i>
+          </div>
         </div>
 
         <div class="world-section">
@@ -12594,6 +12681,17 @@ function showWordInfo(word){
   document.getElementById('wordSheetBadge').innerHTML = `
     <div class="freq-pill" style="background:${TIER_COLOR[star]}">${rankLabel}</div>
     ${gloss ? `<p class="word-gloss">${gloss}</p>` : ''}
+    ${(()=>{ const k = wordKnowledge(word); return `
+      <div class="wk-picker">
+        <button class="wk-btn unknown ${k==='unknown'?'on':''}" onclick="setWordInfoKnowledge('unknown')"><span class="ic">○</span>New</button>
+        <button class="wk-btn learning ${k==='learning'?'on':''}" onclick="setWordInfoKnowledge('learning')"><span class="ic">◐</span>Learning</button>
+        <button class="wk-btn known ${k==='known'?'on':''}" onclick="setWordInfoKnowledge('known')"><span class="ic">●</span>Known</button>
+      </div>
+      <p class="wk-note">${
+        k==='known' ? 'Counted as known everywhere, and out of your study rotation.'
+        : k==='learning' ? 'On a card and in rotation. It turns Known on its own once it survives 21 days.'
+        : 'No card yet. Marking it New again clears any progress on it.'
+      }</p>`; })()}
     ${examples.length ? `
       <p class="eyebrow" style="margin-top:16px;">Example sentences</p>
       <div class="word-examples">
@@ -14047,7 +14145,10 @@ const DEFAULT_STATE = {
   // same SRS as every other deck. known/unknown are manual overrides on top of
   // "vocabulary from vi2 lessons you've finished" — normalized lowercase
   // syllables, the same unit the frequency list uses.
-  mine:{ cards:[], known:[], unknown:[] }, // 12-week LaiLingo+Migaku plan (replaces the retired 60-Day Challenge)
+  // Migaku's three word states. known/learning/unknown hold MANUAL overrides
+  // only — everything else is derived from lessons finished and SRS maturity
+  // (see wordKnowledge()). A word may appear in at most one of the three.
+  mine:{ cards:[], known:[], learning:[], unknown:[] },
   contentMode:'classic', // 'new' (fresh app-within-the-app content) | 'classic' (original word/phrase database) — Cards tab toggle
   voiceGender:'male', // VESTIGIAL as of 2026-08-30 — the female voice and its Profile toggle were removed and audioBasePath() is hard-wired to audio/male/. Left in DEFAULT_STATE only so saved states that still carry 'female' stay valid JSON round-trips; nothing reads it.
   completedConcepts:[], // ids of CONCEPT_LESSONS marked "Learned"
@@ -14707,6 +14808,11 @@ function isDifficultWord(srsId){
   if(!s || s.interval >= 21) return false;
   return (s.lapses||0) > 0 || s.ease < 2.3;
 }
+// Unknown / Learning / Known are the same three states the Mine tab marks
+// text with (see wordKnowledge()), expressed here in SRS terms: no card at
+// all is unknown, a card under 21 days is learning, 21+ days is known.
+function isUnknownCard(srsId){ return !state.srs[srsId]; }
+
 let cardsTabMode = 'words'; // 'words' | 'phrases' | 'listen'
 let cardsSubTab = 'study'; // 'study' | 'browse' — Cards tab now merges the old Cards (study) and Words (browse) tabs
 function setContentMode(mode){
@@ -14745,6 +14851,25 @@ function startActiveStudy(bucketId){
   else if(cardsTabMode==='listen') startListenStudy(bucketId);
   else startPhraseStudy(bucketId);
 }
+// Straight at the words you have never once seen — lowest rank first, so it
+// stays frequency-ordered rather than random.
+function startUnknownWordsStudy(){
+  const pool = wordStudyPool().filter(w=>isUnknownCard(w.srsId)).slice(0, SRS_SESSION_CAP);
+  swipeState = { deck: pool, idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'word' };
+  document.getElementById('swipeOverlay').classList.add('open');
+  startStudyTimer(swipeState.mode);
+  renderSwipe();
+}
+function startUnknownPhrasesStudy(){
+  const pool = phraseStudyPool().filter(p=>isUnknownCard(p.srsId)).slice(0, SRS_SESSION_CAP);
+  swipeState = { deck: pool, idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'cphrase' };
+  document.getElementById('swipeOverlay').classList.add('open');
+  startStudyTimer(swipeState.mode);
+  renderSwipe();
+}
+function startActiveUnknownStudy(){
+  cardsTabMode==='words' ? startUnknownWordsStudy() : startUnknownPhrasesStudy();
+}
 function startActiveDifficultStudy(){
   if(cardsTabMode==='words') startDifficultWordsStudy();
   else if(cardsTabMode==='listen') startDifficultListenStudy();
@@ -14771,8 +14896,9 @@ function renderFlashcardsHub(){
   document.getElementById('wcStartSub').textContent = isListen
     ? 'Listen first, guess the meaning, then grade yourself Again / Hard / Good / Easy.'
     : 'Anki-style — grade yourself Again / Hard / Good / Easy.';
+  document.getElementById('wcUnknownLabel').textContent = isWords ? 'Unknown words' : 'Unknown phrases';
   document.getElementById('wcDifficultLabel').textContent = isWords ? 'Difficult words' : 'Difficult phrases';
-  document.getElementById('wcMasteredLabel').textContent = isWords ? 'Mastered words' : 'Mastered phrases';
+  document.getElementById('wcMasteredLabel').textContent = isWords ? 'Known words' : 'Known phrases';
   document.getElementById('wcBreakdownTitle').textContent = isWords ? 'Progress by frequency' : 'Progress by phrase set';
   document.getElementById('wcBreakdownSub').textContent = isWords
     ? "How far you've gotten through each tier of common words."
@@ -14809,10 +14935,11 @@ function renderFlashcardsHub(){
       : `Goal reached today! (${todayCount}/${goal}) — study more?`;
   }
 
-  document.getElementById('wcNew').textContent = newCount;
-  document.getElementById('wcTotal').textContent = pool.length;
-  document.getElementById('wcDifficultCount').textContent = difficult;
-  document.getElementById('wcMasteredCount').textContent = mastered;
+  document.getElementById('wcNew').textContent = String(newCount);
+  document.getElementById('wcTotal').textContent = String(pool.length);
+  document.getElementById('wcUnknownCount').textContent = String(pool.filter(c=>isUnknownCard(c.srsId)).length);
+  document.getElementById('wcDifficultCount').textContent = String(difficult);
+  document.getElementById('wcMasteredCount').textContent = String(mastered);
 
   const pct = pool.length ? Math.round(mastered/pool.length*100) : 0;
   document.getElementById('wcMasteredPct').textContent = pct + '%';
@@ -15510,7 +15637,7 @@ function startDifficultWordsStudy(){
 // modal rather than building a whole new overlay for one list.
 function viewMasteredWords(){
   const mastered = wordStudyPool().filter(w=>isMasteredWord(w.srsId)).sort((a,b)=>a.rank-b.rank);
-  document.getElementById('toolTitle').textContent = `Mastered words (${mastered.length})`;
+  document.getElementById('toolTitle').textContent = `Known words (${mastered.length})`;
   document.getElementById('toolBody').innerHTML = mastered.length ? mastered.map(w=>{
     const gloss = WORD_GLOSS[w.word];
     const wEsc = w.word.replace(/'/g,"\\'");
@@ -15519,7 +15646,7 @@ function viewMasteredWords(){
       <p class="fw"><span class="tap-word" onclick="event.stopPropagation();showWordInfo('${wEsc}')">${w.word}</span>${gloss?`<span class="fw-en"> — ${gloss}</span>`:''}</p>
       <div class="freq-num-pill" style="background:${TIER_COLOR[w.star]}">${w.rank>=999999?'Not ranked':w.rank.toLocaleString()}</div>
     </div>`;
-  }).join('') : `<div class="empty"><div class="big">🏆</div>No words mastered yet — keep studying and they'll show up here.</div>`;
+  }).join('') : `<div class="empty"><div class="big">🏆</div>No words marked known yet — a card that survives 21 days lands here.</div>`;
   document.getElementById('toolBackdrop').classList.add('open');
 }
 // --- Common Phrases deck (parallel to the word deck above, same SRS engine) ---
@@ -15567,11 +15694,11 @@ function startDifficultPhrasesStudy(){
 }
 function viewMasteredPhrases(){
   const mastered = phraseStudyPool().filter(p=>isMasteredWord(p.srsId)).sort((a,b)=>a.rank-b.rank);
-  document.getElementById('toolTitle').textContent = `Mastered phrases (${mastered.length})`;
+  document.getElementById('toolTitle').textContent = `Known phrases (${mastered.length})`;
   document.getElementById('toolBody').innerHTML = mastered.length ? mastered.map(p=>`
     <div class="freq-item" onclick="playAudio('${p.srsId}', '${p.v.replace(/'/g,"\\'")}', currentAccent)">
       <p class="fw">${p.v}<span class="fw-en"> — ${p.e}</span></p>
-    </div>`).join('') : `<div class="empty"><div class="big">🏆</div>No phrases mastered yet — keep studying and they'll show up here.</div>`;
+    </div>`).join('') : `<div class="empty"><div class="big">🏆</div>No phrases marked known yet — a card that survives 21 days lands here.</div>`;
   document.getElementById('toolBackdrop').classList.add('open');
 }
 // --- Listen & Guess: same phrase deck/srsId's as the Phrases mode above, just
@@ -15656,6 +15783,7 @@ function renderSwipe(){
               <p class="sn-e">${ex.e}</p>
             </div>`).join('')}
         </div>` : ''}
+      <button class="sc-know" onclick="event.stopPropagation();knowThisCard()">✓ I already know this</button>
       <p class="sc-hint">${swipeState.flipped ? '' : 'Tap to flip'}</p>
     </div>`;
   } else if(swipeState.mode==='cphrase'){
@@ -17430,7 +17558,7 @@ function renderPlan(){
   if(!startCard || !wrap) return;
   if(caveats){
     caveats.innerHTML = PLAN_CAVEATS.map(([t,d])=>
-      `<div class="lsn-concept-card-mini"><p class="ws-title" style="margin:0 0 2px;">${t}</p><p class="ws-sub" style="margin:0;">${d}</p></div>`).join('');
+      `<div class="pl-card caveat"><p class="t">${t}</p><p class="d">${d}</p></div>`).join('');
   }
   const p = state.plan;
   const started = !!(p && p.startDate);
@@ -17447,41 +17575,59 @@ function renderPlan(){
     `Block ${block.n} — ${block.title}` + (week===realWeek ? ' · this week' : ` · you are in week ${realWeek}`);
 
   document.getElementById('planWeekChips').innerHTML =
-    Array.from({length:12}, (_,i)=>i+1).map(w=>
-      `<button class="chip ${w===week?'active':''}" onclick="setPlanViewWeek(${w})">${w}</button>`).join('');
+    Array.from({length:12}, (_,i)=>i+1).map(w=>{
+      const cls = [w < realWeek ? 'done' : '', w === realWeek ? 'now' : '', w === week ? 'active' : ''].filter(Boolean).join(' ');
+      return `<button class="pl-week ${cls}" onclick="setPlanViewWeek(${w})">${w}</button>`;
+    }).join('');
 
   const day = p.daily[planTodayKey()] || {};
   const doneMin = PLAN_ENGINE.filter(e=>day[e.id]).reduce((a,e)=>a+e.min,0);
   const totalMin = PLAN_ENGINE.reduce((a,e)=>a+e.min,0);
-  document.getElementById('planEngineSub').textContent = `${doneMin} of ${totalMin} minutes done today.`;
-  document.getElementById('planEngineList').innerHTML = PLAN_ENGINE.map(e=>`
-    <button class="lsn-concept-card-mini" style="width:100%;text-align:left;${day[e.id]?'opacity:.55;':''}" onclick="togglePlanEngine('${e.id}')">
-      <p class="ws-title" style="margin:0 0 2px;">${day[e.id]?'✅':e.icon} ${e.title} <span style="font-weight:400;">· ${e.min} min</span></p>
-      <p class="ws-sub" style="margin:0;">${e.detail}</p>
+  const pct = totalMin ? Math.round((doneMin/totalMin)*100) : 0;
+  const doneCount = PLAN_ENGINE.filter(e=>day[e.id]).length;
+  document.getElementById('planEngineSub').textContent =
+    doneCount === PLAN_ENGINE.length ? 'All four done. That is the day.' : 'Four things. Everything else is scaffolding.';
+  document.getElementById('planEngineList').innerHTML = `
+    <div class="pl-progress">
+      <div class="pl-progress-label">
+        <span class="big">${doneMin}<span> / ${totalMin} min today</span></span>
+        <span class="pct">${pct}%</span>
+      </div>
+      <div class="pl-progress-track"><div class="pl-progress-fill" style="width:${pct}%"></div></div>
+    </div>` + PLAN_ENGINE.map(e=>`
+    <button class="pl-task ${day[e.id]?'done':''}" onclick="togglePlanEngine('${e.id}')">
+      <span class="box">${day[e.id]?'✓':''}</span>
+      <span class="body">
+        <span class="t">${e.icon} ${e.title} <span class="min">${e.min} min</span></span>
+        <span class="d">${e.detail}</span>
+      </span>
     </button>`).join('');
 
   document.getElementById('planBlockWeeks').textContent = `Weeks ${block.weeks[0]}–${block.weeks[1]}`;
   document.getElementById('planBlockBody').innerHTML = `
-    <p class="ws-sub" style="margin:0 0 10px;">${block.why}</p>
-    <div class="lsn-concept-card-mini"><p class="ws-title" style="margin:0 0 2px;">📘 LaiLingo</p><p class="ws-sub" style="margin:0;">${block.lailingo}</p></div>
-    <div class="lsn-concept-card-mini"><p class="ws-title" style="margin:0 0 2px;">🧠 Migaku</p><p class="ws-sub" style="margin:0;">${block.migaku}</p></div>
-    <div class="lsn-concept-card-mini"><p class="ws-title" style="margin:0 0 2px;">🚪 Gate to leave this block</p><p class="ws-sub" style="margin:0;">${block.gate}</p></div>`;
+    <p class="pl-why">${block.why}</p>
+    <div class="pl-card lailingo"><p class="t">📘 LaiLingo</p><p class="d">${block.lailingo}</p></div>
+    <div class="pl-card migaku"><p class="t">🧠 Migaku</p><p class="d">${block.migaku}</p></div>
+    <div class="pl-card gate"><p class="t">🚪 Gate to leave this block</p><p class="d">${block.gate}</p></div>`;
 
   const wk = p.weekly[week] || {};
   const field = (key,label,ph)=>`
-    <label class="ws-sub" style="display:block;margin:8px 0 2px;">${label}</label>
-    <input class="prm-input" style="width:100%;" value="${(wk[key]||'').toString().replace(/"/g,'&quot;')}"
-           placeholder="${ph}" oninput="updatePlanLog(${week}, '${key}', this.value)">`;
+    <div class="pl-field">
+      <label>${label}</label>
+      <input value="${(wk[key]||'').toString().replace(/"/g,'&quot;')}"
+             placeholder="${ph}" oninput="updatePlanLog(${week}, '${key}', this.value)">
+    </div>`;
   document.getElementById('planWeeklyLog').innerHTML =
     field('newCards','New cards','15/day target') +
     field('mature','Mature cards','running total') +
     field('lesson','LaiLingo lesson reached','e.g. vi2_l24') +
     field('immersion','Immersion minutes','per day') +
     field('score','Migaku comprehension score','%') +
-    `<label class="ws-sub" style="display:block;margin:10px 0 2px;">Gate passed?</label>
-     <div class="chip-row">
-       <button class="chip ${wk.gate==='y'?'active':''}" onclick="updatePlanLog(${week},'gate','y');renderPlan();">Yes</button>
-       <button class="chip ${wk.gate==='n'?'active':''}" onclick="updatePlanLog(${week},'gate','n');renderPlan();">Not yet — repeat the block</button>
+    `<div class="pl-field" style="margin-top:14px;"><label>Gate passed?</label>
+       <div class="pl-gate-row">
+         <button class="pl-gate-btn yes ${wk.gate==='y'?'on':''}" onclick="updatePlanLog(${week},'gate','y');renderPlan();">✓ Yes</button>
+         <button class="pl-gate-btn no ${wk.gate==='n'?'on':''}" onclick="updatePlanLog(${week},'gate','n');renderPlan();">Not yet — repeat</button>
+       </div>
      </div>`;
 }
 
@@ -18620,35 +18766,144 @@ function mineTokens(text){
   return out;
 }
 
-function mineKnownSet(){
+// Anki's mature threshold, and the line this app draws between "I'm studying
+// this" and "I know this".
+const MATURE_INTERVAL_DAYS = 21;
+
+/* Three states, the same set Migaku marks text with:
+     unknown   — never met it
+     learning  — met it and am practising it, but haven't claimed it
+     known     — I know this one
+
+   Everything is DERIVED unless you've said otherwise by tapping the word:
+     mature SRS card (interval >= 21d) ............ known
+     any SRS card, or vocab from a finished lesson  learning
+     neither ...................................... unknown
+   A manual mark always wins and sticks, in any direction. */
+function _mineBuildIndex(){
   if(_mineKnownCache) return _mineKnownCache;
-  const set = new Set();
-  const addPhrase = (p)=>{ mineNorm(p).split(/[^\p{L}\p{M}]+/u).forEach(s=>{ if(s) set.add(s); }); };
+  const learning = new Set(), known = new Set();
+  const syls = (p)=>mineNorm(p).split(/[^\p{L}\p{M}]+/u).filter(Boolean);
+  const mark = (p, mature)=>syls(p).forEach(s=>(mature ? known : learning).add(s));
+
   const done = (state.vi2 && state.vi2.completedLessons) || [];
-  LESSONS_VI2.forEach(l=>{ if(done.includes(l.id)) (l.vocab||[]).forEach(v=>addPhrase(v.v)); });
-  // A mined word counts as known once it's been graded even once — before that
-  // it's still the thing you're trying to learn.
-  (state.mine.cards||[]).forEach(c=>{ if(state.srs['mine_'+c.id]) addPhrase(c.target); });
+  LESSONS_VI2.forEach(l=>{
+    if(!done.includes(l.id)) return;
+    (l.vocab||[]).forEach((v,i)=>{
+      const s = state.srs['lvocab_' + l.id + '_' + i];
+      mark(v.v, !!s && s.interval >= MATURE_INTERVAL_DAYS);
+    });
+  });
+  // Frequency-deck progress counts too — studying a word in Cards is studying it.
+  Object.keys(state.srs || {}).forEach(id=>{
+    if(!id.startsWith('word_')) return;
+    mark(id.slice(5), state.srs[id].interval >= MATURE_INTERVAL_DAYS);
+  });
+  (state.mine.cards||[]).forEach(c=>{
+    const s = state.srs['mine_' + c.id];
+    if(s) mark(c.target, s.interval >= MATURE_INTERVAL_DAYS);
+  });
+  known.forEach(w=>learning.delete(w));
+  _mineKnownCache = { learning, known };
+  return _mineKnownCache;
+}
+function wordKnowledge(word){
+  const w = mineNorm(word);
+  if((state.mine.known||[]).includes(w)) return 'known';
+  if((state.mine.learning||[]).includes(w)) return 'learning';
+  if((state.mine.unknown||[]).includes(w)) return 'unknown';
+  const ix = _mineBuildIndex();
+  if(ix.known.has(w)) return 'known';
+  if(ix.learning.has(w)) return 'learning';
+  return 'unknown';
+}
+// Kept for anything that just wants "is this new to me?" — known AND learning
+// both count as met, because a word you're actively studying is not what makes
+// a sentence too hard.
+function mineKnownSet(){
+  const ix = _mineBuildIndex();
+  const set = new Set([...ix.known, ...ix.learning]);
   (state.mine.known||[]).forEach(w=>set.add(w));
+  (state.mine.learning||[]).forEach(w=>set.add(w));
   (state.mine.unknown||[]).forEach(w=>set.delete(w));
-  _mineKnownCache = set;
   return set;
 }
 
-// Manual override, both directions. Marking a word known removes it from the
-// unknown list and vice versa, so the two lists can never disagree.
+// Tapping a word cycles unknown -> learning -> known -> unknown, the same
+// three marks Migaku puts on text. The chosen state is stored explicitly and
+// outranks anything derived, so a tap always sticks; a word lives in at most
+// one bucket.
+const MINE_CYCLE = { unknown:'learning', learning:'known', known:'unknown' };
+function setWordKnowledge(word, stateName){
+  const w = mineNorm(word);
+  ['known','learning','unknown'].forEach(k=>{
+    if(!state.mine[k]) state.mine[k] = [];
+    state.mine[k] = state.mine[k].filter(x=>x!==w);
+  });
+  state.mine[stateName].push(w);
+  _mineKnownCache = null;
+  saveState();
+}
+/* Marking a word is only half the job — the mark has to mean the same thing
+   to the Cards tab, which reads the SRS and knows nothing about the Mine
+   tab's buckets. So a mark writes BOTH: the explicit bucket (which wins in
+   wordKnowledge) and a matching SRS entry on the word's own card id. That way
+   isMasteredWord, isUnknownCard, isDueCard, countDue and buildSrsQueue all
+   agree with it for free, and "Known" on one screen means Known on the other.
+
+   Marking a word new deletes its card, the way Anki's Forget does — that IS
+   what the Unknown bucket means (no card at all), and it is an explicit
+   action, so it takes the study history with it. */
+function markWordKnowledge(word, stateName){
+  setWordKnowledge(word, stateName);
+  const id = 'word_' + mineNorm(word);
+  if(stateName === 'unknown'){
+    delete state.srs[id];
+  } else if(stateName === 'known'){
+    const s = getSrs(id);
+    if(s.interval < MATURE_INTERVAL_DAYS){
+      s.interval = MATURE_INTERVAL_DAYS;
+      s.reps = Math.max(s.reps || 0, 1);
+      const due = new Date(); due.setDate(due.getDate() + MATURE_INTERVAL_DAYS);
+      s.due = due.toISOString();
+    }
+    state.srs[id] = s;
+  } else {
+    const s = getSrs(id);
+    if(!state.srs[id] || s.interval >= MATURE_INTERVAL_DAYS){
+      s.interval = 1;
+      s.reps = Math.max(s.reps || 0, 1);
+      s.due = new Date().toISOString();
+    }
+    state.srs[id] = s;
+  }
+  _mineKnownCache = null;
+  saveState();
+}
+// From the word popup: set the state, repaint the popup and anything showing counts.
+function setWordInfoKnowledge(stateName){
+  if(!currentWordInfoText) return;
+  markWordKnowledge(currentWordInfoText, stateName);
+  showWordInfo(currentWordInfoText);
+  renderFlashcardsHub();
+  renderFrequency();
+  renderMine();
+}
+// From a word flashcard: "I already know this" — mark it and move on without
+// pretending a grade happened.
+function knowThisCard(){
+  const c = swipeState && swipeState.deck[swipeState.idx];
+  if(!c || !c.word) return;
+  markWordKnowledge(c.word, 'known');
+  swipeState.deck.splice(swipeState.idx, 1);
+  swipeState.flipped = false;
+  renderSwipe();
+  if(swipeState.idx >= swipeState.deck.length) renderAll();
+}
 function toggleMineKnown(idx){
   const tok = mineTokenCache[idx];
   if(!tok || !tok.word) return;
-  const w = mineNorm(tok.t);
-  if(!state.mine.known) state.mine.known = [];
-  if(!state.mine.unknown) state.mine.unknown = [];
-  const wasKnown = mineKnownSet().has(w);
-  state.mine.known = state.mine.known.filter(x=>x!==w);
-  state.mine.unknown = state.mine.unknown.filter(x=>x!==w);
-  if(wasKnown) state.mine.unknown.push(w); else state.mine.known.push(w);
-  _mineKnownCache = null;
-  saveState();
+  setWordKnowledge(tok.t, MINE_CYCLE[wordKnowledge(tok.t)] || 'learning');
   analyzeMine();
   renderMine();
 }
@@ -18695,13 +18950,16 @@ function analyzeMine(){
     mineTarget = null; mineForce = false;
     return;
   }
-  const known = mineKnownSet();
+  // Only genuinely UNKNOWN words count against i+1. A word you're already
+  // studying ('learning') is not what makes a sentence too hard — that's the
+  // whole point of separating the two states.
   const unknown = [];
   mineTokenCache.forEach(t=>{
     if(!t.word) return;
     const w = mineNorm(t.t);
-    t.known = known.has(w);
-    if(!t.known && !unknown.includes(w)) unknown.push(w);
+    t.state = wordKnowledge(w);
+    t.known = t.state !== 'unknown';
+    if(t.state === 'unknown' && !unknown.includes(w)) unknown.push(w);
   });
   // Keep the target only while it's still one of the unknown words.
   const rawCompound = unknown.length > 1 ? mineAdjacentCompound() : null;
@@ -18716,7 +18974,7 @@ function analyzeMine(){
   const chips = mineTokenCache.map((t,i)=>{
     if(!t.word) return mineEsc(t.t);
     const isTarget = !t.known && !!mineTarget && mineTarget.split(' ').includes(mineNorm(t.t));
-    const cls = isTarget ? 'target' : (t.known ? 'known' : 'unknown');
+    const cls = isTarget ? 'target' : t.state;
     return `<button class="mine-tok ${cls}" onclick="toggleMineKnown(${i})">${mineEsc(t.t)}</button>`;
   }).join('');
 
@@ -18741,7 +18999,16 @@ function analyzeMine(){
       }</div>`;
     }
   }
-  box.innerHTML = `<p class="mine-label">Tap any word to flip it known / new</p><div class="mine-tokens">${chips}</div>${verdict}${picker}`;
+  const nLearn = mineTokenCache.filter(t=>t.word && t.state==='learning').length;
+  box.innerHTML = `<p class="mine-label">Tap a word to cycle it: new → learning → known</p>
+    <div class="mine-tokens">${chips}</div>
+    <div class="mine-legend">
+      <i><span class="sw" style="background:rgba(232,137,74,.55);"></span>new</i>
+      <i><span class="sw" style="background:rgba(240,169,59,.75);"></span>learning</i>
+      <i><span class="sw" style="background:rgba(58,157,102,.5);"></span>known</i>
+    </div>
+    ${nLearn ? `<p class="section-sub" style="margin:8px 0 0;">${nLearn} word${nLearn===1?' is':'s are'} in learning — already on a card, so ${nLearn===1?'it doesn\'t':'they don\'t'} count against i+1.</p>` : ''}
+    ${verdict}${picker}`;
 
   const canSave = !!mineTarget && (unknown.length === 1 || mineForce);
   if(form){
@@ -18838,12 +19105,22 @@ function renderMine(){
   }
   const sum = document.getElementById('mineKnownSummary');
   if(sum){
+    const ix = _mineBuildIndex();
+    const manualKnown = new Set(state.mine.known||[]);
+    const manualLearn = new Set(state.mine.learning||[]);
+    const manualNew   = new Set(state.mine.unknown||[]);
+    const known = new Set([...ix.known, ...manualKnown]);
+    const learning = new Set([...ix.learning, ...manualLearn]);
+    manualNew.forEach(w=>{ known.delete(w); learning.delete(w); });
+    manualKnown.forEach(w=>learning.delete(w));
+    manualLearn.forEach(w=>known.delete(w));
     const done = (state.vi2 && state.vi2.completedLessons) || [];
-    const manual = (state.mine.known||[]).length;
-    const hidden = (state.mine.unknown||[]).length;
-    sum.textContent = `${mineKnownSet().size.toLocaleString()} words known — from ${done.length} finished lesson${done.length===1?'':'s'}`
-      + (manual?`, ${manual} marked known by hand`:'')
-      + (hidden?`, ${hidden} marked back to new`:'') + '.';
+    const manual = manualKnown.size + manualLearn.size + manualNew.size;
+    sum.innerHTML = `<div class="mine-counts">
+        <div class="mine-count known"><div class="n">${known.size.toLocaleString()}</div><div class="l">Known</div></div>
+        <div class="mine-count learning"><div class="n">${learning.size.toLocaleString()}</div><div class="l">Learning</div></div>
+      </div>
+      <p class="section-sub" style="margin-top:8px;">Known means a card that survived ${MATURE_INTERVAL_DAYS} days, or a word you marked yourself. Learning means it's on a card but not there yet — from ${done.length} finished lesson${done.length===1?'':'s'} and your frequency deck.${manual?` ${manual} marked by hand.`:''}</p>`;
   }
 }
 
