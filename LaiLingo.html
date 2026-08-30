@@ -14130,16 +14130,17 @@ const CORE_PHRASES = [
 // Hong Konger would really say it — asking a favour, or thanking someone.
 //
 // TERMINOLOGY: horticultural Cantonese for cannabis specifically is thin, so most
-// of this comes from general Cantonese farming and nursery vocabulary (打葉, 插枝,
+// of this comes from general Cantonese farming and nursery vocabulary (摘葉, 插枝,
 // 母株, 淋水, 落肥) — what crew who learned the work in Cantonese actually use.
-// Worth checking 打葉 and 插枝 against your own crew; some say 剪葉 and 扦插.
+// 摘葉 is confirmed — it is the crew's own word, replacing my earlier guess of
+// 打葉. 插枝 is still unchecked; some say 扦插.
 const WORLDS_YUE = [
   { id:'yw_grow', icon:'🌿', title:'Cannabis Facility', tagline:'Sort the crew, run a de-leaf, get a harvest through, cut clones.', tags:['Crew','Grow','Harvest','Safety'] },
 ];
 
 const PACKS_YUE = [
   { id:'yp1', icon:'🗓️', title:'Sorting the Week With Uncle', tag:'Crew', color:'stool-blue', cards:[
-    {v:'林生，聽日打三號房葉呀，有冇人手？', p:'lam4 saang1, ting1 jat6 daa2 saam1 hou6 fong2 jip6 aa3, jau5 mou5 jan4 sau2?', e:'Uncle, de-leafing Room 3 tomorrow — got anyone free?'},
+    {v:'林生，聽日摘三號房嘅葉呀，有冇人手？', p:'lam4 saang1, ting1 jat6 zaak6 saam1 hou6 fong2 ge3 jip6 aa3, jau5 mou5 jan4 sau2?', e:'Uncle, de-leafing Room 3 tomorrow — got anyone free?'},
     {v:'你同啲阿姨講聲啦，聽朝八點返。', p:'nei5 tung4 di1 aa3 ji1 gong2 seng1 laa1, ting1 ziu1 baat3 dim2 faan1.', e:'Give the aunties a shout — eight tomorrow morning.'},
     {v:'今個禮拜邊日得閒呀？要收成喇。', p:'gam1 go3 lai5 baai3 bin1 jat6 dak1 haan4 aa3? jiu3 sau1 sing4 laa3.', e:'Which day are you free this week? Harvest is due.'},
     {v:'夠人嘅話，一日搞掂佢。', p:'gau3 jan4 ge3 waa2, jat1 jat6 gaau2 dim6 keoi5.', e:'If we’ve got the bodies, we knock it out in a day.'},
@@ -14156,7 +14157,7 @@ const PACKS_YUE = [
     {v:'我唔記得咗佢個名，點稱呼佢好？', p:'ngo5 m4 gei3 dak1 zo2 keoi5 go3 meng2, dim2 cing1 fu1 keoi5 hou2?', e:'I’ve forgotten his name — what should I call him?'},
     {v:'叫聲阿叔啦，佢喺度做咗好耐。', p:'giu3 seng1 aa3 suk1 laa1, keoi5 hai2 dou6 zou6 zo2 hou2 noi6.', e:'Call him uncle — he’s been here a long time.'}]},
   { id:'yp2', icon:'✂️', title:'Running a De-Leaf', tag:'Grow', color:'stool-yellow', cards:[
-    {v:'哩間房今日打葉，唔好搞到啲花呀。', p:'ni1 gaan1 fong2 gam1 jat6 daa2 jip6, m4 hou2 gaau2 dou2 di1 faa1 aa3.', e:'This room’s getting de-leafed today — mind the flowers.'},
+    {v:'哩間房今日摘葉，唔好搞到啲花呀。', p:'ni1 gaan1 fong2 gam1 jat6 zaak6 jip6, m4 hou2 gaau2 dou2 di1 faa1 aa3.', e:'This room’s getting de-leafed today — mind the flowers.'},
     {v:'淨係剪大塊嗰啲，細嘅唔好郁。', p:'zing6 hai6 zin2 daai6 faai3 go2 di1, sai3 ge3 m4 hou2 juk1.', e:'Only the big fan leaves — leave the little ones alone.'},
     {v:'底下嗰啲，剪晒佢。', p:'dai2 haa6 go2 di1, zin2 saai3 keoi5.', e:'Everything down the bottom — take it all off.'},
     {v:'剪落嚟擺入桶呀，唔好掟落地。', p:'zin2 lok6 lai4 baai2 jap6 tung2 aa3, m4 hou2 deng3 lok6 dei6.', e:'Trimmings go in the bin, don’t chuck them on the floor.'},
@@ -14265,9 +14266,9 @@ const PACKS_YUE = [
 
   { id:'yp15', icon:'📅', title:'Day Counts and Leaf Removal', tag:'Grow', color:'stool-yellow', cards:[
     {v:'八號房今日第四十三日。', p:'baat3 hou6 fong2 gam1 jat6 dai6 sei3 sap6 saam1 jat6.', e:'Room 8 is on day 43 today.'},
-    {v:'第四十五日要做第二次打葉。', p:'dai6 sei3 sap6 ng5 jat6 jiu3 zou6 dai6 ji6 ci3 daa2 jip6.', e:'The second leaf removal is at day 45.'},
-    {v:'哩間房打過一次喇，今次係第二次。', p:'ni1 gaan1 fong2 daa2 gwo3 jat1 ci3 laa3, gam1 ci3 hai6 dai6 ji6 ci3.', e:'This room’s been done once — this is the second pass.'},
-    {v:'禮拜日要打六號同七號房嘅葉。', p:'lai5 baai3 jat6 jiu3 daa2 luk6 hou6 tung4 cat1 hou6 fong2 ge3 jip6.', e:'Rooms 6 and 7 need de-leafing on Sunday.'},
+    {v:'第四十五日要做第二次摘葉。', p:'dai6 sei3 sap6 ng5 jat6 jiu3 zou6 dai6 ji6 ci3 zaak6 jip6.', e:'The second leaf removal is at day 45.'},
+    {v:'哩間房摘過一次喇，今次係第二次。', p:'ni1 gaan1 fong2 zaak6 gwo3 jat1 ci3 laa3, gam1 ci3 hai6 dai6 ji6 ci3.', e:'This room’s been done once — this is the second pass.'},
+    {v:'禮拜日要摘六號同七號房嘅葉。', p:'lai5 baai3 jat6 jiu3 zaak6 luk6 hou6 tung4 cat1 hou6 fong2 ge3 jip6.', e:'Rooms 6 and 7 need de-leafing on Sunday.'},
     {v:'一號同九號房嘅嘢，全部斬晒佢。', p:'jat1 hou6 tung4 gau2 hou6 fong2 ge3 je5, cyun4 bou6 zaam2 saai3 keoi5.', e:'Rooms 1 and 9 — cut all the plants down.'},
     {v:'仲爭幾日先收成？', p:'zung6 zaang1 gei2 jat6 sin1 sau1 sing4?', e:'How many days until harvest?'},
     {v:'哩間房遲兩日先夠日子。', p:'ni1 gaan1 fong2 ci4 loeng5 jat6 sin1 gau3 jat6 zi2.', e:'This room needs two more days before it’s ready.'}]},
@@ -14292,7 +14293,7 @@ const PACKS_YUE = [
 
   { id:'yp18', icon:'💬', title:'Messages You’ve Sent', tag:'Crew', color:'stool-blue', cards:[
     {v:'林生，星期一落乾房二號同三號嘅花。有個新做法，記得照住做。', p:'lam4 saang1, sing1 kei4 jat1 lok6 gon1 fong2 ji6 hou6 tung4 saam1 hou6 ge3 faa1. jau5 go3 san1 zou6 faat3, gei3 dak1 ziu3 zyu6 zou6.', e:'Uncle — Monday, bring down the flower from Dry Rooms B and C. There’s a new procedure, make sure you follow it.'},
-    {v:'八號房今日第四十三日。禮拜日要打第二次葉。', p:'baat3 hou6 fong2 gam1 jat6 dai6 sei3 sap6 saam1 jat6. lai5 baai3 jat6 jiu3 daa2 dai6 ji6 ci3 jip6.', e:'Room 8 is on day 43 today. The second leaf removal is due Sunday.'},
+    {v:'八號房今日第四十三日。禮拜日要摘第二次葉。', p:'baat3 hou6 fong2 gam1 jat6 dai6 sei3 sap6 saam1 jat6. lai5 baai3 jat6 jiu3 zaak6 dai6 ji6 ci3 jip6.', e:'Room 8 is on day 43 today. The second leaf removal is due Sunday.'},
     {v:'南廠星期一一號同九號房收成，成棵斬晒佢。', p:'naam4 cong2 sing1 kei4 jat1 jat1 hou6 tung4 gau2 hou6 fong2 sau1 sing4, seng4 po1 zaam2 saai3 keoi5.', e:'NLT, Monday — Rooms 1 and 9 get harvested. Cut all the plants down.'},
     {v:'東廠嘅枝可以留長啲，執葉就同南廠一樣。', p:'dung1 cong2 ge3 zi1 ho2 ji5 lau4 coeng4 di1, zap1 jip6 zau6 tung4 naam4 cong2 jat1 joeng6.', e:'For ESG you can keep the clone cuttings long — just clean the leaf the same way as NLT.'},
     {v:'要留夠時間插苗，所以要早啲剪完。', p:'jiu3 lau4 gau3 si4 gaan3 caap3 miu4, so2 ji5 jiu3 zou2 di1 zin2 jyun4.', e:'There has to be enough time to stick the clones in the trays — that’s why we’re rushing to finish the cuttings early.'},
@@ -14305,7 +14306,35 @@ const PACKS_YUE = [
     {v:'禮拜三朝早八點嚟南廠幫手剪苗，一共兩千一百五十棵。', p:'lai5 baai3 saam1 ziu1 zou2 baat3 dim2 lai4 naam4 cong2 bong1 sau2 zin2 miu4, jat1 gung6 loeng5 cin1 jat1 baak3 ng5 sap6 po1.', e:'Wednesday 8am, come to NLT to help cut the baby clones — 2,150 in total.'},
     {v:'泥盆供應商有冇一加侖或者一加侖半嘅布盆？', p:'nai4 pun4 gung1 jing3 soeng1 jau5 mou5 jat1 gaa1 leon2 waak6 ze2 jat1 gaa1 leon2 bun3 ge3 bou3 pun4?', e:'Does the soil pot supplier have one-gallon or one-and-a-half gallon fabric pots?'},
     {v:'南廠星期一落乾房二號嘅嘢，跟住開始拆枝。', p:'naam4 cong2 sing1 kei4 jat1 lok6 gon1 fong2 ji6 hou6 ge3 je5, gan1 zyu6 hoi1 ci2 caak3 zi1.', e:'NLT, Monday — bring down what’s in Dry Room B and start the bucking.'},
-    {v:'南廠要阿姨幫手打六號同七號房嘅葉，第四十五日第二次。', p:'naam4 cong2 jiu3 aa3 ji1 bong1 sau2 daa2 luk6 hou6 tung4 cat1 hou6 fong2 ge3 jip6, dai6 sei3 sap6 ng5 jat6 dai6 ji6 ci3.', e:'NLT needs the aunties to de-leaf Rooms 6 and 7 — second removal, day 45.'}]},
+    {v:'南廠要阿姨幫手摘六號同七號房嘅葉，第四十五日第二次。', p:'naam4 cong2 jiu3 aa3 ji1 bong1 sau2 zaak6 luk6 hou6 tung4 cat1 hou6 fong2 ge3 jip6, dai6 sei3 sap6 ng5 jat6 dai6 ji6 ci3.', e:'NLT needs the aunties to de-leaf Rooms 6 and 7 — second removal, day 45.'}]},
+
+  { id:'yp19', icon:'⚡', title:'What You Say All Day', tag:'Crew', color:'stool-bar', cards:[
+    {v:'遲啲先做啦，唔急。', p:'ci4 di1 sin1 zou6 laa1, m4 gap1.', e:'Do it later, no rush.'},
+    {v:'一陣先啦。', p:'jat1 zan6 sin1 laa1.', e:'In a bit.'},
+    {v:'搞掂未呀？', p:'gaau2 dim6 mei6 aa3?', e:'Done yet?'},
+    {v:'搞掂喇！', p:'gaau2 dim6 laa3!', e:'Done!'},
+    {v:'幾多呀？', p:'gei2 do1 aa3?', e:'How many?'},
+    {v:'夠喇夠喇，唔使咁多。', p:'gau3 laa3 gau3 laa3, m4 sai2 gam3 do1.', e:'That’s enough, that’s enough — no need for that many.'},
+    {v:'冇喇，唔使再攞。', p:'mou5 laa3, m4 sai2 zoi3 lo2.', e:'No more — don’t get any more.'},
+    {v:'下次唔好噉做啦。', p:'haa6 ci3 m4 hou2 gam2 zou6 laa1.', e:'Don’t do it that way next time.'},
+    {v:'哩個做先。', p:'ni1 go3 zou6 sin1.', e:'Do this one first.'},
+    {v:'跟住到哩個。', p:'gan1 zyu6 dou3 ni1 go3.', e:'This one’s next.'},
+    {v:'攞俾我睇下。', p:'lo2 bei2 ngo5 tai2 haa5.', e:'Bring it here, let me have a look.'},
+    {v:'拎過嚟啦。', p:'ling1 gwo3 lai4 laa1.', e:'Bring it over.'}]},
+
+  { id:'yp20', icon:'🌡️', title:'Quick Calls on the Floor', tag:'Grow', color:'stool-yellow', cards:[
+    {v:'摘葉呀，唔係剪花。', p:'zaak6 jip6 aa3, m4 hai6 zin2 faa1.', e:'De-leaf — not cutting the flower.'},
+    {v:'淨係摘葉，啲花留返。', p:'zing6 hai6 zaak6 jip6, di1 faa1 lau4 faan1.', e:'Just the leaves — leave the flower alone.'},
+    {v:'哩啲發咗霉，唔要喇。', p:'ni1 di1 faat3 zo2 mui4, m4 jiu3 laa3.', e:'This has gone mouldy — bin it.'},
+    {v:'有冇霉呀？睇清楚啲。', p:'jau5 mou5 mui4 aa3? tai2 cing1 co2 di1.', e:'Any mould? Have a proper look.'},
+    {v:'幾多磅呀？', p:'gei2 do1 bong2 aa3?', e:'How many pounds?'},
+    {v:'磅完話我知幾多磅。', p:'bong2 jyun4 waa6 ngo5 zi1 gei2 do1 bong2.', e:'Tell me the weight once you’ve weighed it.'},
+    {v:'校暗啲燈啦。', p:'gaau3 am3 di1 dang1 laa1.', e:'Dim the lights a bit.'},
+    {v:'間房太熱喇。', p:'gaan1 fong2 taai3 jit6 laa3.', e:'The room’s too hot.'},
+    {v:'開冷氣啦。', p:'hoi1 laang5 hei3 laa1.', e:'Put the AC on.'},
+    {v:'太熱喇，開大啲冷氣。', p:'taai3 jit6 laa3, hoi1 daai6 di1 laang5 hei3.', e:'Too hot — turn the AC up.'},
+    {v:'哩間房幾多度呀？', p:'ni1 gaan1 fong2 gei2 do1 dou6 aa3?', e:'What’s this room reading?'},
+    {v:'啲葉跌晒喺地下，執下啦。', p:'di1 jip6 dit3 saai3 hai2 dei6 haa2, zap1 haa5 laa1.', e:'There’s leaf all over the floor — give it a tidy.'}]},
 ];
 
 // The vocabulary of the job itself, pulled out of the facility packs so the
@@ -14331,7 +14360,7 @@ const FACILITY_VOCAB = [
   {v:'唞', p:'tau2', e:'to rest / take a breather', group:'Crew and shifts'},
 
   // --- de-leafing ---
-  {v:'打葉', p:'daa2jip6', e:'to de-leaf (some crews say 剪葉)', group:'De-leafing'},
+  {v:'摘葉', p:'zaak6jip6', e:'to de-leaf \u2014 the crew\u2019s own word', group:'De-leafing'},
   {v:'葉', p:'jip6', e:'leaf', group:'De-leafing'},
   {v:'剪', p:'zin2', e:'to cut / to trim', group:'De-leafing'},
   {v:'花', p:'faa1', e:'flower / bud', group:'De-leafing'},
@@ -14412,6 +14441,25 @@ const FACILITY_VOCAB = [
   {v:'次', p:'ci3', e:'time / occurrence (第二次 = the second time)', group:'Supplies and counting'},
   {v:'日子', p:'jat6zi2', e:'the number of days / the count', group:'Supplies and counting'},
   {v:'趕', p:'gon2', e:'to rush / be pressed for time', group:'Supplies and counting'},
+
+  // --- the short calls you make a hundred times a day ---
+  {v:'遲啲', p:'ci4di1', e:'later / in a while', group:'Everyday calls'},
+  {v:'一陣', p:'jat1zan6', e:'in a moment / a short while', group:'Everyday calls'},
+  {v:'搞掂', p:'gaau2dim6', e:'done / sorted', group:'Everyday calls'},
+  {v:'幾多', p:'gei2do1', e:'how many / how much', group:'Everyday calls'},
+  {v:'夠', p:'gau3', e:'enough', group:'Everyday calls'},
+  {v:'冇', p:'mou5', e:'none / not have', group:'Everyday calls'},
+  {v:'下次', p:'haa6ci3', e:'next time', group:'Everyday calls'},
+  {v:'先', p:'sin1', e:'first / before anything else', group:'Everyday calls'},
+  {v:'跟住', p:'gan1zyu6', e:'next / after that', group:'Everyday calls'},
+  {v:'攞', p:'lo2', e:'to fetch / to take', group:'Everyday calls'},
+  {v:'拎', p:'ling1', e:'to carry / to bring', group:'Everyday calls'},
+  {v:'執', p:'zap1', e:'to tidy / to pick up', group:'Everyday calls'},
+  {v:'校', p:'gaau3', e:'to adjust / to set (校暗 = to dim)', group:'Room conditions'},
+  {v:'暗', p:'am3', e:'dim / dark', group:'Room conditions'},
+  {v:'熱', p:'jit6', e:'hot', group:'Room conditions'},
+  {v:'度', p:'dou6', e:'degree (of temperature)', group:'Room conditions'},
+  {v:'發霉', p:'faat3mui4', e:'to go mouldy', group:'Pests and mildew'},
 ];
 
 const SOS_PHRASES_YUE = {
@@ -14439,7 +14487,7 @@ const CHAT_PERSONAS_YUE = {
   yw_grow: [
     { name:'林生 (Uncle)', icon:'👨‍🌾', opener:{v:'喂阿羅，聽日點呀？', e:'Oi Lo — what’s the plan tomorrow?'}, turns:[
       { youOptions:[
-          {v:'林生，聽日打三號房葉呀，有冇人手？', e:'Uncle, de-leafing Room 3 tomorrow — got anyone free?', correct:true},
+          {v:'林生，聽日摘三號房嘅葉呀，有冇人手？', e:'Uncle, de-leafing Room 3 tomorrow — got anyone free?', correct:true},
           {v:'你自己諗啦', e:'You figure it out', correct:false, tip:"He's asking because you set the plan. Bouncing it back leaves him nothing to pass on."},
           {v:'冇嘢做', e:'Nothing on', correct:false, tip:"There's plenty on. He'll just have to ask you again in an hour."},
         ], them:{v:'三號房呀？得四個阿姨得閒咋。', e:'Room 3? Only four of the aunties are free, mind.'} },
@@ -14454,7 +14502,7 @@ const CHAT_PERSONAS_YUE = {
           {v:'隨便啦', e:'Whatever', correct:false, tip:"He needs an actual time to pass on. 'Whatever' means he has to decide for you and wear it if it's wrong."},
         ], them:{v:'仲有，阿勝話四號房要插枝喎。幾時做？', e:'Also, Tsing says Room 4 needs clones cut. When?'} },
       { youOptions:[
-          {v:'打完葉先啦，後日插枝。', e:'De-leaf first — clones the day after.', correct:true},
+          {v:'摘完葉先啦，後日插枝。', e:'De-leaf first — clones the day after.', correct:true},
           {v:'一齊做啦，慳返時間', e:'Do both at once, saves time', correct:false, tip:"Four people split across two jobs means both get done badly — and clones cut in a rush don't root."},
           {v:'插枝唔急', e:'Clones aren’t urgent', correct:false, tip:"Waving it off with no day means he's asking again next week. Give him a date."},
         ], them:{v:'冇問題。我記低咗，同埋話俾阿勝知。', e:'No problem. Noted — I’ll tell Tsing too.'} },
