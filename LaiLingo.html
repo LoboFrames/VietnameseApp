@@ -13810,7 +13810,7 @@ function showWordInfo(word){
     : ('#' + rank.toLocaleString() + ' most common');
   const gloss = (custom && custom.e) || activeWordGloss(word.toLowerCase().normalize('NFC')) || activeWordGloss(word);
   const examples = findExampleSentences(word, 4);
-  const notes = WORD_NOTES[word] || {};
+  const notes = slangNotes()[word] || WORD_NOTES[word] || {};
   document.getElementById('wordSheetWord').textContent = word;
   const romEl = document.getElementById('wordSheetRom');
   const rom = (custom && custom.p) || (buildWordFrequencyList().find(x=>x.word===word)||{}).p || '';
@@ -14274,6 +14274,203 @@ const WORD_NOTES = {
   '搞掂': {lit:'sort + straight', note:'Done, sorted. The single most useful word on any Cantonese worksite. 搞掂未 asks if it is finished; 搞掂喇 says it is.'},
   '得閒': {lit:'get + idle', note:'To have free time. 得閒死唔得閒病 (free to die, not free to fall ill) is the fixed joke about being overworked.'},
   '返工': {lit:'return + work', note:'To go in to work. Cantonese uses 返 for going to a place you belong — 返屋企 is going home, 返學 going to school.'},
+};
+
+/* ================= VIETNAMESE SLANG AND SWEARING =================
+   Same two axes as the Cantonese deck: what KIND of thing it is (cat) and how
+   hard it LANDS (sev: mild / medium / strong / extreme).
+
+   Southern-weighted, because the vi2 course is Southern throughout. Where the
+   North and South genuinely differ the entry says so, and one of those
+   differences is a trap worth naming up front: 地 địt means "to f---" in the
+   North and "to fart" in the South, where the f-word is đụ. Getting that
+   backwards in Saigon is either very funny or very bad.
+
+   The other thing Vietnamese does that Cantonese does not: the PRONOUN you pick
+   carries more social weight than most swear words. mày/tao between close
+   friends is warm; the same pair aimed at a stranger or anyone older is a
+   deliberate insult before you have sworn at all. Those entries carry notes. */
+
+const VI_SLANG_VOCAB = [
+  // ---------- everyday, no edge ----------
+  {v:'trời ơi', e:'oh my god / for heaven’s sake', cat:'General slang', sev:'mild'},
+  {v:'trời đất ơi', e:'good heavens — bigger version of trời ơi', cat:'General slang', sev:'mild'},
+  {v:'má ơi', e:'oh mum! — Southern exclamation of surprise', cat:'General slang', sev:'mild'},
+  {v:'bó tay', e:'I give up / nothing I can do', cat:'General slang', sev:'mild'},
+  {v:'hết hồn', e:'that scared the life out of me', cat:'General slang', sev:'mild'},
+  {v:'mắc cười', e:'funny (Southern; the North says buồn cười)', cat:'General slang', sev:'mild'},
+  {v:'quá trời', e:'loads / tons — Southern', cat:'General slang', sev:'mild'},
+  {v:'quá xá', e:'really, very — Southern', cat:'General slang', sev:'mild'},
+  {v:'xạo', e:'to talk rubbish / to fib — Southern', cat:'General slang', sev:'mild'},
+  {v:'xạo ke', e:'full of it / a right fibber — Southern', cat:'General slang', sev:'medium'},
+  {v:'chảnh', e:'stuck-up / up yourself — Southern', cat:'General slang', sev:'medium'},
+  {v:'cà chớn', e:'messing about / unreliable — Southern', cat:'General slang', sev:'medium'},
+  {v:'nhây', e:'won’t let it drop / clingy in an annoying way', cat:'General slang', sev:'medium'},
+  {v:'kệ nó', e:'never mind it / leave it', cat:'General slang', sev:'mild'},
+  {v:'thôi kệ', e:'forget it then', cat:'General slang', sev:'mild'},
+  {v:'chán', e:'fed up / boring', cat:'General slang', sev:'mild'},
+  {v:'mệt quá', e:'so tired / worn out', cat:'General slang', sev:'mild'},
+  {v:'đã', e:'satisfying — đã quá! = that hit the spot', cat:'General slang', sev:'mild'},
+  {v:'ghê', e:'creepy, or “intensely” — ngon ghê = seriously tasty', cat:'General slang', sev:'mild'},
+  {v:'xỉn', e:'drunk', cat:'General slang', sev:'mild'},
+  {v:'nhậu', e:'to drink and eat with mates — a whole social institution', cat:'General slang', sev:'mild'},
+  {v:'quắc cần câu', e:'absolutely hammered', cat:'General slang', sev:'medium'},
+  {v:'phê', e:'buzzed / high / blissed out', cat:'General slang', sev:'medium'},
+  {v:'lẹ lên', e:'hurry up — Southern (the North says nhanh lên)', cat:'General slang', sev:'mild'},
+  {v:'dữ', e:'fierce / intense — dữ vậy? = whoa, that much?', cat:'General slang', sev:'mild'},
+  {v:'hổng', e:'không said the Southern way', cat:'General slang', sev:'mild'},
+  {v:'quê', e:'cringe / provincial / embarrassing', cat:'General slang', sev:'medium'},
+  {v:'trùm', e:'the boss at something / top dog', cat:'General slang', sev:'mild'},
+  {v:'gà', e:'a noob — literally “chicken”', cat:'General slang', sev:'mild'},
+  {v:'mày', e:'you — the blunt pronoun. Warm with close friends, an insult otherwise', cat:'General slang', sev:'medium'},
+  {v:'tao', e:'I — the blunt pronoun, always paired with mày', cat:'General slang', sev:'medium'},
+  {v:'thằng', e:'“that bloke” — a dismissive classifier for a man', cat:'General slang', sev:'medium'},
+  {v:'con nhỏ', e:'“that girl” — Southern, casual, edging on dismissive', cat:'General slang', sev:'medium'},
+
+  // ---------- dismissal ----------
+  {v:'thôi đi', e:'give over / that’s enough', cat:'Dismissal', sev:'mild'},
+  {v:'kệ tao', e:'leave me out of it', cat:'Dismissal', sev:'medium'},
+  {v:'không liên quan', e:'nothing to do with it / irrelevant', cat:'Dismissal', sev:'mild'},
+  {v:'đi chỗ khác', e:'go somewhere else', cat:'Dismissal', sev:'medium'},
+  {v:'im đi', e:'be quiet', cat:'Dismissal', sev:'medium'},
+  {v:'câm mồm', e:'shut your mouth', cat:'Dismissal', sev:'strong'},
+  {v:'cút', e:'get lost / clear off', cat:'Dismissal', sev:'strong'},
+  {v:'biến', e:'disappear / do one', cat:'Dismissal', sev:'strong'},
+  {v:'xéo', e:'clear off — Southern', cat:'Dismissal', sev:'strong'},
+
+  // ---------- personal insult ----------
+  {v:'ngu', e:'stupid', cat:'Personal insult', sev:'medium'},
+  {v:'đồ', e:'“you ___” — the prefix that turns a word into an insult', cat:'Personal insult', sev:'medium'},
+  {v:'đồ ngu', e:'you idiot — đồ turns anything into an insult', cat:'Personal insult', sev:'medium'},
+  {v:'điên', e:'mad / crazy', cat:'Personal insult', sev:'medium'},
+  {v:'khùng', e:'crazy — Southern', cat:'Personal insult', sev:'medium'},
+  {v:'dở hơi', e:'daft / half-witted — more Northern', cat:'Personal insult', sev:'medium'},
+  {v:'ăn hại', e:'a freeloader / eats and does nothing', cat:'Personal insult', sev:'medium'},
+  {v:'vô duyên', e:'graceless / says the wrong thing constantly', cat:'Personal insult', sev:'medium'},
+  {v:'mất dạy', e:'badly brought up — an insult to the whole family', cat:'Personal insult', sev:'strong'},
+  {v:'đồ mất dạy', e:'you ill-mannered thing', cat:'Personal insult', sev:'strong'},
+  {v:'khốn nạn', e:'despicable / rotten to the core', cat:'Personal insult', sev:'strong'},
+  {v:'đồ khốn', e:'you bastard', cat:'Personal insult', sev:'strong'},
+  {v:'súc vật', e:'beast / animal — said of a person', cat:'Personal insult', sev:'strong'},
+  {v:'đồ chó', e:'you dog', cat:'Personal insult', sev:'strong'},
+  {v:'thằng chó', e:'that dog of a man', cat:'Personal insult', sev:'strong'},
+  {v:'đĩ', e:'whore', cat:'Personal insult', sev:'extreme'},
+  {v:'con đĩ', e:'that whore', cat:'Personal insult', sev:'extreme'},
+
+  // ---------- body and bathroom ----------
+  {v:'cứt', e:'shit', cat:'Body humour', sev:'medium'},
+  {v:'ị', e:'to poo — childish, what you say to a toddler', cat:'Body humour', sev:'mild'},
+  {v:'đái', e:'to piss', cat:'Body humour', sev:'medium'},
+  {v:'thối', e:'stinking / rotten', cat:'Body humour', sev:'mild'},
+  {v:'hôi', e:'smelly — of a body or a room', cat:'Body humour', sev:'mild'},
+  {v:'xấu như ma', e:'ugly as a ghost', cat:'Body humour', sev:'medium'},
+
+  // ---------- sexual profanity ----------
+  {v:'đụ', e:'to f--- — the Southern word', cat:'Sexual profanity', sev:'extreme'},
+  {v:'địt', e:'to f--- in the North; to FART in the South. Read the note', cat:'Sexual profanity', sev:'extreme'},
+  {v:'cặc', e:'dick', cat:'Sexual profanity', sev:'extreme'},
+  {v:'lồn', e:'the crudest word for female genitals — the heaviest word here', cat:'Sexual profanity', sev:'extreme'},
+  {v:'buồi', e:'dick — more Northern', cat:'Sexual profanity', sev:'extreme'},
+  {v:'đéo', e:'“f---ing not” — the Northern negative intensifier', cat:'Sexual profanity', sev:'strong'},
+  {v:'đếch', e:'the same job as đéo, softer and more Southern', cat:'Sexual profanity', sev:'medium'},
+  {v:'vãi', e:'“damn / holy” — an intensifier tacked on the end', cat:'Sexual profanity', sev:'medium'},
+  {v:'vãi lồn', e:'the full-strength version of vãi', cat:'Sexual profanity', sev:'extreme'},
+  {v:'vl', e:'how vãi lồn is written in messages — read it as the full phrase', cat:'Sexual profanity', sev:'strong'},
+  {v:'vcl', e:'vãi cả lồn, written. Stronger again than vl', cat:'Sexual profanity', sev:'extreme'},
+
+  // ---------- family curses ----------
+  {v:'đụ má', e:'f--- your mother — the Southern form', cat:'Family insult', sev:'extreme'},
+  {v:'địt mẹ', e:'the Northern form of the same curse', cat:'Family insult', sev:'extreme'},
+  {v:'đm', e:'how địt mẹ / đụ má is written. Everywhere online, still the full curse', cat:'Family insult', sev:'strong'},
+  {v:'đụ má mày', e:'the same aimed squarely at the person', cat:'Family insult', sev:'extreme'},
+  {v:'con mẹ nó', e:'“damn the thing” — a softened family curse, close to “bloody hell”', cat:'Family insult', sev:'medium'},
+  {v:'mẹ kiếp', e:'damn it — a set curse nobody hears literally any more', cat:'Family insult', sev:'medium'},
+
+  // ---------- threats and fights ----------
+  {v:'muốn gì', e:'what do you want? — the line before it kicks off', cat:'Threat or fight', sev:'medium'},
+  {v:'muốn chết hả', e:'you asking for it?', cat:'Threat or fight', sev:'strong'},
+  {v:'đánh nhau', e:'to have a fight', cat:'Threat or fight', sev:'medium'},
+  {v:'tao đánh mày', e:'I’ll hit you', cat:'Threat or fight', sev:'strong'},
+  {v:'ra ngoài nói chuyện', e:'take it outside', cat:'Threat or fight', sev:'strong'},
+  {v:'đừng đụng vào tao', e:'don’t touch me', cat:'Threat or fight', sev:'strong'},
+  {v:'coi chừng', e:'watch it / careful now', cat:'Threat or fight', sev:'medium'},
+];
+
+const VI_SLANG_PHRASES = [
+  {v:'Trời ơi, hết hồn luôn!', e:'God, that scared the life out of me!', cat:'General slang', sev:'mild'},
+  {v:'Mắc cười quá đi!', e:'That’s so funny!', cat:'General slang', sev:'mild'},
+  {v:'Bó tay với ông luôn.', e:'I give up on you.', cat:'General slang', sev:'mild'},
+  {v:'Đông quá trời luôn.', e:'It’s absolutely packed.', cat:'General slang', sev:'mild'},
+  {v:'Thôi kệ đi, không sao đâu.', e:'Forget it, it’s fine.', cat:'General slang', sev:'mild'},
+  {v:'Nay mệt quá, chán ghê.', e:'I’m knackered today, so fed up.', cat:'General slang', sev:'mild'},
+  {v:'Đừng có xạo nha.', e:'Don’t give me that.', cat:'General slang', sev:'mild'},
+  {v:'Ngon quá, đã thiệt!', e:'So good — that really hit the spot!', cat:'General slang', sev:'mild'},
+  {v:'Lẹ lên đi, trễ rồi.', e:'Hurry up, we’re late.', cat:'General slang', sev:'mild'},
+  {v:'Tối nay đi nhậu không?', e:'Fancy going for a drink tonight?', cat:'General slang', sev:'mild'},
+  {v:'Hôm qua nó xỉn quắc cần câu.', e:'He was absolutely hammered last night.', cat:'General slang', sev:'medium'},
+  {v:'Nhỏ đó chảnh dữ.', e:'That girl’s so stuck-up.', cat:'General slang', sev:'medium'},
+  {v:'Ông cà chớn quá đi.', e:'You’re such a messer.', cat:'General slang', sev:'medium'},
+
+  {v:'Thôi đi, đủ rồi.', e:'Give over, that’s enough.', cat:'Dismissal', sev:'mild'},
+  {v:'Không liên quan tới tao.', e:'Nothing to do with me.', cat:'Dismissal', sev:'medium'},
+  {v:'Im đi, để người ta nói.', e:'Be quiet and let them speak.', cat:'Dismissal', sev:'medium'},
+  {v:'Cút đi, đừng phiền tao.', e:'Get lost and stop bothering me.', cat:'Dismissal', sev:'strong'},
+  {v:'Biến đi cho khuất mắt.', e:'Clear off out of my sight.', cat:'Dismissal', sev:'strong'},
+
+  {v:'Đồ ngu, làm sai hết rồi.', e:'You idiot, you’ve got it all wrong.', cat:'Personal insult', sev:'medium'},
+  {v:'Nó khùng rồi hả?', e:'Has he lost the plot?', cat:'Personal insult', sev:'medium'},
+  {v:'Ăn hại, chẳng làm gì cả.', e:'Useless — does nothing at all.', cat:'Personal insult', sev:'medium'},
+  {v:'Đồ mất dạy!', e:'You ill-mannered so-and-so!', cat:'Personal insult', sev:'strong'},
+  {v:'Thằng đó khốn nạn thiệt.', e:'That bloke really is despicable.', cat:'Personal insult', sev:'strong'},
+
+  {v:'Ở đây hôi quá.', e:'It stinks in here.', cat:'Body humour', sev:'mild'},
+  {v:'Nói chuyện như cứt.', e:'You’re talking absolute rubbish.', cat:'Body humour', sev:'strong'},
+
+  {v:'Đếch biết luôn.', e:'Haven’t got a clue.', cat:'Sexual profanity', sev:'medium'},
+  {v:'Đéo hiểu gì hết.', e:'Don’t understand a f---ing thing.', cat:'Sexual profanity', sev:'strong'},
+  {v:'Ngon vãi!', e:'Bloody delicious!', cat:'Sexual profanity', sev:'medium'},
+  {v:'Cái điện thoại này đéo xài được.', e:'This phone is f---ing useless.', cat:'Sexual profanity', sev:'strong'},
+
+  {v:'Mẹ kiếp, lại hư nữa.', e:'Damn it, broken again.', cat:'Family insult', sev:'medium'},
+  {v:'Con mẹ nó, quên mất rồi.', e:'Bloody hell, I forgot.', cat:'Family insult', sev:'medium'},
+
+  {v:'Mày muốn gì?', e:'What do you want?', cat:'Threat or fight', sev:'medium'},
+  {v:'Coi chừng đó nghe.', e:'You watch it, alright.', cat:'Threat or fight', sev:'medium'},
+  {v:'Đừng đụng vào tao.', e:'Don’t you touch me.', cat:'Threat or fight', sev:'strong'},
+];
+
+const VI_WORD_NOTES = {
+  'địt': {lit:'—', note:'THE trap for a Southern learner. In Hanoi địt is the f-word. In Saigon it means to fart, and the f-word is đụ. Say it in the South meaning the Northern sense and you have said something completely different — usually to laughter, occasionally not.'},
+  'đụ': {lit:'—', note:'The Southern f-word, and the one that matters for your course. Almost never stands alone — it leads into đụ má, which is where its real force is.'},
+  'lồn': {lit:'—', note:'The heaviest single word in Vietnamese. It is also the engine behind vãi lồn and vcl, which is why those land so much harder than plain vãi.'},
+  'đéo': {lit:'—', note:'Not a noun — it replaces không to make a negative furious: đéo biết = don’t f---ing know. More Northern; the South softens it to đếch, which you can say in far more company.'},
+  'đếch': {lit:'—', note:'The Southern, milder cousin of đéo. Đếch biết is roughly “haven’t a clue” with an edge, and passes in company where đéo would not.'},
+  'vãi': {lit:'to spill / to scatter', note:'Tacked on the end as an intensifier: ngon vãi = bloody delicious. On its own it is fairly mild — it is the words that follow (vãi lồn) that make it obscene.'},
+  'vl': {lit:'vãi lồn, abbreviated', note:'You will see this constantly in messages and comments. It is not softened by being initials — read it as the full phrase, because that is how it is heard.'},
+  'vcl': {lit:'vãi cả lồn, abbreviated', note:'Stronger again than vl. Common in writing among young people, and genuinely obscene spoken aloud.'},
+  'đm': {lit:'địt mẹ / đụ má, abbreviated', note:'The most-typed curse in Vietnamese. Being initials does not make it mild — it is a family curse, and family curses are the serious end in Vietnamese as in Cantonese.'},
+  'đụ má': {lit:'f--- + mother', note:'The Southern family curse. Between very close male friends it can be almost punctuation; to anyone else it is a real attack. The gap between those two readings is entirely in who you are and how you say it.'},
+  'địt mẹ': {lit:'the Northern form', note:'Same curse, Northern wording. Recognise both — you will hear this one in films and online even in the South.'},
+  'con mẹ nó': {lit:'that thing’s mother', note:'A family curse worn smooth by use. It functions like “bloody hell” — an exclamation at a situation, not an attack on a person.'},
+  'mẹ kiếp': {lit:'—', note:'A set curse nobody parses literally any more. Says “damn it” at the world rather than at anyone in the room.'},
+  'mày': {lit:'you', note:'The pronoun matters more than the swearing. Between close friends mày/tao is warm and normal. Used to a stranger, an elder, or anyone you owe respect, it is a deliberate insult before a single rude word has been said — and it is the mistake a learner is most likely to make.'},
+  'tao': {lit:'I / me', note:'Always the partner of mày. If you would not say mày to someone, do not say tao either — switching to this pair mid-argument is itself the escalation.'},
+  'thằng': {lit:'a classifier for a male', note:'Neutral among mates (thằng bạn = my mate), dismissive about a stranger, and a clear insult in thằng chó. Tone and context carry all of it.'},
+  'mất dạy': {lit:'lacking teaching', note:'Says the person was never raised properly — so it insults their parents as much as them. That is why it stings far more than its plain translation suggests.'},
+  'khốn nạn': {lit:'—', note:'Not a casual word. It means genuinely despicable, and is reserved for real betrayals rather than everyday annoyance.'},
+  'đồ': {lit:'thing / stuff', note:'A prefix that turns almost any noun or adjective into an insult: đồ ngu, đồ khốn, đồ mất dạy. Learn the frame and you can build the rest.'},
+  'bó tay': {lit:'tied hands', note:'Hands tied — nothing I can do. Completely clean, said constantly, and useful in exactly the moments a learner is stuck.'},
+  'hết hồn': {lit:'out of soul', note:'Your soul has left you from fright. Everyday, and often said with a laugh right after a scare.'},
+  'nhậu': {lit:'—', note:'Not simply drinking. It is the whole institution of sitting down with food, beer and hours of talk. Being invited đi nhậu is being included.'},
+  'xạo': {lit:'—', note:'Southern. To fib or talk nonsense, more teasing than accusing. Xạo ke is the fuller form and lands a bit harder.'},
+  'chảnh': {lit:'—', note:'Stuck-up, thinks a lot of themselves. Very Southern and very common in gossip.'},
+  'quê': {lit:'countryside / home village', note:'The literal sense is your home village, with real warmth to it. Used of behaviour it means unsophisticated or cringeworthy — so the same word is affectionate or cutting depending on what it is describing.'},
+  'gà': {lit:'chicken', note:'A beginner, someone who is rubbish at something. From gaming, now general. Teasing rather than cruel.'},
+  'quá trời': {lit:'more than the sky', note:'Southern for “loads”. Goes after what it describes: đông quá trời = absolutely packed.'},
+  'mắc cười': {lit:'caught by laughter', note:'Southern for funny. The North says buồn cười, which literally reads as “sad laugh” — one of the clearer North–South splits you will hear.'},
+  'lẹ lên': {lit:'quick + up', note:'Southern for hurry up. The North says nhanh lên. Both are understood everywhere; using lẹ marks you as Southern-taught.'},
+  'cút': {lit:'—', note:'Get lost. Harsh and unambiguous — this is not the jokey kind of dismissal.'},
+  'biến': {lit:'to vanish', note:'“Disappear.” Rough, and slightly more modern-sounding than cút.'},
 };
 
 /* ========================= CANTONESE SLANG AND SWEARING =========================
@@ -16876,7 +17073,7 @@ function buildRankBuckets(){
     if(count>0) buckets.push({ id:`${start}-${end}`, label:`${start.toLocaleString()}–${end.toLocaleString()}`, min:start, max:end });
   }
   if(list.some(w=>w.rank===999999)) buckets.push({ id:'unranked', label:'Unranked', min:999999, max:999999 });
-  if(state.language === 'yue' && SLANG_VOCAB.length){
+  if(slangSource().vocab.length){
     buckets.unshift({ id:'slang', label:'\ud83d\ude43 Slang', kind:'slang', min:1, max:99999 });
   }
   if(state.language === 'yue' && FACILITY_VOCAB.length){
@@ -17158,7 +17355,8 @@ function renderFrequency(){
     const searchLower = freqSearchTerm.toLowerCase();
     const bucket = freqBucketFilter==='all' ? null : buildPhraseBuckets().find(b=>b.id===freqBucketFilter);
     const isWork = !!(bucket && (bucket.kind === 'work' || bucket.kind === 'slang'));
-    const sourceList = !isVietnameseCourse() ? phraseStudyPool(isWork ? bucket : null)
+    const sourceList = isWork ? phraseStudyPool(bucket)
+      : !isVietnameseCourse() ? phraseStudyPool(null)
       : (state.contentMode==='new' ? newPhrasePool() : COMMON_PHRASES);
     const filtered = sourceList.filter(p=>{
       if(bucket && !isWork && (p.rank < bucket.min || p.rank > bucket.max)) return false;
@@ -17874,22 +18072,32 @@ function bySlangOrder(a,b){
   const c = CAT_ORDER.indexOf(a.group) - CAT_ORDER.indexOf(b.group);
   return c || (SEV_ORDER[a.sev] - SEV_ORDER[b.sev]);
 }
+// Cantonese and Vietnamese each have their own deck. Vietnamese carries no
+// romanisation field — the script is already Latin, so a respelling would add
+// noise rather than help.
+function slangSource(){
+  if(state.language === 'yue') return { vocab: SLANG_VOCAB, phrases: SLANG_PHRASES, notes: WORD_NOTES };
+  if(isVietnameseCourse())    return { vocab: VI_SLANG_VOCAB, phrases: VI_SLANG_PHRASES, notes: VI_WORD_NOTES };
+  return { vocab: [], phrases: [], notes: {} };
+}
+function slangNotes(){ return slangSource().notes; }
+let _slangVocabCacheLang = null, _slangPhraseCacheLang = null;
 function slangVocab(){
-  if(state.language !== 'yue') return [];
-  if(_slangVocabCache) return _slangVocabCache;
-  _slangVocabCache = SLANG_VOCAB.map(t=>({
-    word:t.v, p:t.p, e:t.e, group:t.cat, sev:t.sev, rank:999999, star:1,
+  if(_slangVocabCache && _slangVocabCacheLang === state.language) return _slangVocabCache;
+  _slangVocabCache = slangSource().vocab.map(t=>({
+    word:t.v, p:t.p||'', e:t.e, group:t.cat, sev:t.sev, rank:999999, star:1,
     srsId:`slang_${srsNs()}${t.v}`,
   })).sort(bySlangOrder);
+  _slangVocabCacheLang = state.language;
   return _slangVocabCache;
 }
 function slangPhrases(){
-  if(state.language !== 'yue') return [];
-  if(_slangPhraseCache) return _slangPhraseCache;
-  _slangPhraseCache = SLANG_PHRASES.map((c,i)=>({
-    v:c.v, p:c.p, e:c.e, group:c.cat, sev:c.sev, rank:i+1,
+  if(_slangPhraseCache && _slangPhraseCacheLang === state.language) return _slangPhraseCache;
+  _slangPhraseCache = slangSource().phrases.map((c,i)=>({
+    v:c.v, p:c.p||'', e:c.e, group:c.cat, sev:c.sev, rank:i+1,
     srsId:`slangp_${srsNs()}${i}`,
   })).sort(bySlangOrder);
+  _slangPhraseCacheLang = state.language;
   return _slangPhraseCache;
 }
 let _facilityVocabCache = null;
@@ -17932,7 +18140,7 @@ function buildPhraseBuckets(){
     if(state.language === 'yue' && facilityPhrases().length){
       buckets.push({ id:'work', label:'\ud83c\udf3f Work', kind:'work', min:1, max:99999 });
     }
-    if(state.language === 'yue' && SLANG_PHRASES.length){
+    if(slangSource().phrases.length){
       buckets.push({ id:'slang', label:'\ud83d\ude43 Slang', kind:'slang', min:1, max:99999 });
     }
     const n = phraseStudyPool().length;
@@ -17941,6 +18149,9 @@ function buildPhraseBuckets(){
       buckets.push({ id:`p${start}-${end}`, label:`${start}\u2013${end}`, min:start, max:end });
     }
     return buckets;
+  }
+  if(slangSource().phrases.length){
+    buckets.push({ id:'slang', label:'\ud83d\ude43 Slang', kind:'slang', min:1, max:99999 });
   }
   for(let start=1; start<=COMMON_PHRASES.length; start+=100){
     const end = Math.min(start+99, COMMON_PHRASES.length);
@@ -17965,6 +18176,7 @@ function phraseStudyPool(bucket){
     }));
     return bucket ? out.filter(p=>p.rank>=bucket.min && p.rank<=bucket.max) : out;
   }
+  if(bucket && bucket.kind === 'slang') return slangPhrases();
   let list = COMMON_PHRASES;
   if(bucket) list = list.filter(p => p.rank>=bucket.min && p.rank<=bucket.max);
   return list.map(p=>({ v:p.v, p:p.p, e:p.e, rank:p.rank, srsId:`cphrase_${p.rank}` }));
