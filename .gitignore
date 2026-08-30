@@ -1,0 +1,12 @@
+# Anki exports — build inputs for the audio pipeline, not part of the app.
+# These run 25-120MB each; GitHub hard-rejects anything over 100MB, and even
+# the smaller ones bloated .git to ~470MB before they were untracked.
+# Keep them locally, regenerate from Anki whenever a voice pass is redone.
+*.apkg
+
+# macOS folder metadata
+.DS_Store
+
+# Scratch/working files from the audio pipeline
+_audio_existing_ids*.txt
+*.BEFORE_VI2.*

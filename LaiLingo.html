@@ -1392,13 +1392,6 @@
         <button class="footer-btn" style="width:100%;margin-bottom:10px;" onclick="signOutOfSync()">Sign out</button>
       </div>
 
-      <p class="section-title">Voice</p>
-      <p class="section-sub">Choose which voice reads Vietnamese audio throughout the app.</p>
-      <div class="chip-row" id="voiceGenderToggle">
-        <button class="chip" data-gender="female" onclick="setVoiceGender('female')">👩 Female</button>
-        <button class="chip active" data-gender="male" onclick="setVoiceGender('male')">👨 Male</button>
-      </div>
-
       <p class="section-title">Offline access</p>
       <p class="section-sub">Cache every audio file on this device so lessons, phrases, and words all play with no internet connection.</p>
       <button class="footer-btn" id="downloadOfflineBtn" style="width:100%;" onclick="downloadAllAudioOffline()">📥 Download for offline use</button>
@@ -13999,7 +13992,7 @@ const DEFAULT_STATE = {
   // syllables, the same unit the frequency list uses.
   mine:{ cards:[], known:[], unknown:[] }, // 12-week LaiLingo+Migaku plan (replaces the retired 60-Day Challenge)
   contentMode:'classic', // 'new' (fresh app-within-the-app content) | 'classic' (original word/phrase database) — Cards tab toggle
-  voiceGender:'male', // 'female' | 'male' — which real-audio voice folder (audio/female/ vs audio/male/) plays throughout the app; Profile > Voice toggle. Default is male (both voices are fully recorded as of 2026-08-27; this only affects brand-new installs — anyone with existing saved state keeps whatever they'd already picked, since loadState() merges saved state over these defaults).
+  voiceGender:'male', // VESTIGIAL as of 2026-08-30 — the female voice and its Profile toggle were removed and audioBasePath() is hard-wired to audio/male/. Left in DEFAULT_STATE only so saved states that still carry 'female' stay valid JSON round-trips; nothing reads it.
   completedConcepts:[], // ids of CONCEPT_LESSONS marked "Learned"
   tutorMode:'guided', // 'guided' | 'immersion' — practice screen tutor voice style
   tutorModeChosen:false, // shows the picker once, before the first practice session
@@ -14332,15 +14325,12 @@ async function checkOfflineDownloadStatus(){
     const requests = await cache.keys();
     if(requests.length === 0) return; // nothing cached yet — leave the default "Download" button as-is
 
-    // Matches /audio/<voice>/<id>.mp3 and keeps only files cached under the
-    // CURRENTLY selected voice — a clip cached for the other voice shouldn't
-    // count as "already downloaded" here, or switching voices would wrongly
-    // show 100% offline coverage for a voice that was never actually fetched.
-    const currentVoice = state.voiceGender === 'male' ? 'male' : 'female';
+    // Matches /audio/male/<id>.mp3. The path still carries a voice segment
+    // because the folder was never renamed when the female voice was dropped.
     const cachedIds = new Set(
       requests.map(req => {
-        const m = req.url.match(/\/audio\/([^/]+)\/([^/]+)\.mp3$/);
-        return (m && m[1] === currentVoice) ? m[2] : null;
+        const m = req.url.match(/\/audio\/male\/([^/]+)\.mp3$/);
+        return m ? m[1] : null;
       }).filter(Boolean)
     );
 
@@ -14901,27 +14891,12 @@ function renderProfile(){
   document.getElementById('profileWordGoal').value = state.wordDailyGoal || 500;
   const countEl = document.getElementById('flaggedAudioCount');
   if(countEl) countEl.textContent = (state.flaggedAudio || []).length;
-  const voiceToggle = document.getElementById('voiceGenderToggle');
-  if(voiceToggle){
-    const g = state.voiceGender === 'male' ? 'male' : 'female';
-    voiceToggle.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active', c.dataset.gender===g));
-  }
   renderStudyStats();
   renderStudyCalendar();
 }
-// Switches which real-audio voice folder (audio/female/ vs audio/male/) the
-// whole app plays from — see audioBasePath(). Takes effect immediately for
-// the next audio play, no reload needed, since audioBasePath() reads
-// state.voiceGender fresh on every call rather than caching a base path.
-function setVoiceGender(g){
-  g = g === 'male' ? 'male' : 'female';
-  if(state.voiceGender === g) return;
-  state.voiceGender = g;
-  saveState();
-  const voiceToggle = document.getElementById('voiceGenderToggle');
-  if(voiceToggle) voiceToggle.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active', c.dataset.gender===g));
-  checkOfflineDownloadStatus(); // re-check offline coverage for the newly-selected voice
-}
+// Retired with the female voice on 2026-08-30. Kept as an inert no-op so a
+// stale cached page still holding the old Profile markup can't throw on tap.
+function setVoiceGender(){ /* single voice now — see audioBasePath() */ }
 function formatDuration(seconds){
   if(!seconds) return '0m';
   if(seconds < 60) return '<1m';
@@ -15807,17 +15782,16 @@ function gradeCard(grade){
 function isPackDone(id){ return state.completedLessons.includes('pack:'+id); }
 
 /* ========================= AUDIO ========================= */
-// Real audio now comes in two voices, each in its own subfolder — audio/female/
-// and audio/male/ — recorded from the exact same phrase list (see
-// vietnamese_audio_master.csv), so every id exists (once available) under
-// both folders. audioBasePath() picks the folder based on state.voiceGender
-// ('female' | 'male', default 'female' — see setVoiceGender() and the Voice
-// toggle in Profile). This is a function (not a constant) specifically so it
-// always reflects the CURRENT preference — it's re-evaluated on every call,
-// never cached, so switching voices takes effect immediately without a reload.
+// Real audio is a single male Southern Vietnamese voice, recorded from
+// vietnamese_audio_master.csv. The app shipped a female/male toggle for a
+// while (state.voiceGender, a Voice section in Profile, an audio/female/
+// folder); the female recordings were dropped on 2026-08-30 — they never
+// covered the vi2 course, so the toggle could only degrade to browser TTS —
+// and everything now plays from audio/male/. Kept as a function rather than a
+// constant so reintroducing a second voice is a one-line change here.
 // Filenames follow the pattern {type}_{lessonOrPackId}_{cardIndex}.mp3
 // e.g. lesson_l1_0.mp3, pack_p21_2.mp3 — see vietnamese_audio_master.csv for the full list.
-function audioBasePath(){ return `audio/${state.voiceGender === 'male' ? 'male' : 'female'}/`; }
+function audioBasePath(){ return 'audio/male/'; }
 let currentAudioEl = null;
 
 // Plays one or more texts back-to-back, chaining via onend rather than calling
