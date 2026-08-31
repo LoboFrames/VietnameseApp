@@ -13,3 +13,7 @@ _audio_existing_ids*.txt
 
 # Backup copies of pipeline scripts
 *.bak
+
+# Python bytecode from running the pipeline scripts
+__pycache__/
+*.pyc
