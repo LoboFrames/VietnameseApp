@@ -278,6 +278,11 @@
   .word-ex-e{font-size:12px;color:var(--muted);margin:4px 0 0;font-style:italic;}
   .freq-pill{display:inline-block;color:var(--ink);font-weight:800;font-size:12.5px;padding:7px 14px;border-radius:999px;margin-bottom:10px;}
   .freq-num-pill{display:inline-block;color:var(--ink);font-weight:800;font-size:11.5px;padding:5px 11px;border-radius:999px;font-family:'IBM Plex Mono',monospace;}
+  /* Plain counting number down the left of every browse row, so a position in a
+     list can be spoken aloud and found again. Deliberately quiet — it is a
+     landmark, not data. */
+  .freq-idx{flex:0 0 auto;min-width:26px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:700;color:var(--muted);}
+  .swipe-counter{margin-left:8px;font-weight:700;color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:12px;}
   .freq-item{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--surface);border-radius:12px;padding:12px 14px;margin-bottom:8px;}
   .freq-item .fw{font-size:14.5px;font-weight:700;color:var(--gold);margin:0 0 2px;}
   .freq-item .fw-en{font-size:12px;font-weight:500;color:var(--rice-dim);}
@@ -1724,7 +1729,7 @@
 <div class="step-overlay" id="swipeOverlay">
   <div class="step-topbar">
     <button class="step-close" onclick="closeSwipe()">✕</button>
-    <div style="flex:1;text-align:center;font-weight:800;font-size:13px;">Swipe Learn</div>
+    <div style="flex:1;text-align:center;font-weight:800;font-size:13px;">Swipe Learn<span class="swipe-counter" id="swipeCounter"></span></div>
     <button class="step-close" onclick="reportAudioIssue()" title="Report wrong audio">🚩</button>
   </div>
   <div class="step-body" id="swipeBody" style="display:flex;flex-direction:column;"></div>
@@ -17642,6 +17647,8 @@ function buildRankBuckets(){
   }
   if(list.some(w=>w.rank===999999)) buckets.push({ id:'unranked', label:'Unranked', min:999999, max:999999 });
   if(slangSource().vocab.length){
+    // unshifted in reverse, so the row reads Work, Slang, Swearing, 1-500, ...
+    buckets.unshift({ id:'swear', label:'\ud83e\udd2c Swearing', kind:'swear', min:1, max:99999 });
     buckets.unshift({ id:'slang', label:'\ud83d\ude43 Slang', kind:'slang', min:1, max:99999 });
   }
   if(state.language === 'yue' && FACILITY_VOCAB.length){
@@ -17860,10 +17867,10 @@ function renderFrequency(){
   if(isWords){
     const bucket = freqBucketFilter==='all' ? null : buildRankBuckets().find(b=>b.id===freqBucketFilter);
     const isWorkWords  = !!(bucket && bucket.kind === 'work');
-    const isSlangWords = !!(bucket && bucket.kind === 'slang');
+    const isSlangWords = !!(bucket && (bucket.kind === 'slang' || bucket.kind === 'swear'));
     const isOwnList = isWorkWords || isSlangWords;   // its own pool, not a rank slice
     const list = isWorkWords ? facilityVocab()
-      : isSlangWords ? slangVocab()
+      : isSlangWords ? slangDeck(bucket.kind)
       : (state.contentMode==='new' ? newVocabPool() : buildWordFrequencyList());
     const searchFolded = stripDiacritics(freqSearchTerm.toLowerCase());
 
@@ -17895,12 +17902,14 @@ function renderFrequency(){
     document.getElementById('freqCount').textContent = isWorkWords
       ? `${totalMatches} words from the job — tap Study to drill them`
       : isSlangWords
-      ? `${totalMatches} slang and swear words — check the strength before you use one`
+      ? (bucket.kind === 'swear'
+          ? `${totalMatches} swear words — check the strength before you use one`
+          : `${totalMatches} slang words — everyday, nothing that will get you in trouble`)
       : (capped
         ? `Showing first ${RENDER_CAP.toLocaleString()} of ${totalMatches.toLocaleString()} words — narrow your search`
         : `${totalMatches} word${totalMatches===1?'':'s'}`);
     let lastWordGroup = null;
-    document.getElementById('freqList').innerHTML = filtered.map(w=>{
+    document.getElementById('freqList').innerHTML = filtered.map((w,i)=>{
       // Off-corpus job words have no rank, and "Not ranked" reads like a fault.
       // They are simply not the kind of word a conversation corpus records.
       const rankLabel = w.rank >= 999999 ? (isWorkWords ? 'Job word' : isSlangWords ? (w.sev||'slang') : 'Not ranked') : w.rank.toLocaleString();
@@ -17911,6 +17920,7 @@ function renderFrequency(){
       const audioId = w.srsId || wordAudioId(w.word);
       return `${head}
       <div class="freq-item" onclick="playAudio('${audioId}', '${wEsc}', currentAccent)">
+        <span class="freq-idx">${i+1}</span>
         <div style="flex:1;min-width:0;">
           <p class="fw"><span class="tap-word${cjkCls()}" onclick="event.stopPropagation();showWordInfo('${wEsc}')">${w.word}</span>${(w.p && showRomanisation())?`<span class="fw-rom-inline">${w.p}</span>`:''}${gloss?`<span class="fw-en"> — ${gloss}</span>`:''}</p>
         </div>
@@ -17922,7 +17932,7 @@ function renderFrequency(){
     const searchFolded = stripDiacritics(freqSearchTerm.toLowerCase());
     const searchLower = freqSearchTerm.toLowerCase();
     const bucket = freqBucketFilter==='all' ? null : buildPhraseBuckets().find(b=>b.id===freqBucketFilter);
-    const isWork = !!(bucket && (bucket.kind === 'work' || bucket.kind === 'slang'));
+    const isWork = !!(bucket && (bucket.kind === 'work' || bucket.kind === 'slang' || bucket.kind === 'swear'));
     const sourceList = isWork ? phraseStudyPool(bucket)
       : !isVietnameseCourse() ? phraseStudyPool(null)
       : (state.contentMode==='new' ? newPhrasePool() : COMMON_PHRASES);
@@ -17935,13 +17945,15 @@ function renderFrequency(){
       }
       return true;
     });
-    document.getElementById('freqCount').textContent = (bucket && bucket.kind==='slang')
-      ? `${filtered.length} slang lines \u2014 check the strength before you use one`
+    document.getElementById('freqCount').textContent = (bucket && bucket.kind==='swear')
+      ? `${filtered.length} swear lines \u2014 check the strength before you use one`
+      : (bucket && bucket.kind==='slang')
+      ? `${filtered.length} slang lines \u2014 everyday, nothing that will get you in trouble`
       : isWork
       ? `${filtered.length} phrases from the facility \u2014 tap Study to drill them`
       : `${filtered.length} phrase${filtered.length===1?'':'s'}`;
     let lastGroup = null;
-    document.getElementById('freqList').innerHTML = filtered.map(p=>{
+    document.getElementById('freqList').innerHTML = filtered.map((p,i)=>{
       const audioId = p.srsId || `cphrase_${p.rank}`;
       // The work deck spans eleven packs plus the SOS list, so it reads as a wall
       // of sentences without a heading telling you which job you are looking at.
@@ -17949,10 +17961,13 @@ function renderFrequency(){
       if(isWork && p.group && p.group !== lastGroup){ lastGroup = p.group; head = `<p class="freq-group">${p.group}</p>`; }
       return `${head}
       <div class="freq-item" onclick="playAudio('${audioId}', '${p.v.replace(/'/g,"\\'")}', currentAccent)">
-        ${p.sev ? `<span class="sev-tag sev-${p.sev}">${p.sev}</span>` : ''}
-        <p class="fw${cjkCls()}">${p.v}</p>
-        ${(p.p && showRomanisation()) ? `<p class="fw-rom">${p.p}</p>` : ''}
-        <p class="fw-en2">${p.e}</p>
+        <span class="freq-idx">${i+1}</span>
+        <div style="flex:1;min-width:0;">
+          ${p.sev ? `<span class="sev-tag sev-${p.sev}">${p.sev}</span>` : ''}
+          <p class="fw${cjkCls()}">${p.v}</p>
+          ${(p.p && showRomanisation()) ? `<p class="fw-rom">${p.p}</p>` : ''}
+          <p class="fw-en2">${p.e}</p>
+        </div>
       </div>`;
     }).join('');
   }
@@ -18560,7 +18575,7 @@ function wordStudyPool(bucket){
     return list;
   }
   if(bucket && bucket.kind === 'work') return facilityVocab();
-  if(bucket && bucket.kind === 'slang') return slangVocab();
+  if(bucket && (bucket.kind === 'slang' || bucket.kind === 'swear')) return slangDeck(bucket.kind);
   let list = buildWordFrequencyList();
   if(bucket){
     list = list.filter(w => bucket.id==='unranked' ? w.rank===999999 : (w.rank>=bucket.min && w.rank<=bucket.max));
@@ -18640,6 +18655,16 @@ function bySlangOrder(a,b){
   const c = CAT_ORDER.indexOf(a.group) - CAT_ORDER.indexOf(b.group);
   return c || (SEV_ORDER[a.sev] - SEV_ORDER[b.sev]);
 }
+// Slang and swearing are two different questions: "how do my mates actually
+// talk" and "what did he just call me". Kept in one deck they mix ua with du ma,
+// which makes a study session useless for either purpose.
+// A term counts as swearing if it is obscene by category OR if it simply lands
+// hard. The second half is what catches oc cho and tao chem may — both
+// unsayable at work, neither sexual nor aimed at anyone's mother.
+const SWEAR_CATS = ['Sexual profanity','Family insult'];
+function isSwearTerm(cat, sev){
+  return SWEAR_CATS.indexOf(cat) !== -1 || sev === 'strong' || sev === 'extreme';
+}
 // Cantonese and Vietnamese each have their own deck. Vietnamese carries no
 // romanisation field — the script is already Latin, so a respelling would add
 // noise rather than help.
@@ -18654,6 +18679,7 @@ function slangVocab(){
   if(_slangVocabCache && _slangVocabCacheLang === state.language) return _slangVocabCache;
   _slangVocabCache = slangSource().vocab.map(t=>({
     word:t.v, p:t.p||'', e:t.e, group:t.cat, sev:t.sev, rank:999999, star:1,
+    swear: isSwearTerm(t.cat, t.sev),
     srsId:`slang_${srsNs()}${t.v}`,
   })).sort(bySlangOrder);
   _slangVocabCacheLang = state.language;
@@ -18663,10 +18689,21 @@ function slangPhrases(){
   if(_slangPhraseCache && _slangPhraseCacheLang === state.language) return _slangPhraseCache;
   _slangPhraseCache = slangSource().phrases.map((c,i)=>({
     v:c.v, p:c.p||'', e:c.e, group:c.cat, sev:c.sev, rank:i+1,
+    swear: isSwearTerm(c.cat, c.sev),
     srsId:`slangp_${srsNs()}${i}`,
   })).sort(bySlangOrder);
   _slangPhraseCacheLang = state.language;
   return _slangPhraseCache;
+}
+// Both filters read the same sorted deck, so category order and severity order
+// inside each are already correct — the split only decides which half you see.
+function slangDeck(kind){
+  const want = kind === 'swear';
+  return slangVocab().filter(w => w.swear === want);
+}
+function slangPhraseDeck(kind){
+  const want = kind === 'swear';
+  return slangPhrases().filter(c => c.swear === want);
 }
 let _facilityVocabCache = null;
 function facilityVocab(){
@@ -18710,6 +18747,7 @@ function buildPhraseBuckets(){
     }
     if(slangSource().phrases.length){
       buckets.push({ id:'slang', label:'\ud83d\ude43 Slang', kind:'slang', min:1, max:99999 });
+      buckets.push({ id:'swear', label:'\ud83e\udd2c Swearing', kind:'swear', min:1, max:99999 });
     }
     const n = phraseStudyPool().length;
     for(let start=1; start<=n; start+=100){
@@ -18720,6 +18758,7 @@ function buildPhraseBuckets(){
   }
   if(slangSource().phrases.length){
     buckets.push({ id:'slang', label:'\ud83d\ude43 Slang', kind:'slang', min:1, max:99999 });
+    buckets.push({ id:'swear', label:'\ud83e\udd2c Swearing', kind:'swear', min:1, max:99999 });
   }
   for(let start=1; start<=COMMON_PHRASES.length; start+=100){
     const end = Math.min(start+99, COMMON_PHRASES.length);
@@ -18735,7 +18774,7 @@ function phraseStudyPool(bucket){
   }
   if(!isVietnameseCourse()){
     if(bucket && bucket.kind === 'work') return facilityPhrases();
-    if(bucket && bucket.kind === 'slang') return slangPhrases();
+    if(bucket && (bucket.kind === 'slang' || bucket.kind === 'swear')) return slangPhraseDeck(bucket.kind);
     // Every course writes its own dialogue, so that is the phrase deck for it.
     const out = [];
     activeLessons().forEach(l => (l.dialogue||[]).forEach(d => {
@@ -18744,7 +18783,7 @@ function phraseStudyPool(bucket){
     }));
     return bucket ? out.filter(p=>p.rank>=bucket.min && p.rank<=bucket.max) : out;
   }
-  if(bucket && bucket.kind === 'slang') return slangPhrases();
+  if(bucket && (bucket.kind === 'slang' || bucket.kind === 'swear')) return slangPhraseDeck(bucket.kind);
   let list = COMMON_PHRASES;
   if(bucket) list = list.filter(p => p.rank>=bucket.min && p.rank<=bucket.max);
   return list.map(p=>({ v:p.v, p:p.p, e:p.e, rank:p.rank, srsId:`cphrase_${p.rank}` }));
@@ -18809,6 +18848,13 @@ function closeSwipe(){
 }
 function renderSwipe(){
   const body = document.getElementById('swipeBody');
+  // Which card of how many. Blank on the empty and summary screens, where a
+  // position would be meaningless.
+  const counterEl = document.getElementById('swipeCounter');
+  if(counterEl){
+    const live = swipeState.deck.length && swipeState.idx < swipeState.deck.length;
+    counterEl.textContent = live ? `${swipeState.idx+1} / ${swipeState.deck.length}` : '';
+  }
   if(!swipeState.deck.length){
     body.innerHTML = `<div class="swipe-summary"><div class="emoji">✨</div><p style="font-size:16px;font-weight:800;margin:0 0 6px;">All caught up!</p><p style="color:var(--muted);font-size:13px;">No cards due for review right now — come back later.</p><button class="footer-btn" onclick="closeSwipe()" style="margin-top:20px;">Close</button></div>`;
     return;
