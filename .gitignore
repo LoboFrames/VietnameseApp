@@ -10,3 +10,6 @@
 # Scratch/working files from the audio pipeline
 _audio_existing_ids*.txt
 *.BEFORE_VI2.*
+
+# Backup copies of pipeline scripts
+*.bak
