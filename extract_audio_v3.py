@@ -130,7 +130,20 @@ def main():
             if not m: skipped += 1; continue
             src = fn2idx.get(m.group(1))
             if not src: skipped += 1; continue
-            shutil.copyfile(os.path.join(tmp, src), os.path.join(out, cid + ".mp3")); wrote += 1
+            # v3 .apkg stores every media member as its own zstd frame. Copying
+            # the member verbatim yields a file that decoders resync into and
+            # play as noise, so decompress it here. Legacy .apkg members are
+            # already plain bytes and are passed through unchanged.
+            sp = os.path.join(tmp, src)
+            dp = os.path.join(out, cid + ".mp3")
+            with open(sp, "rb") as fh:
+                head = fh.read(4)
+            if head == b"\x28\xb5\x2f\xfd":
+                with open(sp, "rb") as fh, open(dp, "wb") as gh:
+                    dctx.copy_stream(fh, gh)
+            else:
+                shutil.copyfile(sp, dp)
+            wrote += 1
     print(f"\nDone. Wrote {wrote} files to ./{out}/  ({skipped} skipped)")
     print("Next: python apply_audio_copies.py . " + voice)
 
