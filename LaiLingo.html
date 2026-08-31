@@ -285,6 +285,8 @@
   /* A curse aimed at someone lives in Phrases, but its usage note is the whole
      point of the card — and phrases have no detail sheet to open. Show it inline. */
   .fw-note{margin:6px 0 0;font-size:11.5px;line-height:1.5;color:var(--muted);}
+  /* the same message written out in full, sitting between the shorthand and the English */
+  .fw-say{margin:3px 0 0;font-size:12.5px;color:var(--gold);opacity:.85;}
   .swipe-counter{margin-left:8px;font-weight:700;color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:12px;}
   .freq-item{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--surface);border-radius:12px;padding:12px 14px;margin-bottom:8px;}
   .freq-item .fw{font-size:14.5px;font-weight:700;color:var(--gold);margin:0 0 2px;}
@@ -14070,7 +14072,8 @@ function findExampleSentences(word, limit){
 // the word up in both so a term that is in each (房 is a job word AND rank 680)
 // shows everything it has.
 function customWordEntry(word){
-  return slangVocab().find(w=>w.word===word) || facilityVocab().find(w=>w.word===word) || null;
+  return slangVocab().find(w=>w.word===word) || facilityVocab().find(w=>w.word===word)
+      || textingVocab().find(w=>w.word===word) || null;
 }
 function showWordInfo(word){
   currentWordInfoText = word;
@@ -14083,7 +14086,7 @@ function showWordInfo(word){
     : ('#' + rank.toLocaleString() + ' most common');
   const gloss = (custom && custom.e) || activeWordGloss(word.toLowerCase().normalize('NFC')) || activeWordGloss(word);
   const examples = findExampleSentences(word, 4);
-  const notes = slangNotes()[word] || WORD_NOTES[word] || {};
+  const notes = slangNotes()[word] || WORD_NOTES[word] || textingNotes()[word] || {};
   document.getElementById('wordSheetWord').textContent = word;
   const romEl = document.getElementById('wordSheetRom');
   const rom = (custom && custom.p) || (buildWordFrequencyList().find(x=>x.word===word)||{}).p || '';
@@ -17623,7 +17626,7 @@ if('serviceWorker' in navigator){
 // mode is currently active, so switching modes later doesn't leave audio
 // uncached.
 function getAudioIdsByCategory(){
-  const cats = { 'Lessons':[], 'Survival Packs':[], 'Chat Boss':[], 'SOS Phrasebook':[], 'Core Phrases':[], 'Common Phrases':[], 'Classic Words':[], 'Word Examples':[], 'New Lesson Vocab':[], 'New Lesson Dialogue':[], 'Topics':[], 'Topic Vocab':[], 'Topic Dialogue':[], 'New Lesson Words':[], 'New Lesson Phrases':[], 'Concept Vocab':[], 'Slang':[], 'Swearing':[] };
+  const cats = { 'Lessons':[], 'Survival Packs':[], 'Chat Boss':[], 'SOS Phrasebook':[], 'Core Phrases':[], 'Common Phrases':[], 'Classic Words':[], 'Word Examples':[], 'New Lesson Vocab':[], 'New Lesson Dialogue':[], 'Topics':[], 'Topic Vocab':[], 'Topic Dialogue':[], 'New Lesson Words':[], 'New Lesson Phrases':[], 'Concept Vocab':[], 'Slang':[], 'Swearing':[], 'Texting':[] };
   // Everything in this first block is Vietnamese-only data. It used to run for
   // every course, so asking a Cantonese session what audio it needed produced a
   // list of Vietnamese filenames — and skipped all 54 Cantonese lessons, which
@@ -17682,6 +17685,8 @@ function getAudioIdsByCategory(){
   // complete because they were invisible, not because they were covered.
   slangVocab().forEach(w=>cats[w.swear?'Swearing':'Slang'].push(w.srsId));
   slangPhrases().forEach(c=>cats[c.swear?'Swearing':'Slang'].push(c.srsId));
+  textingVocab().forEach(w=>cats['Texting'].push(w.srsId));
+  textingPhrases().forEach(c=>cats['Texting'].push(c.srsId));
   return cats;
 }
 function getAllAudioIds(){ return Object.values(getAudioIdsByCategory()).flat(); }
@@ -18093,6 +18098,10 @@ function buildRankBuckets(){
     buckets.unshift({ id:'swear', label:'\ud83e\udd2c Swearing', kind:'swear', min:1, max:99999 });
     buckets.unshift({ id:'slang', label:'\ud83d\ude43 Slang', kind:'slang', min:1, max:99999 });
   }
+  if(textingSource().length){
+    // after the slang pair, so the row reads Slang, Swearing, Texting, 1-500...
+    buckets.splice(2, 0, { id:'text', label:'\ud83d\udcf1 Texting', kind:'text', min:1, max:99999 });
+  }
   if(state.language === 'yue' && FACILITY_VOCAB.length){
     buckets.unshift({ id:'work', label:'\ud83c\udf3f Work', kind:'work', min:1, max:99999 });
   }
@@ -18311,8 +18320,10 @@ function renderFrequency(){
     const bucket = freqBucketFilter==='all' ? null : buildRankBuckets().find(b=>b.id===freqBucketFilter);
     const isWorkWords  = !!(bucket && bucket.kind === 'work');
     const isSlangWords = !!(bucket && (bucket.kind === 'slang' || bucket.kind === 'swear'));
-    const isOwnList = isWorkWords || isSlangWords;   // its own pool, not a rank slice
+    const isTextWords  = !!(bucket && bucket.kind === 'text');
+    const isOwnList = isWorkWords || isSlangWords || isTextWords;   // its own pool, not a rank slice
     const list = isWorkWords ? facilityVocab()
+      : isTextWords ? textingVocab()
       : isSlangWords ? slangDeck(bucket.kind)
       : (state.contentMode==='new' ? newVocabPool() : buildWordFrequencyList());
     const searchFolded = stripDiacritics(freqSearchTerm.toLowerCase());
@@ -18344,6 +18355,8 @@ function renderFrequency(){
 
     document.getElementById('freqCount').textContent = isWorkWords
       ? `${totalMatches} words from the job — tap Study to drill them`
+      : isTextWords
+      ? `${totalMatches} texting shortcuts \u2014 tap one to see what it stands for`
       : isSlangWords
       ? (bucket.kind === 'swear'
           ? `${totalMatches} swear words — check the strength before you use one`
@@ -18355,7 +18368,7 @@ function renderFrequency(){
     document.getElementById('freqList').innerHTML = filtered.map((w,i)=>{
       // Off-corpus job words have no rank, and "Not ranked" reads like a fault.
       // They are simply not the kind of word a conversation corpus records.
-      const rankLabel = w.rank >= 999999 ? (isWorkWords ? 'Job word' : isSlangWords ? (w.sev||'slang') : 'Not ranked') : w.rank.toLocaleString();
+      const rankLabel = w.rank >= 999999 ? (isWorkWords ? 'Job word' : isTextWords ? 'typed' : isSlangWords ? (w.sev||'slang') : 'Not ranked') : w.rank.toLocaleString();
       const gloss = isOwnList ? w.e : activeWordGloss(w.word);
       let head = '';
       if(isOwnList && w.group && w.group !== lastWordGroup){ lastWordGroup = w.group; head = `<p class="freq-group">${w.group}</p>`; }
@@ -18375,7 +18388,7 @@ function renderFrequency(){
     const searchFolded = stripDiacritics(freqSearchTerm.toLowerCase());
     const searchLower = freqSearchTerm.toLowerCase();
     const bucket = freqBucketFilter==='all' ? null : buildPhraseBuckets().find(b=>b.id===freqBucketFilter);
-    const isWork = !!(bucket && (bucket.kind === 'work' || bucket.kind === 'slang' || bucket.kind === 'swear'));
+    const isWork = !!(bucket && (bucket.kind === 'work' || bucket.kind === 'slang' || bucket.kind === 'swear' || bucket.kind === 'text'));
     const sourceList = isWork ? phraseStudyPool(bucket)
       : !isVietnameseCourse() ? phraseStudyPool(null)
       : (state.contentMode==='new' ? newPhrasePool() : COMMON_PHRASES);
@@ -18388,7 +18401,9 @@ function renderFrequency(){
       }
       return true;
     });
-    document.getElementById('freqCount').textContent = (bucket && bucket.kind==='swear')
+    document.getElementById('freqCount').textContent = (bucket && bucket.kind==='text')
+      ? `${filtered.length} real messages \u2014 the shorthand, then the same line written out`
+      : (bucket && bucket.kind==='swear')
       ? `${filtered.length} swear lines \u2014 check the strength before you use one`
       : (bucket && bucket.kind==='slang')
       ? `${filtered.length} slang lines \u2014 everyday, nothing that will get you in trouble`
@@ -18409,6 +18424,7 @@ function renderFrequency(){
           ${p.sev ? `<span class="sev-tag sev-${p.sev}">${p.sev}</span>` : ''}
           <p class="fw${cjkCls()}">${p.v}</p>
           ${(p.p && showRomanisation()) ? `<p class="fw-rom">${p.p}</p>` : ''}
+          ${p.say ? `<p class="fw-say">${p.say}</p>` : ''}
           <p class="fw-en2">${p.e}</p>
           ${(()=>{ const n = slangNotes()[p.v]; return n && n.note ? `<p class="fw-note">${n.note}</p>` : ''; })()}
         </div>
@@ -19020,6 +19036,7 @@ function wordStudyPool(bucket){
   }
   if(bucket && bucket.kind === 'work') return facilityVocab();
   if(bucket && (bucket.kind === 'slang' || bucket.kind === 'swear')) return slangDeck(bucket.kind);
+  if(bucket && bucket.kind === 'text') return textingVocab();
   let list = buildWordFrequencyList();
   if(bucket){
     list = list.filter(w => bucket.id==='unranked' ? w.rank===999999 : (w.rank>=bucket.min && w.rank<=bucket.max));
@@ -19118,6 +19135,392 @@ function slangSource(){
   return { vocab: [], phrases: [], notes: {} };
 }
 function slangNotes(){ return slangSource().notes; }
+/* ===================== VIETNAMESE TEXTING SHORTCUTS =====================
+   How Vietnamese is actually typed. This is a reading skill more than a
+   speaking one: nobody says "ko", they write it and say không. So every entry
+   carries three things — the shortcut as typed, the full word it stands for,
+   and examples in real message shape.
+
+   Each example also carries `say`: the sentence written out in full. That is
+   what the audio speaks, because reading "ko dc đâu" aloud is not a thing
+   anyone does — you say "không được đâu".
+
+   A warning worth reading before the vulgar ones: cmn, vl and vcl are real
+   swearing, not decoration. They are in here because they are unavoidable in
+   comment threads, not because they are safe to type at a colleague. */
+
+const VI_TEXTING = [
+  // ---------------- the core words ----------------
+  {v:'ko', full:'không', e:'no / not', group:'Core words', ex:[
+    {v:'ko dc đâu', say:'không được đâu', e:'that won’t work'},
+    {v:'t ko bít', say:'tôi không biết', e:'I don’t know'},
+    {v:'ko sao', say:'không sao', e:'it’s fine / no worries'},
+    {v:'m ko đi à?', say:'mày không đi à?', e:'you’re not coming?'},
+  ]},
+  {v:'k', full:'không', e:'no / not — the shortest form', group:'Core words', ex:[
+    {v:'k đc', say:'không được', e:'can’t / not allowed'},
+    {v:'mai k rảnh', say:'mai không rảnh', e:'not free tomorrow'},
+    {v:'a k nhớ hả', say:'anh không nhớ hả', e:'you don’t remember?'},
+  ]},
+  {v:'kh', full:'không', e:'no / not — a middle-length form', group:'Core words', ex:[
+    {v:'kh phải', say:'không phải', e:'that’s not it'},
+    {v:'e kh hiểu', say:'em không hiểu', e:'I don’t get it'},
+  ]},
+  {v:'hk', full:'không', e:'no / not — Southern spelling', group:'Core words', ex:[
+    {v:'hk có gì', say:'không có gì', e:'you’re welcome / it’s nothing'},
+    {v:'hk đi dc', say:'không đi được', e:'can’t make it'},
+  ]},
+  {v:'hông', full:'không', e:'no / not — the Southern pronunciation, written out', group:'Core words', ex:[
+    {v:'đi hông?', say:'đi không?', e:'coming?'},
+    {v:'hông chịu đâu', say:'không chịu đâu', e:'no way, I’m not having that'},
+  ]},
+  {v:'hem', full:'không', e:'no / not — cute and playful', group:'Core words', ex:[
+    {v:'hem biết nữa', say:'không biết nữa', e:'no idea, honestly'},
+    {v:'e hem rảnh', say:'em không rảnh', e:'I’m not free'},
+  ]},
+  {v:'dc', full:'được', e:'can / okay', group:'Core words', ex:[
+    {v:'dc r', say:'được rồi', e:'that’ll do / okay then'},
+    {v:'mai dc ko?', say:'mai được không?', e:'is tomorrow okay?'},
+    {v:'t lm dc', say:'tôi làm được', e:'I can do it'},
+  ]},
+  {v:'đc', full:'được', e:'can / okay — with the đ', group:'Core words', ex:[
+    {v:'đc đó', say:'được đó', e:'yeah, that works'},
+    {v:'ko đc r', say:'không được rồi', e:'that’s not going to work now'},
+  ]},
+  {v:'r', full:'rồi', e:'already / done', group:'Core words', ex:[
+    {v:'xong r', say:'xong rồi', e:'all done'},
+    {v:'a ăn cơm chưa? — r', say:'anh ăn cơm chưa? rồi', e:'have you eaten? — yeah'},
+    {v:'t về r', say:'tôi về rồi', e:'I’m home / I’ve left'},
+  ]},
+  {v:'rùi', full:'rồi', e:'already — spelled soft and friendly', group:'Core words', ex:[
+    {v:'e biết rùi', say:'em biết rồi', e:'I know already'},
+    {v:'muộn rùi', say:'muộn rồi', e:'it’s late'},
+  ]},
+  {v:'ch', full:'chưa', e:'not yet', group:'Core words', ex:[
+    {v:'ăn ch?', say:'ăn chưa?', e:'eaten yet?'},
+    {v:'t ch lm', say:'tôi chưa làm', e:'I haven’t done it'},
+  ]},
+  {v:'chx', full:'chưa', e:'not yet — the x stands in for the tone', group:'Core words', ex:[
+    {v:'xong chx?', say:'xong chưa?', e:'finished yet?'},
+    {v:'chx tới', say:'chưa tới', e:'not there yet'},
+  ]},
+  {v:'j', full:'gì', e:'what', group:'Core words', ex:[
+    {v:'lm j đó?', say:'làm gì đó?', e:'what are you up to?'},
+    {v:'có j ko?', say:'có gì không?', e:'anything up?'},
+    {v:'ăn j?', say:'ăn gì?', e:'what shall we eat?'},
+  ]},
+  {v:'z', full:'vậy / gì', e:'so / what — Southern, from the v→y sound', group:'Core words', ex:[
+    {v:'sao z?', say:'sao vậy?', e:'what’s up? / what’s wrong?'},
+    {v:'z hả', say:'vậy hả', e:'oh, is that right'},
+    {v:'lm z lm j', say:'làm vậy làm gì', e:'why do that?'},
+  ]},
+  {v:'vs', full:'với', e:'with', group:'Core words', ex:[
+    {v:'đi vs t', say:'đi với tôi', e:'come with me'},
+    {v:'nc vs a', say:'nói chuyện với anh', e:'talk to you'},
+  ]},
+  {v:'cx', full:'cũng', e:'also / too', group:'Core words', ex:[
+    {v:'t cx z', say:'tôi cũng vậy', e:'same here'},
+    {v:'cx dc', say:'cũng được', e:'that works too'},
+  ]},
+  {v:'cũg', full:'cũng', e:'also — a typo that stuck', group:'Core words', ex:[
+    {v:'e cũg ko bt', say:'em cũng không biết', e:'I don’t know either'},
+  ]},
+  {v:'đg', full:'đang', e:'currently / -ing', group:'Core words', ex:[
+    {v:'t đg bận', say:'tôi đang bận', e:'I’m busy right now'},
+    {v:'đg đi r', say:'đang đi rồi', e:'on my way'},
+  ]},
+  {v:'lm', full:'làm', e:'to do / to work', group:'Core words', ex:[
+    {v:'lm j giờ này', say:'làm gì giờ này', e:'what are you doing at this hour'},
+    {v:'mai lm ko?', say:'mai làm không?', e:'working tomorrow?'},
+  ]},
+  {v:'bt', full:'biết / bình thường', e:'to know — or “nothing special”', group:'Core words', ex:[
+    {v:'t bt r', say:'tôi biết rồi', e:'I know'},
+    {v:'phim đó bt thôi', say:'phim đó bình thường thôi', e:'that film was just okay'},
+  ]},
+  {v:'bik', full:'biết', e:'to know — spelled as it sounds', group:'Core words', ex:[
+    {v:'ai bik', say:'ai biết', e:'who knows'},
+    {v:'e bik r', say:'em biết rồi', e:'I know already'},
+  ]},
+  {v:'lun', full:'luôn', e:'right away / at all', group:'Core words', ex:[
+    {v:'đi lun đi', say:'đi luôn đi', e:'let’s just go now'},
+    {v:'ko thấy lun', say:'không thấy luôn', e:'couldn’t see a thing'},
+  ]},
+  {v:'nx', full:'nữa', e:'more / any more', group:'Core words', ex:[
+    {v:'thêm 1 cái nx', say:'thêm một cái nữa', e:'one more'},
+    {v:'ko đi nx', say:'không đi nữa', e:'not going any more'},
+  ]},
+  {v:'ntn', full:'như thế nào', e:'how / what’s it like', group:'Core words', ex:[
+    {v:'lm ntn?', say:'làm như thế nào?', e:'how do I do it?'},
+    {v:'hôm qua ntn?', say:'hôm qua như thế nào?', e:'how did yesterday go?'},
+  ]},
+  {v:'pk', full:'phải không', e:'…right? — the tag question', group:'Core words', ex:[
+    {v:'a đi pk?', say:'anh đi phải không?', e:'you’re going, right?'},
+    {v:'z pk', say:'vậy phải không', e:'that’s it, isn’t it'},
+  ]},
+  {v:'vd', full:'ví dụ', e:'for example', group:'Core words', ex:[
+    {v:'vd như hôm qua', say:'ví dụ như hôm qua', e:'like yesterday, for instance'},
+  ]},
+  {v:'vv', full:'vân vân', e:'etc.', group:'Core words', ex:[
+    {v:'cà phê, trà sữa vv', say:'cà phê, trà sữa vân vân', e:'coffee, bubble tea and so on'},
+  ]},
+  {v:'ukm', full:'ừ', e:'yeah / mm-hm', group:'Core words', ex:[
+    {v:'ukm t bit r', say:'ừ tôi biết rồi', e:'yeah, I know'},
+    {v:'ukm đi đi', say:'ừ đi đi', e:'yeah, off you go'},
+  ]},
+
+  // ---------------- pronouns ----------------
+  {v:'m', full:'mày / mình', e:'you (rough) — or “me”, depending on who is typing', group:'Pronouns', ex:[
+    {v:'m đâu r?', say:'mày đâu rồi?', e:'where are you?'},
+    {v:'m nghĩ z ko', say:'mình nghĩ vậy không', e:'do you reckon so?'},
+  ]},
+  {v:'t', full:'tôi / tao / tớ', e:'I / me', group:'Pronouns', ex:[
+    {v:'t đi trc nha', say:'tôi đi trước nha', e:'I’m off first'},
+    {v:'t vs m', say:'tao với mày', e:'you and me'},
+  ]},
+  {v:'mk', full:'mình', e:'me / I — soft and friendly', group:'Pronouns', ex:[
+    {v:'mk ko rảnh', say:'mình không rảnh', e:'I’m not free'},
+    {v:'mk hỏi tí', say:'mình hỏi tí', e:'quick question'},
+  ]},
+  {v:'mik', full:'mình', e:'me / I — the other common spelling', group:'Pronouns', ex:[
+    {v:'mik cx đag đi', say:'mình cũng đang đi', e:'I’m on my way too'},
+  ]},
+  {v:'b', full:'bạn', e:'you — neutral and safe', group:'Pronouns', ex:[
+    {v:'b khoẻ ko?', say:'bạn khoẻ không?', e:'how are you?'},
+    {v:'b ơi', say:'bạn ơi', e:'hey / excuse me'},
+  ]},
+  {v:'bn', full:'bạn / bao nhiêu', e:'you — or “how much”. Context decides', group:'Pronouns', ex:[
+    {v:'bn tuổi r?', say:'bao nhiêu tuổi rồi?', e:'how old are you?'},
+    {v:'bn tiền z?', say:'bao nhiêu tiền vậy?', e:'how much is it?'},
+    {v:'bn đi ko?', say:'bạn đi không?', e:'are you coming?'},
+  ]},
+  {v:'a', full:'anh', e:'older brother — “you” to an older man, or “I” from one', group:'Pronouns', ex:[
+    {v:'a ơi', say:'anh ơi', e:'hey (to an older man)'},
+    {v:'a đag ở đâu', say:'anh đang ở đâu', e:'where are you?'},
+  ]},
+  {v:'e', full:'em', e:'younger sibling — “you” to someone younger, or “I” to someone older', group:'Pronouns', ex:[
+    {v:'e tới r a', say:'em tới rồi anh', e:'I’m here'},
+    {v:'e ăn ch?', say:'em ăn chưa?', e:'have you eaten?'},
+  ]},
+  {v:'ae', full:'anh em', e:'the lads / mates', group:'Pronouns', ex:[
+    {v:'ae đi nhậu ko', say:'anh em đi nhậu không', e:'lads, drinks?'},
+    {v:'cảm ơn ae', say:'cảm ơn anh em', e:'thanks lads'},
+  ]},
+  {v:'mn', full:'mọi người', e:'everyone', group:'Pronouns', ex:[
+    {v:'chào mn', say:'chào mọi người', e:'hi everyone'},
+    {v:'mn đâu r', say:'mọi người đâu rồi', e:'where is everybody?'},
+  ]},
+  {v:'mng', full:'mọi người', e:'everyone — the other spelling', group:'Pronouns', ex:[
+    {v:'mng ơi giúp e vs', say:'mọi người ơi giúp em với', e:'can someone help me'},
+  ]},
+
+  // ---------------- people ----------------
+  {v:'ny', full:'người yêu', e:'boyfriend / girlfriend', group:'People', ex:[
+    {v:'có ny ch?', say:'có người yêu chưa?', e:'got a partner yet?'},
+    {v:'đi vs ny r', say:'đi với người yêu rồi', e:'out with my other half'},
+  ]},
+  {v:'nyc', full:'người yêu cũ', e:'an ex', group:'People', ex:[
+    {v:'nyc nt lại', say:'người yêu cũ nhắn tin lại', e:'my ex texted'},
+  ]},
+  {v:'vk', full:'vợ', e:'wife — also used jokingly between couples', group:'People', ex:[
+    {v:'vk ơi về ăn cơm', say:'vợ ơi về ăn cơm', e:'love, come home for dinner'},
+  ]},
+  {v:'ck', full:'chồng / chuyển khoản', e:'husband — but also “bank transfer”, so read the thread', group:'People', ex:[
+    {v:'ck e đag lm', say:'chồng em đang làm', e:'my husband is at work'},
+    {v:'e ck cho a r nha', say:'em chuyển khoản cho anh rồi nha', e:'I’ve sent you the transfer'},
+  ]},
+
+  // ---------------- messaging and apps ----------------
+  {v:'nt', full:'nhắn tin', e:'to text', group:'Messaging', ex:[
+    {v:'nt cho t nha', say:'nhắn tin cho tôi nha', e:'text me'},
+    {v:'nt hoài ko trl', say:'nhắn tin hoài không trả lời', e:'I keep texting and get nothing back'},
+  ]},
+  {v:'tl', full:'trả lời', e:'to reply', group:'Messaging', ex:[
+    {v:'sao ko tl?', say:'sao không trả lời?', e:'why aren’t you answering?'},
+    {v:'tl giúp e vs', say:'trả lời giúp em với', e:'please get back to me'},
+  ]},
+  {v:'rep', full:'trả lời', e:'to reply — straight from English', group:'Messaging', ex:[
+    {v:'rep t đi', say:'trả lời tôi đi', e:'answer me'},
+    {v:'nó ko rep', say:'nó không trả lời', e:'he’s not replying'},
+  ]},
+  {v:'ib', full:'nhắn riêng', e:'DM me — from “inbox”', group:'Messaging', ex:[
+    {v:'ib cho m nha', say:'nhắn riêng cho mình nha', e:'DM me'},
+    {v:'ai cần thì ib', say:'ai cần thì nhắn riêng', e:'DM if you want one'},
+  ]},
+  {v:'cmt', full:'bình luận', e:'to comment', group:'Messaging', ex:[
+    {v:'cmt bên dưới nha', say:'bình luận bên dưới nha', e:'comment below'},
+  ]},
+  {v:'add', full:'kết bạn', e:'to add as a friend', group:'Messaging', ex:[
+    {v:'add t vs', say:'kết bạn với tôi với', e:'add me'},
+  ]},
+  {v:'kb', full:'kết bạn / không biết', e:'add friend — or “dunno”. Two different words', group:'Messaging', ex:[
+    {v:'kb vs m nha', say:'kết bạn với mình nha', e:'let’s be friends'},
+    {v:'kb lun á', say:'không biết luôn á', e:'no idea at all'},
+  ]},
+  {v:'avt', full:'ảnh đại diện', e:'profile picture', group:'Messaging', ex:[
+    {v:'đổi avt r à', say:'đổi ảnh đại diện rồi à', e:'changed your profile pic?'},
+  ]},
+  {v:'nc', full:'nói chuyện', e:'to talk, to chat', group:'Messaging', ex:[
+    {v:'nc tí đi', say:'nói chuyện tí đi', e:'let’s talk a minute'},
+    {v:'ko muốn nc', say:'không muốn nói chuyện', e:'I don’t want to talk'},
+  ]},
+  {v:'đt', full:'điện thoại', e:'phone', group:'Messaging', ex:[
+    {v:'đt hết pin r', say:'điện thoại hết pin rồi', e:'my phone’s dead'},
+    {v:'gọi đt đi', say:'gọi điện thoại đi', e:'just ring me'},
+  ]},
+
+  // ---------------- everyday nouns ----------------
+  {v:'trg', full:'trong / trường', e:'in — or “school”. Context decides', group:'Everyday', ex:[
+    {v:'ở trg nhà', say:'ở trong nhà', e:'inside the house'},
+    {v:'e đag ở trg', say:'em đang ở trường', e:'I’m at school'},
+  ]},
+  {v:'sn', full:'sinh nhật', e:'birthday', group:'Everyday', ex:[
+    {v:'mai sn t', say:'mai sinh nhật tôi', e:'my birthday’s tomorrow'},
+    {v:'chúc mừng sn nha', say:'chúc mừng sinh nhật nha', e:'happy birthday'},
+  ]},
+  {v:'qt', full:'quan tâm', e:'to care about', group:'Everyday', ex:[
+    {v:'ai qt đâu', say:'ai quan tâm đâu', e:'nobody cares'},
+    {v:'cảm ơn a đã qt', say:'cảm ơn anh đã quan tâm', e:'thanks for caring'},
+  ]},
+  {v:'qtr', full:'quan trọng', e:'important', group:'Everyday', ex:[
+    {v:'cái này qtr lắm', say:'cái này quan trọng lắm', e:'this really matters'},
+    {v:'ko qtr đâu', say:'không quan trọng đâu', e:'it doesn’t matter'},
+  ]},
+  {v:'bg', full:'bây giờ', e:'now', group:'Everyday', ex:[
+    {v:'bg mấy giờ r?', say:'bây giờ mấy giờ rồi?', e:'what time is it?'},
+    {v:'đi bg lun', say:'đi bây giờ luôn', e:'let’s go right now'},
+  ]},
+  {v:'hnay', full:'hôm nay', e:'today', group:'Everyday', ex:[
+    {v:'hnay m rảnh ko', say:'hôm nay mày rảnh không', e:'free today?'},
+  ]},
+  {v:'hqua', full:'hôm qua', e:'yesterday', group:'Everyday', ex:[
+    {v:'hqua vui z', say:'hôm qua vui vậy', e:'yesterday was fun'},
+  ]},
+  {v:'t7', full:'thứ bảy', e:'Saturday — weekdays go t2 to t7, then cn', group:'Everyday', ex:[
+    {v:'t7 này đi ko?', say:'thứ bảy này đi không?', e:'up for Saturday?'},
+  ]},
+  {v:'cn', full:'chủ nhật', e:'Sunday', group:'Everyday', ex:[
+    {v:'cn t bận r', say:'chủ nhật tôi bận rồi', e:'I’m busy Sunday'},
+  ]},
+  {v:'cf', full:'cà phê', e:'coffee — and “going for a coffee”', group:'Everyday', ex:[
+    {v:'đi cf ko?', say:'đi cà phê không?', e:'fancy a coffee?'},
+  ]},
+
+  // ---------------- borrowed from English ----------------
+  {v:'ok', full:'được / đồng ý', e:'okay — also written oke, okii', group:'Borrowed', ex:[
+    {v:'ok lun', say:'ok luôn', e:'yep, done'},
+    {v:'ok e nha', say:'ok em nha', e:'okay then'},
+  ]},
+  {v:'tks', full:'cảm ơn', e:'thanks', group:'Borrowed', ex:[
+    {v:'tks a nhiều', say:'cảm ơn anh nhiều', e:'thanks a lot'},
+  ]},
+  {v:'sr', full:'xin lỗi', e:'sorry', group:'Borrowed', ex:[
+    {v:'sr e nha, t quên', say:'xin lỗi em nha, tôi quên', e:'sorry, I forgot'},
+  ]},
+  {v:'bb', full:'tạm biệt', e:'bye', group:'Borrowed', ex:[
+    {v:'bb mn nha', say:'tạm biệt mọi người nha', e:'bye everyone'},
+  ]},
+
+  // ---------------- reactions ----------------
+  {v:'haha', full:'—', e:'laughing — the plain one', group:'Reactions', ex:[
+    {v:'haha đúng r', say:'haha đúng rồi', e:'haha, exactly'},
+  ]},
+  {v:'hihi', full:'—', e:'a small, shy or cheeky laugh', group:'Reactions', ex:[
+    {v:'e đùa thôi hihi', say:'em đùa thôi hihi', e:'only joking'},
+  ]},
+  {v:'hehe', full:'—', e:'a sly or pleased laugh', group:'Reactions', ex:[
+    {v:'t lm r hehe', say:'tôi làm rồi hehe', e:'already did it'},
+  ]},
+  {v:':))', full:'—', e:'laughing hard. More brackets, more laughter: :)))) ', group:'Reactions', ex:[
+    {v:'nghe xong t :))', say:'nghe xong tôi cười', e:'I lost it when I heard'},
+    {v:'z mà cx tin :))))', say:'vậy mà cũng tin', e:'and you believed that'},
+  ]},
+
+  // ---------------- the vulgar ones ----------------
+  {v:'cmn', full:'của mẹ nó', e:'“bloody” — an intensifier wedged mid-sentence. VULGAR', group:'Vulgar', ex:[
+    {v:'mệt cmn r', say:'mệt của mẹ nó rồi', e:'I’m bloody knackered'},
+    {v:'quên cmn mất', say:'quên của mẹ nó mất', e:'completely bloody forgot'},
+  ]},
+  {v:'vl', full:'vãi lồn', e:'“as hell” — goes on the end. VERY VULGAR', group:'Vulgar', ex:[
+    {v:'ngon vl', say:'ngon vãi lồn', e:'unbelievably good'},
+    {v:'mệt vl', say:'mệt vãi lồn', e:'shattered'},
+  ]},
+  {v:'vcl', full:'vãi cả lồn', e:'stronger again than vl. VERY VULGAR', group:'Vulgar', ex:[
+    {v:'hay vcl', say:'hay vãi cả lồn', e:'ridiculously good'},
+  ]},
+  {v:'dm', full:'địt mẹ', e:'the standard typed curse. VERY VULGAR', group:'Vulgar', ex:[
+    {v:'dm lại hỏng nữa', say:'địt mẹ lại hỏng nữa', e:'for f---’s sake, broken again'},
+  ]},
+];
+
+/* Full messages, where the skill actually gets tested — several shortcuts
+   stacked in one line, the way they really arrive. Same three parts: as typed,
+   written out in full, and what it means. */
+const VI_TEXTING_MSGS = [
+  {v:'B đg lm j z? Sao chx rep ib?', say:'Bạn đang làm gì vậy? Sao chưa trả lời tin nhắn?', e:'What are you doing? Why haven’t you replied?'},
+  {v:'T đag đi r, m chờ tí nha', say:'Tôi đang đi rồi, mày chờ tí nha', e:'I’m on my way, hang on a minute.'},
+  {v:'A ăn cơm ch? E nấu r nè', say:'Anh ăn cơm chưa? Em nấu rồi nè', e:'Have you eaten? I’ve cooked.'},
+  {v:'Hnay m rảnh ko? Đi cf vs t', say:'Hôm nay mày rảnh không? Đi cà phê với tôi', e:'Free today? Come for a coffee with me.'},
+  {v:'Sr e nha, đt a hết pin lun', say:'Xin lỗi em nha, điện thoại anh hết pin luôn', e:'Sorry — my phone died completely.'},
+  {v:'Mn ơi mai t7 mik có sn, ae tới ko?', say:'Mọi người ơi mai thứ bảy mình có sinh nhật, anh em tới không?', e:'Everyone — it’s my birthday tomorrow, Saturday. Are you lot coming?'},
+  {v:'Cái này qtr lắm, m nhớ tl t nha', say:'Cái này quan trọng lắm, mày nhớ trả lời tôi nha', e:'This really matters — remember to get back to me.'},
+  {v:'Bn tiền z b? Mik ck lun cho nhanh', say:'Bao nhiêu tiền vậy bạn? Mình chuyển khoản luôn cho nhanh', e:'How much is it? I’ll just transfer it, quicker that way.'},
+  {v:'Nó ko rep t từ hqua, kb bị j', say:'Nó không trả lời tôi từ hôm qua, không biết bị gì', e:'He hasn’t answered me since yesterday — no idea what’s up.'},
+  {v:'Mệt vl, lm cả ngày ch nghỉ', say:'Mệt vãi lồn, làm cả ngày chưa nghỉ', e:'Shattered — worked all day without a break. (VULGAR)'},
+  {v:'Ukm t bt r, ko sao đâu :))', say:'Ừ tôi biết rồi, không sao đâu', e:'Yeah I know, it’s fine.'},
+  {v:'E ib cho a nha, đừng cmt công khai', say:'Em nhắn riêng cho anh nha, đừng bình luận công khai', e:'DM me — don’t comment publicly.'},
+  {v:'Add mik vs, mik kb hết mn r', say:'Kết bạn với mình với, mình kết bạn hết mọi người rồi', e:'Add me — I’ve added everyone else already.'},
+  {v:'A đag ở trg, tí nx a nc vs e', say:'Anh đang ở trường, tí nữa anh nói chuyện với em', e:'I’m at school — I’ll talk to you in a bit.'},
+  {v:'Ny t đổi avt r, nhìn dc phết', say:'Người yêu tôi đổi ảnh đại diện rồi, nhìn được phết', e:'My partner changed their profile pic — looks pretty good.'},
+];
+// ---------- texting shortcuts ----------
+// A reading deck, not a speaking one: nobody says "ko", they write it. So the
+// card shows the shortcut, the gloss carries the full word, and the audio
+// speaks the expansion — `say` on every example exists for exactly that.
+function textingSource(){ return isVietnameseCourse() ? VI_TEXTING : []; }
+// One language key per cache. Sharing a single one let textingVocab() return the
+// Vietnamese deck for a Cantonese session: the phrase call rebuilt and stamped
+// the key with the new language, and the stale vocab cache then looked current.
+// Same shape of bug as the rank buckets, so the two caches are keyed separately.
+let _textVocabCache=null, _textVocabCacheLang=null;
+let _textPhraseCache=null, _textPhraseCacheLang=null;
+function textingVocab(){
+  if(_textVocabCache && _textVocabCacheLang===state.language) return _textVocabCache;
+  _textVocabCache = textingSource().map(t=>({
+    word:t.v, p:'', e:(t.full && t.full!=='\u2014' ? t.full+' \u2014 '+t.e : t.e),
+    group:t.group, full:t.full, ex:t.ex, rank:999999, star:1,
+    srsId:`text_${srsNs()}${t.v}`,
+  }));
+  _textVocabCacheLang = state.language;
+  return _textVocabCache;
+}
+function textingPhrases(){
+  if(_textPhraseCache && _textPhraseCacheLang===state.language) return _textPhraseCache;
+  const out=[];
+  textingSource().forEach(t=>t.ex.forEach(x=>out.push({
+    v:x.v, p:'', e:x.e, say:x.say, group:t.group,
+    srsId:`textp_${srsNs()}${out.length}`,
+  })));
+  if(isVietnameseCourse()) VI_TEXTING_MSGS.forEach(m=>out.push({
+    v:m.v, p:'', e:m.e, say:m.say, group:'Real messages',
+    srsId:`textp_${srsNs()}${out.length}`,
+  }));
+  _textPhraseCache = out; _textPhraseCacheLang = state.language;
+  return out;
+}
+// The detail sheet reads notes by word, so the full form and a couple of real
+// examples are shaped into one.
+function textingNotes(){
+  const m={};
+  textingSource().forEach(t=>{
+    m[t.v] = { lit: t.full,
+      note: 'Typed, not spoken \u2014 you write ' + t.v + ' and say ' + (t.full==='\u2014'?'it out loud':t.full)
+            + '. ' + t.ex.slice(0,3).map(x=>x.v+' = '+x.say).join(' \u00b7 ') };
+  });
+  return m;
+}
+const TEXT_GROUP_ORDER = ['Core words','Pronouns','People','Messaging','Everyday',
+                          'Borrowed','Reactions','Vulgar','Real messages'];
+function byTextOrder(a,b){ return TEXT_GROUP_ORDER.indexOf(a.group) - TEXT_GROUP_ORDER.indexOf(b.group); }
 let _slangVocabCacheLang = null, _slangPhraseCacheLang = null;
 function slangVocab(){
   if(_slangVocabCache && _slangVocabCacheLang === state.language) return _slangVocabCache;
@@ -19204,6 +19607,9 @@ function buildPhraseBuckets(){
     buckets.push({ id:'slang', label:'\ud83d\ude43 Slang', kind:'slang', min:1, max:99999 });
     buckets.push({ id:'swear', label:'\ud83e\udd2c Swearing', kind:'swear', min:1, max:99999 });
   }
+  if(textingSource().length){
+    buckets.push({ id:'text', label:'\ud83d\udcf1 Texting', kind:'text', min:1, max:99999 });
+  }
   for(let start=1; start<=COMMON_PHRASES.length; start+=100){
     const end = Math.min(start+99, COMMON_PHRASES.length);
     buckets.push({ id:`p${start}-${end}`, label:`${start}\u2013${end}`, min:start, max:end });
@@ -19227,6 +19633,7 @@ function phraseStudyPool(bucket){
     }));
     return bucket ? out.filter(p=>p.rank>=bucket.min && p.rank<=bucket.max) : out;
   }
+  if(bucket && bucket.kind === 'text') return textingPhrases();
   if(bucket && (bucket.kind === 'slang' || bucket.kind === 'swear')) return slangPhraseDeck(bucket.kind);
   let list = COMMON_PHRASES;
   if(bucket) list = list.filter(p => p.rank>=bucket.min && p.rank<=bucket.max);
