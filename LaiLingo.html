@@ -282,6 +282,9 @@
      list can be spoken aloud and found again. Deliberately quiet — it is a
      landmark, not data. */
   .freq-idx{flex:0 0 auto;min-width:26px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:700;color:var(--muted);}
+  /* A curse aimed at someone lives in Phrases, but its usage note is the whole
+     point of the card — and phrases have no detail sheet to open. Show it inline. */
+  .fw-note{margin:6px 0 0;font-size:11.5px;line-height:1.5;color:var(--muted);}
   .swipe-counter{margin-left:8px;font-weight:700;color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:12px;}
   .freq-item{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--surface);border-radius:12px;padding:12px 14px;margin-bottom:8px;}
   .freq-item .fw{font-size:14.5px;font-weight:700;color:var(--gold);margin:0 0 2px;}
@@ -1274,13 +1277,13 @@
       </div>
 
       <div class="chip-row" id="cardsSubTabToggle">
-        <button class="chip active" data-subtab="study" onclick="setCardsSubTab('study')">📚 Study</button>
-        <button class="chip" data-subtab="browse" onclick="setCardsSubTab('browse')">🔍 Browse</button>
+        <button class="chip" data-subtab="study" onclick="setCardsSubTab('study')">📚 Study</button>
+        <button class="chip active" data-subtab="browse" onclick="setCardsSubTab('browse')">🔍 Browse</button>
         <button class="chip" data-subtab="mine" onclick="setCardsSubTab('mine')">⛏️ Mine</button>
       </div>
 
       <!-- STUDY panel (was view-flashcards) -->
-      <div id="cardsStudyPanel">
+      <div id="cardsStudyPanel" style="display:none;">
         <p class="section-title" style="margin-top:0;" id="cardsTabTitle">Word flashcards</p>
         <p class="section-sub" id="cardsTabSub">Spaced repetition through every word in your frequency list — same engine as Swipe Learn, just word-by-word.</p>
 
@@ -1335,7 +1338,7 @@
       </div>
 
       <!-- BROWSE panel (was view-frequency) -->
-      <div id="cardsBrowsePanel" style="display:none;">
+      <div id="cardsBrowsePanel">
         <p class="section-title" style="margin-top:0;" id="freqTabTitle">Word frequency</p>
         <p class="section-sub" id="freqTabSub"></p>
         <div class="chip-row" id="wordsModeToggle">
@@ -14805,9 +14808,7 @@ const VI_SLANG_VOCAB = [
 
   // ---------- dismissal ----------
   {v:'thôi đi', e:'give over / that’s enough', cat:'Dismissal', sev:'mild'},
-  {v:'kệ tao', e:'leave me out of it', cat:'Dismissal', sev:'medium'},
   {v:'không liên quan', e:'nothing to do with it / irrelevant', cat:'Dismissal', sev:'mild'},
-  {v:'đi chỗ khác', e:'go somewhere else', cat:'Dismissal', sev:'medium'},
   {v:'im đi', e:'be quiet', cat:'Dismissal', sev:'medium'},
   {v:'câm mồm', e:'shut your mouth', cat:'Dismissal', sev:'strong'},
   {v:'cút', e:'get lost / clear off', cat:'Dismissal', sev:'strong'},
@@ -14858,17 +14859,12 @@ const VI_SLANG_VOCAB = [
   {v:'đụ má', e:'f--- your mother — the Southern form', cat:'Family insult', sev:'extreme'},
   {v:'địt mẹ', e:'the Northern form of the same curse', cat:'Family insult', sev:'extreme'},
   {v:'đm', e:'how địt mẹ / đụ má is written. Everywhere online, still the full curse', cat:'Family insult', sev:'strong'},
-  {v:'đụ má mày', e:'the same aimed squarely at the person', cat:'Family insult', sev:'extreme'},
   {v:'con mẹ nó', e:'“damn the thing” — a softened family curse, close to “bloody hell”', cat:'Family insult', sev:'medium'},
   {v:'mẹ kiếp', e:'damn it — a set curse nobody hears literally any more', cat:'Family insult', sev:'medium'},
 
   // ---------- threats and fights ----------
   {v:'muốn gì', e:'what do you want? — the line before it kicks off', cat:'Threat or fight', sev:'medium'},
-  {v:'muốn chết hả', e:'you asking for it?', cat:'Threat or fight', sev:'strong'},
   {v:'đánh nhau', e:'to have a fight', cat:'Threat or fight', sev:'medium'},
-  {v:'tao đánh mày', e:'I’ll hit you', cat:'Threat or fight', sev:'strong'},
-  {v:'ra ngoài nói chuyện', e:'take it outside', cat:'Threat or fight', sev:'strong'},
-  {v:'đừng đụng vào tao', e:'don’t touch me', cat:'Threat or fight', sev:'strong'},
   {v:'coi chừng', e:'watch it / careful now', cat:'Threat or fight', sev:'medium'},
 
 
@@ -14960,12 +14956,7 @@ const VI_SLANG_VOCAB = [
 
   // ---------- dismissal ----------
   {v:'dẹp đi', e:'knock it off / clear off', cat:'Dismissal', sev:'medium'},
-  {v:'xạo vừa thôi', e:'that’s enough of your rubbish', cat:'Dismissal', sev:'medium'},
-  {v:'nói ít thôi', e:'talk less', cat:'Dismissal', sev:'medium'},
-  {v:'lo chuyện của mày đi', e:'mind your own business', cat:'Dismissal', sev:'medium'},
   {v:'ai thèm', e:'as if / who’d want to', cat:'Dismissal', sev:'mild'},
-  {v:'chả ai quan tâm', e:'nobody cares', cat:'Dismissal', sev:'medium'},
-  {v:'đủ rồi đó', e:'that’s enough now — the warning before it escalates', cat:'Dismissal', sev:'medium'},
 
   // ---------- personal insult ----------
   {v:'ngốc', e:'silly — soft, often affectionate', cat:'Personal insult', sev:'mild'},
@@ -15003,12 +14994,8 @@ const VI_SLANG_VOCAB = [
   {v:'clm', e:'cái lồn mẹ, written. STRONG', cat:'Sexual profanity', sev:'extreme'},
 
   // ---------- family insult ----------
-  {v:'con mẹ mày', e:'your mother — the curse behind cmm. STRONG', cat:'Family insult', sev:'extreme'},
   {v:'cmm', e:'con mẹ mày, written', cat:'Family insult', sev:'extreme'},
   {v:'dcm', e:'địt con mẹ, written — the most-typed curse there is', cat:'Family insult', sev:'extreme'},
-  {v:'địt con mẹ mày', e:'the full Northern form. STRONG', cat:'Family insult', sev:'extreme'},
-  {v:'bà nội mày', e:'your grandmother — used as a curse', cat:'Family insult', sev:'strong'},
-  {v:'tổ cha mày', e:'your ancestors! — Southern, and often affectionate', cat:'Family insult', sev:'medium'},
   {v:'đồ con hoang', e:'bastard — about parentage, so it cuts deep', cat:'Family insult', sev:'strong'},
   {v:'bố mày', e:'“your father” = me — arrogant first person', cat:'Family insult', sev:'strong'},
   {v:'ông đây', e:'“this gentleman” = me — puffed-up, less obscene', cat:'Family insult', sev:'medium'},
@@ -15016,12 +15003,6 @@ const VI_SLANG_VOCAB = [
 
   // ---------- threat or fight ----------
   {v:'liệu hồn', e:'watch yourself', cat:'Threat or fight', sev:'medium'},
-  {v:'đừng có làm quá', e:'don’t push it', cat:'Threat or fight', sev:'medium'},
-  {v:'thích gây sự à', e:'looking for trouble, are you?', cat:'Threat or fight', sev:'strong'},
-  {v:'ngon thì ra đây', e:'come out here then, if you’re so tough', cat:'Threat or fight', sev:'strong'},
-  {v:'muốn ăn đấm hả', e:'want a punch?', cat:'Threat or fight', sev:'strong'},
-  {v:'tao chém mày', e:'I’ll cut you — a real threat, not banter', cat:'Threat or fight', sev:'extreme'},
-  {v:'tao giết mày', e:'I’ll kill you — usually empty between friends, not always', cat:'Threat or fight', sev:'extreme'},
 ];
 
 const VI_SLANG_PHRASES = [
@@ -15131,6 +15112,32 @@ const VI_SLANG_PHRASES = [
   {v:'Đừng có làm quá nha.', e:'Don’t push it.', cat:'Threat or fight', sev:'medium'},
   {v:'Mày thích gây sự à?', e:'You looking for trouble?', cat:'Threat or fight', sev:'strong'},
   {v:'Ngon thì ra đây nói chuyện.', e:'If you’re so tough, come out here.', cat:'Threat or fight', sev:'strong'},
+
+
+  /* moved from the word deck: each of these has a person in it,
+     so it is something you say at someone rather than a term */
+  {v:'kệ tao', e:'leave me out of it', cat:'Dismissal', sev:'medium'},
+  {v:'đi chỗ khác', e:'go somewhere else', cat:'Dismissal', sev:'medium'},
+  {v:'đụ má mày', e:'the same aimed squarely at the person', cat:'Family insult', sev:'extreme'},
+  {v:'muốn chết hả', e:'you asking for it?', cat:'Threat or fight', sev:'strong'},
+  {v:'tao đánh mày', e:'I’ll hit you', cat:'Threat or fight', sev:'strong'},
+  {v:'ra ngoài nói chuyện', e:'take it outside', cat:'Threat or fight', sev:'strong'},
+  {v:'đừng đụng vào tao', e:'don’t touch me', cat:'Threat or fight', sev:'strong'},
+  {v:'xạo vừa thôi', e:'that’s enough of your rubbish', cat:'Dismissal', sev:'medium'},
+  {v:'nói ít thôi', e:'talk less', cat:'Dismissal', sev:'medium'},
+  {v:'lo chuyện của mày đi', e:'mind your own business', cat:'Dismissal', sev:'medium'},
+  {v:'chả ai quan tâm', e:'nobody cares', cat:'Dismissal', sev:'medium'},
+  {v:'đủ rồi đó', e:'that’s enough now — the warning before it escalates', cat:'Dismissal', sev:'medium'},
+  {v:'con mẹ mày', e:'your mother — the curse behind cmm. STRONG', cat:'Family insult', sev:'extreme'},
+  {v:'địt con mẹ mày', e:'the full Northern form. STRONG', cat:'Family insult', sev:'extreme'},
+  {v:'bà nội mày', e:'your grandmother — used as a curse', cat:'Family insult', sev:'strong'},
+  {v:'tổ cha mày', e:'your ancestors! — Southern, and often affectionate', cat:'Family insult', sev:'medium'},
+  {v:'đừng có làm quá', e:'don’t push it', cat:'Threat or fight', sev:'medium'},
+  {v:'thích gây sự à', e:'looking for trouble, are you?', cat:'Threat or fight', sev:'strong'},
+  {v:'ngon thì ra đây', e:'come out here then, if you’re so tough', cat:'Threat or fight', sev:'strong'},
+  {v:'muốn ăn đấm hả', e:'want a punch?', cat:'Threat or fight', sev:'strong'},
+  {v:'tao chém mày', e:'I’ll cut you — a real threat, not banter', cat:'Threat or fight', sev:'extreme'},
+  {v:'tao giết mày', e:'I’ll kill you — usually empty between friends, not always', cat:'Threat or fight', sev:'extreme'},
 ];
 
 const VI_WORD_NOTES = {
@@ -15273,7 +15280,6 @@ const SLANG_VOCAB = [
   // ---------- everyday: no edge at all ----------
   {v:'點呀', p:'dim2aa3', e:'what’s up? / well?', cat:'General slang', sev:'mild'},
   {v:'冇乜點', p:'mou5mat1dim2', e:'not much — the standard reply to 點呀', cat:'General slang', sev:'mild'},
-  {v:'噉點呀', p:'gam2dim2aa3', e:'so what now? where does that leave us?', cat:'General slang', sev:'mild'},
   {v:'點都好', p:'dim2dou1hou2', e:'either way / whatever happens', cat:'General slang', sev:'mild'},
   {v:'喂', p:'wai3', e:'oi / hey — how you get someone’s attention', cat:'General slang', sev:'mild'},
   {v:'好正', p:'hou2zeng3', e:'brilliant / spot on', cat:'General slang', sev:'mild'},
@@ -15295,7 +15301,6 @@ const SLANG_VOCAB = [
   {v:'大鑊', p:'daai6wok6', e:'big trouble', cat:'General slang', sev:'mild'},
   {v:'冇眼睇', p:'mou5ngaan5tai2', e:'can’t bear to watch', cat:'General slang', sev:'mild'},
   {v:'玩嘢', p:'waan2je5', e:'to mess about / pull a stunt', cat:'General slang', sev:'mild'},
-  {v:'唔係啩', p:'m4hai6gwaa3', e:'you’re kidding / no way', cat:'General slang', sev:'mild'},
   {v:'講笑啫', p:'gong2siu3ze1', e:'only joking', cat:'General slang', sev:'mild'},
   {v:'慳返啖氣', p:'haan1faan1daam6hei3', e:'save your breath', cat:'General slang', sev:'mild'},
   {v:'冇所謂', p:'mou5so2wai6', e:'don’t mind / makes no odds', cat:'General slang', sev:'mild'},
@@ -15307,12 +15312,8 @@ const SLANG_VOCAB = [
   {v:'唔使旨意', p:'m4sai2zi2ji3', e:'don’t count on it', cat:'General slang', sev:'mild'},
   {v:'黐線', p:'ci1sin3', e:'mad / off your head — friendly between mates', cat:'Personal insult', sev:'mild'},
   {v:'傻仔', p:'so4zai2', e:'daft lad — often affectionate', cat:'Personal insult', sev:'mild'},
-  {v:'頂你個肺', p:'ding2nei5go3fai3', e:'“damn you” — a deliberately silly, softened curse', cat:'General slang', sev:'mild'},
 
   // ---------- dismissal: telling someone to leave it ----------
-  {v:'唔好煩我', p:'m4hou2faan4ngo5', e:'stop bothering me', cat:'Dismissal', sev:'mild'},
-  {v:'咪搞我', p:'mai5gaau2ngo5', e:'leave me alone', cat:'Dismissal', sev:'mild'},
-  {v:'唔關你事', p:'m4gwaan1nei5si6', e:'none of your business', cat:'Dismissal', sev:'medium'},
   {v:'行開啲', p:'haang4hoi1di1', e:'move along / give me room', cat:'Dismissal', sev:'medium'},
   {v:'走開', p:'zau2hoi1', e:'go away', cat:'Dismissal', sev:'medium'},
   {v:'收聲', p:'sau1seng1', e:'shut up', cat:'Dismissal', sev:'medium'},
@@ -15356,23 +15357,14 @@ const SLANG_VOCAB = [
   {v:'柒', p:'cat6', e:'the mildest of the five; 好柒 = pathetic', cat:'Sexual profanity', sev:'strong'},
   {v:'冇撚用', p:'mou5lan2jung6', e:'bloody useless — 撚 wedged in for force', cat:'Sexual profanity', sev:'strong'},
   {v:'好撚煩', p:'hou2lan2faan4', e:'bloody annoying — same infix pattern', cat:'Sexual profanity', sev:'strong'},
-  {v:'屌你', p:'diu2nei5', e:'f--- you', cat:'Sexual profanity', sev:'extreme'},
 
   // ---------- family curses: the ones that end friendships ----------
-  {v:'屌你老母', p:'diu2nei5lou5mou2', e:'the worst thing you can say to someone in Cantonese', cat:'Family insult', sev:'extreme'},
-  {v:'你老母', p:'nei5lou5mou2', e:'“your mother” — the short form, no less serious', cat:'Family insult', sev:'extreme'},
   {v:'冚家鏟', p:'ham6gaa1caan2', e:'may your whole family be wiped out', cat:'Family insult', sev:'extreme'},
   {v:'冚家富貴', p:'ham6gaa1fu3gwai3', e:'“may your whole family prosper” — said sarcastically, it means the opposite', cat:'Family insult', sev:'extreme'},
-  {v:'仆你個街', p:'puk1nei5go3gaai1', e:'an expanded, angrier 仆街', cat:'Family insult', sev:'extreme'},
 
   // ---------- threats and fights ----------
-  {v:'想點呀', p:'soeng2dim2aa3', e:'what’s your problem? — the line before a fight starts', cat:'Threat or fight', sev:'medium'},
-  {v:'你想死呀', p:'nei5soeng2sei2aa3', e:'are you asking for it?', cat:'Threat or fight', sev:'strong'},
-  {v:'唔好惹我', p:'m4hou2je5ngo5', e:'don’t start with me', cat:'Threat or fight', sev:'strong'},
   {v:'出去講', p:'ceot1heoi3gong2', e:'take it outside', cat:'Threat or fight', sev:'strong'},
   {v:'打交', p:'daa2gaau1', e:'to have a fight / scrap', cat:'Threat or fight', sev:'medium'},
-  {v:'我打死你', p:'ngo5daa2sei2nei5', e:'I’ll batter you — often an empty threat between mates', cat:'Threat or fight', sev:'strong'},
-  {v:'睇死你', p:'tai2sei2nei5', e:'I reckon you haven’t got it in you', cat:'Threat or fight', sev:'medium'},
 
 
   /* ===== third pass: jyutping rebuilt against HKCanCor, 29 readings corrected ===== */
@@ -15392,9 +15384,6 @@ const SLANG_VOCAB = [
   {v:'死開啲', p:'sei2 hoi1 di1', e:'back off — the longer, sharper 死開', cat:'Dismissal', sev:'medium'},
   {v:'收嗲啦', p:'sau1 de1 laa1', e:'that’s enough talk / wrap it up', cat:'Dismissal', sev:'mild'},
   {v:'收檔啦', p:'sau1 dong3 laa1', e:'shut up shop — give it up, you’re done', cat:'Dismissal', sev:'medium'},
-  {v:'頂你', p:'deng2 nei5', e:'damn you — the clean short form of 頂你個肺', cat:'Dismissal', sev:'medium'},
-  {v:'關我鬼事', p:'gwaan1 ngo5 gwai2 si6', e:'what’s that got to do with me?', cat:'Dismissal', sev:'medium'},
-  {v:'鬼理你', p:'gwai2 lei5 nei5', e:'who cares about you', cat:'Dismissal', sev:'medium'},
   {v:'行𨶙開', p:'haang4 lan2 hoi1', e:'get out of the bloody way — 行開 with a swear wedged in', cat:'Dismissal', sev:'strong'},
   {v:'麻𨶙煩', p:'maa4 lan2 faan4', e:'a right pain — 麻煩 with the infix', cat:'Dismissal', sev:'strong'},
   {v:'有鳩用', p:'jau5 gau1 jung6', e:'what bloody use is that', cat:'Dismissal', sev:'strong'},
@@ -15430,10 +15419,8 @@ const SLANG_VOCAB = [
   {v:'死煩膠', p:'sei2 faan4 gaau1', e:'an exhausting, won’t-drop-it person', cat:'Personal insult', sev:'medium'},
   {v:'冇腦', p:'mou5 nou5', e:'no brains', cat:'Personal insult', sev:'medium'},
   {v:'食懵咗', p:'sik6 mung2 zo2', e:'has taken leave of his senses', cat:'Personal insult', sev:'medium'},
-  {v:'你傻㗎', p:'nei5 so4 gaa4', e:'are you mad? — rhetorical, not a question', cat:'Personal insult', sev:'medium'},
   {v:'仆街仔', p:'puk1 gaai1 zai2', e:'little bastard', cat:'Personal insult', sev:'strong'},
   {v:'死仆街', p:'sei2 puk1 gaai1', e:'the intensified 仆街, aimed at a person', cat:'Personal insult', sev:'strong'},
-  {v:'你仆街', p:'nei5 puk1 gaai1', e:'you bastard — 仆街 pointed at someone', cat:'Personal insult', sev:'strong'},
   {v:'冇家教', p:'mou5 gaa1 gaau3', e:'badly brought up — an attack on the parents', cat:'Personal insult', sev:'medium'},
   {v:'冇禮貌', p:'mou5 lai5 maau6', e:'rude / no manners — completely clean', cat:'Personal insult', sev:'mild'},
   {v:'畜生都不如', p:'cuk1 saang1 dou1 bat1 jyu4', e:'lower than an animal', cat:'Personal insult', sev:'strong'},
@@ -15448,25 +15435,15 @@ const SLANG_VOCAB = [
   {v:'食狗屎', p:'sik6 gau2 si2', e:'eat dog shit — the escalated form', cat:'Body humour', sev:'medium'},
   {v:'喫屎', p:'jaak1 si2', e:'the same idea with 喫 rather than 食', cat:'Body humour', sev:'medium'},
   {v:'去食屎啦', p:'heoi3 sik6 si2 laa1', e:'go eat shit', cat:'Body humour', sev:'medium'},
-  {v:'食屎啦你', p:'sik6 si2 laa1 nei5', e:'eat shit, you — the 你 on the end aims it', cat:'Body humour', sev:'medium'},
   {v:'食屎狗', p:'sik6 si2 gau2', e:'shit-eating dog', cat:'Body humour', sev:'strong'},
   {v:'飛機場', p:'fei1 gei1 coeng4', e:'flat-chested — lit. “airfield”', cat:'Body humour', sev:'medium'},
 
   // ---------- sexual profanity ----------
   {v:'𨳒', p:'diu2', e:'the f-word — the other spelling of 屌', cat:'Sexual profanity', sev:'extreme'},
   {v:'𨶙', p:'lan2', e:'the swear syllable lan2 — the other spelling of 撚', cat:'Sexual profanity', sev:'extreme'},
-  {v:'𨳒你', p:'diu2 nei5', e:'f--- you', cat:'Sexual profanity', sev:'extreme'},
-  {v:'𨳒柒你', p:'diu2 cat6 nei5', e:'the same with 柒 wedged in for force', cat:'Sexual profanity', sev:'extreme'},
-  {v:'𨳒鳩你', p:'diu2 gau1 nei5', e:'and again with 鳩', cat:'Sexual profanity', sev:'extreme'},
-  {v:'𨳒你個閪', p:'diu2 nei5 go3 hai1', e:'as crude as the language gets short of a family curse', cat:'Sexual profanity', sev:'extreme'},
-  {v:'𨳒你個嘴', p:'diu2 nei5 go3 zeoi2', e:'aimed at the mouth — i.e. shut up', cat:'Sexual profanity', sev:'extreme'},
-  {v:'𨳒你仆街', p:'diu2 nei5 puk1 gaai1', e:'two separate curses stacked', cat:'Sexual profanity', sev:'extreme'},
-  {v:'𨳒你老豆', p:'diu2 nei5 lou5 dau2', e:'aimed at the father rather than the mother', cat:'Sexual profanity', sev:'extreme'},
   {v:'𨳒閪', p:'diu2 hai1', e:'to shag — the verb, crudely', cat:'Sexual profanity', sev:'extreme'},
   {v:'𨳒那星', p:'diu2 naa5 sing1', e:'bloody hell — an exclamation, not aimed at anyone', cat:'Sexual profanity', sev:'strong'},
   {v:'𨳒那媽', p:'diu2 naa5 maa1', e:'to hell with it — sounds like a family curse, works as an oath', cat:'Sexual profanity', sev:'strong'},
-  {v:'唔𨳒你', p:'m4 diu2 nei5', e:'“not doing that with you” — refusal, said as a joke between men', cat:'Sexual profanity', sev:'strong'},
-  {v:'我想𨳒你', p:'ngo5 soeng2 diu2 nei5', e:'I want to shag you — crude, not affectionate', cat:'Sexual profanity', sev:'extreme'},
   {v:'死閪', p:'sei2 hai1', e:'a hard insult to a woman', cat:'Sexual profanity', sev:'extreme'},
   {v:'老閪', p:'lou5 hai1', e:'the same aimed at an older woman', cat:'Sexual profanity', sev:'extreme'},
   {v:'肥閪', p:'fei4 hai1', e:'and again about her weight', cat:'Sexual profanity', sev:'extreme'},
@@ -15510,24 +15487,14 @@ const SLANG_VOCAB = [
   {v:'大波妹', p:'daai6 bo1 mui6', e:'busty girl — leering, said about a woman not to her', cat:'Sexual profanity', sev:'medium'},
   {v:'條女濕哂', p:'tiu4 neoi5 sap1 saai3', e:'crude line about a woman being aroused', cat:'Sexual profanity', sev:'extreme'},
   {v:'碌柒好長', p:'luk1 cat6 hou2 coeng4', e:'a boast, and a set-up line in jokes', cat:'Sexual profanity', sev:'extreme'},
-  {v:'乜𨶙嘢呀', p:'mat1 lan2 je5 aa3', e:'what the hell is this — 乜嘢 with the infix', cat:'Sexual profanity', sev:'strong'},
 
   // ---------- family insult ----------
   {v:'冚家剷', p:'ham6 gaa1 caan2', e:'the same curse as 冚家鏟, other spelling', cat:'Family insult', sev:'extreme'},
   {v:'冚家鈴', p:'ham6 gaa1 ling1', e:'a softened-sounding variant of the same family curse', cat:'Family insult', sev:'extreme'},
-  {v:'𨳒你冚家剷', p:'diu2 nei5 ham6 gaa1 caan2', e:'both curses at once — about as far as it goes', cat:'Family insult', sev:'extreme'},
-  {v:'𨳒你全家', p:'diu2 nei5 cyun4 gaa1', e:'aimed at the whole household', cat:'Family insult', sev:'extreme'},
-  {v:'𨳒你佬母', p:'diu2 nei5 lou2 mou5', e:'“your mother” — 佬母 is a written variant of 老母', cat:'Family insult', sev:'extreme'},
-  {v:'有爺生冇乸教', p:'jau5 je4 saang1 mou5 naa2 gaau3', e:'“a father to bear you, no mother to raise you” — attacks the upbringing', cat:'Family insult', sev:'extreme'},
 
   // ---------- threat or fight ----------
-  {v:'打柒佢', p:'daa2 cat6 keoi5', e:'give him a hiding', cat:'Threat or fight', sev:'strong'},
-  {v:'打鳩你', p:'daa2 gau1 nei5', e:'I’ll knock you out', cat:'Threat or fight', sev:'strong'},
-  {v:'閹咗你', p:'jim1 zo2 nei5', e:'I’ll have your bits off — a threat, usually theatrical', cat:'Threat or fight', sev:'strong'},
   {v:'隻抽', p:'zek3 cau1', e:'one on one — a challenge to settle it between the two of you', cat:'Threat or fight', sev:'medium'},
   {v:'食屎死啦', p:'sik6 si2 sei2 laa1', e:'eat shit and die', cat:'Threat or fight', sev:'strong'},
-  {v:'你去死啦', p:'nei5 heoi3 sei2 laa1', e:'go and die', cat:'Threat or fight', sev:'strong'},
-  {v:'死咗佢啦', p:'sei2 zo2 keoi5 laa1', e:'let him drop dead — said about someone, not to them', cat:'Threat or fight', sev:'strong'},
 ];
 
 const SLANG_PHRASES = [
@@ -15627,6 +15594,50 @@ const SLANG_PHRASES = [
   {v:'未死過呀？', p:'mei6 sei2 gwo3 aa3?', e:'Never had a hiding before? — same function, nastier.', cat:'Threat or fight', sev:'strong'},
   {v:'仆你個臭街。', p:'puk1 nei5 go3 cau3 gaai1.', e:'The expanded, angrier 仆街.', cat:'Threat or fight', sev:'strong'},
   {v:'隻抽呀，唔好叫人。', p:'zek3 cau1 aa3, m4 hou2 giu3 jan4.', e:'One on one — don’t bring anyone else.', cat:'Threat or fight', sev:'medium'},
+
+
+  /* moved from the word deck: each of these has a person in it,
+     so it is something you say at someone rather than a term */
+  {v:'噉點呀', p:'gam2dim2aa3', e:'so what now? where does that leave us?', cat:'General slang', sev:'mild'},
+  {v:'唔係啩', p:'m4hai6gwaa3', e:'you’re kidding / no way', cat:'General slang', sev:'mild'},
+  {v:'頂你個肺', p:'ding2nei5go3fai3', e:'“damn you” — a deliberately silly, softened curse', cat:'General slang', sev:'mild'},
+  {v:'唔好煩我', p:'m4hou2faan4ngo5', e:'stop bothering me', cat:'Dismissal', sev:'mild'},
+  {v:'咪搞我', p:'mai5gaau2ngo5', e:'leave me alone', cat:'Dismissal', sev:'mild'},
+  {v:'唔關你事', p:'m4gwaan1nei5si6', e:'none of your business', cat:'Dismissal', sev:'medium'},
+  {v:'屌你', p:'diu2nei5', e:'f--- you', cat:'Sexual profanity', sev:'extreme'},
+  {v:'屌你老母', p:'diu2nei5lou5mou2', e:'the worst thing you can say to someone in Cantonese', cat:'Family insult', sev:'extreme'},
+  {v:'你老母', p:'nei5lou5mou2', e:'“your mother” — the short form, no less serious', cat:'Family insult', sev:'extreme'},
+  {v:'仆你個街', p:'puk1nei5go3gaai1', e:'an expanded, angrier 仆街', cat:'Family insult', sev:'extreme'},
+  {v:'想點呀', p:'soeng2dim2aa3', e:'what’s your problem? — the line before a fight starts', cat:'Threat or fight', sev:'medium'},
+  {v:'你想死呀', p:'nei5soeng2sei2aa3', e:'are you asking for it?', cat:'Threat or fight', sev:'strong'},
+  {v:'唔好惹我', p:'m4hou2je5ngo5', e:'don’t start with me', cat:'Threat or fight', sev:'strong'},
+  {v:'我打死你', p:'ngo5daa2sei2nei5', e:'I’ll batter you — often an empty threat between mates', cat:'Threat or fight', sev:'strong'},
+  {v:'睇死你', p:'tai2sei2nei5', e:'I reckon you haven’t got it in you', cat:'Threat or fight', sev:'medium'},
+  {v:'頂你', p:'deng2 nei5', e:'damn you — the clean short form of 頂你個肺', cat:'Dismissal', sev:'medium'},
+  {v:'關我鬼事', p:'gwaan1 ngo5 gwai2 si6', e:'what’s that got to do with me?', cat:'Dismissal', sev:'medium'},
+  {v:'鬼理你', p:'gwai2 lei5 nei5', e:'who cares about you', cat:'Dismissal', sev:'medium'},
+  {v:'你傻㗎', p:'nei5 so4 gaa4', e:'are you mad? — rhetorical, not a question', cat:'Personal insult', sev:'medium'},
+  {v:'你仆街', p:'nei5 puk1 gaai1', e:'you bastard — 仆街 pointed at someone', cat:'Personal insult', sev:'strong'},
+  {v:'食屎啦你', p:'sik6 si2 laa1 nei5', e:'eat shit, you — the 你 on the end aims it', cat:'Body humour', sev:'medium'},
+  {v:'𨳒你', p:'diu2 nei5', e:'f--- you', cat:'Sexual profanity', sev:'extreme'},
+  {v:'𨳒柒你', p:'diu2 cat6 nei5', e:'the same with 柒 wedged in for force', cat:'Sexual profanity', sev:'extreme'},
+  {v:'𨳒鳩你', p:'diu2 gau1 nei5', e:'and again with 鳩', cat:'Sexual profanity', sev:'extreme'},
+  {v:'𨳒你個閪', p:'diu2 nei5 go3 hai1', e:'as crude as the language gets short of a family curse', cat:'Sexual profanity', sev:'extreme'},
+  {v:'𨳒你個嘴', p:'diu2 nei5 go3 zeoi2', e:'aimed at the mouth — i.e. shut up', cat:'Sexual profanity', sev:'extreme'},
+  {v:'𨳒你仆街', p:'diu2 nei5 puk1 gaai1', e:'two separate curses stacked', cat:'Sexual profanity', sev:'extreme'},
+  {v:'𨳒你老豆', p:'diu2 nei5 lou5 dau2', e:'aimed at the father rather than the mother', cat:'Sexual profanity', sev:'extreme'},
+  {v:'唔𨳒你', p:'m4 diu2 nei5', e:'“not doing that with you” — refusal, said as a joke between men', cat:'Sexual profanity', sev:'strong'},
+  {v:'我想𨳒你', p:'ngo5 soeng2 diu2 nei5', e:'I want to shag you — crude, not affectionate', cat:'Sexual profanity', sev:'extreme'},
+  {v:'乜𨶙嘢呀', p:'mat1 lan2 je5 aa3', e:'what the hell is this — 乜嘢 with the infix', cat:'Sexual profanity', sev:'strong'},
+  {v:'𨳒你冚家剷', p:'diu2 nei5 ham6 gaa1 caan2', e:'both curses at once — about as far as it goes', cat:'Family insult', sev:'extreme'},
+  {v:'𨳒你全家', p:'diu2 nei5 cyun4 gaa1', e:'aimed at the whole household', cat:'Family insult', sev:'extreme'},
+  {v:'𨳒你佬母', p:'diu2 nei5 lou2 mou5', e:'“your mother” — 佬母 is a written variant of 老母', cat:'Family insult', sev:'extreme'},
+  {v:'有爺生冇乸教', p:'jau5 je4 saang1 mou5 naa2 gaau3', e:'“a father to bear you, no mother to raise you” — attacks the upbringing', cat:'Family insult', sev:'extreme'},
+  {v:'打柒佢', p:'daa2 cat6 keoi5', e:'give him a hiding', cat:'Threat or fight', sev:'strong'},
+  {v:'打鳩你', p:'daa2 gau1 nei5', e:'I’ll knock you out', cat:'Threat or fight', sev:'strong'},
+  {v:'閹咗你', p:'jim1 zo2 nei5', e:'I’ll have your bits off — a threat, usually theatrical', cat:'Threat or fight', sev:'strong'},
+  {v:'你去死啦', p:'nei5 heoi3 sei2 laa1', e:'go and die', cat:'Threat or fight', sev:'strong'},
+  {v:'死咗佢啦', p:'sei2 zo2 keoi5 laa1', e:'let him drop dead — said about someone, not to them', cat:'Threat or fight', sev:'strong'},
 ];
 
 /* ========================= CANTONESE WORLDS ========================= */
@@ -18108,7 +18119,8 @@ function isDifficultWord(srsId){
 function isUnknownCard(srsId){ return !state.srs[srsId]; }
 
 let cardsTabMode = 'words'; // 'words' | 'phrases' | 'listen'
-let cardsSubTab = 'study'; // 'study' | 'browse' — Cards tab now merges the old Cards (study) and Words (browse) tabs
+let cardsSubTab = 'browse'; // 'browse' | 'study' | 'mine' — Browse opens first: the
+// common reason to open Cards is to look something up, and Study is one tap away.
 function setContentMode(mode){
   state.contentMode = mode;
   saveState();
@@ -18398,6 +18410,7 @@ function renderFrequency(){
           <p class="fw${cjkCls()}">${p.v}</p>
           ${(p.p && showRomanisation()) ? `<p class="fw-rom">${p.p}</p>` : ''}
           <p class="fw-en2">${p.e}</p>
+          ${(()=>{ const n = slangNotes()[p.v]; return n && n.note ? `<p class="fw-note">${n.note}</p>` : ''; })()}
         </div>
       </div>`;
     }).join('');
