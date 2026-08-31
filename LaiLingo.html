@@ -2613,7 +2613,7 @@ const CANTONESE_LEVELS = [
   { id:'a1', num:'A1', name:'Super Beginner', unlocked:true },
   { id:'a2', num:'A2', name:'Everyday Flow', unlocked:true },
   { id:'b1', num:'B1', name:'Wider Ground', unlocked:true },
-  { id:'b2', num:'B2', unlocked:false },
+  { id:'b2', num:'B2', name:'Filling the Gaps', unlocked:true },
   { id:'c1', num:'C1', unlocked:false },
 ];
 
@@ -2646,6 +2646,15 @@ const CANTONESE_B1_SECTIONS = [
   { id:4, roman:'IV', title:'Explaining Yourself' },
 ];
 
+// B2 is a level, not a fifth B1 section, because ranks 1289+ genuinely sit past
+// intermediate: 一模一樣, 之下/之中, 從而, 得人驚, 忽然間. The tail isn't harder
+// so much as thinner — words a B1 speaker gets by without, and a fluent one
+// uses without thinking. Same frequency spine, same 18 words a lesson.
+const CANTONESE_B2_SECTIONS = [
+  { id:1, roman:'I', title:'Reasons and Evidence' },
+  { id:2, roman:'II', title:'Rounding It Out' },
+];
+
 // Rebuilt 2026-08-30 on the Migaku principle used for Vietnamese (vi2): strict
 // frequency order, 18 new words per lesson, each word taught exactly once.
 // The spine is HKCanCor — 153,656 tokens of REAL recorded Hong Kong conversation
@@ -2655,7 +2664,8 @@ const CANTONESE_B1_SECTIONS = [
 // of counts and "rank" stops meaning anything.
 //   A1  lessons 1-28  ranks 1-504
 //   A2  lessons 29-48 ranks 505-856
-//   B1  lessons 49-85 ranks 857-1521  (cutoff lowered from count 10 to count 5)
+//   B1  lessons 49-72 ranks 857-1288  (cutoff lowered from count 10 to count 5)
+//   B2  lessons 73-85 ranks 1289-1521
 // Vocab entries carry Jyutping in `p` — the previous 41-lesson course did not.
 const LESSONS_YUE = [
   { id:'yue_l1', day:1, section:1, level:'A1', title:'Two Students Meet', tag:'Survival Basics', img:'images/yue_lesson_01.jpg',
@@ -5665,6 +5675,258 @@ const LESSONS_YUE = [
       {v:'架車好逼，逐個上啦。', p:'gaa3 ce1 hou2 bik1, zuk6 go3 soeng5 laa1.', e:'The bus is packed — get on one at a time.'},
       {v:'電視台訪問咗佢，仲上埋雜誌。', p:'din6 si6 toi4 fong2 man6 zo2 keoi5, zung6 soeng5 maai4 zaap6 zi3.', e:'The TV station interviewed him, and he made the magazine too.'},
       {v:'佢識得駁鋼線，好過癮。', p:'keoi5 sik1 dak1 bok3 gong3 sin2, hou2 gwo3 jan5.', e:'He knows how to splice steel wire — good fun to watch.'},
+    ] },
+
+  { id:'yue_l73', day:73, section:1, level:'B2', title:'As a Matter of Fact', tag:'Reasons and Evidence', img:'images/yue_lesson_73.jpg',
+    desc:'Stating facts and setting out reasons — ranks #1289-1306: 事實, 顯示, 一來, 不妨, 之下, 之中, 一模一樣, 鬼馬.',
+    duration:'6 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'份報告顯示咩？', p:'fan6 bou3 gou3 hin2 si6 me1?', e:'What does the report show?'},
+      {speaker:'B', v:'事實同我哋估嘅一模一樣。', p:'si6 sat6 tung4 ngo5 dei6 gu2 ge3 jat1 mou4 jat1 joeng6.', e:'The facts are exactly what we guessed.'},
+      {speaker:'A', v:'一來慳返時間，二來唔使再開會。', p:'jat1 loi4 haan1 faan1 si4 gaan3, ji6 loi4 m4 sai2 zoi3 hoi1 wui2.', e:'For one it saves time, for another we skip another meeting.'},
+      {speaker:'B', v:'不妨今朝就交上去。', p:'bat1 fong4 gam1 ziu1 zau6 gaau1 soeng5 heoi3.', e:'We may as well send it up this morning.'},
+    ],
+    vocab:[
+      {v:'題目', p:'tai4muk6', e:'a topic; an exam question'},
+      {v:'顯示', p:'hin2si6', e:'to show, to indicate'},
+      {v:'餅', p:'beng2', e:'a cake, a biscuit'},
+      {v:'鬼馬', p:'gwai2maa5', e:'mischievous and quick-witted'},
+      {v:'黑', p:'haak1', e:'black; unlucky'},
+      {v:'默書', p:'mak6syu1', e:'a dictation test'},
+      {v:'一來', p:'jat1loi4', e:'for one thing — pairs with 二來'},
+      {v:'一啲啲', p:'jat1di1di1', e:'just a little'},
+      {v:'一心', p:'jat1sam1', e:'wholeheartedly, set on it'},
+      {v:'一早', p:'jat1zou2', e:'early on; long since'},
+      {v:'一模一樣', p:'jat1mou4jat1joeng6', e:'exactly the same'},
+      {v:'上市', p:'soeng5si5', e:'to list on the stock market'},
+      {v:'不妨', p:'bat1fong4', e:'you may as well'},
+      {v:'中醫', p:'zung1ji1', e:'Chinese medicine; a Chinese-medicine doctor'},
+      {v:'之下', p:'zi1haa6', e:'under, beneath'},
+      {v:'之中', p:'zi1zung1', e:'among, within'},
+      {v:'事實', p:'si6sat6', e:'a fact'},
+      {v:'五千幾', p:'ng5cin1gei2', e:'five thousand-odd'},
+    ],
+    grammar:[
+      {title:'一來…二來 — laying out reasons', body:'The standard way to list two reasons: 一來平，二來近 (for one it’s cheap, for another it’s close). You can carry on with 三來, though beyond two it starts sounding like a speech. Note it lists REASONS, not events — for a sequence you want 先…然後 sin1…jin4 hau6.'},
+      {title:'不妨 bat1 fong4 — no harm in it', body:'Literally "no hindrance", and it suggests something low-cost: 不妨試吓 (may as well give it a go). It is gentler than 應該 jing1 goi1 (should) because it does not claim the thing is necessary, only that nothing is lost by trying. Common in advice you want to be easy to refuse.'},
+      {title:'之下 and 之中 — the written frame', body:'These come straight from written Chinese and keep that flavour: 喺呢個情況之下 (under these circumstances), 我哋之中 (among us). Speech often drops to 入面 jap6 min6 or just 度 dou6. Recognise them in notices and reports; reach for the plainer words when talking.'},
+    ],
+    cards:[
+      {v:'佢個仔好鬼馬，成日搞笑。', p:'keoi5 go3 zai2 hou2 gwai2 maa5, seng4 jat6 gaau2 siu3.', e:'His boy is a live wire — always clowning about.'},
+      {v:'今日默書題目好淺，我一早做完。', p:'gam1 jat6 mak6 syu1 tai4 muk6 hou2 cin2, ngo5 jat1 zou2 zou6 jyun4.', e:'Today’s dictation was easy — I finished it long ago.'},
+      {v:'間公司上市之後，股價升咗五千幾點。', p:'gaan1 gung1 si1 soeng5 si5 zi1 hau6, gu2 gaa3 sing1 zo2 ng5 cin1 gei2 dim2.', e:'After the company listed, the share price rose five thousand-odd points.'},
+      {v:'食少啲餅啦，一啲啲就夠。', p:'sik6 siu2 di1 beng2 laa1, jat1 di1 di1 zau6 gau3.', e:'Have fewer biscuits — a little is plenty.'},
+    ] },
+
+  { id:'yue_l74', day:74, section:1, level:'B2', title:'Worth the Trouble', tag:'Reasons and Evidence', img:'images/yue_lesson_74.jpg',
+    desc:'Favours owed, what things are worth, and time off — ranks #1307-1324: 人情, 值得, 假期, 健康, 代表, 例子, 位置, 來電.',
+    duration:'6 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'佢幫咗我咁多次，我欠佢好大人情。', p:'keoi5 bong1 zo2 ngo5 gam3 do1 ci3, ngo5 him3 keoi5 hou2 daai6 jan4 cing4.', e:'He’s helped me so many times — I owe him a big favour.'},
+      {speaker:'B', v:'值得請佢食餐飯。', p:'zik6 dak1 ceng2 keoi5 sik6 caan1 faan6.', e:'Worth taking him out for a meal.'},
+      {speaker:'A', v:'假期先得閒。今朝五點半就返工。', p:'gaa3 kei4 sin1 dak1 haan4. gam1 ziu1 ng5 dim2 bun3 zau6 faan1 gung1.', e:'Only on my days off. I started at half five this morning.'},
+      {speaker:'B', v:'噉樣做，健康點頂得順呀。', p:'gam2 joeng6 zou6, gin6 hong1 dim2 ding2 dak1 seon6 aa3.', e:'Working like that, how’s your health meant to hold up?'},
+    ],
+    vocab:[
+      {v:'五點半', p:'ng5dim2bun3', e:'half past five'},
+      {v:'人情', p:'jan4cing4', e:'a favour owed; the money in a red packet'},
+      {v:'今朝', p:'gam1ziu1', e:'this morning'},
+      {v:'代表', p:'doi6biu2', e:'to represent; a representative'},
+      {v:'以來', p:'ji5lai4', e:'since'},
+      {v:'任天堂', p:'jam6tin1tong4', e:'Nintendo'},
+      {v:'位置', p:'wai6zi3', e:'a position, a spot'},
+      {v:'何', p:'ho4', e:'a surname; "what" in writing'},
+      {v:'佳', p:'gaai1', e:'fine, good — literary'},
+      {v:'來電', p:'loi4din6', e:'an incoming call'},
+      {v:'例子', p:'lai6zi2', e:'an example'},
+      {v:'修', p:'sau1', e:'to repair; to study a subject'},
+      {v:'個半', p:'go3bun3', e:'one and a half'},
+      {v:'借書', p:'ze3syu1', e:'to borrow a book'},
+      {v:'值得', p:'zik6dak1', e:'worth it'},
+      {v:'假期', p:'gaa3kei4', e:'a holiday, time off'},
+      {v:'健康', p:'gin6hong1', e:'health; healthy'},
+      {v:'傷', p:'soeng1', e:'a wound; to injure'},
+    ],
+    grammar:[
+      {title:'人情 jan4 cing4 — the favour economy', body:'Two senses that are really one. A 人情 is a favour owed — 欠人情 him3 jan4 cing4 is to be in someone’s debt, 還人情 waan4 jan4 cing4 is to repay it. It is ALSO the cash you put in a red packet at a wedding. Both are the same idea: an obligation between people, tracked carefully and settled eventually.'},
+      {title:'值得 zik6 dak1 — worth doing', body:'Takes a verb, not a noun: 值得去 (worth going), 值得買 (worth buying). For "worth" as a price you want 值 zik6 on its own — 值幾多錢 (how much is it worth). 唔值得 is a common gentle way to talk someone out of something.'},
+      {title:'個半 go3 bun3 — where the half goes', body:'The half comes AFTER the classifier, not before: 個半鐘 (an hour and a half), 兩個半月 (two and a half months). English says "one and a half hours"; Cantonese says "classifier + half". Get the order backwards and it stops meaning anything.'},
+    ],
+    cards:[
+      {v:'佢代表公司去開會。', p:'keoi5 doi6 biu2 gung1 si1 heoi3 hoi1 wui2.', e:'He’s representing the company at the meeting.'},
+      {v:'舉個例子，呢個位置就唔啱。', p:'geoi2 go3 lai6 zi2, ni1 go3 wai6 zi3 zau6 m4 ngaam1.', e:'To give an example, this position isn’t right.'},
+      {v:'佢跌親，隻手傷咗，要休息個半月。', p:'keoi5 dit3 can1, zek3 sau2 soeng1 zo2, jiu3 jau1 sik1 go3 bun3 jyut6.', e:'He fell and hurt his hand — six weeks off.'},
+      {v:'細個嗰陣打任天堂，打到夜晚。', p:'sai3 go3 go2 zan6 daa2 jam6 tin1 tong4, daa2 dou3 je6 maan5.', e:'As a kid I played Nintendo late into the night.'},
+    ] },
+
+  { id:'yue_l75', day:75, section:1, level:'B2', title:'Fair Enough', tag:'Reasons and Evidence', img:'images/yue_lesson_75.jpg',
+    desc:'Fairness, effort and being on the receiving end — ranks #1325-1342: 公平, 勤力, 包括, 受到, 冇所謂, 同樣, 冠軍, 古仔.',
+    duration:'6 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'噉樣分唔公平喎。', p:'gam2 joeng6 fan1 m4 gung1 ping4 wo3.', e:'Splitting it that way isn’t fair.'},
+      {speaker:'B', v:'我冇所謂，是但點分都得。', p:'ngo5 mou5 so2 wai6, si6 daan6 dim2 fan1 dou1 dak1.', e:'Makes no odds to me — split it however.'},
+      {speaker:'A', v:'唔係。你最勤力，應該分多啲。', p:'m4 hai6. nei5 zeoi3 kan4 lik6, jing1 goi1 fan1 do1 di1.', e:'No. You worked hardest, you should get more.'},
+      {speaker:'B', v:'包括你自己先啱啦。同樣做咗成日。', p:'baau1 kut3 nei5 zi6 gei2 sin1 ngaam1 laa1. tung4 joeng6 zou6 zo2 seng4 jat6.', e:'Count yourself in and it’s fair. You worked all day the same.'},
+    ],
+    vocab:[
+      {v:'內容', p:'noi6jung4', e:'the content of something'},
+      {v:'兩點', p:'loeng5dim2', e:'two o’clock'},
+      {v:'八十', p:'baat3sap6', e:'eighty'},
+      {v:'八成', p:'baat3sing4', e:'eighty per cent; most likely'},
+      {v:'公平', p:'gung1ping4', e:'fair'},
+      {v:'冇所謂', p:'mou5so2wai6', e:'makes no odds to me'},
+      {v:'冚', p:'kam2', e:'to cover something over'},
+      {v:'冠軍', p:'gun3gwan1', e:'the champion'},
+      {v:'冷', p:'laang5', e:'cold'},
+      {v:'勤力', p:'kan4lik6', e:'hard-working'},
+      {v:'包括', p:'baau1kut3', e:'including'},
+      {v:'化', p:'faa3', e:'-isation; to transform'},
+      {v:'受', p:'sau6', e:'to receive, to bear'},
+      {v:'受到', p:'sau6dou3', e:'to come in for, to be subjected to'},
+      {v:'古仔', p:'gu2zai2', e:'a story'},
+      {v:'台', p:'toi4', e:'a platform; a station'},
+      {v:'同樣', p:'tung4joeng2', e:'likewise, the same'},
+      {v:'吔', p:'jaa3', e:'a final particle'},
+    ],
+    grammar:[
+      {title:'八成 baat3 sing4 — eighty per cent, or probably', body:'Literally eight parts in ten. As a figure it is a proportion; as a guess it means "most likely" — 八成係佢 (it’s probably him). Cantonese does this with several fractions: 十成 sap6 sing4 is dead certain. English has nothing quite like using a percentage as a hedge.'},
+      {title:'受到 sau6 dou3 — on the receiving end', body:'Marks something done TO you, usually unwelcome: 受到影響 (affected), 受到批評 (criticised). 受 alone is broader and can be positive — 受歡迎 sau6 fun1 jing4 is popular. The 到 adds completion, so 受到 describes a thing that has landed rather than a state you are in.'},
+      {title:'冚 kam2 — to cover, and the other 冚', body:'Here 冚 is kam2, to put a lid or cloth over something: 冚住個煲 (put the lid on). Read ham6 it is a different word entirely — the 冚 of 冚家鏟 and 冚唪唥. Same character, two readings, no shared meaning, so the jyutping is doing real work.'},
+    ],
+    cards:[
+      {v:'份報告內容太長，我睇到兩點。', p:'fan6 bou3 gou3 noi6 jung4 taai3 coeng4, ngo5 tai2 dou3 loeng5 dim2.', e:'The report was too long — I read till two.'},
+      {v:'佢今年攞咗冠軍，八十幾歲都仲打。', p:'keoi5 gam1 nin4 lo2 zo2 gun3 gwan1, baat3 sap6 gei2 seoi3 dou1 zung6 daa2.', e:'He won the title this year — still competing in his eighties.'},
+      {v:'天氣凍，冚多張被啦。', p:'tin1 hei3 dung3, kam2 do1 zoeng1 pei5 laa1.', e:'It’s cold — put another blanket over you.'},
+      {v:'阿爺講古仔講到我瞓着。', p:'aa3 je4 gong2 gu2 zai2 gong2 dou3 ngo5 fan3 zoek6.', e:'Grandad told stories until I fell asleep.'},
+    ] },
+
+  { id:'yue_l76', day:76, section:1, level:'B2', title:'On the Site', tag:'Reasons and Evidence', img:'images/yue_lesson_76.jpg',
+    desc:'Building sites, model numbers and the wife — ranks #1343-1360: 地盤, 型號, 報告, 因素, 失控, 太太, 哩排, 唔緊要.',
+    duration:'6 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'哩排個地盤點呀？', p:'ni1 paai4 go3 dei6 pun4 dim2 aa3?', e:'How’s the site been lately?'},
+      {speaker:'B', v:'亂咗少少，但未至於失控。', p:'lyun6 zo2 siu2 siu2, daan6 mei6 zi3 jyu1 sat1 hung3.', e:'A bit messy, but not out of control.'},
+      {speaker:'A', v:'份報告要寫低個型號。', p:'fan6 bou3 gou3 jiu3 se2 dai1 go3 jing4 hou6.', e:'The report needs the model number written down.'},
+      {speaker:'B', v:'唔緊要，我太太幫我打晒。', p:'m4 gan2 jiu3, ngo5 taai3 taai2 bong1 ngo5 daa2 saai3.', e:'No bother — my wife typed it all up for me.'},
+    ],
+    vocab:[
+      {v:'哩排', p:'ni1paai4', e:'lately, these days'},
+      {v:'唔緊要', p:'m4gan2jiu3', e:'never mind, it doesn’t matter'},
+      {v:'唯一', p:'wai4jat1', e:'the only one'},
+      {v:'唱片', p:'coeng3pin2', e:'a record, an album'},
+      {v:'單人', p:'daan1jan4', e:'single, for one person'},
+      {v:'單車', p:'daan1ce1', e:'a bicycle'},
+      {v:'喳', p:'zaa4', e:'a final particle'},
+      {v:'嗰頭', p:'go2tau4', e:'over there; the other end'},
+      {v:'因素', p:'jan1sou3', e:'a factor'},
+      {v:'園', p:'jyun4', e:'a garden, a park'},
+      {v:'在', p:'zoi6', e:'at, in — written; speech uses 喺'},
+      {v:'地盤', p:'dei6pun4', e:'a building site'},
+      {v:'型號', p:'jing4hou6', e:'a model number'},
+      {v:'報告', p:'bou3gou3', e:'a report'},
+      {v:'大單', p:'daai6daan1', e:'a big order, a big job'},
+      {v:'太太', p:'taai3taai2', e:'wife; Mrs'},
+      {v:'太嫲', p:'taai3maa4', e:'great-grandmother'},
+      {v:'失控', p:'sat1hung3', e:'to lose control'},
+    ],
+    grammar:[
+      {title:'哩排 vs 近排 vs 早排 — three recent pasts', body:'哩排 ni1 paai4 is "these days", the stretch we are in now. 近排 gan6 paai4 is much the same, slightly wider. 早排 zou2 paai4 is earlier on — a while back, now finished. All three use 排 paai4, a run or stretch of time, which is not a use you will find in a dictionary of written Chinese.'},
+      {title:'唔緊要 m4 gan2 jiu3 — it doesn’t matter', body:'The standard reply to an apology, and to an offer you are declining. Literally "not tight, not important". Softer than 冇問題 mou5 man6 tai4 (no problem), which answers a request; 唔緊要 answers a worry.'},
+      {title:'太太 taai3 taai2 — the tone marks the person', body:'Both syllables are written the same but the second rises to taai2, and that rise is what makes it a person rather than a repetition. 陳太太 or just 陳太 can1 taai2 is Mrs Chan. 我太太 is my wife. Note 太嫲 taai3 maa4 keeps the low tone — that is great-grandmother, a different word entirely.'},
+    ],
+    cards:[
+      {v:'佢係唯一一個識踩單車嘅。', p:'keoi5 hai6 wai4 jat1 jat1 go3 sik1 caai2 daan1 ce1 ge3.', e:'He’s the only one who can ride a bike.'},
+      {v:'天氣係最大因素，其他都係小事。', p:'tin1 hei3 hai6 zeoi3 daai6 jan1 sou3, kei4 taa1 dou1 hai6 siu2 si6.', e:'Weather is the biggest factor — the rest is small stuff.'},
+      {v:'嗰頭有個公園，行五分鐘。', p:'go2 tau4 jau5 go3 gung1 jyun4, haang4 ng5 fan1 zung1.', e:'There’s a park over that way, five minutes’ walk.'},
+      {v:'今個月接咗張大單，成隊人做到癲。', p:'gam1 go3 jyut6 zip3 zo2 zoeng1 daai6 daan1, seng4 deoi6 jan4 zou6 dou3 din1.', e:'We took a big order this month — the whole team is run ragged.'},
+    ] },
+
+  { id:'yue_l77', day:77, section:1, level:'B2', title:'Getting Cross', tag:'Reasons and Evidence', img:'images/yue_lesson_77.jpg',
+    desc:'Anger, showing off and places on the map — ranks #1361-1378: 嬲, 威, 好嘢, 官司, 尖沙咀, 市民, 工人, 就係.',
+    duration:'6 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'佢嬲咗我成個星期。', p:'keoi5 nau1 zo2 ngo5 seng4 go3 sing1 kei4.', e:'She’s been cross with me for a whole week.'},
+      {speaker:'B', v:'因為咩事？', p:'jan1 wai6 me1 si6?', e:'Over what?'},
+      {speaker:'A', v:'我喺尖沙咀掛住威，唔記得接佢。', p:'ngo5 hai2 zim1 saa1 zeoi2 gwaa3 zyu6 wai1, m4 gei3 dak1 zip3 keoi5.', e:'I was in TST showing off and forgot to pick her up.'},
+      {speaker:'B', v:'噉就係你唔啱喇。買啲嘢賠罪啦。', p:'gam2 zau6 hai6 nei5 m4 ngaam1 laa3. maai5 di1 je5 pui4 zeoi6 laa1.', e:'Then that’s on you. Buy her something by way of apology.'},
+    ],
+    vocab:[
+      {v:'套摺', p:'tou3zip3', e:'a folded set — a booklet or leaflet'},
+      {v:'奧運會', p:'ou3wan6wui2', e:'the Olympics'},
+      {v:'好嘢', p:'hou2je5', e:'nice one! — a shout of approval'},
+      {v:'威', p:'wai1', e:'impressive; to show off well'},
+      {v:'威爾斯', p:'wai1ji5si1', e:'Wales'},
+      {v:'嬲', p:'nau1', e:'angry, in a huff'},
+      {v:'宇宙', p:'jyu5zau6', e:'the universe'},
+      {v:'官司', p:'gun1si1', e:'a lawsuit'},
+      {v:'小', p:'siu2', e:'small'},
+      {v:'尖沙咀', p:'zim1saa1zeoi2', e:'Tsim Sha Tsui'},
+      {v:'就係', p:'zau6hai6', e:'that’s exactly it'},
+      {v:'展堂', p:'zin2tong4', e:'a given name'},
+      {v:'工人', p:'gung1jan4', e:'a worker; a domestic helper'},
+      {v:'市民', p:'si5man4', e:'the public, citizens'},
+      {v:'幾廿', p:'gei2jaa6', e:'several tens of'},
+      {v:'幾萬', p:'gei2maan6', e:'tens of thousands'},
+      {v:'廣東省', p:'gwong2dung1saang2', e:'Guangdong province'},
+      {v:'弟婦', p:'dai6fu5', e:'a younger brother’s wife'},
+    ],
+    grammar:[
+      {title:'嬲 nau1 — cross, and the odd second sense', body:'The everyday word for angry: 嬲咗 (got cross), 唔好嬲 (don’t be cross), 嬲爆爆 nau1 baau3 baau3 (furious, and slightly comic). Look at the character — two 男 either side of 女 — which is why it also, rarely and archaically, meant to dally with. Nobody uses that sense now, but it explains a shape that otherwise looks random.'},
+      {title:'威 wai1 — impressive in a showy way', body:'Not quite a compliment and not quite a criticism. 好威 means someone looks the part and knows it. 威水 wai1 seoi2 is the noun — something to be proud of. Said with a flat tone it admires; said with a raised eyebrow it is taking the mickey, and the word itself does not tell you which.'},
+      {title:'就係 zau6 hai6 — exactly that', body:'Confirms with emphasis: 就係佢 (it’s him, that’s the one), 就係噉 (that’s exactly how it is). Compare plain 係 hai6, which just answers yes. The 就 narrows it down to this and no other, which is why it does the work of English "precisely".'},
+    ],
+    cards:[
+      {v:'佢打官司打咗幾萬蚊律師費。', p:'keoi5 daa2 gun1 si1 daa2 zo2 gei2 maan6 man1 leot6 si1 fai3.', e:'The lawsuit cost him tens of thousands in fees.'},
+      {v:'好嘢！香港隊入咗奧運會。', p:'hou2 je5! hoeng1 gong2 deoi2 jap6 zo2 ou3 wan6 wui2.', e:'Nice one — Hong Kong made the Olympics.'},
+      {v:'廣東省有幾廿個城市。', p:'gwong2 dung1 saang2 jau5 gei2 jaa6 go3 sing4 si5.', e:'Guangdong province has dozens of cities.'},
+      {v:'啲市民一早喺門口等。', p:'di1 si5 man4 jat1 zou2 hai2 mun4 hau2 dang2.', e:'The public were waiting at the door from early on.'},
+    ] },
+
+  { id:'yue_l78', day:78, section:1, level:'B2', title:'All of a Sudden', tag:'Reasons and Evidence', img:'images/yue_lesson_78.jpg',
+    desc:'Sudden turns, growing into things and what scares you — ranks #1379-1396: 忽然間, 得人驚, 成為, 成熟, 從而, 推薦, 心目中, 強.',
+    duration:'6 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'佢忽然間話唔做，嚇死我。', p:'keoi5 fat1 jin4 gaan1 waa6 m4 zou6, haak3 sei2 ngo5.', e:'He suddenly said he’s quitting — gave me a fright.'},
+      {speaker:'B', v:'幾得人驚。有冇講原因？', p:'gei2 dak1 jan4 geng1. jau5 mou5 gong2 jyun4 jan1?', e:'Alarming. Did he give a reason?'},
+      {speaker:'A', v:'話想成為師傅，要出去學嘢。', p:'waa6 soeng2 sing4 wai4 si1 fu2, jiu3 ceot1 heoi3 hok6 je5.', e:'Said he wants to become a proper tradesman, so he’s off to learn.'},
+      {speaker:'B', v:'噉好成熟喎。我推薦佢去阿林度。', p:'gam2 hou2 sing4 suk6 wo3. ngo5 teoi1 zin3 keoi5 heoi3 aa3 lam4 dou6.', e:'That’s mature of him. I’d point him at Lam’s place.'},
+    ],
+    vocab:[
+      {v:'強', p:'koeng4', e:'strong'},
+      {v:'彈', p:'daan6', e:'to bounce; to criticise'},
+      {v:'得人驚', p:'dak1jan4geng1', e:'frightening'},
+      {v:'從而', p:'cung4ji4', e:'and thereby'},
+      {v:'復活', p:'fuk6wut6', e:'to come back to life; Easter'},
+      {v:'心目中', p:'sam1muk6zung1', e:'in your eyes, as you see it'},
+      {v:'忙', p:'mong4', e:'busy'},
+      {v:'忽然間', p:'fat1jin4gaan1', e:'all of a sudden'},
+      {v:'性', p:'sing3', e:'nature, character; -ness'},
+      {v:'應', p:'jing1', e:'ought to; to respond'},
+      {v:'成為', p:'sing4wai4', e:'to become'},
+      {v:'成熟', p:'sing4suk6', e:'mature; ripe'},
+      {v:'批', p:'pai1', e:'a batch'},
+      {v:'抽', p:'cau1', e:'to draw out, to pull out'},
+      {v:'掉', p:'diu6', e:'to drop, to throw away'},
+      {v:'推薦', p:'teoi1zin3', e:'to recommend'},
+      {v:'提', p:'tai4', e:'to raise, to mention'},
+      {v:'揩', p:'haai1', e:'to rub, to wipe against'},
+    ],
+    grammar:[
+      {title:'得人驚 dak1 jan4 geng1 — the 得人 pattern', body:'Literally "makes people afraid". The frame 得人 + feeling is productive: 得人驚 (frightening), 得人憎 dak1 jan4 zang1 (loathsome), 得人錫 dak1 jan4 sek3 (adorable, literally makes people want to dote on you). Build one and any Cantonese speaker will follow you.'},
+      {title:'忽然間 fat1 jin4 gaan1 — suddenly, with the 間', body:'忽然 alone works, but speech nearly always adds 間 — the same 間 as in 一陣間. It marks a moment rather than a duration. 突然 dat6 jin4 is the more written equivalent and turns up in news reports where 忽然間 would sound chatty.'},
+      {title:'成為 sing4 wai4 — becoming something', body:'Takes a noun: 成為師傅 (become a master tradesman), 成為朋友. For becoming an adjective you want 變 bin3 instead — 變大 (get bigger), not 成為大. Mixing them up is a common learner error and produces something that sounds translated rather than wrong.'},
+    ],
+    cards:[
+      {v:'呢批貨質素好強，可以推薦。', p:'ni1 pai1 fo3 zat1 sou3 hou2 koeng4, ho2 ji5 teoi1 zin3.', e:'This batch is good quality — I can recommend it.'},
+      {v:'喺我心目中，佢一直都係最好。', p:'hai2 ngo5 sam1 muk6 zung1, keoi5 jat1 zik6 dou1 hai6 zeoi3 hou2.', e:'In my eyes he’s always been the best.'},
+      {v:'唔好掉咗佢，可能仲有用。', p:'m4 hou2 diu6 zo2 keoi5, ho2 nang4 zung6 jau5 jung6.', e:'Don’t throw it away — it might still be useful.'},
+      {v:'佢好忙，我唔敢提呢件事。', p:'keoi5 hou2 mong4, ngo5 m4 gam2 tai4 ni1 gin6 si6.', e:'He’s very busy — I didn’t dare bring it up.'},
     ] },
 ];
 
@@ -22705,7 +22967,7 @@ function renderLessonsTabYue(){
   // their own `section` id numbering (1, 2, 3...), so lookups must always
   // go through this per-level map rather than a single shared sections
   // array, or A1's section:1 and A2's section:1 would collide.
-  const CANTONESE_SECTIONS_BY_LEVEL = { A1: CANTONESE_A1_SECTIONS, A2: CANTONESE_A2_SECTIONS, B1: CANTONESE_B1_SECTIONS };
+  const CANTONESE_SECTIONS_BY_LEVEL = { A1: CANTONESE_A1_SECTIONS, A2: CANTONESE_A2_SECTIONS, B1: CANTONESE_B1_SECTIONS, B2: CANTONESE_B2_SECTIONS };
 
   const yueLessonCardHtml = (l, levelNum)=>{
     const done = state.yue.completedLessons.includes(l.id);
