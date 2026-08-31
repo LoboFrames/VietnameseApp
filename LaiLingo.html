@@ -17207,21 +17207,45 @@ if('serviceWorker' in navigator){
 // uncached.
 function getAudioIdsByCategory(){
   const cats = { 'Lessons':[], 'Survival Packs':[], 'Chat Boss':[], 'SOS Phrasebook':[], 'Core Phrases':[], 'Common Phrases':[], 'Classic Words':[], 'Word Examples':[], 'New Lesson Vocab':[], 'New Lesson Dialogue':[], 'Topics':[], 'Topic Vocab':[], 'Topic Dialogue':[], 'New Lesson Words':[], 'New Lesson Phrases':[], 'Concept Vocab':[], 'Slang':[], 'Swearing':[] };
-  // Concept lesson (CONCEPT_LESSONS) vocab-block examples were never tracked
-  // here before — a pre-existing gap, not just for the new Kinship Pronouns
-  // concept but for the original Understanding Vietnamese / Alphabet & Tones
-  // ones too. Only 'vocab' blocks carry a play button (openConceptDetail) —
-  // 'grid' blocks are silent, so they're intentionally skipped here.
-  CONCEPT_LESSONS.forEach(c=>(c.blocks||[]).forEach(b=>{
-    if(b.type!=='vocab') return;
-    b.words.forEach(w=>cats['Concept Vocab'].push(`concept_${c.id}_${w.v.replace(/[^a-z0-9]/gi,'')}`));
-  }));
-  LESSONS.forEach(l=>l.cards.forEach((c,i)=>cats['Lessons'].push(`lesson_${l.id}_${i}`)));
-  LESSONS.forEach(l=>(l.vocab||[]).forEach((v,i)=>cats['New Lesson Vocab'].push(`lesson_${l.id}_v${i}`)));
-  LESSONS.forEach(l=>(l.dialogue||[]).forEach((d,i)=>cats['New Lesson Dialogue'].push(`lesson_${l.id}_d${i}`)));
-  TOPIC_LESSONS.forEach(t=>(t.cards||[]).forEach((c,i)=>cats['Topics'].push(`lesson_${t.id}_${i}`)));
-  TOPIC_LESSONS.forEach(t=>(t.vocab||[]).forEach((v,i)=>cats['Topic Vocab'].push(`lesson_${t.id}_v${i}`)));
-  TOPIC_LESSONS.forEach(t=>(t.dialogue||[]).forEach((d,i)=>cats['Topic Dialogue'].push(`lesson_${t.id}_d${i}`)));
+  // Everything in this first block is Vietnamese-only data. It used to run for
+  // every course, so asking a Cantonese session what audio it needed produced a
+  // list of Vietnamese filenames — and skipped all 54 Cantonese lessons, which
+  // live in LESSONS_YUE and were never read here at all.
+  if(isVietnameseCourse()){
+    // Concept lesson (CONCEPT_LESSONS) vocab-block examples were never tracked
+    // here before — a pre-existing gap, not just for the new Kinship Pronouns
+    // concept but for the original Understanding Vietnamese / Alphabet & Tones
+    // ones too. Only 'vocab' blocks carry a play button (openConceptDetail) —
+    // 'grid' blocks are silent, so they're intentionally skipped here.
+    CONCEPT_LESSONS.forEach(c=>(c.blocks||[]).forEach(b=>{
+      if(b.type!=='vocab') return;
+      b.words.forEach(w=>cats['Concept Vocab'].push(`concept_${c.id}_${w.v.replace(/[^a-z0-9]/gi,'')}`));
+    }));
+    LESSONS.forEach(l=>l.cards.forEach((c,i)=>cats['Lessons'].push(`lesson_${l.id}_${i}`)));
+    LESSONS.forEach(l=>(l.vocab||[]).forEach((v,i)=>cats['New Lesson Vocab'].push(`lesson_${l.id}_v${i}`)));
+    LESSONS.forEach(l=>(l.dialogue||[]).forEach((d,i)=>cats['New Lesson Dialogue'].push(`lesson_${l.id}_d${i}`)));
+    TOPIC_LESSONS.forEach(t=>(t.cards||[]).forEach((c,i)=>cats['Topics'].push(`lesson_${t.id}_${i}`)));
+    TOPIC_LESSONS.forEach(t=>(t.vocab||[]).forEach((v,i)=>cats['Topic Vocab'].push(`lesson_${t.id}_v${i}`)));
+    TOPIC_LESSONS.forEach(t=>(t.dialogue||[]).forEach((d,i)=>cats['Topic Dialogue'].push(`lesson_${t.id}_d${i}`)));
+    CORE_PHRASES.forEach(c=>cats['Core Phrases'].push(`core_${c.rank}`));
+    COMMON_PHRASES.forEach(c=>cats['Common Phrases'].push(`cphrase_${c.rank}`));
+    Object.keys(WORD_EXAMPLES).forEach(w=>cats['Word Examples'].push(`wordex_${w}`));
+    // Words/phrases are tracked for BOTH content modes (not just whichever mode
+    // is currently active in `state`), since a user can switch modes any time
+    // and the offline cache should already have both covered.
+    newVocabPool().forEach(w=>cats['New Lesson Words'].push(w.srsId));
+    newPhrasePool().forEach(p=>cats['New Lesson Phrases'].push(p.srsId));
+  } else {
+    // Every other course writes its own lessons and builds its phrase deck out
+    // of that dialogue, so those two sources are the whole story.
+    activeLessons().forEach(l=>{
+      (l.cards||[]).forEach((c,i)=>cats['Lessons'].push(`lesson_${l.id}_${i}`));
+      (l.vocab||[]).forEach((v,i)=>cats['New Lesson Vocab'].push(`lesson_${l.id}_v${i}`));
+      (l.dialogue||[]).forEach((d,i)=>cats['New Lesson Dialogue'].push(`lesson_${l.id}_d${i}`));
+    });
+    phraseStudyPool(null).forEach(p=>cats['Common Phrases'].push(p.srsId));
+  }
+  // ---- language-agnostic from here: each of these already switches on state ----
   activePacks().forEach(p=>p.cards.forEach((c,i)=>cats['Survival Packs'].push(`pack_${p.id}_${i}`)));
   Object.entries(activeChatPersonas()).forEach(([worldId,arr])=>arr.forEach((p,pIdx)=>{
     cats['Chat Boss'].push(`chat_${worldId}_${pIdx}_opener`);
@@ -17231,15 +17255,11 @@ function getAudioIdsByCategory(){
     });
   }));
   Object.entries(activeSosPhrases()).forEach(([worldId,arr])=>arr.forEach((c,i)=>cats['SOS Phrasebook'].push(`sos_${worldId}_${i}`)));
-  CORE_PHRASES.forEach(c=>cats['Core Phrases'].push(`core_${c.rank}`));
-  COMMON_PHRASES.forEach(c=>cats['Common Phrases'].push(`cphrase_${c.rank}`));
-  // Words/phrases are tracked for BOTH content modes (not just whichever mode
-  // is currently active in `state`), since a user can switch modes any time
-  // and the offline cache should already have both covered.
   buildWordFrequencyList().forEach(w=>cats['Classic Words'].push(wordAudioId(w.word)));
-  newVocabPool().forEach(w=>cats['New Lesson Words'].push(w.srsId));
-  newPhrasePool().forEach(p=>cats['New Lesson Phrases'].push(p.srsId));
-  Object.keys(WORD_EXAMPLES).forEach(w=>cats['Word Examples'].push(`wordex_${w}`));
+  // Job words sit in the same word_ namespace but are off-corpus, so the
+  // frequency list does not reach them.
+  const haveWord = new Set(cats['Classic Words']);
+  facilityVocab().forEach(w=>{ if(!haveWord.has(w.srsId)){ haveWord.add(w.srsId); cats['Classic Words'].push(w.srsId); } });
   // The slang and swearing decks were never listed here, so the offline
   // download and every coverage check silently skipped them — they looked
   // complete because they were invisible, not because they were covered.
@@ -19104,7 +19124,11 @@ function isPackDone(id){ return state.completedLessons.includes('pack:'+id); }
 // constant so reintroducing a second voice is a one-line change here.
 // Filenames follow the pattern {type}_{lessonOrPackId}_{cardIndex}.mp3
 // e.g. lesson_l1_0.mp3, pack_p21_2.mp3 — see vietnamese_audio_master.csv for the full list.
-function audioBasePath(){ return 'audio/male/'; }
+// One folder per course. Vietnamese keeps audio/male/ (named for the voice back
+// when there were two); Cantonese gets its own, because it is a different
+// language in a different voice and mixing them in one folder only invites
+// mistakes later. Ids are namespaced too, so this is tidiness, not correctness.
+function audioBasePath(){ return state.language === 'yue' ? 'audio/yue/' : 'audio/male/'; }
 let currentAudioEl = null;
 
 // Plays one or more texts back-to-back, chaining via onend rather than calling

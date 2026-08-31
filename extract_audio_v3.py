@@ -74,10 +74,15 @@ def resolve(field_names, voice):
 
 def main():
     if len(sys.argv) < 3 or sys.argv[2] not in ("female", "male"):
-        sys.exit("Usage: python extract_audio_v3.py <export>.apkg <female|male>")
+        sys.exit("Usage: python extract_audio_v3.py <export>.apkg <female|male> [out_folder]\n"
+                 "  e.g. python extract_audio_v3.py yue_main.apkg male yue   -> audio/yue/")
     apkg, voice = sys.argv[1], sys.argv[2]
+    # Optional third argument names the output folder under audio/. The Cantonese
+    # decks reuse this same note type (so the field lookup below is unchanged) but
+    # belong in audio/yue/, not in the Vietnamese folder.
+    folder = sys.argv[3] if len(sys.argv) > 3 else voice
     import zstandard
-    out = os.path.join("audio", voice); os.makedirs(out, exist_ok=True)
+    out = os.path.join("audio", folder); os.makedirs(out, exist_ok=True)
     dctx = zstandard.ZstdDecompressor()
     with tempfile.TemporaryDirectory() as tmp:
         with zipfile.ZipFile(apkg) as z: z.extractall(tmp)
