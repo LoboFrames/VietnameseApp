@@ -17,8 +17,14 @@ USAGE:  python extract_audio_v3.py <export>.apkg <female|male>
 import os, re, sys, io, json, sqlite3, zipfile, tempfile, shutil
 
 ID_FIELD_NAME = "id"
-AUDIO_FIELD_NAME_BY_VOICE = {"female": "vietnamese_female_sound",
-                             "male": "vietnamese_male_sound"}
+# One entry per language whose note type this script can read. Matching by NAME
+# rather than by position is what stops a two-sound-field note from handing back
+# the wrong voice; carrying both languages here means the Cantonese note type
+# (Cantonese_Text / Cantonese_Male_Sound) resolves just as exactly.
+AUDIO_FIELD_NAMES_BY_VOICE = {
+    "female": ["vietnamese_female_sound", "cantonese_female_sound"],
+    "male":   ["vietnamese_male_sound",   "cantonese_male_sound"],
+}
 
 def _varint(b, i):
     n = s = 0
@@ -64,8 +70,8 @@ def parse_media_entries(buf):
 def resolve(field_names, voice):
     low = [(n or "").strip().lower() for n in field_names]
     idx = next((i for i, n in enumerate(low) if n == ID_FIELD_NAME), 0)
-    want = AUDIO_FIELD_NAME_BY_VOICE[voice]
-    aud = next((i for i, n in enumerate(low) if n == want), None)
+    want = AUDIO_FIELD_NAMES_BY_VOICE[voice]
+    aud = next((i for i, n in enumerate(low) if n in want), None)
     if aud is None:
         for i, n in enumerate(low):
             if voice == "male" and "male" in n and "sound" in n: aud = i; break
@@ -78,7 +84,7 @@ def main():
                  "  e.g. python extract_audio_v3.py yue_main.apkg male yue   -> audio/yue/")
     apkg, voice = sys.argv[1], sys.argv[2]
     # Optional third argument names the output folder under audio/. The Cantonese
-    # decks reuse this same note type (so the field lookup below is unchanged) but
+    # decks use their own note type (Cantonese_* fields, resolved above) and
     # belong in audio/yue/, not in the Vietnamese folder.
     folder = sys.argv[3] if len(sys.argv) > 3 else voice
     import zstandard
