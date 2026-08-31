@@ -17206,7 +17206,7 @@ if('serviceWorker' in navigator){
 // mode is currently active, so switching modes later doesn't leave audio
 // uncached.
 function getAudioIdsByCategory(){
-  const cats = { 'Lessons':[], 'Survival Packs':[], 'Chat Boss':[], 'SOS Phrasebook':[], 'Core Phrases':[], 'Common Phrases':[], 'Classic Words':[], 'Word Examples':[], 'New Lesson Vocab':[], 'New Lesson Dialogue':[], 'Topics':[], 'Topic Vocab':[], 'Topic Dialogue':[], 'New Lesson Words':[], 'New Lesson Phrases':[], 'Concept Vocab':[] };
+  const cats = { 'Lessons':[], 'Survival Packs':[], 'Chat Boss':[], 'SOS Phrasebook':[], 'Core Phrases':[], 'Common Phrases':[], 'Classic Words':[], 'Word Examples':[], 'New Lesson Vocab':[], 'New Lesson Dialogue':[], 'Topics':[], 'Topic Vocab':[], 'Topic Dialogue':[], 'New Lesson Words':[], 'New Lesson Phrases':[], 'Concept Vocab':[], 'Slang':[], 'Swearing':[] };
   // Concept lesson (CONCEPT_LESSONS) vocab-block examples were never tracked
   // here before — a pre-existing gap, not just for the new Kinship Pronouns
   // concept but for the original Understanding Vietnamese / Alphabet & Tones
@@ -17240,6 +17240,11 @@ function getAudioIdsByCategory(){
   newVocabPool().forEach(w=>cats['New Lesson Words'].push(w.srsId));
   newPhrasePool().forEach(p=>cats['New Lesson Phrases'].push(p.srsId));
   Object.keys(WORD_EXAMPLES).forEach(w=>cats['Word Examples'].push(`wordex_${w}`));
+  // The slang and swearing decks were never listed here, so the offline
+  // download and every coverage check silently skipped them — they looked
+  // complete because they were invisible, not because they were covered.
+  slangVocab().forEach(w=>cats[w.swear?'Swearing':'Slang'].push(w.srsId));
+  slangPhrases().forEach(c=>cats[c.swear?'Swearing':'Slang'].push(c.srsId));
   return cats;
 }
 function getAllAudioIds(){ return Object.values(getAudioIdsByCategory()).flat(); }
@@ -17298,7 +17303,7 @@ async function downloadAllAudioOffline(){
       while(idx < ids.length){
         const id = ids[idx++];
         try{
-          const res = await fetch(audioBasePath() + id + '.mp3');
+          const res = await fetch(audioBasePath() + encodeURIComponent(id) + '.mp3');
           if(!res.ok) failed++;
         }catch(e){ failed++; }
         done++;
@@ -19165,7 +19170,10 @@ function playAudio(cardId, text, accent, onEnded){
   // Cards, the word popup, chat — without a button wired into each render site.
   lastPlayedAudio = { id: cardId, text, lang: state.language, missing: false };
   showFlagPill();
-  const el = new Audio(audioBasePath() + cardId + '.mp3');
+  // Slang ids carry the word itself, so they contain spaces (slang_trời ơi) —
+  // the first ids in the app that do. Encoding covers those and makes the
+  // existing diacritics explicit rather than relying on the browser to guess.
+  const el = new Audio(audioBasePath() + encodeURIComponent(cardId) + '.mp3');
   currentAudioEl = el;
   let fellBack = false;
   const fallback = ()=>{
