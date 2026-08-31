@@ -1064,12 +1064,80 @@
   "to": "lesson_yue_l78_d3"
  },
  {
+  "from": "cphrase_yue_313",
+  "to": "lesson_yue_l79_d0"
+ },
+ {
+  "from": "cphrase_yue_314",
+  "to": "lesson_yue_l79_d1"
+ },
+ {
+  "from": "cphrase_yue_315",
+  "to": "lesson_yue_l79_d2"
+ },
+ {
+  "from": "cphrase_yue_316",
+  "to": "lesson_yue_l79_d3"
+ },
+ {
+  "from": "cphrase_yue_317",
+  "to": "lesson_yue_l80_d0"
+ },
+ {
+  "from": "cphrase_yue_318",
+  "to": "lesson_yue_l80_d1"
+ },
+ {
+  "from": "cphrase_yue_319",
+  "to": "lesson_yue_l80_d2"
+ },
+ {
   "from": "cphrase_yue_32",
   "to": "lesson_yue_l8_3"
  },
  {
   "from": "cphrase_yue_32",
   "to": "lesson_yue_l8_d3"
+ },
+ {
+  "from": "cphrase_yue_320",
+  "to": "lesson_yue_l80_d3"
+ },
+ {
+  "from": "cphrase_yue_321",
+  "to": "lesson_yue_l81_d0"
+ },
+ {
+  "from": "cphrase_yue_322",
+  "to": "lesson_yue_l81_d1"
+ },
+ {
+  "from": "cphrase_yue_323",
+  "to": "lesson_yue_l81_d2"
+ },
+ {
+  "from": "cphrase_yue_324",
+  "to": "lesson_yue_l81_d3"
+ },
+ {
+  "from": "cphrase_yue_325",
+  "to": "lesson_yue_l82_d0"
+ },
+ {
+  "from": "cphrase_yue_326",
+  "to": "lesson_yue_l82_d1"
+ },
+ {
+  "from": "cphrase_yue_327",
+  "to": "lesson_yue_l82_d2"
+ },
+ {
+  "from": "cphrase_yue_328",
+  "to": "lesson_yue_l82_d3"
+ },
+ {
+  "from": "cphrase_yue_329",
+  "to": "lesson_yue_l83_d0"
  },
  {
   "from": "cphrase_yue_33",
@@ -1080,12 +1148,56 @@
   "to": "lesson_yue_l9_d0"
  },
  {
+  "from": "cphrase_yue_330",
+  "to": "lesson_yue_l83_d1"
+ },
+ {
+  "from": "cphrase_yue_331",
+  "to": "lesson_yue_l83_d2"
+ },
+ {
+  "from": "cphrase_yue_332",
+  "to": "lesson_yue_l83_d3"
+ },
+ {
+  "from": "cphrase_yue_333",
+  "to": "lesson_yue_l84_d0"
+ },
+ {
+  "from": "cphrase_yue_334",
+  "to": "lesson_yue_l84_d1"
+ },
+ {
+  "from": "cphrase_yue_335",
+  "to": "lesson_yue_l84_d2"
+ },
+ {
+  "from": "cphrase_yue_336",
+  "to": "lesson_yue_l84_d3"
+ },
+ {
+  "from": "cphrase_yue_337",
+  "to": "lesson_yue_l85_d0"
+ },
+ {
+  "from": "cphrase_yue_338",
+  "to": "lesson_yue_l85_d1"
+ },
+ {
+  "from": "cphrase_yue_339",
+  "to": "lesson_yue_l85_d2"
+ },
+ {
   "from": "cphrase_yue_34",
   "to": "lesson_yue_l9_1"
  },
  {
   "from": "cphrase_yue_34",
   "to": "lesson_yue_l9_d1"
+ },
+ {
+  "from": "cphrase_yue_340",
+  "to": "lesson_yue_l85_d3"
  },
  {
   "from": "cphrase_yue_35",
@@ -6984,6 +7096,78 @@
   "to": "word_yue_應"
  },
  {
+  "from": "lesson_yue_l79_v0",
+  "to": "word_yue_損失"
+ },
+ {
+  "from": "lesson_yue_l79_v1",
+  "to": "word_yue_摺"
+ },
+ {
+  "from": "lesson_yue_l79_v10",
+  "to": "word_yue_早排"
+ },
+ {
+  "from": "lesson_yue_l79_v11",
+  "to": "word_yue_星期"
+ },
+ {
+  "from": "lesson_yue_l79_v12",
+  "to": "word_yue_星期一"
+ },
+ {
+  "from": "lesson_yue_l79_v13",
+  "to": "word_yue_時代"
+ },
+ {
+  "from": "lesson_yue_l79_v14",
+  "to": "word_yue_晾"
+ },
+ {
+  "from": "lesson_yue_l79_v15",
+  "to": "word_yue_有型"
+ },
+ {
+  "from": "lesson_yue_l79_v16",
+  "to": "word_yue_朝早"
+ },
+ {
+  "from": "lesson_yue_l79_v17",
+  "to": "word_yue_林"
+ },
+ {
+  "from": "lesson_yue_l79_v2",
+  "to": "word_yue_操"
+ },
+ {
+  "from": "lesson_yue_l79_v3",
+  "to": "word_yue_攜帶"
+ },
+ {
+  "from": "lesson_yue_l79_v4",
+  "to": "word_yue_效果"
+ },
+ {
+  "from": "lesson_yue_l79_v5",
+  "to": "word_yue_教育"
+ },
+ {
+  "from": "lesson_yue_l79_v6",
+  "to": "word_yue_數據"
+ },
+ {
+  "from": "lesson_yue_l79_v7",
+  "to": "word_yue_文章"
+ },
+ {
+  "from": "lesson_yue_l79_v8",
+  "to": "word_yue_斜"
+ },
+ {
+  "from": "lesson_yue_l79_v9",
+  "to": "word_yue_方式"
+ },
+ {
   "from": "lesson_yue_l7_v0",
   "to": "word_yue_識"
  },
@@ -7054,6 +7238,434 @@
  {
   "from": "lesson_yue_l7_v9",
   "to": "word_yue_阿"
+ },
+ {
+  "from": "lesson_yue_l80_v0",
+  "to": "word_yue_根據"
+ },
+ {
+  "from": "lesson_yue_l80_v1",
+  "to": "word_yue_極"
+ },
+ {
+  "from": "lesson_yue_l80_v10",
+  "to": "word_yue_沿途"
+ },
+ {
+  "from": "lesson_yue_l80_v11",
+  "to": "word_yue_洋人"
+ },
+ {
+  "from": "lesson_yue_l80_v12",
+  "to": "word_yue_流行"
+ },
+ {
+  "from": "lesson_yue_l80_v13",
+  "to": "word_yue_浸"
+ },
+ {
+  "from": "lesson_yue_l80_v14",
+  "to": "word_yue_淺"
+ },
+ {
+  "from": "lesson_yue_l80_v15",
+  "to": "word_yue_溝通"
+ },
+ {
+  "from": "lesson_yue_l80_v16",
+  "to": "word_yue_演出"
+ },
+ {
+  "from": "lesson_yue_l80_v17",
+  "to": "word_yue_熱天"
+ },
+ {
+  "from": "lesson_yue_l80_v2",
+  "to": "word_yue_歌手"
+ },
+ {
+  "from": "lesson_yue_l80_v3",
+  "to": "word_yue_歌星"
+ },
+ {
+  "from": "lesson_yue_l80_v4",
+  "to": "word_yue_比賽"
+ },
+ {
+  "from": "lesson_yue_l80_v5",
+  "to": "word_yue_氣"
+ },
+ {
+  "from": "lesson_yue_l80_v6",
+  "to": "word_yue_氣氛"
+ },
+ {
+  "from": "lesson_yue_l80_v7",
+  "to": "word_yue_求"
+ },
+ {
+  "from": "lesson_yue_l80_v8",
+  "to": "word_yue_沖涼"
+ },
+ {
+  "from": "lesson_yue_l80_v9",
+  "to": "word_yue_沙律"
+ },
+ {
+  "from": "lesson_yue_l81_v0",
+  "to": "word_yue_片"
+ },
+ {
+  "from": "lesson_yue_l81_v1",
+  "to": "word_yue_牛"
+ },
+ {
+  "from": "lesson_yue_l81_v10",
+  "to": "word_yue_直情"
+ },
+ {
+  "from": "lesson_yue_l81_v11",
+  "to": "word_yue_直接"
+ },
+ {
+  "from": "lesson_yue_l81_v12",
+  "to": "word_yue_相當之"
+ },
+ {
+  "from": "lesson_yue_l81_v13",
+  "to": "word_yue_睬"
+ },
+ {
+  "from": "lesson_yue_l81_v14",
+  "to": "word_yue_硬"
+ },
+ {
+  "from": "lesson_yue_l81_v15",
+  "to": "word_yue_磨"
+ },
+ {
+  "from": "lesson_yue_l81_v16",
+  "to": "word_yue_禁"
+ },
+ {
+  "from": "lesson_yue_l81_v17",
+  "to": "word_yue_私校"
+ },
+ {
+  "from": "lesson_yue_l81_v2",
+  "to": "word_yue_猛咁"
+ },
+ {
+  "from": "lesson_yue_l81_v3",
+  "to": "word_yue_獸醫"
+ },
+ {
+  "from": "lesson_yue_l81_v4",
+  "to": "word_yue_理論上"
+ },
+ {
+  "from": "lesson_yue_l81_v5",
+  "to": "word_yue_生命"
+ },
+ {
+  "from": "lesson_yue_l81_v6",
+  "to": "word_yue_生物"
+ },
+ {
+  "from": "lesson_yue_l81_v7",
+  "to": "word_yue_用途"
+ },
+ {
+  "from": "lesson_yue_l81_v8",
+  "to": "word_yue_痴線"
+ },
+ {
+  "from": "lesson_yue_l81_v9",
+  "to": "word_yue_白"
+ },
+ {
+  "from": "lesson_yue_l82_v0",
+  "to": "word_yue_私隱權"
+ },
+ {
+  "from": "lesson_yue_l82_v1",
+  "to": "word_yue_科技"
+ },
+ {
+  "from": "lesson_yue_l82_v10",
+  "to": "word_yue_系統"
+ },
+ {
+  "from": "lesson_yue_l82_v11",
+  "to": "word_yue_約"
+ },
+ {
+  "from": "lesson_yue_l82_v12",
+  "to": "word_yue_紅籌股"
+ },
+ {
+  "from": "lesson_yue_l82_v13",
+  "to": "word_yue_細佬"
+ },
+ {
+  "from": "lesson_yue_l82_v14",
+  "to": "word_yue_經歷"
+ },
+ {
+  "from": "lesson_yue_l82_v15",
+  "to": "word_yue_總"
+ },
+ {
+  "from": "lesson_yue_l82_v16",
+  "to": "word_yue_美"
+ },
+ {
+  "from": "lesson_yue_l82_v17",
+  "to": "word_yue_習慣"
+ },
+ {
+  "from": "lesson_yue_l82_v2",
+  "to": "word_yue_突然"
+ },
+ {
+  "from": "lesson_yue_l82_v3",
+  "to": "word_yue_競爭"
+ },
+ {
+  "from": "lesson_yue_l82_v4",
+  "to": "word_yue_競爭力"
+ },
+ {
+  "from": "lesson_yue_l82_v5",
+  "to": "word_yue_答案"
+ },
+ {
+  "from": "lesson_yue_l82_v6",
+  "to": "word_yue_籠"
+ },
+ {
+  "from": "lesson_yue_l82_v7",
+  "to": "word_yue_米線"
+ },
+ {
+  "from": "lesson_yue_l82_v8",
+  "to": "word_yue_粉紅色"
+ },
+ {
+  "from": "lesson_yue_l82_v9",
+  "to": "word_yue_糯米糍"
+ },
+ {
+  "from": "lesson_yue_l83_v0",
+  "to": "word_yue_老鼠"
+ },
+ {
+  "from": "lesson_yue_l83_v1",
+  "to": "word_yue_聽聞"
+ },
+ {
+  "from": "lesson_yue_l83_v10",
+  "to": "word_yue_被"
+ },
+ {
+  "from": "lesson_yue_l83_v11",
+  "to": "word_yue_製作"
+ },
+ {
+  "from": "lesson_yue_l83_v12",
+  "to": "word_yue_褪"
+ },
+ {
+  "from": "lesson_yue_l83_v13",
+  "to": "word_yue_見識"
+ },
+ {
+  "from": "lesson_yue_l83_v14",
+  "to": "word_yue_親眼"
+ },
+ {
+  "from": "lesson_yue_l83_v15",
+  "to": "word_yue_試過"
+ },
+ {
+  "from": "lesson_yue_l83_v16",
+  "to": "word_yue_誇張"
+ },
+ {
+  "from": "lesson_yue_l83_v17",
+  "to": "word_yue_認真"
+ },
+ {
+  "from": "lesson_yue_l83_v2",
+  "to": "word_yue_腰"
+ },
+ {
+  "from": "lesson_yue_l83_v3",
+  "to": "word_yue_舉例"
+ },
+ {
+  "from": "lesson_yue_l83_v4",
+  "to": "word_yue_荃灣"
+ },
+ {
+  "from": "lesson_yue_l83_v5",
+  "to": "word_yue_葡萄"
+ },
+ {
+  "from": "lesson_yue_l83_v6",
+  "to": "word_yue_薯蓉"
+ },
+ {
+  "from": "lesson_yue_l83_v7",
+  "to": "word_yue_蛋糕"
+ },
+ {
+  "from": "lesson_yue_l83_v8",
+  "to": "word_yue_蝦"
+ },
+ {
+  "from": "lesson_yue_l83_v9",
+  "to": "word_yue_行為"
+ },
+ {
+  "from": "lesson_yue_l84_v0",
+  "to": "word_yue_說明書"
+ },
+ {
+  "from": "lesson_yue_l84_v1",
+  "to": "word_yue_說話"
+ },
+ {
+  "from": "lesson_yue_l84_v10",
+  "to": "word_yue_踩"
+ },
+ {
+  "from": "lesson_yue_l84_v11",
+  "to": "word_yue_載"
+ },
+ {
+  "from": "lesson_yue_l84_v12",
+  "to": "word_yue_轉頭"
+ },
+ {
+  "from": "lesson_yue_l84_v13",
+  "to": "word_yue_辣"
+ },
+ {
+  "from": "lesson_yue_l84_v14",
+  "to": "word_yue_近排"
+ },
+ {
+  "from": "lesson_yue_l84_v15",
+  "to": "word_yue_追求"
+ },
+ {
+  "from": "lesson_yue_l84_v16",
+  "to": "word_yue_退"
+ },
+ {
+  "from": "lesson_yue_l84_v17",
+  "to": "word_yue_退休"
+ },
+ {
+  "from": "lesson_yue_l84_v2",
+  "to": "word_yue_調轉"
+ },
+ {
+  "from": "lesson_yue_l84_v3",
+  "to": "word_yue_講笑"
+ },
+ {
+  "from": "lesson_yue_l84_v4",
+  "to": "word_yue_變成"
+ },
+ {
+  "from": "lesson_yue_l84_v5",
+  "to": "word_yue_讕"
+ },
+ {
+  "from": "lesson_yue_l84_v6",
+  "to": "word_yue_負責"
+ },
+ {
+  "from": "lesson_yue_l84_v7",
+  "to": "word_yue_責任"
+ },
+ {
+  "from": "lesson_yue_l84_v8",
+  "to": "word_yue_買嘢"
+ },
+ {
+  "from": "lesson_yue_l84_v9",
+  "to": "word_yue_足夠"
+ },
+ {
+  "from": "lesson_yue_l85_v0",
+  "to": "word_yue_逢"
+ },
+ {
+  "from": "lesson_yue_l85_v1",
+  "to": "word_yue_運"
+ },
+ {
+  "from": "lesson_yue_l85_v10",
+  "to": "word_yue_飽"
+ },
+ {
+  "from": "lesson_yue_l85_v11",
+  "to": "word_yue_香"
+ },
+ {
+  "from": "lesson_yue_l85_v12",
+  "to": "word_yue_驗"
+ },
+ {
+  "from": "lesson_yue_l85_v13",
+  "to": "word_yue_高級"
+ },
+ {
+  "from": "lesson_yue_l85_v14",
+  "to": "word_yue_高解像"
+ },
+ {
+  "from": "lesson_yue_l85_v15",
+  "to": "word_yue_鯨魚"
+ },
+ {
+  "from": "lesson_yue_l85_v16",
+  "to": "word_yue_麻雀"
+ },
+ {
+  "from": "lesson_yue_l85_v2",
+  "to": "word_yue_鑽戒"
+ },
+ {
+  "from": "lesson_yue_l85_v3",
+  "to": "word_yue_閂"
+ },
+ {
+  "from": "lesson_yue_l85_v4",
+  "to": "word_yue_隔"
+ },
+ {
+  "from": "lesson_yue_l85_v5",
+  "to": "word_yue_隨時"
+ },
+ {
+  "from": "lesson_yue_l85_v6",
+  "to": "word_yue_電器"
+ },
+ {
+  "from": "lesson_yue_l85_v7",
+  "to": "word_yue_電視機"
+ },
+ {
+  "from": "lesson_yue_l85_v8",
+  "to": "word_yue_非常"
+ },
+ {
+  "from": "lesson_yue_l85_v9",
+  "to": "word_yue_風景"
  },
  {
   "from": "lesson_yue_l8_v0",
