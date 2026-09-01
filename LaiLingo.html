@@ -874,6 +874,9 @@
 .sev-tag.sev-extreme{background:var(--vermillion);}
 .freq-group{margin:18px 0 6px;font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);}
 .freq-group:first-child{margin-top:2px;}
+ruby{ruby-position:over;-webkit-ruby-position:before;}
+ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;opacity:.9;line-height:1.1;}
+.sc-viet ruby rt{font-size:.42em;}
 .fw-rom{color:var(--muted);font-size:11.5px;font-weight:500;font-family:'IBM Plex Mono',monospace;margin:3px 0 0;}
   .fw-rom-inline{color:var(--muted);font-size:11.5px;font-weight:500;font-family:'IBM Plex Mono',monospace;margin-left:9px;}
   .fw-en2{color:var(--muted);font-size:12.5px;margin:2px 0 0;}
@@ -6287,34 +6290,264 @@ const JLPT_LEVELS = [
   { id:'n1', num:1, name:'Advanced', dialogues:85, unlocked:false },
 ];
 
+/* Sections are FREQUENCY bands, not JLPT sub-levels — the spine is JPDB
+   frequency order and a lesson mixes JLPT levels freely (lesson 1 holds N5,
+   N4 and N1 words). The JLPT level rides on each WORD instead, via JA_JLPT. */
 const JLPT_N5_SECTIONS = [
-  { id:1, roman:'I', title:'Survival On-Ramp' },
+  { id:1, roman:'I', title:'First 500' },
 ];
 
 const LESSONS_JA = [
-  { id:'ja_l1', day:1, section:1, level:'JLPT N5', title:'Hello & Goodbye', tag:'Survival', img:'images/ja_lesson_01.jpg',
-    desc:'Learn how to greet people, ask how they are doing, and say goodbye in Japanese.',
-    duration:'3 min',
+  { id:'ja_l1', day:1, section:1, level:'JLPT N5', title:'This, That, and Doing', tag:'First 500', img:'images/ja_lesson_01.jpg',
+    desc:'The words that hold every sentence together — ranks #1-18: する, ある, こと, なる, それ, いる, 思う, 言う.',
+    duration:'6 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'こんにちは！お元気ですか？', p:'Konnichiwa! Ogenki desu ka?', e:'Hello! How are you?'},
-      {speaker:'B', v:'はい、元気です。ありがとう。あなたは？', p:'Hai, genki desu. Arigatou. Anata wa?', e:"Yes, I'm fine. Thank you. And you?"},
-      {speaker:'A', v:'私も元気です。', p:'Watashi mo genki desu.', e:"I'm fine too."},
-      {speaker:'B', v:'さようなら！', p:'Sayounara!', e:'Goodbye!'},
+      {speaker:'A', v:'それ、何？', p:'それ、なに？', e:'What’s that?'},
+      {speaker:'B', v:'これ？私が作ったやつ。', p:'これ？わたしがつくったやつ。', e:'This? Something I made.'},
+      {speaker:'A', v:'そう。いいと思うよ。', p:'そう。いいとおもうよ。', e:'Huh. I think it’s good.'},
+      {speaker:'B', v:'でも、まだ終わってないんだ。', p:'でも、まだおわってないんだ。', e:'It’s not finished yet, though.'},
     ],
     vocab:[
-      {v:'こんにちは', e:'hello'}, {v:'さようなら', e:'goodbye'}, {v:'ありがとう', e:'thank you'}, {v:'あなた', e:'you'},
-      {v:'元気', e:'fine / well'}, {v:'か', e:'question particle'}, {v:'私', e:'I / me'}, {v:'も', e:'also / too'},
+      {v:'する', p:'する', e:'to do; to carry out'},
+      {v:'ある', p:'ある', e:'to be, to exist (things)'},
+      {v:'こと', p:'こと', e:'a thing, a matter (abstract)'},
+      {v:'なる', p:'なる', e:'to become, to turn into'},
+      {v:'それ', p:'それ', e:'that (near you)'},
+      {v:'いる', p:'いる', e:'to be, to exist (people, animals)'},
+      {v:'思う', p:'おもう', e:'to think, to reckon'},
+      {v:'この', p:'この', e:'this — before a noun'},
+      {v:'でも', p:'でも', e:'but, though'},
+      {v:'その', p:'その', e:'that — before a noun'},
+      {v:'言う', p:'いう', e:'to say, to tell'},
+      {v:'ない', p:'ない', e:'not there; there isn’t any'},
+      {v:'そう', p:'そう', e:'that way; is that so'},
+      {v:'私', p:'わたし', e:'I, me'},
+      {v:'これ', p:'これ', e:'this (near me)'},
+      {v:'見る', p:'みる', e:'to see, to watch, to look at'},
+      {v:'だけ', p:'だけ', e:'only, just'},
+      {v:'くる', p:'くる', e:'to come'},
     ],
     grammar:[
-      {title:'か (ka) — Yes/No Questions', body:'Add "か" to the very end of a statement to turn it into a yes/no question, with no change to word order and no question mark needed (though one is often added anyway in casual writing). In the dialogue, A asks "お元気ですか？" (Ogenki desu ka?) — literally "well [question]?" — meaning "How are you?"'},
-      {title:'は (wa) — The Topic Particle', body:'The character は is written "ha" but pronounced "wa" when used as a particle marking the topic of a sentence — one of the most common early trip-ups for new learners. In the dialogue, B asks "あなたは？" (Anata wa?) meaning "And you?" — literally "As for you?"'},
+      {title:'ある and いる — two ways of existing', body:'Japanese splits "there is" by whether the thing can move itself. 犬がいる (there’s a dog), 本がある (there’s a book). Get it backwards and you have made your friend into furniture. The line is animacy, not life: a plant takes ある, a robot in a film usually takes いる. Both go negative irregularly — ない and いない, not あらない.'},
+      {title:'こと — turning a verb into a thing', body:'Stick こと after a plain verb and it becomes a noun: 食べること (eating), 言ったこと (what was said). This is how Japanese builds "the fact that…" without a relative pronoun. In speech の often replaces it — 見るの好き (I like watching) — and の is the more casual of the two, which is why you will hear it far more among friends.'},
+      {title:'これ / それ / あれ — the ko-so-a set', body:'これ is near me, それ is near you, あれ is near neither of us. The same three-way split runs through この/その/あの (before a noun), ここ/そこ/あそこ (places), and こう/そう/ああ (like this / like that). Learn the pattern once and four sets come free. English only has two — this and that — which is why learners overuse それ.'},
     ],
     cards:[
-      {v:'こんにちは！お元気ですか？', p:'Konnichiwa! Ogenki desu ka?', e:'Hello! How are you?'},
-      {v:'はい、元気です。ありがとう。あなたは？', p:'Hai, genki desu. Arigatou. Anata wa?', e:"Yes, I'm fine. Thank you. And you?"},
-      {v:'私も元気です。', p:'Watashi mo genki desu.', e:"I'm fine too."},
-      {v:'さようなら！', p:'Sayounara!', e:'Goodbye!'},
+      {v:'それ、私が言ったことだよ。', p:'それ、わたしがいったことだよ。', e:'That’s what I said.'},
+      {v:'この店、いいと思う。', p:'このみせ、いいとおもう。', e:'I reckon this place is good.'},
+      {v:'見るだけ。買わないよ。', p:'みるだけ。かわないよ。', e:'Just looking. I’m not buying.'},
+      {v:'誰もいない。まだ来てないんだ。', p:'だれもいない。まだきてないんだ。', e:'Nobody’s here. They haven’t come yet.'},
+    ] },
+
+  { id:'ja_l2', day:2, section:1, level:'JLPT N5', title:'Coming and Going', tag:'First 500', img:'images/ja_lesson_02.jpg',
+    desc:'Movement, and who does a favour for whom — ranks #19-36: くれる, やる, 行く, しまう, 自分, 知る, 聞く, 出る.',
+    duration:'6 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'今どこ？', p:'いまどこ？', e:'Where are you?'},
+      {speaker:'B', v:'もう出たよ。駅まで行く。', p:'もうでたよ。えきまでいく。', e:'Already left. Heading to the station.'},
+      {speaker:'A', v:'あの人も来るって聞いたけど。', p:'あのひともくるってきいたけど。', e:'I heard that guy’s coming too.'},
+      {speaker:'B', v:'知らない。自分で聞いてよ。', p:'しらない。じぶんできいてよ。', e:'No idea. Ask him yourself.'},
+    ],
+    vocab:[
+      {v:'くれる', p:'くれる', e:'to give (to me or mine)'},
+      {v:'やる', p:'やる', e:'to do (casual); to give (downward)'},
+      {v:'まで', p:'まで', e:'as far as, until'},
+      {v:'もの', p:'もの', e:'a thing (physical)'},
+      {v:'行く', p:'いく', e:'to go'},
+      {v:'そんな', p:'そんな', e:'that sort of'},
+      {v:'あの', p:'あの', e:'that over there — before a noun'},
+      {v:'しまう', p:'しまう', e:'to finish; to do something regrettable'},
+      {v:'人', p:'ひと', e:'a person'},
+      {v:'ここ', p:'ここ', e:'here'},
+      {v:'お', p:'お', e:'polite prefix — お茶, お金'},
+      {v:'自分', p:'じぶん', e:'oneself, myself'},
+      {v:'知る', p:'しる', e:'to know, to find out'},
+      {v:'今', p:'いま', e:'now'},
+      {v:'聞く', p:'きく', e:'to hear; to listen; to ask'},
+      {v:'何', p:'なに', e:'what'},
+      {v:'前', p:'まえ', e:'in front; before'},
+      {v:'出る', p:'でる', e:'to leave, to go out, to come out'},
+    ],
+    grammar:[
+      {title:'くれる — a favour aimed at me', body:'Japanese marks which way a favour travels. くれる means someone gave TO me or to my side: 友達が教えてくれた (a friend taught me). あげる is me giving outward, もらう is me receiving. Using あげる where くれる belongs makes you sound like you are narrating someone else’s life. 貸してくれる？ is the everyday way to ask to borrow something.'},
+      {title:'しまう — and the った contraction', body:'Two senses that share one word: finishing something off (食べてしまう, eat it all), and doing something you did not mean to (忘れてしまった, I went and forgot). Context decides, and the regret sense is far commoner. In casual speech it contracts hard: 〜てしまった becomes 〜ちゃった — 忘れちゃった. That contraction is what you will actually hear.'},
+      {title:'知る vs 分かる — knowing and getting it', body:'知る is holding a fact: 知ってる (I know it). 分かる is it making sense to you: 分かる (I get it). "I don’t know" is 知らない — never 知ってない, which is one of the most recognisable learner errors. And 分からない is softer than 知らない, which can land as curt if you snap it.'},
+    ],
+    cards:[
+      {v:'ちょっと聞いてくれる？', p:'ちょっときいてくれる？', e:'Can you listen a sec?'},
+      {v:'財布、家に忘れちゃった。', p:'さいふ、いえにわすれちゃった。', e:'I went and left my wallet at home.'},
+      {v:'そんなこと知らないよ。', p:'そんなことしらないよ。', e:'I don’t know anything about that.'},
+      {v:'駅の前まで行くね。', p:'えきのまえまでいくね。', e:'I’ll go as far as the front of the station.'},
+    ] },
+
+  { id:'ja_l3', day:3, section:1, level:'JLPT N5', title:'Hang On a Sec', tag:'First 500', img:'images/ja_lesson_03.jpg',
+    desc:'Waiting, asking, and being able to — ranks #37-54: 考える, ちょっと, できる, 待つ, ところ, 持つ, 声, もらう.',
+    duration:'6 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'ちょっと待って。まだ考えてる。', p:'ちょっとまって。まだかんがえてる。', e:'Hang on. I’m still thinking.'},
+      {speaker:'B', v:'どうする？時間ないよ。', p:'どうする？じかんないよ。', e:'What are you doing? There’s no time.'},
+      {speaker:'A', v:'そこで待っててもらえる？', p:'そこでまっててもらえる？', e:'Could you wait over there for me?'},
+      {speaker:'B', v:'また？こんなの毎回だな。', p:'また？こんなのまいかいだな。', e:'Again? It’s like this every time.'},
+    ],
+    vocab:[
+      {v:'中', p:'なか', e:'inside; among'},
+      {v:'顔', p:'かお', e:'face'},
+      {v:'また', p:'また', e:'again'},
+      {v:'考える', p:'かんがえる', e:'to think over, to consider'},
+      {v:'どう', p:'どう', e:'how, in what way'},
+      {v:'ため', p:'ため', e:'for the sake of; because of'},
+      {v:'まだ', p:'まだ', e:'still; not yet'},
+      {v:'ちょっと', p:'ちょっと', e:'a bit; hang on'},
+      {v:'できる', p:'できる', e:'to be able to; to be finished'},
+      {v:'話', p:'はなし', e:'a talk, a story'},
+      {v:'そこ', p:'そこ', e:'there (near you)'},
+      {v:'待つ', p:'まつ', e:'to wait'},
+      {v:'ところ', p:'ところ', e:'a place; the point where'},
+      {v:'たち', p:'たち', e:'plural suffix — 私たち'},
+      {v:'こんな', p:'こんな', e:'this sort of'},
+      {v:'持つ', p:'もつ', e:'to hold, to carry, to have'},
+      {v:'声', p:'こえ', e:'a voice'},
+      {v:'もらう', p:'もらう', e:'to receive; to get someone to do'},
+    ],
+    grammar:[
+      {title:'思う vs 考える — two kinds of thinking', body:'思う is an opinion or a feeling: いいと思う (I think it’s good). 考える is deliberate mental work: よく考える (think it over carefully). You cannot 考える that something is nice; you 思う it. A rough test — if English would accept "reckon", it is 思う; if it would accept "work out", it is 考える.'},
+      {title:'ちょっと — the most useful word in Japanese', body:'Literally "a little", and it does four jobs. A quantity: ちょっと待って (wait a sec). A softener: ちょっと高い (a bit pricey, meaning too pricey). Getting attention: ちょっと、すみません. And a refusal on its own — ちょっと… with a trailing pause is a clear no, and is far more common than はっきり断ること. Learning to hear that fourth use saves a lot of confusion.'},
+      {title:'てもらう — getting someone to do something', body:'待ってもらう is "have someone wait for me". The favour flows toward the speaker, like くれる, but もらう puts the receiver in the subject slot: 私が友達に待ってもらった. As a request it becomes 〜てもらえる？ (could you…?), which is softer than the plain imperative and is what you will use constantly. The polite step up is 〜ていただけますか.'},
+    ],
+    cards:[
+      {v:'ちょっと考えさせて。', p:'ちょっとかんがえさせて。', e:'Let me think about it for a sec.'},
+      {v:'その話、また今度ね。', p:'そのはなし、またこんどね。', e:'That story — another time, yeah?'},
+      {v:'荷物、持ってもらえる？', p:'にもつ、もってもらえる？', e:'Could you carry the bag for me?'},
+      {v:'声が大きいところが好き。', p:'こえがおおきいところがすき。', e:'I like that she’s got a loud voice.'},
+    ] },
+
+  { id:'ja_l4', day:4, section:1, level:'JLPT N5', title:'Really, Though', tag:'First 500', img:'images/ja_lesson_04.jpg',
+    desc:'Telling truth from hearsay — ranks #55-72: 見える, 本当, 今日, 言葉, らしい, ただ, 違う, 使う.',
+    duration:'6 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'今日、あの人来ないらしいよ。', p:'きょう、あのひとこないらしいよ。', e:'Apparently he’s not coming today.'},
+      {speaker:'B', v:'本当？誰から聞いた？', p:'ほんとう？だれからきいた？', e:'Really? Who’d you hear that from?'},
+      {speaker:'A', v:'ただの噂だけどね。', p:'ただのうわさだけどね。', e:'It’s only a rumour, mind.'},
+      {speaker:'B', v:'それ、違う人の話じゃない？', p:'それ、ちがうひとのはなしじゃない？', e:'Isn’t that about someone else?'},
+    ],
+    vocab:[
+      {v:'入る', p:'はいる', e:'to enter, to go in'},
+      {v:'手', p:'て', e:'hand; arm'},
+      {v:'見える', p:'みえる', e:'to be visible; to look like'},
+      {v:'方', p:'ほう', e:'direction; the ... one'},
+      {v:'目', p:'め', e:'eye'},
+      {v:'男', p:'おとこ', e:'a man'},
+      {v:'本当', p:'ほんとう', e:'true; really'},
+      {v:'あなた', p:'あなた', e:'you — used less than you think'},
+      {v:'今日', p:'きょう', e:'today'},
+      {v:'ほど', p:'ほど', e:'to the extent of; about'},
+      {v:'言葉', p:'ことば', e:'a word; language'},
+      {v:'らしい', p:'らしい', e:'apparently; seems (from hearsay)'},
+      {v:'など', p:'など', e:'and so on, and the like'},
+      {v:'ただ', p:'ただ', e:'only, merely; free of charge'},
+      {v:'違う', p:'ちがう', e:'to differ; that’s wrong'},
+      {v:'使う', p:'つかう', e:'to use'},
+      {v:'少し', p:'すこし', e:'a little, a few'},
+      {v:'時', p:'とき', e:'time; when'},
+    ],
+    grammar:[
+      {title:'らしい vs みたい vs っぽい', body:'All three mean roughly "seems", and they differ by where the guess comes from. らしい is hearsay — you were told: 来ないらしい. みたい is your own impression from what you can see: 疲れてるみたい. っぽい is a loose resemblance, often not literal: 子供っぽい (childish). Using らしい for something you saw yourself sounds oddly distant, as if you are reporting on your own life.'},
+      {title:'違う — the everyday "no"', body:'違う is a VERB — it means "to differ", so it conjugates: 違った, 違わない. Japanese uses it where English uses "no, that’s not it": 違う違う、こっち. Answering a factual correction with いいえ sounds textbook-stiff; 違う is what people actually say. Note the past 違った means "it turned out to be different", not "it was wrong of me".'},
+      {title:'見る vs 見える vs 見られる', body:'見る is you actively looking. 見える is it being visible to you without effort — 山が見える (you can see the mountain). 見られる is potential: you are ABLE to watch it, permission or circumstances allowing — 今日は試合が見られる. Learners reach for 見られる when they want 見える, which turns "I can see the sea" into "I am permitted to view the sea".'},
+    ],
+    cards:[
+      {v:'今日は少し早く出る。', p:'きょうはすこしはやくでる。', e:'I’m leaving a bit early today.'},
+      {v:'ここから海が見えるよ。', p:'ここからうみがみえるよ。', e:'You can see the sea from here.'},
+      {v:'それ、本当に使うの？', p:'それ、ほんとうにつかうの？', e:'Are you actually going to use that?'},
+      {v:'言葉が出てこない。', p:'ことばがでてこない。', e:'The words won’t come out.'},
+    ] },
+
+  { id:'ja_l5', day:5, section:1, level:'JLPT N5', title:'Round at His Place', tag:'First 500', img:'images/ja_lesson_05.jpg',
+    desc:'Houses, rooms and the reason things are how they are — ranks #73-90: 家, 同じ, 出す, 悪い, 時間, 部屋, わけ, 作る.',
+    duration:'6 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'彼の家、行ったことある？', p:'かれのいえ、いったことある？', e:'Have you been to his place?'},
+      {speaker:'B', v:'ある。部屋がすごく上まで片付いてた。', p:'ある。へやがすごくうえまでかたづいてた。', e:'Yeah. The room was tidy right up to the ceiling.'},
+      {speaker:'A', v:'同じ人とは思えないな。', p:'おなじひととはおもえないな。', e:'Doesn’t seem like the same bloke.'},
+      {speaker:'B', v:'時間があったわけじゃないと思うけど。', p:'じかんがあったわけじゃないとおもうけど。', e:'It’s not that he had time, I reckon.'},
+    ],
+    vocab:[
+      {v:'家', p:'いえ', e:'a house, home'},
+      {v:'あれ', p:'あれ', e:'that over there'},
+      {v:'彼', p:'かれ', e:'he; boyfriend'},
+      {v:'よい', p:'よい', e:'good — いい in speech'},
+      {v:'人間', p:'にんげん', e:'a human being'},
+      {v:'同じ', p:'おなじ', e:'the same'},
+      {v:'上', p:'うえ', e:'above, on top of'},
+      {v:'よく', p:'よく', e:'well; often'},
+      {v:'よう', p:'よう', e:'appearance; way of doing'},
+      {v:'出す', p:'だす', e:'to take out, to put out, to send'},
+      {v:'どこ', p:'どこ', e:'where'},
+      {v:'悪い', p:'わるい', e:'bad; my bad, sorry'},
+      {v:'時間', p:'じかん', e:'time; an hour'},
+      {v:'部屋', p:'へや', e:'a room'},
+      {v:'わけ', p:'わけ', e:'reason; it’s not that…'},
+      {v:'おく', p:'おく', e:'to put; to do in advance'},
+      {v:'作る', p:'つくる', e:'to make'},
+      {v:'まま', p:'まま', e:'as it is, unchanged'},
+    ],
+    grammar:[
+      {title:'いい and よい — one word, two shapes', body:'They are the same adjective. よい is the older, more formal form; いい is what people say. The catch is that いい does not conjugate — you cannot say いくない. Every inflected form falls back to よい: よくない (not good), よかった (that’s good / that was lucky), よくなる (get better). So you say いい but よかった, and that irregularity trips up nearly everyone.'},
+      {title:'わけじゃない — setting the record straight', body:'わけ is the reason or the logic of something. わけじゃない denies a conclusion someone might be drawing: 嫌いなわけじゃない (it’s not that I dislike it). It is softer than a flat 違う because it corrects the inference rather than the person. Compare はず (it ought to be) and つもり (I intend to) — the same slot, different jobs.'},
+      {title:'ておく — doing it in advance', body:'買っておく is buying something now so it is ready later. The point is preparation, not just completion. In speech it contracts to 〜とく: 買っとく, 言っとく, やっとく — and the contracted form is the normal one among friends. 言っておく carries a faint warning, like "I’m telling you now so you can’t say you weren’t told".'},
+    ],
+    cards:[
+      {v:'悪い、時間なかった。', p:'わるい、じかんなかった。', e:'My bad — I didn’t have time.'},
+      {v:'部屋、そのままにしといて。', p:'へや、そのままにしといて。', e:'Leave the room as it is.'},
+      {v:'これ、家で作ったんだ。', p:'これ、いえでつくったんだ。', e:'I made this at home.'},
+      {v:'ゴミ、もう出した？', p:'ゴミ、もうだした？', e:'Have you put the rubbish out yet?'},
+    ] },
+
+  { id:'ja_l6', day:6, section:1, level:'JLPT N5', title:'See You Later', tag:'First 500', img:'images/ja_lesson_06.jpg',
+    desc:'Meeting up and heading home — ranks #91-108: 早い, 呼ぶ, 話す, 会う, 一緒に, 好き, 帰る, みんな.',
+    duration:'6 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'みんなで一緒に帰る？', p:'みんなでいっしょにかえる？', e:'Shall we all head back together?'},
+      {speaker:'B', v:'いいね。でも今日は早いんだ。', p:'いいね。でもきょうははやいんだ。', e:'Sounds good. But I’m off early today.'},
+      {speaker:'A', v:'じゃあ、また今度会おう。', p:'じゃあ、またこんどあおう。', e:'Right — let’s meet up another time then.'},
+      {speaker:'B', v:'うん。着いたら呼んで。', p:'うん。ついたらよんで。', e:'Yeah. Give me a shout when you get there.'},
+    ],
+    vocab:[
+      {v:'早い', p:'はやい', e:'early; quick'},
+      {v:'感じる', p:'かんじる', e:'to feel, to sense'},
+      {v:'呼ぶ', p:'よぶ', e:'to call, to call out to'},
+      {v:'話す', p:'はなす', e:'to speak, to talk'},
+      {v:'何か', p:'なにか', e:'something; somehow'},
+      {v:'死ぬ', p:'しぬ', e:'to die'},
+      {v:'姿', p:'すがた', e:'figure, appearance'},
+      {v:'頭', p:'あたま', e:'head'},
+      {v:'強い', p:'つよい', e:'strong'},
+      {v:'こう', p:'こう', e:'like this'},
+      {v:'いつも', p:'いつも', e:'always, as usual'},
+      {v:'会う', p:'あう', e:'to meet, to see (a person)'},
+      {v:'ばかり', p:'ばかり', e:'nothing but; only just'},
+      {v:'一緒に', p:'いっしょに', e:'together'},
+      {v:'好き', p:'すき', e:'liked, favourite'},
+      {v:'相手', p:'あいて', e:'the other person, a partner'},
+      {v:'帰る', p:'かえる', e:'to go home, to return'},
+      {v:'みんな', p:'みんな', e:'everyone'},
+    ],
+    grammar:[
+      {title:'帰る vs 戻る — going back', body:'帰る is returning to where you belong — home, your country, your hometown. 戻る is returning to any old place you were before: 席に戻る (go back to your seat). Saying 会社に帰る implies you live at the office, which is a joke people do make. The noun 帰り means the trip home: 帰りに寄る (drop in on the way back).'},
+      {title:'ばかり — nothing but, and only just', body:'Two senses worth keeping apart. Quantity: 遊んでばかり (does nothing but mess about) — mildly critical. Time: 着いたばかり (only just arrived), attached to a past verb. In speech it flattens to ばっか or ばっかり: 肉ばっかり食べてる. Which sense applies is decided by whether the verb before it is in past form.'},
+      {title:'Let’s — the volitional, and how to say it casually', body:'帰ろう, 会おう, 食べよう — that final う is "let’s". It is already casual, so 一緒に帰ろう is what you say to friends; the polite version is 帰りましょう. Add か to soften it into a real question: 帰ろうか (shall we head off?). And 〜ようと思う means you intend to: 帰ろうと思う (I’m thinking of heading home).'},
+    ],
+    cards:[
+      {v:'また今度、一緒に行こう。', p:'またこんど、いっしょにいこう。', e:'Let’s go together another time.'},
+      {v:'頭が痛いから、もう帰る。', p:'あたまがいたいから、もうかえる。', e:'I’ve got a headache, so I’m off home.'},
+      {v:'いつもこうなんだよ。', p:'いつもこうなんだよ。', e:'It’s always like this.'},
+      {v:'着いたばかりで、まだ何も見てない。', p:'ついたばかりで、まだなにもみてない。', e:'I’ve only just got here — haven’t seen anything yet.'},
     ] },
 ];
 
@@ -15610,7 +15843,78 @@ function isVietnameseCourse(){ return state.language === 'vi' || state.language 
 // competes with the real spelling instead of helping — and the real spelling is
 // the thing to learn. Cantonese keeps its Jyutping, which is the only way to
 // read the characters at all. Lessons are untouched; this is the Cards tab.
-function showRomanisation(){ return !isVietnameseCourse(); }
+/* ---------- Japanese furigana ----------------------------------------------
+   Japanese was chosen to display as kanji with the reading ABOVE, not as a
+   romanisation line underneath the way Cantonese shows jyutping. That needs the
+   reading split across the kanji it belongs to: 食べる + たべる has to become
+   食(た)べる, not 食べる with たべる parked below it.
+
+   The method: cut the word into runs of kanji and runs of kana, then walk the
+   reading. A kana run must match the reading exactly at that point; a kanji run
+   takes whatever sits between it and the next kana run. If anything fails to
+   line up the function returns null and the caller falls back to showing the
+   reading as a plain line, which is wrong-looking but never wrong. */
+/* Ruby goes over KANJI. Everything else — kana, punctuation, digits, latin —
+   must line up with the reading literally. Classifying by "is it kana" instead
+   annotated 。and ？ as if they were kanji. */
+const JA_KANJI_RE = /[一-鿿㐀-䶵々〆ヶ]/;
+function jaKataToHira(s){
+  return String(s).replace(/[ァ-ヶ]/g, m => String.fromCharCode(m.charCodeAt(0) - 0x60));
+}
+function jaFuriganaParts(word, reading){
+  if(!word || !reading) return null;
+  const chars = [...String(word)];
+  const r = jaKataToHira(reading);
+  const segs = []; let cur = '', curKana = null;
+  chars.forEach(ch => {
+    const k = !JA_KANJI_RE.test(ch);          // k = "needs no ruby"
+    if(curKana === null || k === curKana){ cur += ch; curKana = k; }
+    else { segs.push({t:cur, kana:curKana}); cur = ch; curKana = k; }
+  });
+  if(cur) segs.push({t:cur, kana:curKana});
+  if(segs.every(x => x.kana)) return [{t:String(word)}];   // all kana, nothing to annotate
+  const out = []; let ri = 0;
+  for(let i = 0; i < segs.length; i++){
+    const seg = segs[i];
+    if(seg.kana){
+      const h = jaKataToHira(seg.t);
+      if(r.substr(ri, h.length) !== h) return null;
+      out.push({t:seg.t}); ri += h.length;
+    } else {
+      const next = segs[i+1];
+      if(!next){ out.push({t:seg.t, rt:r.slice(ri)}); ri = r.length; }
+      else {
+        const nh = jaKataToHira(next.t);
+        const at = r.indexOf(nh, ri + 1);
+        if(at < 0) return null;
+        out.push({t:seg.t, rt:r.slice(ri, at)}); ri = at;
+      }
+    }
+  }
+  if(ri !== r.length) return null;
+  return out;
+}
+function jaEsc(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+/* HTML for a word with furigana, or null when this is not a Japanese course,
+   the alignment failed, or there is no kanji to annotate. */
+function furiganaHTML(word, reading){
+  if(state.language !== 'ja') return null;
+  const parts = jaFuriganaParts(word, reading);
+  if(!parts || !parts.some(x => x.rt)) return null;
+  return parts.map(x => x.rt
+    ? '<ruby>' + jaEsc(x.t) + '<rt>' + jaEsc(x.rt) + '</rt></ruby>'
+    : jaEsc(x.t)).join('');
+}
+/* Japanese shows the reading in ruby above the word, so the separate
+   romanisation line would just repeat it. */
+/* A word for display: ruby-annotated in Japanese, plain everywhere else. */
+function wordDisplay(word, reading){
+  return furiganaHTML(word, reading) || jaEsc(word);
+}
+function showRomanisation(){ return !isVietnameseCourse() && state.language !== 'ja'; }
+
 function activeLanguageName(){
   const l = LANGUAGES.find(x=>x.id===state.language);
   return l ? l.name.replace(/\s*\(New\)$/,'') : 'Vietnamese';
@@ -19914,7 +20218,7 @@ function renderFrequency(){
       <div class="freq-item" onclick="playAudio('${audioId}', '${wEsc}', currentAccent)">
         <span class="freq-idx">${i+1}</span>
         <div style="flex:1;min-width:0;">
-          <p class="fw"><span class="tap-word${cjkCls()}" onclick="event.stopPropagation();showWordInfo('${wEsc}')">${w.word}</span>${(w.p && showRomanisation())?`<span class="fw-rom-inline">${w.p}</span>`:''}${gloss?`<span class="fw-en"> — ${gloss}</span>`:''}</p>
+          <p class="fw"><span class="tap-word${cjkCls()}" onclick="event.stopPropagation();showWordInfo('${wEsc}')">${wordDisplay(w.word, w.p)}</span>${(w.p && showRomanisation())?`<span class="fw-rom-inline">${w.p}</span>`:''}${gloss?`<span class="fw-en"> — ${gloss}</span>`:''}</p>
         </div>
         <div class="freq-num-pill${isSlangWords?" sev-"+(w.sev||"mild"):""}" style="${isSlangWords?"":"background:"+TIER_COLOR[w.star]}">${rankLabel}</div>
       </div>`;
@@ -21286,7 +21590,7 @@ function renderSwipe(){
     }
     cardHtml = `
     <div class="swipe-card ${swipeState.flipped?'flipped':''}" onclick="flipSwipe()">
-      <p class="sc-viet${cjkCls()}" style="display:block;">${c.word}</p>
+      <p class="sc-viet${cjkCls()}" style="display:block;">${wordDisplay(c.word, c.p)}</p>
       ${(c.p && showRomanisation()) ? `<p class="sc-pron" style="display:block;">${c.p}</p>` : ''}
       <div class="freq-num-pill" style="background:${TIER_COLOR[c.star]};margin:8px 0;">${rankLabel} most common</div>
       <p class="sc-eng" style="display:${swipeState.flipped?'block':'none'};">${gloss || '(no gloss yet for this word)'}</p>
@@ -21892,8 +22196,8 @@ function openLessonDetail(id){
   document.getElementById('ldVocabCount').textContent = `${vocab.length} vocab`;
   document.getElementById('ldVocabGrid').innerHTML = vocab.length ? vocab.map((v,i)=>`
     <button class="ld-vocab-chip" onclick="playAudio('lesson_${l.id}_v${i}','${v.v.replace(/'/g,"\\'")}',currentAccent)">
-      <div class="head${cjkCls()}"><span class="play-ico">▶</span> ${v.v}</div>
-      ${v.p ? `<div class="rom">${v.p}</div>` : ''}
+      <div class="head${cjkCls()}"><span class="play-ico">▶</span> ${wordDisplay(v.v, v.p)}</div>
+      ${(v.p && !furiganaHTML(v.v, v.p)) ? `<div class="rom">${v.p}</div>` : ''}
       <div class="gloss">${hideEnglish ? '🔒 hidden' : v.e}</div>
     </button>`).join('') : '';
   if(!vocab.length) document.getElementById('ldVocabGrid').innerHTML = `<p class="ld-empty-note">Vocab for this lesson hasn't been added yet.</p>`;
