@@ -599,6 +599,23 @@
   .cd-learned-btn.done{background:rgba(62,142,90,.25);color:#7fd99a;}
 
   /* ===== Practice overlay (repeat-after-me speaking practice) ===== */
+  /* While a question is on screen the practice block leads and the transcript
+     follows, so the phrase, the play button and the options are one unit that
+     fits without scrolling. */
+  .pr-scroll.guessing{display:flex;flex-direction:column;}
+  .pr-scroll.guessing #prPracticeArea{order:1;}
+  .pr-scroll.guessing .pr-section-label{order:2;margin-top:18px;}
+  .pr-scroll.guessing #prLineList{order:3;}
+  .pr-scroll.guessing #prNoteWrap{order:4;}
+  .pr-scroll.guessing #prDoneWrap{order:5;}
+  .pr-scroll.guessing .pr-hero{display:none;}
+  .pr-target{background:var(--card,#141414);border:1px solid rgba(255,255,255,.08);
+    border-radius:16px;padding:16px 14px 14px;margin:0 0 14px;text-align:center;}
+  .pr-target-who{display:inline-block;font-size:11px;font-weight:800;color:var(--muted);
+    margin-right:8px;vertical-align:middle;}
+  .pr-target-text{margin:0 0 4px;font-size:19px;font-weight:800;line-height:1.5;}
+  .pr-target-rom{margin:0 0 6px;font-size:12.5px;color:var(--muted);
+    font-family:'IBM Plex Mono',monospace;}
   .pr-overlay{position:absolute;inset:0;background:#0b0b0b;z-index:70;display:none;flex-direction:column;border-radius:34px;overflow:hidden;}
   .pr-overlay.open{display:flex;}
   .pr-topbar{display:flex;align-items:center;gap:12px;padding:16px 16px 10px;flex-shrink:0;}
@@ -24140,7 +24157,11 @@ function buildQuiz(card){
   // offers three Vietnamese translations and the right answer is obvious from
   // the language alone. Vietnamese keeps ALL_TRANSLATIONS, its original pool.
   const pool = quizDecoyPool().filter(e=>e!==card.e);
-  const distractors = shuffleArr(pool).slice(0,2);
+  // scored for closeness, same as the lesson quiz — a random decoy gives the
+  // answer away by topic alone
+  let distractors = pickDecoys(card.e, pool, null, 2);
+  if(distractors.length < 2) distractors = distractors.concat(
+    shuffleArr(pool.filter(e=>distractors.indexOf(e)===-1)).slice(0, 2 - distractors.length));
   return { question: card.v, correct: card.e, options: shuffleArr([card.e, ...distractors]) };
 }
 let _quizPoolCache = null, _quizPoolCacheLang = null;
@@ -24175,23 +24196,74 @@ function decoyPoolForLesson(lesson){
   });
   return pool;
 }
-// Builds one Listen & Guess quiz card: correct answer + 2 unique decoys.
-// Dedupes picks explicitly (unlike the older buildQuiz() above) because a
-// single-lesson course's pool is small and often has the SAME English text
-// appearing twice (once from `dialogue`, once from the matching `cards`
-// entry) — a naive shuffle-and-slice could otherwise hand back two options
-// with identical text.
+/* ---------- choosing decoys that are actually hard ----------
+   The decoys used to be picked with Math.random() over every English line in
+   the course, which made the answer obvious: guessing a line from lesson 2
+   against a sentence about a building site is not a test of listening, it is
+   a test of noticing which option is on topic. A wrong answer has to be
+   plausible or the exercise is decorative.
+
+   So candidates are SCORED for closeness to the correct answer and the best
+   ones are used. Closeness is content-word overlap plus similar length, with
+   a bonus for coming from the same lesson (same topic, same register, same
+   people). Anything TOO close is dropped instead — if a decoy is a near
+   paraphrase of the answer there is no right choice, which is worse than an
+   easy question. */
+const QUIZ_STOPWORDS = new Set(['a','an','the','is','are','am','was','were','be','been','being',
+  'to','of','in','on','at','for','and','or','but','it','its','this','that','these','those',
+  'i','you','he','she','we','they','my','your','his','her','our','their','me','him','them','us',
+  'do','does','did','done','not','no','so','with','as','have','has','had','will','would','can',
+  'could','should','if','then','than','there','here','just','about','from','by','up','out']);
+function quizTokens(s){
+  return new Set(String(s||'').toLowerCase().replace(/[^a-z0-9\s']/g,' ')
+    .split(/\s+/).filter(w => w && !QUIZ_STOPWORDS.has(w)));
+}
+/* 0 = nothing in common, 1 = the same sentence */
+function quizSimilarity(a, b){
+  const A = quizTokens(a), B = quizTokens(b);
+  let shared = 0; A.forEach(w => { if(B.has(w)) shared++; });
+  const jaccard = (A.size && B.size) ? shared / (A.size + B.size - shared) : 0;
+  const la = String(a||'').length, lb = String(b||'').length;
+  const lengthMatch = 1 - Math.abs(la - lb) / Math.max(la, lb, 1);
+  return jaccard * 0.65 + lengthMatch * 0.35;
+}
+/* Pick `count` decoys for `correct` out of `pool`. `nearby` is the lesson's own
+   lines, which get a bonus so a question is usually answered against its own
+   neighbours. */
+function pickDecoys(correct, pool, nearby, count){
+  const near = new Set(nearby || []);
+  const seen = new Set([correct]);
+  const scored = [];
+  pool.forEach(e => {
+    if(!e || seen.has(e)) return;
+    seen.add(e);
+    const sim = quizSimilarity(correct, e);
+    if(sim > 0.82) return;                       // a near-paraphrase: no right answer
+    // The same-lesson bonus MULTIPLIES rather than adds. A flat bonus let a long
+    // same-lesson line outrank a short off-topic one when the answer itself was
+    // short — so "Who is this person?" was offered against a two-clause
+    // sentence, and the shape alone gave it away.
+    scored.push({ e, score: sim * (near.has(e) ? 1.35 : 1) });
+  });
+  scored.sort((a,b) => b.score - a.score);
+  // take a shortlist of the closest, then sample it, so the same two decoys do
+  // not come back every single time you replay a line
+  const shortlist = scored.slice(0, Math.max(count * 4, 8));
+  return shuffleArr(shortlist.map(x => x.e)).slice(0, count);
+}
+// Builds one Listen & Guess quiz card: correct answer + 2 close decoys.
 function buildLessonQuiz(line, lesson){
   let pool = decoyPoolForLesson(lesson).filter(e => e && e !== line.e);
   if(pool.length < 2) pool = pool.concat(ALL_TRANSLATIONS.filter(e => e !== line.e)); // tiny/new course fallback
-  const distractors = [];
-  const used = new Set();
-  let guard = 0;
-  while(distractors.length < 2 && distractors.length < pool.length && guard++ < 50){
-    const pick = pool[Math.floor(Math.random()*pool.length)];
-    if(used.has(pick)) continue;
-    used.add(pick);
-    distractors.push(pick);
+  const nearby = []
+    .concat((lesson.dialogue||[]).map(d => d.e))
+    .concat((lesson.cards||[]).map(c => c.e))
+    .filter(e => e && e !== line.e);
+  let distractors = pickDecoys(line.e, pool, nearby, 2);
+  // never return fewer than three options, even in a course with almost nothing in it
+  if(distractors.length < 2){
+    const filler = ALL_TRANSLATIONS.filter(e => e && e !== line.e && distractors.indexOf(e) === -1);
+    distractors = distractors.concat(shuffleArr(filler).slice(0, 2 - distractors.length));
   }
   return { correct: line.e, options: shuffleArr([line.e, ...distractors]) };
 }
@@ -25031,6 +25103,10 @@ function renderPracticeGuess(){
 
   const practiceArea = document.getElementById('prPracticeArea');
   const doneWrap = document.getElementById('prDoneWrap');
+  /* Guessing puts the question first and the transcript below it; the review
+     and summary screens go back to reading order. */
+  const scroll = document.getElementById('prScroll');
+  if(scroll) scroll.classList.toggle('guessing', ps.phase==='guess' || ps.phase==='final');
 
   if(ps.phase === 'review'){
     practiceArea.innerHTML = '';
@@ -25076,10 +25152,18 @@ function renderPracticeGuess(){
     }
     return `<button class="${cls}" ${ps.quiz.chosenIdx!==null?'disabled':''} onclick="answerPracticeGuess(${i})">${opt}</button>`;
   }).join('');
+  /* The phrase itself now sits in this block, directly above the options. It
+     used to live only in the line list further up the page, so choosing an
+     answer meant scrolling away from the sentence you were being asked about
+     and then scrolling back. */
   practiceArea.innerHTML = `
     <div class="quiz-label">${phaseLabel}</div>
-    <button class="listen-play-btn" onclick="playGuessAudio(${activeIdx})">🔊</button>
-    <p class="sc-hint" style="text-align:center;margin:0 0 14px;">Tap to hear it again</p>
+    <div class="pr-target">
+      <p class="pr-target-text${cjkCls()}">${line.speaker?`<span class="pr-target-who">${line.speaker}</span>`:''}${wordDisplay(line.v, line.p)}</p>
+      ${(line.p && showRomanisation()) ? `<p class="pr-target-rom">${line.p}</p>` : ''}
+      <button class="listen-play-btn" onclick="playGuessAudio(${activeIdx})">🔊</button>
+      <p class="sc-hint" style="text-align:center;margin:6px 0 0;">Tap to hear it again</p>
+    </div>
     <p class="quiz-q" style="justify-content:center;">What does this mean?</p>
     ${optionsHtml}
   `;
