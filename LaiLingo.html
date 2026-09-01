@@ -1279,13 +1279,13 @@
       </div>
 
       <div class="chip-row" id="cardsSubTabToggle">
-        <button class="chip" data-subtab="study" onclick="setCardsSubTab('study')">📚 Study</button>
-        <button class="chip active" data-subtab="browse" onclick="setCardsSubTab('browse')">🔍 Browse</button>
+        <button class="chip active" data-subtab="study" onclick="setCardsSubTab('study')">📚 Study</button>
+        <button class="chip" data-subtab="browse" onclick="setCardsSubTab('browse')">🔍 Browse</button>
         <button class="chip" data-subtab="mine" onclick="setCardsSubTab('mine')">⛏️ Mine</button>
       </div>
 
       <!-- STUDY panel (was view-flashcards) -->
-      <div id="cardsStudyPanel" style="display:none;">
+      <div id="cardsStudyPanel">
         <p class="section-title" style="margin-top:0;" id="cardsTabTitle">Word flashcards</p>
         <p class="section-sub" id="cardsTabSub">Spaced repetition through every word in your frequency list — same engine as Swipe Learn, just word-by-word.</p>
 
@@ -1340,7 +1340,7 @@
       </div>
 
       <!-- BROWSE panel (was view-frequency) -->
-      <div id="cardsBrowsePanel">
+      <div id="cardsBrowsePanel" style="display:none;">
         <p class="section-title" style="margin-top:0;" id="freqTabTitle">Word frequency</p>
         <p class="section-sub" id="freqTabSub"></p>
         <div class="chip-row" id="wordsModeToggle">
@@ -3029,7 +3029,7 @@ const LESSONS_YUE = [
       {v:'貴', p:'gwai3', e:'expensive'},
       {v:'有啲', p:'jau5di1', e:'some / a bit'},
       {v:'公司', p:'gung1si1', e:'company / firm'},
-      {v:'嗱', p:'laa4', e:'(look here — draws attention)'},
+      {v:'嗱', p:'naa4', e:'(look here — draws attention)'},
       {v:'同學', p:'tung4hok6', e:'classmate'},
       {v:'靚', p:'leng3', e:'pretty / nice / good-looking'},
       {v:'份', p:'fan6', e:'(classifier — jobs, documents, portions)'},
@@ -3309,7 +3309,7 @@ const LESSONS_YUE = [
       {speaker:'B', v:'即刻攞返去換啦，我而家先明。', p:'zik1 haak1 lo2 faan1 heoi3 wun6 laa1, ngo5 ji4 gaa1 sin1 ming4.', e:"I'll take it straight back and swap it. Only now do I get it."},
     ],
     vocab:[
-      {v:'即刻', p:'zik1haak1', e:'immediately / right away'},
+      {v:'即刻', p:'zik1hak1', e:'immediately / right away'},
       {v:'而', p:'ji4', e:'and / yet (formal connector)'},
       {v:'使', p:'sai2', e:'to need / to use'},
       {v:'根本', p:'gan1bun2', e:'fundamentally / not at all'},
@@ -4149,7 +4149,7 @@ const LESSONS_YUE = [
     vocab:[
       {v:'永遠', p:'wing5jyun5', e:'forever / never (with a negative)'},
       {v:'不嬲', p:'bat1nau1', e:'all along / always have'},
-      {v:'得到', p:'dak1dou2', e:'to obtain / to get'},
+      {v:'得到', p:'dak1dou3', e:'to obtain / to get'},
       {v:'路', p:'lou6', e:'road / way'},
       {v:'為咗', p:'wai6zo2', e:'for the sake of / in order to'},
       {v:'煩', p:'faan4', e:'annoying / to bother'},
@@ -4516,7 +4516,7 @@ const LESSONS_YUE = [
       {speaker:'B', v:'噉你話點囉。讓你揀一款，我入貨。', p:'gam2 nei5 waa6 dim2 lo1. joeng6 nei5 gaan2 jat1 fun2, ngo5 jap6 fo3.', e:'Then you say. I’ll let you pick one style and I’ll order it.'},
     ],
     vocab:[
-      {v:'噏', p:'ap1', e:'to yap / to go on about'},
+      {v:'噏', p:'ngap1', e:'to yap / to go on about'},
       {v:'捱', p:'ngaai4', e:'to endure / to graft'},
       {v:'股票', p:'gu2piu3', e:'stocks / shares'},
       {v:'舖頭', p:'pou3tau2', e:'shop'},
@@ -4814,7 +4814,7 @@ const LESSONS_YUE = [
       {v:'禮物', p:'lai5mat6', e:'present / gift'},
       {v:'章', p:'zoeng1', e:'chapter / a seal'},
       {v:'第日', p:'dai6jat6', e:'another day / some day'},
-      {v:'紐西蘭', p:'nau5sai1laan4', e:'New Zealand'},
+      {v:'紐西蘭', p:'nau2sai1laan4', e:'New Zealand'},
       {v:'結果', p:'git3gwo2', e:'the result / in the end'},
       {v:'萬', p:'maan6', e:'ten thousand'},
       {v:'落來', p:'lok6lai4', e:'to come down'},
@@ -5788,7 +5788,7 @@ const LESSONS_YUE = [
       {v:'受到', p:'sau6dou3', e:'to come in for, to be subjected to'},
       {v:'古仔', p:'gu2zai2', e:'a story'},
       {v:'台', p:'toi4', e:'a platform; a station'},
-      {v:'同樣', p:'tung4joeng2', e:'likewise, the same'},
+      {v:'同樣', p:'tung4joeng6', e:'likewise, the same'},
       {v:'吔', p:'jaa3', e:'a final particle'},
     ],
     grammar:[
@@ -19623,8 +19623,7 @@ function isDifficultWord(srsId){
 function isUnknownCard(srsId){ return !state.srs[srsId]; }
 
 let cardsTabMode = 'words'; // 'words' | 'phrases' | 'listen'
-let cardsSubTab = 'browse'; // 'browse' | 'study' | 'mine' — Browse opens first: the
-// common reason to open Cards is to look something up, and Study is one tap away.
+let cardsSubTab = 'study'; // 'study' | 'browse' | 'mine' — Study opens first.
 function setContentMode(mode){
   state.contentMode = mode;
   saveState();
