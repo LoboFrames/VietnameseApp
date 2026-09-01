@@ -1,5 +1,13 @@
 [
  {
+  "from": "chat_jw_food_0_t2_you2",
+  "to": "chat_jw_shop_0_t0_you1"
+ },
+ {
+  "from": "chat_jw_transit_0_t1_you1",
+  "to": "chat_jw_help_0_t1_you1"
+ },
+ {
   "from": "lesson_ja_l10_d0",
   "to": "cphrase_ja_37"
  },
@@ -3168,12 +3176,40 @@
   "to": "word_ja_おる"
  },
  {
+  "from": "pack_jp13_0",
+  "to": "chat_jw_help_0_t0_you0"
+ },
+ {
+  "from": "pack_jp3_2",
+  "to": "pack_jp12_0"
+ },
+ {
   "from": "pack_jp3_2",
   "to": "pack_jp6_2"
  },
  {
+  "from": "pack_jp6_6",
+  "to": "pack_jp10_2"
+ },
+ {
   "from": "pack_jp7_2",
   "to": "chat_jw_stay_0_t2_you0"
+ },
+ {
+  "from": "sos_jw_food_3",
+  "to": "sos_jw_shop_11"
+ },
+ {
+  "from": "sos_jw_food_5",
+  "to": "sos_jw_help_7"
+ },
+ {
+  "from": "sos_jw_transit_13",
+  "to": "sos_jw_shop_13"
+ },
+ {
+  "from": "sos_jw_transit_2",
+  "to": "sos_jw_help_11"
  },
  {
   "from": "word_ja_うるさい",

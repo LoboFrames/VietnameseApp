@@ -19320,6 +19320,8 @@ const WORLDS_JA = [
   { id:'jw_transit', icon:'🚉', title:'Getting Around', tagline:'Trains, IC cards, transfers, and asking which platform before the doors close.', tags:['Trains','Tickets','Taxis'] },
   { id:'jw_food',    icon:'🍜', title:'Eating Out',      tagline:'Ticket machines, izakaya, allergies, and paying at the till by the door.', tags:['Ordering','At the Table','Paying'] },
   { id:'jw_stay',    icon:'🏨', title:'Staying Over',    tagline:'Check-in, ryokan, onsen rules, and asking to leave your bags.', tags:['Check-in','In the Room','Onsen'] },
+  { id:'jw_shop', icon:'🛍️', title:'Shopping & Money', tagline:'Konbini, tax-free counters, sizes, and a country that still likes cash.', tags:['Konbini','In the Shop','Cash'] },
+  { id:'jw_help', icon:'🆘', title:'When It Goes Wrong', tagline:'Lost your bag, feeling ill, or need the police box on the corner.', tags:['Lost','Health','Trouble'] },
 ];
 
 const PACKS_JA = [
@@ -19403,6 +19405,60 @@ const PACKS_JA = [
     {v:'ロッカーはどこですか。', p:'ロッカーはどこですか。', e:'Where are the lockers?'},
     {v:'ちょっと熱いですね。', p:'ちょっとあついですね。', e:'It’s a bit hot, isn’t it.'},
     {v:'水は飲めますか。', p:'みずはのめますか。', e:'Is the water drinkable?'}]},
+
+  { id:'jp10', icon:'🏪', title:'At the Konbini', tag:'Konbini', color:'stool-blue', cards:[
+    {v:'温めますか。', p:'あたためますか。', e:'Shall I heat it up? — what they ask you'},
+    {v:'はい、お願いします。', p:'はい、おねがいします。', e:'Yes, please.'},
+    {v:'袋はいりません。', p:'ふくろはいりません。', e:'I don’t need a bag.'},
+    {v:'お箸をください。', p:'おはしをください。', e:'Could I have chopsticks?'},
+    {v:'ポイントカードはありません。', p:'ポイントカードはありません。', e:'I don’t have a point card.'},
+    {v:'ここで食べられますか。', p:'ここでたべられますか。', e:'Can I eat here?'},
+    {v:'ATMはありますか。', p:'ATMはありますか。', e:'Is there a cash machine?'}]},
+
+  { id:'jp11', icon:'👕', title:'In the Shop', tag:'In the Shop', color:'stool-green', cards:[
+    {v:'見ているだけです。', p:'みているだけです。', e:'I’m just looking.'},
+    {v:'試着してもいいですか。', p:'しちゃくしてもいいですか。', e:'Can I try this on?'},
+    {v:'もっと大きいサイズはありますか。', p:'もっとおおきいサイズはありますか。', e:'Do you have a bigger size?'},
+    {v:'免税できますか。', p:'めんぜいできますか。', e:'Can I do tax-free?'},
+    {v:'パスポートを持っています。', p:'パスポートをもっています。', e:'I have my passport.'},
+    {v:'これをください。', p:'これをください。', e:'I’ll take this.'},
+    {v:'少し考えます。', p:'すこしかんがえます。', e:'I’ll have a think.'}]},
+
+  { id:'jp12', icon:'💳', title:'Cash and Cards', tag:'Cash', color:'stool-gold', cards:[
+    {v:'カードは使えますか。', p:'カードはつかえますか。', e:'Do you take cards?'},
+    {v:'現金だけですか。', p:'げんきんだけですか。', e:'Is it cash only?'},
+    {v:'一万円でお願いします。', p:'いちまんえんでおねがいします。', e:'Out of ten thousand, please.'},
+    {v:'細かいのがありません。', p:'こまかいのがありません。', e:'I haven’t got anything smaller.'},
+    {v:'両替できますか。', p:'りょうがえできますか。', e:'Can I change money here?'},
+    {v:'レシートをください。', p:'レシートをください。', e:'Could I have the receipt?'},
+    {v:'おつりが違うようです。', p:'おつりがちがうようです。', e:'I think the change is wrong.'}]},
+
+  { id:'jp13', icon:'🎒', title:'Lost and Found', tag:'Lost', color:'stool-blue', cards:[
+    {v:'かばんをなくしました。', p:'かばんをなくしました。', e:'I’ve lost my bag.'},
+    {v:'電車に忘れました。', p:'でんしゃにわすれました。', e:'I left it on the train.'},
+    {v:'落とし物はどこに届きますか。', p:'おとしものはどこにとどきますか。', e:'Where does lost property go?'},
+    {v:'黒い財布です。', p:'くろいさいふです。', e:'It’s a black wallet.'},
+    {v:'中にパスポートが入っています。', p:'なかにパスポートがはいっています。', e:'My passport is inside it.'},
+    {v:'連絡先を書きます。', p:'れんらくさきをかきます。', e:'I’ll write down my contact details.'},
+    {v:'見つかったら電話をください。', p:'みつかったらでんわをください。', e:'Please ring me if it turns up.'}]},
+
+  { id:'jp14', icon:'💊', title:'Feeling Ill', tag:'Health', color:'stool-green', cards:[
+    {v:'気分が悪いです。', p:'きぶんがわるいです。', e:'I feel unwell.'},
+    {v:'お腹が痛いです。', p:'おなかがいたいです。', e:'My stomach hurts.'},
+    {v:'熱があります。', p:'ねつがあります。', e:'I’ve got a temperature.'},
+    {v:'近くに薬局はありますか。', p:'ちかくにやっきょくはありますか。', e:'Is there a pharmacy nearby?'},
+    {v:'風邪薬はありますか。', p:'かぜぐすりはありますか。', e:'Do you have cold medicine?'},
+    {v:'アレルギーがあります。', p:'アレルギーがあります。', e:'I have an allergy.'},
+    {v:'病院に行ったほうがいいですか。', p:'びょういんにいったほうがいいですか。', e:'Should I go to a hospital?'}]},
+
+  { id:'jp15', icon:'🚨', title:'Police and Trouble', tag:'Trouble', color:'stool-gold', cards:[
+    {v:'交番はどこですか。', p:'こうばんはどこですか。', e:'Where’s the police box?'},
+    {v:'助けてください。', p:'たすけてください。', e:'Please help me.'},
+    {v:'財布を盗まれました。', p:'さいふをぬすまれました。', e:'My wallet’s been stolen.'},
+    {v:'警察を呼んでください。', p:'けいさつをよんでください。', e:'Please call the police.'},
+    {v:'救急車をお願いします。', p:'きゅうきゅうしゃをおねがいします。', e:'An ambulance, please.'},
+    {v:'事故がありました。', p:'じこがありました。', e:'There’s been an accident.'},
+    {v:'大使館に連絡したいです。', p:'たいしかんにれんらくしたいです。', e:'I want to contact my embassy.'}]},
 ];
 
 const SOS_PHRASES_JA = {
@@ -19453,6 +19509,38 @@ const SOS_PHRASES_JA = {
     {v:'タクシーを呼んでもらえますか', p:'タクシーをよんでもらえますか', e:'Could you call me a taxi?'},
     {v:'チェックアウトお願いします', p:'チェックアウトおねがいします', e:'I’d like to check out'},
     {v:'お世話になりました', p:'おせわになりました', e:'Thank you for having me'},
+  ],
+  jw_shop: [
+    {v:'いくらですか', p:'いくらですか', e:'How much is it?'},
+    {v:'高すぎます', p:'たかすぎます', e:'That’s too expensive'},
+    {v:'これはなんですか', p:'これはなんですか', e:'What is this?'},
+    {v:'免税できますか', p:'めんぜいできますか', e:'Can I get tax-free?'},
+    {v:'袋はいりません', p:'ふくろはいりません', e:'No bag, thanks'},
+    {v:'カードで払います', p:'カードではらいます', e:'I’ll pay by card'},
+    {v:'現金しかありません', p:'げんきんしかありません', e:'I only have cash'},
+    {v:'試着してもいいですか', p:'しちゃくしてもいいですか', e:'May I try it on?'},
+    {v:'他の色はありますか', p:'ほかのいろはありますか', e:'Do you have another colour?'},
+    {v:'ちょっと考えます', p:'ちょっとかんがえます', e:'I’ll think about it'},
+    {v:'見ているだけです', p:'みているだけです', e:'Just looking'},
+    {v:'これをください', p:'これをください', e:'I’ll take this'},
+    {v:'レシートをください', p:'レシートをください', e:'The receipt, please'},
+    {v:'ありがとうございます', p:'ありがとうございます', e:'Thank you'},
+  ],
+  jw_help: [
+    {v:'助けてください', p:'たすけてください', e:'Please help me'},
+    {v:'警察を呼んでください', p:'けいさつをよんでください', e:'Please call the police'},
+    {v:'救急車をお願いします', p:'きゅうきゅうしゃをおねがいします', e:'Please call an ambulance'},
+    {v:'交番はどこですか', p:'こうばんはどこですか', e:'Where is the police box?'},
+    {v:'病院はどこですか', p:'びょういんはどこですか', e:'Where is the hospital?'},
+    {v:'気分が悪いです', p:'きぶんがわるいです', e:'I feel unwell'},
+    {v:'ここが痛いです', p:'ここがいたいです', e:'It hurts here'},
+    {v:'アレルギーがあります', p:'アレルギーがあります', e:'I have an allergy'},
+    {v:'なくしました', p:'なくしました', e:'I’ve lost it'},
+    {v:'盗まれました', p:'ぬすまれました', e:'It was stolen'},
+    {v:'道に迷いました', p:'みちにまよいました', e:'I’m lost'},
+    {v:'英語が話せる人はいますか', p:'えいごがはなせるひとはいますか', e:'Is there someone who speaks English?'},
+    {v:'大使館に連絡したいです', p:'たいしかんにれんらくしたいです', e:'I want to contact my embassy'},
+    {v:'大丈夫です', p:'だいじょうぶです', e:'I’m all right'},
   ],
 };
 
@@ -19531,6 +19619,56 @@ const CHAT_PERSONAS_JA = {
           {v:'どうも。', e:'Cheers.', correct:false, tip:'Not rude, just light for a first exchange at a hotel desk.'},
           {v:'それで。', e:'And?', correct:false, tip:'Reads as impatience with someone who has just helped you.'}],
          them:{v:'ごゆっくりどうぞ。', e:'Please enjoy your stay.'}}]},
+  ],
+  jw_shop: [
+    { name:'店員 (Shop Assistant)', icon:'🛍️',
+      opener:{v:'いらっしゃいませ。何かお探しですか。', e:'Welcome. Are you looking for anything in particular?'},
+      turns:[
+        {youOptions:[
+          {v:'見ているだけです。ありがとうございます。', e:'Just looking, thanks.', correct:true},
+          {v:'いらない。', e:'Don’t want anything.', correct:false, tip:'Plain-form refusal to a shop assistant. 見ているだけです is the set phrase and it ends the exchange politely.'},
+          {v:'…', e:'(say nothing)', correct:false, tip:'Silence works, but a two-word answer stops her hovering, which is what you both want.'}],
+         them:{v:'はい、ごゆっくりどうぞ。', e:'Of course — take your time.'}},
+        {youOptions:[
+          {v:'すみません、これの大きいサイズはありますか。', e:'Excuse me, do you have this in a bigger size?', correct:true},
+          {v:'大きいの。', e:'A big one.', correct:false, tip:'She will guess right, but a full question saves the guessing.'},
+          {v:'サイズ違う。', e:'Wrong size.', correct:false, tip:'Reads as a complaint about the shop rather than a request.'}],
+         them:{v:'少々お待ちください。お調べします。', e:'One moment — I’ll check for you.'}},
+        {youOptions:[
+          {v:'免税はできますか。パスポートがあります。', e:'Can I do tax-free? I’ve got my passport.', correct:true},
+          {v:'安くして。', e:'Make it cheaper.', correct:false, tip:'Haggling is not a thing in Japanese shops, and this lands as rude rather than cheeky.'},
+          {v:'税金いらない。', e:'I don’t want tax.', correct:false, tip:'Understandable, but 免税 is the actual word and the counter is usually elsewhere.'}],
+         them:{v:'はい、五千円以上でしたら可能です。二階のカウンターへどうぞ。', e:'Yes, over five thousand yen. The counter is on the second floor.'}},
+        {youOptions:[
+          {v:'わかりました。ありがとうございます。', e:'Got it. Thank you.', correct:true},
+          {v:'めんどくさい。', e:'What a faff.', correct:false, tip:'Fair reaction, wrong audience — and she can hear you.'},
+          {v:'二階？', e:'Second floor?', correct:false, tip:'Not wrong, but a bare question with no thanks after she has just sorted you out.'}],
+         them:{v:'ありがとうございました。またお越しくださいませ。', e:'Thank you very much. Please come again.'}}]},
+  ],
+  jw_help: [
+    { name:'お巡りさん (Police Box Officer)', icon:'🚨',
+      opener:{v:'どうしましたか。落ち着いて話してください。', e:'What’s happened? Take your time.'},
+      turns:[
+        {youOptions:[
+          {v:'かばんをなくしました。', e:'I’ve lost my bag.', correct:true},
+          {v:'かばん！', e:'Bag!', correct:false, tip:'He can see you are upset. A whole sentence gets him to the form faster.'},
+          {v:'かばんを盗まれました。', e:'My bag was stolen.', correct:false, tip:'Only say this if you know it was taken. 盗まれました starts a criminal report; なくしました starts a lost-property one.'}],
+         them:{v:'どこでなくされましたか。覚えていますか。', e:'Where did you lose it? Do you remember?'}},
+        {youOptions:[
+          {v:'たぶん電車の中だと思います。', e:'On the train, I think.', correct:true},
+          {v:'わかりません。', e:'I don’t know.', correct:false, tip:'Even a guess narrows it down — rail lost property is handled separately and he needs to know which.'},
+          {v:'関係ない。', e:'Doesn’t matter.', correct:false, tip:'It matters a great deal to where the bag has ended up.'}],
+         them:{v:'何線ですか。中に何が入っていましたか。', e:'Which line? And what was inside?'}},
+        {youOptions:[
+          {v:'黒い財布とパスポートが入っています。', e:'A black wallet and my passport.', correct:true},
+          {v:'大事なもの。', e:'Important stuff.', correct:false, tip:'He is filling in a form with fields on it. Specifics are what get it matched.'},
+          {v:'いろいろ。', e:'Various things.', correct:false, tip:'The polite vagueness that works socially is exactly wrong here.'}],
+         them:{v:'パスポートですね。では、こちらに記入をお願いします。', e:'A passport — right. Please fill this in.'}},
+        {youOptions:[
+          {v:'見つかったら連絡してもらえますか。', e:'Could you contact me if it turns up?', correct:true},
+          {v:'いつ見つかる？', e:'When will you find it?', correct:false, tip:'Nobody can answer that, and it puts him on the back foot.'},
+          {v:'もういいです。', e:'Never mind then.', correct:false, tip:'Japan’s lost-property system genuinely works — walking away now is the one move that guarantees you lose the bag.'}],
+         them:{v:'はい、必ずご連絡します。気をつけてお帰りください。', e:'Yes, we’ll be in touch. Get home safely.'}}]},
   ],
 };
 
