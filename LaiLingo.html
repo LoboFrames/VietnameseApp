@@ -22272,9 +22272,173 @@ function isSwearTerm(cat, sev){
 // Cantonese and Vietnamese each have their own deck. Vietnamese carries no
 // romanisation field — the script is already Latin, so a respelling would add
 // noise rather than help.
+/* ===================== JAPANESE SLANG & SWEARING =====================
+   Japanese does its rudeness differently from Cantonese or Vietnamese, and the
+   deck is shaped around that rather than forced into a parallel.
+
+   Cantonese has a deep taboo lexicon — 𨳒你老母 and its family — where the
+   words themselves are the offence. Japanese barely has this. There is no
+   Family insult category here at all, because Japanese has essentially no
+   mother-insult swearing; the nearest thing, てめえの母ちゃん出べそ, is a
+   playground taunt. What Japanese has instead is REGISTER: the same sentence
+   becomes an assault by swapping the pronoun (お前, てめえ), the verb ending
+   (しろ, 死ね), or by dropping politeness where politeness was owed. 帰れ said
+   to a customer is far more violent than any single word in this list.
+
+   So the strongest entries below are mostly commands and pronouns, not nouns.
+   The genuinely taboo words that do exist — the anatomical ones — are here and
+   labelled honestly, because leaving them out means not recognising them.
+
+   Severity: mild is fine among friends, medium would raise an eyebrow at work,
+   strong is a real insult, extreme starts fights. */
+
+const JA_SLANG_VOCAB = [
+  // ---- General slang ----
+  {v:'やばい', p:'やばい', e:'dodgy — or brilliant; context decides', cat:'General slang', sev:'mild'},
+  {v:'まじ', p:'まじ', e:'seriously; for real', cat:'General slang', sev:'mild'},
+  {v:'ガチ', p:'ガチ', e:'genuinely, no joke', cat:'General slang', sev:'mild'},
+  {v:'めっちゃ', p:'めっちゃ', e:'dead, well, really', cat:'General slang', sev:'mild'},
+  {v:'超', p:'ちょう', e:'super-, mega-', cat:'General slang', sev:'mild'},
+  {v:'ウケる', p:'ウケる', e:'that’s hilarious', cat:'General slang', sev:'mild'},
+  {v:'微妙', p:'びみょう', e:'iffy — a polite no', cat:'General slang', sev:'mild'},
+  {v:'ダサい', p:'ダサい', e:'naff, uncool', cat:'General slang', sev:'mild'},
+  {v:'しんどい', p:'しんどい', e:'knackering, rough', cat:'General slang', sev:'mild'},
+  {v:'だるい', p:'だるい', e:'can’t be bothered; sluggish', cat:'General slang', sev:'mild'},
+  {v:'めんどくさい', p:'めんどくさい', e:'what a faff', cat:'General slang', sev:'mild'},
+  {v:'ワンチャン', p:'ワンチャン', e:'there’s a chance; maybe', cat:'General slang', sev:'mild'},
+  {v:'とりま', p:'とりま', e:'anyway — clipped とりあえず', cat:'General slang', sev:'mild'},
+  {v:'おつ', p:'おつ', e:'cheers, good work — clipped お疲れ', cat:'General slang', sev:'mild'},
+  {v:'あざす', p:'あざす', e:'ta — clipped ありがとうございます', cat:'General slang', sev:'mild'},
+  {v:'りょ', p:'りょ', e:'got it — clipped 了解', cat:'General slang', sev:'mild'},
+  {v:'チャラい', p:'チャラい', e:'flashy and shallow', cat:'General slang', sev:'mild'},
+  {v:'ぼちぼち', p:'ぼちぼち', e:'so-so, ticking along', cat:'General slang', sev:'mild'},
+  {v:'しょうもない', p:'しょうもない', e:'pointless, daft', cat:'General slang', sev:'mild'},
+  {v:'ぱねえ', p:'ぱねえ', e:'unreal — from 半端ない', cat:'General slang', sev:'medium'},
+
+  // ---- Dismissal ----
+  {v:'うるさい', p:'うるさい', e:'noisy — or shut up', cat:'Dismissal', sev:'mild'},
+  {v:'うるせえ', p:'うるせえ', e:'shut it — rough うるさい', cat:'Dismissal', sev:'medium'},
+  {v:'黙れ', p:'だまれ', e:'shut up — an order', cat:'Dismissal', sev:'strong'},
+  {v:'ほっとけ', p:'ほっとけ', e:'leave it; leave me alone', cat:'Dismissal', sev:'medium'},
+  {v:'知るか', p:'しるか', e:'how should I know; don’t care', cat:'Dismissal', sev:'medium'},
+  {v:'どうでもいい', p:'どうでもいい', e:'couldn’t care less', cat:'Dismissal', sev:'mild'},
+  {v:'関係ない', p:'かんけいない', e:'nothing to do with it', cat:'Dismissal', sev:'mild'},
+  {v:'勝手にしろ', p:'かってにしろ', e:'do what you like — giving up on you', cat:'Dismissal', sev:'strong'},
+  {v:'うざい', p:'うざい', e:'annoying, does my head in', cat:'Dismissal', sev:'medium'},
+
+  // ---- Personal insult ----
+  {v:'ばか', p:'ばか', e:'idiot — can be affectionate', cat:'Personal insult', sev:'mild'},
+  {v:'あほ', p:'あほ', e:'idiot — Kansai, warmer than ばか there', cat:'Personal insult', sev:'mild'},
+  {v:'まぬけ', p:'まぬけ', e:'halfwit', cat:'Personal insult', sev:'medium'},
+  {v:'ヘタレ', p:'ヘタレ', e:'wimp, bottler', cat:'Personal insult', sev:'medium'},
+  {v:'ガキ', p:'ガキ', e:'brat, kid — dismissive', cat:'Personal insult', sev:'medium'},
+  {v:'デブ', p:'デブ', e:'fatty', cat:'Personal insult', sev:'strong'},
+  {v:'ブス', p:'ブス', e:'minger — of a woman, genuinely cruel', cat:'Personal insult', sev:'strong'},
+  {v:'クズ', p:'クズ', e:'scum, waste of space', cat:'Personal insult', sev:'strong'},
+  {v:'きもい', p:'きもい', e:'creepy, gross — from 気持ち悪い', cat:'Personal insult', sev:'medium'},
+  {v:'ヲタク', p:'ヲタク', e:'obsessive nerd', cat:'Personal insult', sev:'mild'},
+  {v:'空気読めない', p:'くうきよめない', e:'can’t read the room', cat:'Personal insult', sev:'medium'},
+
+  // ---- Body humour ----
+  {v:'くそ', p:'くそ', e:'shit — as an exclamation, damn', cat:'Body humour', sev:'medium'},
+  {v:'うんこ', p:'うんこ', e:'poo — childish', cat:'Body humour', sev:'mild'},
+  {v:'ケツ', p:'ケツ', e:'arse', cat:'Body humour', sev:'medium'},
+  {v:'へ', p:'へ', e:'a fart', cat:'Body humour', sev:'mild'},
+  {v:'ゲロ', p:'ゲロ', e:'vomit', cat:'Body humour', sev:'medium'},
+  {v:'はげ', p:'はげ', e:'baldy', cat:'Body humour', sev:'medium'},
+
+  // ---- Sexual profanity ----
+  {v:'エロい', p:'エロい', e:'horny; racy', cat:'Sexual profanity', sev:'medium'},
+  {v:'スケベ', p:'スケベ', e:'a perv — often teasing', cat:'Sexual profanity', sev:'medium'},
+  {v:'変態', p:'へんたい', e:'pervert — the real accusation', cat:'Sexual profanity', sev:'strong'},
+  {v:'ちんこ', p:'ちんこ', e:'cock — the vulgar word', cat:'Sexual profanity', sev:'strong'},
+  {v:'まんこ', p:'まんこ', e:'cunt — anatomical, the strongest word here', cat:'Sexual profanity', sev:'extreme'},
+  {v:'やらしい', p:'やらしい', e:'filthy, dirty-minded', cat:'Sexual profanity', sev:'medium'},
+
+  // ---- Threat or fight ----
+  {v:'てめえ', p:'てめえ', e:'you — hostile, picks a fight', cat:'Threat or fight', sev:'strong'},
+  {v:'きさま', p:'きさま', e:'you — contemptuous, archaic-sounding', cat:'Threat or fight', sev:'strong'},
+  {v:'ふざけるな', p:'ふざけるな', e:'don’t mess me about', cat:'Threat or fight', sev:'strong'},
+  {v:'なめんな', p:'なめんな', e:'don’t take the piss out of me', cat:'Threat or fight', sev:'strong'},
+  {v:'黙ってろ', p:'だまってろ', e:'stay quiet — a threat', cat:'Threat or fight', sev:'strong'},
+  {v:'死ね', p:'しね', e:'drop dead', cat:'Threat or fight', sev:'extreme'},
+  {v:'ぶっ殺す', p:'ぶっころす', e:'I’ll do you in', cat:'Threat or fight', sev:'extreme'},
+  {v:'しばく', p:'しばく', e:'to give someone a hiding — Kansai', cat:'Threat or fight', sev:'strong'},
+  {v:'どけ', p:'どけ', e:'move — an order', cat:'Threat or fight', sev:'medium'},
+];
+
+const JA_SLANG_PHRASES = [
+  {v:'まじで？やばくない？', p:'まじで？やばくない？', e:'Seriously? That’s mad, isn’t it?', cat:'General slang', sev:'mild'},
+  {v:'それ、めっちゃわかる。', p:'それ、めっちゃわかる。', e:'I know exactly what you mean.', cat:'General slang', sev:'mild'},
+  {v:'ガチで無理なんだけど。', p:'ガチでむりなんだけど。', e:'That is genuinely not happening.', cat:'General slang', sev:'mild'},
+  {v:'今日はだるいから、パス。', p:'きょうはだるいから、パス。', e:'Can’t be bothered today — I’ll pass.', cat:'General slang', sev:'mild'},
+  {v:'ちょっと微妙かな。', p:'ちょっとびみょうかな。', e:'It’s a bit iffy, I reckon.', cat:'General slang', sev:'mild'},
+  {v:'ウケる、それ最高。', p:'ウケる、それさいこう。', e:'That’s hilarious, brilliant.', cat:'General slang', sev:'mild'},
+  {v:'おつー、また明日。', p:'おつー、またあした。', e:'Cheers, see you tomorrow.', cat:'General slang', sev:'mild'},
+  {v:'とりま、飯行かない？', p:'とりま、めしいかない？', e:'Anyway — food?', cat:'General slang', sev:'mild'},
+  {v:'ワンチャンいけるかも。', p:'ワンチャンいけるかも。', e:'There’s a chance we pull it off.', cat:'General slang', sev:'mild'},
+  {v:'それ、ダサくない？', p:'それ、ダサくない？', e:'Isn’t that a bit naff?', cat:'General slang', sev:'mild'},
+
+  {v:'うるさい、黙って。', p:'うるさい、だまって。', e:'Shut up, will you.', cat:'Dismissal', sev:'medium'},
+  {v:'知るか、自分でやれ。', p:'しるか、じぶんでやれ。', e:'How should I know — do it yourself.', cat:'Dismissal', sev:'strong'},
+  {v:'ほっといてくれ。', p:'ほっといてくれ。', e:'Just leave me alone.', cat:'Dismissal', sev:'medium'},
+  {v:'俺には関係ないし。', p:'おれにはかんけいないし。', e:'Nothing to do with me, is it.', cat:'Dismissal', sev:'mild'},
+  {v:'もう勝手にしろよ。', p:'もうかってにしろよ。', e:'Fine — do whatever you want.', cat:'Dismissal', sev:'strong'},
+  {v:'マジでうざいんだけど。', p:'マジでうざいんだけど。', e:'You’re really doing my head in.', cat:'Dismissal', sev:'medium'},
+
+  {v:'ばか、何やってんの。', p:'ばか、なにやってんの。', e:'You idiot, what are you doing.', cat:'Personal insult', sev:'mild'},
+  {v:'あいつ、ほんとクズだわ。', p:'あいつ、ほんとクズだわ。', e:'He’s an absolute waste of space.', cat:'Personal insult', sev:'strong'},
+  {v:'ガキじゃないんだから。', p:'ガキじゃないんだから。', e:'You’re not a child.', cat:'Personal insult', sev:'medium'},
+  {v:'ちょっときもいって。', p:'ちょっときもいって。', e:'That’s a bit creepy, mate.', cat:'Personal insult', sev:'medium'},
+  {v:'あいつ空気読めないんだよ。', p:'あいつくうきよめないんだよ。', e:'He just can’t read the room.', cat:'Personal insult', sev:'medium'},
+
+  {v:'くそ、また失敗した。', p:'くそ、またしっぱいした。', e:'Damn — messed it up again.', cat:'Body humour', sev:'medium'},
+  {v:'ケツが痛い。', p:'ケツがいたい。', e:'My arse hurts.', cat:'Body humour', sev:'medium'},
+  {v:'くそ寒いな今日。', p:'くそさむいなきょう。', e:'It’s bloody freezing today.', cat:'Body humour', sev:'medium'},
+
+  {v:'エロいこと考えてるだろ。', p:'エロいことかんがえてるだろ。', e:'You’re thinking something filthy.', cat:'Sexual profanity', sev:'medium'},
+  {v:'このスケベ。', p:'このスケベ。', e:'You perv.', cat:'Sexual profanity', sev:'medium'},
+  {v:'変態かよ、お前。', p:'へんたいかよ、おまえ。', e:'What are you, a pervert?', cat:'Sexual profanity', sev:'strong'},
+
+  {v:'てめえ、ふざけるなよ。', p:'てめえ、ふざけるなよ。', e:'Don’t you mess me about.', cat:'Threat or fight', sev:'strong'},
+  {v:'なめんなよ、こっちは本気だ。', p:'なめんなよ、こっちはほんきだ。', e:'Don’t take the piss — I’m serious.', cat:'Threat or fight', sev:'strong'},
+  {v:'黙ってろ、二度と言うな。', p:'だまってろ、にどというな。', e:'Keep quiet, and never say it again.', cat:'Threat or fight', sev:'strong'},
+  {v:'どけ、邪魔だ。', p:'どけ、じゃまだ。', e:'Move — you’re in the way.', cat:'Threat or fight', sev:'medium'},
+  {v:'ぶっ殺すぞ。', p:'ぶっころすぞ。', e:'I’ll do you in.', cat:'Threat or fight', sev:'extreme'},
+  {v:'死ね、二度と来るな。', p:'しね、にどとくるな。', e:'Drop dead. Don’t come back.', cat:'Threat or fight', sev:'extreme'},
+];
+
+const JA_WORD_NOTES = {
+  'やばい': {lit:'originally "dangerous", from thieves\' cant',
+    note:'The single most useful slang word in Japanese, and it points both ways. やばい can mean this is a disaster or this is incredible, and only tone and context separate them. Older speakers use it only for trouble; under-40s use it for anything intense, including food that is too good. If you learn one word from this deck, learn this one.'},
+  'まじ': {lit:'from 真面目 majime, serious',
+    note:'まじ？ is "really?" and まじで is "seriously" or "for real". It is the everyday intensifier among friends and completely normal in casual speech, though not something to say to a client. ガチ does the same job with slightly more force and a sportier feel.'},
+  '微妙': {lit:'subtle, delicate',
+    note:'Textbooks gloss it as "subtle". In speech it is a soft no. Asked whether the film was good, 微妙 means it was not. Japanese avoids flat negative verdicts, so a whole family of hedges — 微妙, ちょっと…, まあまあ — do the work of "bad" without saying it. Hearing 微妙 as praise is a classic learner mistake.'},
+  'うるさい': {lit:'noisy',
+    note:'Literally noisy, but shouted at a person it is "shut up". うるせえ is the rough male version, and the え-flattening (うるさい → うるせえ, すごい → すげえ, やばい → やべえ) is a general marker of rough casual male speech worth recognising across the board.'},
+  'ばか': {lit:'idiot; the classic insult',
+    note:'Weaker than English "idiot" in most uses — ばか can be genuinely affectionate between couples and friends. In Kansai the pairing flips: あほ is the warm everyday one there and ばか lands harder, while in Tokyo it is the reverse. Getting this backwards is a real regional trip-up.'},
+  'くそ': {lit:'excrement',
+    note:'As an exclamation it is "damn" or "shit" — a reaction, not aimed at anyone. Attached to a word it intensifies: くそ寒い (bloody cold), くそまずい. くそ野郎 aimed at a person is a genuine insult. It is coarse but not among the most serious things you can say, which surprises English speakers.'},
+  'てめえ': {lit:'contracted 手前, "the one in front of me"',
+    note:'A pronoun, not a noun — and that is the point. Japanese aggression usually rides on pronoun choice rather than swearing. てめえ and きさま were once ordinary polite words that decayed into insults, and using either signals you are prepared to fight. お前 sits one step below them.'},
+  '変態': {lit:'abnormal form; metamorphosis',
+    note:'A real accusation of being a sexual deviant, and not to be thrown around — despite its life abroad as a genre label. In Japanese it is what you call someone whose behaviour has genuinely crossed a line. スケベ is the teasing version you can say to a friend; 変態 is not.'},
+  '死ね': {lit:'the imperative of 死ぬ, to die',
+    note:'"Drop dead". The bare imperative of any verb is already harsh in Japanese, and on this verb it is about as violent as the language gets in one word. It appears constantly in anime and in schoolyard argument, which flattens it in learners\' ears — do not mistake fictional frequency for social acceptability.'},
+  'ぶっ殺す': {lit:'ぶっ- intensifier + 殺す, to kill',
+    note:'The ぶっ- prefix smashes force onto a verb: ぶっ飛ばす, ぶっ壊す. ぶっ殺す is a genuine threat and is treated as one. Common in fiction, rare and serious in real life — which is true of most of this category.'},
+  '空気読めない': {lit:'cannot read the air',
+    note:'Abbreviated KY. Failing to pick up on the mood of a room, and it is a real criticism in a culture that expects you to. The phrase gets over-mythologised abroad as evidence of some unique Japanese telepathy; the everyday use is mundane and means roughly "he didn\'t take the hint".'},
+  'おつ': {lit:'clipped お疲れ様',
+    note:'お疲れ様 is the all-purpose "good work" said when leaving, finishing something, or greeting a colleague. おつ and おつかれ are the friend versions, and おつ alone is normal in chat. It has no English equivalent — it is not thanks and not goodbye, but does both jobs.'},
+};
+
 function slangSource(){
   if(state.language === 'yue') return { vocab: SLANG_VOCAB, phrases: SLANG_PHRASES, notes: WORD_NOTES };
   if(isVietnameseCourse())    return { vocab: VI_SLANG_VOCAB, phrases: VI_SLANG_PHRASES, notes: VI_WORD_NOTES };
+  if(state.language === 'ja') return { vocab: JA_SLANG_VOCAB, phrases: JA_SLANG_PHRASES, notes: JA_WORD_NOTES };
   return { vocab: [], phrases: [], notes: {} };
 }
 function slangNotes(){ return slangSource().notes; }

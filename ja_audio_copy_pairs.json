@@ -3166,5 +3166,41 @@
  {
   "from": "lesson_ja_l9_v9",
   "to": "word_ja_おる"
+ },
+ {
+  "from": "word_ja_うるさい",
+  "to": "slang_ja_うるさい"
+ },
+ {
+  "from": "word_ja_くそ",
+  "to": "slang_ja_くそ"
+ },
+ {
+  "from": "word_ja_てめえ",
+  "to": "slang_ja_てめえ"
+ },
+ {
+  "from": "word_ja_どうでもいい",
+  "to": "slang_ja_どうでもいい"
+ },
+ {
+  "from": "word_ja_ガキ",
+  "to": "slang_ja_ガキ"
+ },
+ {
+  "from": "word_ja_変態",
+  "to": "slang_ja_変態"
+ },
+ {
+  "from": "word_ja_微妙",
+  "to": "slang_ja_微妙"
+ },
+ {
+  "from": "word_ja_超",
+  "to": "slang_ja_超"
+ },
+ {
+  "from": "word_ja_関係ない",
+  "to": "slang_ja_関係ない"
  }
 ]
