@@ -22,8 +22,8 @@ ID_FIELD_NAME = "id"
 # the wrong voice; carrying both languages here means the Cantonese note type
 # (Cantonese_Text / Cantonese_Male_Sound) resolves just as exactly.
 AUDIO_FIELD_NAMES_BY_VOICE = {
-    "female": ["vietnamese_female_sound", "cantonese_female_sound"],
-    "male":   ["vietnamese_male_sound",   "cantonese_male_sound"],
+    "female": ["vietnamese_female_sound", "cantonese_female_sound", "japanese_female_sound"],
+    "male":   ["vietnamese_male_sound",   "cantonese_male_sound",   "japanese_male_sound"],
 }
 
 def _varint(b, i):

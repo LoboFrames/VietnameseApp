@@ -1,0 +1,2642 @@
+[
+ {
+  "from": "lesson_ja_l10_d0",
+  "to": "cphrase_ja_37"
+ },
+ {
+  "from": "lesson_ja_l10_d1",
+  "to": "cphrase_ja_38"
+ },
+ {
+  "from": "lesson_ja_l10_d2",
+  "to": "cphrase_ja_39"
+ },
+ {
+  "from": "lesson_ja_l10_d3",
+  "to": "cphrase_ja_40"
+ },
+ {
+  "from": "lesson_ja_l10_v0",
+  "to": "word_ja_信じる"
+ },
+ {
+  "from": "lesson_ja_l10_v1",
+  "to": "word_ja_すぎる"
+ },
+ {
+  "from": "lesson_ja_l10_v10",
+  "to": "word_ja_絶対"
+ },
+ {
+  "from": "lesson_ja_l10_v11",
+  "to": "word_ja_開く"
+ },
+ {
+  "from": "lesson_ja_l10_v12",
+  "to": "word_ja_今度"
+ },
+ {
+  "from": "lesson_ja_l10_v13",
+  "to": "word_ja_最後"
+ },
+ {
+  "from": "lesson_ja_l10_v14",
+  "to": "word_ja_最初"
+ },
+ {
+  "from": "lesson_ja_l10_v15",
+  "to": "word_ja_存在"
+ },
+ {
+  "from": "lesson_ja_l10_v16",
+  "to": "word_ja_誰か"
+ },
+ {
+  "from": "lesson_ja_l10_v17",
+  "to": "word_ja_初めて"
+ },
+ {
+  "from": "lesson_ja_l10_v2",
+  "to": "word_ja_生きる"
+ },
+ {
+  "from": "lesson_ja_l10_v3",
+  "to": "word_ja_問題"
+ },
+ {
+  "from": "lesson_ja_l10_v4",
+  "to": "word_ja_理由"
+ },
+ {
+  "from": "lesson_ja_l10_v5",
+  "to": "word_ja_これから"
+ },
+ {
+  "from": "lesson_ja_l10_v6",
+  "to": "word_ja_以上"
+ },
+ {
+  "from": "lesson_ja_l10_v7",
+  "to": "word_ja_逃げる"
+ },
+ {
+  "from": "lesson_ja_l10_v8",
+  "to": "word_ja_多い"
+ },
+ {
+  "from": "lesson_ja_l10_v9",
+  "to": "word_ja_そういう"
+ },
+ {
+  "from": "lesson_ja_l11_d0",
+  "to": "cphrase_ja_41"
+ },
+ {
+  "from": "lesson_ja_l11_d1",
+  "to": "cphrase_ja_42"
+ },
+ {
+  "from": "lesson_ja_l11_d2",
+  "to": "cphrase_ja_43"
+ },
+ {
+  "from": "lesson_ja_l11_d3",
+  "to": "cphrase_ja_44"
+ },
+ {
+  "from": "lesson_ja_l11_v0",
+  "to": "word_ja_書く"
+ },
+ {
+  "from": "lesson_ja_l11_v1",
+  "to": "word_ja_取る"
+ },
+ {
+  "from": "lesson_ja_l11_v10",
+  "to": "word_ja_無理"
+ },
+ {
+  "from": "lesson_ja_l11_v11",
+  "to": "word_ja_ご"
+ },
+ {
+  "from": "lesson_ja_l11_v12",
+  "to": "word_ja_残る"
+ },
+ {
+  "from": "lesson_ja_l11_v13",
+  "to": "word_ja_長い"
+ },
+ {
+  "from": "lesson_ja_l11_v14",
+  "to": "word_ja_普通"
+ },
+ {
+  "from": "lesson_ja_l11_v15",
+  "to": "word_ja_どういう"
+ },
+ {
+  "from": "lesson_ja_l11_v16",
+  "to": "word_ja_守る"
+ },
+ {
+  "from": "lesson_ja_l11_v17",
+  "to": "word_ja_とても"
+ },
+ {
+  "from": "lesson_ja_l11_v2",
+  "to": "word_ja_高い"
+ },
+ {
+  "from": "lesson_ja_l11_v3",
+  "to": "word_ja_もちろん"
+ },
+ {
+  "from": "lesson_ja_l11_v4",
+  "to": "word_ja_入れる"
+ },
+ {
+  "from": "lesson_ja_l11_v5",
+  "to": "word_ja_体"
+ },
+ {
+  "from": "lesson_ja_l11_v6",
+  "to": "word_ja_答える"
+ },
+ {
+  "from": "lesson_ja_l11_v7",
+  "to": "word_ja_そのまま"
+ },
+ {
+  "from": "lesson_ja_l11_v8",
+  "to": "word_ja_覚える"
+ },
+ {
+  "from": "lesson_ja_l11_v9",
+  "to": "word_ja_あり"
+ },
+ {
+  "from": "lesson_ja_l12_d0",
+  "to": "cphrase_ja_45"
+ },
+ {
+  "from": "lesson_ja_l12_d1",
+  "to": "cphrase_ja_46"
+ },
+ {
+  "from": "lesson_ja_l12_d2",
+  "to": "cphrase_ja_47"
+ },
+ {
+  "from": "lesson_ja_l12_d3",
+  "to": "cphrase_ja_48"
+ },
+ {
+  "from": "lesson_ja_l12_v0",
+  "to": "word_ja_楽しい"
+ },
+ {
+  "from": "lesson_ja_l12_v1",
+  "to": "word_ja_どこか"
+ },
+ {
+  "from": "lesson_ja_l12_v10",
+  "to": "word_ja_いつ"
+ },
+ {
+  "from": "lesson_ja_l12_v11",
+  "to": "word_ja_消える"
+ },
+ {
+  "from": "lesson_ja_l12_v12",
+  "to": "word_ja_助ける"
+ },
+ {
+  "from": "lesson_ja_l12_v13",
+  "to": "word_ja_止める"
+ },
+ {
+  "from": "lesson_ja_l12_v14",
+  "to": "word_ja_困る"
+ },
+ {
+  "from": "lesson_ja_l12_v15",
+  "to": "word_ja_かかる"
+ },
+ {
+  "from": "lesson_ja_l12_v16",
+  "to": "word_ja_飲む"
+ },
+ {
+  "from": "lesson_ja_l12_v17",
+  "to": "word_ja_走る"
+ },
+ {
+  "from": "lesson_ja_l12_v2",
+  "to": "word_ja_夜"
+ },
+ {
+  "from": "lesson_ja_l12_v3",
+  "to": "word_ja_感じ"
+ },
+ {
+  "from": "lesson_ja_l12_v4",
+  "to": "word_ja_気"
+ },
+ {
+  "from": "lesson_ja_l12_v5",
+  "to": "word_ja_許す"
+ },
+ {
+  "from": "lesson_ja_l12_v6",
+  "to": "word_ja_もし"
+ },
+ {
+  "from": "lesson_ja_l12_v7",
+  "to": "word_ja_驚く"
+ },
+ {
+  "from": "lesson_ja_l12_v8",
+  "to": "word_ja_別に"
+ },
+ {
+  "from": "lesson_ja_l12_v9",
+  "to": "word_ja_離れる"
+ },
+ {
+  "from": "lesson_ja_l13_d0",
+  "to": "cphrase_ja_49"
+ },
+ {
+  "from": "lesson_ja_l13_d1",
+  "to": "cphrase_ja_50"
+ },
+ {
+  "from": "lesson_ja_l13_d2",
+  "to": "cphrase_ja_51"
+ },
+ {
+  "from": "lesson_ja_l13_d3",
+  "to": "cphrase_ja_52"
+ },
+ {
+  "from": "lesson_ja_l13_v0",
+  "to": "word_ja_以外"
+ },
+ {
+  "from": "lesson_ja_l13_v1",
+  "to": "word_ja_下"
+ },
+ {
+  "from": "lesson_ja_l13_v10",
+  "to": "word_ja_あまり"
+ },
+ {
+  "from": "lesson_ja_l13_v11",
+  "to": "word_ja_ことができる"
+ },
+ {
+  "from": "lesson_ja_l13_v12",
+  "to": "word_ja_続く"
+ },
+ {
+  "from": "lesson_ja_l13_v13",
+  "to": "word_ja_すぐ"
+ },
+ {
+  "from": "lesson_ja_l13_v14",
+  "to": "word_ja_決める"
+ },
+ {
+  "from": "lesson_ja_l13_v15",
+  "to": "word_ja_でもない"
+ },
+ {
+  "from": "lesson_ja_l13_v16",
+  "to": "word_ja_状況"
+ },
+ {
+  "from": "lesson_ja_l13_v17",
+  "to": "word_ja_関係"
+ },
+ {
+  "from": "lesson_ja_l13_v2",
+  "to": "word_ja_買う"
+ },
+ {
+  "from": "lesson_ja_l13_v3",
+  "to": "word_ja_足"
+ },
+ {
+  "from": "lesson_ja_l13_v4",
+  "to": "word_ja_説明"
+ },
+ {
+  "from": "lesson_ja_l13_v5",
+  "to": "word_ja_読む"
+ },
+ {
+  "from": "lesson_ja_l13_v6",
+  "to": "word_ja_女性"
+ },
+ {
+  "from": "lesson_ja_l13_v7",
+  "to": "word_ja_落ちる"
+ },
+ {
+  "from": "lesson_ja_l13_v8",
+  "to": "word_ja_つける"
+ },
+ {
+  "from": "lesson_ja_l13_v9",
+  "to": "word_ja_起きる"
+ },
+ {
+  "from": "lesson_ja_l14_d0",
+  "to": "cphrase_ja_53"
+ },
+ {
+  "from": "lesson_ja_l14_d1",
+  "to": "cphrase_ja_54"
+ },
+ {
+  "from": "lesson_ja_l14_d2",
+  "to": "cphrase_ja_55"
+ },
+ {
+  "from": "lesson_ja_l14_d3",
+  "to": "cphrase_ja_56"
+ },
+ {
+  "from": "lesson_ja_l14_v0",
+  "to": "word_ja_ことがある"
+ },
+ {
+  "from": "lesson_ja_l14_v1",
+  "to": "word_ja_いただく"
+ },
+ {
+  "from": "lesson_ja_l14_v10",
+  "to": "word_ja_理解"
+ },
+ {
+  "from": "lesson_ja_l14_v11",
+  "to": "word_ja_場合"
+ },
+ {
+  "from": "lesson_ja_l14_v12",
+  "to": "word_ja_得る"
+ },
+ {
+  "from": "lesson_ja_l14_v13",
+  "to": "word_ja_深い"
+ },
+ {
+  "from": "lesson_ja_l14_v14",
+  "to": "word_ja_見つける"
+ },
+ {
+  "from": "lesson_ja_l14_v15",
+  "to": "word_ja_一度"
+ },
+ {
+  "from": "lesson_ja_l14_v16",
+  "to": "word_ja_ほしい"
+ },
+ {
+  "from": "lesson_ja_l14_v17",
+  "to": "word_ja_なぜ"
+ },
+ {
+  "from": "lesson_ja_l14_v2",
+  "to": "word_ja_先"
+ },
+ {
+  "from": "lesson_ja_l14_v3",
+  "to": "word_ja_伝える"
+ },
+ {
+  "from": "lesson_ja_l14_v4",
+  "to": "word_ja_ようになる"
+ },
+ {
+  "from": "lesson_ja_l14_v5",
+  "to": "word_ja_先に"
+ },
+ {
+  "from": "lesson_ja_l14_v6",
+  "to": "word_ja_夢"
+ },
+ {
+  "from": "lesson_ja_l14_v7",
+  "to": "word_ja_小さい"
+ },
+ {
+  "from": "lesson_ja_l14_v8",
+  "to": "word_ja_選ぶ"
+ },
+ {
+  "from": "lesson_ja_l14_v9",
+  "to": "word_ja_こういう"
+ },
+ {
+  "from": "lesson_ja_l15_d0",
+  "to": "cphrase_ja_57"
+ },
+ {
+  "from": "lesson_ja_l15_d1",
+  "to": "cphrase_ja_58"
+ },
+ {
+  "from": "lesson_ja_l15_d2",
+  "to": "cphrase_ja_59"
+ },
+ {
+  "from": "lesson_ja_l15_d3",
+  "to": "cphrase_ja_60"
+ },
+ {
+  "from": "lesson_ja_l15_v0",
+  "to": "word_ja_昔"
+ },
+ {
+  "from": "lesson_ja_l15_v1",
+  "to": "word_ja_水"
+ },
+ {
+  "from": "lesson_ja_l15_v10",
+  "to": "word_ja_本"
+ },
+ {
+  "from": "lesson_ja_l15_v11",
+  "to": "word_ja_完全"
+ },
+ {
+  "from": "lesson_ja_l15_v12",
+  "to": "word_ja_状態"
+ },
+ {
+  "from": "lesson_ja_l15_v13",
+  "to": "word_ja_しっかり"
+ },
+ {
+  "from": "lesson_ja_l15_v14",
+  "to": "word_ja_行う"
+ },
+ {
+  "from": "lesson_ja_l15_v15",
+  "to": "word_ja_送る"
+ },
+ {
+  "from": "lesson_ja_l15_v16",
+  "to": "word_ja_形"
+ },
+ {
+  "from": "lesson_ja_l15_v17",
+  "to": "word_ja_近づく"
+ },
+ {
+  "from": "lesson_ja_l15_v2",
+  "to": "word_ja_近く"
+ },
+ {
+  "from": "lesson_ja_l15_v3",
+  "to": "word_ja_進む"
+ },
+ {
+  "from": "lesson_ja_l15_v4",
+  "to": "word_ja_大変"
+ },
+ {
+  "from": "lesson_ja_l15_v5",
+  "to": "word_ja_道"
+ },
+ {
+  "from": "lesson_ja_l15_v6",
+  "to": "word_ja_簡単"
+ },
+ {
+  "from": "lesson_ja_l15_v7",
+  "to": "word_ja_変える"
+ },
+ {
+  "from": "lesson_ja_l15_v8",
+  "to": "word_ja_別"
+ },
+ {
+  "from": "lesson_ja_l15_v9",
+  "to": "word_ja_なので"
+ },
+ {
+  "from": "lesson_ja_l16_d0",
+  "to": "cphrase_ja_61"
+ },
+ {
+  "from": "lesson_ja_l16_d1",
+  "to": "cphrase_ja_62"
+ },
+ {
+  "from": "lesson_ja_l16_d2",
+  "to": "cphrase_ja_63"
+ },
+ {
+  "from": "lesson_ja_l16_d3",
+  "to": "cphrase_ja_64"
+ },
+ {
+  "from": "lesson_ja_l16_v0",
+  "to": "word_ja_乗る"
+ },
+ {
+  "from": "lesson_ja_l16_v1",
+  "to": "word_ja_与える"
+ },
+ {
+  "from": "lesson_ja_l16_v10",
+  "to": "word_ja_最近"
+ },
+ {
+  "from": "lesson_ja_l16_v11",
+  "to": "word_ja_大"
+ },
+ {
+  "from": "lesson_ja_l16_v12",
+  "to": "word_ja_決まる"
+ },
+ {
+  "from": "lesson_ja_l16_v13",
+  "to": "word_ja_準備"
+ },
+ {
+  "from": "lesson_ja_l16_v14",
+  "to": "word_ja_近い"
+ },
+ {
+  "from": "lesson_ja_l16_v15",
+  "to": "word_ja_失う"
+ },
+ {
+  "from": "lesson_ja_l16_v16",
+  "to": "word_ja_不安"
+ },
+ {
+  "from": "lesson_ja_l16_v17",
+  "to": "word_ja_残す"
+ },
+ {
+  "from": "lesson_ja_l16_v2",
+  "to": "word_ja_勝手"
+ },
+ {
+  "from": "lesson_ja_l16_v3",
+  "to": "word_ja_的"
+ },
+ {
+  "from": "lesson_ja_l16_v4",
+  "to": "word_ja_結果"
+ },
+ {
+  "from": "lesson_ja_l16_v5",
+  "to": "word_ja_朝"
+ },
+ {
+  "from": "lesson_ja_l16_v6",
+  "to": "word_ja_新しい"
+ },
+ {
+  "from": "lesson_ja_l16_v7",
+  "to": "word_ja_急"
+ },
+ {
+  "from": "lesson_ja_l16_v8",
+  "to": "word_ja_ようにする"
+ },
+ {
+  "from": "lesson_ja_l16_v9",
+  "to": "word_ja_元"
+ },
+ {
+  "from": "lesson_ja_l17_d0",
+  "to": "cphrase_ja_65"
+ },
+ {
+  "from": "lesson_ja_l17_d1",
+  "to": "cphrase_ja_66"
+ },
+ {
+  "from": "lesson_ja_l17_d2",
+  "to": "cphrase_ja_67"
+ },
+ {
+  "from": "lesson_ja_l17_d3",
+  "to": "cphrase_ja_68"
+ },
+ {
+  "from": "lesson_ja_l17_v0",
+  "to": "word_ja_安心"
+ },
+ {
+  "from": "lesson_ja_l17_v1",
+  "to": "word_ja_大事"
+ },
+ {
+  "from": "lesson_ja_l17_v10",
+  "to": "word_ja_始まる"
+ },
+ {
+  "from": "lesson_ja_l17_v11",
+  "to": "word_ja_家族"
+ },
+ {
+  "from": "lesson_ja_l17_v12",
+  "to": "word_ja_似る"
+ },
+ {
+  "from": "lesson_ja_l17_v13",
+  "to": "word_ja_用"
+ },
+ {
+  "from": "lesson_ja_l17_v14",
+  "to": "word_ja_元気"
+ },
+ {
+  "from": "lesson_ja_l17_v15",
+  "to": "word_ja_後"
+ },
+ {
+  "from": "lesson_ja_l17_v16",
+  "to": "word_ja_生む"
+ },
+ {
+  "from": "lesson_ja_l17_v17",
+  "to": "word_ja_思い"
+ },
+ {
+  "from": "lesson_ja_l17_v2",
+  "to": "word_ja_ほとんど"
+ },
+ {
+  "from": "lesson_ja_l17_v3",
+  "to": "word_ja_認める"
+ },
+ {
+  "from": "lesson_ja_l17_v4",
+  "to": "word_ja_特に"
+ },
+ {
+  "from": "lesson_ja_l17_v5",
+  "to": "word_ja_求める"
+ },
+ {
+  "from": "lesson_ja_l17_v6",
+  "to": "word_ja_用意"
+ },
+ {
+  "from": "lesson_ja_l17_v7",
+  "to": "word_ja_少ない"
+ },
+ {
+  "from": "lesson_ja_l17_v8",
+  "to": "word_ja_まず"
+ },
+ {
+  "from": "lesson_ja_l17_v9",
+  "to": "word_ja_ことにする"
+ },
+ {
+  "from": "lesson_ja_l18_d0",
+  "to": "cphrase_ja_69"
+ },
+ {
+  "from": "lesson_ja_l18_d1",
+  "to": "cphrase_ja_70"
+ },
+ {
+  "from": "lesson_ja_l18_d2",
+  "to": "cphrase_ja_71"
+ },
+ {
+  "from": "lesson_ja_l18_d3",
+  "to": "cphrase_ja_72"
+ },
+ {
+  "from": "lesson_ja_l18_v0",
+  "to": "word_ja_なかなか"
+ },
+ {
+  "from": "lesson_ja_l18_v1",
+  "to": "word_ja_たくさん"
+ },
+ {
+  "from": "lesson_ja_l18_v10",
+  "to": "word_ja_十分"
+ },
+ {
+  "from": "lesson_ja_l18_v11",
+  "to": "word_ja_働く"
+ },
+ {
+  "from": "lesson_ja_l18_v12",
+  "to": "word_ja_若い"
+ },
+ {
+  "from": "lesson_ja_l18_v13",
+  "to": "word_ja_歳"
+ },
+ {
+  "from": "lesson_ja_l18_v14",
+  "to": "word_ja_調べる"
+ },
+ {
+  "from": "lesson_ja_l18_v15",
+  "to": "word_ja_急ぐ"
+ },
+ {
+  "from": "lesson_ja_l18_v16",
+  "to": "word_ja_必ず"
+ },
+ {
+  "from": "lesson_ja_l18_v17",
+  "to": "word_ja_途中"
+ },
+ {
+  "from": "lesson_ja_l18_v2",
+  "to": "word_ja_目的"
+ },
+ {
+  "from": "lesson_ja_l18_v3",
+  "to": "word_ja_合う"
+ },
+ {
+  "from": "lesson_ja_l18_v4",
+  "to": "word_ja_生活"
+ },
+ {
+  "from": "lesson_ja_l18_v5",
+  "to": "word_ja_方法"
+ },
+ {
+  "from": "lesson_ja_l18_v6",
+  "to": "word_ja_なくなる"
+ },
+ {
+  "from": "lesson_ja_l18_v7",
+  "to": "word_ja_切る"
+ },
+ {
+  "from": "lesson_ja_l18_v8",
+  "to": "word_ja_分"
+ },
+ {
+  "from": "lesson_ja_l18_v9",
+  "to": "word_ja_つく"
+ },
+ {
+  "from": "lesson_ja_l19_d0",
+  "to": "cphrase_ja_73"
+ },
+ {
+  "from": "lesson_ja_l19_d1",
+  "to": "cphrase_ja_74"
+ },
+ {
+  "from": "lesson_ja_l19_d2",
+  "to": "cphrase_ja_75"
+ },
+ {
+  "from": "lesson_ja_l19_d3",
+  "to": "cphrase_ja_76"
+ },
+ {
+  "from": "lesson_ja_l19_v0",
+  "to": "word_ja_側"
+ },
+ {
+  "from": "lesson_ja_l19_v1",
+  "to": "word_ja_見つかる"
+ },
+ {
+  "from": "lesson_ja_l19_v10",
+  "to": "word_ja_広い"
+ },
+ {
+  "from": "lesson_ja_l19_v11",
+  "to": "word_ja_やすい"
+ },
+ {
+  "from": "lesson_ja_l19_v12",
+  "to": "word_ja_自由"
+ },
+ {
+  "from": "lesson_ja_l19_v13",
+  "to": "word_ja_原因"
+ },
+ {
+  "from": "lesson_ja_l19_v14",
+  "to": "word_ja_俺"
+ },
+ {
+  "from": "lesson_ja_l19_v15",
+  "to": "word_ja_ああ"
+ },
+ {
+  "from": "lesson_ja_l19_v16",
+  "to": "word_ja_お前"
+ },
+ {
+  "from": "lesson_ja_l19_v17",
+  "to": "word_ja_彼女"
+ },
+ {
+  "from": "lesson_ja_l19_v2",
+  "to": "word_ja_重い"
+ },
+ {
+  "from": "lesson_ja_l19_v3",
+  "to": "word_ja_期待"
+ },
+ {
+  "from": "lesson_ja_l19_v4",
+  "to": "word_ja_集まる"
+ },
+ {
+  "from": "lesson_ja_l19_v5",
+  "to": "word_ja_その後"
+ },
+ {
+  "from": "lesson_ja_l19_v6",
+  "to": "word_ja_考え"
+ },
+ {
+  "from": "lesson_ja_l19_v7",
+  "to": "word_ja_住む"
+ },
+ {
+  "from": "lesson_ja_l19_v8",
+  "to": "word_ja_大切"
+ },
+ {
+  "from": "lesson_ja_l19_v9",
+  "to": "word_ja_毎日"
+ },
+ {
+  "from": "lesson_ja_l1_d0",
+  "to": "cphrase_ja_1"
+ },
+ {
+  "from": "lesson_ja_l1_d1",
+  "to": "cphrase_ja_2"
+ },
+ {
+  "from": "lesson_ja_l1_d2",
+  "to": "cphrase_ja_3"
+ },
+ {
+  "from": "lesson_ja_l1_d3",
+  "to": "cphrase_ja_4"
+ },
+ {
+  "from": "lesson_ja_l1_v0",
+  "to": "word_ja_する"
+ },
+ {
+  "from": "lesson_ja_l1_v1",
+  "to": "word_ja_ある"
+ },
+ {
+  "from": "lesson_ja_l1_v10",
+  "to": "word_ja_言う"
+ },
+ {
+  "from": "lesson_ja_l1_v11",
+  "to": "word_ja_ない"
+ },
+ {
+  "from": "lesson_ja_l1_v12",
+  "to": "word_ja_そう"
+ },
+ {
+  "from": "lesson_ja_l1_v13",
+  "to": "word_ja_私"
+ },
+ {
+  "from": "lesson_ja_l1_v14",
+  "to": "word_ja_これ"
+ },
+ {
+  "from": "lesson_ja_l1_v15",
+  "to": "word_ja_見る"
+ },
+ {
+  "from": "lesson_ja_l1_v16",
+  "to": "word_ja_だけ"
+ },
+ {
+  "from": "lesson_ja_l1_v17",
+  "to": "word_ja_くる"
+ },
+ {
+  "from": "lesson_ja_l1_v2",
+  "to": "word_ja_こと"
+ },
+ {
+  "from": "lesson_ja_l1_v3",
+  "to": "word_ja_なる"
+ },
+ {
+  "from": "lesson_ja_l1_v4",
+  "to": "word_ja_それ"
+ },
+ {
+  "from": "lesson_ja_l1_v5",
+  "to": "word_ja_いる"
+ },
+ {
+  "from": "lesson_ja_l1_v6",
+  "to": "word_ja_思う"
+ },
+ {
+  "from": "lesson_ja_l1_v7",
+  "to": "word_ja_この"
+ },
+ {
+  "from": "lesson_ja_l1_v8",
+  "to": "word_ja_でも"
+ },
+ {
+  "from": "lesson_ja_l1_v9",
+  "to": "word_ja_その"
+ },
+ {
+  "from": "lesson_ja_l20_d0",
+  "to": "cphrase_ja_77"
+ },
+ {
+  "from": "lesson_ja_l20_d1",
+  "to": "cphrase_ja_78"
+ },
+ {
+  "from": "lesson_ja_l20_d2",
+  "to": "cphrase_ja_79"
+ },
+ {
+  "from": "lesson_ja_l20_d3",
+  "to": "cphrase_ja_80"
+ },
+ {
+  "from": "lesson_ja_l20_v0",
+  "to": "word_ja_みたい"
+ },
+ {
+  "from": "lesson_ja_l20_v1",
+  "to": "word_ja_大丈夫"
+ },
+ {
+  "from": "lesson_ja_l20_v10",
+  "to": "word_ja_まあ"
+ },
+ {
+  "from": "lesson_ja_l20_v11",
+  "to": "word_ja_ええ"
+ },
+ {
+  "from": "lesson_ja_l20_v12",
+  "to": "word_ja_女"
+ },
+ {
+  "from": "lesson_ja_l20_v13",
+  "to": "word_ja_君"
+ },
+ {
+  "from": "lesson_ja_l20_v14",
+  "to": "word_ja_二人"
+ },
+ {
+  "from": "lesson_ja_l20_v15",
+  "to": "word_ja_者"
+ },
+ {
+  "from": "lesson_ja_l20_v16",
+  "to": "word_ja_やっぱり"
+ },
+ {
+  "from": "lesson_ja_l20_v17",
+  "to": "word_ja_えっ"
+ },
+ {
+  "from": "lesson_ja_l20_v2",
+  "to": "word_ja_ちゃん"
+ },
+ {
+  "from": "lesson_ja_l20_v3",
+  "to": "word_ja_わかる"
+ },
+ {
+  "from": "lesson_ja_l20_v4",
+  "to": "word_ja_あっ"
+ },
+ {
+  "from": "lesson_ja_l20_v5",
+  "to": "word_ja_僕"
+ },
+ {
+  "from": "lesson_ja_l20_v6",
+  "to": "word_ja_笑う"
+ },
+ {
+  "from": "lesson_ja_l20_v7",
+  "to": "word_ja_なんだ"
+ },
+ {
+  "from": "lesson_ja_l20_v8",
+  "to": "word_ja_じゃあ"
+ },
+ {
+  "from": "lesson_ja_l20_v9",
+  "to": "word_ja_様"
+ },
+ {
+  "from": "lesson_ja_l21_d0",
+  "to": "cphrase_ja_81"
+ },
+ {
+  "from": "lesson_ja_l21_d1",
+  "to": "cphrase_ja_82"
+ },
+ {
+  "from": "lesson_ja_l21_d2",
+  "to": "cphrase_ja_83"
+ },
+ {
+  "from": "lesson_ja_l21_d3",
+  "to": "cphrase_ja_84"
+ },
+ {
+  "from": "lesson_ja_l21_v0",
+  "to": "word_ja_ちゃんと"
+ },
+ {
+  "from": "lesson_ja_l21_v1",
+  "to": "word_ja_すごい"
+ },
+ {
+  "from": "lesson_ja_l21_v10",
+  "to": "word_ja_胸"
+ },
+ {
+  "from": "lesson_ja_l21_v11",
+  "to": "word_ja_さっき"
+ },
+ {
+  "from": "lesson_ja_l21_v12",
+  "to": "word_ja_思い出す"
+ },
+ {
+  "from": "lesson_ja_l21_v13",
+  "to": "word_ja_へと"
+ },
+ {
+  "from": "lesson_ja_l21_v14",
+  "to": "word_ja_あんた"
+ },
+ {
+  "from": "lesson_ja_l21_v15",
+  "to": "word_ja_一番"
+ },
+ {
+  "from": "lesson_ja_l21_v16",
+  "to": "word_ja_一人"
+ },
+ {
+  "from": "lesson_ja_l21_v17",
+  "to": "word_ja_ありがとう"
+ },
+ {
+  "from": "lesson_ja_l21_v2",
+  "to": "word_ja_確かに"
+ },
+ {
+  "from": "lesson_ja_l21_v3",
+  "to": "word_ja_聞こえる"
+ },
+ {
+  "from": "lesson_ja_l21_v4",
+  "to": "word_ja_なんで"
+ },
+ {
+  "from": "lesson_ja_l21_v5",
+  "to": "word_ja_先生"
+ },
+ {
+  "from": "lesson_ja_l21_v6",
+  "to": "word_ja_まさか"
+ },
+ {
+  "from": "lesson_ja_l21_v7",
+  "to": "word_ja_まるで"
+ },
+ {
+  "from": "lesson_ja_l21_v8",
+  "to": "word_ja_他"
+ },
+ {
+  "from": "lesson_ja_l21_v9",
+  "to": "word_ja_殺す"
+ },
+ {
+  "from": "lesson_ja_l22_d0",
+  "to": "cphrase_ja_85"
+ },
+ {
+  "from": "lesson_ja_l22_d1",
+  "to": "cphrase_ja_86"
+ },
+ {
+  "from": "lesson_ja_l22_d2",
+  "to": "cphrase_ja_87"
+ },
+ {
+  "from": "lesson_ja_l22_d3",
+  "to": "cphrase_ja_88"
+ },
+ {
+  "from": "lesson_ja_l22_v0",
+  "to": "word_ja_頼む"
+ },
+ {
+  "from": "lesson_ja_l22_v1",
+  "to": "word_ja_一つ"
+ },
+ {
+  "from": "lesson_ja_l22_v10",
+  "to": "word_ja_そうです"
+ },
+ {
+  "from": "lesson_ja_l22_v11",
+  "to": "word_ja_全部"
+ },
+ {
+  "from": "lesson_ja_l22_v12",
+  "to": "word_ja_何度"
+ },
+ {
+  "from": "lesson_ja_l22_v13",
+  "to": "word_ja_そんなに"
+ },
+ {
+  "from": "lesson_ja_l22_v14",
+  "to": "word_ja_子供"
+ },
+ {
+  "from": "lesson_ja_l22_v15",
+  "to": "word_ja_二"
+ },
+ {
+  "from": "lesson_ja_l22_v16",
+  "to": "word_ja_光"
+ },
+ {
+  "from": "lesson_ja_l22_v17",
+  "to": "word_ja_おかしい"
+ },
+ {
+  "from": "lesson_ja_l22_v2",
+  "to": "word_ja_表情"
+ },
+ {
+  "from": "lesson_ja_l22_v3",
+  "to": "word_ja_ごめん"
+ },
+ {
+  "from": "lesson_ja_l22_v4",
+  "to": "word_ja_怖い"
+ },
+ {
+  "from": "lesson_ja_l22_v5",
+  "to": "word_ja_ゆっくり"
+ },
+ {
+  "from": "lesson_ja_l22_v6",
+  "to": "word_ja_つまり"
+ },
+ {
+  "from": "lesson_ja_l22_v7",
+  "to": "word_ja_腕"
+ },
+ {
+  "from": "lesson_ja_l22_v8",
+  "to": "word_ja_やはり"
+ },
+ {
+  "from": "lesson_ja_l22_v9",
+  "to": "word_ja_確認"
+ },
+ {
+  "from": "lesson_ja_l23_d0",
+  "to": "cphrase_ja_89"
+ },
+ {
+  "from": "lesson_ja_l23_d1",
+  "to": "cphrase_ja_90"
+ },
+ {
+  "from": "lesson_ja_l23_d2",
+  "to": "cphrase_ja_91"
+ },
+ {
+  "from": "lesson_ja_l23_d3",
+  "to": "cphrase_ja_92"
+ },
+ {
+  "from": "lesson_ja_l23_v0",
+  "to": "word_ja_寝る"
+ },
+ {
+  "from": "lesson_ja_l23_v1",
+  "to": "word_ja_なるほど"
+ },
+ {
+  "from": "lesson_ja_l23_v10",
+  "to": "word_ja_明日"
+ },
+ {
+  "from": "lesson_ja_l23_v11",
+  "to": "word_ja_泣く"
+ },
+ {
+  "from": "lesson_ja_l23_v12",
+  "to": "word_ja_頑張る"
+ },
+ {
+  "from": "lesson_ja_l23_v13",
+  "to": "word_ja_怒る"
+ },
+ {
+  "from": "lesson_ja_l23_v14",
+  "to": "word_ja_娘"
+ },
+ {
+  "from": "lesson_ja_l23_v15",
+  "to": "word_ja_今回"
+ },
+ {
+  "from": "lesson_ja_l23_v16",
+  "to": "word_ja_やつ"
+ },
+ {
+  "from": "lesson_ja_l23_v17",
+  "to": "word_ja_昨日"
+ },
+ {
+  "from": "lesson_ja_l23_v2",
+  "to": "word_ja_小さな"
+ },
+ {
+  "from": "lesson_ja_l23_v3",
+  "to": "word_ja_瞬間"
+ },
+ {
+  "from": "lesson_ja_l23_v4",
+  "to": "word_ja_気がする"
+ },
+ {
+  "from": "lesson_ja_l23_v5",
+  "to": "word_ja_今まで"
+ },
+ {
+  "from": "lesson_ja_l23_v6",
+  "to": "word_ja_優しい"
+ },
+ {
+  "from": "lesson_ja_l23_v7",
+  "to": "word_ja_嫌"
+ },
+ {
+  "from": "lesson_ja_l23_v8",
+  "to": "word_ja_あいつ"
+ },
+ {
+  "from": "lesson_ja_l23_v9",
+  "to": "word_ja_ううん"
+ },
+ {
+  "from": "lesson_ja_l24_d0",
+  "to": "cphrase_ja_93"
+ },
+ {
+  "from": "lesson_ja_l24_d1",
+  "to": "cphrase_ja_94"
+ },
+ {
+  "from": "lesson_ja_l24_d2",
+  "to": "cphrase_ja_95"
+ },
+ {
+  "from": "lesson_ja_l24_d3",
+  "to": "cphrase_ja_96"
+ },
+ {
+  "from": "lesson_ja_l24_v0",
+  "to": "word_ja_変"
+ },
+ {
+  "from": "lesson_ja_l24_v1",
+  "to": "word_ja_探す"
+ },
+ {
+  "from": "lesson_ja_l24_v10",
+  "to": "word_ja_しばらく"
+ },
+ {
+  "from": "lesson_ja_l24_v11",
+  "to": "word_ja_隠す"
+ },
+ {
+  "from": "lesson_ja_l24_v12",
+  "to": "word_ja_気になる"
+ },
+ {
+  "from": "lesson_ja_l24_v13",
+  "to": "word_ja_奥"
+ },
+ {
+  "from": "lesson_ja_l24_v14",
+  "to": "word_ja_向ける"
+ },
+ {
+  "from": "lesson_ja_l24_v15",
+  "to": "word_ja_笑顔"
+ },
+ {
+  "from": "lesson_ja_l24_v16",
+  "to": "word_ja_かなり"
+ },
+ {
+  "from": "lesson_ja_l24_v17",
+  "to": "word_ja_軽い"
+ },
+ {
+  "from": "lesson_ja_l24_v2",
+  "to": "word_ja_返す"
+ },
+ {
+  "from": "lesson_ja_l24_v3",
+  "to": "word_ja_国"
+ },
+ {
+  "from": "lesson_ja_l24_v4",
+  "to": "word_ja_なあ"
+ },
+ {
+  "from": "lesson_ja_l24_v5",
+  "to": "word_ja_当然"
+ },
+ {
+  "from": "lesson_ja_l24_v6",
+  "to": "word_ja_座る"
+ },
+ {
+  "from": "lesson_ja_l24_v7",
+  "to": "word_ja_ではある"
+ },
+ {
+  "from": "lesson_ja_l24_v8",
+  "to": "word_ja_黙る"
+ },
+ {
+  "from": "lesson_ja_l24_v9",
+  "to": "word_ja_気づく"
+ },
+ {
+  "from": "lesson_ja_l25_d0",
+  "to": "cphrase_ja_97"
+ },
+ {
+  "from": "lesson_ja_l25_d1",
+  "to": "cphrase_ja_98"
+ },
+ {
+  "from": "lesson_ja_l25_d2",
+  "to": "cphrase_ja_99"
+ },
+ {
+  "from": "lesson_ja_l25_d3",
+  "to": "cphrase_ja_100"
+ },
+ {
+  "from": "lesson_ja_l25_v0",
+  "to": "word_ja_目の前"
+ },
+ {
+  "from": "lesson_ja_l25_v1",
+  "to": "word_ja_お願い"
+ },
+ {
+  "from": "lesson_ja_l25_v10",
+  "to": "word_ja_痛い"
+ },
+ {
+  "from": "lesson_ja_l25_v11",
+  "to": "word_ja_敵"
+ },
+ {
+  "from": "lesson_ja_l25_v12",
+  "to": "word_ja_一"
+ },
+ {
+  "from": "lesson_ja_l25_v13",
+  "to": "word_ja_実は"
+ },
+ {
+  "from": "lesson_ja_l25_v14",
+  "to": "word_ja_後ろ"
+ },
+ {
+  "from": "lesson_ja_l25_v15",
+  "to": "word_ja_さらに"
+ },
+ {
+  "from": "lesson_ja_l25_v16",
+  "to": "word_ja_髪"
+ },
+ {
+  "from": "lesson_ja_l25_v17",
+  "to": "word_ja_一瞬"
+ },
+ {
+  "from": "lesson_ja_l25_v2",
+  "to": "word_ja_開ける"
+ },
+ {
+  "from": "lesson_ja_l25_v3",
+  "to": "word_ja_せい"
+ },
+ {
+  "from": "lesson_ja_l25_v4",
+  "to": "word_ja_まったく"
+ },
+ {
+  "from": "lesson_ja_l25_v5",
+  "to": "word_ja_女の子"
+ },
+ {
+  "from": "lesson_ja_l25_v6",
+  "to": "word_ja_こんなに"
+ },
+ {
+  "from": "lesson_ja_l25_v7",
+  "to": "word_ja_しかない"
+ },
+ {
+  "from": "lesson_ja_l25_v8",
+  "to": "word_ja_とにかく"
+ },
+ {
+  "from": "lesson_ja_l25_v9",
+  "to": "word_ja_ことはない"
+ },
+ {
+  "from": "lesson_ja_l26_d0",
+  "to": "cphrase_ja_101"
+ },
+ {
+  "from": "lesson_ja_l26_d1",
+  "to": "cphrase_ja_102"
+ },
+ {
+  "from": "lesson_ja_l26_d2",
+  "to": "cphrase_ja_103"
+ },
+ {
+  "from": "lesson_ja_l26_d3",
+  "to": "cphrase_ja_104"
+ },
+ {
+  "from": "lesson_ja_l26_v0",
+  "to": "word_ja_落ち着く"
+ },
+ {
+  "from": "lesson_ja_l26_v1",
+  "to": "word_ja_どうした"
+ },
+ {
+  "from": "lesson_ja_l26_v10",
+  "to": "word_ja_彼ら"
+ },
+ {
+  "from": "lesson_ja_l26_v11",
+  "to": "word_ja_すべて"
+ },
+ {
+  "from": "lesson_ja_l26_v12",
+  "to": "word_ja_学校"
+ },
+ {
+  "from": "lesson_ja_l26_v13",
+  "to": "word_ja_情報"
+ },
+ {
+  "from": "lesson_ja_l26_v14",
+  "to": "word_ja_意識"
+ },
+ {
+  "from": "lesson_ja_l26_v15",
+  "to": "word_ja_というのは"
+ },
+ {
+  "from": "lesson_ja_l26_v16",
+  "to": "word_ja_肩"
+ },
+ {
+  "from": "lesson_ja_l26_v17",
+  "to": "word_ja_色"
+ },
+ {
+  "from": "lesson_ja_l26_v2",
+  "to": "word_ja_隣"
+ },
+ {
+  "from": "lesson_ja_l26_v3",
+  "to": "word_ja_不思議"
+ },
+ {
+  "from": "lesson_ja_l26_v4",
+  "to": "word_ja_戦う"
+ },
+ {
+  "from": "lesson_ja_l26_v5",
+  "to": "word_ja_こいつ"
+ },
+ {
+  "from": "lesson_ja_l26_v6",
+  "to": "word_ja_現れる"
+ },
+ {
+  "from": "lesson_ja_l26_v7",
+  "to": "word_ja_そろそろ"
+ },
+ {
+  "from": "lesson_ja_l26_v8",
+  "to": "word_ja_私たち"
+ },
+ {
+  "from": "lesson_ja_l26_v9",
+  "to": "word_ja_記憶"
+ },
+ {
+  "from": "lesson_ja_l27_d0",
+  "to": "cphrase_ja_105"
+ },
+ {
+  "from": "lesson_ja_l27_d1",
+  "to": "cphrase_ja_106"
+ },
+ {
+  "from": "lesson_ja_l27_d2",
+  "to": "cphrase_ja_107"
+ },
+ {
+  "from": "lesson_ja_l27_d3",
+  "to": "cphrase_ja_108"
+ },
+ {
+  "from": "lesson_ja_l27_v0",
+  "to": "word_ja_触れる"
+ },
+ {
+  "from": "lesson_ja_l27_v1",
+  "to": "word_ja_勝つ"
+ },
+ {
+  "from": "lesson_ja_l27_v10",
+  "to": "word_ja_可能性"
+ },
+ {
+  "from": "lesson_ja_l27_v11",
+  "to": "word_ja_赤い"
+ },
+ {
+  "from": "lesson_ja_l27_v12",
+  "to": "word_ja_失礼"
+ },
+ {
+  "from": "lesson_ja_l27_v13",
+  "to": "word_ja_幸せ"
+ },
+ {
+  "from": "lesson_ja_l27_v14",
+  "to": "word_ja_負ける"
+ },
+ {
+  "from": "lesson_ja_l27_v15",
+  "to": "word_ja_背中"
+ },
+ {
+  "from": "lesson_ja_l27_v16",
+  "to": "word_ja_反応"
+ },
+ {
+  "from": "lesson_ja_l27_v17",
+  "to": "word_ja_壁"
+ },
+ {
+  "from": "lesson_ja_l27_v2",
+  "to": "word_ja_結局"
+ },
+ {
+  "from": "lesson_ja_l27_v3",
+  "to": "word_ja_三"
+ },
+ {
+  "from": "lesson_ja_l27_v4",
+  "to": "word_ja_全然"
+ },
+ {
+  "from": "lesson_ja_l27_v5",
+  "to": "word_ja_上がる"
+ },
+ {
+  "from": "lesson_ja_l27_v6",
+  "to": "word_ja_げ"
+ },
+ {
+  "from": "lesson_ja_l27_v7",
+  "to": "word_ja_動き"
+ },
+ {
+  "from": "lesson_ja_l27_v8",
+  "to": "word_ja_白い"
+ },
+ {
+  "from": "lesson_ja_l27_v9",
+  "to": "word_ja_指"
+ },
+ {
+  "from": "lesson_ja_l28_d0",
+  "to": "cphrase_ja_109"
+ },
+ {
+  "from": "lesson_ja_l28_d1",
+  "to": "cphrase_ja_110"
+ },
+ {
+  "from": "lesson_ja_l28_d2",
+  "to": "cphrase_ja_111"
+ },
+ {
+  "from": "lesson_ja_l28_d3",
+  "to": "cphrase_ja_112"
+ },
+ {
+  "from": "lesson_ja_l28_v0",
+  "to": "word_ja_どうやら"
+ },
+ {
+  "from": "lesson_ja_l28_v1",
+  "to": "word_ja_いきなり"
+ },
+ {
+  "from": "lesson_ja_l28_v10",
+  "to": "word_ja_行動"
+ },
+ {
+  "from": "lesson_ja_l28_v11",
+  "to": "word_ja_突然"
+ },
+ {
+  "from": "lesson_ja_l28_v12",
+  "to": "word_ja_友達"
+ },
+ {
+  "from": "lesson_ja_l28_v13",
+  "to": "word_ja_喜ぶ"
+ },
+ {
+  "from": "lesson_ja_l28_v14",
+  "to": "word_ja_止まる"
+ },
+ {
+  "from": "lesson_ja_l28_v15",
+  "to": "word_ja_命"
+ },
+ {
+  "from": "lesson_ja_l28_v16",
+  "to": "word_ja_自身"
+ },
+ {
+  "from": "lesson_ja_l28_v17",
+  "to": "word_ja_想像"
+ },
+ {
+  "from": "lesson_ja_l28_v2",
+  "to": "word_ja_空"
+ },
+ {
+  "from": "lesson_ja_l28_v3",
+  "to": "word_ja_約束"
+ },
+ {
+  "from": "lesson_ja_l28_v4",
+  "to": "word_ja_血"
+ },
+ {
+  "from": "lesson_ja_l28_v5",
+  "to": "word_ja_服"
+ },
+ {
+  "from": "lesson_ja_l28_v6",
+  "to": "word_ja_恥ずかしい"
+ },
+ {
+  "from": "lesson_ja_l28_v7",
+  "to": "word_ja_事実"
+ },
+ {
+  "from": "lesson_ja_l28_v8",
+  "to": "word_ja_静か"
+ },
+ {
+  "from": "lesson_ja_l28_v9",
+  "to": "word_ja_すむ"
+ },
+ {
+  "from": "lesson_ja_l29_d0",
+  "to": "cphrase_ja_113"
+ },
+ {
+  "from": "lesson_ja_l29_d1",
+  "to": "cphrase_ja_114"
+ },
+ {
+  "from": "lesson_ja_l29_d2",
+  "to": "cphrase_ja_115"
+ },
+ {
+  "from": "lesson_ja_l29_d3",
+  "to": "cphrase_ja_116"
+ },
+ {
+  "from": "lesson_ja_l29_v0",
+  "to": "word_ja_面白い"
+ },
+ {
+  "from": "lesson_ja_l29_v1",
+  "to": "word_ja_身"
+ },
+ {
+  "from": "lesson_ja_l29_v10",
+  "to": "word_ja_着る"
+ },
+ {
+  "from": "lesson_ja_l29_v11",
+  "to": "word_ja_母"
+ },
+ {
+  "from": "lesson_ja_l29_v12",
+  "to": "word_ja_首"
+ },
+ {
+  "from": "lesson_ja_l29_v13",
+  "to": "word_ja_美しい"
+ },
+ {
+  "from": "lesson_ja_l29_v14",
+  "to": "word_ja_一体"
+ },
+ {
+  "from": "lesson_ja_l29_v15",
+  "to": "word_ja_店"
+ },
+ {
+  "from": "lesson_ja_l29_v16",
+  "to": "word_ja_程度"
+ },
+ {
+  "from": "lesson_ja_l29_v17",
+  "to": "word_ja_届く"
+ },
+ {
+  "from": "lesson_ja_l29_v2",
+  "to": "word_ja_渡す"
+ },
+ {
+  "from": "lesson_ja_l29_v3",
+  "to": "word_ja_名"
+ },
+ {
+  "from": "lesson_ja_l29_v4",
+  "to": "word_ja_ようやく"
+ },
+ {
+  "from": "lesson_ja_l29_v5",
+  "to": "word_ja_全員"
+ },
+ {
+  "from": "lesson_ja_l29_v6",
+  "to": "word_ja_頃"
+ },
+ {
+  "from": "lesson_ja_l29_v7",
+  "to": "word_ja_そもそも"
+ },
+ {
+  "from": "lesson_ja_l29_v8",
+  "to": "word_ja_空気"
+ },
+ {
+  "from": "lesson_ja_l29_v9",
+  "to": "word_ja_再び"
+ },
+ {
+  "from": "lesson_ja_l2_d0",
+  "to": "cphrase_ja_5"
+ },
+ {
+  "from": "lesson_ja_l2_d1",
+  "to": "cphrase_ja_6"
+ },
+ {
+  "from": "lesson_ja_l2_d2",
+  "to": "cphrase_ja_7"
+ },
+ {
+  "from": "lesson_ja_l2_d3",
+  "to": "cphrase_ja_8"
+ },
+ {
+  "from": "lesson_ja_l2_v0",
+  "to": "word_ja_くれる"
+ },
+ {
+  "from": "lesson_ja_l2_v1",
+  "to": "word_ja_やる"
+ },
+ {
+  "from": "lesson_ja_l2_v10",
+  "to": "word_ja_お"
+ },
+ {
+  "from": "lesson_ja_l2_v11",
+  "to": "word_ja_自分"
+ },
+ {
+  "from": "lesson_ja_l2_v12",
+  "to": "word_ja_知る"
+ },
+ {
+  "from": "lesson_ja_l2_v13",
+  "to": "word_ja_今"
+ },
+ {
+  "from": "lesson_ja_l2_v14",
+  "to": "word_ja_聞く"
+ },
+ {
+  "from": "lesson_ja_l2_v15",
+  "to": "word_ja_何"
+ },
+ {
+  "from": "lesson_ja_l2_v16",
+  "to": "word_ja_前"
+ },
+ {
+  "from": "lesson_ja_l2_v17",
+  "to": "word_ja_出る"
+ },
+ {
+  "from": "lesson_ja_l2_v2",
+  "to": "word_ja_まで"
+ },
+ {
+  "from": "lesson_ja_l2_v3",
+  "to": "word_ja_もの"
+ },
+ {
+  "from": "lesson_ja_l2_v4",
+  "to": "word_ja_行く"
+ },
+ {
+  "from": "lesson_ja_l2_v5",
+  "to": "word_ja_そんな"
+ },
+ {
+  "from": "lesson_ja_l2_v6",
+  "to": "word_ja_あの"
+ },
+ {
+  "from": "lesson_ja_l2_v7",
+  "to": "word_ja_しまう"
+ },
+ {
+  "from": "lesson_ja_l2_v8",
+  "to": "word_ja_人"
+ },
+ {
+  "from": "lesson_ja_l2_v9",
+  "to": "word_ja_ここ"
+ },
+ {
+  "from": "lesson_ja_l30_d0",
+  "to": "cphrase_ja_117"
+ },
+ {
+  "from": "lesson_ja_l30_d1",
+  "to": "cphrase_ja_118"
+ },
+ {
+  "from": "lesson_ja_l30_d2",
+  "to": "cphrase_ja_119"
+ },
+ {
+  "from": "lesson_ja_l30_d3",
+  "to": "cphrase_ja_120"
+ },
+ {
+  "from": "lesson_ja_l30_v0",
+  "to": "word_ja_さて"
+ },
+ {
+  "from": "lesson_ja_l30_v1",
+  "to": "word_ja_難しい"
+ },
+ {
+  "from": "lesson_ja_l30_v10",
+  "to": "word_ja_眠る"
+ },
+ {
+  "from": "lesson_ja_l30_v11",
+  "to": "word_ja_仲間"
+ },
+ {
+  "from": "lesson_ja_l30_v12",
+  "to": "word_ja_でない"
+ },
+ {
+  "from": "lesson_ja_l30_v13",
+  "to": "word_ja_さすがに"
+ },
+ {
+  "from": "lesson_ja_l30_v14",
+  "to": "word_ja_山"
+ },
+ {
+  "from": "lesson_ja_l30_v15",
+  "to": "word_ja_感情"
+ },
+ {
+  "from": "lesson_ja_l30_v16",
+  "to": "word_ja_ぐらい"
+ },
+ {
+  "from": "lesson_ja_l30_v17",
+  "to": "word_ja_結構"
+ },
+ {
+  "from": "lesson_ja_l30_v2",
+  "to": "word_ja_向こう"
+ },
+ {
+  "from": "lesson_ja_l30_v3",
+  "to": "word_ja_神"
+ },
+ {
+  "from": "lesson_ja_l30_v4",
+  "to": "word_ja_気分"
+ },
+ {
+  "from": "lesson_ja_l30_v5",
+  "to": "word_ja_耳"
+ },
+ {
+  "from": "lesson_ja_l30_v6",
+  "to": "word_ja_通り"
+ },
+ {
+  "from": "lesson_ja_l30_v7",
+  "to": "word_ja_ひどい"
+ },
+ {
+  "from": "lesson_ja_l30_v8",
+  "to": "word_ja_むしろ"
+ },
+ {
+  "from": "lesson_ja_l30_v9",
+  "to": "word_ja_飛ぶ"
+ },
+ {
+  "from": "lesson_ja_l3_d0",
+  "to": "cphrase_ja_9"
+ },
+ {
+  "from": "lesson_ja_l3_d1",
+  "to": "cphrase_ja_10"
+ },
+ {
+  "from": "lesson_ja_l3_d2",
+  "to": "cphrase_ja_11"
+ },
+ {
+  "from": "lesson_ja_l3_d3",
+  "to": "cphrase_ja_12"
+ },
+ {
+  "from": "lesson_ja_l3_v0",
+  "to": "word_ja_中"
+ },
+ {
+  "from": "lesson_ja_l3_v1",
+  "to": "word_ja_顔"
+ },
+ {
+  "from": "lesson_ja_l3_v10",
+  "to": "word_ja_そこ"
+ },
+ {
+  "from": "lesson_ja_l3_v11",
+  "to": "word_ja_待つ"
+ },
+ {
+  "from": "lesson_ja_l3_v12",
+  "to": "word_ja_ところ"
+ },
+ {
+  "from": "lesson_ja_l3_v13",
+  "to": "word_ja_たち"
+ },
+ {
+  "from": "lesson_ja_l3_v14",
+  "to": "word_ja_こんな"
+ },
+ {
+  "from": "lesson_ja_l3_v15",
+  "to": "word_ja_持つ"
+ },
+ {
+  "from": "lesson_ja_l3_v16",
+  "to": "word_ja_声"
+ },
+ {
+  "from": "lesson_ja_l3_v17",
+  "to": "word_ja_もらう"
+ },
+ {
+  "from": "lesson_ja_l3_v2",
+  "to": "word_ja_また"
+ },
+ {
+  "from": "lesson_ja_l3_v3",
+  "to": "word_ja_考える"
+ },
+ {
+  "from": "lesson_ja_l3_v4",
+  "to": "word_ja_どう"
+ },
+ {
+  "from": "lesson_ja_l3_v5",
+  "to": "word_ja_ため"
+ },
+ {
+  "from": "lesson_ja_l3_v6",
+  "to": "word_ja_まだ"
+ },
+ {
+  "from": "lesson_ja_l3_v7",
+  "to": "word_ja_ちょっと"
+ },
+ {
+  "from": "lesson_ja_l3_v8",
+  "to": "word_ja_できる"
+ },
+ {
+  "from": "lesson_ja_l3_v9",
+  "to": "word_ja_話"
+ },
+ {
+  "from": "lesson_ja_l4_d0",
+  "to": "cphrase_ja_13"
+ },
+ {
+  "from": "lesson_ja_l4_d1",
+  "to": "cphrase_ja_14"
+ },
+ {
+  "from": "lesson_ja_l4_d2",
+  "to": "cphrase_ja_15"
+ },
+ {
+  "from": "lesson_ja_l4_d3",
+  "to": "cphrase_ja_16"
+ },
+ {
+  "from": "lesson_ja_l4_v0",
+  "to": "word_ja_入る"
+ },
+ {
+  "from": "lesson_ja_l4_v1",
+  "to": "word_ja_手"
+ },
+ {
+  "from": "lesson_ja_l4_v10",
+  "to": "word_ja_言葉"
+ },
+ {
+  "from": "lesson_ja_l4_v11",
+  "to": "word_ja_らしい"
+ },
+ {
+  "from": "lesson_ja_l4_v12",
+  "to": "word_ja_など"
+ },
+ {
+  "from": "lesson_ja_l4_v13",
+  "to": "word_ja_ただ"
+ },
+ {
+  "from": "lesson_ja_l4_v14",
+  "to": "word_ja_違う"
+ },
+ {
+  "from": "lesson_ja_l4_v15",
+  "to": "word_ja_使う"
+ },
+ {
+  "from": "lesson_ja_l4_v16",
+  "to": "word_ja_少し"
+ },
+ {
+  "from": "lesson_ja_l4_v17",
+  "to": "word_ja_時"
+ },
+ {
+  "from": "lesson_ja_l4_v2",
+  "to": "word_ja_見える"
+ },
+ {
+  "from": "lesson_ja_l4_v3",
+  "to": "word_ja_方"
+ },
+ {
+  "from": "lesson_ja_l4_v4",
+  "to": "word_ja_目"
+ },
+ {
+  "from": "lesson_ja_l4_v5",
+  "to": "word_ja_男"
+ },
+ {
+  "from": "lesson_ja_l4_v6",
+  "to": "word_ja_本当"
+ },
+ {
+  "from": "lesson_ja_l4_v7",
+  "to": "word_ja_あなた"
+ },
+ {
+  "from": "lesson_ja_l4_v8",
+  "to": "word_ja_今日"
+ },
+ {
+  "from": "lesson_ja_l4_v9",
+  "to": "word_ja_ほど"
+ },
+ {
+  "from": "lesson_ja_l5_d0",
+  "to": "cphrase_ja_17"
+ },
+ {
+  "from": "lesson_ja_l5_d1",
+  "to": "cphrase_ja_18"
+ },
+ {
+  "from": "lesson_ja_l5_d2",
+  "to": "cphrase_ja_19"
+ },
+ {
+  "from": "lesson_ja_l5_d3",
+  "to": "cphrase_ja_20"
+ },
+ {
+  "from": "lesson_ja_l5_v0",
+  "to": "word_ja_家"
+ },
+ {
+  "from": "lesson_ja_l5_v1",
+  "to": "word_ja_あれ"
+ },
+ {
+  "from": "lesson_ja_l5_v10",
+  "to": "word_ja_どこ"
+ },
+ {
+  "from": "lesson_ja_l5_v11",
+  "to": "word_ja_悪い"
+ },
+ {
+  "from": "lesson_ja_l5_v12",
+  "to": "word_ja_時間"
+ },
+ {
+  "from": "lesson_ja_l5_v13",
+  "to": "word_ja_部屋"
+ },
+ {
+  "from": "lesson_ja_l5_v14",
+  "to": "word_ja_わけ"
+ },
+ {
+  "from": "lesson_ja_l5_v15",
+  "to": "word_ja_おく"
+ },
+ {
+  "from": "lesson_ja_l5_v16",
+  "to": "word_ja_作る"
+ },
+ {
+  "from": "lesson_ja_l5_v17",
+  "to": "word_ja_まま"
+ },
+ {
+  "from": "lesson_ja_l5_v2",
+  "to": "word_ja_彼"
+ },
+ {
+  "from": "lesson_ja_l5_v3",
+  "to": "word_ja_よい"
+ },
+ {
+  "from": "lesson_ja_l5_v4",
+  "to": "word_ja_人間"
+ },
+ {
+  "from": "lesson_ja_l5_v5",
+  "to": "word_ja_同じ"
+ },
+ {
+  "from": "lesson_ja_l5_v6",
+  "to": "word_ja_上"
+ },
+ {
+  "from": "lesson_ja_l5_v7",
+  "to": "word_ja_よく"
+ },
+ {
+  "from": "lesson_ja_l5_v8",
+  "to": "word_ja_よう"
+ },
+ {
+  "from": "lesson_ja_l5_v9",
+  "to": "word_ja_出す"
+ },
+ {
+  "from": "lesson_ja_l6_d0",
+  "to": "cphrase_ja_21"
+ },
+ {
+  "from": "lesson_ja_l6_d1",
+  "to": "cphrase_ja_22"
+ },
+ {
+  "from": "lesson_ja_l6_d2",
+  "to": "cphrase_ja_23"
+ },
+ {
+  "from": "lesson_ja_l6_d3",
+  "to": "cphrase_ja_24"
+ },
+ {
+  "from": "lesson_ja_l6_v0",
+  "to": "word_ja_早い"
+ },
+ {
+  "from": "lesson_ja_l6_v1",
+  "to": "word_ja_感じる"
+ },
+ {
+  "from": "lesson_ja_l6_v10",
+  "to": "word_ja_いつも"
+ },
+ {
+  "from": "lesson_ja_l6_v11",
+  "to": "word_ja_会う"
+ },
+ {
+  "from": "lesson_ja_l6_v12",
+  "to": "word_ja_ばかり"
+ },
+ {
+  "from": "lesson_ja_l6_v13",
+  "to": "word_ja_一緒に"
+ },
+ {
+  "from": "lesson_ja_l6_v14",
+  "to": "word_ja_好き"
+ },
+ {
+  "from": "lesson_ja_l6_v15",
+  "to": "word_ja_相手"
+ },
+ {
+  "from": "lesson_ja_l6_v16",
+  "to": "word_ja_帰る"
+ },
+ {
+  "from": "lesson_ja_l6_v17",
+  "to": "word_ja_みんな"
+ },
+ {
+  "from": "lesson_ja_l6_v2",
+  "to": "word_ja_呼ぶ"
+ },
+ {
+  "from": "lesson_ja_l6_v3",
+  "to": "word_ja_話す"
+ },
+ {
+  "from": "lesson_ja_l6_v4",
+  "to": "word_ja_何か"
+ },
+ {
+  "from": "lesson_ja_l6_v5",
+  "to": "word_ja_死ぬ"
+ },
+ {
+  "from": "lesson_ja_l6_v6",
+  "to": "word_ja_姿"
+ },
+ {
+  "from": "lesson_ja_l6_v7",
+  "to": "word_ja_頭"
+ },
+ {
+  "from": "lesson_ja_l6_v8",
+  "to": "word_ja_強い"
+ },
+ {
+  "from": "lesson_ja_l6_v9",
+  "to": "word_ja_こう"
+ },
+ {
+  "from": "lesson_ja_l7_d0",
+  "to": "cphrase_ja_25"
+ },
+ {
+  "from": "lesson_ja_l7_d1",
+  "to": "cphrase_ja_26"
+ },
+ {
+  "from": "lesson_ja_l7_d2",
+  "to": "cphrase_ja_27"
+ },
+ {
+  "from": "lesson_ja_l7_d3",
+  "to": "cphrase_ja_28"
+ },
+ {
+  "from": "lesson_ja_l7_v0",
+  "to": "word_ja_音"
+ },
+ {
+  "from": "lesson_ja_l7_v1",
+  "to": "word_ja_うち"
+ },
+ {
+  "from": "lesson_ja_l7_v10",
+  "to": "word_ja_戻る"
+ },
+ {
+  "from": "lesson_ja_l7_v11",
+  "to": "word_ja_力"
+ },
+ {
+  "from": "lesson_ja_l7_v12",
+  "to": "word_ja_仕事"
+ },
+ {
+  "from": "lesson_ja_l7_v13",
+  "to": "word_ja_必要"
+ },
+ {
+  "from": "lesson_ja_l7_v14",
+  "to": "word_ja_続ける"
+ },
+ {
+  "from": "lesson_ja_l7_v15",
+  "to": "word_ja_つもり"
+ },
+ {
+  "from": "lesson_ja_l7_v16",
+  "to": "word_ja_どんな"
+ },
+ {
+  "from": "lesson_ja_l7_v17",
+  "to": "word_ja_誰"
+ },
+ {
+  "from": "lesson_ja_l7_v2",
+  "to": "word_ja_ずっと"
+ },
+ {
+  "from": "lesson_ja_l7_v3",
+  "to": "word_ja_食べる"
+ },
+ {
+  "from": "lesson_ja_l7_v4",
+  "to": "word_ja_場所"
+ },
+ {
+  "from": "lesson_ja_l7_v5",
+  "to": "word_ja_あと"
+ },
+ {
+  "from": "lesson_ja_l7_v6",
+  "to": "word_ja_どうして"
+ },
+ {
+  "from": "lesson_ja_l7_v7",
+  "to": "word_ja_もっと"
+ },
+ {
+  "from": "lesson_ja_l7_v8",
+  "to": "word_ja_世界"
+ },
+ {
+  "from": "lesson_ja_l7_v9",
+  "to": "word_ja_あげる"
+ },
+ {
+  "from": "lesson_ja_l8_d0",
+  "to": "cphrase_ja_29"
+ },
+ {
+  "from": "lesson_ja_l8_d1",
+  "to": "cphrase_ja_30"
+ },
+ {
+  "from": "lesson_ja_l8_d2",
+  "to": "cphrase_ja_31"
+ },
+ {
+  "from": "lesson_ja_l8_d3",
+  "to": "cphrase_ja_32"
+ },
+ {
+  "from": "lesson_ja_l8_v0",
+  "to": "word_ja_による"
+ },
+ {
+  "from": "lesson_ja_l8_v1",
+  "to": "word_ja_次"
+ },
+ {
+  "from": "lesson_ja_l8_v10",
+  "to": "word_ja_きっと"
+ },
+ {
+  "from": "lesson_ja_l8_v11",
+  "to": "word_ja_意味"
+ },
+ {
+  "from": "lesson_ja_l8_v12",
+  "to": "word_ja_終わる"
+ },
+ {
+  "from": "lesson_ja_l8_v13",
+  "to": "word_ja_変わる"
+ },
+ {
+  "from": "lesson_ja_l8_v14",
+  "to": "word_ja_すぐに"
+ },
+ {
+  "from": "lesson_ja_l8_v15",
+  "to": "word_ja_気持ち"
+ },
+ {
+  "from": "lesson_ja_l8_v16",
+  "to": "word_ja_始める"
+ },
+ {
+  "from": "lesson_ja_l8_v17",
+  "to": "word_ja_大きい"
+ },
+ {
+  "from": "lesson_ja_l8_v2",
+  "to": "word_ja_かける"
+ },
+ {
+  "from": "lesson_ja_l8_v3",
+  "to": "word_ja_見せる"
+ },
+ {
+  "from": "lesson_ja_l8_v4",
+  "to": "word_ja_動く"
+ },
+ {
+  "from": "lesson_ja_l8_v5",
+  "to": "word_ja_となる"
+ },
+ {
+  "from": "lesson_ja_l8_v6",
+  "to": "word_ja_はず"
+ },
+ {
+  "from": "lesson_ja_l8_v7",
+  "to": "word_ja_子"
+ },
+ {
+  "from": "lesson_ja_l8_v8",
+  "to": "word_ja_歩く"
+ },
+ {
+  "from": "lesson_ja_l8_v9",
+  "to": "word_ja_こちら"
+ },
+ {
+  "from": "lesson_ja_l9_d0",
+  "to": "cphrase_ja_33"
+ },
+ {
+  "from": "lesson_ja_l9_d1",
+  "to": "cphrase_ja_34"
+ },
+ {
+  "from": "lesson_ja_l9_d2",
+  "to": "cphrase_ja_35"
+ },
+ {
+  "from": "lesson_ja_l9_d3",
+  "to": "cphrase_ja_36"
+ },
+ {
+  "from": "lesson_ja_l9_v0",
+  "to": "word_ja_ことになる"
+ },
+ {
+  "from": "lesson_ja_l9_v1",
+  "to": "word_ja_向かう"
+ },
+ {
+  "from": "lesson_ja_l9_v10",
+  "to": "word_ja_やめる"
+ },
+ {
+  "from": "lesson_ja_l9_v11",
+  "to": "word_ja_外"
+ },
+ {
+  "from": "lesson_ja_l9_v12",
+  "to": "word_ja_間"
+ },
+ {
+  "from": "lesson_ja_l9_v13",
+  "to": "word_ja_様子"
+ },
+ {
+  "from": "lesson_ja_l9_v14",
+  "to": "word_ja_忘れる"
+ },
+ {
+  "from": "lesson_ja_l9_v15",
+  "to": "word_ja_口"
+ },
+ {
+  "from": "lesson_ja_l9_v16",
+  "to": "word_ja_名前"
+ },
+ {
+  "from": "lesson_ja_l9_v17",
+  "to": "word_ja_大きな"
+ },
+ {
+  "from": "lesson_ja_l9_v2",
+  "to": "word_ja_受ける"
+ },
+ {
+  "from": "lesson_ja_l9_v3",
+  "to": "word_ja_日"
+ },
+ {
+  "from": "lesson_ja_l9_v4",
+  "to": "word_ja_年"
+ },
+ {
+  "from": "lesson_ja_l9_v5",
+  "to": "word_ja_心配"
+ },
+ {
+  "from": "lesson_ja_l9_v6",
+  "to": "word_ja_教える"
+ },
+ {
+  "from": "lesson_ja_l9_v7",
+  "to": "word_ja_心"
+ },
+ {
+  "from": "lesson_ja_l9_v8",
+  "to": "word_ja_立つ"
+ },
+ {
+  "from": "lesson_ja_l9_v9",
+  "to": "word_ja_おる"
+ }
+]
