@@ -19308,16 +19308,243 @@ let currentWorldId = 'everyday';
    Worlds. Picking Japanese showed 73 Vietnamese packs, a Vietnamese
    phrasebook, and a persona called "Xe Ôm Driver". A language with no Worlds
    of its own now gets none, and the tab says so rather than lying. */
+/* ===================== JAPANESE WORLDS — TOURIST =====================
+   Note the register shift. The LESSONS teach plain form, because that is how
+   friends talk and what the JPDB corpus is made of. These Worlds are the
+   opposite case: you are talking to station staff, waiters and hotel desks —
+   the exact situations concept lesson ja_c3 warns you not to use plain form in.
+   So everything here is です/ます, and the two registers sit side by side in
+   one app on purpose. Plain form among friends, polite form with staff. */
+
+const WORLDS_JA = [
+  { id:'jw_transit', icon:'🚉', title:'Getting Around', tagline:'Trains, IC cards, transfers, and asking which platform before the doors close.', tags:['Trains','Tickets','Taxis'] },
+  { id:'jw_food',    icon:'🍜', title:'Eating Out',      tagline:'Ticket machines, izakaya, allergies, and paying at the till by the door.', tags:['Ordering','At the Table','Paying'] },
+  { id:'jw_stay',    icon:'🏨', title:'Staying Over',    tagline:'Check-in, ryokan, onsen rules, and asking to leave your bags.', tags:['Check-in','In the Room','Onsen'] },
+];
+
+const PACKS_JA = [
+  { id:'jp1', icon:'🎫', title:'Tickets and IC Cards', tag:'Tickets', color:'stool-blue', cards:[
+    {v:'このカード、チャージできますか。', p:'このカード、チャージできますか。', e:'Can I top this card up?'},
+    {v:'切符はどこで買えますか。', p:'きっぷはどこでかえますか。', e:'Where can I buy a ticket?'},
+    {v:'東京駅まで、いくらですか。', p:'とうきょうえきまで、いくらですか。', e:'How much to Tokyo Station?'},
+    {v:'一日券はありますか。', p:'いちにちけんはありますか。', e:'Do you have a day pass?'},
+    {v:'現金でお願いします。', p:'げんきんでおねがいします。', e:'Cash, please.'},
+    {v:'この機械の使い方がわかりません。', p:'このきかいのつかいかたがわかりません。', e:'I don’t know how to use this machine.'},
+    {v:'英語のボタンはどこですか。', p:'えいごのボタンはどこですか。', e:'Where’s the English button?'}]},
+
+  { id:'jp2', icon:'🚄', title:'Platforms and Transfers', tag:'Trains', color:'stool-green', cards:[
+    {v:'渋谷はこの電車で行けますか。', p:'しぶやはこのでんしゃでいけますか。', e:'Does this train go to Shibuya?'},
+    {v:'何番線ですか。', p:'なんばんせんですか。', e:'Which platform?'},
+    {v:'次は何時に出ますか。', p:'つぎはなんじにでますか。', e:'What time’s the next one?'},
+    {v:'どこで乗り換えますか。', p:'どこでのりかえますか。', e:'Where do I change?'},
+    {v:'これは各駅停車ですか。', p:'これはかくえきていしゃですか。', e:'Is this the local train?'},
+    {v:'反対方向でした。すみません。', p:'はんたいほうこうでした。すみません。', e:'I was going the wrong way. Sorry.'},
+    {v:'終電は何時ですか。', p:'しゅうでんはなんじですか。', e:'What time’s the last train?'}]},
+
+  { id:'jp3', icon:'🚕', title:'Taxis and Walking', tag:'Taxis', color:'stool-gold', cards:[
+    {v:'この住所までお願いします。', p:'このじゅうしょまでおねがいします。', e:'To this address, please.'},
+    {v:'ここで大丈夫です。', p:'ここでだいじょうぶです。', e:'Here’s fine.'},
+    {v:'カードは使えますか。', p:'カードはつかえますか。', e:'Can I pay by card?'},
+    {v:'歩いてどのくらいですか。', p:'あるいてどのくらいですか。', e:'How long is it on foot?'},
+    {v:'ちょっと道に迷いました。', p:'ちょっとみちにまよいました。', e:'I’ve got a bit lost.'},
+    {v:'ここはどこですか。', p:'ここはどこですか。', e:'Where am I?'},
+    {v:'領収書をください。', p:'りょうしゅうしょをください。', e:'Could I have a receipt?'}]},
+
+  { id:'jp4', icon:'🎟️', title:'At the Ticket Machine', tag:'Ordering', color:'stool-blue', cards:[
+    {v:'食券を買ってから座りますか。', p:'しょっけんをかってからすわりますか。', e:'Do I buy a ticket before sitting down?'},
+    {v:'おすすめはどれですか。', p:'おすすめはどれですか。', e:'What do you recommend?'},
+    {v:'これをお願いします。', p:'これをおねがいします。', e:'This one, please.'},
+    {v:'大盛りにできますか。', p:'おおもりにできますか。', e:'Can I have a large portion?'},
+    {v:'辛くしないでください。', p:'からくしないでください。', e:'Not spicy, please.'},
+    {v:'写真のものと同じでいいです。', p:'しゃしんのものとおなじでいいです。', e:'The same as the picture is fine.'},
+    {v:'一人です。', p:'ひとりです。', e:'Just me.'}]},
+
+  { id:'jp5', icon:'🍶', title:'At the Table', tag:'At the Table', color:'stool-green', cards:[
+    {v:'すみません、注文お願いします。', p:'すみません、ちゅうもんおねがいします。', e:'Excuse me — we’d like to order.'},
+    {v:'とりあえず生で。', p:'とりあえずなまで。', e:'A draught to start, please.'},
+    {v:'お水をもらえますか。', p:'おみずをもらえますか。', e:'Could I get some water?'},
+    {v:'これは何が入っていますか。', p:'これはなにがはいっていますか。', e:'What’s in this?'},
+    {v:'卵はだめなんです。', p:'たまごはだめなんです。', e:'I can’t have egg.'},
+    {v:'とても美味しかったです。', p:'とてもおいしかったです。', e:'That was really good.'},
+    {v:'取り皿をお願いします。', p:'とりざらをおねがいします。', e:'Could we have small plates?'}]},
+
+  { id:'jp6', icon:'💴', title:'Paying Up', tag:'Paying', color:'stool-gold', cards:[
+    {v:'お会計お願いします。', p:'おかいけいおねがいします。', e:'The bill, please.'},
+    {v:'別々でお願いできますか。', p:'べつべつでおねがいできますか。', e:'Could we pay separately?'},
+    {v:'カードは使えますか。', p:'カードはつかえますか。', e:'Do you take cards?'},
+    {v:'レジはあちらですか。', p:'レジはあちらですか。', e:'Is the till over there?'},
+    {v:'ごちそうさまでした。', p:'ごちそうさまでした。', e:'Thanks for the meal.'},
+    {v:'おつりは大丈夫です。', p:'おつりはだいじょうぶです。', e:'Keep the change.'},
+    {v:'袋はいりません。', p:'ふくろはいりません。', e:'I don’t need a bag.'}]},
+
+  { id:'jp7', icon:'🛎️', title:'Checking In', tag:'Check-in', color:'stool-blue', cards:[
+    {v:'予約している田中です。', p:'よやくしているたなかです。', e:'I have a booking under Tanaka.'},
+    {v:'チェックインは何時からですか。', p:'チェックインはなんじからですか。', e:'What time does check-in start?'},
+    {v:'荷物を預かってもらえますか。', p:'にもつをあずかってもらえますか。', e:'Could you hold my bags?'},
+    {v:'朝食は付いていますか。', p:'ちょうしょくはついていますか。', e:'Is breakfast included?'},
+    {v:'Wi-Fiのパスワードを教えてください。', p:'Wi-Fiのパスワードをおしえてください。', e:'Could you tell me the wifi password?'},
+    {v:'もう一泊できますか。', p:'もういっぱくできますか。', e:'Could I stay one more night?'},
+    {v:'チェックアウトは何時ですか。', p:'チェックアウトはなんじですか。', e:'What time’s check-out?'}]},
+
+  { id:'jp8', icon:'🛏️', title:'In the Room', tag:'In the Room', color:'stool-green', cards:[
+    {v:'エアコンがつきません。', p:'エアコンがつきません。', e:'The air conditioning won’t come on.'},
+    {v:'お湯が出ないんですが。', p:'おゆがでないんですが。', e:'There’s no hot water.'},
+    {v:'タオルをもう一枚もらえますか。', p:'タオルをもういちまいもらえますか。', e:'Could I have another towel?'},
+    {v:'隣の部屋がうるさいです。', p:'となりのへやがうるさいです。', e:'The next room is noisy.'},
+    {v:'鍵をなくしました。', p:'かぎをなくしました。', e:'I’ve lost my key.'},
+    {v:'部屋を変えてもらえますか。', p:'へやをかえてもらえますか。', e:'Could I change rooms?'},
+    {v:'掃除は要りません。', p:'そうじはいりません。', e:'No cleaning needed, thanks.'}]},
+
+  { id:'jp9', icon:'♨️', title:'The Onsen Rules', tag:'Onsen', color:'stool-gold', cards:[
+    {v:'初めてなんですが、大丈夫ですか。', p:'はじめてなんですが、だいじょうぶですか。', e:'It’s my first time — is that all right?'},
+    {v:'タオルは持って入れますか。', p:'タオルはもってはいれますか。', e:'Can I take the towel in?'},
+    {v:'先に体を洗います。', p:'さきにからだをあらいます。', e:'I’ll wash first.'},
+    {v:'タトゥーがあるんですが。', p:'タトゥーがあるんですが。', e:'I have a tattoo — is that a problem?'},
+    {v:'ロッカーはどこですか。', p:'ロッカーはどこですか。', e:'Where are the lockers?'},
+    {v:'ちょっと熱いですね。', p:'ちょっとあついですね。', e:'It’s a bit hot, isn’t it.'},
+    {v:'水は飲めますか。', p:'みずはのめますか。', e:'Is the water drinkable?'}]},
+];
+
+const SOS_PHRASES_JA = {
+  jw_transit: [
+    {v:'すみません', p:'すみません', e:'Excuse me / sorry'},
+    {v:'日本語が少ししかできません', p:'にほんごがすこししかできません', e:'I only speak a little Japanese'},
+    {v:'英語が話せる人はいますか', p:'えいごがはなせるひとはいますか', e:'Is there anyone who speaks English?'},
+    {v:'ゆっくりお願いします', p:'ゆっくりおねがいします', e:'Slowly, please'},
+    {v:'もう一度お願いします', p:'もういちどおねがいします', e:'Once more, please'},
+    {v:'これはどこ行きですか', p:'これはどこいきですか', e:'Where does this go?'},
+    {v:'この駅で降ります', p:'このえきでおります', e:'I get off at this station'},
+    {v:'乗り過ごしました', p:'のりすごしました', e:'I missed my stop'},
+    {v:'切符をなくしました', p:'きっぷをなくしました', e:'I’ve lost my ticket'},
+    {v:'ここに行きたいです', p:'ここにいきたいです', e:'I want to go here'},
+    {v:'書いてもらえますか', p:'かいてもらえますか', e:'Could you write it down?'},
+    {v:'地図で教えてください', p:'ちずでおしえてください', e:'Show me on the map, please'},
+    {v:'助かりました', p:'たすかりました', e:'That’s a big help'},
+    {v:'ありがとうございます', p:'ありがとうございます', e:'Thank you'},
+  ],
+  jw_food: [
+    {v:'すみません', p:'すみません', e:'Excuse me'},
+    {v:'メニューをお願いします', p:'メニューをおねがいします', e:'The menu, please'},
+    {v:'英語のメニューはありますか', p:'えいごのメニューはありますか', e:'Do you have an English menu?'},
+    {v:'これをください', p:'これをください', e:'I’ll have this'},
+    {v:'肉は食べられません', p:'にくはたべられません', e:'I can’t eat meat'},
+    {v:'アレルギーがあります', p:'アレルギーがあります', e:'I have an allergy'},
+    {v:'辛いですか', p:'からいですか', e:'Is it spicy?'},
+    {v:'おかわりください', p:'おかわりください', e:'Another one, please'},
+    {v:'お手洗いはどこですか', p:'おてあらいはどこですか', e:'Where’s the toilet?'},
+    {v:'持ち帰りできますか', p:'もちかえりできますか', e:'Can I take it away?'},
+    {v:'お会計お願いします', p:'おかいけいおねがいします', e:'The bill, please'},
+    {v:'カードは使えますか', p:'カードはつかえますか', e:'Do you take cards?'},
+    {v:'ごちそうさまでした', p:'ごちそうさまでした', e:'Thanks for the meal'},
+    {v:'美味しかったです', p:'おいしかったです', e:'It was delicious'},
+  ],
+  jw_stay: [
+    {v:'予約しています', p:'よやくしています', e:'I have a reservation'},
+    {v:'名前はロボです', p:'なまえはロボです', e:'My name is Lobo'},
+    {v:'荷物を預かってください', p:'にもつをあずかってください', e:'Please hold my bags'},
+    {v:'部屋の鍵をお願いします', p:'へやのかぎをおねがいします', e:'My room key, please'},
+    {v:'何号室ですか', p:'なんごうしつですか', e:'Which room number?'},
+    {v:'エレベーターはどこですか', p:'エレベーターはどこですか', e:'Where’s the lift?'},
+    {v:'朝食は何時からですか', p:'ちょうしょくはなんじからですか', e:'What time is breakfast?'},
+    {v:'お湯が出ません', p:'おゆがでません', e:'There’s no hot water'},
+    {v:'タオルをください', p:'タオルをください', e:'Could I have a towel'},
+    {v:'部屋が寒いです', p:'へやがさむいです', e:'The room is cold'},
+    {v:'鍵をなくしました', p:'かぎをなくしました', e:'I’ve lost my key'},
+    {v:'タクシーを呼んでもらえますか', p:'タクシーをよんでもらえますか', e:'Could you call me a taxi?'},
+    {v:'チェックアウトお願いします', p:'チェックアウトおねがいします', e:'I’d like to check out'},
+    {v:'お世話になりました', p:'おせわになりました', e:'Thank you for having me'},
+  ],
+};
+
+const CHAT_PERSONAS_JA = {
+  jw_transit: [
+    { name:'駅員 (Station Staff)', icon:'🚉',
+      opener:{v:'はい、どうされましたか。', e:'Yes — what can I do for you?'},
+      turns:[
+        {youOptions:[
+          {v:'すみません、渋谷はどう行きますか。', e:'Excuse me, how do I get to Shibuya?', correct:true},
+          {v:'渋谷。', e:'Shibuya.', correct:false, tip:'A bare place name is what you say to a taxi, not to a person you are asking for help. すみません plus a question costs two seconds.'},
+          {v:'渋谷に行け。', e:'Go to Shibuya.', correct:false, tip:'That is an imperative aimed at him. Plain-form commands to staff are the exact case concept lesson 3 warns about.'}],
+         them:{v:'三番線の山手線です。次は四分後ですね。', e:'The Yamanote line, platform 3. Next one’s in four minutes.'}},
+        {youOptions:[
+          {v:'すみません、もう一度お願いします。', e:'Sorry, could you say that again?', correct:true},
+          {v:'わかりません。', e:'I don’t understand.', correct:false, tip:'True, but it leaves him guessing which part lost you. Asking him to repeat gives him something to do.'},
+          {v:'はい、はい。', e:'Yes, yes.', correct:false, tip:'Nodding through it is how you end up on the wrong platform.'}],
+         them:{v:'三番線です。あちらの階段を降りてください。', e:'Platform 3. Down those stairs over there.'}},
+        {youOptions:[
+          {v:'このカードで乗れますか。', e:'Can I use this card?', correct:true},
+          {v:'カード。', e:'Card.', correct:false, tip:'He will probably work it out, but a full question gets a full answer.'},
+          {v:'金がない。', e:'No money.', correct:false, tip:'金 without the お is blunt, and this is not the situation for it.'}],
+         them:{v:'はい、そのままタッチして大丈夫ですよ。', e:'Yes, just tap it as you go through.'}},
+        {youOptions:[
+          {v:'ありがとうございます。助かりました。', e:'Thank you, that’s a big help.', correct:true},
+          {v:'ありがとう。', e:'Thanks.', correct:false, tip:'Fine with a friend. To staff who have just spent two minutes on you, the ございます is what makes it land.'},
+          {v:'うん。', e:'Mm.', correct:false, tip:'Casual agreement noise, aimed at someone doing you a service.'}],
+         them:{v:'いいえ、お気をつけて。', e:'Not at all — take care.'}}]},
+  ],
+  jw_food: [
+    { name:'店員 (Waiter)', icon:'🍜',
+      opener:{v:'いらっしゃいませ。何名様ですか。', e:'Welcome. How many of you?'},
+      turns:[
+        {youOptions:[
+          {v:'二人です。', e:'Two of us.', correct:true},
+          {v:'二。', e:'Two.', correct:false, tip:'The bare number works but sounds abrupt. 二人です is barely longer.'},
+          {v:'知らない。', e:'Dunno.', correct:false, tip:'He is asking how many people are with you, which you do know.'}],
+         them:{v:'こちらのお席へどうぞ。', e:'This way to your table, please.'}},
+        {youOptions:[
+          {v:'おすすめは何ですか。', e:'What do you recommend?', correct:true},
+          {v:'なんでもいい。', e:'Anything’s fine.', correct:false, tip:'Reads as not caring rather than being easy-going, and leaves him to guess.'},
+          {v:'まずい？', e:'Is it bad?', correct:false, tip:'Asking a waiter whether his food is bad is a joke that will not land.'}],
+         them:{v:'今日は魚が新しいですよ。焼き魚定食はいかがですか。', e:'The fish is fresh today. How about the grilled fish set?'}},
+        {youOptions:[
+          {v:'じゃあ、それをお願いします。', e:'That, please, then.', correct:true},
+          {v:'それ。', e:'That.', correct:false, tip:'Pointing and grunting works and marks you out. お願いします is the whole difference.'},
+          {v:'いらない。', e:'Don’t want it.', correct:false, tip:'A flat refusal of something he just suggested. 別のものにします is the softer route.'}],
+         them:{v:'かしこまりました。少々お待ちください。', e:'Certainly. One moment, please.'}},
+        {youOptions:[
+          {v:'ごちそうさまでした。美味しかったです。', e:'Thanks for the meal — it was lovely.', correct:true},
+          {v:'お会計。', e:'Bill.', correct:false, tip:'You do need the bill, but ごちそうさま first is close to obligatory on the way out.'},
+          {v:'まあまあだった。', e:'It was all right.', correct:false, tip:'Honest and unnecessary. まあまあ to the person who cooked it is a small insult.'}],
+         them:{v:'ありがとうございました。またお越しください。', e:'Thank you. Please come again.'}}]},
+  ],
+  jw_stay: [
+    { name:'フロント (Front Desk)', icon:'🛎️',
+      opener:{v:'いらっしゃいませ。ご予約はございますか。', e:'Welcome. Do you have a reservation?'},
+      turns:[
+        {youOptions:[
+          {v:'はい、予約しています。ロボです。', e:'Yes, I have a booking. Lobo.', correct:true},
+          {v:'予約した。', e:'Booked.', correct:false, tip:'Plain past tense to a hotel desk. Same sentence, wrong register.'},
+          {v:'たぶん。', e:'Probably.', correct:false, tip:'You either booked or you did not, and he needs to know which.'}],
+         them:{v:'お待ちしておりました。こちらにご記入をお願いします。', e:'We’ve been expecting you. Please fill this in.'}},
+        {youOptions:[
+          {v:'すみません、ここは何を書きますか。', e:'Sorry, what do I write here?', correct:true},
+          {v:'読めない。', e:'Can’t read it.', correct:false, tip:'True and a dead end. Asking what goes in the box gets you moving.'},
+          {v:'いい。', e:'It’s fine.', correct:false, tip:'Leaving the form blank is not an option, and he will only ask again.'}],
+         them:{v:'お名前とご住所だけで結構です。', e:'Just your name and address is fine.'}},
+        {youOptions:[
+          {v:'荷物を預かってもらえますか。', e:'Could you hold my bags?', correct:true},
+          {v:'荷物。', e:'Bags.', correct:false, tip:'He will work it out, but もらえますか is the request that makes it a question rather than a statement.'},
+          {v:'荷物を持て。', e:'Carry my bags.', correct:false, tip:'A bare imperative. This is the register error the whole concept lesson is about.'}],
+         them:{v:'はい、お預かりします。こちらの番号札をどうぞ。', e:'Of course. Here’s your ticket for them.'}},
+        {youOptions:[
+          {v:'ありがとうございます。よろしくお願いします。', e:'Thank you — much appreciated.', correct:true},
+          {v:'どうも。', e:'Cheers.', correct:false, tip:'Not rude, just light for a first exchange at a hotel desk.'},
+          {v:'それで。', e:'And?', correct:false, tip:'Reads as impatience with someone who has just helped you.'}],
+         them:{v:'ごゆっくりどうぞ。', e:'Please enjoy your stay.'}}]},
+  ],
+};
+
 function worldsOwner(){
   if(state.language === 'yue') return 'yue';
   if(isVietnameseCourse()) return 'vi';
+  if(state.language === 'ja') return 'ja';
   return null;
 }
-function activeWorlds(){ const o=worldsOwner(); return o==='yue' ? WORLDS_YUE : o==='vi' ? WORLDS : []; }
-function activePacks(){ const o=worldsOwner(); return o==='yue' ? PACKS_YUE : o==='vi' ? PACKS : []; }
-function activeChatPersonas(){ const o=worldsOwner(); return o==='yue' ? CHAT_PERSONAS_YUE : o==='vi' ? CHAT_PERSONAS : {}; }
-function activeSosPhrases(){ const o=worldsOwner(); return o==='yue' ? SOS_PHRASES_YUE : o==='vi' ? SOS_PHRASES : {}; }
-function hasWorldsContent(){ return isVietnameseCourse() || state.language === 'yue'; }
+function activeWorlds(){ const o=worldsOwner(); return o==='yue' ? WORLDS_YUE : o==='vi' ? WORLDS : o==='ja' ? WORLDS_JA : []; }
+function activePacks(){ const o=worldsOwner(); return o==='yue' ? PACKS_YUE : o==='vi' ? PACKS : o==='ja' ? PACKS_JA : []; }
+function activeChatPersonas(){ const o=worldsOwner(); return o==='yue' ? CHAT_PERSONAS_YUE : o==='vi' ? CHAT_PERSONAS : o==='ja' ? CHAT_PERSONAS_JA : {}; }
+function activeSosPhrases(){ const o=worldsOwner(); return o==='yue' ? SOS_PHRASES_YUE : o==='vi' ? SOS_PHRASES : o==='ja' ? SOS_PHRASES_JA : {}; }
+function hasWorldsContent(){ return worldsOwner() !== null; }
 // currentWorldId belongs to whichever course is showing; switching languages has
 // to move it to a world that exists, or every Worlds panel renders empty.
 function normalizeWorldId(){

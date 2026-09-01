@@ -3168,12 +3168,28 @@
   "to": "word_ja_おる"
  },
  {
+  "from": "pack_jp3_2",
+  "to": "pack_jp6_2"
+ },
+ {
+  "from": "pack_jp7_2",
+  "to": "chat_jw_stay_0_t2_you0"
+ },
+ {
   "from": "word_ja_うるさい",
   "to": "slang_ja_うるさい"
  },
  {
   "from": "word_ja_くそ",
   "to": "slang_ja_くそ"
+ },
+ {
+  "from": "word_ja_すみません",
+  "to": "sos_jw_food_0"
+ },
+ {
+  "from": "word_ja_すみません",
+  "to": "sos_jw_transit_0"
  },
  {
   "from": "word_ja_てめえ",
