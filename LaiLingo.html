@@ -17664,10 +17664,20 @@ let currentWorldId = 'everyday';
 // Cantonese has its own. Pack/world/persona ids are distinct across the two
 // (yp1/yw_grow vs p1/everyday), so SRS ids never collide and no namespacing is
 // needed — a Vietnamese card and a Cantonese card can never share a key.
-function activeWorlds(){ return state.language === 'yue' ? WORLDS_YUE : WORLDS; }
-function activePacks(){ return state.language === 'yue' ? PACKS_YUE : PACKS; }
-function activeChatPersonas(){ return state.language === 'yue' ? CHAT_PERSONAS_YUE : CHAT_PERSONAS; }
-function activeSosPhrases(){ return state.language === 'yue' ? SOS_PHRASES_YUE : SOS_PHRASES; }
+/* These read "yue or Vietnamese", which meant every OTHER course - Mandarin,
+   Japanese, Korean, Thai, Tagalog, English, Spanish - served the Vietnamese
+   Worlds. Picking Japanese showed 73 Vietnamese packs, a Vietnamese
+   phrasebook, and a persona called "Xe Ôm Driver". A language with no Worlds
+   of its own now gets none, and the tab says so rather than lying. */
+function worldsOwner(){
+  if(state.language === 'yue') return 'yue';
+  if(isVietnameseCourse()) return 'vi';
+  return null;
+}
+function activeWorlds(){ const o=worldsOwner(); return o==='yue' ? WORLDS_YUE : o==='vi' ? WORLDS : []; }
+function activePacks(){ const o=worldsOwner(); return o==='yue' ? PACKS_YUE : o==='vi' ? PACKS : []; }
+function activeChatPersonas(){ const o=worldsOwner(); return o==='yue' ? CHAT_PERSONAS_YUE : o==='vi' ? CHAT_PERSONAS : {}; }
+function activeSosPhrases(){ const o=worldsOwner(); return o==='yue' ? SOS_PHRASES_YUE : o==='vi' ? SOS_PHRASES : {}; }
 function hasWorldsContent(){ return isVietnameseCourse() || state.language === 'yue'; }
 // currentWorldId belongs to whichever course is showing; switching languages has
 // to move it to a world that exists, or every Worlds panel renders empty.
