@@ -609,13 +609,25 @@
   .pr-scroll.guessing #prNoteWrap{order:4;}
   .pr-scroll.guessing #prDoneWrap{order:5;}
   .pr-scroll.guessing .pr-hero{display:none;}
-  .pr-target{background:var(--card,#141414);border:1px solid rgba(255,255,255,.08);
-    border-radius:16px;padding:16px 14px 14px;margin:0 0 14px;text-align:center;}
-  .pr-target-who{display:inline-block;font-size:11px;font-weight:800;color:var(--muted);
-    margin-right:8px;vertical-align:middle;}
-  .pr-target-text{margin:0 0 4px;font-size:19px;font-weight:800;line-height:1.5;}
-  .pr-target-rom{margin:0 0 6px;font-size:12.5px;color:var(--muted);
+  /* The practice overlay is near-black, but the app's default text colour is
+     dark ink for the cream screens. Anything dropped in here has to name its
+     own light colour or it disappears into the background. */
+  .pr-target{background:#12203a;border:1.5px solid rgba(255,255,255,.14);
+    border-radius:16px;padding:18px 14px 14px;margin:0 0 16px;text-align:center;
+    box-shadow:0 8px 22px rgba(0,0,0,.35);}
+  .pr-target-who{display:inline-block;font-size:11px;font-weight:800;color:var(--gold);
+    letter-spacing:.04em;text-transform:uppercase;margin-right:8px;vertical-align:middle;}
+  .pr-target-text{margin:0 0 6px;font-size:23px;font-weight:800;line-height:1.45;
+    color:var(--text-on-dark);}
+  .pr-target-rom{margin:0 0 8px;font-size:14px;color:rgba(255,255,255,.68);
     font-family:'IBM Plex Mono',monospace;}
+  .pr-target .listen-play-btn{width:74px;height:74px;font-size:27px;margin:8px auto 6px;}
+  .pr-target-hint{font-size:12px;font-weight:700;letter-spacing:.04em;
+    color:rgba(255,255,255,.55);margin:0;text-align:center;}
+  .pr-overlay .quiz-label{color:var(--gold);font-size:13px;justify-content:center;}
+  .pr-overlay .quiz-q{color:var(--text-on-dark);font-size:17px;margin:0 0 16px;}
+  .pr-overlay .quiz-option{border-color:rgba(255,255,255,.18);
+    box-shadow:0 3px 10px rgba(0,0,0,.3);}
   .pr-overlay{position:absolute;inset:0;background:#0b0b0b;z-index:70;display:none;flex-direction:column;border-radius:34px;overflow:hidden;}
   .pr-overlay.open{display:flex;}
   .pr-topbar{display:flex;align-items:center;gap:12px;padding:16px 16px 10px;flex-shrink:0;}
@@ -627,12 +639,12 @@
   .pr-scroll{flex:1;overflow-y:auto;padding:0 16px;}
   .pr-hero{width:100%;aspect-ratio:16/10;border-radius:14px;overflow:hidden;margin-bottom:14px;background:var(--surface-2);}
   .pr-hero img{width:100%;height:100%;object-fit:cover;display:block;}
-  .pr-section-label{color:rgba(255,255,255,.4);font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin:0 0 8px;}
+  .pr-section-label{color:rgba(255,255,255,.62);font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin:0 0 8px;}
   .pr-line{background:#12203a;border-radius:14px;padding:14px;margin-bottom:10px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;border:1.5px solid transparent;}
   .pr-line.active{border-color:var(--sky);}
   .pr-line.done{opacity:.55;}
   .pr-line-main b{color:#fff;font-size:15px;display:block;margin-bottom:3px;}
-  .pr-line-main span{color:rgba(255,255,255,.55);font-size:12.5px;}
+  .pr-line-main span{color:rgba(255,255,255,.72);font-size:13px;}
   .pr-line-play{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:var(--sky);font-size:11px;flex-shrink:0;margin-top:2px;}
   .pr-note{background:#12203a;border-radius:14px;padding:14px;margin-bottom:14px;color:rgba(255,255,255,.75);font-size:13px;line-height:1.55;}
   .pr-prompt{color:rgba(255,255,255,.85);font-size:14px;font-weight:600;margin:16px 0 8px;}
@@ -961,10 +973,14 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
 
   .quiz-label{display:flex;align-items:center;gap:8px;color:var(--vermillion);font-weight:800;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;margin:6px 0 14px;}
   .quiz-q{font-size:20px;font-weight:800;line-height:1.35;margin:0 0 20px;display:flex;justify-content:space-between;gap:10px;align-items:flex-start;}
-  .quiz-option{width:100%;text-align:left;background:var(--surface);border:2px solid rgba(36,28,19,0.08);border-radius:14px;padding:15px 16px;font-size:14.5px;font-weight:600;margin-bottom:12px;color:var(--rice);}
-  .quiz-option.correct{background:var(--herb);border-color:var(--herb);color:var(--ink);}
-  .quiz-option.wrong{background:var(--vermillion-dim);border-color:var(--vermillion-dim);}
-  .quiz-option:disabled{opacity:.75;}
+  .quiz-option{width:100%;text-align:left;background:var(--surface);border:2px solid rgba(36,28,19,0.22);border-radius:14px;padding:16px 16px;font-size:16px;font-weight:600;line-height:1.4;margin-bottom:12px;color:var(--rice);}
+  .quiz-option:active{transform:scale(.985);}
+  .quiz-option.correct{background:var(--herb);border-color:#2C6E44;color:#fff;font-weight:800;}
+  .quiz-option.wrong{background:var(--vermillion-dim);border-color:#8C2C18;color:#fff;font-weight:800;}
+  /* Dim only the options that were neither picked nor correct — the answer
+     being revealed has to stay the brightest thing on the screen. */
+  .quiz-option:disabled{opacity:.45;}
+  .quiz-option.correct:disabled,.quiz-option.wrong:disabled{opacity:1;}
 
   .footer-btn{width:100%;background:var(--vermillion);color:var(--rice);border:none;padding:16px;border-radius:14px;font-weight:800;font-size:14px;letter-spacing:.04em;}
   .footer-skip{display:block;margin:0 auto;background:none;border:none;color:var(--gold);font-size:12.5px;font-weight:700;text-decoration:underline;}
@@ -25162,7 +25178,7 @@ function renderPracticeGuess(){
       <p class="pr-target-text${cjkCls()}">${line.speaker?`<span class="pr-target-who">${line.speaker}</span>`:''}${wordDisplay(line.v, line.p)}</p>
       ${(line.p && showRomanisation()) ? `<p class="pr-target-rom">${line.p}</p>` : ''}
       <button class="listen-play-btn" onclick="playGuessAudio(${activeIdx})">🔊</button>
-      <p class="sc-hint" style="text-align:center;margin:6px 0 0;">Tap to hear it again</p>
+      <p class="pr-target-hint">Tap to hear it again</p>
     </div>
     <p class="quiz-q" style="justify-content:center;">What does this mean?</p>
     ${optionsHtml}
