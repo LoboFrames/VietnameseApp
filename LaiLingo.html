@@ -24175,7 +24175,7 @@ function buildQuiz(card){
   const pool = quizDecoyPool().filter(e=>e!==card.e);
   // scored for closeness, same as the lesson quiz — a random decoy gives the
   // answer away by topic alone
-  let distractors = pickDecoys(card.e, pool, null, 2);
+  let distractors = pickDecoys(card.e, pool, null, 2, card.v);
   if(distractors.length < 2) distractors = distractors.concat(
     shuffleArr(pool.filter(e=>distractors.indexOf(e)===-1)).slice(0, 2 - distractors.length));
   return { question: card.v, correct: card.e, options: shuffleArr([card.e, ...distractors]) };
@@ -24243,16 +24243,484 @@ function quizSimilarity(a, b){
   const lengthMatch = 1 - Math.abs(la - lb) / Math.max(la, lb, 1);
   return jaccard * 0.65 + lengthMatch * 0.35;
 }
-/* Pick `count` decoys for `correct` out of `pool`. `nearby` is the lesson's own
-   lines, which get a bonus so a question is usually answered against its own
-   neighbours. */
-function pickDecoys(correct, pool, nearby, count){
+/* ---------- decoys that cost you something ----------
+   Scoring other lines in the course for closeness was still too easy. If only
+   one option mentions a taxi, that is the answer, and you can stop listening
+   after the word for "taxi". Topic is a shortcut, and any decoy drawn from a
+   different sentence hands you one.
+
+   So decoys are now built FROM the correct answer and differ by a single
+   meaningful word — a negation, a direction, a number, a day, a family
+   member, a means of transport. Every option is then on topic, the same
+   length and the same shape, and nothing but hearing the whole sentence tells
+   them apart.
+
+   Two hazards come with generating decoys instead of picking them.
+
+   The first is generating a second CORRECT one. Vietnamese, Cantonese and
+   Japanese all drop pronouns, so recasting "I'm going home" as "You're going
+   home" can be a second valid reading of the very same target sentence. The
+   mutators are therefore ordered by how safe they are under pro-drop, and the
+   person swaps sit last and only fire when the target line actually spells a
+   pronoun out. Everything above them flips something the target states out
+   loud whatever it does with pronouns.
+
+   The second is generating BROKEN English. A decoy that reads wrong is worse
+   than an easy one, because then the correct answer is the only fluent option
+   and you can pick it without understanding a word. So each swap carries the
+   context it needs ("left" is only a direction after "turn" or "the"), and
+   every finished variant goes through mpPlausible() before it is offered. */
+
+function mpEsc(s){ return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+/* Swapping a word behind an article breaks it: "an hour" becomes "an minute",
+   "a new pair" becomes "a old pair". Both give the answer away instantly, so
+   the article is repaired after every swap. */
+const MP_AN_EXC = /^(hour|honest|honou?r|heir)/i;      // vowel sound, consonant letter
+const MP_A_EXC  = /^(uni|use|user|using|usual|euro|one|once|ukulele)/i;  // the reverse
+function mpFixArticles(s){
+  return String(s).replace(/(^|[^A-Za-z'\u2019])(a|an|A|An)\s+([A-Za-z][A-Za-z'\u2019-]*)/g,
+    (m, pre, art, w) => {
+      const vowel = (/^[aeiou]/i.test(w) && !MP_A_EXC.test(w)) || MP_AN_EXC.test(w);
+      let fixed = vowel ? 'an' : 'a';
+      if(/^[A-Z]/.test(art)) fixed = fixed.charAt(0).toUpperCase() + fixed.slice(1);
+      return pre + fixed + ' ' + w;
+    });
+}
+function mpNorm(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim(); }
+
+/* Context a word needs before it can be swapped at all. "Already left" is the
+   past tense of leave, not a direction; "It's like this" is a comparison, not
+   the verb; "going on" is a phrasal verb that does not survive becoming
+   "coming on". */
+const MP_WORD_GUARD = {
+  /* existential "there" is not a place: "There's no time" must not become
+     "Here's no time" */
+  /* the complementiser "that" is not the demonstrative: "so much that you
+     wear yourself out" must not become "so much this you". A complementiser is
+     followed by a subject; a demonstrative is followed by its noun. */
+  that:    { notNextRe: /^\s+(i|you|he|she|it|we|they|there|this|that|the|a|an|his|her|my|your|our|their)\b/i },
+  dry:     { notNextRe: /^\s+(off|out|up)\b/i },
+  never:   { notNextRe: /^\s+(have|had|been)\b/i },
+  there:   { notNextRe: /^(['’]s|\s+(is|are|was|were|isn['’]?t|aren['’]?t))\b/i },
+  /* "got lost" / "I'm lost" is a state, not the opposite of found */
+  lost:    { notPrevRe: /(got|get|gets|getting|am|is|are|was|were|be|been|['’]m|['’]s|['’]re)\s+$/i },
+  found:   { notPrevRe: /(got|get|gets|getting|am|is|are|was|were|be|been)\s+$/i },
+  left:    { prevRe: /(turn|the|to|on|your|my|his|her|our|their|and|go|goes|is|it['’]s)\s+$/i },
+  right:   { prevRe: /(turn|the|to|on|your|my|his|her|our|their|and|go|goes)\s+$/i },
+  /* "like" is a verb only after a subject or a modal: "ran like mad" and
+     "It's like this" are comparisons and must be left alone */
+  like:    { prevRe: /(i|you|we|they|he|she|really|would|don['\u2019]t|doesn['\u2019]t|didn['\u2019]t|wouldn['\u2019]t|to|also|still)\s+$/i },
+  hate:    { notPrevRe: /('s|s|is|are|was|were|be|been)\s+$/i },
+  go:      { notNextRe: /^\s+(on|out|off|through|over|by|around|up|down|ahead|back|call|get|see|have|eat|buy|check|look|find|talk|help|do|take|make|wash|clean|pick|and)\b/i },
+  sit:     { notNextRe: /^\s+(in|out|up|down|back|through|on)\b/i },
+  stand:   { notNextRe: /^\s+(in|out|up|by|for|down|back)\b/i },
+  /* "go home" cannot become "go work"; "at home" → "at work" is fine */
+  home:    { notPrevRe: /(heading|head|heads|go|goes|going|went|come|comes|coming|came|get|gets|getting|got|drive|drove|walk|walked|ride|send|sent|take|took|bring|brought|back|to)\s+$/i },
+  work:    { notPrevRe: /(heading|head|heads|go|goes|going|went|to|back|hard|good|great|nice|much|more|less|some|any|a|the|of|this|that|your|my|his|her|our|their)\s+$/i },
+  /* "opening day", "wedding day" — part of a compound, not a unit of time */
+  day:     { notPrevRe: /(\w+ing|birth|market|pay|rest|sports)\s+$/i },
+  going:   { notNextRe: /^\s+(on|out|off|through|over|by|around|up|down|ahead|back|to)\b/i },
+  come:    { notNextRe: /^\s+(on|out|off|through|over|by|around|up|down|back)\b/i },
+  coming:  { notNextRe: /^\s+(on|out|off|through|over|by|around|up|down|back)\b/i },
+  back:    { notPrevRe: /(come|came|go|went|get|got|give|gave|call|called|be)\s+$/i },
+  long:    { notPrevRe: /(how|as|so|before)\s+$/i },
+  /* "last night" is a time, not the opposite of first */
+  last:    { notPrevRe: /(at)\s+$/i,
+             notNextRe: /^\s+(night|week|month|year|time|day|summer|winter|spring|autumn|fall|season|term)\b/i },
+  open:    { notNextRe: /^\s+(up)\b/i },
+  /* "her name is Mai" must not become "her number is Mai" */
+  name:    { notNextRe: /^\s+(is|was|['’]s)\s+[A-Z]/ },
+  ask:     { notPrevRe: /(let\s+me|let\s+us|let['’]s|can\s+i|may\s+i|could\s+i)\s+$/i },
+  nothing: { notNextRe: /^\s+to\s+be\b/i },
+  idea:    { notPrevRe: /(no)\s+$/i },
+  time:    { notPrevRe: /(every|some|any|this|that|one|first|last|next|each|another|a)\s+$/i }
+};
+/* The same, but on the word being swapped IN: "last week" may become "last
+   month", never "last day". */
+const MP_TARGET_GUARD = {
+  day:     { notPrevRe: /(last|next)\s+$/i },
+  hour:    { notPrevRe: /(last|next)\s+$/i },
+  home:    { notPrevRe: /(to|heading|head|go|going|goes|went|come|coming|came)\s+$/i },
+  work:    { notPrevRe: /(heading|head|go|going|goes|went|come|coming|came)\s+$/i },
+  straight:{ notPrevRe: /(the|your|my|on)\s+$/i },
+  night:   { notPrevRe: /(this)\s+$/i },
+  /* "my younger sister" has an older and a younger one; a mother does not */
+  mother:  { notPrevRe: /(younger|older|elder|big|little)\s+$/i },
+  father:  { notPrevRe: /(younger|older|elder|big|little)\s+$/i },
+  wife:    { notPrevRe: /(younger|older|elder|big|little)\s+$/i },
+  husband: { notPrevRe: /(younger|older|elder|big|little)\s+$/i },
+  boss:    { notPrevRe: /(younger|older|elder|big|little)\s+$/i },
+  teacher: { notPrevRe: /(younger|older|elder|big|little)\s+$/i }
+};
+
+/* Whole-word swap. Case follows position, not the source word, so "I" becomes
+   a lowercase "you" mid-sentence and a capital "You" after a full stop —
+   except for proper nouns (weekdays) and any replacement that begins with the
+   pronoun "I", which is capital wherever it lands. */
+function mpSwap(text, from, to, opts){
+  opts = opts || {};
+  const g  = MP_WORD_GUARD[String(from).toLowerCase()] || {};
+  const tg = MP_TARGET_GUARD[String(to).toLowerCase()] || {};
+  const prevRe    = opts.prevRe    || g.prevRe;
+  const notPrevRe = opts.notPrevRe || g.notPrevRe;
+  const notNextRe = opts.notNextRe || g.notNextRe;
+  const nextRe    = opts.nextRe;
+  const src = String(text);
+  /* The Japanese course is typeset with curly apostrophes, so "I’m" has to
+     match the rule written as "I'm" — and the replacement has to come back out
+     in whichever apostrophe the sentence already uses. */
+  const curly = src.indexOf('’') !== -1 || _mpCurly;
+  const pat = mpEsc(from).replace(/\\?'/g, "['’]");
+  const to2 = curly ? String(to).replace(/'/g, '’') : String(to);
+  const re = new RegExp("(^|[^A-Za-z'’])(" + pat + ")(?![A-Za-z'’])", 'gi');
+  let m, hit = false, out = src, shift = 0;
+  while((m = re.exec(src)) !== null){
+    const at = m.index + m[1].length;
+    const before = src.slice(0, at), after = src.slice(at + m[2].length);
+    if(prevRe && !prevRe.test(before)) continue;
+    if(notPrevRe && notPrevRe.test(before)) continue;
+    if(notNextRe && notNextRe.test(after)) continue;
+    if(nextRe && !nextRe.test(after)) continue;
+    if(tg.notPrevRe && tg.notPrevRe.test(before)) continue;
+    if(tg.prevRe && !tg.prevRe.test(before)) continue;
+    const start = at === 0 || /(^|[.!?])\s*$/.test(before);
+    let rep;
+    if(/^I(\b|['’])/.test(to2)) rep = to2;
+    else if(opts.proper || start) rep = to2.charAt(0).toUpperCase() + to2.slice(1);
+    else rep = to2.toLowerCase();
+    out = out.slice(0, at + shift) + rep + out.slice(at + shift + m[2].length);
+    shift += rep.length - m[2].length;
+    hit = true;
+    if(!opts.all) break;
+  }
+  if(!hit) return null;
+  return mpFixArticles(out.replace(/\s{2,}/g,' ').replace(/\s+([,.!?;:])/g,'$1').trim());
+}
+
+/* Which apostrophe this course is typeset with. "Could you wait there?" has
+   none of its own, so a negated variant would come back with a straight
+   "Couldn't" among curly ones and stand out as the odd option. Decided once
+   per course from its own lines. */
+let _mpCurly = false, _mpCurlyLang = null;
+function mpSetApostropheStyle(pool){
+  const lang = (typeof state === 'object' && state && state.language) || '';
+  if(_mpCurlyLang === lang) return;
+  let curly = 0, straight = 0;
+  (pool || []).slice(0, 400).forEach(e => {
+    const s = String(e || '');
+    curly    += (s.match(/’/g) || []).length;
+    straight += (s.match(/'/g) || []).length;
+  });
+  _mpCurly = curly > straight;
+  _mpCurlyLang = lang;
+}
+
+/* A decoy has to read like something a person would say. These are the shapes
+   the mutators are known to produce that do not. */
+const MP_BAD = [
+  /\b(do|does|did)\s+\w+\s+(don't|doesn't|didn't)\b/i,   // "do you don't have a question"
+  /\blet\s+you\b/i,                                       // "let you ask"
+  /\b(the|a|an)\s+(different|hate|same)\b/i,              // "the different as usual"
+  /\b(is|are|was|were|'s|'re)\s+hate\b/i,                 // "It's hate this"
+  /\b(who|when|why)\b[^?]*\bdoing\s*\?/i,                 // "Who are you doing?"
+  /\b(when|why)\s+(is|are|am|was|were|do|does|did)\s+(i|you|he|she|it|we|they)\s*[?.!]?$/i,
+  // negated wh-questions ("Where aren't you?") almost never sound natural in
+  // this register, and an unnatural decoy hands you the answer
+  /\b(what|where|when|who|how)\s*(['’]s)?\s+(aren['’]t|isn['’]t|don['’]t|doesn['’]t|didn['’]t|wasn['’]t|weren['’]t|can['’]t|won['’]t|couldn['’]t|shouldn['’]t)\b/i,
+  /\b(a|an|the)\s+(a|an|the)\b/i,
+  /\bwhat\s+(is|are|['’]s)\s+(this|that|these|those)\s+(person|man|woman|guy|girl|boy|lady|kid|child)\b/i,
+  /\byou\s+you\b/i,
+  /\bnot\s+still\b/i,
+  /(^|[.!?]\s*)forget\s+to\b/i,                          // nobody says "Forget to bring it"
+  /\b(\w+)\s+and\s+\1s?\b/i,                            // "your key and keys"
+  /\bi\s+think\s+(it|he|she|they|this|that)\s*(['\u2019]s|\s)?(isn['\u2019]t|aren['\u2019]t)\b/i,
+  // a negation dumped at the end of an embedded wh-clause: "do you know where
+  // your grandfather isn't?"
+  /\b(where|when|how|why|what)\s+[^.?!]{0,40}(isn['’]t|aren['’]t|wasn['’]t|weren['’]t)\s*(doing\s*)?\?/i,
+  /\b(when|why)\s+(is|are|was|were)\s+(this|that|these|those)\b/i,
+  // a kin swap that leaves the pronouns disagreeing gives itself away
+  /\b(brother|father|son|husband|uncle|grandpa|boy|man)\b[^.?!]{0,60}\b(her|she)\b/i,
+  /\b(sister|mother|daughter|wife|aunt|grandma|girl|woman)\b[^.?!]{0,60}\b(his|he)\b/i,
+  /\b(don['’]t|doesn['’]t|didn['’]t)\s+have\s+a\s+(few|couple)\b/i,
+  /^\W*$/
+];
+function mpPlausible(v){
+  const s = String(v || '').trim();
+  if(!s) return false;
+  return !MP_BAD.some(re => re.test(s));
+}
+
+/* Tier 1 — negation. Always a different sentence, in every language. */
+const MP_NEG_OFF = [
+  ["don't have to","have to"], ["doesn't have to","has to"],
+  ["don't want to","want to"], ["doesn't want to","wants to"],
+  ["don't need to","need to"], ["doesn't need to","needs to"],
+  ["don't have","have"], ["doesn't have","has"],
+  ["isn't","is"], ["aren't","are"], ["wasn't","was"], ["weren't","were"],
+  ["can't","can"], ["cannot","can"], ["won't","will"], ["shouldn't","should"],
+  ["couldn't","could"], ["wouldn't","would"], ["mustn't","must"],
+  ["never","always"],
+  /* "do not gulp it" drops the whole "do not"; taking only the "not" would
+     leave the emphatic "do gulp it", which nobody says */
+  ["do not",""], ["does not",""], ["did not",""], ["don't",""],
+  ["not","",{notPrevRe:/(do|does|did)\s+$/i}]
+];
+/* Only the recasts that stay natural English. Bare "do"/"did" negation is left
+   out: "What don't you want?" is grammatical but stilted enough that the
+   correct answer would stand out as the only fluent option. */
+const MP_NEG_ON = [
+  ["I'm","I'm not"], ["you're","you aren't"], ["he's","he isn't"], ["she's","she isn't"],
+  ["it's","it isn't"], ["we're","we aren't"], ["they're","they aren't"],
+  ["I've","I haven't"], ["I'll","I won't"], ["you'll","you won't"], ["we'll","we won't"],
+  ["want to","don't want to"], ["wants to","doesn't want to"],
+  ["have to","don't have to"], ["has to","doesn't have to"],
+  ["need to","don't need to"], ["needs to","doesn't need to"],
+  ["going to","not going to"],
+  ["can","can't"], ["will","won't"], ["should","shouldn't"], ["could","couldn't"],
+  ["would","wouldn't"], ["must","mustn't"], ["might","might not"],
+  ["is","isn't"], ["are","aren't"], ["was","wasn't"], ["were","weren't"],
+  ["always","never"], ["have","don't have"], ["has","doesn't have"]
+];
+/* Negative-polarity items only stand up inside a negation: dropping the "not"
+   from "It's not finished yet" leaves "It's finished yet", which is not
+   English. When one is present the sentence can only be made MORE negative. */
+const MP_NPI = /\b(yet|any|anything|anyone|anybody|anymore|any more|either|at all|ever)\b/i;
+/* A sentence that is already negative can only be turned positive. Adding a
+   second negation to one produced "It isn't not finished yet, though." */
+const MP_ALREADY_NEG = /(n['\u2019]t)\b|\b(not|never|no|none|nobody|nothing)\b/i;
+function mpNegate(t){
+  if(MP_ALREADY_NEG.test(t)){
+    if(MP_NPI.test(t)) return null;   // cannot drop it, must not add another
+    for(const [a,b,o] of MP_NEG_OFF){ const v = mpSwap(t,a,b,o); if(v) return v; }
+    return null;
+  }
+  for(const [a,b] of MP_NEG_ON){ const v = mpSwap(t,a,b); if(v) return v; }
+  return null;
+}
+
+/* Tier 2 — one word swapped for its opposite. Each English word appears in at
+   most one pair, so a sentence never produces two variants that mean the
+   same. */
+const MP_OPPOSITES = [
+  ['this','that'], ['here','there'], ['come','go'], ['coming','going'], ['came','went'],
+  ['buy','sell'], ['bought','sold'], ['give','take'], ['borrow','lend'],
+  ['big','small'], ['expensive','cheap'], ['hot','cold'], ['near','far'],
+  ['early','late'], ['open','shut'], ['first','last'],
+  ['before','after'], ['with','without'], ['new','old'], ['fast','slow'],
+  ['easy','hard'], ['good','bad'], ['like','hate'], ['remember','forget'],
+  ['start','finish'], ['win','lose'], ['teach','learn'], ['ask','answer'],
+  ['push','pull'], ['sit','stand'], ['wet','dry'], ['full','empty'],
+  ['happy','sad'], ['hungry','thirsty'], ['eat','drink'],
+  ['more','less'], ['everything','nothing'], ['everyone','nobody'],
+  ['inside','outside'], ['upstairs','downstairs'], ['front','back'],
+  ['tall','short'], ['heavy','light'], ['loud','quiet'], ['clean','dirty'],
+  ['rich','poor'], ['true','false'], ['safe','dangerous'], ['possible','impossible'],
+  ['found','lost'], ['awake','asleep'], ['together','alone'],
+  ['finished','started'], ['hello','goodbye'], ['show','hide'],
+  ['send','receive'], ['broken','fixed'], ['someone','nobody']
+];
+
+/* Tier 3 — a word swapped for another from the same category. This is the
+   cruellest one and the most useful: the option stays completely plausible,
+   so the topic tells you nothing at all. */
+const MP_CATEGORIES = [
+  ['bus','train','taxi','subway','plane','ferry','motorbike','bike'],
+  ['coffee','tea','water','beer','juice','wine','milk'],
+  ['chicken','pork','beef','fish','shrimp','tofu','duck','rice','noodles'],
+  ['hotel','hospital','station','airport','market','bank','school','restaurant','pharmacy','temple','museum'],
+  ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'],
+  ['red','blue','green','black','white','yellow','brown'],
+  ['mother','father','brother','sister','son','daughter','wife','husband','cousin','aunt','uncle','grandma','grandpa'],
+  ['boss','teacher','neighbour','neighbor','landlord','doctor','driver','manager'],
+  ['phone','wallet','passport','key','bag','ticket','umbrella','charger','camera'],
+  ['left','right','straight'],
+  ['today','tomorrow','yesterday','tonight'],
+  ['morning','afternoon','evening','night'],
+  ['always','never','sometimes','usually','often'],
+  ['a lot','a little','too much','not enough'],
+  ['day','week','month','year'],
+  ['tired','sick','busy','ready','hungry','angry'],
+  ['cheaper','bigger','closer','faster','better'],
+  ['spicy','sweet','salty','sour','bitter'],
+  ['question','favour','favor','idea','problem'],
+  ['name','number','address','email'],
+  ['money','change','time','room','seat'],
+  ['hand','lift','ride','word'],
+  ['shirt','shoes','jacket','hat','dress','coat'],
+  ['home','work','the office','school'],
+  ['upstairs','downstairs','outside','next door']
+];
+const MP_PROPER = new Set(['monday','tuesday','wednesday','thursday','friday','saturday','sunday']);
+
+/* Question words are the most frame-sensitive thing in the sentence: "What do
+   you reckon about the shop?" does not survive becoming "Who". They are only
+   swapped inside the pairs that take the same kind of complement, and only in
+   a short question, where the whole clause is visible. */
+const MP_WH = ['who','what','where','when','why','how'];
+const MP_WH_PAIRS = [['how much','how many'], ['how long','how far']];
+function mpWhVariants(t){
+  if(!/\?\s*$/.test(t) || t.trim().split(/\s+/).length > 6) return [];
+  const out = [];
+  MP_WH_PAIRS.forEach(([a,b])=>{
+    const v1 = mpSwap(t,a,b); if(v1) out.push(v1);
+    const v2 = mpSwap(t,b,a); if(v2) out.push(v2);
+  });
+  MP_WH.forEach(a => MP_WH.forEach(b => {
+    if(a === b) return;
+    const v = mpSwap(t, a, b);
+    if(v) out.push(v);
+  }));
+  return out;
+}
+
+/* Tier 4 — the number. Changes the digit, or the number word. */
+const MP_NUMWORDS = ['one','two','three','four','five','six','seven','eight','nine','ten',
+  'eleven','twelve','twenty','thirty','forty','fifty','hundred','thousand'];
+function mpNumberVariants(t){
+  const out = [];
+  const m = /\d/.exec(t);
+  if(m){
+    const d = t[m.index];
+    ['2','3','5','8','9','4'].forEach(alt => {
+      if(alt !== d && out.length < 2) out.push(t.slice(0,m.index) + alt + t.slice(m.index+1));
+    });
+  }
+  for(const w of MP_NUMWORDS){
+    if(!new RegExp("(^|[^A-Za-z'])" + w + "(?![A-Za-z'])", 'i').test(t)) continue;
+    MP_NUMWORDS.filter(x => x !== w).slice(0,3).forEach(alt => {
+      const v = mpSwap(t, w, alt, {notPrevRe:/(a few|a couple|several|the|no|only)\s+$/i}); if(v) out.push(v);
+    });
+    break;
+  }
+  return out;
+}
+
+/* Tier 5 — person, and only when the target says the pronoun out loud. */
+const MP_PRONOUN_WORDS = {
+  vi: ['tôi','tui','mình','tớ','tao','mày','em','anh','chị','con','cháu','ông','bà','cô','chú','bác','họ','nó','chúng','bạn','ta','cậu','dì','mợ'],
+  tl: ['ako','ikaw','siya','kami','tayo','kayo','sila','ko','mo','niya','namin','natin','ninyo','nila'],
+  es: ['yo','tú','él','ella','nosotros','ustedes','usted','ellos','ellas','me','te','le','nos','les','mi','tu','su'],
+  en: ['i','you','he','she','we','they','me','him','her','us','them','my','your','his','our','their']
+};
+const MP_PRONOUN_SUBSTR = {
+  zh: ['我','你','您','他','她','咱'],
+  yue: ['我','你','佢','哋','您'],
+  ja: ['私','わたし','僕','ぼく','俺','おれ','あなた','君','きみ','お前','おまえ','彼','彼女','うち'],
+  ko: ['나','저','너','당신','우리','그','제','내','네'],
+  th: ['ผม','ฉัน','ดิฉัน','คุณ','เธอ','เรา','เขา','หนู','กู','มึง']
+};
+function mpTargetNamesPerson(target){
+  const t = String(target || '');
+  if(!t) return false;
+  const lang = (typeof state === 'object' && state && state.language) ? state.language : 'vi';
+  const key = (lang === 'vi2') ? 'vi' : lang;
+  const subs = MP_PRONOUN_SUBSTR[key];
+  if(subs) return subs.some(p => t.indexOf(p) !== -1);
+  const words = MP_PRONOUN_WORDS[key] || MP_PRONOUN_WORDS.vi;
+  const seen = t.toLowerCase().split(/[^\p{L}]+/u).filter(Boolean);
+  return words.some(w => seen.indexOf(w) !== -1);
+}
+/* Only I→you, he↔she and we↔they. The you→I direction is left out because
+   "you" is both subject and object in English and "I saw you" would recast to
+   "I saw I" — and for the same reason the I→you recast is skipped whenever the
+   sentence already has a "you" in it, which is where "I've been waiting ages
+   for you" turned into "You've been waiting ages for you". */
+const MP_FUNC_NEXT = /^(\s*[.,!?;:\u2014-]|\s*$|\s+(and|or|but|to|at|in|on|for|with|about|from|too|as|so|yet|if|when|then|now|again|back|up|out|here|there|later|already|instead|anyway|yesterday|today|tomorrow)\b)/i;
+function mpPersonVariants(t){
+  const out = [];
+  if(!/(^|[^A-Za-z'])(you|your|yours|yourself)(?![A-Za-z'])/i.test(t)){
+    let v = t;
+    [["I'm","you're"],["I've","you've"],["I'll","you'll"],["I'd","you'd"],
+     ["I am","you are"],["I","you"],["my","your"],["mine","yours"],
+     ["me","you"],["myself","yourself"],
+     /* "we" has to come along or the recast is half-done: "your friend and
+        you already got lost — where should we go" reads as a mistake */
+     ["we","you"],["us","you"],["our","your"]].forEach(([a,b])=>{
+      const r = mpSwap(v, a, b, {all:true}); if(r) v = r;
+    });
+    if(mpNorm(v) !== mpNorm(t)) out.push(v);
+  }
+  /* "her" is both the object and the possessive; the object becomes "him" and
+     the possessive becomes "his", or "her name is Mai" turns into "him name
+     is Mai" and the decoy is spotted without a word being understood. */
+  [[['he','she'],['him','her'],['his','her']],
+   [['she','he'],['her','him',{nextRe:MP_FUNC_NEXT}],['her','his',{notNextRe:MP_FUNC_NEXT}]],
+   [['we','they'],['us','them'],['our','their']],
+   [['they','we'],['them','us'],['their','our']]].forEach(set=>{
+    let w = t, changed = false;
+    set.forEach(([a,b,o])=>{ const r = mpSwap(w, a, b, Object.assign({all:true}, o||{})); if(r){ w = r; changed = true; } });
+    if(changed && mpNorm(w) !== mpNorm(t)) out.push(w);
+  });
+  return out;
+}
+
+/* All the minimal pairs this answer can produce, safest tier first. */
+function mpVariants(correct, allowPerson){
+  const t = String(correct || '').trim();
+  if(!t || t.split(/\s+/).length < 2) return [];
+  const tiers = [];
+
+  const neg = mpNegate(t);
+  tiers.push(neg ? [neg] : []);
+
+  const opp = [];
+  MP_OPPOSITES.forEach(([a,b])=>{
+    const v1 = mpSwap(t,a,b); if(v1) opp.push(v1);
+    const v2 = mpSwap(t,b,a); if(v2) opp.push(v2);
+  });
+  tiers.push(opp);
+
+  const cat = [];
+  MP_CATEGORIES.forEach(set=>{
+    for(const w of set){
+      const alts = set.filter(x => x !== w);
+      let made = 0;
+      for(const alt of alts){
+        if(made >= 3) break;
+        const v = mpSwap(t, w, alt, {proper: MP_PROPER.has(w)});
+        if(v && mpNorm(v) !== mpNorm(t)){ cat.push(v); made++; }
+      }
+      if(made) break;   // one category word per sentence, or the options drift apart
+    }
+  });
+  tiers.push(cat.concat(mpWhVariants(t)));
+
+  tiers.push(mpNumberVariants(t));
+  tiers.push(allowPerson ? mpPersonVariants(t) : []);
+
+  const seen = new Set([mpNorm(t)]);
+  const out = [];
+  tiers.forEach(tier => shuffleArr(tier).forEach(v => {
+    const k = mpNorm(v);
+    if(!k || seen.has(k) || !mpPlausible(v)) return;
+    seen.add(k);
+    out.push(v);
+  }));
+  return out;
+}
+
+/* Pick `count` decoys for `correct`. Minimal pairs first; `pool` (other lines
+   in the course, scored for closeness) only tops up when the answer is too
+   short or too plain to mutate — "Thanks." has nothing to flip.
+   `nearby` is the lesson's own lines, which get a bonus in that fallback. */
+function pickDecoys(correct, pool, nearby, count, target){
+  mpSetApostropheStyle(pool);
+  const minimal = mpVariants(correct, mpTargetNamesPerson(target));
+  /* Sample a shortlist rather than taking the front of the list, so the
+     negation is not on screen every single time — "the negative one is never
+     right" is a pattern a learner would pick up in a week. */
+  const shortlist = minimal.slice(0, Math.max(count * 3, 6));
+  const out = shuffleArr(shortlist).slice(0, count);
+  if(out.length >= count) return out;
+
   const near = new Set(nearby || []);
-  const seen = new Set([correct]);
+  const seen = new Set([mpNorm(correct)].concat(out.map(mpNorm)));
   const scored = [];
-  pool.forEach(e => {
-    if(!e || seen.has(e)) return;
-    seen.add(e);
+  (pool || []).forEach(e => {
+    if(!e) return;
+    const k = mpNorm(e);
+    if(!k || seen.has(k)) return;
+    seen.add(k);
     const sim = quizSimilarity(correct, e);
     if(sim > 0.82) return;                       // a near-paraphrase: no right answer
     // The same-lesson bonus MULTIPLIES rather than adds. A flat bonus let a long
@@ -24262,11 +24730,10 @@ function pickDecoys(correct, pool, nearby, count){
     scored.push({ e, score: sim * (near.has(e) ? 1.35 : 1) });
   });
   scored.sort((a,b) => b.score - a.score);
-  // take a shortlist of the closest, then sample it, so the same two decoys do
-  // not come back every single time you replay a line
-  const shortlist = scored.slice(0, Math.max(count * 4, 8));
-  return shuffleArr(shortlist.map(x => x.e)).slice(0, count);
+  const top = shuffleArr(scored.slice(0, Math.max(count * 4, 8)).map(x => x.e));
+  return out.concat(top.slice(0, count - out.length));
 }
+
 // Builds one Listen & Guess quiz card: correct answer + 2 close decoys.
 function buildLessonQuiz(line, lesson){
   let pool = decoyPoolForLesson(lesson).filter(e => e && e !== line.e);
@@ -24275,7 +24742,7 @@ function buildLessonQuiz(line, lesson){
     .concat((lesson.dialogue||[]).map(d => d.e))
     .concat((lesson.cards||[]).map(c => c.e))
     .filter(e => e && e !== line.e);
-  let distractors = pickDecoys(line.e, pool, nearby, 2);
+  let distractors = pickDecoys(line.e, pool, nearby, 2, line.v);
   // never return fewer than three options, even in a course with almost nothing in it
   if(distractors.length < 2){
     const filler = ALL_TRANSLATIONS.filter(e => e && e !== line.e && distractors.indexOf(e) === -1);
