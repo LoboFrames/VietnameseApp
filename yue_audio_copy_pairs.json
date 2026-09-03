@@ -4,12 +4,32 @@
   "to": "pack_yp25_3"
  },
  {
+  "from": "chat_yw_family_0_t1_you1",
+  "to": "chat_yw_shop_0_t3_you0"
+ },
+ {
   "from": "chat_yw_family_0_t3_you0",
   "to": "sos_yw_family_12"
  },
  {
+  "from": "chat_yw_food_0_t3_you0",
+  "to": "pack_yp35_0"
+ },
+ {
+  "from": "chat_yw_food_1_t2_you0",
+  "to": "pack_yp34_5"
+ },
+ {
+  "from": "chat_yw_food_1_t3_you0",
+  "to": "pack_yp33_4"
+ },
+ {
   "from": "chat_yw_grow_0_t0_you0",
   "to": "pack_yp1_0"
+ },
+ {
+  "from": "chat_yw_grow_2_t2_you1",
+  "to": "sos_yw_help_11"
  },
  {
   "from": "chat_yw_grow_3_t0_you0",
@@ -18,6 +38,42 @@
  {
   "from": "chat_yw_grow_3_t1_you0",
   "to": "pack_yp2_2"
+ },
+ {
+  "from": "chat_yw_help_0_t0_you1",
+  "to": "pack_yp41_0"
+ },
+ {
+  "from": "chat_yw_help_0_t3_you0",
+  "to": "pack_yp42_2"
+ },
+ {
+  "from": "chat_yw_help_1_t0_you0",
+  "to": "pack_yp43_0"
+ },
+ {
+  "from": "chat_yw_shop_0_t0_you0",
+  "to": "pack_yp37_0"
+ },
+ {
+  "from": "chat_yw_shop_0_t2_you0",
+  "to": "pack_yp37_3"
+ },
+ {
+  "from": "chat_yw_shop_1_t2_you0",
+  "to": "sos_yw_shop_6"
+ },
+ {
+  "from": "chat_yw_shop_1_t3_you2",
+  "to": "sos_yw_shop_2"
+ },
+ {
+  "from": "chat_yw_transit_0_t1_you0",
+  "to": "sos_yw_shop_0"
+ },
+ {
+  "from": "chat_yw_transit_0_t1_you0",
+  "to": "sos_yw_transit_5"
  },
  {
   "from": "cphrase_yue_1",
@@ -3601,6 +3657,10 @@
  },
  {
   "from": "lesson_yue_l33_v17",
+  "to": "sos_yw_food_13"
+ },
+ {
+  "from": "lesson_yue_l33_v17",
   "to": "word_yue_多謝"
  },
  {
@@ -6181,6 +6241,14 @@
  },
  {
   "from": "lesson_yue_l67_v11",
+  "to": "sos_yw_food_2"
+ },
+ {
+  "from": "lesson_yue_l67_v11",
+  "to": "sos_yw_transit_0"
+ },
+ {
+  "from": "lesson_yue_l67_v11",
   "to": "word_yue_唔該"
  },
  {
@@ -7818,5 +7886,33 @@
  {
   "from": "lesson_yue_l9_v9",
   "to": "word_yue_唉"
+ },
+ {
+  "from": "pack_yp29_0",
+  "to": "sos_yw_transit_2"
+ },
+ {
+  "from": "pack_yp30_6",
+  "to": "pack_yp39_2"
+ },
+ {
+  "from": "pack_yp34_0",
+  "to": "sos_yw_food_1"
+ },
+ {
+  "from": "pack_yp34_1",
+  "to": "sos_yw_family_10"
+ },
+ {
+  "from": "pack_yp36_4",
+  "to": "sos_yw_shop_5"
+ },
+ {
+  "from": "sos_yw_grow_1",
+  "to": "sos_yw_transit_8"
+ },
+ {
+  "from": "sos_yw_help_8",
+  "to": "sos_yw_transit_3"
  }
 ]
