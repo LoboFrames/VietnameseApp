@@ -2653,7 +2653,7 @@ const CANTONESE_LEVELS = [
   { id:'a2', num:'A2', name:'Everyday Flow', unlocked:true },
   { id:'b1', num:'B1', name:'Wider Ground', unlocked:true },
   { id:'b2', num:'B2', name:'Filling the Gaps', unlocked:true },
-  { id:'c1', num:'C1', unlocked:false },
+  { id:'c1', num:'C1', name:'Holding the Floor', unlocked:true },
 ];
 
 const CANTONESE_A1_SECTIONS = [
@@ -2696,6 +2696,15 @@ const CANTONESE_B1_SECTIONS = [
 // than numeric — the honest description of what is happening, not a change of
 // method. Proper nouns, place names and bare numerals are dropped (219 kept of
 // 348), and words the app already glosses elsewhere are skipped.
+// C1 is where the course stops being a word list. See the long comment above
+// yue_l115 for the argument: the count-2 tier is noise and most of what is left
+// below it is written Cantonese, so C1 changes what a LESSON is — long turns,
+// discourse machinery instead of nouns, and a three-party conversation — rather
+// than dragging the spine further down a list that has stopped meaning anything.
+const CANTONESE_C1_SECTIONS = [
+  { id:1, roman:'I', title:'Holding the Floor' },
+];
+
 const CANTONESE_B2_SECTIONS = [
   { id:1, roman:'I', title:'Reasons and Evidence' },
   { id:2, roman:'II', title:'Rounding It Out' },
@@ -7665,6 +7674,227 @@ const LESSONS_YUE = [
       {v:'哩件衫著落去太緊喇。', p:'ni1 gin6 saam1 zoek3 lok6 heoi3 taai3 gan2 laa3.', e:'This shirt’s too tight on.'},
       {v:'間鋪寫住跳樓價，其實都唔算平。', p:'gaan1 pou3 se2 zyu6 tiu3 lau2 gaa3, kei4 sat6 dou1 m4 syun3 peng4.', e:'The shop says giveaway prices — it isn’t really cheap.'},
       {v:'佢養咗兩隻豬喺屋企後邊。', p:'keoi5 joeng5 zo2 loeng5 zek3 zyu1 hai2 uk1 kei2 hau6 bin1.', e:'He keeps two pigs round the back of the house.'},
+    ] },
+
+  // ===================== C1 — a change of content type, not a longer word list =====================
+  // The frequency spine ended at lesson 114. Below a corpus count of 3 there are
+  // 1,041 words sharing a count of 2 and 2,780 that appear once, and at that
+  // depth "rank" is noise — more lessons off that list would be frequency-shaped
+  // in name only, and most of what is left is written Cantonese, which this
+  // course does not teach.
+  //
+  // So C1 changes WHAT a lesson is rather than where its words come from:
+  //
+  //   * the dialogue is LONG TURNS. One speaker holds the floor for 40-80
+  //     syllables while the other says almost nothing — which is how a story,
+  //     a complaint or an explanation actually arrives. Every earlier lesson
+  //     trades short line for short line, and that is not what real listening
+  //     is like.
+  //   * the vocab is DISCOURSE MACHINERY, not nouns. 一嚟...二嚟, 講吓講吓,
+  //     講到尾, 最弊係, 話晒, 即係話 — the joints that hold a long turn together.
+  //     A speaker who has 2,500 words and none of these still sounds like
+  //     someone reading sentences out in a row.
+  //   * lesson 118 puts THREE people in the room, because being the third
+  //     person while two others talk is a different skill from taking turns.
+  //
+  // Two consequences worth stating. Vocab is 12 a lesson, not 18: padding a
+  // discourse set to 18 would mean inventing items, and the load has moved into
+  // the turns anyway. And these words are not ordered by frequency, because
+  // they were not chosen by frequency — they are chosen by what a long turn
+  // needs, which is the honest description.
+  { id:'yue_l115', day:115, section:1, level:'C1', title:'When Someone Tells You What Happened', tag:'Holding the Floor',
+    desc:'A whole story arrives in one breath. The joints that hold it together: 講開又講, 一嚟…二嚟, 講吓講吓, 講到尾, 誰不知.',
+    duration:'8 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'講開又講，我上個禮拜差啲出事。嗰日送貨去新界，本來十點就應該到，點知條路封咗，兜咗個大圈，行咗成粒鐘。', p:'gong2 hoi1 jau6 gong2, ngo5 soeng6 go3 lai5 baai3 caa1 di1 ceot1 si6. go2 jat6 sung3 fo3 heoi3 san1 gaai3, bun2 loi4 sap6 dim2 zau6 jing1 goi1 dou3, dim2 zi1 tiu4 lou6 fung1 zo2, dau1 zo2 go3 daai6 hyun1, haang4 zo2 seng4 nap1 zung1.', e:'Speaking of which — I nearly came a cropper last week. That day I was running stock out to the New Territories, should have been there by ten, but the road was shut, I went right round the houses, took a solid hour.'},
+      {speaker:'B', v:'噉點呀？', p:'gam2 dim2 aa3?', e:'So then what?'},
+      {speaker:'A', v:'到咗嗰陣個倉已經收咗工。我打電話畀阿頭，佢話等佢問吓。等咗四十五分鐘，一頭霧水，唔知係走定係留。', p:'dou3 zo2 go2 zan6 go3 cong1 ji5 ging1 sau1 zo2 gung1. ngo5 daa2 din6 waa2 bei2 aa3 tau2, keoi5 waa6 dang2 keoi5 man6 haa5. dang2 zo2 sei3 sap6 ng5 fan1 zung1, jat1 tau4 mou6 seoi2, m4 zi1 hai6 zau2 ding6 hai6 lau4.', e:'By the time I got there the warehouse had knocked off. I rang the boss and he said to let him ask. Forty-five minutes I waited, completely at sea, no idea whether to go or stay.'},
+      {speaker:'B', v:'噉你點做？', p:'gam2 nei5 dim2 zou6?', e:'So what did you do?'},
+      {speaker:'A', v:'我一嚟唔想白行，二嚟啲貨凍櫃撐唔到咁耐。講吓講吓，個保安話佢識個管倉嘅，打咗個電話，啱啱好嗰個人未走。講到尾都入到貨，不過遲咗三個鐘。', p:'ngo5 jat1 lei4 m4 soeng2 baak6 haang4, ji6 lei4 di1 fo3 dung3 gwai6 caang1 m4 dou2 gam3 noi6. gong2 haa5 gong2 haa5, go3 bou2 on1 waa6 keoi5 sik1 go3 gun2 cong1 ge3, daa2 zo2 go3 din6 waa2, ngaam1 ngaam1 hou2 go2 go3 jan4 mei6 zau2. gong2 dou3 mei5 dou1 jap6 dou2 fo3, bat1 gwo3 ci4 zo2 saam1 go3 zung1.', e:'For one thing I didn’t want a wasted trip, for another the cold box wasn’t going to hold that long. One thing led to another and the security guard said he knew the warehouse manager, made a call, and as luck would have it the man hadn’t left. In the end the stock did go in — just three hours late.'},
+      {speaker:'B', v:'噉都算好彩。', p:'gam2 dou1 syun3 hou2 coi2.', e:'That’s lucky, all things considered.'},
+      {speaker:'A', v:'係囖。誰不知第二日阿頭仲問我做乜咁遲，講嚟講去佢都唔記得係佢叫我等。', p:'hai6 lo1. seoi4 bat1 zi1 dai6 ji6 jat6 aa3 tau2 zung6 man6 ngo5 zou6 mat1 gam3 ci4, gong2 lei4 gong2 heoi3 keoi5 dou1 m4 gei3 dak1 hai6 keoi5 giu3 ngo5 dang2.', e:'Right. And then — would you believe it — next day the boss asks me why I was so late. Round and round we went, and he still didn’t remember it was him who told me to wait.'},
+    ],
+    vocab:[
+      {v:'講開又講', p:'gong2hoi1jau6gong2', e:'speaking of which; now that it’s come up'},
+      {v:'講吓講吓', p:'gong2haa5gong2haa5', e:'as we were talking; one thing led to another'},
+      {v:'講到尾', p:'gong2dou3mei5', e:'in the end; when all’s said'},
+      {v:'講嚟講去', p:'gong2lei4gong2heoi3', e:'round and round; talk in circles'},
+      {v:'一嚟', p:'jat1lei4', e:'for one thing'},
+      {v:'二嚟', p:'ji6lei4', e:'for another'},
+      {v:'到頭嚟', p:'dou3tau4lei4', e:'in the end; as it turned out'},
+      {v:'咁啱', p:'gam3ngaam1', e:'as it happens; by chance'},
+      {v:'啱啱好', p:'ngaam1ngaam1hou2', e:'just then; just right'},
+      {v:'偏偏', p:'pin1pin1', e:'and yet; of all things'},
+      {v:'誰不知', p:'seoi4bat1zi1', e:'and then, would you believe it'},
+      {v:'一頭霧水', p:'jat1tau4mou6seoi2', e:'completely at sea; baffled'},
+    ],
+    grammar:[
+      {title:'A long turn needs joints, not more words', body:'The thing that separates someone who can hold the floor from someone who cannot is not vocabulary — it is having somewhere for the next sentence to hang. A told story in Cantonese runs on a small frame: open with 講開又講 or 話說, list your reasons with 一嚟…二嚟, let time pass with 講吓講吓, turn the corner with 點知 or 誰不知, and land it with 講到尾 or 到頭嚟. Learn those six and a fifteen-second answer stops sounding like four separate sentences read out in a row. None of them carry much meaning on their own, which is exactly why they get skipped and exactly why speech without them sounds flat.'},
+      {title:'點知 · 誰不知 · 偏偏 — three ways to say "and then, against expectation"', body:'點知 dim2 zi1 is the everyday one and by far the most common: something happened that you did not see coming. 誰不知 seoi4 bat1 zi1 is the same move with a bit of theatre on it — it is half-literary, and a storyteller uses it to mark the good bit, so it lands as "and would you believe it". 偏偏 pin1 pin1 is different in kind: it is not surprise, it is grievance. 偏偏嗰日落雨 means of all the days, it rained on that one — the universe picked you out. Using 偏偏 where you only mean 點知 makes you sound as though you are nursing something.'},
+      {title:'咁啱 vs 啱啱好 — coincidence and timing', body:'咁啱 gam3 ngaam1 is the coincidence itself: 咁啱佢又喺度 (as it happens, he was there too). 啱啱好 ngaam1 ngaam1 hou2 is about fit — the right moment, the right amount, the right size: 啱啱好嗰個人未走 (the man happened not to have left yet), 呢件啱啱好 (this one fits perfectly). They overlap in the middle, which is why learners use 咁啱 for everything, but 啱啱好 is what you want any time the point is that something fitted rather than merely co-occurred. Note the tones: 咁 here is gam3, the degree word, not 噉 gam2.'},
+    ],
+    cards:[
+      {v:'講開又講，你幾時放假呀？', p:'gong2 hoi1 jau6 gong2, nei5 gei2 si4 fong3 gaa3 aa3?', e:'While we’re on it — when are you off?'},
+      {v:'講吓講吓就講到錢，好尷尬。', p:'gong2 haa5 gong2 haa5 zau6 gong2 dou3 cin2, hou2 gaam3 gaai3.', e:'One thing led to another and we got onto money — awkward.'},
+      {v:'講到尾都係要自己做。', p:'gong2 dou3 mei5 dou1 hai6 jiu3 zi6 gei2 zou6.', e:'When all’s said, you end up doing it yourself.'},
+      {v:'講嚟講去都係嗰句。', p:'gong2 lei4 gong2 heoi3 dou1 hai6 go2 geoi3.', e:'Round and round, and it’s the same line every time.'},
+      {v:'我一嚟唔識路，二嚟又冇車。', p:'ngo5 jat1 lei4 m4 sik1 lou6, ji6 lei4 jau6 mou5 ce1.', e:'For one thing I don’t know the way, for another I haven’t got a car.'},
+      {v:'到頭嚟都係佢做錯。', p:'dou3 tau4 lei4 dou1 hai6 keoi5 zou6 co3.', e:'In the end it was his mistake all along.'},
+      {v:'咁啱我今日休息，可以陪你去。', p:'gam3 ngaam1 ngo5 gam1 jat6 jau1 sik1, ho2 ji5 pui4 nei5 heoi3.', e:'As it happens I’m off today, so I can go with you.'},
+      {v:'我啱啱好行到門口佢就打嚟。', p:'ngo5 ngaam1 ngaam1 hou2 haang4 dou3 mun4 hau2 keoi5 zau6 daa2 lei4.', e:'I’d just got to the door when he rang.'},
+      {v:'偏偏落雨嗰日我冇帶遮。', p:'pin1 pin1 lok6 jyu5 go2 jat6 ngo5 mou5 daai3 ze1.', e:'And of course the one day it rained I had no umbrella.'},
+      {v:'誰不知佢一早已經走咗。', p:'seoi4 bat1 zi1 keoi5 jat1 zou2 ji5 ging1 zau2 zo2.', e:'And then it turns out he’d left ages ago.'},
+      {v:'佢講咗成粒鐘，我一頭霧水。', p:'keoi5 gong2 zo2 seng4 nap1 zung1, ngo5 jat1 tau4 mou6 seoi2.', e:'He talked for a solid hour and I was none the wiser.'},
+      {v:'塞車塞到冇符，唯有兜個圈行。', p:'sak1 ce1 sak1 dou3 mou5 fu4, wai4 jau5 dau1 go3 hyun1 haang4.', e:'The traffic was hopeless, so I had to go round.'},
+      {v:'白行一趟，佢根本唔喺度。', p:'baak6 haang4 jat1 tong3, keoi5 gan1 bun2 m4 hai2 dou6.', e:'A wasted trip — he wasn’t even there.'},
+      {v:'佢話等佢問吓，等咗成日都冇覆。', p:'keoi5 waa6 dang2 keoi5 man6 haa5, dang2 zo2 seng4 jat6 dou1 mou5 fuk1.', e:'He said he’d ask — I waited all day and heard nothing.'},
+    ] },
+
+  { id:'yue_l116', day:116, section:1, level:'C1', title:'Making a Complaint Stick', tag:'Holding the Floor',
+    desc:'A grievance built properly rather than blurted: 最弊, 話晒, 擺明, 明明, 一味, 手尾, 死死氣, 唔怪之得.',
+    duration:'8 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'老實講，我唔係想講人是非，但係佢真係唔掂。每次收工都留低一大堆手尾，第二日一定係我執。', p:'lou5 sat6 gong2, ngo5 m4 hai6 soeng2 gong2 jan4 si6 fei1, daan6 hai6 keoi5 zan1 hai6 m4 dim6. mui5 ci3 sau1 gung1 dou1 lau4 dai1 jat1 daai6 deoi1 sau2 mei5, dai6 ji6 jat6 jat1 ding6 hai6 ngo5 zap1.', e:'To be honest, I’m not one for talking about people — but he really isn’t up to it. Every time he knocks off he leaves a great pile of loose ends, and next day it’s always me clearing them.'},
+      {speaker:'B', v:'咁耐都冇人講佢？', p:'gam3 noi6 dou1 mou5 jan4 gong2 keoi5?', e:'All this time and nobody’s said anything to him?'},
+      {speaker:'A', v:'講咗好多次。最弊係佢明明知，仲一味話自己好忙。擺明係唔想做，唔係唔識做。話晒大家做咗兩年同事，我都唔想撕破面，唯有死死氣幫佢執。', p:'gong2 zo2 hou2 do1 ci3. zeoi3 bai6 hai6 keoi5 ming4 ming4 zi1, zung6 jat1 mei6 waa6 zi6 gei2 hou2 mong4. baai2 ming4 hai6 m4 soeng2 zou6, m4 hai6 m4 sik1 zou6. waa6 saai3 daai6 gaa1 zou6 zo2 loeng5 nin4 tung4 si6, ngo5 dou1 m4 soeng2 si1 po3 min6, wai4 jau5 sei2 sei2 hei3 bong1 keoi5 zap1.', e:'Loads of times. The worst of it is he knows perfectly well and still does nothing but say how busy he is. He plainly doesn’t want to do it — it’s not that he can’t. After all, we’ve been on the same team two years, and I don’t want a falling-out, so I grit my teeth and clear up after him.'},
+      {speaker:'B', v:'唔怪之得你成日鬼咁夜先走。', p:'m4 gwaai3 zi1 dak1 nei5 seng4 jat6 gwai2 gam3 je6 sin1 zau2.', e:'No wonder you’re always leaving so bloody late.'},
+      {speaker:'A', v:'係囖。最弊係阿頭以為係我慢。我又唔想喺佢面前篤人背脊，結果就變咗我冤枉。', p:'hai6 lo1. zeoi3 bai6 hai6 aa3 tau2 ji5 wai4 hai6 ngo5 maan6. ngo5 jau6 m4 soeng2 hai2 keoi5 min6 cin4 duk1 jan4 bui3 zek3, git3 gwo2 zau6 bin3 zo2 ngo5 jyun1 wong2.', e:'Exactly. And the worst part is the boss thinks I’m the slow one. I don’t want to go telling tales in front of him either, so I’m the one who ends up carrying it.'},
+      {speaker:'B', v:'噉樣落去唔係辦法。你講一次清楚，唔使鬧，講返啲事實就得。', p:'gam2 joeng2 lok6 heoi3 m4 hai6 baan6 faat3. nei5 gong2 jat1 ci3 cing1 co2, m4 sai2 naau6, gong2 faan1 di1 si6 sat6 zau6 dak1.', e:'Going on like this isn’t the answer. Say it once, clearly — no need to shout, just stick to what actually happened.'},
+    ],
+    vocab:[
+      {v:'最弊', p:'zeoi3bai6', e:'the worst of it; worst of all'},
+      {v:'話晒', p:'waa6saai3', e:'after all; when all’s said and done'},
+      {v:'老實講', p:'lou5sat6gong2', e:'to be honest'},
+      {v:'擺明', p:'baai2ming4', e:'plainly; obviously (and unfairly)'},
+      {v:'明明', p:'ming4ming4', e:'clearly (and yet)'},
+      {v:'一味', p:'jat1mei6', e:'does nothing but; keeps on'},
+      {v:'手尾', p:'sau2mei5', e:'loose ends; the mess left behind'},
+      {v:'執手尾', p:'zap1sau2mei5', e:'to clear up after someone'},
+      {v:'死死氣', p:'sei2sei2hei3', e:'grudgingly; with bad grace'},
+      {v:'鬼咁', p:'gwai2gam3', e:'bloody; dead (intensifier)'},
+      {v:'唔怪之得', p:'m4gwaai3zi1dak1', e:'no wonder'},
+      {v:'冤枉', p:'jyun1wong2', e:'to be wronged; unjustly blamed'},
+    ],
+    grammar:[
+      {title:'最弊係 — the pivot a complaint turns on', body:'A complaint that is just a list of bad things is exhausting to listen to and easy to dismiss. What makes one land is a pivot: here is the problem, and 最弊係 — worst of all — here is the bit that makes it unfair. 最弊係佢明明知 puts the weight on his knowing, not on the mess. You can use it twice in a turn, as the speaker above does, and the second one is the real point. 弊 bai6 on its own (lesson 89) is "that’s bad"; 最弊 is structural, and it is the single most useful thing in this lesson.'},
+      {title:'話晒 — appealing to what is owed', body:'話晒 waa6 saai3 means "after all", but specifically the kind of after-all that invokes a relationship or a standing: 話晒做咗兩年同事 (we have been colleagues two years, after all), 話晒佢係你阿哥 (he is your brother, when all is said). It is how a Cantonese speaker asks for latitude, or explains why they are giving it. It does not work for a neutral "after all" about facts — for that you want 始終 ci2 zung1 or 到頭嚟.'},
+      {title:'手尾 — the mess, and 手尾長 — the mess that keeps going', body:'手尾 sau2 mei5 is what is left over after someone has finished with something: unwashed tools, half-filled forms, a job done to eighty percent. 執手尾 zap1 sau2 mei5 is clearing it, and it is almost always said resentfully, because it is almost always somebody else’s. 手尾長 sau2 mei5 coeng4 is the related complaint about a task rather than a person — this job has a long tail, it will drag. On a floor where people hand work to each other, all three earn their keep daily.'},
+    ],
+    cards:[
+      {v:'最弊係佢連講都冇講聲。', p:'zeoi3 bai6 hai6 keoi5 lin4 gong2 dou1 mou5 gong2 seng1.', e:'Worst of all, he didn’t even say a word.'},
+      {v:'話晒你係大佬，讓下佢啦。', p:'waa6 saai3 nei5 hai6 daai6 lou2, joeng6 haa5 keoi5 laa1.', e:'You’re the older one, after all — give him some room.'},
+      {v:'老實講，我唔覺得得。', p:'lou5 sat6 gong2, ngo5 m4 gok3 dak1 dak1.', e:'To be honest, I don’t think it’ll work.'},
+      {v:'擺明係佢唔想做啫。', p:'baai2 ming4 hai6 keoi5 m4 soeng2 zou6 ze1.', e:'It’s plain he just doesn’t want to do it.'},
+      {v:'明明話咗今日交，而家又話遲。', p:'ming4 ming4 waa6 zo2 gam1 jat6 gaau1, ji4 gaa1 jau6 waa6 ci4.', e:'He clearly said today, and now it’s late again.'},
+      {v:'佢一味淨係識推。', p:'keoi5 jat1 mei6 zing6 hai6 sik1 teoi1.', e:'All he ever does is pass it on.'},
+      {v:'留低咁多手尾，好難執。', p:'lau4 dai1 gam3 do1 sau2 mei5, hou2 naan4 zap1.', e:'That many loose ends left behind — it’s a job to clear.'},
+      {v:'我又要幫佢執手尾。', p:'ngo5 jau6 jiu3 bong1 keoi5 zap1 sau2 mei5.', e:'And I’m clearing up after him again.'},
+      {v:'呢單嘢手尾好長。', p:'ni1 daan1 je5 sau2 mei5 hou2 coeng4.', e:'This one’s going to drag on.'},
+      {v:'佢死死氣噉做咗，唔開心寫晒喺塊面。', p:'keoi5 sei2 sei2 hei3 gam2 zou6 zo2, m4 hoi1 sam1 se2 saai3 hai2 faai3 min6.', e:'He did it with very bad grace — it was all over his face.'},
+      {v:'今日鬼咁熱，做兩個鐘就散晒。', p:'gam1 jat6 gwai2 gam3 jit6, zou6 loeng5 go3 zung1 zau6 saan2 saai3.', e:'It’s bloody hot today — two hours and you’re done in.'},
+      {v:'唔怪之得佢唔敢見我。', p:'m4 gwaai3 zi1 dak1 keoi5 m4 gam2 gin3 ngo5.', e:'No wonder he won’t face me.'},
+      {v:'我真係好冤枉，唔關我事。', p:'ngo5 zan1 hai6 hou2 jyun1 wong2, m4 gwaan1 ngo5 si6.', e:'I’ve been done a real injustice — it had nothing to do with me.'},
+      {v:'我唔想撕破面，所以冇出聲。', p:'ngo5 m4 soeng2 si1 po3 min6, so2 ji5 mou5 ceot1 seng1.', e:'I didn’t want a falling-out, so I said nothing.'},
+    ] },
+
+  { id:'yue_l117', day:117, section:1, level:'C1', title:'Making Yourself Understood', tag:'Holding the Floor',
+    desc:'Restating, conceding and steering back: 即係話, 咪就係, 實情, 點都好, 無論點, 講返, 提起, 言歸正傳.',
+    duration:'8 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'我尋日同阿頭傾咗好耐。佢意思係，唔係唔畀我請假，係話而家人手唔夠，即係話我請得，但係要自己揾人頂。', p:'ngo5 cam4 jat6 tung4 aa3 tau2 king1 zo2 hou2 noi6. keoi5 ji3 si1 hai6, m4 hai6 m4 bei2 ngo5 cing2 gaa3, hai6 waa6 ji4 gaa1 jan4 sau2 m4 gau3, zik1 hai6 waa6 ngo5 cing2 dak1, daan6 hai6 jiu3 zi6 gei2 wan2 jan4 ding2.', e:'I had a long talk with the boss yesterday. What he meant was, it isn’t that I can’t take leave, it’s that we’re short-handed — which is to say I can take it, but I have to find my own cover.'},
+      {speaker:'B', v:'咪就係。佢次次都係噉。', p:'mai6 zau6 hai6. keoi5 ci3 ci3 dou1 hai6 gam2.', e:'That’s exactly it. He’s the same every single time.'},
+      {speaker:'A', v:'唔講唔知，實情係公司已經請咗兩個新人，不過未上到手。點都好，我都要揾人。提起呢樣嘢，你嗰個朋友仲想唔想做？', p:'m4 gong2 m4 zi1, sat6 cing4 hai6 gung1 si1 ji5 ging1 cing2 zo2 loeng5 go3 san1 jan4, bat1 gwo3 mei6 soeng5 dou2 sau2. dim2 dou1 hou2, ngo5 dou1 jiu3 wan2 jan4. tai4 hei2 ni1 joeng6 je5, nei5 go2 go3 pang4 jau5 zung6 soeng2 m4 soeng2 zou6?', e:'You’d never know unless someone told you, but the truth of it is the company has already taken on two new people — they just aren’t up to speed yet. Either way, I still need cover. Which brings it up — does that friend of yours still want the work?'},
+      {speaker:'B', v:'佢啱啱轉咗工。不過無論點我都問吓佢。', p:'keoi5 ngaam1 ngaam1 zyun3 zo2 gung1. bat1 gwo3 mou4 leon6 dim2 ngo5 dou1 man6 haa5 keoi5.', e:'He’s just changed jobs. But I’ll ask him regardless.'},
+      {speaker:'A', v:'唔該晒。講返請假，幸好我未買機票，如果買咗就慘。點會估到公司噉樣安排。', p:'m4 goi1 saai3. gong2 faan1 cing2 gaa3, hang6 hou2 ngo5 mei6 maai5 gei1 piu3, jyu4 gwo2 maai5 zo2 zau6 caam2. dim2 wui5 gu2 dou2 gung1 si1 gam2 joeng2 on1 paai4.', e:'Thanks. Back to the leave — luckily I hadn’t bought the ticket yet; if I had I’d be sunk. Who’d have guessed they’d arrange it like that.'},
+      {speaker:'B', v:'好喇，言歸正傳，你到底邊日走？', p:'hou2 laa3, jin4 gwai1 zing3 zyun2, nei5 dou3 dai2 bin1 jat6 zau2?', e:'Right — back to the point. Which day are you actually going?'},
+    ],
+    vocab:[
+      {v:'即係話', p:'zik1hai6waa6', e:'which is to say; in other words'},
+      {v:'咪就係', p:'mai6zau6hai6', e:'exactly; that’s just it'},
+      {v:'實情', p:'sat6cing4', e:'the truth of it; what’s actually the case'},
+      {v:'點都好', p:'dim2dou1hou2', e:'either way; whatever the case'},
+      {v:'無論點', p:'mou4leon6dim2', e:'no matter what; regardless'},
+      {v:'講返', p:'gong2faan1', e:'back to; speaking of (returning to it)'},
+      {v:'提起', p:'tai4hei2', e:'to bring up; to mention'},
+      {v:'言歸正傳', p:'jin4gwai1zing3zyun2', e:'back to the point'},
+      {v:'幸好', p:'hang6hou2', e:'luckily; just as well'},
+      {v:'點會', p:'dim2wui5', e:'how could it; no chance'},
+      {v:'唔講唔知', p:'m4gong2m4zi1', e:'you’d never know unless told'},
+      {v:'頂', p:'ding2', e:'to cover for; to fill in'},
+    ],
+    grammar:[
+      {title:'即係話 vs 咪就係 — restating and agreeing hard', body:'即係話 zik1 hai6 waa6 is yours: you have heard something and you are saying it back in plainer terms, usually to expose what it really means. 佢意思係…即係話我請得但係要自己揾人 — the restatement is the point being made. 咪就係 mai6 zau6 hai6 is the opposite direction: someone else has just said the thing you were thinking, and you are agreeing hard. It is closer to "exactly" or "that’s just it" than to "yes". Watch the 咪 — mai6, low tone, not the mai5 that means "don’t".'},
+      {title:'講返 and 提起 — steering, in both directions', body:'講返 gong2 faan1 takes the conversation BACK to something already opened: 講返請假 (back to the leave). 提起 tai4 hei2 opens a new thing that the current one reminded you of: 提起呢樣嘢 (which brings this up). Both are how a long conversation stays navigable, and neither has a good one-word English match, which is why learners drift instead of steering. 言歸正傳 jin4 gwai1 zing3 zyun2 is the heavy version of 講返 — literally "words return to the main story", used half-jokingly to admit everyone has been rambling.'},
+      {title:'點都好 · 無論點 · 點會 — the three 點', body:'點 dim2 is "how", and three set phrases built on it do very different jobs. 點都好 dim2 dou1 hou2 concedes and moves on: either way, fine, let us get on with it. 無論點 mou4 leon6 dim2 is stronger and forward-looking: regardless of how it goes, I will still do X. 點會 dim2 wui5 is a rhetorical question meaning the opposite of what it asks — 點會估到 is not "how could one guess" but "there was no guessing". Say 點會 with a flat tone and it reads as genuine puzzlement; the dismissive reading needs the fall.'},
+    ],
+    cards:[
+      {v:'即係話今日做唔完啦。', p:'zik1 hai6 waa6 gam1 jat6 zou6 m4 jyun4 laa1.', e:'Which is to say it won’t get finished today.'},
+      {v:'咪就係，我一早噉講。', p:'mai6 zau6 hai6, ngo5 jat1 zou2 gam2 gong2.', e:'Exactly — that’s what I said all along.'},
+      {v:'實情係冇人肯做。', p:'sat6 cing4 hai6 mou5 jan4 hang2 zou6.', e:'The truth is nobody’s willing to do it.'},
+      {v:'點都好，聽日要交。', p:'dim2 dou1 hou2, ting1 jat6 jiu3 gaau1.', e:'Either way, it’s due tomorrow.'},
+      {v:'無論點我都會嚟。', p:'mou4 leon6 dim2 ngo5 dou1 wui5 lei4.', e:'I’ll come no matter what.'},
+      {v:'講返啱啱嗰單嘢。', p:'gong2 faan1 ngaam1 ngaam1 go2 daan1 je5.', e:'Back to what we were on just now.'},
+      {v:'唔好喺佢面前提起呢件事。', p:'m4 hou2 hai2 keoi5 min6 cin4 tai4 hei2 ni1 gin6 si6.', e:'Don’t bring that up in front of him.'},
+      {v:'好喇，言歸正傳。', p:'hou2 laa3, jin4 gwai1 zing3 zyun2.', e:'Right — back to the point.'},
+      {v:'幸好我哋走得早。', p:'hang6 hou2 ngo5 dei6 zau2 dak1 zou2.', e:'Just as well we left early.'},
+      {v:'點會唔記得，我日日見。', p:'dim2 wui5 m4 gei3 dak1, ngo5 jat6 jat6 gin3.', e:'How could I forget — I see it every day.'},
+      {v:'唔講唔知，原來佢係老闆個仔。', p:'m4 gong2 m4 zi1, jyun4 loi4 keoi5 hai6 lou5 baan2 go3 zai2.', e:'You’d never know — turns out he’s the boss’s son.'},
+      {v:'今日邊個頂我？', p:'gam1 jat6 bin1 go3 ding2 ngo5?', e:'Who’s covering for me today?'},
+      {v:'人手唔夠，唯有自己揾人頂。', p:'jan4 sau2 m4 gau3, wai4 jau5 zi6 gei2 wan2 jan4 ding2.', e:'We’re short-handed, so you find your own cover.'},
+      {v:'新人未上到手，仲要教。', p:'san1 jan4 mei6 soeng5 dou2 sau2, zung6 jiu3 gaau3.', e:'The new ones aren’t up to speed yet — they still need teaching.'},
+    ] },
+
+  { id:'yue_l118', day:118, section:1, level:'C1', title:'When Two People Are Talking and You’re the Third', tag:'Holding the Floor',
+    desc:'Being in the room while other people argue: 插嘴, 打斷, 唔係啩, 睇怕, 幫口, 幫拖, 各有各講, 收科.',
+    duration:'8 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'我講咗幾多次要影相先郁啲貨？你次次都話得，次次都冇影。', p:'ngo5 gong2 zo2 gei2 do1 ci3 jiu3 jing2 soeng2 sin1 juk1 di1 fo3? nei5 ci3 ci3 dou1 waa6 dak1, ci3 ci3 dou1 mou5 jing2.', e:'How many times have I said photograph it before you move the stock? Every time you say yes, and every time there’s no photo.'},
+      {speaker:'B', v:'嗰陣趕住出貨，邊有時間影。你自己又唔係唔知。', p:'go2 zan6 gon2 zyu6 ceot1 fo3, bin1 jau5 si4 gaan3 jing2. nei5 zi6 gei2 jau6 m4 hai6 m4 zi1.', e:'We were rushing the load out — where was the time? You know that yourself.'},
+      {speaker:'C', v:'唔好意思，我插句嘴。你哋兩個講緊兩件事。', p:'m4 hou2 ji3 si1, ngo5 caap3 geoi3 zeoi2. nei5 dei6 loeng5 go3 gong2 gan2 loeng5 gin6 si6.', e:'Sorry — can I cut in? You two are talking about two different things.'},
+      {speaker:'A', v:'點解？', p:'dim2 gaai2?', e:'How so?'},
+      {speaker:'C', v:'佢講嘅係嗰日趕，你講嘅係次次都趕。各有各講，講到聽日都唔會有結果。睇怕真正嘅問題係我哋根本冇時間影，唔係邊個唔肯影。', p:'keoi5 gong2 ge3 hai6 go2 jat6 gon2, nei5 gong2 ge3 hai6 ci3 ci3 dou1 gon2. gok3 jau5 gok3 gong2, gong2 dou3 ting1 jat6 dou1 m4 wui5 jau5 git3 gwo2. tai2 paa3 zan1 zing3 ge3 man6 tai4 hai6 ngo5 dei6 gan1 bun2 mou5 si4 gaan3 jing2, m4 hai6 bin1 go3 m4 hang2 jing2.', e:'He’s talking about that one day being a rush; you’re talking about every day being a rush. You’re each having your own conversation, and you could go at it till tomorrow with nothing to show. I reckon the real problem is that we haven’t got time to photograph at all — not that somebody won’t.'},
+      {speaker:'B', v:'唔係啩，你幫我講嘢？', p:'m4 hai6 gwaa3, nei5 bong1 ngo5 gong2 je5?', e:'You’re not speaking up for me, surely?'},
+      {speaker:'C', v:'我唔係幫口，我淨係想收科。不如噉：出貨前十分鐘影，寫入流程，唔使邊個記住。', p:'ngo5 m4 hai6 bong1 hau2, ngo5 zing6 hai6 soeng2 sau1 fo1. bat1 jyu4 gam2: ceot1 fo3 cin4 sap6 fan1 zung1 jing2, se2 jap6 lau4 cing4, m4 sai2 bin1 go3 gei3 zyu6.', e:'I’m not taking sides — I just want to close this off. How about this: photograph it ten minutes before the load goes, and write it into the procedure, so nobody has to remember.'},
+    ],
+    vocab:[
+      {v:'插嘴', p:'caap3zeoi2', e:'to cut in; to interrupt'},
+      {v:'打斷', p:'daa2tyun5', e:'to cut someone off; to break in'},
+      {v:'唔係啩', p:'m4hai6gwaa3', e:'surely not?; you’re joking'},
+      {v:'睇怕', p:'tai2paa3', e:'I reckon; probably'},
+      {v:'幫口', p:'bong1hau2', e:'to speak up for someone; to take a side'},
+      {v:'幫拖', p:'bong1to1', e:'to back someone up; to lend a hand'},
+      {v:'唔關我事', p:'m4gwaan1ngo5si6', e:'nothing to do with me'},
+      {v:'各有各講', p:'gok3jau5gok3gong2', e:'each talking about their own thing'},
+      {v:'冇眼睇', p:'mou5ngaan5tai2', e:'I can’t watch this'},
+      {v:'頂唔順', p:'ding2m4seon6', e:'can’t stand it any more'},
+      {v:'收科', p:'sau1fo1', e:'to wind it up; to close something off'},
+      {v:'流程', p:'lau4cing4', e:'a procedure; the steps of a job'},
+    ],
+    grammar:[
+      {title:'Cutting in without being rude', body:'唔好意思，我插句嘴 is the standard opener, and it is worth memorising whole. 插嘴 caap3 zeoi2 is neutral when you announce it and rude when you do not — the announcing IS the politeness. 打斷 daa2 tyun5 is stronger and usually describes what someone else did to you: 佢成日打斷我 (he keeps cutting me off). If you are joining rather than stopping, 等我講句 dang2 ngo5 gong2 geoi3 (let me say one thing) is softer again, and 我補充少少 is what you want in a meeting.'},
+      {title:'幫口 vs 幫拖 — and why the difference matters here', body:'幫拖 bong1 to1 is backing someone up in the useful sense — helping with the work, standing with them. 幫口 bong1 hau2 is specifically speaking FOR them in a dispute, and it carries a suspicion of taking sides. That is why the third speaker denies 幫口 but would happily admit 幫拖: in an argument between two colleagues, being seen to 幫口 costs you the other one. 我唔係幫口 is a sentence worth having ready before you need it.'},
+      {title:'收科 — how a Cantonese argument gets ended', body:'收科 sau1 fo1 comes from opera — closing the scene — and it means bringing something to a stop in a way that lets everyone leave with their dignity. 好難收科 is what you say about a mess that has gone too far to end cleanly. Note what the speaker above actually does to 收科: he does not decide who was right. He reframes the problem so that neither of them was wrong, then proposes a procedure so nobody has to be. That is the move, and the phrase names it.'},
+    ],
+    cards:[
+      {v:'唔好意思，我插句嘴。', p:'m4 hou2 ji3 si1, ngo5 caap3 geoi3 zeoi2.', e:'Sorry, can I cut in?'},
+      {v:'佢鍾意喺人講嘢嗰陣插嘴。', p:'keoi5 zung1 ji3 hai2 jan4 gong2 je5 go2 zan6 caap3 zeoi2.', e:'He likes to cut in while people are talking.'},
+      {v:'佢成日打斷人講嘢。', p:'keoi5 seng4 jat6 daa2 tyun5 jan4 gong2 je5.', e:'He’s always cutting people off.'},
+      {v:'唔係啩，咁快就做完？', p:'m4 hai6 gwaa3, gam3 faai3 zau6 zou6 jyun4?', e:'You’re joking — finished already?'},
+      {v:'睇怕今日做唔切喇。', p:'tai2 paa3 gam1 jat6 zou6 m4 cit3 laa3.', e:'I reckon we won’t get through it today.'},
+      {v:'唔好幫佢講嘢，你唔知全件事。', p:'m4 hou2 bong1 keoi5 gong2 je5, nei5 m4 zi1 cyun4 gin6 si6.', e:'Don’t speak up for him — you don’t know the whole story.'},
+      {v:'佢哋兩個好好，成日幫拖。', p:'keoi5 dei6 loeng5 go3 hou2 hou2, seng4 jat6 bong1 to1.', e:'Those two are close — always backing each other up.'},
+      {v:'呢單嘢唔關我事。', p:'ni1 daan1 je5 m4 gwaan1 ngo5 si6.', e:'This one’s nothing to do with me.'},
+      {v:'你哋各有各講，點會傾得掂。', p:'nei5 dei6 gok3 jau5 gok3 gong2, dim2 wui5 king1 dak1 dim6.', e:'You’re each on your own subject — how would you ever settle it?'},
+      {v:'佢哋嘈到我冇眼睇。', p:'keoi5 dei6 cou4 dou3 ngo5 mou5 ngaan5 tai2.', e:'They were rowing so badly I couldn’t watch.'},
+      {v:'我真係頂唔順佢把聲。', p:'ngo5 zan1 hai6 ding2 m4 seon6 keoi5 baa2 seng1.', e:'I honestly can’t stand the sound of his voice.'},
+      {v:'搞成噉，好難收科。', p:'gaau2 sing4 gam2, hou2 naan4 sau1 fo1.', e:'Made a mess of it like that — hard to wind it up now.'},
+      {v:'寫入流程就唔使記住。', p:'se2 jap6 lau4 cing4 zau6 m4 sai2 gei3 zyu6.', e:'Write it into the procedure and nobody has to remember.'},
+      {v:'你哋兩個講緊兩件事。', p:'nei5 dei6 loeng5 go3 gong2 gan2 loeng5 gin6 si6.', e:'You two are talking about two different things.'},
+      {v:'等我講句先，好唔好？', p:'dang2 ngo5 gong2 geoi3 sin1, hou2 m4 hou2?', e:'Let me get a word in first, would you?'},
     ] },
 ];
 
@@ -29600,7 +29830,7 @@ function renderLessonsTabYue(){
   // their own `section` id numbering (1, 2, 3...), so lookups must always
   // go through this per-level map rather than a single shared sections
   // array, or A1's section:1 and A2's section:1 would collide.
-  const CANTONESE_SECTIONS_BY_LEVEL = { A1: CANTONESE_A1_SECTIONS, A2: CANTONESE_A2_SECTIONS, B1: CANTONESE_B1_SECTIONS, B2: CANTONESE_B2_SECTIONS };
+  const CANTONESE_SECTIONS_BY_LEVEL = { A1: CANTONESE_A1_SECTIONS, A2: CANTONESE_A2_SECTIONS, B1: CANTONESE_B1_SECTIONS, B2: CANTONESE_B2_SECTIONS, C1: CANTONESE_C1_SECTIONS };
 
   const yueLessonCardHtml = (l, levelNum)=>{
     const done = state.yue.completedLessons.includes(l.id);
