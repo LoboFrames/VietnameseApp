@@ -27075,15 +27075,28 @@ function renderSwipe(){
     // under the tap. Regenerate exactly when we've moved to a different card
     // (listenCardIdx tracks which idx the cached options belong to).
     if(swipeState.listenCardIdx !== swipeState.idx){
-      const decoyPool = phraseStudyPool().filter(p => p.e !== c.e && p.srsId !== c.srsId); // whole deck, per "decoys from anywhere"
-      const decoys = [];
-      const used = new Set();
-      let guard = 0;
-      while(decoys.length < 2 && decoys.length < decoyPool.length && guard++ < 50){
-        const pick = decoyPool[Math.floor(Math.random()*decoyPool.length)];
-        if(used.has(pick.e)) continue;
-        used.add(pick.e);
-        decoys.push(pick.e);
+      /* This used to pull two decoys at random from the whole deck, which made
+         the answer obvious from topic alone — a line about a building site
+         offered against "Hello! I'm Ah Ming." The lesson practice overlay and
+         the pack quiz were both moved onto pickDecoys() (minimal pairs BUILT
+         from the answer) long ago; this third path was simply never wired up
+         to it, so all of that work never reached the Cards tab. It does now.
+         The deck is still the fallback pool for answers too short or too plain
+         to mutate — "Thanks." has nothing to flip — and same-lesson lines are
+         passed as `nearby` so the fallback prefers the closest ones. */
+      const deck = phraseStudyPool().filter(p => p.e !== c.e && p.srsId !== c.srsId);
+      const pool = deck.map(p => p.e).filter(Boolean);
+      const lessonOf = (c.srsId||'').startsWith('lesson_')
+        ? (c.srsId||'').replace(/^lesson_/, '').replace(/_[0-9]+$/, '')
+        : null;
+      const nearby = lessonOf
+        ? deck.filter(p => (p.srsId||'').indexOf('lesson_'+lessonOf+'_') === 0).map(p => p.e)
+        : null;
+      let decoys = pickDecoys(c.e, pool, nearby, 2, c.v);
+      if(decoys.length < 2){
+        const filler = pool.filter(e => e !== c.e && decoys.indexOf(e) === -1);
+        for(let i=filler.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [filler[i],filler[j]]=[filler[j],filler[i]]; }
+        decoys = decoys.concat(filler.slice(0, 2 - decoys.length));
       }
       const options = [c.e, ...decoys];
       for(let i=options.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [options[i],options[j]]=[options[j],options[i]]; }
@@ -27697,7 +27710,18 @@ function mpSwap(text, from, to, opts){
    "Couldn't" among curly ones and stand out as the odd option. Decided once
    per course from its own lines. */
 let _mpCurly = false, _mpCurlyLang = null;
-function mpSetApostropheStyle(pool){
+/* Which apostrophe a generated decoy should use. This matters more than it
+   sounds: the course was written over months and mixes ' and ’, so taking the
+   style from the POOL — one decision for the whole language — meant that on any
+   line whose own answer used the other one, every generated decoy was visually
+   the odd one out. "Hello! I'm Ah Ming." against "Hello! I’m not Ah Ming." can
+   be answered without listening to a word of it. The style now comes from the
+   ANSWER being mutated, and the pool is only the fallback for answers that
+   contain no apostrophe at all. */
+function mpSetApostropheStyle(pool, answer){
+  const a = String(answer || '');
+  const ac = (a.match(/’/g) || []).length, as = (a.match(/'/g) || []).length;
+  if(ac || as){ _mpCurly = ac > as; _mpCurlyLang = null; return; }
   const lang = (typeof state === 'object' && state && state.language) || '';
   if(_mpCurlyLang === lang) return;
   let curly = 0, straight = 0;
@@ -27714,6 +27738,19 @@ function mpSetApostropheStyle(pool){
    the mutators are known to produce that do not. */
 const MP_BAD = [
   /\b(do|does|did)\s+\w+\s+(don't|doesn't|didn't)\b/i,   // "do you don't have a question"
+  /* The negator does not know a finite verb from a participle or an infinitive,
+     so a handful of answers came back as decoys no English speaker would write:
+     "the whole street seems to don't have gone quiet", "half the plants in your
+     tank don't have died", "she'd rather it be chaotic than don't have the
+     family turn up". Ten of them across the course — few, but each one is worse
+     than an easy question, because it leaves the correct answer as the only
+     fluent option and the learner never has to listen at all. */
+  /\bto\s+(don['’]t|doesn['’]t|didn['’]t)\b/i,
+  /\b(don['’]t|doesn['’]t|didn['’]t)\s+have\s+(been|gone|died|come|seen|done|made|said|had|got|gotten|left|taken|written|changed|bought|sat|sitting)\b/i,
+  /\bthan\s+(don['’]t|doesn['’]t|didn['’]t)\b/i,
+  /\b(is|are|was|were|am|be|been)\s+(don['’]t|doesn['’]t|didn['’]t)\b/i,
+  /\bneither\b[^.?!]{0,40}(don['’]t|doesn['’]t|didn['’]t)\b/i,
+  /\b(more and less|less and more)\b/i,
   /\blet\s+you\b/i,                                       // "let you ask"
   /\b(the|a|an)\s+(different|hate|same)\b/i,              // "the different as usual"
   /\b(is|are|was|were|'s|'re)\s+hate\b/i,                 // "It's hate this"
@@ -27961,7 +27998,14 @@ function mpNumberVariants(t){
   }
   for(const w of MP_NUMWORDS){
     if(!new RegExp("(^|[^A-Za-z'])" + w + "(?![A-Za-z'])", 'i').test(t)) continue;
-    MP_NUMWORDS.filter(x => x !== w).slice(0,3).forEach(alt => {
+    /* "one" is left out of this swap in both directions. It is the only number
+       word that takes a singular noun, so swapping it in gave "forty bucks" ->
+       "one bucks" and "two people" -> "one people", and swapping it out has the
+       mirror problem. Detecting the plural is not worth it — English has
+       "people", "children", "feet" — and every other number reads correctly
+       with no agreement work at all. */
+    MP_NUMWORDS.filter(x => x !== w && x !== 'one').slice(0,3).forEach(alt => {
+      if(w.toLowerCase() === 'one') return;
       const v = mpSwap(t, w, alt, {notPrevRe:/(a few|a couple|several|the|no|only)\s+$/i}); if(v) out.push(v);
     });
     break;
@@ -28086,7 +28130,7 @@ function mpVariants(correct, allowPerson){
    short or too plain to mutate — "Thanks." has nothing to flip.
    `nearby` is the lesson's own lines, which get a bonus in that fallback. */
 function pickDecoys(correct, pool, nearby, count, target){
-  mpSetApostropheStyle(pool);
+  mpSetApostropheStyle(pool, correct);
   const minimal = mpVariants(correct, mpTargetNamesPerson(target));
   /* Sample a shortlist rather than taking the front of the list, so the
      negation is not on screen every single time — "the negative one is never
