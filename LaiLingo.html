@@ -76,10 +76,13 @@
   }
   header.appbar .brand{display:flex;align-items:center;gap:10px;}
   header.appbar .brand .flag{
-    width:26px;height:26px;border-radius:6px;
+    /* Bigger on purpose: this badge and the one on the hero are the only two
+       places the app says WHICH course you are in, and at 26px the flag was
+       an unreadable smudge on a phone. */
+    width:34px;height:34px;border-radius:8px;
     background:var(--vermillion);
     display:flex;align-items:center;justify-content:center;
-    font-size:14px;
+    font-size:20px;line-height:1;
     box-shadow: inset 0 0 0 2px rgba(240,169,59,0.5);
     border:none;padding:0;
   }
@@ -307,7 +310,7 @@
   .home-hero img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;}
   .home-hero-shade{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.12) 40%, rgba(0,0,0,0.78) 100%);}
   .home-hero-loc{position:absolute;top:14px;left:16px;color:#fff;font-weight:700;font-size:13px;text-shadow:0 1px 4px rgba(0,0,0,.6);z-index:2;max-width:65%;}
-  .home-flag-badge{position:absolute;top:12px;right:12px;z-index:2;width:42px;height:42px;border-radius:50%;background:var(--vermillion);display:flex;align-items:center;justify-content:center;font-size:19px;box-shadow:0 2px 8px rgba(0,0,0,.4);border:2px solid rgba(255,255,255,.3);padding:0;}
+  .home-flag-badge{position:absolute;top:12px;right:12px;z-index:2;width:60px;height:60px;border-radius:50%;background:var(--vermillion);display:flex;align-items:center;justify-content:center;font-size:32px;line-height:1;box-shadow:0 3px 12px rgba(0,0,0,.45);border:2px solid rgba(255,255,255,.35);padding:0;}
   .home-hero-bottomrow{position:absolute;bottom:14px;left:14px;right:14px;display:flex;justify-content:space-between;gap:8px;z-index:2;}
   .home-pill{background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;border:1px solid rgba(255,255,255,0.18);padding:9px 15px;border-radius:999px;font-weight:700;font-size:12.5px;display:inline-flex;align-items:center;gap:6px;}
   .home-pill.icon-only{padding:9px;width:36px;height:36px;justify-content:center;}
@@ -1137,7 +1140,7 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
 
       <!-- HERO -->
       <div class="home-hero" id="homeHero">
-        <img id="homeHeroImg" src="images/home-hero.jpg" alt="" onerror="this.style.display='none';">
+        <img id="homeHeroImg" src="images/home-hero.jpg" alt="">
         <div class="home-hero-shade"></div>
         <div class="home-hero-loc" id="homeHeroLoc">Mũi Né Sand Dunes</div>
         <button class="home-flag-badge" id="homeFlagBadge" onclick="openLanguagePicker()" title="Switch language">🇻🇳</button>
@@ -24516,6 +24519,159 @@ function switchView(v){
 // still show the Vietnamese course regardless of the active language. The
 // flag badges and the Lessons tab header are the only other things that
 // change so the app is honest about what's live per language today.
+
+/* ========================= HOME HERO ART =========================
+   Every course gets its own hero image and its own place-name caption, so the
+   Home screen tells you which country you are working in before you read a
+   word. The real photo is images/home-hero-<id>.jpg (Vietnamese keeps the
+   original images/home-hero.jpg, unchanged).
+
+   If that file is not in the folder yet, the <img> falls back to a DRAWN
+   skyline for that place rather than hiding itself, which is what it used to
+   do. A hidden image left a bare gradient behind it and read as a broken app;
+   a drawn skyline reads as a deliberate one. Drop a real jpg in under the
+   matching name and it wins automatically — nothing below has to change.
+
+   The art is a data: URI built here rather than a file, so the app stays a
+   single HTML file with no extra assets to ship. Coordinates are on an
+   800x340 canvas with the horizon at y=250 and water below it; bars are
+   [x, width, height-above-horizon]. */
+const HERO_ART = {
+  vi:  { loc:'Mũi Né Sand Dunes',            sky:['#0e2338','#4a6a80','#efb069'], sun:'#ffe0ae', far:'#2c4256', city:'#16232e', water:'#1d3648',
+         ridge:'0,250 80,208 180,238 300,200 420,246 540,216 660,248 800,224 800,250', bars:[], mark:'palm' },
+  zh:  { loc:'The Bund, Shanghai',           sky:['#141026','#5a2140','#e8703f'], sun:'#ffcf8a', far:'#2a1c30', city:'#150f1c', water:'#241428',
+         ridge:'0,250 120,232 260,246 420,228 600,244 800,234 800,250',
+         bars:[[60,30,120],[96,22,196],[124,34,148],[300,26,168],[334,20,236],[360,30,140],[400,36,110],[560,24,152],[590,32,206],[628,22,132],[700,30,178],[736,24,120],[766,30,96]], mark:'pearl' },
+  yue: { loc:'Victoria Harbour, Hong Kong',  sky:['#08192e','#175064','#e5a15a'], sun:'#ffe2b0', far:'#17435a', city:'#0a1a24', water:'#0e2b3c',
+         ridge:'0,250 60,190 130,152 210,118 300,140 380,176 470,150 560,180 660,146 740,178 800,164 800,250',
+         bars:[[34,24,52],[62,16,80],[84,28,64],[118,14,96],[138,30,74],[174,18,110],[198,24,142],[228,16,88],[250,34,62],[292,20,118],[318,28,80],[352,22,186],[382,18,104],[406,32,68],[444,16,132],[466,26,86],[498,20,58],[524,34,112],[562,18,74],[588,26,150],[620,16,92],[642,30,64],[678,22,120],[706,18,78],[730,28,102],[764,22,60]], mark:'ferry' },
+  ja:  { loc:'Tokyo, Japan',                 sky:['#12162e','#4a3a63','#f0a48c'], sun:'#fff0d6', far:'#3b4067', city:'#141726', water:'#1b2036',
+         ridge:'0,250 110,224 240,236 380,220 520,238 660,226 800,236 800,250',
+         bars:[[40,26,64],[74,20,92],[100,30,74],[136,22,110],[500,24,88],[532,30,68],[570,20,102],[600,26,78],[634,22,120],[700,28,86],[736,24,66]], mark:'fuji' },
+  ko:  { loc:'Seoul, South Korea',           sky:['#0d1a2b','#3f5a72','#dfa07a'], sun:'#ffe6c4', far:'#1e3346', city:'#101c27', water:'#152a3a',
+         ridge:'0,250 90,214 170,236 280,190 380,222 470,200 580,232 690,206 800,230 800,250',
+         bars:[[30,28,70],[64,20,104],[90,30,82],[126,22,118],[560,26,90],[592,30,70],[630,22,110],[664,28,84],[700,24,124],[734,30,92],[770,24,70]], mark:'tower' },
+  th:  { loc:'Bangkok, Thailand',            sky:['#131029','#6b2f48','#f0a44e'], sun:'#ffe19a', far:'#2c1c34', city:'#160f1d', water:'#241830',
+         ridge:'0,250 140,238 320,246 520,236 700,246 800,238 800,250',
+         bars:[[40,26,66],[74,18,88],[98,28,60],[660,24,72],[692,20,96],[718,28,64],[754,22,84]], mark:'wat' },
+  tl:  { loc:'Manila Bay, Philippines',      sky:['#16182f','#7a3a4a','#f4a55c'], sun:'#ffd9a0', far:'#2e2138', city:'#171020', water:'#26192c',
+         ridge:'0,250 120,238 260,246 420,236 580,246 720,238 800,244 800,250',
+         bars:[[430,20,40],[456,16,58],[478,24,44],[510,14,66],[530,22,38]], mark:'banca' },
+  en:  { loc:'San Francisco, USA',           sky:['#0c1b30','#37536e','#e39a6a'], sun:'#ffe3bb', far:'#1d3145', city:'#0f1e2a', water:'#153044',
+         ridge:'0,250 120,224 260,242 420,220 600,240 800,226 800,250', bars:[], mark:'bridge' },
+  es:  { loc:'Barcelona, Spain',             sky:['#1a1226','#7c3245','#f2b45c'], sun:'#ffe6ab', far:'#331f34', city:'#1a1120', water:'#2a1a2c',
+         ridge:'0,250 150,240 330,247 520,238 700,247 800,241 800,250',
+         bars:[[40,30,58],[76,22,76],[104,28,52],[690,26,64],[722,20,84],[748,30,56]], mark:'sagrada' },
+};
+HERO_ART.vi2 = HERO_ART.vi;
+
+// The one hand-drawn feature per place. Everything else (sky, ridge, bars,
+// water) is generic; this is what makes each hero recognisable.
+function heroMark(kind, c){
+  switch(kind){
+    case 'palm': return (
+      `<path d="M120 250 q-6 -46 4 -76" stroke="${c}" stroke-width="6" fill="none"/>`+
+      `<path d="M124 172 q-40 -8 -58 12 q34 -6 56 2z M124 172 q-26 -34 -58 -34 q30 12 54 40z M124 172 q34 -20 64 -4 q-34 -4 -60 10z M124 172 q22 -32 58 -30 q-32 8 -52 36z" fill="${c}"/>`+
+      `<path d="M700 250 q8 -54 -4 -88" stroke="${c}" stroke-width="6" fill="none"/>`+
+      `<path d="M694 160 q40 -10 60 10 q-34 -6 -58 2z M694 160 q24 -34 58 -32 q-32 10 -52 38z M694 160 q-36 -18 -64 -2 q34 -4 60 10z" fill="${c}"/>`);
+    case 'pearl': return (
+      `<rect x="246" y="60" width="8" height="190" fill="${c}"/>`+
+      `<path d="M234 250 l16 -60 l16 60z" fill="${c}"/>`+
+      `<circle cx="250" cy="146" r="26" fill="${c}"/><circle cx="250" cy="86" r="16" fill="${c}"/>`+
+      `<rect x="243" y="44" width="14" height="22" fill="${c}"/>`);
+    case 'ferry': return (
+      `<path d="M300 306 h96 l-12 18 h-72z" fill="${c}" opacity=".92"/>`+
+      `<rect x="322" y="292" width="46" height="14" fill="${c}" opacity=".92"/>`+
+      `<rect x="340" y="278" width="9" height="14" fill="${c}" opacity=".92"/>`);
+    case 'fuji': return (
+      `<path d="M132 250 Q250 236 288 150 L318 104 L348 150 Q386 236 504 250z" fill="${HERO_ART.ja.far}"/>`+
+      `<path d="M289 148 L318 104 L347 148 l-14 9 -15 -9 -15 9z" fill="#f4f6fb" opacity=".92"/>`+
+      `<rect x="614" y="120" width="7" height="130" fill="${c}"/>`+
+      `<path d="M602 250 l15 -54 l15 54z" fill="${c}"/><rect x="610" y="150" width="15" height="9" fill="${c}"/>`);
+    case 'tower': return (
+      `<path d="M366 250 l24 -44 l24 44z" fill="${c}"/>`+
+      `<rect x="386" y="96" width="8" height="112" fill="${c}"/>`+
+      `<path d="M374 138 h32 l-8 20 h-16z" fill="${c}"/>`+
+      `<rect x="387" y="70" width="6" height="28" fill="${c}"/>`);
+    case 'wat': return (
+      `<g fill="${c}">`+
+      `<path d="M330 250 L370 96 L410 250z"/><path d="M262 250 L292 140 L322 250z"/><path d="M418 250 L448 140 L478 250z"/>`+
+      `<rect x="250" y="236" width="240" height="14"/>`+
+      `<rect x="366" y="72" width="8" height="26"/>`+
+      `</g>`);
+    case 'banca': return (
+      heroMark('palm', c)+
+      `<path d="M268 296 h160 l-20 22 h-120z" fill="${c}" opacity=".95"/>`+
+      `<path d="M244 290 h208" stroke="${c}" stroke-width="5" opacity=".85"/>`+
+      `<path d="M288 290 l14 -16 M408 290 l-14 -16" stroke="${c}" stroke-width="5" opacity=".85"/>`+
+      `<path d="M348 292 V182 l66 110z" fill="${c}" opacity=".95"/>`);
+    case 'bridge': return (
+      `<g fill="${c}">`+
+      `<rect x="188" y="76" width="16" height="174"/><rect x="596" y="76" width="16" height="174"/>`+
+      `<rect x="184" y="104" width="24" height="9"/><rect x="592" y="104" width="24" height="9"/>`+
+      `<rect x="0" y="196" width="800" height="9"/>`+
+      `</g>`+
+      `<path d="M0 150 Q100 214 196 150 Q400 250 604 150 Q700 214 800 152" stroke="${c}" stroke-width="5" fill="none"/>`);
+    case 'sagrada': return (
+      `<g fill="${c}">`+
+      `<path d="M330 250 L344 84 L358 250z"/><path d="M362 250 L378 62 L394 250z"/>`+
+      `<path d="M398 250 L414 84 L430 250z"/><path d="M440 250 L452 112 L464 250z"/>`+
+      `<path d="M296 250 L308 112 L320 250z"/>`+
+      `<rect x="290" y="228" width="180" height="22"/>`+
+      `</g>`);
+  }
+  return '';
+}
+
+// Builds the fallback illustration as a data: URI. Kept deterministic (no
+// randomness) so the same course always draws the same skyline.
+function heroArtDataUri(langId){
+  const a = HERO_ART[langId];
+  if(!a) return '';
+  const bars = (a.bars||[]).map(([x,w,h])=>`<rect x="${x}" y="${250-h}" width="${w}" height="${h}" fill="${a.city}"/>`).join('');
+  const ridge = a.ridge ? `<polygon points="${a.ridge}" fill="${a.far}"/>` : '';
+  // Reflection sits directly under the sun (cx 628) and narrows with distance —
+  // offsetting it left and right read as scribble rather than water.
+  const glint = [0,1,2,3,4,5].map(i=>{ const w=132-i*20; return `<rect x="${560-w/2}" y="${262+i*13}" width="${w}" height="3" rx="1.5" fill="#ffffff" opacity="${(0.2-i*0.028).toFixed(3)}"/>`; }).join('');
+  // The scene is AUTHORED on 800x340 with the horizon at 250, but it is EMITTED
+  // on 800x500 with everything pushed down 140 and the extra height given to
+  // sky. The hero box on a phone is about 420x340 — nearer 1.2:1 than the 2.35:1
+  // the scene is drawn at — so on the original canvas object-fit:cover threw
+  // away the sun and both edges. At 800x500 the crop only trims the sides a
+  // little, and no coordinate in the tables above had to move. The sun sits
+  // high and left of centre for the same reason: at the right-hand edge the
+  // crop ate it, and low down the hero's shade gradient swallowed it.
+  const svg =
+    `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">`+
+    `<defs><linearGradient id="s" x1="0" y1="0" x2="0" y2="1">`+
+      `<stop offset="0%" stop-color="${a.sky[0]}"/><stop offset="62%" stop-color="${a.sky[1]}"/><stop offset="100%" stop-color="${a.sky[2]}"/>`+
+    `</linearGradient></defs>`+
+    `<rect width="800" height="390" fill="url(#s)"/>`+
+    `<g transform="translate(0,140)">`+
+      `<circle cx="560" cy="104" r="40" fill="${a.sun}" opacity=".9"/>`+
+      ridge + bars + heroMark(a.mark, a.city)+
+      `<rect y="250" width="800" height="110" fill="${a.water}"/>`+ glint +
+    `</g>`+
+    `</svg>`;
+  return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+}
+
+// Photo first, drawn art second. The <img> used to hide itself on error, which
+// is sticky — once hidden it stayed hidden after a language switch — so the
+// handler now swaps the source instead, and display is reset on every render.
+function applyHomeHero(langId){
+  const img = document.getElementById('homeHeroImg');
+  const loc = document.getElementById('homeHeroLoc');
+  const art = HERO_ART[langId] || HERO_ART.vi;
+  if(loc) loc.textContent = art.loc;
+  if(!img) return;
+  const photo = (langId==='vi'||langId==='vi2') ? 'images/home-hero.jpg' : `images/home-hero-${langId}.jpg`;
+  const fallback = heroArtDataUri(langId);
+  img.style.display = 'block';
+  img.onerror = function(){ if(this.src !== fallback){ this.src = fallback; } };
+  img.src = photo;
+}
+
 function renderLanguageChrome(){
   const lang = LANGUAGES.find(l=>l.id===state.language) || visibleLanguages()[0];
   const brandFlag = document.getElementById('brandFlag');
@@ -24525,6 +24681,7 @@ function renderLanguageChrome(){
   if(brandFlag) brandFlag.textContent = lang.flag;
   if(brandTitle) brandTitle.textContent = lang.brand;
   if(homeFlagBadge) homeFlagBadge.textContent = lang.flag;
+  applyHomeHero(lang.id);
   if(lsnStatTitle) lsnStatTitle.innerHTML = `Learn ${lang.name} <span>${lang.flag}</span>`;
 }
 function openLanguagePicker(){
