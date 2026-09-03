@@ -1512,12 +1512,56 @@
   "to": "lesson_yue_l97_d3"
  },
  {
+  "from": "cphrase_yue_389",
+  "to": "lesson_yue_l98_d0"
+ },
+ {
   "from": "cphrase_yue_39",
   "to": "lesson_yue_l10_2"
  },
  {
   "from": "cphrase_yue_39",
   "to": "lesson_yue_l10_d2"
+ },
+ {
+  "from": "cphrase_yue_390",
+  "to": "lesson_yue_l98_d1"
+ },
+ {
+  "from": "cphrase_yue_391",
+  "to": "lesson_yue_l98_d2"
+ },
+ {
+  "from": "cphrase_yue_392",
+  "to": "lesson_yue_l98_d3"
+ },
+ {
+  "from": "cphrase_yue_393",
+  "to": "lesson_yue_l99_d0"
+ },
+ {
+  "from": "cphrase_yue_394",
+  "to": "lesson_yue_l99_d1"
+ },
+ {
+  "from": "cphrase_yue_395",
+  "to": "lesson_yue_l99_d2"
+ },
+ {
+  "from": "cphrase_yue_396",
+  "to": "lesson_yue_l99_d3"
+ },
+ {
+  "from": "cphrase_yue_397",
+  "to": "lesson_yue_l100_d0"
+ },
+ {
+  "from": "cphrase_yue_398",
+  "to": "lesson_yue_l100_d1"
+ },
+ {
+  "from": "cphrase_yue_399",
+  "to": "lesson_yue_l100_d2"
  },
  {
   "from": "cphrase_yue_4",
@@ -1534,6 +1578,26 @@
  {
   "from": "cphrase_yue_40",
   "to": "lesson_yue_l10_d3"
+ },
+ {
+  "from": "cphrase_yue_400",
+  "to": "lesson_yue_l100_d3"
+ },
+ {
+  "from": "cphrase_yue_401",
+  "to": "lesson_yue_l101_d0"
+ },
+ {
+  "from": "cphrase_yue_402",
+  "to": "lesson_yue_l101_d1"
+ },
+ {
+  "from": "cphrase_yue_403",
+  "to": "lesson_yue_l101_d2"
+ },
+ {
+  "from": "cphrase_yue_404",
+  "to": "lesson_yue_l101_d3"
  },
  {
   "from": "cphrase_yue_41",
