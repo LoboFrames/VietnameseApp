@@ -6306,6 +6306,69 @@ const CONCEPT_LESSONS_YUE = [
       {type:'text', body:'Understand all of it, and say whichever feels natural. Nobody in Hong Kong will think less of you for saying ngo5, and nobody will misunderstand o5. What does cause trouble is knowing only the careful form and then not recognising 我唔啱 when it arrives as o5 m4 aam1 at conversational speed — which is most of the time, among friends.'},
       {type:'text', body:'<em>If you learned from a speaker who left Hong Kong decades ago, expect their pronunciation to be the careful one. Lazy tone spread widely from the 1970s onward, so it tracks generation and neighbourhood more than education.</em>'},
     ] },
+  { id:'yue_c4', afterDay:5, title:'Numbers Out Loud',
+    subtitle:'Cantonese says numbers shorter than it writes them. The clock is read off the twelve marks on its face, money drops the word for dollar, and a trailing zero is simply left off. None of it is slang — it is just the ordinary spoken form.',
+    img:'images/yue_concept_04.jpg',
+    blocks:[
+      {type:'text', body:'You can know every digit from 一 to 十 and still not catch a price, a time or a room temperature, because almost nothing is said the long way. 三點十五分 is correct, complete, and not what anyone says. This is the shorter set — the one you will actually hear.'},
+
+      {type:'heading', text:'The Clock Has Twelve Marks On It'},
+      {type:'text', body:'Minutes are counted in the twelve numerals painted on a clock face, not in minutes. One mark — 一個字 — is five minutes. So the minute hand pointing at the 3 means fifteen past, and you say the 3.'},
+      {type:'vocab', words:[
+        {v:'三點三 saam1 dim2 saam1', e:'quarter past three — NOT 3:03. The second 三 is the mark, worth 15 minutes'},
+        {v:'五點九 ng5 dim2 gau2', e:'quarter to six: nine marks past five'},
+        {v:'一個字 jat1 go3 zi6', e:'five minutes. 兩個字 is ten, 三個字 is fifteen'},
+        {v:'一個骨 jat1 go3 gwat1', e:'a quarter of an hour — straight from the English "quarter"'},
+        {v:'點半 dim2 bun3', e:'half past. 七點半 = 7:30'},
+        {v:'差十分 caa1 sap6 fan1', e:'ten to — 差 means short by'},
+        {v:'夠鐘 gau3 zung1', e:'time is up / that is the time'},
+        {v:'個半鐘 go3 bun3 zung1', e:'an hour and a half. 半個鐘 is half an hour — the 半 moves'},
+      ]},
+      {type:'text', body:'<em>三點三 catching you out once is normal. Everyone hears 3:03 the first time. The tell is that nobody arranges anything for 3:03.</em>'},
+
+      {type:'heading', text:'Money Drops The Dollar'},
+      {type:'text', body:'A dollar is 蚊 man1 and ten cents is 毫 hou4, but once you are naming an amount with change in it, the dollar becomes 個 and the cents follow bare.'},
+      {type:'vocab', words:[
+        {v:'個八 go3 baat3', e:'$1.80 — one dollar, eight ten-cents'},
+        {v:'蚊半 man1 bun3', e:'$1.50 — a dollar and a half'},
+        {v:'兩個半 loeng5 go3 bun3', e:'$2.50'},
+        {v:'三個二 saam1 go3 ji6', e:'$3.20'},
+        {v:'兩毫子 loeng5 hou4 zi2', e:'twenty cents'},
+        {v:'一嚿水 jat1 gau6 seoi2', e:'a hundred dollars — everyday slang, not rude'},
+        {v:'一皮嘢 jat1 pei4 je5', e:'ten thousand — you will hear it about rent and cars'},
+      ]},
+
+      {type:'heading', text:'Twenty Is One Syllable'},
+      {type:'vocab', words:[
+        {v:'廿 jaa6', e:'twenty. 廿一 jaa6 jat1 = 21, 廿八度 = 28 degrees'},
+        {v:'卅 saa1', e:'thirty — written more than said now, but it appears on signs and menus'},
+        {v:'二十 ji6 sap6', e:'also twenty, and never wrong — but 廿 is what you hear'},
+      ]},
+
+      {type:'heading', text:'Roughly, And A Bit Over'},
+      {type:'text', body:'Two different vaguenesses, and they are not interchangeable. 零 leng4 means a bit over the round number. 幾 gei2 means somewhere inside the range.'},
+      {type:'vocab', words:[
+        {v:'十零日 sap6 leng4 jat6', e:'ten days and a bit — eleven, twelve'},
+        {v:'十幾日 sap6 gei2 jat6', e:'somewhere in the teens — could be nineteen'},
+        {v:'百零蚊 baak3 leng4 man1', e:'a hundred and a bit'},
+        {v:'二十幾個 ji6 sap6 gei2 go3', e:'twenty-something'},
+        {v:'幾十個 gei2 sap6 go3', e:'several tens — dozens'},
+      ]},
+
+      {type:'heading', text:'Big Round Numbers Lose Their Tail'},
+      {type:'text', body:'一千二百 is written out in full and said as 千二. The unit on the last digit — 百 here — is simply dropped, because its position already says what it is worth.'},
+      {type:'vocab', words:[
+        {v:'千二 cin1 ji6', e:'1,200 (千二百)'},
+        {v:'千九 cin1 gau2', e:'1,900'},
+        {v:'三千五 saam1 cin1 ng5', e:'3,500'},
+        {v:'萬五 maan6 ng5', e:'15,000'},
+        {v:'九百五 gau2 baak3 ng5', e:'950'},
+      ]},
+      {type:'text', body:'This is why a clone count comes over the phone as 千二 and 九百五 rather than anything longer. It is also why 千二 and 十二 are worth keeping apart in your ear: the first is twelve hundred, the second is twelve.'},
+
+      {type:'heading', text:'What To Do With It'},
+      {type:'text', body:'Recognise all of it; say whichever you can produce under pressure. Nobody will blink at 三點十五分 or 一千二百 — they are correct, just long. What costs you is hearing 三點三 and writing down 3:03, or hearing 個八 and reaching for eight dollars. Numbers are the one part of a conversation where being close is no use at all.'},
+    ] },
 ];
 function isYueId(id){ return typeof id === 'string' && id.indexOf('yue_') === 0; }
 
@@ -19396,6 +19459,33 @@ const PACKS_YUE = [
     {v:'佢哋收到未？覆返我。', p:'keoi5 dei6 sau1 dou2 mei6? fuk1 faan1 ngo5.', e:'Did they get it? Let me know.'},
     {v:'我而家喺東廠，你同林生講。', p:'ngo5 ji4 gaa1 hai2 dung1 cong2, nei5 tung4 lam4 saang1 gong2.', e:'I’m at ESG right now — you tell Uncle.'},
   ] },
+  { id:'yp48', icon:'🌡️', title:'Day Counts and Room Readings', tag:'Grow', color:'stool-blue', cards:[
+    {v:'八號房今日第廿一日。', p:'baat3 hou6 fong2 gam1 jat6 dai6 jaa6 jat1 jat6.', e:'Room 8 is on day 21 today.'},
+    {v:'而家廿八度，濕度六十五。', p:'ji4 gaa1 jaa6 baat3 dou6, sap1 dou6 luk6 sap6 ng5.', e:'It’s 28 degrees, humidity 65.'},
+    {v:'濕度高過七十就要開抽濕機。', p:'sap1 dou6 gou1 gwo3 cat1 sap6 zau6 jiu3 hoi1 cau1 sap1 gei1.', e:'Over 70 humidity, put the dehumidifier on.'},
+    {v:'夜晚跌到廿二度左右。', p:'je6 maan5 dit3 dou3 jaa6 ji6 dou6 zo2 jau6.', e:'It drops to around 22 overnight.'},
+    {v:'仲有十零日就收成。', p:'zung6 jau5 sap6 leng4 jat6 zau6 sau1 sing4.', e:'Ten-odd days until harvest.'},
+    {v:'開燈嗰陣會升三四度。', p:'hoi1 dang1 go2 zan6 wui5 sing1 saam1 sei3 dou6.', e:'It climbs three or four degrees when the lights come on.'},
+    {v:'記得每日睇兩次數。', p:'gei3 dak1 mui5 jat6 tai2 loeng5 ci3 sou3.', e:'Check the readings twice a day.'},
+  ] },
+  { id:'yp49', icon:'🕒', title:'Times on the Floor', tag:'Crew', color:'stool-yellow', cards:[
+    {v:'三點三開始，唔好遲。', p:'saam1 dim2 saam1 hoi1 ci2, m4 hou2 ci4.', e:'Start at quarter past three — don’t be late.'},
+    {v:'差十分夠鐘收工。', p:'caa1 sap6 fan1 gau3 zung1 sau1 gung1.', e:'Ten minutes to knocking-off time.'},
+    {v:'做多個半鐘就得。', p:'zou6 do1 go3 bun3 zung1 zau6 dak1.', e:'Another hour and a half will do it.'},
+    {v:'食晏得半個鐘咋。', p:'sik6 aan3 dak1 bun3 go3 zung1 zaa3.', e:'You only get half an hour for lunch.'},
+    {v:'五點九落班，唔好走早。', p:'ng5 dim2 gau2 lok6 baan1, m4 hou2 zau2 zou2.', e:'Off at quarter to six — don’t slip away early.'},
+    {v:'等多兩個字啦。', p:'dang2 do1 loeng5 go3 zi6 laa1.', e:'Give it another ten minutes.'},
+    {v:'夠鐘喇，收工。', p:'gau3 zung1 laa3, sau1 gung1.', e:'That’s the time — knock off.'},
+  ] },
+  { id:'yp50', icon:'🪙', title:'Money the Short Way', tag:'At the Till', color:'stool-yellow', cards:[
+    {v:'個八一斤。', p:'go3 baat3 jat1 gan1.', e:'A dollar eighty a catty.'},
+    {v:'兩個半，唔使找喇。', p:'loeng5 go3 bun3, m4 sai2 zaau2 laa3.', e:'Two fifty — keep the change.'},
+    {v:'蚊半咋，好平。', p:'man1 bun3 zaa3, hou2 peng4.', e:'Only a dollar fifty — that’s cheap.'},
+    {v:'百零蚊搞掂。', p:'baak3 leng4 man1 gaau2 dim6.', e:'A hundred-odd sorts it.'},
+    {v:'廿蚊三個。', p:'jaa6 man1 saam1 go3.', e:'Twenty dollars for three.'},
+    {v:'爭你兩毫子。', p:'zaang1 nei5 loeng5 hou4 zi2.', e:'I’m twenty cents short.'},
+    {v:'一嚿水都唔夠。', p:'jat1 gau6 seoi2 dou1 m4 gau3.', e:'A hundred won’t even cover it.'},
+  ] },
 ];
 
 // The vocabulary of the job itself, pulled out of the facility packs so the
@@ -19547,6 +19637,19 @@ const FACILITY_VOCAB = [
   {v:'堆', p:'deoi1', e:'to stack up / a pile of', group:'Supplies and counting'},
   {v:'群組', p:'kwan4zou2', e:'the group chat', group:'Messaging'},
   {v:'覆', p:'fuk1', e:'to reply / get back to someone', group:'Messaging'},
+  // --- numbers as the floor says them (see concept lesson yue_c4) ---
+  {v:'濕度', p:'sap1dou6', e:'humidity', group:'Room conditions'},
+  {v:'升', p:'sing1', e:'to climb / go up (a reading)', group:'Room conditions'},
+  {v:'跌', p:'dit3', e:'to drop / fall', group:'Room conditions'},
+  {v:'左右', p:'zo2jau6', e:'or thereabouts (廿二度左右)', group:'Supplies and counting'},
+  {v:'廿', p:'jaa6', e:'twenty, in one syllable (廿八度)', group:'Supplies and counting'},
+  {v:'零', p:'leng4', e:'-odd, a bit over (十零日 = ten-odd days)', group:'Supplies and counting'},
+  {v:'個字', p:'go3zi6', e:'five minutes — one mark on the clock face', group:'Crew and shifts'},
+  {v:'個骨', p:'go3gwat1', e:'a quarter of an hour', group:'Crew and shifts'},
+  {v:'夠鐘', p:'gau3zung1', e:'time is up', group:'Crew and shifts'},
+  {v:'落班', p:'lok6baan1', e:'to come off shift', group:'Crew and shifts'},
+  {v:'毫子', p:'hou4zi2', e:'ten cents', group:'Everyday'},
+  {v:'嚿水', p:'gau6seoi2', e:'a hundred dollars (一嚿水)', group:'Everyday'},
 ];
 
 
