@@ -24118,6 +24118,7 @@ function renderFrequency(){
       : isSlangWords ? slangDeck(bucket.kind)
       : (state.contentMode==='new' ? newVocabPool() : buildWordFrequencyList());
     const searchFolded = stripDiacritics(freqSearchTerm.toLowerCase());
+    const searchLower = freqSearchTerm.toLowerCase();
 
     // The full corpus is 30,000 words — rendering that many DOM nodes at once would
     // lag mobile browsers badly, so "All" with no search just prompts for a range
@@ -24133,11 +24134,24 @@ function renderFrequency(){
         if(bucket.id==='unranked'){ if(w.rank!==999999) return false; }
         else if(w.rank < bucket.min || w.rank > bucket.max) return false;
       }
-      // Job words are searchable by their English gloss too — you are far more
-      // likely to remember "dehumidifier" than to reproduce 抽濕機 from memory.
-      if(freqSearchTerm && !stripDiacritics(w.word).includes(searchFolded)
-         && !(w.e||'').toLowerCase().includes(freqSearchTerm.toLowerCase())) return false;
-      return true;
+      // Searchable by English gloss too — you are far more likely to remember
+      // "dehumidifier" than to reproduce 抽濕機 from memory, and for a language
+      // you cannot type at all the English is the ONLY way in.
+      //
+      // Corpus words carry no .e: buildWordFrequencyList returns {word,p,rank,star}
+      // and the row gets its English from activeWordGloss at render time. So this
+      // filter matched .e against undefined for every ranked word in every course
+      // — searching "later" found nothing even though 遲啲 is rank 640 and the row
+      // renders "遲啲 — later on / in a bit" right there on screen. Use the same
+      // lookup the renderer uses. It is a cached map, so it stays cheap at 30,000.
+      if(!freqSearchTerm) return true;
+      if(stripDiacritics(w.word).includes(searchFolded)) return true;
+      const gl = (isOwnList ? w.e : (w.e || activeWordGloss(w.word))) || '';
+      if(gl.toLowerCase().includes(searchLower)) return true;
+      // and by how it sounds — ci4di1, or "ci4 di1" with the syllables spaced
+      const rom = (w.p||'').toLowerCase();
+      if(rom && (rom.includes(searchLower) || rom.replace(/\s+/g,'').includes(searchLower.replace(/\s+/g,'')))) return true;
+      return false;
     });
     const RENDER_CAP = 1000;
     const totalMatches = filtered.length;
