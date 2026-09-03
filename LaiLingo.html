@@ -868,11 +868,17 @@
   /* The flag pill and the toast both float above everything, including the
    step overlay (z 60) and the lesson detail (z 65), because audio plays on
    both and the flag has to be reachable from there too. */
-.flag-pill{position:fixed;right:14px;bottom:86px;z-index:120;display:flex;align-items:center;gap:7px;
+/* Anchored to the TOP, not the bottom. At bottom:86px it sat right on top of
+   the Again / Hard / Good / Easy row in a swipe session — the one row you tap
+   dozens of times a minute — so a mis-tap either flagged audio you did not mean
+   to flag or missed the grade you did. Top-right keeps it reachable and out of
+   the way of every high-frequency control on the screen. The slide-in direction
+   is flipped to match (it now drops down rather than rising). */
+.flag-pill{position:fixed;right:14px;top:64px;z-index:120;display:flex;align-items:center;gap:7px;
   max-width:62vw;padding:9px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.14);
   background:rgba(24,24,27,.92);backdrop-filter:blur(10px);color:#fff;font-size:12.5px;font-weight:600;
   box-shadow:0 6px 20px rgba(0,0,0,.34);cursor:pointer;
-  opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .18s ease,transform .18s ease;}
+  opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .18s ease,transform .18s ease;}
 .flag-pill.show{opacity:1;transform:translateY(0);pointer-events:auto;}
 .flag-pill.done{border-color:rgba(120,200,140,.5);}
 .flag-pill .fp-icon{font-size:14px;line-height:1;}
@@ -2704,6 +2710,7 @@ const CANTONESE_B1_SECTIONS = [
 const CANTONESE_C1_SECTIONS = [
   { id:1, roman:'I', title:'Holding the Floor' },
   { id:2, roman:'II', title:'Saying It Three Ways' },
+  { id:3, roman:'III', title:'When You Can Barely Follow' },
 ];
 
 const CANTONESE_B2_SECTIONS = [
@@ -4775,7 +4782,7 @@ const LESSONS_YUE = [
     dialogue:[
       {speaker:'A', v:'你今次合唔合格呀？', p:'nei5 gam1 ci3 hap6 m4 hap6 gaak3 aa3?', e:'Did you pass this time?'},
       {speaker:'B', v:'合格咗。就噉過咗，實在唔知點解。', p:'hap6 gaak3 zo2. zau6 gam2 gwo3 zo2, sat6 zoi6 m4 zi1 dim2 gaai2.', e:'I passed. Just scraped through — honestly no idea how.'},
-      {speaker:'A', v:'好笑喎。你溫咗幾十個鐘㗎嘛。', p:'hou2 siu3 wo3. nei5 wan1 zo2 gei2 sap6 go3 zung1 gaa3 maa3.', e:'That’s funny — you revised for dozens of hours.'},
+      {speaker:'A', v:'好笑喎。你溫咗幾十個鐘㗎嘛。', p:'hou2 siu3 wo3. nei5 wan1 zo2 gei2 sap6 go3 zung1 gaa3 maa5.', e:'That’s funny — you revised for dozens of hours.'},
       {speaker:'B', v:'係囉。搞掂喇，可以去台灣玩喇。', p:'hai6 lo1. gaau2 dim6 laa3, ho2 ji5 heoi3 toi4 waan1 waan2 laa3.', e:'Right. It’s done — now I can go to Taiwan.'},
     ],
     vocab:[
@@ -8106,6 +8113,217 @@ const LESSONS_YUE = [
       {v:'佢敷衍咗兩句就走咗。', p:'keoi5 fu1 hin2 zo2 loeng5 geoi3 zau6 zau2 zo2.', e:'He fobbed me off with a couple of words and left.'},
       {v:'阿頭今朝黑口黑面，遲啲先問佢。', p:'aa3 tau2 gam1 ziu1 hak1 hau2 hak1 min6, ci4 di1 sin1 man6 keoi5.', e:'The boss has a face on him this morning — ask him later.'},
       {v:'佢做咗十年都仲係咁死板。', p:'keoi5 zou6 zo2 sap6 nin4 dou1 zung6 hai6 gam3 sei2 baan2.', e:'Ten years in and he’s still that rigid.'},
+    ] },
+
+  // ===================== C1 section III — comprehension under pressure =====================
+  // Sections I and II were about producing: holding the floor, and picking the
+  // register. This one is the other half, and it is the half a course almost
+  // never trains, because it is uncomfortable to write: what you do when you
+  // are NOT following.
+  //
+  // Every listening exercise in this app until now has been a clean line spoken
+  // at a helpful pace with the text on screen. Real Cantonese arrives from
+  // someone who did not plan the sentence, on a bad phone line, over the top of
+  // somebody else, in an accent, faster than you can parse. The skill is not
+  // "understand everything" — it is getting the one fact you need, and knowing
+  // how to ask again without it costing you.
+  //
+  // The vocab is therefore REPAIR machinery: the things you say when the line
+  // breaks up, when three people talk at once, when you have missed it and have
+  // to admit so. yue_c3 teaches you to PRODUCE lazy tone; nothing until now has
+  // trained you to sit in front of it.
+  { id:'yue_l123', day:123, section:3, level:'C1', title:'Being Talked At', tag:'When You Can Barely Follow',
+    desc:'A long turn you did not ask for, and the one fact inside it: 長氣, 東拉西扯, 離題, 跟唔上, 重點, 消化, 話頭醒尾.',
+    duration:'8 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'噚日個供應商打嚟，講咗成十五分鐘。由佢啲車講到佢個仔讀書，又講返舊年價錢點跌，講到口水乾。我一直等佢講重點，等唔到。', p:'cam4 jat6 go3 gung1 jing3 soeng1 daa2 lei4, gong2 zo2 seng4 sap6 ng5 fan1 zung1. jau4 keoi5 di1 ce1 gong2 dou3 keoi5 go3 zai2 duk6 syu1, jau6 gong2 faan1 gau6 nin2 gaa3 cin4 dim2 dit3, gong2 dou3 hau2 seoi2 gon1. ngo5 jat1 zik6 dang2 keoi5 gong2 zung6 dim2, dang2 m4 dou2.', e:'The supplier rang yesterday and talked for a solid fifteen minutes. From his lorries to his son’s schooling and back round to how prices fell last year — talked himself hoarse. I kept waiting for the point and it never came.'},
+      {speaker:'B', v:'噉最後有冇講到正題？', p:'gam2 zeoi3 hau6 jau5 mou5 gong2 dou3 zing3 tai4?', e:'Did he get to the actual subject in the end?'},
+      {speaker:'A', v:'有，得一句：下個禮拜三加價百分之五。成十五分鐘就得嗰一句係我要嘅。我後來學乖咗，一開始就攞張紙抄低日期同數目，其他由佢講。跟唔上都唔緊要，抄到嗰兩樣就得。', p:'jau5, dak1 jat1 geoi3: haa6 go3 lai5 baai3 saam1 gaa1 gaa3 baak3 fan6 zi1 ng5. seng4 sap6 ng5 fan1 zung1 zau6 dak1 go2 jat1 geoi3 hai6 ngo5 jiu3 ge3. ngo5 hau6 loi4 hok6 gwaai1 zo2, jat1 hoi1 ci2 zau6 lo2 zoeng1 zi2 caau1 dai1 jat6 kei4 tung4 sou3 muk6, kei4 taa1 jau4 keoi5 gong2. gan1 m4 soeng5 dou1 m4 gan2 jiu3, caau1 dou2 go2 loeng5 joeng6 zau6 dak1.', e:'He did — one sentence: five percent up from Wednesday next week. Fifteen minutes and that one line was the bit I needed. I’ve wised up since: from the start I take a bit of paper and write down the date and the figure, and he can say what he likes. It doesn’t matter if you can’t keep up, as long as you get those two things down.'},
+      {speaker:'B', v:'佢係咪個個都咁長氣？', p:'keoi5 hai6 mai6 go3 go3 dou1 gam3 coeng4 hei3?', e:'Is he that long-winded with everyone?'},
+      {speaker:'A', v:'佢係。有啲人一句起兩句止，你要追住問先有嘢；有啲人東拉西扯，你要識喺入面揀。兩種都要應付，唔係佢哋改，係你改。', p:'keoi5 hai6. jau5 di1 jan4 jat1 geoi3 hei2 loeng5 geoi3 zi2, nei5 jiu3 zeoi1 zyu6 man6 sin1 jau5 je5; jau5 di1 jan4 dung1 laai1 sai1 ce2, nei5 jiu3 sik1 hai2 jap6 min6 gaan2. loeng5 zung2 dou1 jiu3 jing3 fu6, m4 hai6 keoi5 dei6 goi2, hai6 nei5 goi2.', e:'He is. Some people give you two sentences and stop, so you have to keep asking to get anything; some ramble all over the place and you have to know how to pick out of it. You have to handle both — they’re not going to change, you are.'},
+      {speaker:'B', v:'消化都要時間。', p:'siu1 faa3 dou1 jiu3 si4 gaan3.', e:'Takes a while to digest, too.'},
+      {speaker:'A', v:'係。所以我唔喺電話度即刻答，我話等我睇下先，覆你。', p:'hai6. so2 ji5 ngo5 m4 hai2 din6 waa2 dou6 zik1 haak1 daap3, ngo5 waa6 dang2 ngo5 tai2 haa5 sin1, fuk1 nei5.', e:'Right. So I don’t answer on the phone — I say let me have a look and I’ll come back to you.'},
+    ],
+    vocab:[
+      {v:'長氣', p:'coeng4hei3', e:'long-winded'},
+      {v:'東拉西扯', p:'dung1laai1sai1ce2', e:'to ramble all over the place'},
+      {v:'離題', p:'lei4tai4', e:'off the subject'},
+      {v:'正題', p:'zing3tai4', e:'the actual subject'},
+      {v:'跟唔上', p:'gan1m4soeng5', e:'can’t keep up'},
+      {v:'重點', p:'zung6dim2', e:'the main point'},
+      {v:'消化', p:'siu1faa3', e:'to digest; take in'},
+      {v:'抄低', p:'caau1dai1', e:'to write down'},
+      {v:'話頭醒尾', p:'waa6tau4sing2mei5', e:'quick to catch on'},
+      {v:'一句起兩句止', p:'jat1geoi3hei2loeng5geoi3zi2', e:'says two words and stops'},
+      {v:'講到口水乾', p:'gong2dou3hau2seoi2gon1', e:'to talk yourself hoarse'},
+      {v:'應付', p:'jing3fu6', e:'to handle; to cope with'},
+    ],
+    grammar:[
+      {title:'You are not trying to understand it all', body:'The instinct in a long turn you did not ask for is to parse every clause, fall behind, and panic. The working method is the opposite: decide before it starts what you actually need — a date, a number, a yes or no — and let the rest wash past. 抄低 caau1 dai1 (write it down) is the whole technique, and it is not a beginner’s crutch: fluent people take the number down too, because a misheard figure costs more than looking uncertain. 跟唔上都唔緊要 is a true sentence and worth believing.'},
+      {title:'長氣 · 東拉西扯 · 一句起兩句止', body:'長氣 coeng4 hei3 — literally long breath — is being long-winded, and it is said with resignation rather than real anger. 東拉西扯 dung1 laai1 sai1 ce2 is rambling in every direction, pulling east and dragging west. Their opposite is 一句起兩句止 jat1 geoi3 hei2 loeng5 geoi3 zi2, someone who gives you two sentences and stops — which sounds easier and is often harder, because you have to keep asking. Neither type is going to change for you; the lesson’s last line is the real one.'},
+      {title:'話頭醒尾 — the compliment for catching on fast', body:'Literally: word at the head, awake at the tail. It describes someone who hears the start of something and already knows where it is going — you say half and they have got it. 佢好話頭醒尾 is high praise, close in feel to 識做 from lesson 122 but about comprehension rather than conduct. Its absence is what people complain about when they say 講極都唔明. Worth having as a target: at C1 the aim is not to catch every word, it is to be 話頭醒尾 on the words that matter.'},
+    ],
+    cards:[
+      {v:'佢好長氣，一講就半個鐘。', p:'keoi5 hou2 coeng4 hei3, jat1 gong2 zau6 bun3 go3 zung1.', e:'He’s so long-winded — once he starts it’s half an hour.'},
+      {v:'唔好東拉西扯，講重點。', p:'m4 hou2 dung1 laai1 sai1 ce2, gong2 zung6 dim2.', e:'Don’t ramble — get to the point.'},
+      {v:'你講到好離題喇。', p:'nei5 gong2 dou3 hou2 lei4 tai4 laa3.', e:'You’ve gone right off the subject.'},
+      {v:'返返去正題啦。', p:'faan1 faan1 heoi3 zing3 tai4 laa1.', e:'Let’s get back to the actual subject.'},
+      {v:'佢講得太快，我跟唔上。', p:'keoi5 gong2 dak1 taai3 faai3, ngo5 gan1 m4 soeng5.', e:'He talks too fast — I can’t keep up.'},
+      {v:'成個會就得嗰個重點。', p:'seng4 go3 wui2 zau6 dak1 go2 go3 zung6 dim2.', e:'That one point was the whole meeting.'},
+      {v:'畀啲時間我消化下。', p:'bei2 di1 si4 gaan3 ngo5 siu1 faa3 haa5.', e:'Give me a bit of time to take it in.'},
+      {v:'等我抄低個日期先。', p:'dang2 ngo5 caau1 dai1 go3 jat6 kei4 sin1.', e:'Let me write the date down first.'},
+      {v:'佢好話頭醒尾，唔使講兩次。', p:'keoi5 hou2 waa6 tau4 sing2 mei5, m4 sai2 gong2 loeng5 ci3.', e:'He catches on fast — you never have to say it twice.'},
+      {v:'佢一句起兩句止，要追住問。', p:'keoi5 jat1 geoi3 hei2 loeng5 geoi3 zi2, jiu3 zeoi1 zyu6 man6.', e:'He gives you two words and stops — you have to keep at him.'},
+      {v:'我講到口水乾佢都唔明。', p:'ngo5 gong2 dou3 hau2 seoi2 gon1 keoi5 dou1 m4 ming4.', e:'I talked myself hoarse and he still didn’t get it.'},
+      {v:'呢啲客好難應付。', p:'ni1 di1 haak3 hou2 naan4 jing3 fu6.', e:'These customers are hard work.'},
+      {v:'我唔喺電話度答，等我睇下先覆你。', p:'ngo5 m4 hai2 din6 waa2 dou6 daap3, dang2 ngo5 tai2 haa5 sin1 fuk1 nei5.', e:'I won’t answer on the phone — let me look and come back to you.'},
+      {v:'跟唔上都唔緊要，抄到數目就得。', p:'gan1 m4 soeng5 dou1 m4 gan2 jiu3, caau1 dou2 sou3 muk6 zau6 dak1.', e:'It doesn’t matter if you can’t keep up, as long as you get the figure down.'},
+    ] },
+
+  { id:'yue_l124', day:124, section:3, level:'C1', title:'On the Phone', tag:'When You Can Barely Follow',
+    desc:'No face, no lips, a bad line: 聽唔清, 斷斷續續, 訊號, 收線, 掛線, 留言, 覆機, 聽真啲, 確認.',
+    duration:'8 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'喂？喂？聽唔聽到我講嘢？你把聲斷斷續續。', p:'wai2? wai2? teng1 m4 teng1 dou2 ngo5 gong2 je5? nei5 baa2 seng1 tyun5 tyun5 zuk6 zuk6.', e:'Hello? Hello? Can you hear me? You’re breaking up.'},
+      {speaker:'B', v:'我喺倉入面，訊號好差。等我行出去先。', p:'ngo5 hai2 cong1 jap6 min6, seon3 hou6 hou2 caa1. dang2 ngo5 haang4 ceot1 heoi3 sin1.', e:'I’m inside the warehouse, the signal’s terrible. Let me walk outside.'},
+      {speaker:'A', v:'好啲喇。我啱啱講嘅嘢你聽到幾多？我講返一次：星期四朝早八點，兩架車，去二號門，唔係一號。你覆述一次畀我聽，我要確認。', p:'hou2 di1 laa3. ngo5 ngaam1 ngaam1 gong2 ge3 je5 nei5 teng1 dou2 gei2 do1? ngo5 gong2 faan1 jat1 ci3: sing1 kei4 sei3 ziu1 zou2 baat3 dim2, loeng5 gaa3 ce1, heoi3 ji6 hou6 mun4, m4 hai6 jat1 hou6. nei5 fuk1 seot6 jat1 ci3 bei2 ngo5 teng1, ngo5 jiu3 kok3 jing6.', e:'Better. How much of that did you get? Let me say it again: Thursday morning eight o’clock, two vehicles, gate two, not gate one. Read it back to me — I want to confirm it.'},
+      {speaker:'B', v:'星期四八點，兩架車，二號門。', p:'sing1 kei4 sei3 baat3 dim2, loeng5 gaa3 ce1, ji6 hou6 mun4.', e:'Thursday eight, two vehicles, gate two.'},
+      {speaker:'A', v:'啱。如果我唔喺度，唔好淨係收線，留個言，講清楚邊個打嚟同乜事。我見到就覆機。電話講唔清楚就打字畀我，唔好靠估。', p:'ngaam1. jyu4 gwo2 ngo5 m4 hai2 dou6, m4 hou2 zing6 hai6 sau1 sin3, lau4 go3 jin4, gong2 cing1 co2 bin1 go3 daa2 lei4 tung4 mat1 si6. ngo5 gin3 dou2 zau6 fuk1 gei1. din6 waa2 gong2 m4 cing1 co2 zau6 daa2 zi6 bei2 ngo5, m4 hou2 kaau3 gu2.', e:'Right. If I’m not around, don’t just hang up — leave a message and say clearly who’s calling and what it’s about. I’ll ring back when I see it. If it won’t come across on the phone, type it to me — don’t leave it to guesswork.'},
+      {speaker:'B', v:'明白。我掛線喇。', p:'ming4 baak6. ngo5 gwaa3 sin3 laa3.', e:'Understood. I’ll hang up now.'},
+    ],
+    vocab:[
+      {v:'聽唔清', p:'teng1m4cing1', e:'can’t hear it clearly'},
+      {v:'斷斷續續', p:'tyun5tyun5zuk6zuk6', e:'breaking up; on and off'},
+      {v:'訊號', p:'seon3hou6', e:'signal; reception'},
+      {v:'收線', p:'sau1sin3', e:'to hang up; to end the call'},
+      {v:'掛線', p:'gwaa3sin3', e:'to hang up'},
+      {v:'留言', p:'lau4jin4', e:'to leave a message'},
+      {v:'覆機', p:'fuk1gei1', e:'to ring back'},
+      {v:'聽真啲', p:'teng1zan1di1', e:'listen more carefully'},
+      {v:'大聲啲', p:'daai6seng1di1', e:'a bit louder'},
+      {v:'覆述', p:'fuk1seot6', e:'to read it back'},
+      {v:'確認', p:'kok3jing6', e:'to confirm'},
+      {v:'靠估', p:'kaau3gu2', e:'to go on guesswork'},
+    ],
+    grammar:[
+      {title:'覆述 — the habit that stops the expensive mistakes', body:'覆述 fuk1 seot6 is saying it back. On a bad line, in a second language, with numbers and gates and times in it, this is not politeness — it is the only thing standing between you and two lorries at the wrong door. 你覆述一次 asked of someone else, and 我覆述一次 offered about yourself, are both completely normal at work and neither implies anyone is slow. Pair it with 確認 kok3 jing6, which is what the read-back is FOR. If you take one habit out of this section, take this one.'},
+      {title:'Asking for a repeat without apologising for yourself', body:'There is a whole ladder here, and learners tend to jump straight to the bottom of it. 咩話？ is the quick one between peers. 唔好意思，聽唔清 is neutral and works with anyone. 麻煩你講慢啲 / 大聲啲 asks for a specific fix, which is far more useful than a general apology, because the other person now knows what to change. 你頭先講咩？ is fine. What to avoid is the long apology about your Cantonese: it moves the conversation onto you, and the person still has not repeated the thing.'},
+      {title:'收線 vs 掛線, and 覆機', body:'Both mean ending a call. 掛線 gwaa3 sin3 is the plain one — I’m hanging up. 收線 sau1 sin3 leans towards closing it off, and 唔好收線 means don’t hang up on me, hold on. 覆機 fuk1 gei1 is to ring back, and it survives from the pager era, which is also where 覆 as "reply" comes from — 覆返你 (get back to you) is the same word. Keep 留言 lau4 jin4 with it: leaving a message that names who called and what about is the difference between a callback and a mystery number.'},
+    ],
+    cards:[
+      {v:'喂？我聽唔清，你講大聲啲。', p:'wai2? ngo5 teng1 m4 cing1, nei5 gong2 daai6 seng1 di1.', e:'Hello? I can’t hear you clearly — speak up a bit.'},
+      {v:'你把聲斷斷續續。', p:'nei5 baa2 seng1 tyun5 tyun5 zuk6 zuk6.', e:'You’re breaking up.'},
+      {v:'呢度訊號好差。', p:'ni1 dou6 seon3 hou6 hou2 caa1.', e:'The reception’s terrible here.'},
+      {v:'唔好收線，等陣先。', p:'m4 hou2 sau1 sin3, dang2 zan6 sin1.', e:'Don’t hang up — hold on a moment.'},
+      {v:'我掛線喇，遲啲再傾。', p:'ngo5 gwaa3 sin3 laa3, ci4 di1 zoi3 king1.', e:'I’ll hang up now — talk later.'},
+      {v:'佢冇聽電話，你留個言啦。', p:'keoi5 mou5 teng1 din6 waa2, nei5 lau4 go3 jin4 laa1.', e:'He didn’t pick up — leave him a message.'},
+      {v:'我留咗留言畀佢，未覆。', p:'ngo5 lau4 zo2 lau4 jin4 bei2 keoi5, mei6 fuk1.', e:'I left him a message — no reply yet.'},
+      {v:'我見到就即刻覆機。', p:'ngo5 gin3 dou2 zau6 zik1 haak1 fuk1 gei1.', e:'I’ll ring straight back when I see it.'},
+      {v:'聽真啲，我講多次。', p:'teng1 zan1 di1, ngo5 gong2 do1 ci3.', e:'Listen carefully — I’ll say it again.'},
+      {v:'唔好意思，麻煩你講慢啲。', p:'m4 hou2 ji3 si1, maa4 faan4 nei5 gong2 maan6 di1.', e:'Sorry — could you say it a bit slower?'},
+      {v:'你覆述一次畀我聽。', p:'nei5 fuk1 seot6 jat1 ci3 bei2 ngo5 teng1.', e:'Read it back to me.'},
+      {v:'我要同你確認個時間。', p:'ngo5 jiu3 tung4 nei5 kok3 jing6 go3 si4 gaan3.', e:'I need to confirm the time with you.'},
+      {v:'唔好靠估，打返電話問清楚。', p:'m4 hou2 kaau3 gu2, daa2 faan1 din6 waa2 man6 cing1 co2.', e:'Don’t guess — ring back and ask properly.'},
+      {v:'電話講唔清楚就打字畀我。', p:'din6 waa2 gong2 m4 cing1 co2 zau6 daa2 zi6 bei2 ngo5.', e:'If it won’t come across on the phone, type it to me.'},
+      {v:'二號門，唔係一號，記住。', p:'ji6 hou6 mun4, m4 hai6 jat1 hou6, gei3 zyu6.', e:'Gate two, not gate one — remember.'},
+    ] },
+
+  { id:'yue_l125', day:125, section:3, level:'C1', title:'When You Miss It', tag:'When You Can Barely Follow',
+    desc:'Asking again without it costing you: 咩話, 重覆, 兜返, 聽漏, 講漏, 一知半解, 估估下, 意會, 心照.',
+    duration:'8 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'頭先開會，我有幾句聽漏咗。特別係佢講嗰個新流程，我一知半解，唔敢話明白。', p:'tau4 sin1 hoi1 wui2, ngo5 jau5 gei2 geoi3 teng1 lau6 zo2. dak6 bit6 hai6 keoi5 gong2 go2 go3 san1 lau4 cing4, ngo5 jat1 zi1 bun3 gaai2, m4 gam2 waa6 ming4 baak6.', e:'I missed a few lines in the meeting just now. Especially that new procedure he went through — I only half got it, and I didn’t dare say I understood.'},
+      {speaker:'B', v:'點解唔即刻問？', p:'dim2 gaai2 m4 zik1 haak1 man6?', e:'Why not ask on the spot?'},
+      {speaker:'A', v:'嗰陣氣氛好緊張，我怕打斷。而家諗返，其實應該問。估估下做落去，錯咗損失仲大。下次我會講：唔好意思，兜返上一句，你頭先講嘅係邊個部分？', p:'go2 zan6 hei3 fan1 hou2 gan2 zoeng1, ngo5 paa3 daa2 tyun5. ji4 gaa1 nam2 faan1, kei4 sat6 jing1 goi1 man6. gu2 gu2 haa5 zou6 lok6 heoi3, co3 zo2 syun2 sat1 zung6 daai6. haa6 ci3 ngo5 wui5 gong2: m4 hou2 ji3 si1, dau1 faan1 soeng6 jat1 geoi3, nei5 tau4 sin1 gong2 ge3 hai6 bin1 go3 bou6 fan6?', e:'The atmosphere was tense and I was afraid of interrupting. Thinking about it now, I should have asked. Carrying on by guesswork costs more when it goes wrong. Next time I’ll say: sorry, can we go back a line — which part were you talking about just then?'},
+      {speaker:'B', v:'噉樣問好啲，具體過話我唔明。', p:'gam2 joeng2 man6 hou2 di1, geoi6 tai2 gwo3 waa6 ngo5 m4 ming4.', e:'That’s a better question — more specific than just "I don’t get it".'},
+      {speaker:'A', v:'係。話我唔明係畀個難題人哋，佢要由頭講起。講明我聽漏咗邊一句，佢重覆嗰句就得，三十秒搞掂。', p:'hai6. waa6 ngo5 m4 ming4 hai6 bei2 go3 naan4 tai4 jan4 dei6, keoi5 jiu3 jau4 tau4 gong2 hei2. gong2 ming4 ngo5 teng1 lau6 zo2 bin1 jat1 geoi3, keoi5 cung4 fuk1 go2 geoi3 zau6 dak1, saam1 sap6 miu5 gaau2 dim6.', e:'Right. "I don’t understand" hands the other person a problem — they have to start from the beginning. Say which line you missed and they repeat that one line, thirty seconds and it’s done.'},
+      {speaker:'B', v:'我哋心照，個個都試過扮明白。', p:'ngo5 dei6 sam1 ziu3, go3 go3 dou1 si3 gwo3 baan6 ming4 baak6.', e:'We both know how it is — everyone’s pretended to follow at some point.'},
+    ],
+    vocab:[
+      {v:'咩話', p:'me1waa2', e:'sorry, what?'},
+      {v:'聽漏', p:'teng1lau6', e:'to miss (hearing) something'},
+      {v:'講漏', p:'gong2lau6', e:'to leave something out'},
+      {v:'重覆', p:'cung4fuk1', e:'to repeat'},
+      {v:'兜返', p:'dau1faan1', e:'to go back to (a point)'},
+      {v:'一知半解', p:'jat1zi1bun3gaai2', e:'to half understand'},
+      {v:'估估下', p:'gu2gu2haa5', e:'by guesswork'},
+      {v:'意會', p:'ji3wui6', e:'to get the sense of it'},
+      {v:'心照', p:'sam1ziu3', e:'we both know; unspoken understanding'},
+      {v:'具體', p:'geoi6tai2', e:'specific; concrete'},
+      {v:'部分', p:'bou6fan6', e:'a part; a section'},
+      {v:'扮', p:'baan6', e:'to pretend'},
+    ],
+    grammar:[
+      {title:'"我唔明" hands over a problem — say what you missed instead', body:'This is the most useful idea in the section. 我唔明 tells the other person nothing except that they have failed, so they start again from the top and you lose two minutes and some standing. Naming the gap does the opposite: 兜返上一句 (go back one line), 你頭先講嘅係邊個部分 (which part were you on), 個日期我聽漏咗 (I missed the date). The other person repeats one thing, everyone carries on, and you look like someone tracking closely rather than someone lost. 具體 geoi6 tai2 — being specific — is the whole trick.'},
+      {title:'咩話 — how blunt it is, and when', body:'咩話 me1 waa2 is "sorry, what?" and it is short, fast and completely normal between peers, on the floor, with friends. Note the tone on 話 — waa2, not waa6. Upward or with a stranger it is abrupt, and 唔好意思，你頭先講咩？ or just 唔好意思，聽唔清 does the same job at no cost. It is also fine to use 咩話 once and then switch registers if you have to ask twice, because asking twice is where the impatience shows and a softener buys you the second ask.'},
+      {title:'一知半解 · 估估下 · 心照', body:'一知半解 jat1 zi1 bun3 gaai2 is knowing one part and half-understanding the rest — an honest self-description, and admitting it is much cheaper than the alternative. 估估下 gu2 gu2 haa5 is proceeding on guesswork, and it is what happens when nobody admits the first one. 意會 ji3 wui6 is the good version: getting the sense without the words, 只可意會不可言傳. And 心照 sam1 ziu3 is two people understanding something neither has said — 大家心照 closes a topic that does not need spelling out, which is a genuinely useful thing to be able to do at work.'},
+    ],
+    cards:[
+      {v:'咩話？我聽唔到。', p:'me1 waa2? ngo5 teng1 m4 dou2.', e:'Sorry, what? I didn’t catch that.'},
+      {v:'我聽漏咗個日期。', p:'ngo5 teng1 lau6 zo2 go3 jat6 kei4.', e:'I missed the date.'},
+      {v:'你講漏咗一樣嘢。', p:'nei5 gong2 lau6 zo2 jat1 joeng6 je5.', e:'You’ve left something out.'},
+      {v:'麻煩你重覆多次。', p:'maa4 faan4 nei5 cung4 fuk1 do1 ci3.', e:'Could you say that once more?'},
+      {v:'唔好意思，兜返上一句。', p:'m4 hou2 ji3 si1, dau1 faan1 soeng6 jat1 geoi3.', e:'Sorry — can we go back a line?'},
+      {v:'我一知半解，唔敢話識。', p:'ngo5 jat1 zi1 bun3 gaai2, m4 gam2 waa6 sik1.', e:'I only half get it — I wouldn’t claim to know.'},
+      {v:'估估下做落去，好易出事。', p:'gu2 gu2 haa5 zou6 lok6 heoi3, hou2 ji6 ceot1 si6.', e:'Carrying on by guesswork is how things go wrong.'},
+      {v:'唔使解釋，我意會到。', p:'m4 sai2 gaai2 sik1, ngo5 ji3 wui6 dou2.', e:'No need to explain — I get the sense of it.'},
+      {v:'大家心照啦，唔使講出嚟。', p:'daai6 gaa1 sam1 ziu3 laa1, m4 sai2 gong2 ceot1 lei4.', e:'We both know — no need to say it out loud.'},
+      {v:'講具體啲，邊個部分？', p:'gong2 geoi6 tai2 di1, bin1 go3 bou6 fan6?', e:'Be more specific — which part?'},
+      {v:'呢個部分我未做過。', p:'ni1 go3 bou6 fan6 ngo5 mei6 zou6 gwo3.', e:'I haven’t done this part before.'},
+      {v:'佢扮明白，其實乜都唔知。', p:'keoi5 baan6 ming4 baak6, kei4 sat6 mat1 dou1 m4 zi1.', e:'He pretended to follow — he had no idea.'},
+      {v:'講明邊一句，佢重覆嗰句就得。', p:'gong2 ming4 bin1 jat1 geoi3, keoi5 cung4 fuk1 go2 geoi3 zau6 dak1.', e:'Say which line and they’ll just repeat that one.'},
+      {v:'嗰陣氣氛好緊張，我怕打斷。', p:'go2 zan6 hei3 fan1 hou2 gan2 zoeng1, ngo5 paa3 daa2 tyun5.', e:'The atmosphere was tense — I didn’t want to interrupt.'},
+    ] },
+
+  { id:'yue_l126', day:126, section:3, level:'C1', title:'Not Everyone Sounds the Same', tag:'When You Can Barely Follow',
+    desc:'The reason it is hard is often not you: 口音, 鄉下話, 咬字, 口窒窒, 唔清唔楚, 含糊, 快人快語, 慢吞吞.',
+    duration:'8 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'我一直以為係我耳仔問題。阿明講嘢我明晒，同一句話由陳師傅講出嚟我就聽唔明。', p:'ngo5 jat1 zik6 ji5 wai4 hai6 ngo5 ji5 zai2 man6 tai4. aa3 ming4 gong2 je5 ngo5 ming4 saai3, tung4 jat1 geoi3 waa6 jau4 can4 si1 fu2 gong2 ceot1 lei4 ngo5 zau6 teng1 m4 ming4.', e:'I kept thinking it was my ears. I understand everything Ah Ming says, and the same sentence out of Master Chan’s mouth I can’t follow at all.'},
+      {speaker:'B', v:'陳師傅有口音㗎嘛。佢係鄉下上嚟，講開鄉下話，咬字同我哋唔同。你唔係聽唔明廣東話，你係未聽慣佢。', p:'can4 si1 fu2 jau5 hau2 jam1 gaa3 maa5. keoi5 hai6 hoeng1 haa2 soeng5 lei4, gong2 hoi1 hoeng1 haa2 waa2, ngaau5 zi6 tung4 ngo5 dei6 m4 tung4. nei5 m4 hai6 teng1 m4 ming4 gwong2 dung1 waa2, nei5 hai6 mei6 teng1 gwaan3 keoi5.', e:'Master Chan’s got an accent, hasn’t he. He came up from the village and speaks the local dialect, so he shapes his words differently from us. It isn’t that you can’t understand Cantonese — you just aren’t used to him yet.'},
+      {speaker:'A', v:'噉即係要點？', p:'gam2 zik1 hai6 jiu3 dim2?', e:'So what do I do?'},
+      {speaker:'B', v:'聽多啲，冇第二味藥。同埋唔好淨係怪自己：佢講嘢又快又含糊，成日唔清唔楚，連我哋都要問返轉頭。姨姨就相反，慢吞吞，一個字一個字，你就明晒。快人快語嗰啲最難。', p:'teng1 do1 di1, mou5 dai6 ji6 mei6 joek6. tung4 maai4 m4 hou2 zing6 hai6 gwaai3 zi6 gei2: keoi5 gong2 je5 jau6 faai3 jau6 ham4 wu4, seng4 jat6 m4 cing1 m4 co2, lin4 ngo5 dei6 dou1 jiu3 man6 faan1 zyun2 tau4. ji1 ji1 zau6 soeng1 faan2, maan6 tan1 tan1, jat1 go3 zi6 jat1 go3 zi6, nei5 zau6 ming4 saai3. faai3 jan4 faai3 jyu5 go2 di1 zeoi3 naan4.', e:'Listen to more of him, there’s no other medicine. And don’t just blame yourself — he talks fast and mumbles, half the time it’s not clear, and even we have to ask him again. The auntie’s the opposite, slow as anything, one word at a time, and you understand every bit. It’s the quick talkers that are hardest.'},
+      {speaker:'A', v:'我以前緊張到口窒窒，而家好啲。', p:'ngo5 ji5 cin4 gan2 zoeng1 dou3 hau2 zat6 zat6, ji4 gaa1 hou2 di1.', e:'I used to get so nervous I’d stumble over my words. It’s better now.'},
+      {speaker:'B', v:'講多咗就係噉。慢慢嚟。', p:'gong2 do1 zo2 zau6 hai6 gam2. maan6 maan6 lei4.', e:'That’s what talking more does. Take your time.'},
+    ],
+    vocab:[
+      {v:'口音', p:'hau2jam1', e:'an accent'},
+      {v:'鄉下話', p:'hoeng1haa2waa2', e:'the village dialect; home speech'},
+      {v:'咬字', p:'ngaau5zi6', e:'the way someone shapes words'},
+      {v:'口窒窒', p:'hau2zat6zat6', e:'to stumble over your words'},
+      {v:'唔清唔楚', p:'m4cing1m4co2', e:'unclear; half-said'},
+      {v:'含糊', p:'ham4wu4', e:'mumbled; vague'},
+      {v:'快人快語', p:'faai3jan4faai3jyu5', e:'a fast talker; blunt and quick'},
+      {v:'慢吞吞', p:'maan6tan1tan1', e:'slow as anything'},
+      {v:'聽慣', p:'teng1gwaan3', e:'to be used to hearing'},
+      {v:'明晒', p:'ming4saai3', e:'to get all of it'},
+      {v:'師傅', p:'si1fu2', e:'master; a skilled tradesman'},
+      {v:'相反', p:'soeng1faan2', e:'the opposite'},
+    ],
+    grammar:[
+      {title:'It is usually not your Cantonese — it is that voice', body:'The single most useful thing to know at this level: comprehension is speaker-specific long after it is language-general. You will understand one colleague completely and another barely, and the gap is 咬字 ngaau5 zi6 (how they shape words), speed, and whether they mumble. 你唔係聽唔明廣東話，你係未聽慣佢 is not a kindness, it is a description. The fix is exposure to that person, not more study — and knowing this stops a bad ten minutes from becoming a verdict on your whole level.'},
+      {title:'口音 and 鄉下話 — said plainly, without insult', body:'口音 hau2 jam1 is an accent and is a neutral observation: 佢有口音 is not a criticism, it is information. 鄉下話 hoeng1 haa2 waa2 is the speech of someone’s home place — a village dialect, or a regional Cantonese — and in Hong Kong it is said matter-of-factly, often by the speaker about themselves. Watch the tone changes: 鄉下 is hoeng1 haa2, not haa6, and 話 is waa2 for a language, waa6 for the verb. That pair, 廣東話 and 講話, is worth keeping straight.'},
+      {title:'含糊 · 唔清唔楚 · 口窒窒 — three different unclarities', body:'含糊 ham4 wu4 is mumbling — the sound is not distinct. 唔清唔楚 m4 cing1 m4 co2 is about the CONTENT: half-said, not properly explained, and it is a complaint you can make about an instruction as easily as about a voice — 講到唔清唔楚 means nobody knows what was decided. 口窒窒 hau2 zat6 zat6 is stumbling, hesitating, tripping over your own words, and it is what a nervous learner does; it is described sympathetically, not mocked. Three problems, three words, and only the first is really about sound.'},
+    ],
+    cards:[
+      {v:'佢有口音，我要聽多兩次。', p:'keoi5 jau5 hau2 jam1, ngo5 jiu3 teng1 do1 loeng5 ci3.', e:'He’s got an accent — I need to hear it twice.'},
+      {v:'佢同屋企人講鄉下話。', p:'keoi5 tung4 uk1 kei2 jan4 gong2 hoeng1 haa2 waa2.', e:'He speaks the village dialect with his family.'},
+      {v:'佢咬字好清楚，好易聽。', p:'keoi5 ngaau5 zi6 hou2 cing1 co2, hou2 ji6 teng1.', e:'He articulates clearly — easy to follow.'},
+      {v:'我一緊張就口窒窒。', p:'ngo5 jat1 gan2 zoeng1 zau6 hau2 zat6 zat6.', e:'The moment I get nervous I start stumbling.'},
+      {v:'佢講到唔清唔楚，冇人知點做。', p:'keoi5 gong2 dou3 m4 cing1 m4 co2, mou5 jan4 zi1 dim2 zou6.', e:'He explained it so vaguely that nobody knows what to do.'},
+      {v:'佢講嘢好含糊，聽極都唔清。', p:'keoi5 gong2 je5 hou2 ham4 wu4, teng1 gik6 dou1 m4 cing1.', e:'He mumbles — you can listen all you like and still not catch it.'},
+      {v:'佢快人快語，唔係惡意。', p:'keoi5 faai3 jan4 faai3 jyu5, m4 hai6 ok3 ji3.', e:'He’s quick and blunt — he doesn’t mean anything by it.'},
+      {v:'佢做嘢慢吞吞，但係好穩陣。', p:'keoi5 zou6 je5 maan6 tan1 tan1, daan6 hai6 hou2 wan2 zan6.', e:'He works slowly, but he’s dependable.'},
+      {v:'聽慣咗就冇問題。', p:'teng1 gwaan3 zo2 zau6 mou5 man6 tai4.', e:'Once you’re used to it, it’s no trouble.'},
+      {v:'呢次我明晒，一句都冇漏。', p:'ni1 ci3 ngo5 ming4 saai3, jat1 geoi3 dou1 mou5 lau6.', e:'I got all of it this time — didn’t miss a line.'},
+      {v:'陳師傅做咗三十年。', p:'can4 si1 fu2 zou6 zo2 saam1 sap6 nin4.', e:'Master Chan’s been at it thirty years.'},
+      {v:'佢同你啱啱相反。', p:'keoi5 tung4 nei5 ngaam1 ngaam1 soeng1 faan2.', e:'He’s the exact opposite of you.'},
+      {v:'你唔係聽唔明，你係未聽慣佢。', p:'nei5 m4 hai6 teng1 m4 ming4, nei5 hai6 mei6 teng1 gwaan3 keoi5.', e:'It’s not that you can’t understand — you’re just not used to him yet.'},
+      {v:'聽多啲，冇第二味藥。', p:'teng1 do1 di1, mou5 dai6 ji6 mei6 joek6.', e:'Listen to more of it — there’s no other medicine.'},
     ] },
 ];
 
