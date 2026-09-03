@@ -19863,6 +19863,24 @@ const PACKS_YUE = [
     {v:'唔使急，慢慢諗。', p:'m4 sai2 gap1, maan6 maan2 nam2.', e:'No rush — think about it.'},
     {v:'有時間一齊食餐飯。', p:'jau5 si4 gaan3 jat1 cai4 sik6 caan1 faan6.', e:'We should get a meal sometime.'},
   ] },
+  { id:'yp88', icon:'🛤️', title:'Two Lanes', tag:'Crew', color:'stool-blue', cards:[
+    {v:'你排人手，佢排工序。', p:'nei5 paai4 jan4 sau2, keoi5 paai4 gung1 zeoi6.', e:'You roster the people, she sets the order of the work.'},
+    {v:'邊個做，你話事；幾時做同點做，佢話事。', p:'bin1 go3 zou6, nei5 waa6 si6; gei2 si4 zou6 tung4 dim2 zou6, keoi5 waa6 si6.', e:'Who does it is your call; when and how is hers.'},
+    {v:'兩樣都要，唔係一個人做晒。', p:'loeng5 joeng6 dou1 jiu3, m4 hai6 jat1 go3 jan4 zou6 saai3.', e:'We need both — it isn’t one person’s job.'},
+    {v:'我唔係話邊個啱邊個唔啱。', p:'ngo5 m4 hai6 waa6 bin1 go3 ngaam1 bin1 go3 m4 ngaam1.', e:'I’m not saying who’s right and who’s wrong.'},
+    {v:'之前冇講清楚，係我嘅問題。', p:'zi1 cin4 mou5 gong2 cing1 co2, hai6 ngo5 ge3 man6 tai4.', e:'It was never made clear before — that’s on me.'},
+    {v:'以後有咩改動，兩邊都要知。', p:'ji5 hau6 jau5 me1 goi2 dung6, loeng5 bin1 dou1 jiu3 zi1.', e:'Anything that changes from now on, both sides hear it.'},
+    {v:'老闆直接叫你做，都要話我知。', p:'lou5 baan2 zik6 zip3 giu3 nei5 zou6, dou1 jiu3 waa6 ngo5 zi1.', e:'If the boss tells you directly, I still need to know.'},
+  ] },
+  { id:'yp89', icon:'🗣️', title:'Getting Everyone in the Room', tag:'Crew', color:'stool-yellow', cards:[
+    {v:'我哋三個坐低講清楚。', p:'ngo5 dei6 saam1 go3 co5 dai1 gong2 cing1 co2.', e:'The three of us sit down and get it straight.'},
+    {v:'你先講，跟住到佢。', p:'nei5 sin1 gong2, gan1 zyu6 dou3 keoi5.', e:'You go first, then her.'},
+    {v:'佢講嘅，你明唔明？', p:'keoi5 gong2 ge3, nei5 ming4 m4 ming4?', e:'What she just said — do you follow it?'},
+    {v:'等佢講完先。', p:'dang2 keoi5 gong2 jyun4 sin1.', e:'Let him finish.'},
+    {v:'我哋唔係要搵邊個錯。', p:'ngo5 dei6 m4 hai6 jiu3 wan2 bin1 go3 co3.', e:'We’re not here to find out who’s at fault.'},
+    {v:'大家同意就噉決定。', p:'daai6 gaa1 tung4 ji3 zau6 gam2 kyut3 ding6.', e:'If we all agree, that’s the decision.'},
+    {v:'我會寫低，發俾大家。', p:'ngo5 wui5 se2 dai1, faat3 bei2 daai6 gaa1.', e:'I’ll write it down and send it to everyone.'},
+  ] },
 ];
 
 // The vocabulary of the job itself, pulled out of the facility packs so the
@@ -20173,6 +20191,16 @@ const FACILITY_VOCAB = [
   {v:'麻煩', p:'maa4faan4', e:'to trouble someone / a nuisance', group:'People'},
   {v:'直接', p:'zik6zip3', e:'directly / straight out', group:'People'},
   {v:'盡量', p:'zeon6loeng6', e:'to do one’s best (vague — usually the wrong answer)', group:'People'},
+  // --- the three-way conversation: two lanes, one meeting ---
+  {v:'次序', p:'ci3zeoi6', e:'the order things happen in', group:'Crew and shifts'},
+  {v:'改動', p:'goi2dung6', e:'a change to what was agreed', group:'Crew and shifts'},
+  {v:'同意', p:'tung4ji3', e:'to agree', group:'People'},
+  {v:'決定', p:'kyut3ding6', e:'to decide / the decision', group:'People'},
+  {v:'浪費', p:'long6fai3', e:'to waste (浪費人工 = wasted wages)', group:'People'},
+  {v:'打雜', p:'daa2zaap2', e:'to do odd jobs / general help', group:'Crew and shifts'},
+  {v:'拗', p:'aau3', e:'to argue over something', group:'People'},
+  {v:'補救', p:'bou2gau3', e:'to undo / put right after the fact', group:'Putting it right'},
+  {v:'企喺度', p:'kei5hai2dou6', e:'to stand about with nothing to do', group:'People'},
 ];
 
 
@@ -20638,6 +20666,74 @@ const CHAT_PERSONAS_YUE = {
           {v:'好，就噉話。', e:'Good — that’s settled then.', correct:false, tip:'Closes it without leaving him a route back when another site pulls his people. He will simply not turn up instead, and you will find out on the day.'},
           {v:'我下次唔會再遲。', e:'I won’t be late telling you again.', correct:false, tip:'A promise about you, when the useful thing is a route for him when it goes wrong at his end — which is where it usually goes wrong.'},
         ], them:{v:'冇問題。有事我打俾你。', e:'No problem. Anything comes up, I’ll call.'} },
+    ]},
+    { name:'開會 — 林生同阿曉 (The Meeting)', icon:'🪑', opener:{v:'林生：阿羅，我唔明。阿姨冇花剪，噉佢哋做乜？', e:'Uncle: Lo, I don’t follow. If the aunties have no flower to trim, what are they meant to do?'}, turns:[
+      { youOptions:[
+          {v:'你問得啱。等我講清楚兩件事先。', e:'That’s a fair question. Let me set out two things first.', correct:true},
+          {v:'哩個係阿曉負責。', e:'That’s Ling’s side of it.', correct:false, tip:'You have handed his question to her in front of him. A process problem becomes an argument between two people who both work for you, and you are now the audience instead of the one deciding.'},
+          {v:'老闆話唔准剪。', e:'The boss said they’re not to trim it.', correct:false, tip:'True, and it teaches both of them that the way to change a decision is to go to Johnny rather than to you. That is the channel that caused this.'},
+        ], them:{v:'阿曉：唔係我唔畀佢哋做。係機器未做完，做咗就冇得補救。', e:'Ling: It isn’t that I won’t let them. The machine hasn’t had it yet, and once it’s hand-trimmed you can’t undo it.'} },
+      { youOptions:[
+          {v:'阿曉講嘅係次序，林生講嘅係人手。兩樣唔同。', e:'What Ling is describing is the order of the work. What you’re describing is manpower. They’re two different things.', correct:true},
+          {v:'所以阿曉啱。', e:'So Ling is right.', correct:false, tip:'She may well be, and saying so out loud in front of him settles nothing and costs him face. He will agree in the room and go back to doing it his way on the floor.'},
+          {v:'你哋兩個自己傾。', e:'The two of you work it out.', correct:false, tip:'They have been working it out between themselves for months. That is why the three of you are sitting here.'},
+        ], them:{v:'林生：噉我啲人企喺度冇嘢做，都係浪費人工。', e:'Uncle: Then my people stand about with nothing to do. That’s wages wasted.'} },
+      { youOptions:[
+          {v:'啱。所以唔夠花剪就唔好叫咁多人嚟。', e:'Right — so when there isn’t enough flower, don’t send that many people.', correct:true},
+          {v:'佢哋冇嘢做就摘葉啦。', e:'If they’ve nothing on, they can go and de-leaf.', correct:false, tip:'That is the improvisation that started all of this. Leaf pulled forward to fill a gap gets done early and roughly, and Ling finds the mould from it three weeks later.'},
+          {v:'人工唔係你嘅問題。', e:'The wages aren’t your problem.', correct:false, tip:'They are exactly his problem — he is judged on whether his people earn. Waving it away is how you lose the man who supplies your labour.'},
+        ], them:{v:'林生：噉你要早啲話我知有幾多花。', e:'Uncle: Then you have to tell me sooner how much flower there is.'} },
+      { youOptions:[
+          {v:'就係。阿曉每晚同你講聽日有幾多。', e:'Exactly. Ling tells you each evening how much there’ll be tomorrow.', correct:true},
+          {v:'我每日話你知。', e:'I’ll tell you every day.', correct:false, tip:'You are at another site half the week. Routing it through yourself rebuilds the same gap that produced this meeting, with your name on it.'},
+          {v:'你自己問阿曉啦。', e:'Just ask Ling yourself.', correct:false, tip:'Nearly right, and it leaves who rings whom unsettled. Name who sends the message and when, or neither of them will.'},
+        ], them:{v:'阿曉：冇問題，我夜晚發俾佢。', e:'Ling: No problem — I’ll send it to him in the evening.'} },
+    ]},
+
+    { name:'阿曉 (Ling) — Is There Work Tomorrow?', icon:'📆', opener:{v:'阿羅，聽日有冇嘢做？冇嘅話我唔使返。', e:'Lo, is there work tomorrow? If not, I won’t come in.'}, turns:[
+      { youOptions:[
+          {v:'聽日冇花。你可以跟阿姨嘅時間。', e:'No flower tomorrow. You can follow the aunties’ schedule.', correct:true},
+          {v:'你返嚟先啦。', e:'Come in anyway.', correct:false, tip:'She is paid by the hour and there is nothing to do. You are asking her to be bored at her own cost — she will say yes and resent it.'},
+          {v:'你自己決定。', e:'Up to you.', correct:false, tip:'She is asking because she cannot see the schedule. Handing the question back is not flexibility, it is leaving her to guess with a forty-minute drive at stake.'},
+        ], them:{v:'好。噉阿姨幾時嚟剪花？', e:'Alright. So when are the aunties coming to trim?'} },
+      { youOptions:[
+          {v:'星期一。我會提早一日話你知。', e:'Monday. I’ll tell you the day before.', correct:true},
+          {v:'等叔叔話我知先。', e:'Once Uncle tells me.', correct:false, tip:'True, and it makes her wait on a chain she cannot see. Give her the day you have and correct it if it moves.'},
+          {v:'應該係下個禮拜。', e:'Should be next week.', correct:false, tip:'"Should be" costs her a day of planning, and she has children and a long drive.'},
+        ], them:{v:'好。有工作你隨時通知我，我就返。', e:'Fine. Tell me whenever there’s work and I’ll come in.'} },
+      { youOptions:[
+          {v:'你想唔想做多啲？種植室嗰邊要人。', e:'Do you want more hours? They need people in the grow rooms.', correct:true},
+          {v:'你而家嘅鐘數夠唔夠？', e:'Are you getting enough hours?', correct:false, tip:'A question about her money that she then has to answer, which puts her in the position of asking for work. Offer it and let her decline.'},
+          {v:'冇花就冇工。', e:'No flower, no work.', correct:false, tip:'Accurate, and it shuts the door. She has said more than once that she cannot stand sitting idle — which means she will find work somewhere else.'},
+        ], them:{v:'我咩都做得，唔怕辛苦。', e:'I’ll do anything — I don’t mind hard work.'} },
+      { youOptions:[
+          {v:'噉好。有需要我提早叫你。', e:'Good. I’ll call you in ahead of time when we need you.', correct:true},
+          {v:'噉你日日返啦。', e:'Then come in every day.', correct:false, tip:'Straight back to paying her to wait, which is the thing she raised in the first place.'},
+          {v:'我睇下先。', e:'Let me see.', correct:false, tip:'She has just told you she will do anything. Answering a clear offer with a maybe wastes it.'},
+        ], them:{v:'好，多謝你。', e:'Good. Thank you.'} },
+    ]},
+
+    { name:'林生 (Uncle) — The Numbers Don’t Add Up', icon:'🧮', opener:{v:'林生：今日十八個人，剪咗一百五十四磅。', e:'Uncle: Eighteen people today, a hundred and fifty-four pounds trimmed.'}, turns:[
+      { youOptions:[
+          {v:'一百五十四？但係攞走嗰張寫一百六十八。', e:'A hundred and fifty-four? The pickup sheet says a hundred and sixty-eight.', correct:true},
+          {v:'好，多謝。', e:'Right, thanks.', correct:false, tip:'You have accepted a number you already know does not match. The gap is fourteen pounds and it becomes your problem at the weigh-in, not his.'},
+          {v:'你數錯咗。', e:'You’ve counted it wrong.', correct:false, tip:'Maybe — or the pickup sheet is wrong. Opening with which of you is mistaken guarantees a defence instead of a check.'},
+        ], them:{v:'林生：可能有一個係打雜，我冇計佢。', e:'Uncle: One of them was on odd jobs — I didn’t count her.'} },
+      { youOptions:[
+          {v:'打雜嗰個都要計，佢都收工錢。', e:'The one on odd jobs still counts — she’s still being paid.', correct:true},
+          {v:'噉就算啦。', e:'Never mind then.', correct:false, tip:'The hours are what the client gets billed from. "Never mind" here is money going out with nothing recorded against it.'},
+          {v:'下次全部都要計。', e:'Count everyone next time.', correct:false, tip:'Right rule, wrong moment. It leaves today’s fourteen pounds unexplained, and today is the only day you can still reconstruct it.'},
+        ], them:{v:'林生：我寫咗喺張紙度，我搵返俾你。', e:'Uncle: I wrote it on a slip — I’ll find it for you.'} },
+      { youOptions:[
+          {v:'唔該。以後每個人一個號碼，寫低鐘數。', e:'Thanks. From now on — a number for each person, and the hours written down.', correct:true},
+          {v:'你記得就得。', e:'As long as you remember.', correct:false, tip:'He is rostering four sites from memory and has already told you he forgets. A record is the fix; his memory is the thing that failed.'},
+          {v:'我自己嚟計。', e:'I’ll count it myself.', correct:false, tip:'You are not there. Taking it over means it stops being recorded on every day you are at the other site — which is most of them.'},
+        ], them:{v:'林生：得。我叫佢哋自己簽。', e:'Uncle: Fine. I’ll get them to sign for themselves.'} },
+      { youOptions:[
+          {v:'好。噉大家都清楚，唔使拗。', e:'Good. Then it’s clear for everyone and nobody has to argue.', correct:true},
+          {v:'唔好再搞錯。', e:'Don’t get it wrong again.', correct:false, tip:'He brought you a number that did not match and then went and found the paper. Ending on a warning is how the next mismatch never gets mentioned.'},
+          {v:'冇嘢喇。', e:'That’s all then.', correct:false, tip:'Flat, after he did the work of correcting it in front of you. It costs nothing to close it warmly and it is the reason he tells you next time.'},
+        ], them:{v:'林生：冇問題，朋友。', e:'Uncle: No problem, mate.'} },
     ]},
   ],
   yw_family: [
