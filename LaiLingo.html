@@ -26630,6 +26630,22 @@ const MP_CATEGORIES = [
   ['heavier','lighter','longer','shorter','wider'],
   ['angry','upset','worried','embarrassed','disappointed'],
   ['forgot','lost','broke','dropped','spilled'],
+  /* Verbs, in tightly-matched sets rather than one bag. A single broad verb
+     list was tried as a last-resort tier and reverted: it produced "do you
+     carry Ah Keung", "Wash we chat tonight" and "You don't keep to worry",
+     because verbs differ in what complement they take and swapping across
+     that boundary breaks the sentence. A decoy that reads wrong is worse than
+     an easy one — it makes the correct answer the only fluent option, which
+     is the whole failure this engine exists to avoid. Small same-frame sets
+     get the benefit without the wreckage. */
+  ['know','see','hear','recognise','recognize','remember'],
+  ['buy','sell','order','return','deliver'],
+  ['bring','take','send','carry','move'],
+  ['wash','clean','fix','check','count','weigh'],
+  ['open','close','lock','unlock'],
+  ['start','stop','finish','delay','cancel'],
+  ['said','told','asked','promised','explained'],
+  ['bigger','smaller','heavier','lighter','cheaper','dearer'],
   ['upstairs','downstairs','outside','next door']
 ];
 const MP_PROPER = new Set(['monday','tuesday','wednesday','thursday','friday','saturday','sunday']);
