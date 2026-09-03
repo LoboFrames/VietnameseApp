@@ -19522,6 +19522,33 @@ const PACKS_YUE = [
     {v:'多謝你話我知。', p:'do1 ze6 nei5 waa6 ngo5 zi1.', e:'Thanks for telling me.'},
     {v:'唔好等到出事先講。', p:'m4 hou2 dang2 dou3 ceot1 si6 sin1 gong2.', e:'Don’t wait until something goes wrong to say it.'},
   ] },
+  { id:'yp55', icon:'💴', title:'Payday and Hours', tag:'Crew', color:'stool-yellow', cards:[
+    {v:'禮拜五出糧。', p:'lai5 baai3 ng5 ceot1 loeng4.', e:'Payday is Friday.'},
+    {v:'你今個禮拜做咗幾多個鐘？', p:'nei5 gam1 go3 lai5 baai3 zou6 zo2 gei2 do1 go3 zung1?', e:'How many hours have you done this week?'},
+    {v:'加班費照計，唔會少你。', p:'gaa1 baan1 fai3 ziu3 gai3, m4 wui5 siu2 nei5.', e:'Overtime is counted — you won’t be short.'},
+    {v:'你想收現金定係過數？', p:'nei5 soeng2 sau1 jin6 gam1 ding6 hai6 gwo3 sou3?', e:'Do you want cash or a transfer?'},
+    {v:'我對返數先，唔啱就補返俾你。', p:'ngo5 deoi3 faan1 sou3 sin1, m4 ngaam1 zau6 bou2 faan1 bei2 nei5.', e:'Let me check the figures — if it’s wrong I’ll make it up to you.'},
+    {v:'有咩問題即刻同我講，唔使等出糧。', p:'jau5 me1 man6 tai4 zik1 haak1 tung4 ngo5 gong2, m4 sai2 dang2 ceot1 loeng4.', e:'Any problem, tell me straight away — don’t wait for payday.'},
+    {v:'哩個禮拜多咗四個鐘。', p:'ni1 go3 lai5 baai3 do1 zo2 sei3 go3 zung1.', e:'That’s four extra hours this week.'},
+  ] },
+  { id:'yp56', icon:'🤧', title:'Can’t Come In Today', tag:'Crew', color:'stool-blue', cards:[
+    {v:'我今日病咗，返唔到工。', p:'ngo5 gam1 jat6 beng6 zo2, faan1 m4 dou2 gung1.', e:'I’m ill today — I can’t come in.'},
+    {v:'唔緊要，休息啦。', p:'m4 gan2 jiu3, jau1 sik1 laa1.', e:'Never mind — get some rest.'},
+    {v:'有冇人可以頂佢更？', p:'jau5 mou5 jan4 ho2 ji5 ding2 keoi5 gaang1?', e:'Can anyone cover her shift?'},
+    {v:'我遲少少到，塞車。', p:'ngo5 ci4 siu2 siu2 dou3, sak1 ce1.', e:'I’ll be a bit late — traffic.'},
+    {v:'我想早走一個鐘，得唔得？', p:'ngo5 soeng2 zou2 zau2 jat1 go3 zung1, dak1 m4 dak1?', e:'Could I leave an hour early?'},
+    {v:'得，你補返鐘就得。', p:'dak1, nei5 bou2 faan1 zung1 zau6 dak1.', e:'That’s fine — just make the hours up.'},
+    {v:'唔嚟就話聲，唔好唔出聲。', p:'m4 lei4 zau6 waa6 seng1, m4 hou2 m4 ceot1 seng1.', e:'If you’re not coming, say so — don’t just go quiet.'},
+  ] },
+  { id:'yp57', icon:'🧑‍🏫', title:'Showing Someone New', tag:'Crew', color:'stool-red', cards:[
+    {v:'你做過哩啲嘢未呀？', p:'nei5 zou6 gwo3 ni1 di1 je5 mei6 aa3?', e:'Have you done this sort of work before?'},
+    {v:'你睇住我做一次先。', p:'nei5 tai2 zyu6 ngo5 zou6 jat1 ci3 sin1.', e:'Watch me do one first.'},
+    {v:'而家你試下，我睇住。', p:'ji4 gaa1 nei5 si3 haa5, ngo5 tai2 zyu6.', e:'Now you have a go — I’ll watch.'},
+    {v:'慢慢嚟，靚過快。', p:'maan6 maan2 lei4, leng3 gwo3 faai3.', e:'Take your time — neat beats fast.'},
+    {v:'明唔明呀？唔明就再講一次。', p:'ming4 m4 ming4 aa3? m4 ming4 zau6 zoi3 gong2 jat1 ci3.', e:'Do you follow? If not I’ll say it again.'},
+    {v:'唔識就問，唔好估。', p:'m4 sik1 zau6 man6, m4 hou2 gu2.', e:'If you don’t know, ask — don’t guess.'},
+    {v:'第一日唔使做咁快，睇清楚先。', p:'dai6 jat1 jat6 m4 sai2 zou6 gam3 faai3, tai2 cing1 co2 sin1.', e:'No need to be quick on your first day — look properly first.'},
+  ] },
 ];
 
 // The vocabulary of the job itself, pulled out of the facility packs so the
@@ -19699,6 +19726,20 @@ const FACILITY_VOCAB = [
   {v:'畀面', p:'bei2min2', e:'to give someone face', group:'Putting it right'},
   {v:'落面', p:'lok6min2', e:'to make someone lose face — what you avoid', group:'Putting it right'},
   {v:'抵鬧', p:'dai2naau6', e:'to deserve the telling-off (said of yourself)', group:'Putting it right'},
+  // --- pay, absence, and teaching someone the job (packs yp55-yp57) ---
+  {v:'出糧', p:'ceot1loeng4', e:'payday / to pay wages', group:'Crew and shifts'},
+  {v:'人工', p:'jan4gung1', e:'wages', group:'Crew and shifts'},
+  {v:'糧單', p:'loeng4daan1', e:'payslip', group:'Crew and shifts'},
+  {v:'加班費', p:'gaa1baan1fai3', e:'overtime pay', group:'Crew and shifts'},
+  {v:'過數', p:'gwo3sou3', e:'to transfer money', group:'Crew and shifts'},
+  {v:'對數', p:'deoi3sou3', e:'to check the figures against each other', group:'Putting it right'},
+  {v:'頂更', p:'ding2gaang1', e:'to cover someone’s shift', group:'Crew and shifts'},
+  {v:'請假', p:'cing2gaa3', e:'to take leave / book time off', group:'Crew and shifts'},
+  {v:'補鐘', p:'bou2zung1', e:'to make the hours up', group:'Crew and shifts'},
+  {v:'塞車', p:'sak1ce1', e:'traffic / stuck in traffic', group:'Everyday'},
+  {v:'休息', p:'jau1sik1', e:'to rest / take time off', group:'Crew and shifts'},
+  {v:'試下', p:'si3haa5', e:'to have a go', group:'Crew and shifts'},
+  {v:'估', p:'gu2', e:'to guess (唔好估 = don’t guess)', group:'Crew and shifts'},
 ];
 
 
@@ -19985,6 +20026,51 @@ const CHAT_PERSONAS_YUE = {
           {v:'好啦，唔好再有下次。', e:'Alright — let’s not have it happen again.', correct:false, tip:'He brought you the bad news himself. Answering with a warning teaches him to bring you less of it next time.'},
           {v:'冇嘢喇。', e:'That’s all, then.', correct:false, tip:'Ends it flat. He took a small risk telling you and nothing came back — the cheapest thing you will ever buy is making that worth his while.'},
         ], them:{v:'應該嘅。有嘢我實話你知。', e:'Of course. Anything comes up, I’ll tell you.'} },
+    ]},
+    { name:'阿姨 (Auntie) — Her Hours Are Short', icon:'💴', opener:{v:'阿羅，我睇過張糧單，好似少咗幾個鐘喎。', e:'Lo — I’ve looked at my payslip. Looks like a few hours are missing.'}, turns:[
+      { youOptions:[
+          {v:'係咩？等我而家對返本簿。', e:'Is that right? Let me check the book now.', correct:true},
+          {v:'應該冇錯㗎。', e:'It shouldn’t be wrong.', correct:false, tip:'You have not looked yet. Defending the number before checking it tells her the book matters more than she does — and if she turns out to be right, you have to climb down as well.'},
+          {v:'你記唔記得清楚呀？', e:'Are you sure you’re remembering right?', correct:false, tip:'That puts her memory on trial first. She counted, which is why she is standing in front of you.'},
+        ], them:{v:'上個禮拜三我做到七點，唔係五點。', e:'Last Wednesday I worked till seven, not five.'} },
+      { youOptions:[
+          {v:'我見到喇，係我寫漏咗。真係唔好意思。', e:'I see it — I wrote it down short. I’m sorry.', correct:true},
+          {v:'哦，可能係。', e:'Oh — maybe.', correct:false, tip:'Either it is or it is not, and the book is open in front of you. A vague half-agreement leaves her not knowing whether she has been paid or fobbed off.'},
+          {v:'你點解唔早啲講？', e:'Why didn’t you say earlier?', correct:false, tip:'She is saying it now, which is the first chance she had — the payslip only came out today. The question makes her wrong for noticing.'},
+        ], them:{v:'冇事，我知你好忙。', e:'It’s alright. I know you’re busy.'} },
+      { youOptions:[
+          {v:'唔係忙唔忙嘅問題，係我漏咗。我而家補返俾你。', e:'It isn’t about being busy — I missed it. I’ll make it up to you now.', correct:true},
+          {v:'係呀，最近真係好忙。', e:'Yes — it’s been really busy lately.', correct:false, tip:'She offered you that excuse out of politeness. Taking it is the one move that turns her kindness into your cover.'},
+          {v:'下個禮拜一齊出啦。', e:'I’ll put it in with next week’s.', correct:false, tip:'Fine if she agrees — but that is a decision to make with her, not for her. It is her money and she has already waited a week for it.'},
+        ], them:{v:'唔使急，我信你㗎。', e:'No rush. I trust you.'} },
+      { youOptions:[
+          {v:'以後每日收工前我同你對一次鐘數。', e:'From now on we’ll check your hours together before you knock off.', correct:true},
+          {v:'我以後小心啲。', e:'I’ll be more careful from now on.', correct:false, tip:'A promise with no mechanism behind it. You were busy last week and you will be busy next week.'},
+          {v:'你自己記低啦。', e:'Keep your own record.', correct:false, tip:'Sensible, and doing it alone makes it her word against your book — which is the argument you are trying to prevent, not win.'},
+        ], them:{v:'好呀。噉大家都清楚。', e:'Good. Then we both know where we are.'} },
+    ]},
+
+    { name:'新人 (New Starter) — First Morning', icon:'🧑‍🏫', opener:{v:'阿羅，林生叫我今日嚟。我未做過哩行。', e:'Lo — Uncle told me to come today. I’ve never done this kind of work.'}, turns:[
+      { youOptions:[
+          {v:'唔緊要，我而家教你。你睇住我做一次。', e:'That’s fine — I’ll show you now. Watch me do one.', correct:true},
+          {v:'好簡單嘅，你睇下佢哋點做啦。', e:'It’s easy — just watch how the others do it.', correct:false, tip:'It is not easy on the first day, and "watch the others" means she learns whichever habit belongs to whoever she happens to be standing next to.'},
+          {v:'你做過乜嘢工㗎？', e:'What sort of work have you done before?', correct:false, tip:'A fair question later. Right now she is standing in a room she does not know with nothing to do, and the answer will not change what you teach her first.'},
+        ], them:{v:'好呀。我睇住。', e:'Alright. I’m watching.'} },
+      { youOptions:[
+          {v:'剪哩度，留返啲花。你試下。', e:'Cut here, leave the flower. Have a go.', correct:true},
+          {v:'剪靚啲就得。', e:'Just trim it nicely.', correct:false, tip:'That means nothing to someone who has never seen it done. "Nice" is the standard she is trying to learn, not an instruction she can follow.'},
+          {v:'睇多幾次先啦。', e:'Watch a few more times first.', correct:false, tip:'Watching stops teaching her anything after the first or second one. She learns this in her hands.'},
+        ], them:{v:'噉樣啱唔啱？', e:'Like this — is that right?'} },
+      { youOptions:[
+          {v:'啱，就係噉。慢慢嚟，靚過快。', e:'Yes — just like that. Take your time, neat beats fast.', correct:true},
+          {v:'差少少，再剪多啲。', e:'Not quite — take a bit more off.', correct:false, tip:'It may well be true, and the first thing she hears about her own work should not be a correction. Say what is right, then adjust.'},
+          {v:'得喇得喇，繼續。', e:'Fine, fine — carry on.', correct:false, tip:'She asked a real question and got waved off. Next time she will not ask, and you will find out at the weigh-in.'},
+        ], them:{v:'明喇。噉哩啲呢？', e:'Got it. And what about these?'} },
+      { youOptions:[
+          {v:'唔識就問我。問一次好過剪錯成箱。', e:'Ask me if you’re not sure. One question beats a whole tote done wrong.', correct:true},
+          {v:'你跟住阿姨做啦。', e:'Just follow one of the aunties.', correct:false, tip:'Handing her to someone with a full tote of her own means she gets taught in the gaps, by someone who is being slowed down for it.'},
+          {v:'應該一樣啦。', e:'Should be the same.', correct:false, tip:'"Should be" from the person who is supposed to know is worse than "let me check" — she will carry that guess through the whole box.'},
+        ], them:{v:'好，我唔識就叫你。', e:'Right. I’ll call you if I’m stuck.'} },
     ]},
   ],
   yw_family: [
