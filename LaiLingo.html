@@ -26570,7 +26570,13 @@ const MP_OPPOSITES = [
   ['rich','poor'], ['true','false'], ['safe','dangerous'], ['possible','impossible'],
   ['found','lost'], ['awake','asleep'], ['together','alone'],
   ['finished','started'], ['hello','goodbye'], ['show','hide'],
-  ['send','receive'], ['broken','fixed'], ['someone','nobody']
+  ['send','receive'], ['broken','fixed'], ['someone','nobody'],
+  ['agree','disagree'], ['accept','refuse'], ['arrive','leave'], ['arrived','left'],
+  ['pass','fail'], ['passed','failed'], ['pay','owe'], ['paid','owed'],
+  ['told','asked'], ['brought','took'], ['better','worse'], ['harder','easier'],
+  ['cheaper','dearer'], ['wake','sleep'], ['woke','slept'], ['add','remove'],
+  ['rent','buy'], ['rented','bought'], ['keep','throw away'], ['believe','doubt'],
+  ['agreed','refused'], ['accepted','refused'], ['stayed','went']
 ];
 
 /* Tier 3 — a word swapped for another from the same category. This is the
@@ -26601,9 +26607,66 @@ const MP_CATEGORIES = [
   ['hand','lift','ride','word'],
   ['shirt','shoes','jacket','hat','dress','coat'],
   ['home','work','the office','school'],
+  /* Added after measuring which lines the engine could not touch. Every set
+     below is a word the course actually uses that had no twin, so the sentence
+     fell back to an off-topic decoy: "Are you a student?" against "To save
+     money he even sold his bed." A category swap keeps the topic identical. */
+  ['student','teacher','nurse','driver','cook','waiter','builder','farmer','cleaner'],
+  ['bed','table','chair','sofa','desk','shelf','door','window','wall'],
+  ['radio','telly','television','computer','fridge','kettle','fan','heater'],
+  ['film','song','book','game','show','photo','story','joke'],
+  ['shop','flat','house','office','garden','kitchen','bathroom','bedroom'],
+  ['dinner','lunch','breakfast','supper'],
+  ['soup','salad','sandwich','curry','dumplings','porridge'],
+  ['scissors','gloves','boots','mask','torch','ladder','bucket','ropes'],
+  ['rent','bill','fare','wages','price','deposit','fee'],
+  ['called','texted','emailed','wrote','messaged'],
+  ['walked','drove','ran','cycled','flew'],
+  ['sister','cousin','niece','nephew'],
+  ['minute','hour','fortnight','decade'],
+  ['spring','summer','autumn','winter'],
+  ['knee','elbow','shoulder','ankle','wrist','back','neck'],
+  ['rain','snow','wind','fog','sun'],
+  ['heavier','lighter','longer','shorter','wider'],
+  ['angry','upset','worried','embarrassed','disappointed'],
+  ['forgot','lost','broke','dropped','spilled'],
   ['upstairs','downstairs','outside','next door']
 ];
 const MP_PROPER = new Set(['monday','tuesday','wednesday','thursday','friday','saturday','sunday']);
+
+/* Tier 3b — ASPECT. Cantonese marks completion, continuation and experience
+   with 咗 / 緊 / 過 / 未 rather than by changing the verb, so a learner who
+   half-hears a sentence loses the aspect first. These pairs put the whole
+   difference on that one hinge: topic, people and object stay identical and
+   only WHEN it happened moves.
+   Phrase-level on purpose. A bare was/is swap yields "he is there yesterday"
+   whenever a time word pins the tense, and no guard list is worth maintaining
+   for that when the phrases below carry the same contrast safely. */
+const MP_ASPECT = [
+  ['used to be','is now'], ['have you been','are you'], ['has been','is'],
+  ['did you','do you'], ['have you','do you'],
+  ['already','not yet'], ['not yet','already'],
+  ['still','no longer'], ['just now','later on'],
+  ['about to','just'], ['going to','already'],
+  ['last time','next time'], ['ever','never'],
+];
+
+/* Tier 3c — MODALITY. Whether a thing is wanted, needed, allowed or merely
+   possible is the other half a half-heard sentence loses, and Cantonese hangs
+   it on one syllable — 要 / 想 / 使 / 可以 / 應該. Swapping it leaves a
+   sentence that is completely idiomatic and completely different.
+   A NAME tier was tried alongside these and removed: swapping Siu Mei for Ah
+   Keung is the purest pair there is, but harvesting names out of the course
+   produced Could, Air, Makes, Ugh and Thanks — a capital mid-line means a dash
+   or a clause break far more often than it means a person — and the Cantonese
+   glosses barely use names anyway (he, she, that bloke). */
+const MP_MODAL = [
+  ['need to','want to'], ['have to','want to'], ['want to','have to'],
+  ['can','should'], ['should','might'], ['will','might'],
+  ['must','should'], ['could','would'],
+  ['let me','let him'], ['have to','get to'],
+];
+
 
 /* Question words are the most frame-sensitive thing in the sentence: "What do
    you reckon about the shop?" does not survive becoming "Who". They are only
@@ -26737,6 +26800,14 @@ function mpVariants(correct, allowPerson){
     }
   });
   tiers.push(cat.concat(mpWhVariants(t)));
+
+  const asp = [];
+  MP_ASPECT.forEach(([a,b])=>{ const v = mpSwap(t,a,b); if(v) asp.push(v); });
+  tiers.push(asp);
+
+  const mod = [];
+  MP_MODAL.forEach(([a,b])=>{ const v = mpSwap(t,a,b); if(v) mod.push(v); });
+  tiers.push(mod);
 
   tiers.push(mpNumberVariants(t));
   tiers.push(allowPerson ? mpPersonVariants(t) : []);
