@@ -82,7 +82,7 @@
     width:34px;height:34px;border-radius:8px;
     background:var(--vermillion);
     display:flex;align-items:center;justify-content:center;
-    font-size:20px;line-height:1;
+    font-size:26px;line-height:1;overflow:hidden;
     box-shadow: inset 0 0 0 2px rgba(240,169,59,0.5);
     border:none;padding:0;
   }
@@ -310,7 +310,7 @@
   .home-hero img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;}
   .home-hero-shade{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.12) 40%, rgba(0,0,0,0.78) 100%);}
   .home-hero-loc{position:absolute;top:14px;left:16px;color:#fff;font-weight:700;font-size:13px;text-shadow:0 1px 4px rgba(0,0,0,.6);z-index:2;max-width:65%;}
-  .home-flag-badge{position:absolute;top:12px;right:12px;z-index:2;width:60px;height:60px;border-radius:50%;background:var(--vermillion);display:flex;align-items:center;justify-content:center;font-size:32px;line-height:1;box-shadow:0 3px 12px rgba(0,0,0,.45);border:2px solid rgba(255,255,255,.35);padding:0;}
+  .home-flag-badge{position:absolute;top:12px;right:12px;z-index:2;width:60px;height:60px;border-radius:50%;background:var(--vermillion);display:flex;align-items:center;justify-content:center;font-size:44px;line-height:1;box-shadow:0 3px 12px rgba(0,0,0,.45);border:2px solid rgba(255,255,255,.35);padding:0;overflow:hidden;}
   .home-hero-bottomrow{position:absolute;bottom:14px;left:14px;right:14px;display:flex;justify-content:space-between;gap:8px;z-index:2;}
   .home-pill{background:rgba(0,0,0,0.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;border:1px solid rgba(255,255,255,0.18);padding:9px 15px;border-radius:999px;font-weight:700;font-size:12.5px;display:inline-flex;align-items:center;gap:6px;}
   .home-pill.icon-only{padding:9px;width:36px;height:36px;justify-content:center;}
@@ -2703,6 +2703,7 @@ const CANTONESE_B1_SECTIONS = [
 // than dragging the spine further down a list that has stopped meaning anything.
 const CANTONESE_C1_SECTIONS = [
   { id:1, roman:'I', title:'Holding the Floor' },
+  { id:2, roman:'II', title:'Saying It Three Ways' },
 ];
 
 const CANTONESE_B2_SECTIONS = [
@@ -7895,6 +7896,216 @@ const LESSONS_YUE = [
       {v:'寫入流程就唔使記住。', p:'se2 jap6 lau4 cing4 zau6 m4 sai2 gei3 zyu6.', e:'Write it into the procedure and nobody has to remember.'},
       {v:'你哋兩個講緊兩件事。', p:'nei5 dei6 loeng5 go3 gong2 gan2 loeng5 gin6 si6.', e:'You two are talking about two different things.'},
       {v:'等我講句先，好唔好？', p:'dang2 ngo5 gong2 geoi3 sin1, hou2 m4 hou2?', e:'Let me get a word in first, would you?'},
+    ] },
+
+  // ===================== C1 section II — the same content, three registers =====================
+  // Section I was about holding the floor. This one is about the fact that the
+  // SAME thing has to be said differently depending on who is in front of you,
+  // which is the C1 skill the user's workplace actually demands every day: an
+  // auntie on the floor, a peer, and a supervisor do not take the same sentence.
+  //
+  // A note on why all three registers here are SPOKEN. The workplace is
+  // genuinely diglossic — Cantonese in person, written Simplified Mandarin in
+  // the group chat (yue_c5 teaches this). A spoken-vs-chat comparison would
+  // therefore need Simplified characters, and the standing rule is that the
+  // Cantonese course stays Traditional throughout; Simplified belongs to the
+  // separate zh course. So the three registers contrasted here are all things
+  // you SAY, which is the more useful axis anyway: nobody misjudges a chat
+  // message as badly as they misjudge a tone of voice.
+  { id:'yue_l119', day:119, section:2, level:'C1', title:'The Same Thing to Three People', tag:'Saying It Three Ways',
+    desc:'One request, three deliveries: 好聲好氣, 大聲夾惡, 麻煩你, 幫幫忙, 婉轉, 畀面, 落面, 得罪.',
+    duration:'8 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'今日同一件事我講咗三次。同姨姨講嗰陣要好聲好氣：麻煩你幫幫忙，重新包過嗰兩箱，得唔得呀？同阿明就一句：呢兩箱要重包，快手啲。上到阿頭度就變咗：兩箱標籤有問題，我建議重包，你睇下方唔方便。', p:'gam1 jat6 tung4 jat1 gin6 si6 ngo5 gong2 zo2 saam1 ci3. tung4 ji1 ji1 gong2 go2 zan6 jiu3 hou2 seng1 hou2 hei3: maa4 faan4 nei5 bong1 bong1 mong4, cung4 san1 baau1 gwo3 go2 loeng5 soeng1, dak1 m4 dak1 aa3? tung4 aa3 ming4 zau6 jat1 geoi3: ni1 loeng5 soeng1 jiu3 cung4 baau1, faai3 sau2 di1. soeng5 dou3 aa3 tau2 dou6 zau6 bin3 zo2: loeng5 soeng1 biu1 cim1 jau5 man6 tai4, ngo5 gin3 ji5 cung4 baau1, nei5 tai2 haa5 fong1 m4 fong1 bin6.', e:'I said the same thing three times today. With the auntie it had to be gentle — sorry to trouble you, could you do me a favour and repack those two boxes? With Ah Ming it was one line: these two need repacking, look sharp. And by the time it got to the boss it had turned into: there’s a problem with the labels on two boxes, I’d suggest repacking, see whether that suits.'},
+      {speaker:'B', v:'三個版本，講到你都攰。', p:'saam1 go3 baan2 bun2, gong2 dou3 nei5 dou1 gui6.', e:'Three versions — no wonder you’re worn out.'},
+      {speaker:'A', v:'唔係扮嘢，係唔同人食唔同套。你同姨姨大聲夾惡，佢即刻落面，之後乜都唔肯幫你。你同阿明兜圈子，佢覺得你唔信佢。你同阿頭直接落命令，佢覺得你越權。', p:'m4 hai6 baan6 je5, hai6 m4 tung4 jan4 sik6 m4 tung4 tou3. nei5 tung4 ji1 ji1 daai6 seng1 gaap3 ok3, keoi5 zik1 haak1 lok6 min2, zi1 hau6 mat1 dou1 m4 hang2 bong1 nei5. nei5 tung4 aa3 ming4 dau1 hyun1 zi2, keoi5 gok3 dak1 nei5 m4 seon3 keoi5. nei5 tung4 aa3 tau2 zik6 zip3 lok6 ming6 ling6, keoi5 gok3 dak1 nei5 jyut6 kyun4.', e:'It isn’t putting it on — different people take a different approach. Come at the auntie loud and hard and she loses face on the spot, and after that she won’t help you with anything. Talk round in circles with Ah Ming and he thinks you don’t trust him. Give the boss a flat instruction and he thinks you’ve overstepped.'},
+      {speaker:'B', v:'噉點先叫做啱？', p:'gam2 dim2 sin1 giu3 zou6 ngaam1?', e:'So what counts as getting it right?'},
+      {speaker:'A', v:'睇對象。同一句話，畀面就做得成，得罪咗就樣樣卡住。婉轉唔係唔講，係揀個講法。', p:'tai2 deoi3 zoeng6. tung4 jat1 geoi3 waa6, bei2 min2 zau6 zou6 dak1 sing4, dak1 zeoi6 zo2 zau6 joeng6 joeng6 kaa1 zyu6. jyun2 zyun2 m4 hai6 m4 gong2, hai6 gaan2 go3 gong2 faat3.', e:'It depends who it is. Same sentence — give them face and it gets done; offend them and everything jams. Being tactful isn’t not saying it, it’s picking how you say it.'},
+      {speaker:'B', v:'有道理。辛苦晒你教我。', p:'jau5 dou6 lei5. san1 fu2 saai3 nei5 gaau3 ngo5.', e:'That makes sense. Thanks for taking the trouble to tell me.'},
+    ],
+    vocab:[
+      {v:'好聲好氣', p:'hou2seng1hou2hei3', e:'gently; in a nice tone'},
+      {v:'大聲夾惡', p:'daai6seng1gaap3ok3', e:'loud and aggressive'},
+      {v:'麻煩你', p:'maa4faan4nei5', e:'sorry to trouble you'},
+      {v:'幫幫忙', p:'bong1bong1mong4', e:'do me a favour'},
+      {v:'婉轉', p:'jyun2zyun2', e:'tactful; put indirectly'},
+      {v:'就住', p:'zau6zyu6', e:'go easy; ease off a bit'},
+      {v:'客氣', p:'haak3hei3', e:'polite; standing on ceremony'},
+      {v:'辛苦晒', p:'san1fu2saai3', e:'thanks for the trouble'},
+      {v:'方便', p:'fong1bin6', e:'convenient; suits you'},
+      {v:'畀面', p:'bei2min2', e:'to give face; to oblige'},
+      {v:'落面', p:'lok6min2', e:'to lose face; be shown up'},
+      {v:'得罪', p:'dak1zeoi6', e:'to offend someone'},
+    ],
+    grammar:[
+      {title:'Face is not politeness — it is whether the job gets done', body:'畀面 bei2 min2 and 落面 lok6 min2 are the two words to get right, because they describe a mechanism rather than a courtesy. 畀面 is someone doing a thing they did not have to do, because you left them room to look good doing it. 落面 is what happens when you correct someone in front of others — and it is not that their feelings are hurt, it is that they now have a reason to make the next thing difficult. 得罪 dak1 zeoi6 is the act of causing it. On a floor where you need people to help you tomorrow, this is practical, not social.'},
+      {title:'好聲好氣 vs 大聲夾惡 — the two ends, and where you actually live', body:'好聲好氣 hou2 seng1 hou2 hei3 is saying something in a gentle voice, and it is what an auntie who has worked somewhere for fifteen years expects from someone younger, whatever the org chart says. 大聲夾惡 daai6 seng1 gaap3 ok3 — loud AND fierce — is its opposite and is always a criticism; nobody describes themselves that way. 就住 zau6 zyu6 sits between them and is what a colleague says to you mid-argument: ease off. Most workplace Cantonese happens between 好聲好氣 and plain, and the plain end is fine — it is 大聲夾惡 that costs you.'},
+      {title:'客氣 cuts both ways', body:'客氣 haak3 hei3 is being polite in the formal, guest-treating sense, and 唔使客氣 (no need to stand on ceremony) is the standard reply to thanks. But 你太客氣喇 said about someone can mean they are keeping you at arm’s length — real closeness is measured by how little 客氣 there is. So a colleague who becomes noticeably more 客氣 with you has usually not become friendlier. Watch for it: the register going UP between two people who used to be blunt is a signal, and it is rarely a good one.'},
+    ],
+    cards:[
+      {v:'好聲好氣同佢講，唔好嘈交。', p:'hou2 seng1 hou2 hei3 tung4 keoi5 gong2, m4 hou2 cou4 gaau1.', e:'Say it to him nicely — don’t make a row of it.'},
+      {v:'佢大聲夾惡，個個都唔想理佢。', p:'keoi5 daai6 seng1 gaap3 ok3, go3 go3 dou1 m4 soeng2 lei5 keoi5.', e:'He’s loud and aggressive, so nobody wants anything to do with him.'},
+      {v:'麻煩你幫我攞多兩個。', p:'maa4 faan4 nei5 bong1 ngo5 lo2 do1 loeng5 go3.', e:'Sorry to trouble you — could you grab me two more?'},
+      {v:'幫幫忙啦，我一個人搬唔到。', p:'bong1 bong1 mong4 laa1, ngo5 jat1 go3 jan4 bun1 m4 dou2.', e:'Give us a hand — I can’t shift it on my own.'},
+      {v:'婉轉少少講，唔好咁直。', p:'jyun2 zyun2 siu2 siu2 gong2, m4 hou2 gam3 zik6.', e:'Put it a bit more gently — don’t be so blunt.'},
+      {v:'就住佢啦，佢啱啱先入嚟。', p:'zau6 zyu6 keoi5 laa1, keoi5 ngaam1 ngaam1 sin1 jap6 lei4.', e:'Go easy on him — he’s only just started.'},
+      {v:'唔使客氣，自己人。', p:'m4 sai2 haak3 hei3, zi6 gei2 jan4.', e:'No need to stand on ceremony — you’re one of us.'},
+      {v:'你太客氣喇，反而生外。', p:'nei5 taai3 haak3 hei3 laa3, faan2 ji4 saang1 ngoi6.', e:'You’re being too formal — it puts a distance between us.'},
+      {v:'辛苦晒，今日多謝你。', p:'san1 fu2 saai3, gam1 jat6 do1 ze6 nei5.', e:'Thanks for all your trouble today.'},
+      {v:'你聽日方唔方便嚟一趟？', p:'nei5 ting1 jat6 fong1 m4 fong1 bin6 lei4 jat1 tong3?', e:'Would it suit you to come by tomorrow?'},
+      {v:'佢肯畀面，件事就易做好多。', p:'keoi5 hang2 bei2 min2, gin6 si6 zau6 ji6 zou6 hou2 do1.', e:'If he’s willing to oblige, the whole thing gets a lot easier.'},
+      {v:'咁多人面前噉講，實落面。', p:'gam3 do1 jan4 min6 cin4 gam2 gong2, sat6 lok6 min2.', e:'Saying that in front of everyone is bound to show him up.'},
+      {v:'我唔想得罪佢，佢好記仇。', p:'ngo5 m4 soeng2 dak1 zeoi6 keoi5, keoi5 hou2 gei3 sau4.', e:'I don’t want to offend him — he holds a grudge.'},
+      {v:'唔同人食唔同套，睇對象啦。', p:'m4 tung4 jan4 sik6 m4 tung4 tou3, tai2 deoi3 zoeng6 laa1.', e:'Different people take a different approach — it depends who it is.'},
+    ] },
+
+  { id:'yue_l120', day:120, section:2, level:'C1', title:'Saying No Without Saying No', tag:'Saying It Three Ways',
+    desc:'Declining so the door stays open: 恐怕, 心領, 好難話, 睇下先, 遲啲先, 留返一線, 推搪, 打圓場.',
+    duration:'8 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'姨姨想我星期六幫佢個仔補習。我做唔到，但係又唔想一口拒絕。', p:'ji1 ji1 soeng2 ngo5 sing1 kei4 luk6 bong1 keoi5 go3 zai2 bou2 zaap6. ngo5 zou6 m4 dou2, daan6 hai6 jau6 m4 soeng2 jat1 hau2 keoi5 zyut6.', e:'The auntie wants me to tutor her son on Saturdays. I can’t do it, but I don’t want to turn her down flat either.'},
+      {speaker:'B', v:'噉你點答？', p:'gam2 nei5 dim2 daap3?', e:'So how did you answer?'},
+      {speaker:'A', v:'我話：多謝姨姨睇得起，不過我星期六恐怕唔得閒，你嘅心意我心領咗。如果佢再問，我就話而家排班未定，好難話，等我睇下先。噉樣就唔使講一個唔字，佢都聽得明。', p:'ngo5 waa6: do1 ze6 ji1 ji1 tai2 dak1 hei2, bat1 gwo3 ngo5 sing1 kei4 luk6 hung2 paa3 m4 dak1 haan4, nei5 ge3 sam1 ji3 ngo5 sam1 ling5 zo2. jyu4 gwo2 keoi5 zoi3 man6, ngo5 zau6 waa6 ji4 gaa1 paai4 baan1 mei6 ding6, hou2 naan4 waa6, dang2 ngo5 tai2 haa5 sin1. gam2 joeng2 zau6 m4 sai2 gong2 jat1 go3 m4 zi6, keoi5 dou1 teng1 dak1 ming4.', e:'I said: thank you for thinking of me, but I’m afraid Saturdays don’t work — it’s the thought I’ll take. If she asks again I’ll say the rota isn’t settled yet, hard to say, let me have a look. That way I never have to say the word no, and she still understands.'},
+      {speaker:'B', v:'唔怕佢覺得你搪塞？', p:'m4 paa3 keoi5 gok3 dak1 nei5 tong4 sak1?', e:'Aren’t you worried she’ll think you’re fobbing her off?'},
+      {speaker:'A', v:'會有少少。但係推搪同拒絕唔同：推搪係留返一線，下次見面唔會尷尬。一口拒絕就冇得返轉頭。真係唔得就同佢講清楚，不過要揀個時間，唔好當住人前。', p:'wui5 jau5 siu2 siu2. daan6 hai6 teoi1 tong2 tung4 keoi5 zyut6 m4 tung4: teoi1 tong2 hai6 lau4 faan1 jat1 sin3, haa6 ci3 gin3 min6 m4 wui5 gaam3 gaai3. jat1 hau2 keoi5 zyut6 zau6 mou5 dak1 faan1 zyun2 tau4. zan1 hai6 m4 dak1 zau6 tung4 keoi5 gong2 cing1 co2, bat1 gwo3 jiu3 gaan2 go3 si4 gaan3, m4 hou2 dong1 zyu6 jan4 cin4.', e:'A bit, yes. But putting someone off isn’t the same as refusing them: putting off leaves a line open, so next time you meet it isn’t awkward. A flat no can’t be walked back. If it really is no, then say so plainly — but pick your moment, not in front of everyone.'},
+      {speaker:'B', v:'噉如果佢喺人前問你呢？', p:'gam2 jyu4 gwo2 keoi5 hai2 jan4 cin4 man6 nei5 ne1?', e:'And what if she asks you in front of people?'},
+      {speaker:'A', v:'嗰陣就要有人打圓場。等佢有個台階落，大家都做得落去。', p:'go2 zan6 zau6 jiu3 jau5 jan4 daa2 jyun4 coeng4. dang2 keoi5 jau5 go3 toi4 gaai1 lok6, daai6 gaa1 dou1 zou6 dak1 lok6 heoi3.', e:'Then somebody has to smooth it over. Give her a way to climb down and everyone can carry on.'},
+    ],
+    vocab:[
+      {v:'恐怕', p:'hung2paa3', e:'I’m afraid; probably not'},
+      {v:'心領', p:'sam1ling5', e:'thanks, but no (the thought is taken)'},
+      {v:'好難話', p:'hou2naan4waa6', e:'hard to say'},
+      {v:'睇下先', p:'tai2haa5sin1', e:'let me have a look first'},
+      {v:'遲啲先', p:'ci4di1sin1', e:'later, not now'},
+      {v:'留返一線', p:'lau4faan1jat1sin3', e:'to leave a line open'},
+      {v:'推搪', p:'teoi1tong2', e:'to put someone off'},
+      {v:'搪塞', p:'tong4sak1', e:'to fob someone off'},
+      {v:'拒絕', p:'keoi5zyut6', e:'to refuse outright'},
+      {v:'打圓場', p:'daa2jyun4coeng4', e:'to smooth things over'},
+      {v:'台階', p:'toi4gaai1', e:'a way to climb down'},
+      {v:'唔敢當', p:'m4gam2dong1', e:'you’re too kind (deflecting praise)'},
+    ],
+    grammar:[
+      {title:'恐怕 — the word that carries a no', body:'恐怕 hung2 paa3 is literally "I fear", and in speech it does one job: it puts a refusal in a form that is not a refusal. 恐怕唔得 is no. 恐怕趕唔切 is no. Everyone hears it as no, and nobody has to say the word, which is exactly what makes it usable in front of an elder or a customer. Contrast plain 唔得 — perfectly fine between peers, and jarring upward. If you learn one item from this lesson, learn this one: it is the single most-used softener in the language and it costs nothing.'},
+      {title:'推搪 vs 拒絕 — and why the difference is practical', body:'拒絕 keoi5 zyut6 is refusing outright, and its cost is that it cannot be walked back. 推搪 teoi1 tong2 is putting someone off with a reason that may or may not be the real one — 排班未定, 睇下先, 遲啲先 — and 搪塞 tong4 sak1 is the same thing said unkindly about you. The framing that matters is 留返一線 lau4 faan1 jat1 sin3: leave a line open. In a workplace you will need this person next week, so the point of 推搪 is not dishonesty, it is that the relationship survives the answer.'},
+      {title:'台階 — giving someone a way down', body:'台階 toi4 gaai1 is a step, and 落台階 is climbing down off a position you have taken in public. Cantonese talks about this openly: 畀個台階佢落 means give him a way out that does not look like losing. 打圓場 daa2 jyun4 coeng4 is the act of providing it — the third person who says something that lets both sides stop. It is close to the 收科 of lesson 118, but 收科 is ending the thing and 打圓場 is saving the person. In a room with an auntie, a supervisor and a mistake, the ability to 打圓場 is worth more than being right.'},
+    ],
+    cards:[
+      {v:'恐怕今日趕唔切喇。', p:'hung2 paa3 gam1 jat6 gon2 m4 cit3 laa3.', e:'I’m afraid we won’t make it today.'},
+      {v:'你嘅心意我心領咗，多謝。', p:'nei5 ge3 sam1 ji3 ngo5 sam1 ling5 zo2, do1 ze6.', e:'I’ll take the thought — thank you.'},
+      {v:'好難話，要睇佢肯唔肯。', p:'hou2 naan4 waa6, jiu3 tai2 keoi5 hang2 m4 hang2.', e:'Hard to say — depends whether he’s willing.'},
+      {v:'等我睇下先，聽日覆你。', p:'dang2 ngo5 tai2 haa5 sin1, ting1 jat6 fuk1 nei5.', e:'Let me have a look first — I’ll get back to you tomorrow.'},
+      {v:'遲啲先講啦，而家好亂。', p:'ci4 di1 sin1 gong2 laa1, ji4 gaa1 hou2 lyun6.', e:'Let’s talk later — it’s chaos right now.'},
+      {v:'唔好講死，留返一線。', p:'m4 hou2 gong2 sei2, lau4 faan1 jat1 sin3.', e:'Don’t close it off — leave a line open.'},
+      {v:'佢一直推搪，都唔肯講實。', p:'keoi5 jat1 zik6 teoi1 tong2, dou1 m4 hang2 gong2 sat6.', e:'He keeps putting it off and won’t commit.'},
+      {v:'唔好搪塞我，講真話。', p:'m4 hou2 tong4 sak1 ngo5, gong2 zan1 waa6.', e:'Don’t fob me off — tell me the truth.'},
+      {v:'一口拒絕就冇得返轉頭。', p:'jat1 hau2 keoi5 zyut6 zau6 mou5 dak1 faan1 zyun2 tau4.', e:'A flat refusal can’t be walked back.'},
+      {v:'幸好有人打圓場。', p:'hang6 hou2 jau5 jan4 daa2 jyun4 coeng4.', e:'Luckily somebody smoothed it over.'},
+      {v:'畀個台階佢落啦。', p:'bei2 go3 toi4 gaai1 keoi5 lok6 laa1.', e:'Give him a way to climb down.'},
+      {v:'唔敢當，我都係做應份嘅嘢。', p:'m4 gam2 dong1, ngo5 dou1 hai6 zou6 jing1 fan6 ge3 je5.', e:'You’re too kind — I only did what I should.'},
+      {v:'真係唔得就講清楚，唔好當住人前。', p:'zan1 hai6 m4 dak1 zau6 gong2 cing1 co2, m4 hou2 dong1 zyu6 jan4 cin4.', e:'If it’s really no, say so plainly — just not in front of everyone.'},
+      {v:'多謝你睇得起我。', p:'do1 ze6 nei5 tai2 dak1 hei2 ngo5.', e:'Thank you for thinking of me.'},
+    ] },
+
+  { id:'yue_l121', day:121, section:2, level:'C1', title:'Keeping Your Temper', tag:'Saying It Three Ways',
+    desc:'When the register slips and how to hold it: 沉住氣, 老定, 忍手, 收口, 唞氣, 火滾, 谷氣, 惡死能登.',
+    duration:'8 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'頭先阿明喺倉度同人拗，聲大到出面都聽到。', p:'tau4 sin1 aa3 ming4 hai2 cong1 dou6 tung4 jan4 aau3, seng1 daai6 dou3 ceot1 min6 dou1 teng1 dou2.', e:'Ah Ming was having a row in the warehouse just now — loud enough to hear from outside.'},
+      {speaker:'B', v:'因為乜嘢？', p:'jan1 wai6 mat1 je5?', e:'What over?'},
+      {speaker:'A', v:'單嘢好細。有人郁咗佢張單，佢揾唔到，就火滾。其實佢谷咗氣好耐喇：連續開咗九日工，冇人幫手，講咗兩次都冇人理。今次係爆出嚟啫。', p:'daan1 je5 hou2 sai3. jau5 jan4 juk1 zo2 keoi5 zoeng1 daan1, keoi5 wan2 m4 dou2, zau6 fo2 gwan2. kei4 sat6 keoi5 guk1 zo2 hei3 hou2 noi6 laa3: lin4 zuk6 hoi1 zo2 gau2 jat6 gung1, mou5 jan4 bong1 sau2, gong2 zo2 loeng5 ci3 dou1 mou5 jan4 lei5. gam1 ci3 hai6 baau3 ceot1 lei4 ze1.', e:'The thing itself was tiny. Someone moved his paperwork, he couldn’t find it, and he went up. Truth is he’s been bottling it for ages — nine days straight without a break, no help, said something twice and nobody listened. This time it just came out.'},
+      {speaker:'B', v:'噉你點做？', p:'gam2 nei5 dim2 zou6?', e:'So what did you do?'},
+      {speaker:'A', v:'我叫佢出去唞下氣。人火滾嗰陣同佢講道理係冇用嘅，越講越大鑊。等佢老定返，先慢慢傾。我自己都要忍手，唔好即刻鬧返轉頭。', p:'ngo5 giu3 keoi5 ceot1 heoi3 tau2 haa5 hei3. jan4 fo2 gwan2 go2 zan6 tung4 keoi5 gong2 dou6 lei5 hai6 mou5 jung6 ge3, jyut6 gong2 jyut6 daai6 wok6. dang2 keoi5 lou5 ding6 faan1, sin1 maan6 maan6 king1. ngo5 zi6 gei2 dou1 jiu3 jan2 sau2, m4 hou2 zik1 haak1 naau6 faan1 zyun2 tau4.', e:'I sent him outside to get some air. Reasoning with someone while they’re up is useless — the more you say the worse it gets. Wait till he settles, then talk it through. I had to hold back myself, not fire straight back at him.'},
+      {speaker:'B', v:'沉住氣真係難。', p:'cam4 zyu6 hei3 zan1 hai6 naan4.', e:'Keeping a lid on it really is hard.'},
+      {speaker:'A', v:'難，但係喺人前收唔到口，之後就唔止一件事要收拾。', p:'naan4, daan6 hai6 hai2 jan4 cin4 sau1 m4 dou2 hau2, zi1 hau6 zau6 m4 zi2 jat1 gin6 si6 jiu3 sau1 sap6.', e:'It is. But if you can’t stop yourself in front of people, afterwards there’s more than one thing to clear up.'},
+    ],
+    vocab:[
+      {v:'沉住氣', p:'cam4zyu6hei3', e:'to keep a lid on it'},
+      {v:'老定', p:'lou5ding6', e:'calm; settled; unflustered'},
+      {v:'忍手', p:'jan2sau2', e:'to hold back; not retaliate'},
+      {v:'收口', p:'sau1hau2', e:'to stop talking; shut it'},
+      {v:'唞氣', p:'tau2hei3', e:'to get some air; catch a breath'},
+      {v:'火滾', p:'fo2gwan2', e:'furious; to go up'},
+      {v:'谷氣', p:'guk1hei3', e:'to bottle it up; pent-up'},
+      {v:'拗', p:'aau3', e:'to argue; to row'},
+      {v:'惡死能登', p:'ok3sei2nang4dang1', e:'fierce; bad-tempered'},
+      {v:'擘大喉嚨', p:'maak3daai6hau4lung4', e:'to bellow; shout the place down'},
+      {v:'靜雞雞', p:'zing6gai1gai1', e:'quietly; on the sly'},
+      {v:'頂心杉', p:'ding2sam1caam3', e:'a thorn in your side'},
+    ],
+    grammar:[
+      {title:'火滾 and 谷氣 — the flare and the pressure behind it', body:'火滾 fo2 gwan2 is the moment: someone is furious right now. 谷氣 guk1 hei3 is the state that produced it — bottled, pent up, no outlet — and it is usually the honest explanation for a flare that looks out of proportion. 佢谷咗氣好耐喇 says the row was not about the paperwork. Cantonese separates these two cleanly where English mostly does not, and having both lets you describe what happened without either excusing it or pretending the trigger was the cause.'},
+      {title:'沉住氣 · 老定 · 忍手 — three different kinds of not reacting', body:'沉住氣 cam4 zyu6 hei3 is holding it in while it is happening: keeping a lid on. 老定 lou5 ding6 is being unflustered as a quality — 佢好老定 is a compliment about someone who does not rattle, and 老定啲啦 is what you tell someone who is panicking. 忍手 jan2 sau2 is narrower and more useful than either: it is not hitting back, not sending the reply, not saying the cutting thing you have ready. 我要忍手 is a normal thing to admit out loud, which is worth knowing — restraint here is not treated as weakness.'},
+      {title:'收口 is blunt — know how blunt', body:'收口 sau1 hau2 means stop talking, and between peers mid-argument it is ordinary. Said to an elder, a customer or anyone senior it is close to "shut up" and will not be forgiven quickly. The softer instruments are 唔好嘈 (don’t make noise), 等陣先 (hold on), and simply 唞下氣. Meanwhile 擘大喉嚨 maak3 daai6 hau4 lung4 — literally to open the throat wide — and 惡死能登 ok3 sei2 nang4 dang1 are how the OTHER person gets described afterwards, never how anyone describes themselves.'},
+    ],
+    cards:[
+      {v:'沉住氣，唔好即刻覆。', p:'cam4 zyu6 hei3, m4 hou2 zik1 haak1 fuk1.', e:'Keep a lid on it — don’t reply straight away.'},
+      {v:'佢幾大鑊都好老定。', p:'keoi5 gei2 daai6 wok6 dou1 hou2 lou5 ding6.', e:'However bad it gets, he stays completely unruffled.'},
+      {v:'我忍咗手，冇鬧返轉頭。', p:'ngo5 jan2 zo2 sau2, mou5 naau6 faan1 zyun2 tau4.', e:'I held back — I didn’t fire straight back.'},
+      {v:'夠喇，收口啦。', p:'gau3 laa3, sau1 hau2 laa1.', e:'That’s enough — pack it in.'},
+      {v:'出去唞下氣先。', p:'ceot1 heoi3 tau2 haa5 hei3 sin1.', e:'Go outside and get some air first.'},
+      {v:'做咗六個鐘，坐低唞氣都好。', p:'zou6 zo2 luk6 go3 zung1, co5 dai1 tau2 hei3 dou1 hou2.', e:'Six hours in — even sitting down for a breather would help.'},
+      {v:'佢成日谷氣，因為冇人肯聽佢講。', p:'keoi5 seng4 jat6 guk1 hei3, jan1 wai6 mou5 jan4 hang2 teng1 keoi5 gong2.', e:'He’s permanently bottled up because nobody will listen to him.'},
+      {v:'佢一聽就火滾。', p:'keoi5 jat1 teng1 zau6 fo2 gwan2.', e:'He went up the moment he heard it.'},
+      {v:'谷咗成個禮拜氣，今日爆晒。', p:'guk1 zo2 seng4 go3 lai5 baai3 hei3, gam1 jat6 baau3 saai3.', e:'A whole week of bottling it, and today it all came out.'},
+      {v:'唔好同佢拗，佢係唔會認嘅。', p:'m4 hou2 tung4 keoi5 aau3, keoi5 hai6 m4 wui5 jing6 ge3.', e:'Don’t argue with him — he’s never going to admit it.'},
+      {v:'嗰個管工惡死能登。', p:'go2 go3 gun2 gung1 ok3 sei2 nang4 dang1.', e:'That foreman is a right tyrant.'},
+      {v:'佢喺出面擘大喉嚨嗌。', p:'keoi5 hai2 ceot1 min6 maak3 daai6 hau4 lung4 aai3.', e:'He was outside bellowing his head off.'},
+      {v:'佢靜雞雞走咗，冇同人講。', p:'keoi5 zing6 gai1 gai1 zau2 zo2, mou5 tung4 jan4 gong2.', e:'He slipped off quietly without telling anyone.'},
+      {v:'佢對我嚟講係條頂心杉。', p:'keoi5 deoi3 ngo5 lei4 gong2 hai6 tiu4 ding2 sam1 caam3.', e:'He’s a thorn in my side.'},
+      {v:'人火滾嗰陣講道理冇用。', p:'jan4 fo2 gwan2 go2 zan6 gong2 dou6 lei5 mou5 jung6.', e:'There’s no reasoning with someone while they’re up.'},
+      {v:'越講越大鑊，不如聽日再講。', p:'jyut6 gong2 jyut6 daai6 wok6, bat1 jyu4 ting1 jat6 zoi3 gong2.', e:'The more we say the worse it gets — let’s pick it up tomorrow.'},
+    ] },
+
+  { id:'yue_l122', day:122, section:2, level:'C1', title:'Reading the Room', tag:'Saying It Three Ways',
+    desc:'Choosing the register before you open your mouth: 睇餸食飯, 見機行事, 睇眉頭眼額, 醒目, 死板, 執輸, 應酬, 敷衍.',
+    duration:'8 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'新嚟嗰個後生仔幾醒目。今朝阿頭黑口黑面，佢一睇就知，啲問題留到下晝先問。', p:'san1 lei4 go2 go3 hau6 saang1 zai2 gei2 sing2 muk6. gam1 ziu1 aa3 tau2 hak1 hau2 hak1 min6, keoi5 jat1 tai2 zau6 zi1, di1 man6 tai4 lau4 dou3 haa6 zau3 sin1 man6.', e:'That new young lad is sharp. The boss had a face on him this morning, and he clocked it straight away — saved his questions for the afternoon.'},
+      {speaker:'B', v:'噉先叫識做。', p:'gam2 sin1 giu3 sik1 zou6.', e:'That’s what knowing how to behave looks like.'},
+      {speaker:'A', v:'係囖。呢啲嘢冇得教，只可以睇餸食飯，見機行事。有啲人做咗十年都仲係好死板：規矩點寫就點做，唔識睇眉頭眼額，明明個場面唔啱都照講落去。', p:'hai6 lo1. ni1 di1 je5 mou5 dak1 gaau3, zi2 ho2 ji5 tai2 sung3 sik6 faan6, gin3 gei1 hang4 si6. jau5 di1 jan4 zou6 zo2 sap6 nin4 dou1 zung6 hai6 hou2 sei2 baan2: kwai1 geoi2 dim2 se2 zau6 dim2 zou6, m4 sik1 tai2 mei4 tau4 ngaan5 ngaak6, ming4 ming4 go3 coeng4 min6 m4 ngaam1 dou1 ziu3 gong2 lok6 heoi3.', e:'Right. You can’t teach it — you cut your coat to your cloth and play it as it comes. Some people are still rigid after ten years: whatever the rule says, that’s what they do, can’t read a face, and carry right on talking when it’s plain the moment is wrong.'},
+      {speaker:'B', v:'但係太識睇人面色又好似好假。', p:'daan6 hai6 taai3 sik1 tai2 jan4 min6 sik1 jau6 hou2 ci5 hou2 gaa2.', e:'But being too good at reading people comes across as fake.'},
+      {speaker:'A', v:'分別喺於你係咪應酬。淨係應酬就係敷衍，人哋感覺到。真係諗住做好件事，就算講得婉轉都唔會假。', p:'fan1 bit6 hai2 jyu1 nei5 hai6 mai6 jing3 cau4. zing6 hai6 jing3 cau4 zau6 hai6 fu1 hin2, jan4 dei6 gam2 gok3 dou2. zan1 hai6 nam2 zyu6 zou6 hou2 gin6 si6, zau6 syun3 gong2 dak1 jyun2 zyun2 dou1 m4 wui5 gaa2.', e:'The difference is whether you’re just going through the motions. Pure social duty is fobbing people off, and they can feel it. If you actually mean to get the thing done, saying it tactfully doesn’t make it false.'},
+      {speaker:'B', v:'講得啱。', p:'gong2 dak1 ngaam1.', e:'Fair point.'},
+    ],
+    vocab:[
+      {v:'睇餸食飯', p:'tai2sung3sik6faan6', e:'to cut your coat to your cloth'},
+      {v:'見機行事', p:'gin3gei1hang4si6', e:'to play it as it comes'},
+      {v:'睇眉頭眼額', p:'tai2mei4tau4ngaan5ngaak6', e:'to read someone’s face'},
+      {v:'識做', p:'sik1zou6', e:'to know how to behave; to do the right thing'},
+      {v:'醒目', p:'sing2muk6', e:'sharp; quick on the uptake'},
+      {v:'死板', p:'sei2baan2', e:'rigid; goes by the book'},
+      {v:'執輸', p:'zap1syu1', e:'to lose out by hanging back'},
+      {v:'求其', p:'kau4kei4', e:'any old way; slapdash'},
+      {v:'隨便', p:'ceoi4bin2', e:'as you like; casually'},
+      {v:'有頭有尾', p:'jau5tau4jau5mei5', e:'to see a thing through'},
+      {v:'應酬', p:'jing3cau4', e:'social duty; going through the motions'},
+      {v:'敷衍', p:'fu1hin2', e:'to fob off; do the bare minimum'},
+    ],
+    grammar:[
+      {title:'睇餸食飯 — the most Cantonese sentence about judgement', body:'Literally: look at the dishes, then eat your rice. It means act according to what is actually in front of you rather than what you planned — cut your coat to your cloth. It is used about money, about workload, and about exactly the thing this section is teaching: how much to say and how to say it. 見機行事 gin3 gei1 hang4 si6 is the same idea in a more formal register, so it fits a report where 睇餸食飯 fits the floor. Both are complimentary; neither implies dishonesty.'},
+      {title:'識做 — knowing what to do without being told', body:'識做 sik1 zou6 is one of the highest ordinary compliments in workplace Cantonese and one of the hardest to translate. It is not competence at the task; it is knowing what the moment asks for — bringing the tea before it is requested, holding the question until the boss has had his coffee, standing up when the older man comes in. 唔識做 said about someone is a real judgement, harsher than calling them careless. 睇眉頭眼額 (reading brows and foreheads) is the specific skill 識做 is built on.'},
+      {title:'應酬 and 敷衍 — the two ways politeness goes hollow', body:'應酬 jing3 cau4 is social obligation: the dinner you attend because you have to, the chat you make with a supplier. It is neutral — everyone has 應酬 — but 淨係應酬 (purely going through the motions) shades into 敷衍 fu1 hin2, which is doing the minimum to make someone go away. 敷衍 is always a criticism and people notice it. Worth pairing with 有頭有尾 jau5 tau4 jau5 mei5 — seeing a thing through, head and tail — which is the opposite and is what gets you trusted with the next job.'},
+    ],
+    cards:[
+      {v:'睇餸食飯啦，冇咁多錢就唔好搞咁大。', p:'tai2 sung3 sik6 faan6 laa1, mou5 gam3 do1 cin2 zau6 m4 hou2 gaau2 gam3 daai6.', e:'Cut your coat to your cloth — if the money isn’t there, don’t make it that big.'},
+      {v:'去到先算，見機行事。', p:'heoi3 dou3 sin1 syun3, gin3 gei1 hang4 si6.', e:'We’ll see when we get there and play it as it comes.'},
+      {v:'佢好識睇眉頭眼額。', p:'keoi5 hou2 sik1 tai2 mei4 tau4 ngaan5 ngaak6.', e:'He’s very good at reading a face.'},
+      {v:'佢好識做，唔使人講。', p:'keoi5 hou2 sik1 zou6, m4 sai2 jan4 gong2.', e:'He knows what to do without being told.'},
+      {v:'呢個後生仔幾醒目。', p:'ni1 go3 hau6 saang1 zai2 gei2 sing2 muk6.', e:'This young lad’s sharp.'},
+      {v:'佢好死板，一定要跟足程序。', p:'keoi5 hou2 sei2 baan2, jat1 ding6 jiu3 gan1 zuk1 cing4 zeoi6.', e:'He’s rigid — everything strictly by the procedure.'},
+      {v:'唔好執輸，快啲報名。', p:'m4 hou2 zap1 syu1, faai3 di1 bou3 ming4.', e:'Don’t miss out — sign up quick.'},
+      {v:'唔好求其做，做返好佢。', p:'m4 hou2 kau4 kei4 zou6, zou6 faan1 hou2 keoi5.', e:'Don’t just do it any old way — do it properly.'},
+      {v:'你隨便坐啦，唔使客氣。', p:'nei5 ceoi4 bin2 co5 laa1, m4 sai2 haak3 hei3.', e:'Sit wherever you like — make yourself at home.'},
+      {v:'做嘢要有頭有尾。', p:'zou6 je5 jiu3 jau5 tau4 jau5 mei5.', e:'If you start something, see it through.'},
+      {v:'今晚有應酬，返得遲。', p:'gam1 maan5 jau5 jing3 cau4, faan1 dak1 ci4.', e:'I’ve got a work do tonight — I’ll be back late.'},
+      {v:'佢敷衍咗兩句就走咗。', p:'keoi5 fu1 hin2 zo2 loeng5 geoi3 zau6 zau2 zo2.', e:'He fobbed me off with a couple of words and left.'},
+      {v:'阿頭今朝黑口黑面，遲啲先問佢。', p:'aa3 tau2 gam1 ziu1 hak1 hau2 hak1 min6, ci4 di1 sin1 man6 keoi5.', e:'The boss has a face on him this morning — ask him later.'},
+      {v:'佢做咗十年都仲係咁死板。', p:'keoi5 zou6 zo2 sap6 nin4 dou1 zung6 hai6 gam3 sei2 baan2.', e:'Ten years in and he’s still that rigid.'},
     ] },
 ];
 
@@ -26165,7 +26376,7 @@ function viewMasteredWords(){
   const mastered = wordStudyPool().filter(w=>isMasteredWord(w.srsId)).sort((a,b)=>a.rank-b.rank);
   document.getElementById('toolTitle').textContent = `Known words (${mastered.length})`;
   document.getElementById('toolBody').innerHTML = mastered.length ? mastered.map(w=>{
-    const gloss = WORD_GLOSS[w.word];
+    const gloss = activeWordGloss(w.word);   // same bug as the word card — see there
     const wEsc = w.word.replace(/'/g,"\\'");
     return `
     <div class="freq-item" onclick="playAudio('${w.srsId}', '${wEsc}', currentAccent)">
@@ -26983,7 +27194,14 @@ function renderSwipe(){
   const iv = previewIntervals(c.srsId);
   let cardHtml;
   if(swipeState.mode==='word'){
-    const gloss = WORD_GLOSS[c.word];
+    /* activeWordGloss(), NOT WORD_GLOSS. WORD_GLOSS is the Vietnamese table;
+       every other course keeps its glosses in its own (YUE_GLOSS, JA_GLOSS…)
+       with lesson vocab taking precedence. Reading WORD_GLOSS directly meant
+       every non-Vietnamese word card in the app rendered "(no gloss yet for
+       this word)" — all 1,514 Cantonese words and all 3,000 Japanese ones —
+       while the glosses existed the whole time and the Browse tab showed them
+       correctly. */
+    const gloss = activeWordGloss(c.word);
     const rankLabel = c.rank>=999999 ? 'Not ranked' : ('#' + c.rank.toLocaleString());
     const examples = swipeState.flipped ? findExampleSentences(c.word, 5) : [];
     // Plays on every card state change — front, and again on flip. On flip, chain
