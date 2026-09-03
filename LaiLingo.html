@@ -20432,7 +20432,15 @@ const PACKS_YUE = [
     {v:'大家同意就噉決定。', p:'daai6 gaa1 tung4 ji3 zau6 gam2 kyut3 ding6.', e:'If we all agree, that’s the decision.'},
     {v:'我會寫低，發俾大家。', p:'ngo5 wui5 se2 dai1, faat3 bei2 daai6 gaa1.', e:'I’ll write it down and send it to everyone.'},
   ] },
-];
+  { id:'yp90', icon:'⏳', title:'How Soon Is Later', tag:'Crew', color:'stool-red', cards:[
+    {v:'得，我遲啲買。', p:'dak1, ngo5 ci4 di1 maai5.', e:'Sure — I’ll buy them later.'},
+    {v:'等陣，我而家手上有嘢。', p:'dang2 zan6, ngo5 ji4 gaa1 sau2 soeng6 jau5 je5.', e:'Hold on — I’ve got my hands full right now.'},
+    {v:'晏啲我落去攞。', p:'aan3 di1 ngo5 lok6 heoi3 lo2.', e:'I’ll go down and get it later today.'},
+    {v:'遲下唔得閒，不如而家做。', p:'ci4 haa5 m4 dak1 haan4, bat1 jyu4 ji4 gaa1 zou6.', e:'I’ll be tied up later on — might as well do it now.'},
+    {v:'我轉頭覆你。', p:'ngo5 zyun3 tau4 fuk1 nei5.', e:'I’ll get back to you shortly.'},
+    {v:'唔係遲啲，係聽日。', p:'m4 hai6 ci4 di1, hai6 ting1 jat6.', e:'Not “later” — tomorrow.'},
+    {v:'出咗糧我就買。', p:'ceot1 zo2 loeng4 ngo5 zau6 maai5.', e:'I’ll buy it once we’ve been paid.'},
+  ] },];
 
 // The vocabulary of the job itself, pulled out of the facility packs so the
 // words can be drilled on their own rather than only inside whole sentences.
@@ -20594,6 +20602,14 @@ const FACILITY_VOCAB = [
   {v:'個骨', p:'go3gwat1', e:'a quarter of an hour', group:'Crew and shifts'},
   {v:'夠鐘', p:'gau3zung1', e:'time is up', group:'Crew and shifts'},
   {v:'落班', p:'lok6baan1', e:'to come off shift', group:'Crew and shifts'},
+  /* How soon "later" is. All three sit below the corpus cutoff, so the word
+     deck could not surface them at all — searching "later" found 遲啲 and
+     nothing that told you how soon it meant. 等陣 is the one you say to
+     somebody standing in front of you; 遲啲 is the one that turns into a
+     running joke if you never attach a day to it (see pack yp90). */
+  {v:'等陣', p:'dang2zan6', e:'hold on — in a minute, in this conversation', group:'Crew and shifts'},
+  {v:'晏啲', p:'aan3di1', e:'later today (晏 is aan3, never ngaan3)', group:'Crew and shifts'},
+  {v:'遲下', p:'ci4haa5', e:'later on — vaguer than 遲啲', group:'Crew and shifts'},
   {v:'毫子', p:'hou4zi2', e:'ten cents', group:'Everyday'},
   {v:'嚿水', p:'gau6seoi2', e:'a hundred dollars (一嚿水)', group:'Everyday'},
   // --- when it goes wrong, and how you say so (packs yp51-yp54) ---
@@ -24113,10 +24129,23 @@ function renderFrequency(){
     const isSlangWords = !!(bucket && (bucket.kind === 'slang' || bucket.kind === 'swear'));
     const isTextWords  = !!(bucket && bucket.kind === 'text');
     const isOwnList = isWorkWords || isSlangWords || isTextWords;   // its own pool, not a rank slice
-    const list = isWorkWords ? facilityVocab()
+    let list = isWorkWords ? facilityVocab()
       : isTextWords ? textingVocab()
       : isSlangWords ? slangDeck(bucket.kind)
       : (state.contentMode==='new' ? newVocabPool() : buildWordFrequencyList());
+    /* Searching with no range chip picked means "find this anywhere", so the
+       job, slang and texting pools join the corpus for that one case. They are
+       separate CHIPS, not separate vocabularies — a learner who types "later"
+       has no way to know 等陣 lives behind the Job words chip and 遲啲 does not,
+       and being told the word is missing when the app teaches it is the worst
+       answer the search can give. Corpus entry wins a duplicate: it carries the
+       rank. Only on search, so the no-search "pick a range" prompt below and
+       every chip view are untouched. */
+    if(!bucket && freqSearchTerm && state.contentMode !== 'new'){
+      const seen = new Set(list.map(w=>w.word));
+      [].concat(facilityVocab(), slangDeck('slang'), slangDeck('swear'), textingVocab())
+        .forEach(w=>{ if(w && !seen.has(w.word)){ seen.add(w.word); list = list.concat([w]); } });
+    }
     const searchFolded = stripDiacritics(freqSearchTerm.toLowerCase());
     const searchLower = freqSearchTerm.toLowerCase();
 
@@ -24173,8 +24202,16 @@ function renderFrequency(){
     document.getElementById('freqList').innerHTML = filtered.map((w,i)=>{
       // Off-corpus job words have no rank, and "Not ranked" reads like a fault.
       // They are simply not the kind of word a conversation corpus records.
-      const rankLabel = w.rank >= 999999 ? (isWorkWords ? 'Job word' : isTextWords ? 'typed' : isSlangWords ? (w.sev||'slang') : 'Not ranked') : w.rank.toLocaleString();
-      const gloss = isOwnList ? w.e : activeWordGloss(w.word);
+      // 'Not ranked' reads like a fault, so an off-corpus word says what it IS.
+      // w.group is only set on the job pool, w.sev only on slang/swearing —
+      // which is what tells them apart once a search has merged the pools.
+      const rankLabel = w.rank >= 999999
+        ? (isWorkWords || (!isOwnList && w.group) ? 'Job word'
+           : isTextWords ? 'typed'
+           : (isSlangWords || w.sev) ? (w.sev||'slang') : 'Not ranked')
+        : w.rank.toLocaleString();
+      // merged results mix pools, so fall back per entry rather than per list
+      const gloss = w.e || activeWordGloss(w.word);
       let head = '';
       if(isOwnList && w.group && w.group !== lastWordGroup){ lastWordGroup = w.group; head = `<p class="freq-group">${w.group}</p>`; }
       const wEsc = w.word.replace(/'/g,"\\'");
