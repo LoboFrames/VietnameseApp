@@ -19007,7 +19007,7 @@ const SLANG_PHRASES = [
 // 摘葉 is confirmed — it is the crew's own word, replacing my earlier guess of
 // 打葉. 插枝 is still unchecked; some say 扦插.
 const WORLDS_YUE = [
-  { id:'yw_grow', icon:'🌿', title:'Cannabis Facility', tagline:'Sort the crew, run a de-leaf, get a harvest through, cut clones.', tags:['Crew','Grow','Harvest','Safety'] },
+  { id:'yw_grow', icon:'🌿', title:'Cannabis Facility', tagline:'Sort the crew, run a de-leaf, get a harvest through, cut clones.', tags:['Crew','Grow','Harvest','Kit','Safety'] },
   { id:'yw_family', icon:'👵', title:'Family & Relatives', tagline:'Work out what to call everyone, survive the questions, eat what you are given.', tags:['Who’s Who','Visiting','Phone','At the Table'] },  { id:'yw_transit', icon:'🚇', title:'Getting Around', tagline:'MTR exits, Octopus, and shouting 有落 before the minibus goes past your stop.', tags:['MTR','Minibus','Taxi','Ferry'] },
   { id:'yw_food', icon:'🍜', title:'Eating Out', tagline:'Cha chaan teng shorthand, yum cha, sharing a table, and 埋單 at the door.', tags:['Cha Chaan Teng','Yum Cha','Ordering','Paying'] },
   { id:'yw_shop', icon:'🛍️', title:'Shopping & Money', tagline:'Wet markets, sizes, getting the price down, and where haggling stops working.', tags:['In the Shop','Market','Haggling','At the Till'] },
@@ -19549,6 +19549,42 @@ const PACKS_YUE = [
     {v:'唔識就問，唔好估。', p:'m4 sik1 zau6 man6, m4 hou2 gu2.', e:'If you don’t know, ask — don’t guess.'},
     {v:'第一日唔使做咁快，睇清楚先。', p:'dai6 jat1 jat6 m4 sai2 zou6 gam3 faai3, tai2 cing1 co2 sin1.', e:'No need to be quick on your first day — look properly first.'},
   ] },
+  { id:'yp58', icon:'🔧', title:'When Something Breaks', tag:'Kit', color:'stool-red', cards:[
+    {v:'部抽濕機壞咗，唔轉㗎喇。', p:'bou6 cau1 sap1 gei1 waai6 zo2, m4 zyun3 gaa3 laa3.', e:'The dehumidifier’s packed in — it isn’t turning.'},
+    {v:'你聽下有冇聲，定係完全冇反應？', p:'nei5 teng1 haa5 jau5 mou5 seng1, ding6 hai6 jyun4 cyun4 mou5 faan2 jing3?', e:'Have a listen — any noise at all, or nothing?'},
+    {v:'整唔整得返？定係要換過部新？', p:'zing2 m4 zing2 dak1 faan1? ding6 hai6 jiu3 wun6 gwo3 bou6 san1?', e:'Can it be fixed, or does it need replacing?'},
+    {v:'我叫師傅聽日嚟睇。', p:'ngo5 giu3 si1 fu2 ting1 jat6 lei4 tai2.', e:'I’ll get someone in to look at it tomorrow.'},
+    {v:'未整好之前，用返舊嗰部先。', p:'mei6 zing2 hou2 zi1 cin4, jung6 faan1 gau6 go2 bou6 sin1.', e:'Use the old one until it’s fixed.'},
+    {v:'要換零件，可能要等一個禮拜。', p:'jiu3 wun6 ling4 gin6, ho2 nang4 jiu3 dang2 jat1 go3 lai5 baai3.', e:'It needs a part — that could be a week.'},
+    {v:'壞咗即刻話我知，唔好等我發現。', p:'waai6 zo2 zik1 haak1 waa6 ngo5 zi1, m4 hou2 dang2 ngo5 faat3 jin6.', e:'Tell me the moment something breaks — don’t wait for me to find it.'},
+  ] },
+  { id:'yp59', icon:'📦', title:'A Delivery Arrives', tag:'Crew', color:'stool-blue', cards:[
+    {v:'貨到咗，你哋點下先。', p:'fo3 dou3 zo2, nei5 dei6 dim2 haa5 sin1.', e:'Delivery’s here — check it in first.'},
+    {v:'對返張單，睇下夠唔夠數。', p:'deoi3 faan1 zoeng1 daan1, tai2 haa5 gau3 m4 gau3 sou3.', e:'Check it against the docket — is the count right?'},
+    {v:'少咗五袋，我打電話問。', p:'siu2 zo2 ng5 doi2, ngo5 daa2 din6 waa2 man6.', e:'Five bags short — I’ll ring them.'},
+    {v:'送錯咗，哩啲唔係我哋叫嘅。', p:'sung3 co3 zo2, ni1 di1 m4 hai6 ngo5 dei6 giu3 ge3.', e:'Wrong delivery — this isn’t what we ordered.'},
+    {v:'簽收之前先點清楚。', p:'cim1 sau1 zi1 cin4 sin1 dim2 cing1 co2.', e:'Count it properly before you sign for it.'},
+    {v:'張單擺喺辦公室，唔好掟咗佢。', p:'zoeng1 daan1 baai2 hai2 baan6 gung1 sat1, m4 hou2 deng3 zo2 keoi5.', e:'Docket goes in the office — don’t chuck it.'},
+    {v:'搬入倉，唔好擺喺門口。', p:'bun1 jap6 cong1, m4 hou2 baai2 hai2 mun4 hau2.', e:'Carry it into the store — don’t leave it in the doorway.'},
+  ] },
+  { id:'yp60', icon:'🚚', title:'Moving It Between Sites', tag:'Crew', color:'stool-yellow', cards:[
+    {v:'哩批要運去東廠。', p:'ni1 pai1 jiu3 wan6 heoi3 dung1 cong2.', e:'This lot goes to ESG.'},
+    {v:'上車之前點清楚幾多箱。', p:'soeng5 ce1 zi1 cin4 dim2 cing1 co2 gei2 do1 soeng1.', e:'Count the totes before it goes on the van.'},
+    {v:'到咗打個電話俾我。', p:'dou3 zo2 daa2 go3 din6 waa2 bei2 ngo5.', e:'Ring me when you get there.'},
+    {v:'邊個跟車去？', p:'bin1 go3 gan1 ce1 heoi3?', e:'Who’s riding with it?'},
+    {v:'張單要跟住批貨走。', p:'zoeng1 daan1 jiu3 gan1 zyu6 pai1 fo3 zau2.', e:'The paperwork travels with the load.'},
+    {v:'落貨嗰陣叫佢哋簽返個名。', p:'lok6 fo3 go2 zan6 giu3 keoi5 dei6 cim1 faan1 go3 meng2.', e:'Get them to sign for it when it’s unloaded.'},
+    {v:'唔好一次過搬晒，分兩轉。', p:'m4 hou2 jat1 ci3 gwo3 bun1 saai3, fan1 loeng5 zyun3.', e:'Don’t take it all at once — do it in two runs.'},
+  ] },
+  { id:'yp61', icon:'🔒', title:'Locking Up', tag:'Safety', color:'stool-blue', cards:[
+    {v:'收工前行一轉，睇下有冇嘢冇熄。', p:'sau1 gung1 cin4 haang4 jat1 zyun3, tai2 haa5 jau5 mou5 je5 mou5 sik1.', e:'Walk round before you knock off — check nothing’s been left on.'},
+    {v:'燈、水、風扇，全部熄晒。', p:'dang1, seoi2, fung1 sin3, cyun4 bou6 sik1 saai3.', e:'Lights, water, fans — all off.'},
+    {v:'閂實所有門先走。', p:'saan1 sat6 so2 jau5 mun4 sin1 zau2.', e:'Shut every door properly before you leave.'},
+    {v:'最後走嗰個負責鎖門。', p:'zeoi3 hau6 zau2 go2 go3 fu6 zaak3 so2 mun4.', e:'Last one out locks up.'},
+    {v:'簽咗個名先走。', p:'cim1 zo2 go3 meng2 sin1 zau2.', e:'Sign off before you go.'},
+    {v:'有嘢唔妥就打俾我，唔好自己搞。', p:'jau5 je5 m4 to5 zau6 daa2 bei2 ngo5, m4 hou2 zi6 gei2 gaau2.', e:'Anything not right, ring me — don’t sort it yourself.'},
+    {v:'記得閂冷氣，唔係開足一晚。', p:'gei3 dak1 saan1 laang5 hei3, m4 hai6 hoi1 zuk1 jat1 maan5.', e:'Remember the AC, or it runs all night.'},
+  ] },
 ];
 
 // The vocabulary of the job itself, pulled out of the facility packs so the
@@ -19740,6 +19776,24 @@ const FACILITY_VOCAB = [
   {v:'休息', p:'jau1sik1', e:'to rest / take time off', group:'Crew and shifts'},
   {v:'試下', p:'si3haa5', e:'to have a go', group:'Crew and shifts'},
   {v:'估', p:'gu2', e:'to guess (唔好估 = don’t guess)', group:'Crew and shifts'},
+  // --- kit, deliveries, moving loads, locking up (packs yp58-yp61) ---
+  {v:'壞咗', p:'waai6zo2', e:'broken / packed in', group:'Room conditions'},
+  {v:'整', p:'zing2', e:'to fix (整唔整得返 = can it be fixed)', group:'Room conditions'},
+  {v:'換', p:'wun6', e:'to replace / swap out', group:'Room conditions'},
+  {v:'零件', p:'ling4gin6', e:'a part', group:'Room conditions'},
+  {v:'反應', p:'faan2jing3', e:'a response — 冇反應 = dead', group:'Room conditions'},
+  {v:'到貨', p:'dou3fo3', e:'for stock to arrive', group:'Supplies and counting'},
+  {v:'點貨', p:'dim2fo3', e:'to check a delivery in', group:'Supplies and counting'},
+  {v:'簽收', p:'cim1sau1', e:'to sign for a delivery', group:'Supplies and counting'},
+  {v:'單', p:'daan1', e:'the docket / the bill', group:'Supplies and counting'},
+  {v:'倉', p:'cong1', e:'the store room', group:'Sites and rooms'},
+  {v:'搬', p:'bun1', e:'to carry / shift something', group:'Sites and rooms'},
+  {v:'運', p:'wan6', e:'to transport / send a load', group:'Sites and rooms'},
+  {v:'跟車', p:'gan1ce1', e:'to ride with the load', group:'Sites and rooms'},
+  {v:'落貨', p:'lok6fo3', e:'to unload', group:'Sites and rooms'},
+  {v:'鎖門', p:'so2mun4', e:'to lock up', group:'Crew and shifts'},
+  {v:'閂', p:'saan1', e:'to shut / close (閂門, 閂冷氣)', group:'Crew and shifts'},
+  {v:'唔妥', p:'m4to5', e:'not right / off', group:'Putting it right'},
 ];
 
 
@@ -20071,6 +20125,28 @@ const CHAT_PERSONAS_YUE = {
           {v:'你跟住阿姨做啦。', e:'Just follow one of the aunties.', correct:false, tip:'Handing her to someone with a full tote of her own means she gets taught in the gaps, by someone who is being slowed down for it.'},
           {v:'應該一樣啦。', e:'Should be the same.', correct:false, tip:'"Should be" from the person who is supposed to know is worse than "let me check" — she will carry that guess through the whole box.'},
         ], them:{v:'好，我唔識就叫你。', e:'Right. I’ll call you if I’m stuck.'} },
+    ]},
+    { name:'維修師傅 (Repair Man)', icon:'🔧', opener:{v:'喂，林生話部抽濕機壞咗？', e:'Hello — Uncle says the dehumidifier’s broken?'}, turns:[
+      { youOptions:[
+          {v:'係，四號房嗰部。開到但係唔轉。', e:'Yes, the one in Room 4. It powers on but doesn’t turn.', correct:true},
+          {v:'壞咗，你嚟睇下啦。', e:'It’s broken — come and have a look.', correct:false, tip:'He will turn up with the wrong parts on the van. Two more sentences on the phone now saves him a second trip and you a second day.'},
+          {v:'我唔知點解，你自己睇。', e:'I don’t know why — see for yourself.', correct:false, tip:'You know more about what it was doing than he does; you were the one standing next to it. Handing him nothing is not modesty, it is a wasted call.'},
+        ], them:{v:'開到但唔轉？可能係摩打。幾時買㗎？', e:'Powers on but won’t turn? Could be the motor. When was it bought?'} },
+      { youOptions:[
+          {v:'舊年買，用咗大概一年。', e:'Last year — about a year’s use on it.', correct:true},
+          {v:'唔記得。', e:'Can’t remember.', correct:false, tip:'The age decides whether this is a part or a replacement, and it is written on the invoice in your own office.'},
+          {v:'好新㗎。', e:'It’s fairly new.', correct:false, tip:'Vague enough to be wrong. If it is a month out of warranty he finds out once he is already standing in the room.'},
+        ], them:{v:'一年？應該仲有保養。你搵返張單。', e:'A year? Should still be under warranty. Dig out the receipt.'} },
+      { youOptions:[
+          {v:'好，我搵返張單。你幾時可以嚟？', e:'Right, I’ll find it. When can you come?', correct:true},
+          {v:'唔使保養喇，你整咗佢就得。', e:'Never mind the warranty — just fix it.', correct:false, tip:'Skipping the warranty because it is quicker means paying for a repair somebody else already owes you.'},
+          {v:'我搵下先，遲啲覆你。', e:'Let me look for it and get back to you.', correct:false, tip:'You have the fault, the age and his diagnosis. Hanging up here means starting the whole call again tomorrow.'},
+        ], them:{v:'聽日下晝得唔得？', e:'Would tomorrow afternoon do?'} },
+      { youOptions:[
+          {v:'得。不過三點前要嚟，我哋四點收工。', e:'That works — but before three, we knock off at four.', correct:true},
+          {v:'幾時都得。', e:'Any time’s fine.', correct:false, tip:'It is not fine. There is nobody to let him in after four, and "any time" is how he arrives at five.'},
+          {v:'越快越好。', e:'The sooner the better.', correct:false, tip:'Says urgency and gives no time. He will slot you in wherever suits his day, which is what you were trying to influence.'},
+        ], them:{v:'好，噉我兩點嚟。', e:'Right — I’ll come at two, then.'} },
     ]},
   ],
   yw_family: [
