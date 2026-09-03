@@ -2686,9 +2686,17 @@ const CANTONESE_B1_SECTIONS = [
 // intermediate: 一模一樣, 之下/之中, 從而, 得人驚, 忽然間. The tail isn't harder
 // so much as thinner — words a B1 speaker gets by without, and a fluent one
 // uses without thinking. Same frequency spine, same 18 words a lesson.
+// Section III continues past the count-5 cutoff, exactly as B1 continued past
+// the count-10 one. The spine (1,514 words, ranks 1-1,521) is fully taught by
+// lesson 85; below it 348 words share a corpus count of 4, and at that depth
+// rank between words is noise, so ordering INSIDE the tier is thematic rather
+// than numeric — the honest description of what is happening, not a change of
+// method. Proper nouns, place names and bare numerals are dropped (219 kept of
+// 348), and words the app already glosses elsewhere are skipped.
 const CANTONESE_B2_SECTIONS = [
   { id:1, roman:'I', title:'Reasons and Evidence' },
   { id:2, roman:'II', title:'Rounding It Out' },
+  { id:3, roman:'III', title:'The Thin Tail' },
 ];
 
 // Rebuilt 2026-08-30 on the Migaku principle used for Vietnamese (vi2): strict
@@ -6256,6 +6264,174 @@ const LESSONS_YUE = [
       {v:'食飽未？飽咗就唔好再食。', p:'sik6 baau2 mei6? baau2 zo2 zau6 m4 hou2 zoi3 sik6.', e:'Had enough? If you’re full, stop eating.'},
       {v:'部高級電器好貴，不過個畫面係高解像。', p:'bou6 gou1 kap1 din6 hei3 hou2 gwai3, bat1 gwo3 go3 waa2 min6 hai6 gou1 gaai2 zoeng6.', e:'That upmarket set is dear, but the picture is high resolution.'},
       {v:'佢買咗隻鑽戒，仲要去驗埋先安心。', p:'keoi5 maai5 zo2 zek3 zyun3 gaai3, zung6 jiu3 heoi3 jim6 maai4 sin1 on1 sam1.', e:'He bought a diamond ring, and had it tested before he’d relax.'},
+    ] },
+
+  { id:'yue_l86', day:86, section:3, level:'B2', title:'What It Pays', tag:'The Thin Tail', img:'images/yue_lesson_86.jpg',
+    desc:'Work, wages and the paperwork that comes with them — the first lesson past the count-5 cutoff: 職位, 年薪, 出糧, 揾食, 見工, 註冊, 證書, 失業率.',
+    duration:'6 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'你新嗰份工個職位叫咩？', p:'nei5 san1 go2 fan6 gung1 go3 zik1 wai2 giu3 me1?', e:'What’s the job title at the new place?'},
+      {speaker:'B', v:'主任。人工好過而家，出糧又準時。', p:'zyu2 jam6. jan4 gung1 hou2 gwo3 ji4 gaa1, ceot1 loeng4 jau6 zeon2 si4.', e:'Supervisor. Pay’s better than here, and payday’s on time.'},
+      {speaker:'A', v:'幾時見工？', p:'gei2 si4 gin3 gung1?', e:'When’s the interview?'},
+      {speaker:'B', v:'聽日。佢要我帶埋證書同註冊嗰張紙。', p:'ting1 jat6. keoi5 jiu3 ngo5 daai3 maai4 zing3 syu1 tung4 zyu3 caak3 go2 zoeng1 zi2.', e:'Tomorrow. They want me to bring the certificate and the registration paper.'},
+    ],
+    vocab:[
+      {v:'主任', p:'zyu2jam6', e:'a supervisor, a section head'},
+      {v:'事業', p:'si6jip6', e:'a career, one’s working life'},
+      {v:'出糧', p:'ceot1loeng4', e:'to pay wages; payday'},
+      {v:'加入', p:'gaa1jap6', e:'to join, to come on board'},
+      {v:'員工', p:'jyun4gung1', e:'staff, employees'},
+      {v:'大學生', p:'daai6hok6saang1', e:'a university student'},
+      {v:'失業率', p:'sat1jip6leot2', e:'the unemployment rate'},
+      {v:'學費', p:'hok6fai3', e:'tuition, school fees'},
+      {v:'年薪', p:'nin4san1', e:'an annual salary'},
+      {v:'成本', p:'sing4bun2', e:'cost, what it costs to make'},
+      {v:'揾錢', p:'wan2cin2', e:'to earn money'},
+      {v:'揾食', p:'wan2sik6', e:'to make a living, to get by'},
+      {v:'生意額', p:'saang1ji3ngaak6', e:'turnover, sales volume'},
+      {v:'登記', p:'dang1gei3', e:'to register, to sign in'},
+      {v:'職位', p:'zik1wai2', e:'a position, a job title'},
+      {v:'見工', p:'gin3gung1', e:'to go for a job interview'},
+      {v:'註冊', p:'zyu3caak3', e:'to register officially; registered'},
+      {v:'證書', p:'zing3syu1', e:'a certificate'},
+    ],
+    grammar:[
+      {title:'揾錢 wan2 cin2 and 揾食 wan2 sik6', body:'Both mean earning a living and they are not interchangeable in tone. 揾錢 is the neutral one — 佢好識揾錢 (he’s good at making money). 揾食 is literally looking for food, and it carries the whole business of scraping by: 出嚟揾食啫 (I’m just out here earning a crust) is what you say to excuse a job nobody would choose. Said about someone else it can be cutting — 佢係揾食啫 means don’t take his sales patter seriously.'},
+      {title:'出糧 ceot1 loeng4 — a verb you can split', body:'糧 loeng4 is the wage, 出糧 is the paying of it, and like most Cantonese verb-object pairs it comes apart: 出咗糧未？ (been paid yet?), 出咗兩次糧 (paid twice), 遲咗出糧 (payday was late). The subject can be either side — 公司出糧 (the company pays out) and 我出咗糧 (I’ve been paid) are both normal. Note it is 出糧, never 收糧, for the ordinary sense of getting your wages.'},
+      {title:'The -率, -額, -本 words are news, not conversation', body:'失業率, 生意額 and 成本 all come off the radio and out of the accounts, and they are worth recognising rather than reaching for. Over dinner people say 好多人冇工開 rather than 失業率高, and 做幾多生意 rather than 生意額. 成本 is the exception — anyone who runs anything uses it plainly: 成本太貴，做唔過 (the cost is too high, it isn’t worth doing).'},
+    ],
+    cards:[
+      {v:'我哋而家得十二個員工，唔夠人做。', p:'ngo5 dei6 ji4 gaa1 dak1 sap6 ji6 go3 jyun4 gung1, m4 gau3 jan4 zou6.', e:'We’ve only got twelve staff — not enough hands.'},
+      {v:'佢啱啱畢業，仲係大學生嗰陣已經開始揾食。', p:'keoi5 ngaam1 ngaam1 bat1 jip6, zung6 hai6 daai6 hok6 saang1 go2 zan6 ji5 ging1 hoi1 ci2 wan2 sik6.', e:'He’s just graduated — he was already earning while he was still a student.'},
+      {v:'學費太貴，佢做兩份工先讀得起。', p:'hok6 fai3 taai3 gwai3, keoi5 zou6 loeng5 fan6 gung1 sin1 duk6 dak1 hei2.', e:'The fees are steep — he works two jobs to afford it.'},
+      {v:'你想加入就要先登記，唔係冇得計人工。', p:'nei5 soeng2 gaa1 jap6 zau6 jiu3 sin1 dang1 gei3, m4 hai6 mou5 dak1 gai3 jan4 gung1.', e:'If you want to join you register first, or there’s no way to work out your pay.'},
+    ] },
+
+  { id:'yue_l87', day:87, section:3, level:'B2', title:'A Day Off', tag:'The Thin Tail', img:'images/yue_lesson_87.jpg',
+    desc:'What people do when they are not working: 周末, 活動, 打邊爐, 打機, 踢波, 博物館, 參觀, 淡季.',
+    duration:'6 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'周末有咩活動？', p:'zau1 mut6 jau5 me1 wut6 dung6?', e:'Anything on this weekend?'},
+      {speaker:'B', v:'禮拜日去博物館參觀，之後打邊爐。', p:'lai5 baai3 jat6 heoi3 bok3 mat6 gun2 caam1 gun1, zi1 hau6 daa2 bin1 lou4.', e:'Museum on Sunday, then hotpot after.'},
+      {speaker:'A', v:'真係？我以為你淨係識打機同踢波。', p:'zan1 hai6? ngo5 ji5 wai4 nei5 zing6 hai6 sik1 daa2 gei1 tung4 tek3 bo1.', e:'Really? I thought all you did was game and play football.'},
+      {speaker:'B', v:'而家淡季，唔使返工，梗係揾啲嘢做。', p:'ji4 gaa1 daam6 gwai3, m4 sai2 faan1 gung1, gang2 hai6 wan2 di1 je5 zou6.', e:'It’s the slow season, no work on — of course I find something to do.'},
+    ],
+    vocab:[
+      {v:'主題', p:'zyu2tai4', e:'a theme, a subject'},
+      {v:'博物館', p:'bok3mat6gun2', e:'a museum'},
+      {v:'參觀', p:'caam1gun1', e:'to visit, to look round'},
+      {v:'周末', p:'zau1mut6', e:'the weekend'},
+      {v:'喜劇', p:'hei2kek6', e:'a comedy'},
+      {v:'字幕', p:'zi6mok6', e:'subtitles'},
+      {v:'打機', p:'daa2gei1', e:'to play video games'},
+      {v:'打邊爐', p:'daa2bin1lou4', e:'to have hotpot'},
+      {v:'本地', p:'bun2dei6', e:'local, homegrown'},
+      {v:'樂隊', p:'ngok6deoi6', e:'a band'},
+      {v:'活動', p:'wut6dung6', e:'an activity, an event'},
+      {v:'淡季', p:'daam6gwai3', e:'the slow season, the off season'},
+      {v:'演員', p:'jin2jyun4', e:'an actor'},
+      {v:'禮拜日', p:'lai5baai3jat6', e:'Sunday'},
+      {v:'藝術家', p:'ngai6seot6gaa1', e:'an artist'},
+      {v:'跑步', p:'paau2bou6', e:'to run, to go running'},
+      {v:'踢波', p:'tek3bo1', e:'to play football'},
+      {v:'運動會', p:'wan6dung6wui2', e:'a sports day, an athletics meet'},
+    ],
+    grammar:[
+      {title:'打 daa2 does a lot of the work', body:'打機, 打邊爐, 打波, 打麻雀, 打電話, 打工 — 打 covers gaming, hotpot, ball games, mahjong, calling and being on someone’s payroll. It is not really hitting; it is closer to English do or have a go at. Learn each one as a unit rather than trying to reason from 打, and note that football specifically takes 踢 (踢波), because you kick it.'},
+      {title:'參觀 caam1 gun1 — going somewhere to look at it', body:'參觀 is visiting a place to be shown round it: a museum, a factory, a school. It never means visiting a person — that is 探 taam3 (探朋友) or 去佢度. In speech 去博物館 alone is more common than 去博物館參觀; 參觀 turns up when the visit is arranged or official, which is why the word shows up whenever a group is being taken somewhere.'},
+      {title:'淡季 daam6 gwai3 and its opposite', body:'淡 is bland or thin, so 淡季 is the season when nothing is moving — the off season. Its pair is 旺季 wong6 gwai3, the busy one. The same 淡/旺 split runs through business talk: 生意好淡 (trade is dead), 好旺 (going well), 旺舖 (a shop in a good spot). Worth having both halves, because people almost always say which one they are in.'},
+    ],
+    cards:[
+      {v:'套戲係喜劇，不過冇字幕，我睇唔明。', p:'tou3 hei3 hai6 hei2 kek6, bat1 gwo3 mou5 zi6 mok6, ngo5 tai2 m4 ming4.', e:'It’s a comedy, but there are no subtitles so I couldn’t follow it.'},
+      {v:'佢細個係運動會跑步嗰啲，而家行兩步都攰。', p:'keoi5 sai3 go3 hai6 wan6 dung6 wui2 paau2 bou6 go2 di1, ji4 gaa1 haang4 loeng5 bou6 dou1 gui6.', e:'He was one of the runners on sports day as a kid — now two steps and he’s knackered.'},
+      {v:'今次個主題係本地藝術家。', p:'gam1 ci3 go3 zyu2 tai4 hai6 bun2 dei6 ngai6 seot6 gaa1.', e:'This time the theme is local artists.'},
+      {v:'嗰隊樂隊個主音以前做演員㗎。', p:'go2 deoi6 ngok6 deoi6 go3 zyu2 jam1 ji5 cin4 zou6 jin2 jyun4 gaa3.', e:'The singer in that band used to be an actor.'},
+    ] },
+
+  { id:'yue_l88', day:88, section:3, level:'B2', title:'Getting There', tag:'The Thin Tail', img:'images/yue_lesson_88.jpg',
+    desc:'Stations, vans, which side of what, and which day: 地鐵站, 小巴, 機場, 前面, 後面, 度度, 夠鐘, 噚日.',
+    duration:'6 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'你點嚟？坐地鐵定小巴？', p:'nei5 dim2 lei4? co5 dei6 tit3 ding6 siu2 baa1?', e:'How are you getting here — train or minibus?'},
+      {speaker:'B', v:'你喺地鐵站門口等我，我兜個彎就到。', p:'nei5 hai2 dei6 tit3 zaam6 mun4 hau2 dang2 ngo5, ngo5 dau1 go3 waan1 zau6 dou3.', e:'Wait for me at the station entrance — I’ll swing round and be there.'},
+      {speaker:'A', v:'幾點？夠鐘我哋就走㗎喇。', p:'gei2 dim2? gau3 zung1 ngo5 dei6 zau6 zau2 gaa3 laa3.', e:'What time? Once it’s time we’re off.'},
+      {speaker:'B', v:'五點。噚日我前面架車死火，所以遲咗。', p:'ng5 dim2. cam4 jat6 ngo5 cin4 min6 gaa3 ce1 sei2 fo2, so2 ji5 ci4 zo2.', e:'Five. Yesterday the car in front of me broke down, that’s why I was late.'},
+    ],
+    vocab:[
+      {v:'兜', p:'dau1', e:'to go round, to take a detour'},
+      {v:'前晚', p:'cin4maan5', e:'the night before last'},
+      {v:'前邊', p:'cin4bin1', e:'the front, ahead'},
+      {v:'前面', p:'cin4min6', e:'in front, ahead of'},
+      {v:'噚日', p:'cam4jat6', e:'yesterday'},
+      {v:'地鐵站', p:'dei6tit3zaam6', e:'an underground station'},
+      {v:'夠鐘', p:'gau3zung1', e:'time’s up; it’s time to'},
+      {v:'小巴', p:'siu2baa1', e:'a minibus'},
+      {v:'幾點', p:'gei2dim2', e:'what time'},
+      {v:'度度', p:'dou6dou6', e:'everywhere, all over the place'},
+      {v:'後面', p:'hau6min6', e:'behind, at the back'},
+      {v:'機倉', p:'gei1cong1', e:'an aircraft cabin'},
+      {v:'機場', p:'gei1coeng4', e:'an airport'},
+      {v:'火車站', p:'fo2ce1zaam6', e:'a railway station'},
+      {v:'當日', p:'dong1jat6', e:'on the day, that same day'},
+      {v:'速度', p:'cuk1dou6', e:'speed, pace'},
+      {v:'門口', p:'mun4hau2', e:'a doorway, an entrance'},
+      {v:'離開', p:'lei4hoi1', e:'to leave, to depart from'},
+    ],
+    grammar:[
+      {title:'前面 / 後面 and 前邊 / 後邊', body:'Both suffixes make a location word and Cantonese leans on 面 min6 far more than 邊 bin1: 前面, 後面, 上面, 下面, 出面, 入面 are all everyday. 前邊 and 後邊 exist and sound slightly Mandarin-ish to a Hong Kong ear — you will hear them, but 面 is the safe default. Note 面 here is min6 with the low tone; 面 as face in 冇面 and 畀面 is min2.'},
+      {title:'度度 dou6 dou6 — reduplicating for everywhere', body:'度 is a place (呢度, 嗰度), and doubling it gives everywhere: 度度都揾過 (I’ve looked everywhere), 度度都係人 (packed out). The pattern is general — 日日 every day, 個個 every one of them, 樣樣 every kind — a doubled measure or place word means all of them without exception, and it usually comes with 都 in the same clause.'},
+      {title:'噚日 cam4 jat6, 前晚 cin4 maan5, 當日 dong1 jat6', body:'噚日 is yesterday, and you will also see it written 尋日 and hear 琴日 — same word, and the spelling is not settled. 前日 is the day before yesterday, 前晚 the night before last. 當日 is different in kind: it does not mean a fixed day but that day, the day in question — 當日落大雨 (it poured on the day), 當日已經簽咗 (it was signed the same day).'},
+    ],
+    cards:[
+      {v:'佢架車開得太快，你睇下個速度。', p:'keoi5 gaa3 ce1 hoi1 dak1 taai3 faai3, nei5 tai2 haa5 go3 cuk1 dou6.', e:'He’s driving far too fast — look at the speed.'},
+      {v:'部機場巴士坐到火車站，之後行五分鐘。', p:'bou6 gei1 coeng4 baa1 si2 co5 dou3 fo2 ce1 zaam6, zi1 hau6 haang4 ng5 fan1 zung1.', e:'The airport bus goes to the railway station, then it’s five minutes on foot.'},
+      {v:'機倉入面好凍，記得帶件褸。', p:'gei1 cong1 jap6 min6 hou2 dung3, gei3 dak1 daai3 gin6 lau1.', e:'It’s freezing in the cabin — remember a jacket.'},
+      {v:'佢冇講聲就離開咗，度度都揾唔到佢。', p:'keoi5 mou5 gong2 seng1 zau6 lei4 hoi1 zo2, dou6 dou6 dou1 wan2 m4 dou2 keoi5.', e:'He left without a word — he’s nowhere to be found.'},
+    ] },
+
+  { id:'yue_l89', day:89, section:3, level:'B2', title:'That’s Out of Order', tag:'The Thin Tail', img:'images/yue_lesson_89.jpg',
+    desc:'Judging behaviour, from mildly hard to take to genuinely rude: 離譜, 難頂, 荒謬, 惡劣, 弊, 道歉, 陰公, 無喇喇.',
+    duration:'6 min',
+    exercises:['Lesson'],
+    dialogue:[
+      {speaker:'A', v:'佢噚日當住班人鬧我，真係離譜。', p:'keoi5 cam4 jat6 dong1 zyu6 baan1 jan4 naau6 ngo5, zan1 hai6 lei4 pou2.', e:'He had a go at me in front of everyone yesterday — completely out of order.'},
+      {speaker:'B', v:'噉樣即係騷擾。要唔要佢同你道歉？', p:'gam2 joeng2 zik1 hai6 sou1 jiu2. jiu3 m4 jiu3 keoi5 tung4 nei5 dou6 hip3?', e:'That’s harassment. Do you want him to apologise to you?'},
+      {speaker:'A', v:'唔使。同佢交惡冇好處，後果好大。', p:'m4 sai2. tung4 keoi5 gaau1 wu3 mou5 hou2 cyu3, hau6 gwo2 hou2 daai6.', e:'No. Falling out with him gains me nothing, and it’d cost a lot.'},
+      {speaker:'B', v:'都係。不過佢噉樣做人真係難頂。', p:'dou1 hai6. bat1 gwo3 keoi5 gam2 joeng2 zou6 jan4 zan1 hai6 naan4 ding2.', e:'Fair enough. Still, he’s hard work as a person.'},
+    ],
+    vocab:[
+      {v:'交惡', p:'gaau1wu3', e:'to fall out with someone'},
+      {v:'低能', p:'dai1nang4', e:'moronic — a genuine insult'},
+      {v:'出奇', p:'ceot1kei4', e:'surprising, out of the ordinary'},
+      {v:'干擾', p:'gon1jiu2', e:'to interfere with, interference'},
+      {v:'弊', p:'bai6', e:'uh-oh; to be in trouble'},
+      {v:'後果', p:'hau6gwo2', e:'the consequences'},
+      {v:'惡劣', p:'ok3lyut6', e:'appalling, badly behaved'},
+      {v:'揾笨', p:'wan2ban6', e:'to take someone for a mug'},
+      {v:'殺氣', p:'saat3hei3', e:'menace, a murderous look'},
+      {v:'無喇喇', p:'mou4laa1laa1', e:'out of nowhere, for no reason'},
+      {v:'甩皮甩骨', p:'lat1pei4lat1gwat1', e:'falling to bits, half-done'},
+      {v:'肉酸', p:'juk6syun1', e:'ugly; cringeworthy'},
+      {v:'荒謬', p:'fong1mau6', e:'absurd, ridiculous'},
+      {v:'道歉', p:'dou6hip3', e:'to apologise'},
+      {v:'陰公', p:'jam1gung1', e:'poor thing; what a shame'},
+      {v:'離譜', p:'lei4pou2', e:'way out of line, beyond the pale'},
+      {v:'難頂', p:'naan4ding2', e:'hard to take, unbearable'},
+      {v:'騷擾', p:'sou1jiu2', e:'to harass, to bother'},
+    ],
+    grammar:[
+      {title:'難頂 → 離譜 → 荒謬 → 惡劣, in that order', body:'These four are not synonyms, they are rungs. 難頂 is hard to put up with and can be said about a person you still work with. 離譜 says a line was crossed — off the score, out of order. 荒謬 is absurd, an argument or a rule rather than a person, and it is bookish enough that saying it aloud sounds like you are writing a complaint. 惡劣 is the strongest and the coldest, used of conditions (天氣惡劣) and of behaviour you would put in writing. Day to day, 難頂 and 離譜 carry almost all of it.'},
+      {title:'弊 bai6 — one syllable that means it has gone wrong', body:'弊 on its own is the sound of realising: 弊喇！(oh no) or 弊，唔記得咗 (damn, I forgot). It also works as a plain predicate — 今次弊喇 (we’re in trouble this time), 咁弊嘅 (that bad?). It is not rude and it is not strong, so it fits at work where a swear word would not. Compare 大鑊 daai6 wok6, which is the same idea one size up.'},
+      {title:'陰公 and the sympathy words', body:'陰公 jam1 gung1 is said about someone you feel sorry for — 陰公囉，佢做到咁夜 (poor thing, working that late). 肉酸 juk6 syun1 goes the other way: literally sour flesh, it is used both for ugly (件衫好肉酸) and for the second-hand embarrassment of watching someone make a fool of themselves. 無喇喇 mou4 laa1 laa1 marks something as coming from nowhere — 無喇喇鬧人 (started shouting for no reason). Keep 低能 out of your mouth at work; it is a real insult, not a mild one.'},
+    ],
+    cards:[
+      {v:'部機甩皮甩骨，用一陣就死。', p:'bou6 gei1 lat1 pei4 lat1 gwat1, jung6 jat1 zan6 zau6 sei2.', e:'That machine’s falling apart — it dies after a few minutes.'},
+      {v:'佢無喇喇話唔做，冇人知咩事。', p:'keoi5 mou4 laa1 laa1 waa6 m4 zou6, mou5 jan4 zi1 me1 si6.', e:'Out of nowhere he said he was quitting — nobody knows why.'},
+      {v:'唔好干擾佢做嘢，佢趕住收工。', p:'m4 hou2 gon1 jiu2 keoi5 zou6 je5, keoi5 gon2 zyu6 sau1 gung1.', e:'Don’t interrupt her work — she’s rushing to knock off.'},
+      {v:'佢當我哋蠢，明擺住揾笨。', p:'keoi5 dong3 ngo5 dei6 ceon2, ming4 baai2 zyu6 wan2 ban6.', e:'He thinks we’re thick — he’s plainly taking us for mugs.'},
     ] },
 ];
 
@@ -23441,7 +23617,7 @@ function renderFlashcardsHub(){
 
   if(isListen){
     document.getElementById('cardsTabTitle').textContent = 'Listen & guess';
-    document.getElementById('cardsTabSub').textContent = 'The exact same phrase deck as Phrases, just played back-first — hear the clip, guess the meaning, then see the words. Grading still updates the same cards, so this counts toward the same progress either way.';
+    document.getElementById('cardsTabSub').textContent = 'The exact same phrase deck as Phrases, just played back-first — hear the clip, read the phrase, guess the meaning. Grading still updates the same cards, so this counts toward the same progress either way.';
   } else {
     document.getElementById('cardsTabTitle').textContent = isWords ? 'Word flashcards' : 'Phrase flashcards';
     document.getElementById('cardsTabSub').textContent = isWords
@@ -23449,7 +23625,7 @@ function renderFlashcardsHub(){
       : 'Spaced repetition through 500 hand-picked everyday phrases — greetings, small talk, daily routine, and more. Hand-curated, not corpus-ranked — there\'s no public dataset of "most common Vietnamese sentences" the way there is for words.';
   }
   document.getElementById('wcStartSub').textContent = isListen
-    ? 'Listen first, guess the meaning, then grade yourself Again / Hard / Good / Easy.'
+    ? 'Hear it, read it, guess the meaning, then grade yourself Again / Hard / Good / Easy.'
     : 'Anki-style — grade yourself Again / Hard / Good / Easy.';
   document.getElementById('wcUnknownLabel').textContent = isWords ? 'Unknown words' : 'Unknown phrases';
   document.getElementById('wcDifficultLabel').textContent = isWords ? 'Difficult words' : 'Difficult phrases';
@@ -25261,18 +25437,22 @@ function renderSwipe(){
       }
       return `<button class="${cls}" ${swipeState.flipped?'disabled':''} onclick="answerListenQuiz(${i})">${opt}</button>`;
     }).join('');
+    /* The phrase is shown WHILE you guess, not revealed after. Hiding it made
+       this a pure audio-comprehension test, which is not what the Cards tab is
+       for — you are meant to be matching a written phrase you are studying to
+       its meaning, with the audio as the way in. The lesson practice overlay
+       has always worked this way (.pr-target); this brings the card to match.
+       .sc-viet/.sc-pron are display:none until .flipped, so both need the
+       inline display:block to show on an unflipped card. */
     cardHtml = `
     <div class="swipe-card" style="cursor:default;">
       <div class="quiz-label">🎧 Cold listen</div>
+      <p class="sc-viet${cjkCls()}" style="display:block;">${wrapWords(c.v)}</p>
+      ${showRomanisation() ? `<p class="sc-pron" style="display:block;">${c.p||''}</p>` : ''}
       <button class="listen-play-btn" onclick="event.stopPropagation();playAudio('${c.srsId}', '${c.v.replace(/'/g,"\\'")}', currentAccent)">🔊</button>
       <p class="sc-hint" style="margin:0 0 14px;">Tap to hear it again</p>
-      <p class="quiz-q" style="justify-content:center;">What did you hear?</p>
+      <p class="quiz-q" style="justify-content:center;">What does this mean?</p>
       <div style="width:100%;">${optionsHtml}</div>
-      ${swipeState.flipped ? `
-        <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(36,28,19,0.08);width:100%;">
-          <p class="sc-viet" style="display:block;">${wrapWords(c.v)}</p>
-          ${showRomanisation() ? `<p class="sc-pron" style="display:block;">${c.p||''}</p>` : ''}
-        </div>` : ''}
     </div>`;
   } else {
     const noteHtml = (c.note && c.note.length) ? `

@@ -12,6 +12,10 @@
   "to": "sos_yw_family_12"
  },
  {
+  "from": "chat_yw_family_3_t2_you2",
+  "to": "chat_yw_grow_15_t2_you2"
+ },
+ {
   "from": "chat_yw_food_0_t3_you0",
   "to": "pack_yp35_0"
  },
@@ -26,6 +30,26 @@
  {
   "from": "chat_yw_grow_0_t0_you0",
   "to": "pack_yp1_0"
+ },
+ {
+  "from": "chat_yw_grow_10_t1_you1",
+  "to": "chat_yw_help_0_t1_you2"
+ },
+ {
+  "from": "chat_yw_grow_14_t0_you0",
+  "to": "pack_yp82_0"
+ },
+ {
+  "from": "chat_yw_grow_17_t3_you2",
+  "to": "pack_yp36_3"
+ },
+ {
+  "from": "chat_yw_grow_18_t3_you2",
+  "to": "chat_yw_grow_7_t3_you2"
+ },
+ {
+  "from": "chat_yw_grow_18_t3_you2",
+  "to": "chat_yw_shop_0_t3_you2"
  },
  {
   "from": "chat_yw_grow_2_t2_you1",
@@ -1264,12 +1288,76 @@
   "to": "lesson_yue_l85_d3"
  },
  {
+  "from": "cphrase_yue_341",
+  "to": "lesson_yue_l86_d0"
+ },
+ {
+  "from": "cphrase_yue_342",
+  "to": "lesson_yue_l86_d1"
+ },
+ {
+  "from": "cphrase_yue_343",
+  "to": "lesson_yue_l86_d2"
+ },
+ {
+  "from": "cphrase_yue_344",
+  "to": "lesson_yue_l86_d3"
+ },
+ {
+  "from": "cphrase_yue_345",
+  "to": "lesson_yue_l87_d0"
+ },
+ {
+  "from": "cphrase_yue_346",
+  "to": "lesson_yue_l87_d1"
+ },
+ {
+  "from": "cphrase_yue_347",
+  "to": "lesson_yue_l87_d2"
+ },
+ {
+  "from": "cphrase_yue_348",
+  "to": "lesson_yue_l87_d3"
+ },
+ {
+  "from": "cphrase_yue_349",
+  "to": "lesson_yue_l88_d0"
+ },
+ {
   "from": "cphrase_yue_35",
   "to": "lesson_yue_l9_2"
  },
  {
   "from": "cphrase_yue_35",
   "to": "lesson_yue_l9_d2"
+ },
+ {
+  "from": "cphrase_yue_350",
+  "to": "lesson_yue_l88_d1"
+ },
+ {
+  "from": "cphrase_yue_351",
+  "to": "lesson_yue_l88_d2"
+ },
+ {
+  "from": "cphrase_yue_352",
+  "to": "lesson_yue_l88_d3"
+ },
+ {
+  "from": "cphrase_yue_353",
+  "to": "lesson_yue_l89_d0"
+ },
+ {
+  "from": "cphrase_yue_354",
+  "to": "lesson_yue_l89_d1"
+ },
+ {
+  "from": "cphrase_yue_355",
+  "to": "lesson_yue_l89_d2"
+ },
+ {
+  "from": "cphrase_yue_356",
+  "to": "lesson_yue_l89_d3"
  },
  {
   "from": "cphrase_yue_36",
@@ -7742,6 +7830,14 @@
  {
   "from": "lesson_yue_l85_v9",
   "to": "word_yue_風景"
+ },
+ {
+  "from": "lesson_yue_l86_v2",
+  "to": "word_yue_出糧"
+ },
+ {
+  "from": "lesson_yue_l88_v6",
+  "to": "word_yue_夠鐘"
  },
  {
   "from": "lesson_yue_l8_v0",
