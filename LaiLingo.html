@@ -1107,6 +1107,7 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
   .cov-next{margin:0;font-size:13px;color:var(--muted);line-height:1.5;}
   .cov-ladder{margin-top:14px;border-top:1px solid rgba(36,28,19,.12);padding-top:12px;}
   .cov-row{display:flex;align-items:center;gap:9px;margin-bottom:7px;font-size:12px;}
+  .cov-est-mark{font-style:normal;color:var(--muted);opacity:.7;margin-right:1px;font-size:10px;}
   .cov-row-pct{width:34px;font-weight:800;color:var(--muted);}
   .cov-row-bar{flex:1;height:7px;border-radius:4px;background:rgba(36,28,19,.13);overflow:hidden;}
   .cov-row-bar i{display:block;height:100%;background:rgba(36,28,19,.30);border-radius:4px;}
@@ -26982,9 +26983,19 @@ const COVERAGE_MEASURED_YUE = [
    and used for Japanese because it IS Japanese Netflix data. For the other
    courses it stands in as the shape a corpus of realistic size produces, which
    is a far better estimate than anything derived from a 120,000-token one. */
+/* Migaku publish nothing below 80%, which left a Japanese beginner with no
+   milestone to aim at for the first fifteen hundred words. The four rungs below
+   are EXTRAPOLATED from the slope of Migaku's own lowest published segment
+   (18.5 coverage points per decade of rank between their 80% and 85% figures)
+   and are marked est:true so the card can say so. They are rounded hard on
+   purpose: the slope steepens as you go down, so the true 50% for Japanese is
+   somewhere between about 35 and 90 words and a precise-looking number would be
+   pretending. Everything from 80% up is Migaku's, unrounded. */
 const COVERAGE_NETFLIX = [
+  { pct:50, words:40, est:true }, { pct:60, words:120, est:true },
+  { pct:70, words:400, est:true }, { pct:75, words:750, est:true },
   { pct:80, words:1442 }, { pct:85, words:2688 }, { pct:90, words:5243 },
-  { pct:95, words:12041 },
+  { pct:95, words:12041 }, { pct:99, words:37247 },
 ];
 
 /* Davies, Corpus del Espanol — 100 million words, spoken counted separately
@@ -27006,7 +27017,7 @@ const COVERAGE_SOURCE = {
   yue: { kind:'measured', tiers:'yue',
          note:'Measured on HKCanCor — 119,783 words of recorded Hong Kong conversation, scored against conversations the word list had never seen. It stops at 90% because this corpus is too small to measure past it honestly.' },
   ja:  { kind:'cited', tiers:'ja',
-         note:'Migaku’s count of the Japanese Netflix subtitles — 124,000 distinct words over about 110 million uses.' },
+         note:'Migaku’s count of the Japanese Netflix subtitles — 124,000 distinct words over about 110 million uses. The rungs marked ≈ below 80% are extrapolated from the slope of their own figures; Migaku publish nothing under 80%.' },
   es:  { kind:'cited', tiers:'es',
          note:'Davies’ Corpus del Espanol — 100 million words, spoken register counted separately. The first 1,000 lemmas cover 88% of spoken Spanish but only 76-80% of written.' },
   en:  { kind:'cited', tiers:'en',
@@ -27250,7 +27261,7 @@ function renderCoverageCard(){
     const done = known >= t.words;
     const isNext = next && t.pct === next.pct;
     return `<div class="cov-row ${done ? 'done' : ''} ${isNext ? 'next' : ''}">
-      <span class="cov-row-pct">${t.pct}%</span>
+      <span class="cov-row-pct">${t.est ? '<i class="cov-est-mark">≈</i>' : ''}${t.pct}%</span>
       <span class="cov-row-bar"><i style="width:${Math.min(100, known / t.words * 100)}%;"></i></span>
       <span class="cov-row-words">${t.words.toLocaleString()}</span>
       <span class="cov-row-tick">${done ? '✓' : ''}</span>
