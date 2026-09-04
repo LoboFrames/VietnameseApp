@@ -27023,6 +27023,19 @@ const COVERAGE_SOURCE = {
    is genuinely closed. HKCanCor uses only 2,421 distinct characters across
    157,896 of them, so 499 characters covers 90% held-out, where the word list
    cannot reach 95% at all. Measured the same 5-fold way as the word curve. */
+/* The fallback for every course without its own measured or published figures.
+   Anchored on the one number the measured corpora agree on — 1,000 words is
+   roughly 80% of everyday speech, give or take about eight points — and
+   deliberately short in the tail, because that is where every published table
+   stops being able to support itself.
+
+   This used to fall back to the Japanese Netflix curve, so a Vietnamese learner
+   was shown Japanese subtitle milestones (1,442 / 2,688 / 5,243) as if they
+   were Vietnamese, under a note that named Japanese out loud. Wrong data,
+   wrongly sourced, and visible on the card. */
+const COVERAGE_GENERIC = [ { pct:50, words:100 }, { pct:60, words:200 }, { pct:70, words:450 },
+                           { pct:80, words:1000 }, { pct:85, words:1800 }, { pct:90, words:3200 },
+                           { pct:95, words:7000 } ];
 const CHAR_YUE = [ { pct:50, words:44 }, { pct:60, words:69 }, { pct:70, words:117 },
                    { pct:80, words:219 }, { pct:85, words:312 }, { pct:90, words:499 },
                    { pct:95, words:896 } ];
@@ -27050,6 +27063,19 @@ function setCoverageUnit(u){
   renderCoverageCard();
 }
 function coverageUnitLabel(){ return coverageUnit === 'chars' ? 'character' : 'word'; }
+/* The card used to name 係, 我, 唔, 呢 whatever course you were in, so a
+   Vietnamese learner got Cantonese characters. Take the top of the course's OWN
+   frequency list instead — which by definition IS its pronouns and particles.
+   Only for courses with a real spine: the stub courses are ordered as a
+   phrasebook, so their first entries are "hello, goodbye, thank you", and
+   calling those function words would be its own small lie. */
+function coverageExampleWords(){
+  try{
+    const p = wordStudyPool();
+    if(p.length < 500) return '';
+    return p.slice(0, 4).map(w => w.word).join(', ');
+  }catch(e){ return ''; }
+}
 // You know a character if you know a word that uses it. No separate deck —
 // inventing one would double the review load to measure something the word
 // deck already teaches.
@@ -27066,7 +27092,8 @@ function coverageTiers(){
   if(L === 'es')  return COVERAGE_ES;
   if(L === 'en')  return COVERAGE_EN;
   if(L === 'th')  return COVERAGE_TH;
-  return COVERAGE_NETFLIX;
+  if(L === 'ja')  return COVERAGE_NETFLIX;
+  return COVERAGE_GENERIC;
 }
 function coverageKind(){
   if(coverageUnit === 'chars' && courseHasCharacters()) return charKind();
@@ -27077,7 +27104,7 @@ function coverageNote(){
   if(coverageUnit === 'chars' && courseHasCharacters()) return charNote();
   const s = COVERAGE_SOURCE[state.language];
   if(s) return s.note;
-  return 'Estimated from the shape of a full-size subtitle corpus (Migaku’s Japanese Netflix count). This course has no measured corpus of its own.';
+  return 'Approximate, give or take about eight points. Anchored on the one figure the measured corpora agree on — 1,000 words is roughly 80% of everyday speech — and stopped early on purpose, because published tables diverge sharply above that. This course has no measured corpus of its own yet.';
 }
 
 function knownWordCount(){
@@ -27155,13 +27182,14 @@ function showCoverageMilestone(tier, known){
   const next = nextCoverageTier(known);
   const body = document.getElementById('milestoneBody');
   const sample = maskedSample();
+  const unit = coverageUnitLabel();
   if(body){
     body.innerHTML = `
       <div class="ms-pct">${tier.pct}%</div>
-      <p class="ms-head">of the words you’ll hear</p>
-      <p class="ms-sub">You know <b>${known.toLocaleString()}</b> of the most common ${activeLangName()} words. In an ordinary conversation you will now recognise about ${tier.pct} words in every hundred — which is not the same as following ${tier.pct}% of it.</p>
-      ${sample ? `<div class="cv-sample ms-sample${cjkCls()}">${sample.html}</div><p class="cv-sample-e">${sample.e}</p>` : ''}
-      ${next ? `<p class="ms-next">Next: <b>${next.words.toLocaleString()}</b> words for ${next.pct}% — ${(next.words - known).toLocaleString()} to go.</p>`
+      <p class="ms-head">of the ${unit}s you’ll meet</p>
+      <p class="ms-sub">You know <b>${known.toLocaleString()}</b> of the most common ${activeLangName()} ${unit}s. In ordinary speech you will now recognise about ${tier.pct} ${unit}s in every hundred — which is not the same as following ${tier.pct}% of it.</p>
+      ${coverageUnit === 'words' && sample ? `<div class="cv-sample ms-sample${cjkCls()}">${sample.html}</div><p class="cv-sample-e">${sample.e}</p>` : ''}
+      ${next ? `<p class="ms-next">Next: <b>${next.words.toLocaleString()}</b> ${unit}s for ${next.pct}% — ${(next.words - known).toLocaleString()} to go.</p>`
              : `<p class="ms-next">That is as far as this corpus can measure. The rest comes from real speech, not a wordlist.</p>`}
       <button class="ms-btn" onclick="closeCoverageMilestone()">Keep going</button>`;
   }
@@ -27228,7 +27256,7 @@ function renderCoverageCard(){
     ${next ? `<p class="cov-next"><b>${(next.words - known).toLocaleString()}</b> more ${unit}s gets you to <b>${next.pct}%</b>.</p>`
            : `<p class="cov-next">That is as far as this list can take you.</p>`}
     ${coverageLadderOpen ? `<div class="cov-ladder">${ladder}
-      <p class="cov-note"><b>Recognising a word is not understanding a sentence.</b> The most common words in any language are pronouns and particles — 係, 我, 唔, 呢 — so the first 50% is almost entirely grammar, and every word carrying meaning is in the part you cannot read yet.</p>
+      <p class="cov-note"><b>Recognising a ${unit} is not understanding a sentence.</b> The most common words in any language are pronouns and particles${coverageExampleWords() ? ` — in this course the top four are ${coverageExampleWords()}` : ''} — so the first half is almost entirely grammar, and the words carrying meaning are in the part you cannot read yet.</p>
       <p class="cov-note">${coverageIsMeasured() ? '📊 ' : coverageKind() === 'cited' ? '📚 ' : '≈ '}${coverageNote()}</p>
       <p class="cov-note">A word counts once its card has survived 21 days — the same “Known” as the Cards tab.</p>
     </div>` : ''}`;

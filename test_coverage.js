@@ -314,6 +314,50 @@ section('every cited course names a verifiable corpus');
   selectLanguage('yue'); setCoverageUnit('words');
 }
 
+section('no course shows another course’s language or sources');
+{
+  /* Reported from the app: on Vietnamese, the expanded card printed Cantonese
+     characters (係, 我, 唔, 呢 were hardcoded into the warning) and named
+     Migaku's JAPANESE Netflix corpus in the source note — because the fallback
+     curve for every unmeasured course WAS the Japanese curve. Vietnamese
+     learners were being shown Japanese subtitle milestones as Vietnamese ones. */
+  const CJK = /[㐀-鿿]/;
+  const strip = h => h.replace(/<[^>]+>/g, ' ');
+  const CJK_COURSES = ['yue','zh','ja'];
+  for(const lang of LANGS){
+    selectLanguage(lang); setCoverageUnit('words');
+    coverageLadderOpen = true; renderCoverageCard();
+    const card = strip(document.getElementById('covBody').innerHTML);
+    if(CJK_COURSES.indexOf(lang) === -1){
+      ok(!CJK.test(card), `${lang}: no Chinese characters anywhere on the card`);
+    }
+    if(lang !== 'ja'){
+      ok(!/Japanese|Netflix|Migaku/.test(card), `${lang}: does not name Japanese or Migaku`);
+      ok(JSON.stringify(coverageTiers()) !== JSON.stringify(COVERAGE_NETFLIX),
+         `${lang}: does not silently use the Japanese Netflix curve`);
+    }
+    if(lang !== 'yue') ok(!/HKCanCor/.test(card), `${lang}: does not name the Cantonese corpus`);
+    if(lang !== 'es')  ok(!/Davies/.test(card), `${lang}: does not name the Spanish corpus`);
+    if(lang !== 'th')  ok(!/WRITTEN Thai/.test(card), `${lang}: does not name the Thai corpus`);
+    coverageLadderOpen = false;
+  }
+}
+
+section('the example words come from this course, or not at all');
+for(const lang of LANGS){
+  selectLanguage(lang);
+  const eg = coverageExampleWords();
+  const pool = wordStudyPool();
+  if(pool.length < 500){
+    ok(eg === '', `${lang}: a stub course shows no examples — its list is a phrasebook, not a frequency spine`);
+  } else {
+    ok(eg.length > 0, `${lang}: shows examples (${eg})`);
+    const words = eg.split(', ');
+    ok(words.every(w => pool.slice(0, 10).some(p => p.word === w)),
+       `${lang}: and every one comes from the top of ITS OWN list`);
+  }
+}
+
 section('the masked demonstration');
 selectLanguage('yue');
 {
