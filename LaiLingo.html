@@ -1137,6 +1137,21 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
   .cov-lead{margin:0;font-size:14px;font-weight:700;color:var(--rice);line-height:1.2;}
   .cov-sub{margin:2px 0 0;font-size:12px;color:var(--muted);}
   .cov-next{margin:0;font-size:13px;color:var(--muted);line-height:1.5;}
+  /* The near goal. Deliberately the most solid thing under the headline: the
+     coverage tier above it can be a thousand words out, this one never is. */
+  .cov-century{margin:0 0 12px;padding:11px 13px;border-radius:11px;
+    background:rgba(198,160,74,.10);border:1px solid rgba(198,160,74,.28);}
+  .cov-century-head{display:flex;justify-content:space-between;align-items:baseline;
+    gap:10px;font-size:13px;color:var(--muted);margin:0 0 7px;}
+  .cov-century-head b{color:var(--rice);font-size:14.5px;font-variant-numeric:tabular-nums;}
+  .cov-century-togo{font-weight:800;color:var(--gold);font-variant-numeric:tabular-nums;
+    white-space:nowrap;}
+  .cov-century-bar{height:7px;border-radius:4px;background:rgba(36,28,19,.16);overflow:hidden;}
+  .cov-century-bar i{display:block;height:100%;border-radius:4px;background:var(--gold);
+    transition:width .35s ease;}
+  @media (prefers-reduced-motion:reduce){ .cov-century-bar i{transition:none;} }
+  .cov-century-sub{margin:6px 0 0;font-size:11.5px;color:var(--muted);
+    font-variant-numeric:tabular-nums;}
   .cov-ladder{margin-top:14px;border-top:1px solid rgba(36,28,19,.12);padding-top:12px;}
   .cov-row{display:flex;align-items:center;gap:9px;margin-bottom:7px;font-size:12px;}
   .cov-est-mark{font-style:normal;color:var(--muted);opacity:.7;margin-right:1px;font-size:10px;}
@@ -1153,6 +1168,9 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
   /* the popup */
   .ms-modal{text-align:center;padding:26px 22px 22px;}
   .ms-pct{font-size:58px;font-weight:800;line-height:1;color:var(--gold);}
+  /* A century reads "1,200", not "50%" — four glyphs plus a comma against two,
+     so it needs its own size or it runs out of the card on a narrow phone. */
+  .ms-count{font-size:46px;font-variant-numeric:tabular-nums;letter-spacing:-.02em;}
   .ms-head{margin:2px 0 12px;font-size:16px;font-weight:800;color:var(--rice);}
   .ms-sub{margin:0 0 10px;font-size:13px;color:var(--muted);line-height:1.6;}
   .ms-sub b{color:var(--rice);}
@@ -27349,14 +27367,66 @@ function seenMilestones(){
   state.milestones[ns] = state.milestones[ns] || [];
   return state.milestones[ns];
 }
+/* CENTURY GOALS — a milestone every hundred words.
+
+   The coverage tiers are the honest measurement, but the gaps between them are
+   enormous: Cantonese runs 365 -> 675 -> 1,430, Mandarin 2,630 -> 5,184 ->
+   11,314. At a realistic pace that is weeks with nothing to hit, and a bar that
+   never visibly moves reads as a bar that is broken. A goal every hundred words
+   is always a few days away.
+
+   These are deliberately NOT percentages. A century is a fact about your own
+   effort — you learned a hundred more words — and attaching a coverage figure
+   to it would re-import the exact confusion the tiers were rewritten to avoid.
+   They are counted in words only; the character ladder keeps its own tiers. */
+const CENTURY = 100;
+function nextCentury(known){ return (Math.floor(known / CENTURY) + 1) * CENTURY; }
+function seenCenturies(){
+  state.centuries = state.centuries || {};
+  const ns = srsNs() || state.language || 'vi';
+  state.centuries[ns] = state.centuries[ns] || [];
+  return state.centuries[ns];
+}
 function checkCoverageMilestone(){
   const known = knownWordCount();
+
   const seen = seenMilestones();
-  const crossed = coverageTiers().filter(t => known >= t.words && seen.indexOf(t.pct) === -1);
-  if(!crossed.length) return;
-  crossed.forEach(t => seen.push(t.pct));
+  const crossedTiers = coverageTiers().filter(t => known >= t.words && seen.indexOf(t.pct) === -1);
+  crossedTiers.forEach(t => seen.push(t.pct));
+
+  // Bank every century passed, not just the newest — importing progress, or a
+  // long session, can cross several at once and none of them may ambush you on
+  // a later card.
+  const seenC = seenCenturies();
+  const crossedC = [];
+  for(let c = CENTURY; c <= known; c += CENTURY){
+    if(seenC.indexOf(c) === -1){ seenC.push(c); crossedC.push(c); }
+  }
+
+  if(!crossedTiers.length && !crossedC.length) return;
   saveState();
-  showCoverageMilestone(crossed[crossed.length - 1], known);
+  // A coverage tier is the bigger event, so it takes the popup when both land on
+  // the same card. The century is still banked and will not re-fire.
+  if(crossedTiers.length) showCoverageMilestone(crossedTiers[crossedTiers.length - 1], known);
+  else showCenturyMilestone(crossedC[crossedC.length - 1], known);
+}
+function showCenturyMilestone(n, known){
+  const el = document.getElementById('milestoneBackdrop');
+  if(!el) return;
+  const body = document.getElementById('milestoneBody');
+  const tier = nextCoverageTier(known);
+  const sample = maskedSample();
+  if(body){
+    body.innerHTML = `
+      <div class="ms-pct ms-count">${n.toLocaleString()}</div>
+      <p class="ms-head">words known</p>
+      <p class="ms-sub">That is <b>${n.toLocaleString()}</b> ${activeLangName()} words that have survived 21 days — not seen once, learned. The next hundred starts now.</p>
+      ${sample && (sample.hits + sample.learn) > 0 ? `<div class="cv-sample ms-sample${cjkCls()}">${sample.html}</div><p class="cv-sample-e">${sample.e}</p>` : ''}
+      <p class="ms-next">Next hundred: <b>${nextCentury(known).toLocaleString()}</b>${tier ? ` · then ${tier.words.toLocaleString()} for ${tier.pct}% coverage` : ''}</p>
+      <button class="ms-btn" onclick="closeCoverageMilestone()">Keep going</button>`;
+  }
+  el.classList.add('open');
+  try{ if(navigator.vibrate) navigator.vibrate(30); }catch(e){}
 }
 function showCoverageMilestone(tier, known){
   const el = document.getElementById('milestoneBackdrop');
@@ -27401,7 +27471,7 @@ function renderCoverageCard(){
   const sample = maskedSample();
   const kind = coverageKind();
   const badge = kind === 'measured' ? '<span class="cov-badge measured">measured</span>'
-              : kind === 'cited'    ? '<span class="cov-badge cited">published</span>'
+              : kind === 'written'  ? '<span class="cov-badge cited">on writing</span>'
                                     : '<span class="cov-badge est">estimate</span>';
   const toggle = courseHasCharacters() ? `
     <div class="cov-unit-row">
@@ -27440,11 +27510,25 @@ function renderCoverageCard(){
          <div class="cv-sample${cjkCls()}">${sample.html}</div>
          <p class="cv-sample-e">${sample.e}</p>
          <p class="cv-sample-count">${sample.hits} known${sample.learn ? ` · ${sample.learn} learning` : ''} · ${sample.total - sample.hits - sample.learn} not met yet</p>`) : ''}
+    ${coverageUnit === 'words' ? (()=>{
+      /* The near goal, shown above the far one. A coverage tier can be a
+         thousand words away; the next hundred never is. */
+      const kw = knownWordCount(), target = nextCentury(kw);
+      const into = kw % CENTURY, togo = target - kw;
+      return `<div class="cov-century">
+        <div class="cov-century-head">
+          <span>Next goal · <b>${target.toLocaleString()}</b> words</span>
+          <span class="cov-century-togo">${togo} to go</span>
+        </div>
+        <div class="cov-century-bar"><i style="width:${(into / CENTURY * 100).toFixed(1)}%;"></i></div>
+        <div class="cov-century-sub">${(target - CENTURY).toLocaleString()}–${target.toLocaleString()} · ${into} of ${CENTURY} done</div>
+      </div>`;
+    })() : ''}
     ${next ? `<p class="cov-next"><b>${(next.words - known).toLocaleString()}</b> more ${unit}s gets you to <b>${next.pct}%</b>.</p>`
            : `<p class="cov-next">That is as far as this list can take you.</p>`}
     ${coverageLadderOpen ? `<div class="cov-ladder">${ladder}
       <p class="cov-note"><b>Recognising a ${unit} is not understanding a sentence.</b> The most common words in any language are pronouns and particles${coverageExampleWords() ? ` — in this course the top four are ${coverageExampleWords()}` : ''} — so the first half is almost entirely grammar, and the words carrying meaning are in the part you cannot read yet.</p>
-      <p class="cov-note">${coverageIsMeasured() ? '📊 ' : coverageKind() === 'cited' ? '📚 ' : '≈ '}${coverageNote()}</p>
+      <p class="cov-note">${coverageIsMeasured() ? '📊 ' : coverageKind() === 'written' ? '📚 ' : '≈ '}${coverageNote()}</p>
       <p class="cov-note">A word counts once its card has survived 21 days — the same “Known” as the Cards tab.</p>
     </div>` : ''}`;
 }
@@ -27626,11 +27710,19 @@ function renderPocket(){
     list.appendChild(item);
   });
 }
-// Clean 500-word rank buckets (1-500, 501-1,000, 1,001-1,500...), generated to
-// exactly match the actual words present in the app rather than Migaku's tiers —
-// only non-empty buckets are included, since the tail is sparse (most buckets past
-// ~5,000 have just 1-2 words). Shared by the Words tab filter and the Cards tab
-// progress breakdown so both stay perfectly in sync. Computed once and cached.
+/* Rank buckets of 100 (1-100, 101-200, 201-300...), generated to match the words
+   actually present in the app rather than Migaku's tiers — only non-empty buckets
+   are included, since the tail is sparse (most buckets past ~5,000 have one or two
+   words). Shared by the Words tab filter and the Cards tab progress breakdown so
+   both stay in sync. Computed once and cached.
+
+   These were 500 wide until the user asked for smaller goals. 500 is four to six
+   weeks of work at a realistic pace, which is long enough that the bar never
+   visibly moves and the deck reads as one undifferentiated slog. 100 is a few
+   days, so there is always a bar close to filling. It does mean twenty-four to
+   thirty rows on the Cards tab for a full course — that is the point, not an
+   oversight: each row is a goal small enough to finish. */
+const RANK_BUCKET_SIZE = 100;
 let _rankBucketsCache = null, _rankBucketsCacheLang = null;
 function buildRankBuckets(){
   if(state.contentMode==='new') return [{ id:'all', label:'All', min:1, max:9999 }];
@@ -27641,8 +27733,8 @@ function buildRankBuckets(){
   const ranked = list.filter(w=>w.rank!==999999);
   const maxRank = ranked.length ? Math.max(...ranked.map(w=>w.rank)) : 0;
   const buckets = [];
-  for(let start=1; start<=maxRank; start+=500){
-    const end = start + 499;
+  for(let start=1; start<=maxRank; start+=RANK_BUCKET_SIZE){
+    const end = start + RANK_BUCKET_SIZE - 1;
     const count = list.filter(w=>w.rank>=start && w.rank<=end).length;
     if(count>0) buckets.push({ id:`${start}-${end}`, label:`${start.toLocaleString()}–${end.toLocaleString()}`, min:start, max:end });
   }
@@ -27650,12 +27742,12 @@ function buildRankBuckets(){
   // below the corpus cutoff, or (all of C1) were never chosen by frequency.
   if(list.some(w=>w.rank===999999)) buckets.push({ id:'unranked', label:'Off the list', min:999999, max:999999 });
   if(slangSource().vocab.length){
-    // unshifted in reverse, so the row reads Work, Slang, Swearing, 1-500, ...
+    // unshifted in reverse, so the row reads Work, Slang, Swearing, 1-100, ...
     buckets.unshift({ id:'swear', label:'\ud83e\udd2c Swearing', kind:'swear', min:1, max:99999 });
     buckets.unshift({ id:'slang', label:'\ud83d\ude43 Slang', kind:'slang', min:1, max:99999 });
   }
   if(textingSource().length){
-    // after the slang pair, so the row reads Slang, Swearing, Texting, 1-500...
+    // after the slang pair, so the row reads Slang, Swearing, Texting, 1-100...
     buckets.splice(2, 0, { id:'text', label:'\ud83d\udcf1 Texting', kind:'text', min:1, max:99999 });
   }
   if(state.language === 'yue' && FACILITY_VOCAB.length){
@@ -27720,10 +27812,10 @@ function setCardsMode(mode){
 
    It used to pass the id and each start function looked it up again in its own
    bucket list — and the word list and the phrase list do not use the same ids
-   (1-500 against p1-100). A lookup that missed returned undefined, which every
+   (1-100 against p1-100). A lookup that missed returned undefined, which every
    start function then read as "no bucket", which means THE WHOLE DECK. So a
    mode mismatch did not fail, it silently handed you every word in the course
-   under a chip that said 1–500.
+   under a chip that said 1–100.
 
    Passing the rendered bucket removes the round trip and the class of bug with
    it. The id path is kept for any other caller, but a miss is now a visible
@@ -27856,9 +27948,16 @@ function renderFlashcardsHub(){
 
   _hubBuckets = buckets;
   document.getElementById('wcTierBreakdown').innerHTML = buckets.map(b=>{
-    // The work bucket is a different pool, not a rank slice of this one.
-    const inBucket = b.kind==='work' ? (isWords ? facilityVocab() : facilityPhrases())
-      : b.kind==='slang' ? (isWords ? slangVocab() : slangPhrases())
+    /* Ask the study pool itself what is in a kinded bucket, rather than
+       re-deriving it here. The old version listed the branches by hand and had
+       drifted: there was no 'swear' branch at all, so the Swearing row fell
+       through to the rank filter, matched its own min:1/max:99999, and read
+       "137/1,513" — the entire course. 'Texting' had the same hole, and Slang
+       counted slangVocab() (both halves) against a row that opens only the safe
+       half. Routing through wordStudyPool/phraseStudyPool means the count is by
+       construction the deck the row opens when you tap it. */
+    const inBucket = b.kind
+      ? (isWords ? wordStudyPool(b) : phraseStudyPool(b))
       : pool.filter(w=> b.id==='unranked' ? w.rank===999999 : (w.rank>=b.min && w.rank<=b.max));
     if(!inBucket.length) return '';
     const m = inBucket.filter(w=>isMasteredWord(w.srsId)).length;
@@ -27871,7 +27970,7 @@ function renderFlashcardsHub(){
   }).join('');
 }
 
-let freqBucketFilter = '1-500';
+let freqBucketFilter = '1-100';
 let wordsTabMode = 'words'; // 'words' | 'phrases'
 // Strips Vietnamese tone/vowel marks so search works without a Vietnamese keyboard —
 // typing "cam" should find "cắm", "cảm", "cám", etc. đ/Đ need a manual swap since
@@ -27885,7 +27984,7 @@ function setWordsTabMode(mode){
   wordsTabMode = mode;
   document.querySelectorAll('#wordsModeToggle .chip').forEach(c=>c.classList.toggle('active', c.dataset.mode===mode));
   _freqChipsBuilt = false; // word buckets and phrase buckets are different chip sets
-  freqBucketFilter = mode==='words' ? '1-500' : 'all'; // phrases are small enough that "All" is fine by default
+  freqBucketFilter = mode==='words' ? '1-100' : 'all'; // phrases are small enough that "All" is fine by default
   freqSearchTerm = '';
   document.getElementById('freqSearch').value = '';
   document.getElementById('freqSearch').placeholder = mode==='words' ? 'Search a word (accents optional)...' : 'Search Vietnamese or English...';
