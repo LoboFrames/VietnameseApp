@@ -27099,43 +27099,48 @@ const COVERAGE_ZH  = [ { pct:50, words:115 },   { pct:60, words:280 },
                        { pct:85, words:5184 },  { pct:90, words:11314 },
                        { pct:95, words:32038 } ];
 
-/* --- Korean. 6.3M words of screen dialogue, morphologically analysed. -------
-   Korean writes spaces between EOJEOL, which glue particles onto stems, and in
-   that unit 80% needs about 36,900 items — a number that says more about Korean
-   orthography than about learning Korean. Every eojeol was therefore analysed
-   into its morphemes, with verbs and adjectives restored to their dictionary
-   form (먹었어요 -> 먹다 + 었 + 어요), which is the unit a Korean course teaches.
-   Particles and endings count as items, exactly as "the" counts in English. */
-const COVERAGE_KO  = [ { pct:50, words:44 },    { pct:60, words:84 },
-                       { pct:70, words:182 },   { pct:80, words:471 },
-                       { pct:85, words:867 },   { pct:90, words:1781 },
-                       { pct:95, words:4624 } ];
+/* --- Korean. KoFREN: 17.9M words of SPONTANEOUS speech. --------------------
+   Upgraded from a 6.3M-word screen-dialogue corpus after ChatGPT's reference
+   doc pointed at this source. KoFREN (Kim et al., LREC 2024) is built from
+   free-speech corpora — people actually talking, not actors reading lines — and
+   publishes raw counts with POS tags. The adult band used here is 17.9 million
+   words, 34 million morpheme tokens: three times the old corpus and a better
+   register for a conversation app.
+
+   Counted by surface form rather than form+POS, so 이 the copula and 이 the
+   subject particle are one item. Splitting them gives 779 for 80% instead of
+   619; merged is the more conservative reading of what a learner has to know,
+   and the one used.
+
+   Korean writes spaces between EOJEOL, which glue particles onto stems; counted
+   that way 80% would need about 36,900 items, a fact about Korean orthography
+   rather than about learning Korean. Morphemes are the unit here, with verbs
+   and adjectives in dictionary form, which is what a course teaches. */
+const COVERAGE_KO  = [ { pct:50, words:55 },    { pct:60, words:104 },
+                       { pct:70, words:222 },   { pct:80, words:619 },
+                       { pct:85, words:1136 },  { pct:90, words:2252 },
+                       { pct:95, words:5252 } ];
 
 /* --- Japanese. 162M words of YouTube subtitles, UniDic-segmented. ----------
-   The one course that had no number, and the user was right that it should:
-   Migaku had already published Japanese figures off Netflix subtitles, which is
-   the same spoken register as everything else here.
+   Measured on TUBELEX (NAIST) — 120,000 YouTube subtitle files, 161,986,939
+   Japanese tokens over 349,355 distinct words, segmented with UniDic so
+   particles and inflections are real tokens. YouTube is people talking rather
+   than actors performing a script, and the corpus is larger than the 110M
+   Migaku used.
 
-   Rather than cite those, this is measured directly on TUBELEX (NAIST) — 120,000
-   YouTube subtitle files, 161,986,939 Japanese tokens over 349,355 distinct
-   words, segmented with UniDic so particles and inflections are real tokens.
-   YouTube is people talking rather than actors performing a script, which is
-   closer to what this app is for, and the corpus is larger than Migaku's 110M.
-
-   The two agree in shape, which is the strongest evidence in this file that the
-   method is sound — two independent Japanese corpora, two different teams:
+   The two agree in shape, which is the strongest single check in this file —
+   two independent corpora, two different teams:
 
                   80%     85%     90%     95%
      TUBELEX     1,094   2,106   4,323  11,105   (YouTube, measured here)
      Migaku      1,442   2,688   5,243  12,041   (Netflix, published)
 
-   TUBELEX runs about 25% lower in the middle and converges by 95%. That is what
-   you would expect: scripted drama ranges wider than people talking to a camera.
-   The lower figures are used because they are the measured ones and the register
-   is the closer match, and Migaku's are named on the card as the check.
+   TUBELEX runs about 25% lower in the middle and converges by 95%: scripted
+   drama ranges wider than people talking to a camera. The measured figures are
+   used and Migaku's are named on the card as the check.
 
-   Unit note: these are UniDic tokens, so 行っ and 行き are separate items from
-   行く. That is the corpus's own unit and the one to build the deck against. */
+   Unit note: UniDic tokens, so 行っ and 行き are separate items from 行く. That
+   is the corpus's own unit and the one to build the deck against. */
 const COVERAGE_JA  = [ { pct:50, words:42 },    { pct:60, words:108 },
                        { pct:70, words:312 },   { pct:80, words:1094 },
                        { pct:85, words:2106 },  { pct:90, words:4323 },
@@ -27232,7 +27237,7 @@ const COVERAGE_SOURCE = {
   zh:  { kind:'measured',
          note:'Measured on 77.8 million words of Simplified Mandarin screen dialogue, word-segmented. The slowest curve in the app: segmented Chinese compounds are numerous, and this corpus is large enough to show the whole tail rather than flattering itself. Characters are a far kinder question — switch the unit above.' },
   ko:  { kind:'measured',
-         note:'Measured on 6.3 million words of Korean screen dialogue. Korean writes spaces between eojeol, which glue particles onto stems, and counted that way 80% would need about 36,900 items — a fact about Korean spelling rather than about learning Korean. Every eojeol was analysed into its morphemes instead, with verbs and adjectives restored to dictionary form (먹었어요 → 먹다 + 었 + 어요), which is what a course actually teaches.' },
+         note:'Measured on KoFREN (Kim et al. 2024) — 17.9 million words of SPONTANEOUS Korean speech, people actually talking rather than actors reading lines. This replaced a screen-dialogue corpus a third the size. Korean writes spaces between eojeol, which glue particles onto stems, and counted that way 80% would need about 36,900 items — a fact about Korean spelling rather than about learning Korean. Morphemes are the unit instead, with verbs and adjectives in dictionary form (먹었어요 → 먹다 + 었 + 어요), which is what a course teaches.' },
   en:  { kind:'measured',
          note:'Measured on 693 million words of English screen dialogue, the largest corpus in this app and the check on all the others. Nation (2006) puts the first 1,000 WORD FAMILIES at 81–84% of spoken English; this says 767 individual words for 80%, and the two agree closely once you allow that a family folds run/runs/running/ran into one item. Re-measured independently on 166 million words of YouTube speech it comes out at 1,052 — the same curve from a different corpus.' },
   es:  { kind:'measured',
@@ -34178,7 +34183,7 @@ function coverageDocHtml(){
      Japanese figures for Vietnamese. */
   const OTHERS = [
     { id:'yue', name:'Cantonese',  unit:'words',     src:'120k words of unscripted recorded conversation' },
-    { id:'ko',  name:'Korean',     unit:'morphemes', src:'6.3M words of screen dialogue, analysed' },
+    { id:'ko',  name:'Korean',     unit:'morphemes', src:'17.9M words of spontaneous speech (KoFREN)' },
     { id:'vi2', name:'Vietnamese', unit:'syllables', src:'26M words of screen dialogue' },
     { id:'en',  name:'English',    unit:'words',     src:'693M words of screen dialogue' },
     { id:'es',  name:'Spanish',    unit:'words',     src:'422M words of screen dialogue' },
