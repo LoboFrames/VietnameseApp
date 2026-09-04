@@ -1072,6 +1072,15 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
   .pm-ok{color:#1f7a45;}
   .pm-bad{color:#b3301f;text-decoration:underline;text-decoration-style:wavy;}
   .pm-score{margin:4px 0 0;font-size:12px;}
+  .cov-unit-row{display:flex;gap:8px;margin:0 0 12px;}
+  .cov-unit{flex:1;background:transparent;border:2px solid rgba(36,28,19,.18);border-radius:11px;padding:8px;
+    font-size:13px;font-weight:700;color:var(--muted);}
+  .cov-unit.on{background:var(--gold);border-color:var(--gold);color:var(--ink);}
+  .cov-badge{font-size:9.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;padding:2px 6px;
+    border-radius:5px;vertical-align:middle;margin-left:5px;}
+  .cov-badge.measured{background:rgba(31,122,69,.16);color:#1f7a45;}
+  .cov-badge.cited{background:rgba(36,28,19,.12);color:var(--muted);}
+  .cov-badge.est{background:rgba(36,28,19,.09);color:var(--muted);}
   .cov-sample-lead{margin:12px 0 6px;font-size:12px;color:var(--muted);font-weight:700;}
   .cv-sample{background:rgba(36,28,19,.06);border-radius:11px;padding:11px 12px;font-size:19px;font-weight:800;
     line-height:1.7;color:var(--rice);letter-spacing:1px;word-break:break-word;}
@@ -26975,18 +26984,97 @@ const COVERAGE_NETFLIX = [
   { pct:95, words:12041 },
 ];
 
+/* Davies, Corpus del Espanol — 100 million words, spoken counted separately
+   from written. 1,000 lemmas cover 88% of SPOKEN Spanish against 76-80% of
+   written; 3,000 cover 94% against 88-90%. The 2,000 point is interpolated
+   between his two published figures and is the only estimated number in it. */
+const COVERAGE_ES = [ { pct:88, words:1000 }, { pct:92, words:2000 }, { pct:94, words:3000 } ];
+/* Nation (2006) and the informal-spoken-English work after it. Counted in WORD
+   FAMILIES, where run/runs/running/ran is one item — a coarser unit than this
+   app uses elsewhere, so English looks faster than it would on the app's terms. */
+const COVERAGE_EN = [ { pct:82, words:1000 }, { pct:95, words:3000 }, { pct:98, words:6500 } ];
+/* The one Thai study I could verify (JAIT 2023): 2.2 million words of news, web
+   articles and forums. Its authors say plainly that spoken frequency data was
+   not available, so these are WRITTEN Thai. Two real points beat a smooth
+   invented curve, and it stops where the paper stops. */
+const COVERAGE_TH = [ { pct:42, words:100 }, { pct:78, words:1000 } ];
+
 const COVERAGE_SOURCE = {
-  yue: { kind:'measured',
+  yue: { kind:'measured', tiers:'yue',
          note:'Measured on HKCanCor — 119,783 words of recorded Hong Kong conversation, scored against conversations the word list had never seen. It stops at 90% because this corpus is too small to measure past it honestly.' },
-  ja:  { kind:'cited',
+  ja:  { kind:'cited', tiers:'ja',
          note:'Migaku’s count of the Japanese Netflix subtitles — 124,000 distinct words over about 110 million uses.' },
+  es:  { kind:'cited', tiers:'es',
+         note:'Davies’ Corpus del Espanol — 100 million words, spoken register counted separately. The first 1,000 lemmas cover 88% of spoken Spanish but only 76-80% of written.' },
+  en:  { kind:'cited', tiers:'en',
+         note:'Nation (2006) and the informal-spoken-English studies after it. Counted in WORD FAMILIES — run/runs/running/ran as one — which is coarser than the unit used elsewhere in this app, so treat it as the friendly end of the range.' },
+  th:  { kind:'cited', tiers:'th',
+         note:'A published Thai corpus study — 2.2 million words of news, web articles and forums. These are WRITTEN Thai; the authors note spoken frequency data was not available, so conversation will run higher. Only two points are published.' },
 };
-function coverageTiers(){
-  return state.language === 'yue' ? COVERAGE_MEASURED_YUE : COVERAGE_NETFLIX;
+/* An if-chain rather than a lookup table, deliberately. coverageTiers() is
+   reached during boot, EARLIER than the other coverage functions, and any
+   version of it that reads COVERAGE_SOURCE or a separate key table breaks the
+   load in a way that leaves the app half-initialised — isVietnameseCourse()
+   starts returning false and the Vietnamese decks come back empty, with no
+   error anywhere. Verified by bisection: bodies that touch only the tier
+   constants are safe, bodies that dereference another top-level object here are
+   not. Keep it dumb. */
+/* CHARACTERS are a separate and much kinder question than words: the inventory
+   is genuinely closed. HKCanCor uses only 2,421 distinct characters across
+   157,896 of them, so 499 characters covers 90% held-out, where the word list
+   cannot reach 95% at all. Measured the same 5-fold way as the word curve. */
+const CHAR_YUE = [ { pct:50, words:44 }, { pct:60, words:69 }, { pct:70, words:117 },
+                   { pct:80, words:219 }, { pct:85, words:312 }, { pct:90, words:499 },
+                   { pct:95, words:896 } ];
+/* Written Mandarin, where the commonly quoted landmarks are about 1,000
+   characters for 90% and 2,500 for 98%. Not measured here. */
+const CHAR_ZH  = [ { pct:80, words:500 }, { pct:90, words:1000 },
+                   { pct:95, words:1500 }, { pct:98, words:2500 } ];
+let coverageUnit = 'words';    // 'words' | 'chars'
+function courseHasCharacters(){
+  const L = state.language;
+  return L === 'yue' || L === 'zh';
 }
-function coverageKind(){ return (COVERAGE_SOURCE[state.language] || {}).kind || 'estimated'; }
+function charTiers(){
+  const L = state.language;
+  if(L === 'yue') return CHAR_YUE;
+  return CHAR_ZH;
+}
+function charKind(){ return state.language === 'yue' ? 'measured' : 'estimated'; }
+function charNote(){
+  if(state.language === 'yue') return 'Measured on HKCanCor — 157,896 Chinese characters of recorded Hong Kong conversation, held out the same way. Only 2,421 distinct characters appear in the whole corpus, which is why this climbs so much faster than the word curve.';
+  return 'Approximate figures for written Mandarin, where the usual landmarks are about 1,000 characters for 90% and 2,500 for 98%. Not measured here.';
+}
+function setCoverageUnit(u){
+  coverageUnit = (u === 'chars' && courseHasCharacters()) ? 'chars' : 'words';
+  renderCoverageCard();
+}
+function coverageUnitLabel(){ return coverageUnit === 'chars' ? 'character' : 'word'; }
+// You know a character if you know a word that uses it. No separate deck —
+// inventing one would double the review load to measure something the word
+// deck already teaches.
+function knownCharSet(){
+  const s = new Set();
+  knownWordSet().forEach(w => Array.from(w).forEach(ch => { if(/[㐀-鿿]/.test(ch)) s.add(ch); }));
+  return s;
+}
+function knownCountForUnit(){ return coverageUnit === 'chars' ? knownCharSet().size : knownWordCount(); }
+function coverageTiers(){
+  if(coverageUnit === 'chars' && courseHasCharacters()) return charTiers();
+  const L = state.language;
+  if(L === 'yue') return COVERAGE_MEASURED_YUE;
+  if(L === 'es')  return COVERAGE_ES;
+  if(L === 'en')  return COVERAGE_EN;
+  if(L === 'th')  return COVERAGE_TH;
+  return COVERAGE_NETFLIX;
+}
+function coverageKind(){
+  if(coverageUnit === 'chars' && courseHasCharacters()) return charKind();
+  return (COVERAGE_SOURCE[state.language] || {}).kind || 'estimated';
+}
 function coverageIsMeasured(){ return coverageKind() === 'measured'; }
 function coverageNote(){
+  if(coverageUnit === 'chars' && courseHasCharacters()) return charNote();
   const s = COVERAGE_SOURCE[state.language];
   if(s) return s.note;
   return 'Estimated from the shape of a full-size subtitle corpus (Migaku’s Japanese Netflix count). This course has no measured corpus of its own.';
@@ -27094,12 +27182,22 @@ function toggleCoverageLadder(){
 function renderCoverageCard(){
   const wrap = document.getElementById('covBody');
   if(!wrap) return;
-  const known = knownWordCount();
+  if(coverageUnit === 'chars' && !courseHasCharacters()) coverageUnit = 'words';
+  const unit = coverageUnitLabel();
+  const known = knownCountForUnit();
   const pct = coverageForWords(known);
   const next = nextCoverageTier(known);
   const tiers = coverageTiers();
   const sample = maskedSample();
-  const poolSize = (()=>{ try{ return wordStudyPool().length; }catch(e){ return 0; } })();
+  const kind = coverageKind();
+  const badge = kind === 'measured' ? '<span class="cov-badge measured">measured</span>'
+              : kind === 'cited'    ? '<span class="cov-badge cited">published</span>'
+                                    : '<span class="cov-badge est">estimate</span>';
+  const toggle = courseHasCharacters() ? `
+    <div class="cov-unit-row">
+      <button class="cov-unit ${coverageUnit==='words'?'on':''}" onclick="setCoverageUnit('words')">Words</button>
+      <button class="cov-unit ${coverageUnit==='chars'?'on':''}" onclick="setCoverageUnit('chars')">Characters</button>
+    </div>` : '';
 
   const chevron = document.getElementById('covChevron');
   if(chevron) chevron.textContent = coverageLadderOpen ? '▴' : '▾';
@@ -27110,23 +27208,24 @@ function renderCoverageCard(){
     return `<div class="cov-row ${done ? 'done' : ''} ${isNext ? 'next' : ''}">
       <span class="cov-row-pct">${t.pct}%</span>
       <span class="cov-row-bar"><i style="width:${Math.min(100, known / t.words * 100)}%;"></i></span>
-      <span class="cov-row-words">${t.words.toLocaleString()} words</span>
+      <span class="cov-row-words">${t.words.toLocaleString()}</span>
       <span class="cov-row-tick">${done ? '✓' : ''}</span>
     </div>`;
   }).join('');
 
   wrap.innerHTML = `
+    ${toggle}
     <div class="cov-headline">
       <div class="cov-big">${pct >= 1 ? pct.toFixed(0) : pct.toFixed(1)}<span>%</span></div>
       <div class="cov-headline-txt">
-        <p class="cov-lead">of the words you’ll hear</p>
-        <p class="cov-sub">${known.toLocaleString()} known word${known===1?'':'s'}${poolSize ? ' of ' + poolSize.toLocaleString() : ''}</p>
+        <p class="cov-lead">of the ${unit}s you’ll meet ${badge}</p>
+        <p class="cov-sub">${known.toLocaleString()} known ${unit}${known===1?'':'s'}</p>
       </div>
     </div>
-    ${sample ? `<p class="cov-sample-lead">What that looks like:</p>
+    ${coverageUnit === 'words' && sample ? `<p class="cov-sample-lead">What that looks like:</p>
       <div class="cv-sample${cjkCls()}">${sample.html}</div>
       <p class="cv-sample-e">${sample.e}</p>` : ''}
-    ${next ? `<p class="cov-next"><b>${(next.words - known).toLocaleString()}</b> more words gets you to <b>${next.pct}%</b>.</p>`
+    ${next ? `<p class="cov-next"><b>${(next.words - known).toLocaleString()}</b> more ${unit}s gets you to <b>${next.pct}%</b>.</p>`
            : `<p class="cov-next">That is as far as this list can take you.</p>`}
     ${coverageLadderOpen ? `<div class="cov-ladder">${ladder}
       <p class="cov-note"><b>Recognising a word is not understanding a sentence.</b> The most common words in any language are pronouns and particles — 係, 我, 唔, 呢 — so the first 50% is almost entirely grammar, and every word carrying meaning is in the part you cannot read yet.</p>

@@ -17,7 +17,7 @@ const LANGS = ['vi2','zh','yue','ja','ko','th','tl','en','es'];
 
 section('the curves themselves');
 for(const lang of LANGS){
-  selectLanguage(lang);
+  selectLanguage(lang); setCoverageUnit('words');
   const t = coverageTiers();
   ok(t.length > 0, `${lang}: has a curve`);
   ok(t.every((x, i) => i === 0 || x.pct > t[i-1].pct), `${lang}: percentages strictly increase`);
@@ -31,7 +31,7 @@ for(const lang of LANGS){
 }
 
 section('the measured Cantonese curve is the measured one');
-selectLanguage('yue');
+selectLanguage('yue'); setCoverageUnit('words');
 {
   ok(coverageIsMeasured(), 'Cantonese is flagged measured');
   ok(/HKCanCor/.test(coverageNote()), 'and names the corpus it was measured on');
@@ -62,12 +62,15 @@ for(const lang of LANGS.filter(l => l !== 'yue')){
   // small lie. Everything else is estimated from that shape and says so.
   const kind = coverageKind();
   ok(kind === 'cited' || kind === 'estimated', `${lang}: labelled cited or estimated`);
-  if(kind === 'cited') ok(/Migaku|Netflix/.test(coverageNote()), `${lang}: and names the source`);
-  else ok(/[Ee]stimated/.test(coverageNote()), `${lang}: and says estimated`);
+  if(kind === 'cited') ok(/Migaku|Netflix|Davies|Corpus del|Nation|corpus study/.test(coverageNote()),
+     `${lang}: and names the source`);
+  else ok(/[Aa]pproximate|[Ee]stimated/.test(coverageNote()), `${lang}: and says approximate`);
   ok(!/measured on/i.test(coverageNote()), `${lang}: and never claims a measurement`);
 }
-selectLanguage('vi2');
-ok(JSON.stringify(coverageTiers()) !== JSON.stringify(COVERAGE_MEASURED_YUE),
+selectLanguage('yue'); setCoverageUnit('words');
+const YUE_TIERS = JSON.stringify(coverageTiers());
+selectLanguage('vi2'); setCoverageUnit('words');
+ok(JSON.stringify(coverageTiers()) !== YUE_TIERS,
    'an estimated course does not silently reuse the Cantonese measurements');
 
 section('interpolation');
@@ -196,10 +199,119 @@ for(const lang of LANGS){
   selectLanguage(lang);
   coverageLadderOpen = true; renderCoverageCard();
   const h = document.getElementById('covBody').innerHTML;
-  ok(!/of everyday speech/i.test(h), `${lang}: never says "of everyday speech"`);
-  ok(/words you.{0,3}ll hear/i.test(h), `${lang}: says it is about words you will RECOGNISE`);
-  ok(/not understanding a sentence/i.test(h), `${lang}: and spells out that this is not comprehension`);
+  /* The HEADLINE is what gets read as a claim about you — that is where "50% of
+     everyday speech" did its damage. The source note may still describe the
+     rule of thumb in those words, because there it is a statement about the
+     research and not about the learner. So this checks the lead line only. */
+  const lead = (h.match(/class="cov-lead">([^<]*)/) || [])[1] || '';
+  ok(!/of everyday speech/i.test(lead), `${lang}: the headline never says "of everyday speech" (got "${lead.trim()}")`);
+  ok(/you.{0,3}ll meet|you.{0,3}ll hear|recognise/i.test(lead), `${lang}: it says these are items you will RECOGNISE`);
+  ok(/not understanding a sentence/i.test(h), `${lang}: and the card spells out that this is not comprehension`);
   coverageLadderOpen = false;
+}
+
+section('sources — what was verified and what was thrown out');
+{
+  /* Checked page by page on 2026-09-04. Lenguia serves the IDENTICAL sentence
+     on its Vietnamese, Mandarin and Korean pages — "the top 1,000 cover roughly
+     85% of everyday speech" — with no corpus, size or method, so it is template
+     text, not three measurements. The ICATSD 2022 proceedings do not contain
+     the Vietnamese coverage study attributed to them at all. GoCantonese states
+     the generic "80% in any language" line rather than a Cantonese figure.
+     None of the three may appear as a source in the app. */
+  const notes = [];
+  for(const lang of LANGS){
+    selectLanguage(lang);
+    setCoverageUnit('words'); notes.push(coverageNote());
+    if(courseHasCharacters()){ setCoverageUnit('chars'); notes.push(coverageNote()); setCoverageUnit('words'); }
+  }
+  const all = notes.join(' | ');
+  ok(!/Lenguia/i.test(all), 'Lenguia is not cited — its per-language pages carry one shared template sentence');
+  ok(!/ICATSD|iuh\.edu/i.test(all), 'the ICATSD proceedings are not cited — they do not contain the study');
+  ok(!/GoCantonese/i.test(all), 'GoCantonese is not cited — it states a generic figure, not a measurement');
+  selectLanguage('ja');
+  ok(/Migaku/.test(coverageNote()) && /110 million|124,000/.test(coverageNote()),
+     'Japanese cites Migaku and the corpus size that makes the claim checkable');
+  selectLanguage('yue');
+  ok(/119,783/.test(coverageNote()), 'Cantonese states the corpus it was measured on');
+  ok(/never seen|held/.test(coverageNote()), 'and that it was scored held-out');
+}
+
+section('the tail stops where the evidence does');
+for(const lang of LANGS){
+  selectLanguage(lang); setCoverageUnit('words');
+  const top = coverageTiers()[coverageTiers().length - 1];
+  /* Migaku's own data needs 37,247 words for 99%. A curve claiming 98%+ off a
+     few thousand words is out by a factor that grows the further up you read,
+     which is exactly the error in the table this replaced. Only a course with
+     real published data at that height may claim it. */
+  /* 98% and up may only be claimed by a course whose figure is CITED to a real
+     study. The error being fenced is the invented smooth curve that ran to
+     98.5% at 10,000 words off nothing; an estimate must stop at 95%. English
+     reaches 98% at 6,500 word families because Nation measured it there, and
+     the note says so — including that word families are a coarser unit. */
+  if(top.pct >= 98){
+    ok(coverageKind() === 'cited',
+       `${lang}: only claims ${top.pct}% because a published study measured it there (${top.words.toLocaleString()})`);
+  } else {
+    ok(top.pct <= 95, `${lang}: stops at ${top.pct}%, which is where its evidence stops`);
+  }
+  if(coverageKind() === 'estimated'){
+    ok(top.pct <= 95, `${lang}: an estimated curve never claims past 95%`);
+  }
+}
+
+section('characters are tracked separately where they matter');
+{
+  selectLanguage('yue');
+  ok(courseHasCharacters(), 'Cantonese offers a character ladder');
+  selectLanguage('zh');
+  ok(courseHasCharacters(), 'so does Mandarin');
+  selectLanguage('vi2');
+  ok(!courseHasCharacters(), 'Vietnamese does not — it has no characters to count');
+  selectLanguage('yue');
+
+  state.srs = {};
+  const pool = wordStudyPool();
+  pool.slice(0, 600).forEach(w => { state.srs[w.srsId] = { interval:30, ease:2.5, reps:5, lapses:0, due:new Date().toISOString() }; });
+  setCoverageUnit('words');
+  const wKnown = knownCountForUnit(), wPct = coverageForWords(wKnown);
+  setCoverageUnit('chars');
+  const cKnown = knownCountForUnit(), cPct = coverageForWords(cKnown);
+  ok(cKnown > 0 && cKnown < wKnown * 3, `600 known words yields ${cKnown} known characters`);
+  ok(cPct > wPct, `character coverage runs ahead of word coverage (${cPct.toFixed(0)}% vs ${wPct.toFixed(0)}%)`);
+  ok(coverageIsMeasured(), 'and the Cantonese character curve is measured, not guessed');
+  ok(/2,421|157,896/.test(coverageNote()), 'and says what it was measured on');
+
+  // switching unit must not leak into a course that has no characters
+  selectLanguage('vi2');
+  renderCoverageCard();
+  ok(coverageUnit === 'words', 'the character unit resets on a course without characters');
+  selectLanguage('yue'); setCoverageUnit('words'); state.srs = {};
+}
+
+section('every cited course names a verifiable corpus');
+{
+  const want = {
+    yue:[/HKCanCor/, /119,783/],
+    ja: [/Migaku/, /110 million/],
+    es: [/Davies/, /Corpus del/, /100 million/],
+    en: [/Nation/, /WORD FAMILIES/],
+    th: [/2\.2 million/, /WRITTEN/],
+  };
+  Object.entries(want).forEach(([lang, pats]) => {
+    selectLanguage(lang); setCoverageUnit('words');
+    const n = coverageNote();
+    pats.forEach(p => ok(p.test(n), `${lang}: the note contains ${p}`));
+  });
+  // register matters and must be stated where it cuts against the course
+  selectLanguage('th');
+  ok(/spoken frequency data was not available|WRITTEN/.test(coverageNote()),
+     'Thai says out loud that its figures are written, not speech — this course teaches speech');
+  selectLanguage('es');
+  ok(/76-80% of written|76–80% of written/.test(coverageNote()),
+     'Spanish shows the written figure beside the spoken one, so the gap between registers is visible');
+  selectLanguage('yue'); setCoverageUnit('words');
 }
 
 section('the masked demonstration');
