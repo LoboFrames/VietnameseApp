@@ -1085,6 +1085,7 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
   .cv-sample{background:rgba(36,28,19,.06);border-radius:11px;padding:11px 12px;font-size:19px;font-weight:800;
     line-height:1.7;color:var(--rice);letter-spacing:1px;word-break:break-word;}
   .cv-sample.cjk{font-size:24px;line-height:1.8;}
+  .cv-learning{color:var(--rice);opacity:.52;}
   .cv-known{color:var(--rice);}
   .cv-gap{color:rgba(36,28,19,.30);}
   .cv-sample-why{margin:0 0 7px;font-size:11.5px;color:var(--muted);line-height:1.5;}
@@ -27148,6 +27149,16 @@ function knownWordSet(){
   try{ wordStudyPool().forEach(w => { if(isMasteredWord(w.srsId)) s.add(w.word); }); }catch(e){}
   return s;
 }
+/* Words with a card that has not yet reached 21 days. The headline percentage
+   deliberately does NOT count these — a card seen twice is not coverage — but
+   the sample line must show them, or someone four hundred cards into a course
+   with nothing yet mature sees an explanation where the line used to be and
+   concludes it broke. Three states, three weights: mastered, learning, unseen. */
+function learningWordSet(){
+  const s = new Set();
+  try{ wordStudyPool().forEach(w => { if(state.srs[w.srsId] && !isMasteredWord(w.srsId)) s.add(w.word); }); }catch(e){}
+  return s;
+}
 function maskedSample(){
   let pool = [];
   try{ pool = phraseStudyPool().filter(p => p && p.v && p.e); }catch(e){}
@@ -27156,6 +27167,7 @@ function maskedSample(){
   // every time the home screen repaints.
   const seed = Array.from(todayStr()).reduce((a,c)=>a + c.charCodeAt(0), 0);
   const known = knownWordSet();
+  const learning = learningWordSet();
   // Prefer a line of a useful length, and one that actually has something to
   // hide — an all-known or all-unknown line demonstrates nothing.
   /* Two filters, and the length one is NOT optional. The first version made
@@ -27172,19 +27184,24 @@ function maskedSample(){
   if(!sized.length) return null;
   // Of those, prefer one that has something to hide AND something to show —
   // all-known or all-unknown teaches nothing either.
+  // "Something to show" now means known OR learning — otherwise a course with
+  // nothing mature yet falls through to an arbitrary line again.
   const mixed = sized.filter(p => {
     const seg = segmentTarget(p.v);
-    const hits = seg.filter(t => known.has(t)).length;
-    return hits > 0 && hits < seg.length;
+    const lit = seg.filter(t => known.has(t) || learning.has(t)).length;
+    return lit > 0 && lit < seg.length;
   });
   const src = mixed.length ? mixed[seed % mixed.length] : sized[seed % sized.length];
   let seg; try{ seg = segmentTarget(src.v); }catch(e){ seg = [src.v]; }
   const spaced = isSpaceDelimitedCourse();
   const parts = seg.map(t => known.has(t)
     ? `<span class="cv-known">${t}</span>`
+    : learning.has(t)
+    ? `<span class="cv-learning">${t}</span>`
     : `<span class="cv-gap">${'▁'.repeat(Math.max(1, Array.from(t).length))}</span>`);
   const hits = seg.filter(t => known.has(t)).length;
-  return { html: parts.join(spaced ? ' ' : ''), e: src.e, hits, total: seg.length };
+  const learn = seg.filter(t => !known.has(t) && learning.has(t)).length;
+  return { html: parts.join(spaced ? ' ' : ''), e: src.e, hits, learn, total: seg.length };
 }
 
 /* ---- the milestone popup ---- */
@@ -27277,14 +27294,14 @@ function renderCoverageCard(){
         <p class="cov-sub">${known.toLocaleString()} known ${unit}${known===1?'':'s'}</p>
       </div>
     </div>
-    ${coverageUnit === 'words' && sample ? (sample.hits === 0
+    ${coverageUnit === 'words' && sample ? ((sample.hits + sample.learn) === 0
       ? `<p class="cov-sample-lead">What that looks like</p>
-         <p class="cv-sample-none">Once you have words at Known, this box shows a real line from the course with everything you have not learned yet blanked out. Nothing is at Known yet, so right now the whole line would be blank — it starts filling in as cards pass 21 days.</p>`
+         <p class="cv-sample-none">This box shows a real line from the course with every word you have not met yet blanked out. You have not studied any words in this course yet, so right now the whole line would be blank — it starts filling in from your first session.</p>`
       : `<p class="cov-sample-lead">What that looks like</p>
-         <p class="cv-sample-why">A real line from the course, with every word you have not learned yet blanked out.</p>
+         <p class="cv-sample-why">A real line from the course. Solid words are at Known, faded ones you are still learning, blanks you have not met.</p>
          <div class="cv-sample${cjkCls()}">${sample.html}</div>
          <p class="cv-sample-e">${sample.e}</p>
-         <p class="cv-sample-count">${sample.hits} of ${sample.total} words known</p>`) : ''}
+         <p class="cv-sample-count">${sample.hits} known${sample.learn ? ` · ${sample.learn} learning` : ''} · ${sample.total - sample.hits - sample.learn} not met yet</p>`) : ''}
     ${next ? `<p class="cov-next"><b>${(next.words - known).toLocaleString()}</b> more ${unit}s gets you to <b>${next.pct}%</b>.</p>`
            : `<p class="cov-next">That is as far as this list can take you.</p>`}
     ${coverageLadderOpen ? `<div class="cov-ladder">${ladder}

@@ -396,20 +396,38 @@ selectLanguage('yue');
   }
   selectLanguage('yue');
 
-  // and the card explains itself rather than printing a blank line
+  // The explanation replaces the line ONLY when the course has not been studied
+  // at all. Reported from the app: someone four hundred cards into Cantonese
+  // with nothing yet at 21 days lost the line entirely and thought it broke.
   coverageLadderOpen = false;
   renderCoverageCard();
   const blankCard = document.getElementById('covBody').innerHTML;
-  ok(/Once you have words at Known/.test(blankCard),
-     'with nothing known the card explains the box instead of drawing an all-blank line');
+  ok(/have not studied any words/.test(blankCard),
+     'a course with no cards at all explains the box instead of drawing a blank line');
   ok(!/cv-gap/.test(blankCard), 'and draws no blanks at all in that state');
+
+  // now: studied hard, nothing mature yet
+  const midPool = wordStudyPool();
+  midPool.slice(0, 400).forEach((w, i) => {
+    state.srs[w.srsId] = { interval:[1,3,6,10,15][i%5], ease:2.5, reps:3, lapses:0, due:new Date().toISOString() };
+  });
+  ok(knownWordCount() === 0, '400 cards under 21 days still counts as nothing Known');
+  const midSample = maskedSample();
+  ok(midSample.learn > 0, 'but the sample line marks them as learning');
+  renderCoverageCard();
+  const midCard = document.getElementById('covBody').innerHTML;
+  ok(!/have not studied any words/.test(midCard),
+     'and the card shows the LINE, not the never-studied explanation');
+  ok(/cv-learning/.test(midCard), 'with the in-progress words visibly distinct from the blanks');
+  ok(/learning/.test(midCard), 'and the count names them');
+  state.srs = {};
 
   const pool2 = wordStudyPool();
   pool2.slice(0, 400).forEach(w => { state.srs[w.srsId] = { interval:30, ease:2.5, reps:5, lapses:0, due:new Date().toISOString() }; });
   renderCoverageCard();
   const liveCard = document.getElementById('covBody').innerHTML;
   ok(/A real line from the course/.test(liveCard), 'once there are known words the card says what the box IS');
-  ok(/words known/.test(liveCard), 'and how much of that line you have');
+  ok(/known/.test(liveCard) && /not met yet/.test(liveCard), 'and breaks the line down into its three states');
   ok(/cv-gap/.test(liveCard) && /cv-known/.test(liveCard), 'and shows both the gaps and the words');
   state.srs = {};
 }
