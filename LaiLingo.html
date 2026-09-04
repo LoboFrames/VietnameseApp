@@ -1072,6 +1072,14 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
   .pm-ok{color:#1f7a45;}
   .pm-bad{color:#b3301f;text-decoration:underline;text-decoration-style:wavy;}
   .pm-score{margin:4px 0 0;font-size:12px;}
+  .cov-sample-lead{margin:12px 0 6px;font-size:12px;color:var(--muted);font-weight:700;}
+  .cv-sample{background:rgba(36,28,19,.06);border-radius:11px;padding:11px 12px;font-size:19px;font-weight:800;
+    line-height:1.7;color:var(--rice);letter-spacing:1px;word-break:break-word;}
+  .cv-sample.cjk{font-size:24px;line-height:1.8;}
+  .cv-known{color:var(--rice);}
+  .cv-gap{color:rgba(36,28,19,.30);}
+  .cv-sample-e{margin:6px 0 12px;font-size:12.5px;color:var(--muted);line-height:1.5;font-style:italic;}
+  .ms-sample{margin:4px 0 2px;text-align:center;}
   /* ---- Coverage milestones ---- */
   .cov-card{background:var(--surface);border-radius:18px;margin:0 0 14px;overflow:hidden;border:1px solid rgba(36,28,19,.10);}
   .cov-head{display:flex;align-items:center;gap:10px;width:100%;background:none;border:none;padding:14px 16px;}
@@ -1355,7 +1363,7 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
       <div class="cov-card" id="covCard">
         <button class="cov-head" onclick="toggleCoverageLadder()">
           <div class="cov-icon">📈</div>
-          <h3>Everyday speech</h3>
+          <h3>Words you’ll recognise</h3>
           <span class="cov-chevron" id="covChevron">▾</span>
         </button>
         <div class="cov-body" id="covBody"></div>
@@ -26910,74 +26918,83 @@ function totalLessonsForLevel(lv){ return LESSONS.filter(l=>l.level===lv).length
 function completedForLevel(lv){ return LESSONS.filter(l=>l.level===lv && state.completedLessons.includes(l.id)).length; }
 
 /* ===================== COVERAGE MILESTONES =====================
-   How much of ordinary speech your vocabulary actually covers, and how many
-   words stand between you and the next rung.
+   This card said "50% of everyday speech — 43 words" and the user called it:
+   there is no way that is true. He was right twice over, and both errors are
+   worth recording because they are easy to make again.
 
-   The numbers are not encouragement. **The Cantonese curve is measured** — the
-   whole of HKCanCor, 119,783 Chinese-word tokens of recorded Hong Kong
-   conversation, counted word by word. It says things a learner would not guess:
+   ERROR 1 — the label. 43 words really do account for half the word-TOKENS in
+   HKCanCor. The arithmetic is fine. But those 43 words are 係 啊 我 噉 呢 你 佢
+   都 唔 好 就 即係 嘅 喇 個 — pronouns, particles and copulas. Blank out
+   everything else in a real line and this is what half of speech looks like:
 
-     43 words cover half of every word spoken.
-     284 cover four fifths.
-     But 90% takes 941, and 95% takes 2,112.
+     佢好似好好怪啊我覺得佢個樣好唔自然
+     佢▁▁好好▁啊我覺得佢個▁好▁▁▁
 
-   That shape is the point of showing it. The first few hundred words are worth
-   enormously more than the next few thousand, and the tail is long enough that
-   "learn 3,000 words and you're fluent" is a claim about the wrong end of the
-   curve. A learner who can see the flattening can decide when to stop grinding
-   a list and start mining real speech instead.
+   Recognising half the words is not understanding half of anything, because
+   every word carrying content is in the other half. Migaku make the same
+   caveat about their own figures and it is the caveat that matters most. The
+   card now says "words you'll recognise", never "speech you'll understand",
+   and it SHOWS you a masked line at your current level rather than asking you
+   to take the percentage on trust.
 
-   Every other course carries an ESTIMATE and says so on the card. There is no
-   corpus behind those spines to count, and inventing a measured-looking number
-   would be worse than admitting the gap. The estimated curve is the general
-   shape published for informal spoken language (Nation & Waring; Nation 2006):
-   ~1,000 word families near 80–84% of conversation, ~2,000 near 96%, and 98%
-   not arriving until 6,000–7,000. Speech leans on its high-frequency core far
-   harder than writing does, which is why these numbers are so much kinder than
-   the reading figures people usually quote.
+   ERROR 2 — the tail was fiction. The old curve was measured in-sample: ranked
+   on all of HKCanCor and scored on all of HKCanCor, so every word in the test
+   was guaranteed to be in the list. Re-measured properly — ranked on 80% of the
+   conversations and scored on the 20% it had never seen, five ways round — the
+   low end holds and the high end collapses:
 
-   A milestone counts a word as YOURS only when its SRS card has survived to a
-   21-day interval — the same "Known" the Cards tab uses. A word you saw once
-   yesterday is not coverage. */
+     words     in-sample     held-out
+        43        50.0%        50.0%
+       284        80.0%        79.3%
+       941        90.0%        88.0%
+      2112        95.0%        91.6%     <- and 95% is NOT REACHABLE at all
+                                            in four folds out of five
 
+   HKCanCor is 119,783 tokens and 6,324 distinct words. Migaku's Japanese
+   Netflix list is 110 million tokens and 124,000 distinct words, and needs
+   12,041 words for 95% where this corpus claimed 2,112. That gap is almost
+   entirely corpus size: a small corpus has no long tail, so coverage measured
+   inside it looks far better than it will ever feel. The ladder therefore
+   STOPS at 90%, which is the last rung this corpus can honestly support, and
+   says so rather than extrapolating into numbers it cannot see. */
+
+// Held-out means: rank the words on conversations the learner has not been
+// tested against, then measure. These are means of a 5-fold split.
 const COVERAGE_MEASURED_YUE = [
-  { pct:50, words:43 },   { pct:60, words:70 },    { pct:70, words:125 },
-  { pct:75, words:182 },  { pct:80, words:284 },   { pct:85, words:487 },
-  { pct:90, words:941 },  { pct:92, words:1269 },  { pct:95, words:2112 },
+  { pct:50, words:43 },   { pct:60, words:71 },   { pct:70, words:128 },
+  { pct:75, words:192 },  { pct:80, words:309 },  { pct:85, words:582 },
+  { pct:90, words:1400 },
 ];
-// Published general shape for informal speech, used where a course has no
-// corpus of its own to count. Deliberately rounder than the measured list so it
-// never reads as a precise measurement it is not.
-const COVERAGE_ESTIMATED = [
-  { pct:50, words:50 },   { pct:60, words:90 },    { pct:70, words:160 },
-  { pct:75, words:230 },  { pct:80, words:350 },   { pct:85, words:600 },
-  { pct:90, words:1100 }, { pct:92, words:1500 },  { pct:95, words:2300 },
+/* Migaku's published figures for the Japanese Netflix subtitle corpus —
+   124,000 distinct words over ~110 million tokens. Cited rather than invented,
+   and used for Japanese because it IS Japanese Netflix data. For the other
+   courses it stands in as the shape a corpus of realistic size produces, which
+   is a far better estimate than anything derived from a 120,000-token one. */
+const COVERAGE_NETFLIX = [
+  { pct:80, words:1442 }, { pct:85, words:2688 }, { pct:90, words:5243 },
+  { pct:95, words:12041 },
 ];
 
 const COVERAGE_SOURCE = {
-  yue: { measured:true,  note:'Measured on HKCanCor — 119,783 words of recorded Hong Kong conversation.' },
+  yue: { kind:'measured',
+         note:'Measured on HKCanCor — 119,783 words of recorded Hong Kong conversation, scored against conversations the word list had never seen. It stops at 90% because this corpus is too small to measure past it honestly.' },
+  ja:  { kind:'cited',
+         note:'Migaku’s count of the Japanese Netflix subtitles — 124,000 distinct words over about 110 million uses.' },
 };
 function coverageTiers(){
-  return state.language === 'yue' ? COVERAGE_MEASURED_YUE : COVERAGE_ESTIMATED;
+  return state.language === 'yue' ? COVERAGE_MEASURED_YUE : COVERAGE_NETFLIX;
 }
-function coverageIsMeasured(){ return !!(COVERAGE_SOURCE[state.language] || {}).measured; }
+function coverageKind(){ return (COVERAGE_SOURCE[state.language] || {}).kind || 'estimated'; }
+function coverageIsMeasured(){ return coverageKind() === 'measured'; }
 function coverageNote(){
   const s = COVERAGE_SOURCE[state.language];
   if(s) return s.note;
-  return 'Estimated from published coverage figures for informal speech — this course has no measured corpus yet.';
+  return 'Estimated from the shape of a full-size subtitle corpus (Migaku’s Japanese Netflix count). This course has no measured corpus of its own.';
 }
 
-/* Words you know, by the app's own definition of Known: an SRS card that has
-   reached a 21-day interval. Counted over the frequency pool only, because a
-   coverage claim is a claim about the frequency list — a slang term or a
-   facility phrase is worth learning and is not what these percentages measure. */
 function knownWordCount(){
-  try{
-    return wordStudyPool().filter(w => isMasteredWord(w.srsId)).length;
-  }catch(e){ return 0; }
+  try{ return wordStudyPool().filter(w => isMasteredWord(w.srsId)).length; }catch(e){ return 0; }
 }
-// Interpolated between the tiers, so the headline number moves as you study
-// rather than jumping once every few hundred words.
 function coverageForWords(n){
   const t = coverageTiers();
   if(n <= 0) return 0;
@@ -26985,22 +27002,50 @@ function coverageForWords(n){
   for(let i = 0; i < t.length - 1; i++){
     if(n < t[i+1].words){
       const span = t[i+1].words - t[i].words;
-      const into = n - t[i].words;
-      return t[i].pct + (t[i+1].pct - t[i].pct) * (into / span);
+      return t[i].pct + (t[i+1].pct - t[i].pct) * ((n - t[i].words) / span);
     }
   }
   return t[t.length-1].pct;
 }
-function nextCoverageTier(n){
-  return coverageTiers().find(t => n < t.words) || null;
+function nextCoverageTier(n){ return coverageTiers().find(t => n < t.words) || null; }
+
+/* ---- the demonstration ----
+   The single most useful thing on this card. Take a real sentence from the
+   course and blank every word the learner has not got to Known, so the
+   percentage stops being a claim and becomes a picture. This is what stopped
+   "50%" reading as "half of what people say". */
+function knownWordSet(){
+  const s = new Set();
+  try{ wordStudyPool().forEach(w => { if(isMasteredWord(w.srsId)) s.add(w.word); }); }catch(e){}
+  return s;
+}
+function maskedSample(){
+  let pool = [];
+  try{ pool = phraseStudyPool().filter(p => p && p.v && p.e); }catch(e){}
+  if(!pool.length) return null;
+  // A stable pick per day, so the card is not a slot machine that reshuffles
+  // every time the home screen repaints.
+  const seed = Array.from(todayStr()).reduce((a,c)=>a + c.charCodeAt(0), 0);
+  const known = knownWordSet();
+  // Prefer a line of a useful length, and one that actually has something to
+  // hide — an all-known or all-unknown line demonstrates nothing.
+  const cands = pool.filter(p => {
+    let seg; try{ seg = segmentTarget(p.v); }catch(e){ return false; }
+    if(seg.length < 5 || seg.length > 12) return false;
+    const hits = seg.filter(t => known.has(t)).length;
+    return hits > 0 && hits < seg.length;
+  });
+  const src = cands.length ? cands[seed % cands.length] : pool[seed % pool.length];
+  let seg; try{ seg = segmentTarget(src.v); }catch(e){ seg = [src.v]; }
+  const spaced = isSpaceDelimitedCourse();
+  const parts = seg.map(t => known.has(t)
+    ? `<span class="cv-known">${t}</span>`
+    : `<span class="cv-gap">${'▁'.repeat(Math.max(1, Array.from(t).length))}</span>`);
+  return { html: parts.join(spaced ? ' ' : ''), e: src.e,
+           hits: seg.filter(t => known.has(t)).length, total: seg.length };
 }
 
-/* ---- the milestone popup ----
-   Fired from gradeCard, which is the only place a card's interval changes, and
-   recorded per course so crossing 80% in Cantonese does not silently mark it
-   crossed in Vietnamese too. Recorded BEFORE the modal opens: if the same grade
-   somehow crosses two tiers, both are banked and only the higher is announced,
-   rather than the second one ambushing you on the next card. */
+/* ---- the milestone popup ---- */
 function seenMilestones(){
   state.milestones = state.milestones || {};
   const ns = srsNs() || state.language || 'vi';
@@ -27021,13 +27066,15 @@ function showCoverageMilestone(tier, known){
   if(!el) return;
   const next = nextCoverageTier(known);
   const body = document.getElementById('milestoneBody');
+  const sample = maskedSample();
   if(body){
     body.innerHTML = `
       <div class="ms-pct">${tier.pct}%</div>
-      <p class="ms-head">of everyday ${activeLangName()} speech</p>
-      <p class="ms-sub">You know <b>${known.toLocaleString()}</b> of the most common words${coverageIsMeasured() ? '' : ' (estimated)'}. On the frequency list, that is roughly ${tier.pct} words in every hundred you will hear.</p>
+      <p class="ms-head">of the words you’ll hear</p>
+      <p class="ms-sub">You know <b>${known.toLocaleString()}</b> of the most common ${activeLangName()} words. In an ordinary conversation you will now recognise about ${tier.pct} words in every hundred — which is not the same as following ${tier.pct}% of it.</p>
+      ${sample ? `<div class="cv-sample ms-sample${cjkCls()}">${sample.html}</div><p class="cv-sample-e">${sample.e}</p>` : ''}
       ${next ? `<p class="ms-next">Next: <b>${next.words.toLocaleString()}</b> words for ${next.pct}% — ${(next.words - known).toLocaleString()} to go.</p>`
-             : `<p class="ms-next">That is the top of the list. The rest comes from real speech, not a wordlist.</p>`}
+             : `<p class="ms-next">That is as far as this corpus can measure. The rest comes from real speech, not a wordlist.</p>`}
       <button class="ms-btn" onclick="closeCoverageMilestone()">Keep going</button>`;
   }
   el.classList.add('open');
@@ -27051,6 +27098,7 @@ function renderCoverageCard(){
   const pct = coverageForWords(known);
   const next = nextCoverageTier(known);
   const tiers = coverageTiers();
+  const sample = maskedSample();
   const poolSize = (()=>{ try{ return wordStudyPool().length; }catch(e){ return 0; } })();
 
   const chevron = document.getElementById('covChevron');
@@ -27071,18 +27119,21 @@ function renderCoverageCard(){
     <div class="cov-headline">
       <div class="cov-big">${pct >= 1 ? pct.toFixed(0) : pct.toFixed(1)}<span>%</span></div>
       <div class="cov-headline-txt">
-        <p class="cov-lead">of everyday speech</p>
+        <p class="cov-lead">of the words you’ll hear</p>
         <p class="cov-sub">${known.toLocaleString()} known word${known===1?'':'s'}${poolSize ? ' of ' + poolSize.toLocaleString() : ''}</p>
       </div>
     </div>
+    ${sample ? `<p class="cov-sample-lead">What that looks like:</p>
+      <div class="cv-sample${cjkCls()}">${sample.html}</div>
+      <p class="cv-sample-e">${sample.e}</p>` : ''}
     ${next ? `<p class="cov-next"><b>${(next.words - known).toLocaleString()}</b> more words gets you to <b>${next.pct}%</b>.</p>`
-           : `<p class="cov-next">You are past the top of the list — the rest comes from real speech.</p>`}
+           : `<p class="cov-next">That is as far as this list can take you.</p>`}
     ${coverageLadderOpen ? `<div class="cov-ladder">${ladder}
-      <p class="cov-note">${coverageIsMeasured() ? '📊 ' : '≈ '}${coverageNote()}</p>
+      <p class="cov-note"><b>Recognising a word is not understanding a sentence.</b> The most common words in any language are pronouns and particles — 係, 我, 唔, 呢 — so the first 50% is almost entirely grammar, and every word carrying meaning is in the part you cannot read yet.</p>
+      <p class="cov-note">${coverageIsMeasured() ? '📊 ' : coverageKind() === 'cited' ? '📚 ' : '≈ '}${coverageNote()}</p>
       <p class="cov-note">A word counts once its card has survived 21 days — the same “Known” as the Cards tab.</p>
     </div>` : ''}`;
 }
-
 function renderHome(){
   // --- Hero ---
   const namePill = document.getElementById('homeNamePill');
