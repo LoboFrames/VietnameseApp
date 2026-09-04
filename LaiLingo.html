@@ -27079,15 +27079,40 @@ const COVERAGE_YUE = [ { pct:50, words:43 },  { pct:60, words:71 },
                        { pct:70, words:130 }, { pct:80, words:321 },
                        { pct:85, words:601 }, { pct:90, words:1458 } ];
 
-/* --- Vietnamese. 26.1M words of screen dialogue. ---------------------------
-   Vietnamese writes spaces between SYLLABLES, so that is what is counted on
-   both sides — tôi, không, là, anh. Its syllable inventory is small and nearly
-   closed, which is why this curve climbs faster than the others. That is a fact
-   about the writing system, not about the language being easier. */
-const COVERAGE_VI  = [ { pct:50, words:83 },   { pct:60, words:147 },
-                       { pct:70, words:260 },  { pct:80, words:485 },
-                       { pct:85, words:689 },  { pct:90, words:1048 },
-                       { pct:95, words:1992 } ];
+/* --- Vietnamese. 36.2M tokens, WORD-segmented. -----------------------------
+   This one was wrong and the user caught it twice before I checked properly.
+
+   Vietnamese puts spaces between SYLLABLES, not words: hoc sinh (student) is one
+   word written as two space-separated pieces. Splitting the corpus on whitespace
+   therefore counted syllables, and the curve read 485 syllables for 80%. In a
+   properly segmented list 73% of the entries are multi-syllable, and the same
+   coverage needs 846 WORDS — 1.74x more. The old number was not a wrong
+   measurement, it was a measurement of the wrong thing.
+
+   Two other faults in the old source, both fixed here: about 18% of its tokens
+   carried no diacritic at all, because casual Vietnamese subtitles are often
+   typed without tone marks, so khong and khong were counted as separate items;
+   and it held 75,017 distinct types against a language with roughly 7,000 legal
+   syllables, i.e. the tail was mostly typos and foreign text. This list
+   normalises tone marks and is segmented with pyvi.
+
+   The independent check is that it lands where two other estimates put it:
+   500 words = 72% here against ChatGPT's reference doc's ~72%, and 1,000 = 82%
+   against its ~85%.
+
+   REGISTER CAVEAT, stated on the card: this list blends OpenSubtitles with the
+   Leipzig mixed-source collection, so it is not purely spoken the way the
+   Cantonese and Korean corpora are. The unit error it fixes (1.74x) is larger
+   than the register error it introduces, which is why it is the better source
+   — but a purely spoken, word-segmented Vietnamese corpus would be better still.
+
+   NOTE FOR THE DECK: this course's word list is 2,758 SINGLE-syllable entries,
+   so it is still in the old unit. Building it out against this corpus means
+   adding multi-syllable words, not more syllables. */
+const COVERAGE_VI  = [ { pct:50, words:102 },  { pct:60, words:193 },
+                       { pct:70, words:395 },  { pct:80, words:846 },
+                       { pct:85, words:1288 }, { pct:90, words:2075 },
+                       { pct:95, words:3871 } ];
 
 /* --- Mandarin. 77.8M words of Simplified screen dialogue, word-segmented. ---
    zh_cn deliberately, not zh_tw: this course is Simplified and the two lists do
@@ -27231,9 +27256,9 @@ const COVERAGE_SOURCE = {
   yue: { kind:'measured',
          note:'Measured on HKCanCor — 119,696 words of spontaneous recorded Hong Kong conversation, the only genuinely unscripted corpus in this app. The word list was ranked on four fifths of the 58 conversations and scored on the fifth it had never seen, five ways round. It stops at 90% because 95% was unreachable in four folds out of five. Two limits: these are 58 conversations from one project and one era, and Heaps’ law projects this speech to about 237,000 distinct words at full-corpus scale against the 6,289 actually in it.' },
   vi2: { kind:'measured',
-         note:'Measured on 26.1 million words of Vietnamese screen dialogue. Vietnamese puts spaces between SYLLABLES, so syllables are what is counted — tôi, không, là, anh. Its syllable inventory is small and nearly closed, which is why this curve climbs faster than the others here. That is the writing system, not the language being easier.' },
+         note:'Measured on 36.2 million tokens of Vietnamese, WORD-segmented — hoc sinh (student) counts as one word, not two. This corrected an earlier figure of 485 that had split the corpus on whitespace and so counted SYLLABLES: Vietnamese writes spaces between syllables, 73% of its words are multi-syllable, and the same coverage needs 1.74× more real words. The list also normalises tone marks, since casual Vietnamese subtitles are often typed without them. One caveat: it blends subtitles with a mixed-source collection, so unlike the Cantonese and Korean corpora it is not purely spoken. Your word deck is still 2,758 single-syllable entries — building it against this corpus means adding multi-syllable words.' },
   vi:  { kind:'measured',
-         note:'Measured on 26.1 million words of Vietnamese screen dialogue, counted in syllables — the units Vietnamese puts spaces between. The small, nearly closed syllable inventory is why this climbs faster than the other courses here.' },
+         note:'Measured on 36.2 million tokens of Vietnamese, WORD-segmented — hoc sinh (student) counts as one word, not two. This corrected an earlier figure of 485 that had split the corpus on whitespace and so counted SYLLABLES: Vietnamese writes spaces between syllables, 73% of its words are multi-syllable, and the same coverage needs 1.74× more real words. The list also normalises tone marks, since casual Vietnamese subtitles are often typed without them. One caveat: it blends subtitles with a mixed-source collection, so unlike the Cantonese and Korean corpora it is not purely spoken. Your word deck is still 2,758 single-syllable entries — building it against this corpus means adding multi-syllable words.' },
   zh:  { kind:'measured',
          note:'Measured on 77.8 million words of Simplified Mandarin screen dialogue, word-segmented. The slowest curve in the app: segmented Chinese compounds are numerous, and this corpus is large enough to show the whole tail rather than flattering itself. Characters are a far kinder question — switch the unit above.' },
   ko:  { kind:'measured',
@@ -34184,7 +34209,7 @@ function coverageDocHtml(){
   const OTHERS = [
     { id:'yue', name:'Cantonese',  unit:'words',     src:'120k words of unscripted recorded conversation' },
     { id:'ko',  name:'Korean',     unit:'morphemes', src:'17.9M words of spontaneous speech (KoFREN)' },
-    { id:'vi2', name:'Vietnamese', unit:'syllables', src:'26M words of screen dialogue' },
+    { id:'vi2', name:'Vietnamese', unit:'words',     src:'36M tokens, word-segmented (mixed register)' },
     { id:'en',  name:'English',    unit:'words',     src:'693M words of screen dialogue' },
     { id:'es',  name:'Spanish',    unit:'words',     src:'422M words of screen dialogue' },
     { id:'zh',  name:'Mandarin',   unit:'words',     src:'78M words of screen dialogue' },
