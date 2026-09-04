@@ -965,7 +965,9 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
   /* Applied only for courses written in Chinese script. */
   .freq-item .fw .tap-word.cjk{font-size:23px;line-height:1.3;}
   .ld-vocab-chip .head.cjk{font-size:19px;line-height:1.25;}
-  .swipe-card .sc-viet.cjk{font-size:38px;line-height:1.25;}
+  .swipe-card .sc-viet.cjk{font-size:44px;line-height:1.45;}
+  .swipe-card .sc-viet.sc-word.cjk{font-size:66px;line-height:1.3;letter-spacing:2px;}
+  .swipe-card .sc-note .sn-v.cjk{font-size:25px;line-height:1.6;}
   .ld-phrase-viet.cjk{font-size:19px;line-height:1.45;}
   .freq-item .fw.cjk{font-size:19px;line-height:1.4;}
   .ld-vocab-chip .gloss{color:rgba(255,255,255,.4);font-size:11px;}
@@ -1183,7 +1185,7 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
      it cannot be scrolled back to — measured at -11px, so the top of the word
      was already being clipped. `safe` falls back to flex-start when it would
      overflow, which is the behaviour you want in every case. */
-  .swipe-card{background:var(--surface);border-radius:20px;padding:22px 20px;text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;justify-content:safe center;gap:10px;margin-bottom:16px;cursor:pointer;border:1px solid rgba(36,28,19,0.07);overflow-y:auto;}
+  .swipe-card{background:var(--surface);border-radius:20px;padding:20px 18px;text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;justify-content:safe center;gap:10px;margin-bottom:16px;cursor:pointer;border:1px solid rgba(36,28,19,0.07);overflow-y:auto;}
   .swipe-card > p{margin:0;}
   /* The head — characters, reading, and whatever label the mode adds — sticks to
      the top of the card while the example sentences scroll under it. Reaching
@@ -1194,23 +1196,25 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
   .sc-head{position:sticky;top:-22px;z-index:2;width:100%;display:flex;flex-direction:column;
     align-items:center;gap:8px;background:var(--surface);padding:22px 0 10px;margin:-22px 0 0;}
   .sc-head > p{margin:0;}
-  .swipe-card .sc-eng{font-size:19px;font-weight:800;line-height:1.35;}
-  .swipe-card .sc-viet{font-size:20px;font-weight:800;color:var(--gold);display:none;line-height:1.3;}
-  .swipe-card .sc-pron{font-size:12px;color:var(--muted);font-family:'IBM Plex Mono',monospace;display:none;}
+  .swipe-card .sc-eng{font-size:23px;font-weight:800;line-height:1.4;}
+  .swipe-card .sc-viet{font-size:27px;font-weight:800;color:var(--gold);display:none;line-height:1.4;}
+  .swipe-card .sc-viet.sc-word{font-size:40px;line-height:1.25;position:relative;}
+  .sc-say{font-size:.34em;opacity:.5;margin-left:.28em;vertical-align:middle;}
+  .swipe-card .sc-pron{font-size:16px;color:var(--muted);font-family:'IBM Plex Mono',monospace;display:none;letter-spacing:.3px;}
   .swipe-card.flipped .sc-eng{display:none;}
   .swipe-card.flipped .sc-viet, .swipe-card.flipped .sc-pron{display:block;}
-  .swipe-card .sc-hint{font-size:11px;color:var(--muted);margin-top:2px;}
+  .swipe-card .sc-hint{font-size:13px;color:var(--muted);margin-top:2px;}
   .sc-notes{display:none;width:100%;text-align:left;border-top:1px solid rgba(36,28,19,0.1);margin-top:8px;padding-top:12px;}
   .swipe-card.flipped .sc-notes{display:block;}
-  .sc-note{margin-bottom:10px;cursor:pointer;border-radius:10px;padding:6px 8px;margin-left:-8px;margin-right:-8px;transition:background .1s ease;}
+  .sc-note{margin-bottom:14px;cursor:pointer;border-radius:10px;padding:9px 10px;margin-left:-8px;margin-right:-8px;transition:background .1s ease;}
   .sc-note:active{background:rgba(240,169,59,0.12);}
   .sc-note-row{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
   .sc-note-row .sn-v{flex:1;}
   .sc-note:last-child{margin-bottom:0;}
   .sc-note.italic .sn-v{font-style:italic;}
-  .sc-note .sn-v{font-size:13.5px;font-weight:700;color:var(--rice);margin:0 0 3px;line-height:1.4;}
-  .sc-note .sn-p{font-size:11px;color:var(--muted);opacity:.85;margin:0 0 3px;font-family:'IBM Plex Mono',monospace;line-height:1.4;}
-  .sc-note .sn-e{font-size:11.5px;color:var(--muted);margin:0;line-height:1.45;}
+  .sc-note .sn-v{font-size:17px;font-weight:700;color:var(--rice);margin:0 0 4px;line-height:1.5;}
+  .sc-note .sn-p{font-size:13px;color:var(--muted);opacity:.9;margin:0 0 4px;font-family:'IBM Plex Mono',monospace;line-height:1.5;}
+  .sc-note .sn-e{font-size:14.5px;color:var(--muted);margin:0;line-height:1.5;}
   .srs-actions{display:flex;gap:8px;}
   .srs-actions.disabled{opacity:.35;pointer-events:none;}
   .srs-btn{flex:1;padding:12px 4px;border-radius:14px;border:none;display:flex;flex-direction:column;align-items:center;gap:3px;}
@@ -29759,8 +29763,8 @@ function renderSwipe(){
     cardHtml = `
     <div class="swipe-card ${swipeState.flipped?'flipped':''}" onclick="flipSwipe()">
       <div class="sc-head">
-        <p class="sc-viet${cjkCls()}" style="display:block;">${wordDisplay(c.word, c.p)}</p>
-        ${(c.p && showExerciseRom()) ? `<p class="sc-pron" style="display:block;">${c.p}</p>` : ''}
+        <p class="sc-viet sc-word${cjkCls()}" style="display:block;" onclick="event.stopPropagation();replayCardAudio()">${wordDisplay(c.word, c.p)}<span class="sc-say">🔊</span></p>
+        ${(c.p && showExerciseRom()) ? `<p class="sc-pron" style="display:block;">${spacedReading(c.p)}</p>` : ''}
         <div class="freq-num-pill" style="background:${TIER_COLOR[c.star]};">${rankLabel} most common</div>
         <p class="sc-eng" style="display:${swipeState.flipped?'block':'none'};">${gloss || '(no gloss yet for this word)'}</p>
       </div>
@@ -29769,7 +29773,7 @@ function renderSwipe(){
           ${examples.map(ex=>`
             <div class="sc-note" onclick="event.stopPropagation();playAudio('${ex.id}', '${ex.v.replace(/'/g,"\\'")}', currentAccent)">
               <div class="sc-note-row">
-                <p class="sn-v">${ex.v}</p>
+                <p class="sn-v${cjkCls()}">${ex.v}</p>
                 <span class="mini-speak">🔊</span>
               </div>
               ${(ex.p && showExerciseRom()) ? `<p class="sn-p">${ex.p}</p>` : ''}
@@ -29797,11 +29801,16 @@ function renderSwipe(){
       <p class="sc-hint">${swipeState.flipped ? '' : 'Tap to flip'}</p>
     </div>`;
   } else if(swipeState.mode==='lvocab'){
-    // Front is the word alone; the back adds the lesson's own gloss and the
-    // line of this lesson's dialogue that uses it, so the word is re-met in the
-    // sentence it was introduced in.
-    if(swipeState.flipped && c.ex){
-      playAudio(c.audioId, c.v, currentAccent, ()=>{ playAudio(c.ex.id, c.ex.v, currentAccent); });
+    /* Front is the word alone; the back adds the gloss and every example the
+       course can offer at this lesson's level. Gathered once per card, not on
+       every render, because it walks the whole course. */
+    if(swipeState.exFor !== swipeState.idx){
+      swipeState.exList = gradedExamples(c.v, lessonById(c.lessonId), 4);
+      swipeState.exFor = swipeState.idx;
+    }
+    const exs = swipeState.exList || [];
+    if(swipeState.flipped && exs.length){
+      playAudio(c.audioId, c.v, currentAccent, ()=>{ playAudio(exs[0].id, exs[0].v, currentAccent); });
     } else {
       playAudio(c.audioId, c.v, currentAccent);
     }
@@ -29809,20 +29818,21 @@ function renderSwipe(){
     <div class="swipe-card ${swipeState.flipped?'flipped':''}" onclick="flipSwipe()">
       <div class="quiz-label">🃏 ${swipeState.lessonTitle||'Lesson words'}</div>
       <div class="sc-head">
-        <p class="sc-viet${cjkCls()}" style="display:block;">${c.v}</p>
-        ${(c.p && showExerciseRom()) ? `<p class="sc-pron" style="display:block;">${c.p}</p>` : ''}
+        <p class="sc-viet sc-word${cjkCls()}" style="display:block;" onclick="event.stopPropagation();replayCardAudio()">${c.v}<span class="sc-say">🔊</span></p>
+        ${(c.p && showExerciseRom()) ? `<p class="sc-pron" style="display:block;">${spacedReading(c.p)}</p>` : ''}
         <p class="sc-eng" style="display:${swipeState.flipped?'block':'none'};">${c.e}</p>
       </div>
-      ${swipeState.flipped && c.ex ? `
+      ${swipeState.flipped && exs.length ? `
         <div class="sc-notes">
-          <div class="sc-note" onclick="event.stopPropagation();playAudio('${c.ex.id}', '${c.ex.v.replace(/'/g,"\\'")}', currentAccent)">
+          ${exs.map(ex=>`
+          <div class="sc-note" onclick="event.stopPropagation();playAudio('${ex.id}', '${String(ex.v).replace(/'/g,"\\'")}', currentAccent)">
             <div class="sc-note-row">
-              <p class="sn-v">${wrapWords(c.ex.v)}</p>
+              <p class="sn-v${cjkCls()}">${wrapWords(ex.v)}</p>
               <span class="mini-speak">🔊</span>
             </div>
-            ${(c.ex.p && showExerciseRom()) ? `<p class="sn-p">${c.ex.p}</p>` : ''}
-            <p class="sn-e">${c.ex.e}</p>
-          </div>
+            ${(ex.p && showExerciseRom()) ? `<p class="sn-p">${ex.p}</p>` : ''}
+            <p class="sn-e">${ex.e}</p>
+          </div>`).join('')}
         </div>` : ''}
       <p class="sc-hint">${swipeState.flipped ? '' : 'Tap to flip'}</p>
     </div>`;
@@ -29937,6 +29947,27 @@ function renderSwipe(){
       <button class="srs-btn good" onclick="gradeCard(2)"><span class="sb-label">Good</span><span class="sb-time">${iv.good}</span></button>
       <button class="srs-btn easy" onclick="gradeCard(3)"><span class="sb-label">Easy</span><span class="sb-time">${iv.easy}</span></button>
     </div>`;
+}
+/* Tapping the characters replays the word. The card itself flips on tap, so
+   this stops propagation — otherwise hearing it again would also turn it over
+   and there would be no way to listen twice before answering. */
+/* Vocabulary entries store the reading unspaced (cam4zyu6hei3) while sentences
+   store it spaced (cam4 zyu6 hei3), so the same card showed both conventions —
+   the headword run together and the examples underneath spaced out. Split on
+   the tone digit, which is what ends every syllable in jyutping. Left alone if
+   it is already spaced, and left alone entirely for courses whose romanisation
+   is not syllable-tone-numbered. */
+function spacedReading(p){
+  const t = String(p || '').trim();
+  if(!t || /\s/.test(t)) return t;
+  if(!/[1-6]/.test(t)) return t;
+  return t.replace(/([a-z]+[1-6])(?=[a-z])/gi, '$1 ');
+}
+function replayCardAudio(){
+  if(!swipeState) return;
+  const c = swipeState.deck[swipeState.idx];
+  if(!c) return;
+  playAudio(c.audioId || c.srsId, c.word || c.v, currentAccent);
 }
 function flipSwipe(){
   if(swipeState.flipped) return;
@@ -33999,12 +34030,213 @@ let lessonVocabReturnTo = null; // lesson to reopen when the drill closes
 // The payoff over a bare word list: each card carries the first line of THIS
 // lesson's dialogue that actually uses the word, so you see it in the sentence
 // you just read rather than stranded on its own.
+/* ============== GRADED EXAMPLE SENTENCES FOR LESSON VOCAB ==============
+   The lesson-words deck used to look for one example, in one place: a line of
+   THIS lesson's dialogue that happened to contain the word. Anything the
+   dialogue did not use got nothing at all — 53% of the Cantonese vocab cards,
+   1,283 of 2,413, showed a bare word with no sentence under it. Japanese was
+   worse at 70%.
+
+   Widening the search to the whole course rescues almost all of them, but a
+   plain search is the wrong fix on its own: it would hand a lesson-3 learner a
+   sixty-syllable C1 turn because that turn happens to contain 我. So examples
+   are GRADED and capped by where the lesson sits in the course.
+
+   Difficulty of a sentence = the hardest word in it, plus a length penalty.
+   "Hardest" is the frequency rank the course itself assigns; a word the
+   frequency list has never heard of is usually a name or a place, so it takes a
+   moderate default rather than counting as maximally hard — otherwise 我係阿明
+   would be rated harder than anything in C1.
+
+   The ceiling for a lesson is the hardest word taught up to and including it,
+   with slack, and a floor so the first lessons are not left with nothing. Within
+   the ceiling the examples are SPREAD rather than all taken from the easy end,
+   so a later lesson sees sentences worth its level instead of four trivial ones. */
+
+let _exRankCache = null, _exRankLang = null;
+function exampleRankMap(){
+  if(_exRankLang === state.language && _exRankCache) return _exRankCache;
+  const m = new Map();
+  /* 999999 is the sentinel the frequency deck uses for a word the course
+     teaches but the corpus never recorded — the "Off the list" bucket. Copying
+     it in here would rate every sentence containing a name, a piece of slang or
+     a C1 discourse item as maximally hard, which knocked 恐怕 and 話唔定 out of
+     their own lessons' examples. Those words get their lesson position below
+     instead, which is what they actually have. */
+  try{ wordStudyPool().forEach(w => { if(w.word && w.rank < 99999 && !m.has(w.word)) m.set(w.word, w.rank); }); }catch(e){}
+  // Lesson vocab that the frequency list does not carry still has an order: the
+  // lesson that teaches it. 18 words a lesson is the course's own pacing.
+  try{
+    activeLessons().forEach((l, li) => (l.vocab||[]).forEach(v => {
+      if(v.v && !m.has(v.v)) m.set(v.v, (li + 1) * 18);
+    }));
+  }catch(e){}
+  _exRankCache = m;
+  _exRankLang = state.language;
+  return m;
+}
+function resetExampleRanks(){ _exRankCache = null; _exRankLang = null; _exCeilCache = null; }
+
+// A word nobody has ranked is usually a proper noun. Treating it as rank
+// infinity made 我係阿明 score harder than a C1 turn, so it gets a middling
+// default instead — present, but not disqualifying.
+const EX_UNKNOWN_RANK = 1200;
+function wordRankFor(w){
+  const m = exampleRankMap();
+  return m.has(w) ? m.get(w) : EX_UNKNOWN_RANK;
+}
+function sentenceDifficulty(v){
+  if(!v) return { rank: EX_UNKNOWN_RANK, len: 0, score: EX_UNKNOWN_RANK };
+  let parts;
+  try{ parts = segmentTarget(v); }catch(e){ parts = [String(v)]; }
+  if(!parts.length) parts = [String(v)];
+  let worst = 0;
+  parts.forEach(t => { const r = wordRankFor(t); if(r > worst) worst = r; });
+  /* Length is counted in WORDS, not characters. Characters are not comparable
+     across the courses: 你好啊！我係阿明。is nine characters and Chào bạn, khỏe
+     không? is twenty-one, and they are the same size of sentence. A
+     character cap tuned on Cantonese blanked 73% of the Vietnamese cards the
+     moment it shipped. segmentTarget already knows how each course splits. */
+  const len = parts.length;
+  // Rank dominates; length breaks ties and keeps a long easy sentence behind a
+  // short one of the same vocabulary.
+  return { rank: worst, len, score: worst + len * 15 };
+}
+
+let _exCeilCache = null;
+function lessonDifficultyCeiling(lesson){
+  if(!lesson) return Infinity;
+  if(!_exCeilCache || _exRankLang !== state.language){ exampleRankMap(); _exCeilCache = new Map(); }
+  if(_exCeilCache.has(lesson.id)) return _exCeilCache.get(lesson.id);
+  const lessons = activeLessons();
+  const idx = lessons.findIndex(l => l.id === lesson.id);
+  let worst = 0;
+  for(let i = 0; i <= (idx < 0 ? lessons.length - 1 : idx); i++){
+    (lessons[i].vocab||[]).forEach(v => { const r = wordRankFor(v.v); if(r > worst && r < 99999) worst = r; });
+  }
+  // Slack, and a floor: with no slack a lesson-1 learner qualifies for nothing,
+  // and an empty example block is what this whole change exists to fix.
+  const ceil = Math.max(worst * 1.8 + 250, 400);
+  _exCeilCache.set(lesson.id, ceil);
+  return ceil;
+}
+
+/* A flashcard example has to be readable at a glance. Some of the sentences in
+   the course are whole C1 turns — sixty syllables of one person holding the
+   floor — and however well they match on vocabulary they are not examples, they
+   are paragraphs. The cap grows with the course so a late lesson can still show
+   something with shape to it. */
+/* Nothing above this is ever shown as an example, however well it matches and
+   however bare the card would otherwise be. Past about forty characters a
+   sentence is a C1 turn — several sentences of one person holding the floor —
+   and it stops teaching the word and starts burying it. Measured cost of the
+   cap across the Cantonese course: a handful of examples dropped and a handful
+   of cards that lose their only one. Worth it. Splitting those turns into their component
+   sentences was the other option and was rejected: the English gloss and the
+   recording both belong to the WHOLE turn, so a fragment would be captioned and
+   voiced with something that is not what it says. */
+const EX_HARD_MAX_LEN = 22;
+function lessonExampleMaxLen(lesson){
+  const lessons = activeLessons();
+  const idx = lesson ? lessons.findIndex(l => l.id === lesson.id) : -1;
+  const through = lessons.length ? Math.max(0, idx) / lessons.length : 0;
+  return Math.round(7 + through * 8);   // 7 words early, 15 by the end
+}
+
+/* Gather every sentence in the course that uses this word, nearest source
+   first. The lesson's own dialogue leads because the learner has just read it,
+   so the word is being re-met in the context it was introduced in — which was
+   the one thing the old single-example version got right. */
+function gatherExampleCandidates(word, lesson){
+  const w = String(word || '').toLowerCase().normalize('NFC');
+  if(!w) return [];
+  const out = [];
+  const seen = new Set();
+  const spaced = isSpaceDelimitedCourse();
+  const hit = v => {
+    const s = String(v || '').toLowerCase().normalize('NFC');
+    if(!s) return false;
+    if(!spaced) return s.includes(w);
+    // A space-delimited course must match whole words, or "an" matches "and".
+    const toks = s.replace(/[\/\-]/g,' ').replace(/[.,!?;:()"'…，。？！、]/g,'').split(/\s+/);
+    return toks.includes(w) || s.includes(w + ' ') || s.endsWith(w);
+  };
+  const take = (v, p, e, id, home) => {
+    if(!v || !e || seen.has(v) || v === word) return;
+    if(!hit(v)) return;
+    seen.add(v);
+    out.push({ v, p: p || '', e, id, home: !!home });
+  };
+  if(lesson){
+    (lesson.dialogue||[]).forEach((d,i)=>take(d.v, d.p, d.e, `lesson_${lesson.id}_d${i}`, true));
+    (lesson.cards||[]).forEach((c,i)=>take(c.v, c.p, c.e, `lesson_${lesson.id}_${i}`, true));
+  }
+  try{
+    activeLessons().forEach(l => {
+      if(lesson && l.id === lesson.id) return;
+      (l.dialogue||[]).forEach((d,i)=>take(d.v, d.p, d.e, `lesson_${l.id}_d${i}`));
+      (l.cards||[]).forEach((c,i)=>take(c.v, c.p, c.e, `lesson_${l.id}_${i}`));
+    });
+  }catch(e){}
+  try{ activePacks().forEach(pk => pk.cards.forEach((c,i)=>take(c.v, c.p, c.e, `pack_${pk.id}_${i}`))); }catch(e){}
+  try{ Object.entries(activeSosPhrases()).forEach(([wid,arr]) => arr.forEach((c,i)=>take(c.v, c.p, c.e, `sos_${wid}_${i}`))); }catch(e){}
+  return out;
+}
+
+/* Pick up to `limit`, graded to the lesson.
+
+   Sentences over the ceiling are dropped, unless dropping them would leave
+   almost nothing — an example that is slightly too hard beats a blank card, and
+   the blank card is the bug being fixed. Whatever survives is sorted easiest
+   first and then SPREAD: the first pick is always the simplest, and the rest
+   are taken at even intervals across the range, so a C1 lesson is not shown
+   four sentences it outgrew a hundred lessons ago. The lesson's own dialogue
+   jumps the queue regardless. */
+function gradedExamples(word, lesson, limit){
+  limit = limit || 4;
+  const all = gatherExampleCandidates(word, lesson);
+  if(!all.length) return [];
+  const ceil = lessonDifficultyCeiling(lesson);
+  all.forEach(x => { x.d = sentenceDifficulty(x.v); });
+
+  const maxLen = lessonExampleMaxLen(lesson);
+  let pool = all.filter(x => x.d.rank <= ceil && x.d.len <= maxLen);
+  // Relax in steps rather than all at once, so a card that has to break one
+  // rule breaks the smaller one. Never go blank over a threshold — the blank
+  // card is the bug this whole thing exists to fix.
+  /* Relax only when there is NOTHING, not merely when there is little. The
+     first version relaxed below two, which let a 125-character C1 turn in
+     beside a perfectly good nine-character card just to make up the number.
+     One good example beats one good example and a paragraph. */
+  if(!pool.length) pool = all.filter(x => x.d.len <= Math.min(maxLen * 1.7, EX_HARD_MAX_LEN));
+  if(!pool.length) pool = all.filter(x => x.d.rank <= ceil && x.d.len <= EX_HARD_MAX_LEN);
+  if(!pool.length) pool = all.filter(x => x.d.len <= EX_HARD_MAX_LEN);
+
+  const home = pool.filter(x => x.home).sort((a,b)=> a.d.score - b.d.score);
+  const rest = pool.filter(x => !x.home).sort((a,b)=> a.d.score - b.d.score);
+
+  const out = home.slice(0, 2);
+  const want = limit - out.length;
+  if(want > 0 && rest.length){
+    if(rest.length <= want){
+      out.push(...rest);
+    } else {
+      // easiest, then evenly spaced across what is left
+      const picked = new Set([0]);
+      for(let k = 1; k < want; k++) picked.add(Math.round(k * (rest.length - 1) / (want - 1 || 1)));
+      [...picked].sort((a,b)=>a-b).forEach(i => { if(rest[i]) out.push(rest[i]); });
+    }
+  }
+  return out.slice(0, limit);
+}
+
 function lessonVocabPool(l){
   if(!l || !(l.vocab||[]).length) return [];
   const dialogue = l.dialogue || [];
   return l.vocab.map((v,i)=>{
-    const needle = String(v.v||'').toLowerCase();
-    const ex = dialogue.find(d => String(d.v||'').toLowerCase().includes(needle)) || null;
+    /* Examples are gathered lazily — a lesson has 12 to 18 words and scanning
+       the whole course for every one of them on deck build would cost more than
+       the deck is worth. The card asks for them when it renders. */
     return {
       // p (and the example's p) are carried so the card can print the jyutping
       // under the characters. They were dropped here, which is why the Lesson
@@ -34012,7 +34244,7 @@ function lessonVocabPool(l){
       v: v.v, p: v.p || '', e: v.e,
       srsId: `lvocab_${l.id}_${i}`,
       audioId: `lesson_${l.id}_v${i}`,
-      ex: ex ? { v: ex.v, p: ex.p || '', e: ex.e, id: `lesson_${l.id}_d${dialogue.indexOf(ex)}` } : null,
+      lessonId: l.id,
     };
   });
 }
