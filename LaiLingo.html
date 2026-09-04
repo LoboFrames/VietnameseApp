@@ -27061,96 +27061,99 @@ function completedForLevel(lv){ return LESSONS.filter(l=>l.level===lv && state.c
    Tagalog's only spoken corpus is 95,194 tokens — under Control 1's floor.
    Both fall through to the shared curve and the card says why. */
 
-/* --- Cantonese. Deck-anchored, held out by conversation. --------------------
-   Two caveats stated on the card: the deck was itself built from HKCanCor
-   frequency, so deck and test corpus are the same 58 conversations from the
-   same era, and Heaps' law (V = K*N^0.531) projects that speech to ~237,000
-   distinct words at a 110M-token scale against the 6,324 actually present.
-   Held-out-by-file removes overfitting to particular words; it cannot conjure
-   a tail the corpus never had. These numbers describe casual conversation
-   about everyday things, which is exactly what this course is for. */
-const COVERAGE_YUE = [ { pct:50, words:43 },  { pct:60, words:73 },
-                       { pct:70, words:141 }, { pct:80, words:365 },
-                       { pct:85, words:675 }, { pct:90, words:1430 } ];
+/* --- Cantonese. Spontaneous recorded conversation — the best source here. ----
+   HKCanCor: 119,696 words of real Hong Kong people talking to each other, not
+   scripted. Ranked on four fifths of the 58 conversations and scored on the
+   fifth it had never seen, five ways round; the figures below are the means.
+   In-sample the same corpus reads 43/70/125/282/483/933, so held-out costs
+   about 14% at 80% and much more above that — which is the corpus being small,
+   not the method being wrong.
 
-/* --- Vietnamese. Deck-anchored against 26.1M words of subtitles. ------------
-   Vietnamese writes spaces between SYLLABLES, and this course's word list is
-   syllables too — tôi, không, là, anh — so deck and corpus count the same
-   thing with no conversion. That is why Vietnamese climbs faster than the
-   others: its syllable inventory is small and closed-ish, where a Mandarin or
-   Spanish "word" is a much larger space. Not the language being easier. */
+   It stops at 90% because 95% was unreachable in four folds out of five. Two
+   limits stated on the card: these are 58 conversations from one project and
+   one era, and Heaps' law (V = K*N^0.531) projects this speech to about 237,000
+   distinct words at a full-size corpus scale against the 6,289 actually in it.
+   Held-out scoring removes overfitting to particular words; it cannot conjure a
+   tail the corpus never had. */
+const COVERAGE_YUE = [ { pct:50, words:43 },  { pct:60, words:71 },
+                       { pct:70, words:130 }, { pct:80, words:321 },
+                       { pct:85, words:601 }, { pct:90, words:1458 } ];
+
+/* --- Vietnamese. 26.1M words of screen dialogue. ---------------------------
+   Vietnamese writes spaces between SYLLABLES, so that is what is counted on
+   both sides — tôi, không, là, anh. Its syllable inventory is small and nearly
+   closed, which is why this curve climbs faster than the others. That is a fact
+   about the writing system, not about the language being easier. */
 const COVERAGE_VI  = [ { pct:50, words:83 },   { pct:60, words:147 },
-                       { pct:70, words:260 },  { pct:80, words:488 },
-                       { pct:85, words:698 },  { pct:90, words:1086 },
-                       { pct:95, words:2345 } ];
+                       { pct:70, words:260 },  { pct:80, words:485 },
+                       { pct:85, words:689 },  { pct:90, words:1048 },
+                       { pct:95, words:1992 } ];
 
-/* --- Mandarin. 77.8M words of Simplified subtitles, word-segmented. ---------
-   zh_cn deliberately, not zh_tw: this course is Simplified and the two lists
-   do not share word strings. Mandarin is the slowest curve here because
-   segmented Chinese compounds are numerous and the corpus is large enough to
-   show the whole tail. */
+/* --- Mandarin. 77.8M words of Simplified screen dialogue, word-segmented. ---
+   zh_cn deliberately, not zh_tw: this course is Simplified and the two lists do
+   not share word strings. The slowest curve in the app, because segmented
+   Chinese compounds are numerous and this corpus is large enough to show the
+   whole tail rather than flattering itself. */
 const COVERAGE_ZH  = [ { pct:50, words:115 },   { pct:60, words:280 },
                        { pct:70, words:798 },   { pct:80, words:2630 },
                        { pct:85, words:5184 },  { pct:90, words:11314 },
                        { pct:95, words:32038 } ];
 
-/* --- Japanese. Lemmas, because the deck is lemmas. --------------------------
-   The Japanese deck lists dictionary forms (する, 思う, 行く), so the corpus
-   was lemmatised to match before counting — 行っ, 行き and 行く are one item on
-   both sides. Two things the card must say and does: this is a blended corpus
-   rather than a purely spoken one, because no adequately segmented spoken
-   Japanese source was reachable; and the deck teaches CONTENT words only —
-   は が を に の と で も です ます are taught in the grammar lessons and are
-   not cards, yet they are about 40% of all tokens. So deck progress alone
-   under-counts against this curve by design. */
-const COVERAGE_JA  = [ { pct:50, words:58 },    { pct:60, words:185 },
-                       { pct:70, words:621 },   { pct:80, words:1870 },
-                       { pct:85, words:3274 },  { pct:90, words:6089 },
-                       { pct:95, words:13765 } ];
+/* --- Korean. 6.3M words of screen dialogue, morphologically analysed. -------
+   Korean writes spaces between EOJEOL, which glue particles onto stems, and in
+   that unit 80% needs about 36,900 items — a number that says more about Korean
+   orthography than about learning Korean. Every eojeol was therefore analysed
+   into its morphemes, with verbs and adjectives restored to their dictionary
+   form (먹었어요 -> 먹다 + 었 + 어요), which is the unit a Korean course teaches.
+   Particles and endings count as items, exactly as "the" counts in English. */
+const COVERAGE_KO  = [ { pct:50, words:44 },    { pct:60, words:84 },
+                       { pct:70, words:182 },   { pct:80, words:471 },
+                       { pct:85, words:867 },   { pct:90, words:1781 },
+                       { pct:95, words:4624 } ];
 
-/* --- English. 693M words of subtitles: the largest corpus here. -------------
-   Worth reading beside Nation (2006), who puts the first 1,000 WORD FAMILIES
-   at 81-84% of spoken English. This says 767 surface words for 80% — the two
-   agree closely once you remember a family folds run/runs/running/ran into one
-   item. That agreement across two units and two methods is the best evidence
-   in this file that the method is sound. It is also the independent check on
-   Migaku's "1,000 words is 80-85%": here 1,000 words lands at 82.5%. */
+/* --- English. 693M words of screen dialogue: the largest corpus here. -------
+   The independent check on everything else in this file. Nation (2006) puts the
+   first 1,000 WORD FAMILIES at 81-84% of spoken English; this says 767 surface
+   words for 80%, and the two agree closely once you allow that a family folds
+   run/runs/running/ran into one item. Migaku's "1,000 words is 80-85% of
+   everyday speech" also lands inside its own range here: 1,000 words is 82.5%. */
 const COVERAGE_EN  = [ { pct:50, words:64 },    { pct:60, words:121 },
                        { pct:70, words:276 },   { pct:80, words:767 },
                        { pct:85, words:1490 },  { pct:90, words:3265 },
                        { pct:95, words:9425 } ];
 
-/* --- Spanish. 422M words of subtitles. -------------------------------------
-   The clearest demonstration of Control 2 in the app. Davies' Corpus del
-   Español puts 1,000 LEMMAS at 88% of spoken Spanish; measured in the surface
-   words this app counts, 1,000 words is about 72%. Both are correct. Spanish
-   conjugation is why: hablar/hablo/hablas/habló are one lemma and four cards.
-   That is a real fact about learning Spanish, not a discrepancy. */
+/* --- Spanish. 422M words of screen dialogue. -------------------------------
+   Davies' Corpus del Español puts 1,000 LEMMAS at 88% of spoken Spanish;
+   counted in the individual words a deck teaches, 1,000 is about 72%. Both are
+   right — hablar/hablo/hablas/habló is one lemma and four cards, and Spanish
+   conjugation is the whole of that gap. */
 const COVERAGE_ES  = [ { pct:50, words:94 },    { pct:60, words:214 },
                        { pct:70, words:571 },   { pct:80, words:1823 },
                        { pct:85, words:3501 },  { pct:90, words:7464 },
                        { pct:95, words:20421 } ];
 
-/* --- Thai. WRITTEN, and the card says so on every rung. ---------------------
-   The Thai National Corpus, 33.1M words, properly word-segmented — the only
-   Thai source of adequate size that exists in a reachable form. It is written
-   Thai: books, news, academic and web prose. Control 3 showed the written-to-
-   spoken correction does not transfer between languages, so it is NOT applied.
-   These figures are therefore an upper bound: spoken Thai will need fewer
-   words than this, by an amount nobody here can honestly quantify. */
-const COVERAGE_TH  = [ { pct:50, words:146 },   { pct:60, words:297 },
-                       { pct:70, words:595 },   { pct:80, words:1225 },
-                       { pct:85, words:1836 },  { pct:90, words:2952 },
-                       { pct:95, words:5547 } ];
+/* --- Japanese, Thai and Tagalog: no spoken corpus was reachable. ------------
+   The standing rule for this app is real spoken language, so a written or
+   blended corpus is not an acceptable substitute here — testing showed the
+   written-to-spoken correction is 3.3x in English and 1.7x in Spanish, so there
+   is no constant that could convert one into the other. What failed, exactly:
 
-/* --- Korean and Tagalog only. -----------------------------------------------
-   Migaku's cross-language rule of thumb, verified: "the 1,000 most common
-   words in any language account for roughly 80-85% of everyday speech", and
-   the next 1,000 add another 5-7%. Used ONLY where measurement failed, and the
-   note on those two courses says which failure it was. Its shape is checked
-   against the six measured curves above: 1,000 words is 82.5% in English,
-   about 72% in Spanish and about 94% in Vietnamese, so "roughly 80-85%" is a
-   fair middle and a fair thing to fall back to. */
+     ja  Both subtitle frequency lists are corrupt. The 2018 one has okurigana
+         stripped out of its verbs (言 for 言う) and no particles at all; the
+         2016 one is single characters rather than words. A blended corpus,
+         lemmatised, gives 1,870 for 80% — that is a real measurement, but of
+         writing as much as speech, so it is not used as the curve.
+     th  636,000 Thai tokens, of which only a third are intact dictionary words
+         (Thai has no spaces, so whitespace tokenising cuts words in half), and
+         43% of the file is leaked English. The Thai National Corpus is clean and
+         large but is WRITTEN: it gives 1,225 for 80%, an upper bound.
+     tl  95,194 tokens — far under the floor set below.
+
+   All three fall back to Migaku's cross-language rule of thumb, verified: "the
+   1,000 most common words in any language account for roughly 80-85% of
+   everyday speech", and the next 1,000 add another 5-7%. Checked against the six
+   measured curves above, 1,000 words is 82.5% in English, about 72% in Spanish
+   and about 94% in Vietnamese — so it is a fair middle and a fair fallback. */
 const COVERAGE_GENERIC = [ { pct:50, words:220 }, { pct:60, words:370 }, { pct:70, words:600 },
                            { pct:80, words:1000 }, { pct:85, words:1800 },
                            { pct:90, words:3500 }, { pct:95, words:9000 } ];
@@ -27171,25 +27174,25 @@ const CHAR_ZH  = [ { pct:80, words:500 }, { pct:90, words:1000 },
 
 const COVERAGE_SOURCE = {
   yue: { kind:'measured',
-         note:'Measured on HKCanCor — 119,696 words of recorded Hong Kong conversation — scoring THIS COURSE’S OWN 2,402-word deck against conversations it had never been tested on, five ways round. 43 words is half of everything said; 365 is 80%. It stops at 90% because the full deck only ever reaches 91.9% of that corpus, so 95% was unreachable in all five folds. Two honest limits: the deck was built from this same corpus, and Heaps’ law projects this speech to about 237,000 distinct words at a full-size corpus scale against the 6,324 actually in it.' },
+         note:'Measured on HKCanCor — 119,696 words of spontaneous recorded Hong Kong conversation, the only genuinely unscripted corpus in this app. The word list was ranked on four fifths of the 58 conversations and scored on the fifth it had never seen, five ways round. It stops at 90% because 95% was unreachable in four folds out of five. Two limits: these are 58 conversations from one project and one era, and Heaps’ law projects this speech to about 237,000 distinct words at full-corpus scale against the 6,289 actually in it.' },
   vi2: { kind:'measured',
-         note:'Measured against 26.1 million words of Vietnamese speech, scoring THIS COURSE’S OWN 2,758-word deck — 2,752 of which appear in that corpus. Vietnamese puts spaces between syllables and this course’s list is syllables too, so both sides count the same thing. That shared unit is why Vietnamese climbs faster than the other courses here, not the language being easier.' },
+         note:'Measured on 26.1 million words of Vietnamese screen dialogue. Vietnamese puts spaces between SYLLABLES, so syllables are what is counted — tôi, không, là, anh. Its syllable inventory is small and nearly closed, which is why this curve climbs faster than the others here. That is the writing system, not the language being easier.' },
   vi:  { kind:'measured',
-         note:'Measured against 26.1 million words of Vietnamese speech, scoring the course’s own syllable list. Vietnamese puts spaces between syllables and this list is syllables too, so both sides count the same thing — which is why this curve climbs faster than the others here.' },
+         note:'Measured on 26.1 million words of Vietnamese screen dialogue, counted in syllables — the units Vietnamese puts spaces between. The small, nearly closed syllable inventory is why this climbs faster than the other courses here.' },
   zh:  { kind:'measured',
-         note:'Measured on 77.8 million words of Simplified Mandarin speech, word-segmented. Mandarin is the slowest curve in the app because segmented Chinese compounds are numerous and this corpus is large enough to show the whole tail rather than flattering itself. Characters are a far kinder question — switch the unit above.' },
-  ja:  { kind:'measured',
-         note:'Measured on a blended Japanese corpus, lemmatised first so that 行っ, 行き and 行く count as the one dictionary form this course’s cards teach. Two limits worth knowing: no adequately segmented SPOKEN Japanese corpus was reachable, so this includes written sources; and the word deck teaches content words only — は, が, を, に, の are taught in the grammar lessons rather than as cards, yet they are about 40% of everything said. Card progress alone therefore under-counts against this curve.' },
+         note:'Measured on 77.8 million words of Simplified Mandarin screen dialogue, word-segmented. The slowest curve in the app: segmented Chinese compounds are numerous, and this corpus is large enough to show the whole tail rather than flattering itself. Characters are a far kinder question — switch the unit above.' },
+  ko:  { kind:'measured',
+         note:'Measured on 6.3 million words of Korean screen dialogue. Korean writes spaces between eojeol, which glue particles onto stems, and counted that way 80% would need about 36,900 items — a fact about Korean spelling rather than about learning Korean. Every eojeol was analysed into its morphemes instead, with verbs and adjectives restored to dictionary form (먹었어요 → 먹다 + 었 + 어요), which is what a course actually teaches.' },
   en:  { kind:'measured',
-         note:'Measured on 693 million words of English speech, the largest corpus in this app. Worth reading beside Nation (2006), who puts the first 1,000 WORD FAMILIES at 81–84% of spoken English: this says 767 individual words for 80%, and the two agree closely once you allow that a family folds run/runs/running/ran into a single item.' },
+         note:'Measured on 693 million words of English screen dialogue, the largest corpus in this app and the check on all the others. Nation (2006) puts the first 1,000 WORD FAMILIES at 81–84% of spoken English; this says 767 individual words for 80%, and the two agree closely once you allow that a family folds run/runs/running/ran into one item.' },
   es:  { kind:'measured',
-         note:'Measured on 422 million words of Spanish speech. Davies’ Corpus del Español puts 1,000 LEMMAS at 88% of spoken Spanish; counted in the individual words this app teaches, 1,000 is about 72%. Both are right — hablar/hablo/hablas/habló is one lemma and four cards. Spanish conjugation is the whole of that gap.' },
-  th:  { kind:'written',
-         note:'Measured on the Thai National Corpus — 33.1 million words, properly word-segmented, and the only Thai source of adequate size available. It is WRITTEN Thai: books, news and web prose. Spoken Thai needs fewer words than this, so treat every rung as an upper bound. The written-to-spoken correction was not applied because it was shown not to transfer between languages — in English it is 3.3x, in Spanish 1.7x.' },
-  ko:  { kind:'estimated',
-         note:'Korean is the one course here with no honest measurement. Korean writes with spaces between eojeol, which glue particles onto stems, and in that unit 80% coverage needs about 36,900 items where the same corpus in morphemes needs about 2,100 — an eighteen-fold difference from the definition of “word” alone. No spoken Korean corpus segmented into the unit this course teaches was reachable, so this falls back to Migaku’s cross-language rule of thumb: roughly 1,000 words for 80–85% of everyday speech.' },
+         note:'Measured on 422 million words of Spanish screen dialogue. Davies’ Corpus del Español puts 1,000 LEMMAS at 88% of spoken Spanish; counted in the individual words a deck teaches, 1,000 is about 72%. Both are right — hablar/hablo/hablas/habló is one lemma and four cards, and conjugation is the whole of that gap.' },
+  ja:  { kind:'estimated',
+         note:'No usable spoken Japanese corpus was reachable. Both subtitle frequency lists are corrupt: the newer one has the okurigana stripped out of its verbs (言 for 言う) and carries no particles at all, the older one is single characters rather than words. A blended corpus of writing and speech, lemmatised, gives 1,870 words for 80% — a real measurement, but not of conversation, and the written-to-spoken correction was shown not to transfer between languages. So this falls back to Migaku’s cross-language rule of thumb: roughly 1,000 words for 80–85% of everyday speech.' },
+  th:  { kind:'estimated',
+         note:'No usable spoken Thai corpus was reachable. The subtitle data holds only 636,000 Thai tokens, of which about a third are intact dictionary words — Thai is written without spaces, so splitting on whitespace cuts words in half — and 43% of the file is leaked English. The Thai National Corpus is clean and large but WRITTEN, and puts 1,000 words at about 78%; spoken Thai would need fewer. This falls back to Migaku’s cross-language rule of thumb instead of pretending a written figure is a spoken one.' },
   tl:  { kind:'estimated',
-         note:'The only spoken Tagalog corpus reachable here is 95,194 words, and testing on English and Spanish showed a corpus that small reports 80% roughly right but cannot resolve 95% at all. Rather than publish a curve that flatters itself, this falls back to Migaku’s cross-language rule of thumb: roughly 1,000 words for 80–85% of everyday speech.' },
+         note:'No usable spoken Tagalog corpus was reachable — the only one available is 95,194 words, and testing on English and Spanish showed a corpus that small reports 80% roughly right but cannot resolve 95% at all. This falls back to Migaku’s cross-language rule of thumb: roughly 1,000 words for 80–85% of everyday speech.' },
 };
 
 let coverageUnit = 'words';    // 'words' | 'chars'
@@ -27229,10 +27232,10 @@ function coverageTiers(){
   if(L === 'yue') return COVERAGE_YUE;
   if(L === 'vi' || L === 'vi2') return COVERAGE_VI;
   if(L === 'zh') return COVERAGE_ZH;
-  if(L === 'ja') return COVERAGE_JA;
+  if(L === 'ko') return COVERAGE_KO;
   if(L === 'en') return COVERAGE_EN;
   if(L === 'es') return COVERAGE_ES;
-  if(L === 'th') return COVERAGE_TH;
+  // ja, th and tl have no reachable spoken corpus — see the block above
   return COVERAGE_GENERIC;
 }
 function coverageKind(){
@@ -27240,15 +27243,14 @@ function coverageKind(){
   return (COVERAGE_SOURCE[state.language] || {}).kind || 'estimated';
 }
 function coverageIsMeasured(){ return coverageKind() === 'measured'; }
-/* Deck-anchored means the curve was scored against this course's own cards, so
-   the percentage answers "if I master N cards HERE, how many words will I
-   recognise" rather than "how does an idealised frequency list behave". Only
-   the two courses with a real frequency spine qualify. */
-function coverageIsDeckAnchored(){
-  if(coverageUnit === 'chars') return false;
-  const L = state.language;
-  return L === 'yue' || L === 'vi' || L === 'vi2';
-}
+/* Two curves were briefly scored against this app's OWN decks. That was wrong
+   and is retired: the decks are still being built out, so their coverage is a
+   moving target that would drift every time a word was added, and it measured
+   the deck rather than the language. Every curve here is now top-N of an outside
+   corpus against that same corpus — the standard method, and the one Migaku's
+   published figures use. Kept as a function returning false so no caller has to
+   change and nothing can quietly start claiming deck anchoring again. */
+function coverageIsDeckAnchored(){ return false; }
 function coverageNote(){
   if(coverageUnit === 'chars' && courseHasCharacters()) return charNote();
   const s = COVERAGE_SOURCE[state.language];
@@ -34123,15 +34125,15 @@ function coverageDocHtml(){
      constant here and a different one there is how the card ended up claiming
      Japanese figures for Vietnamese. */
   const OTHERS = [
-    { id:'yue', name:'Cantonese',  unit:'words',     src:'120k words of recorded conversation' },
-    { id:'vi2', name:'Vietnamese', unit:'syllables', src:'26M words of speech' },
-    { id:'ja',  name:'Japanese',   unit:'dictionary forms', src:'blended corpus, lemmatised' },
-    { id:'zh',  name:'Mandarin',   unit:'words',     src:'78M words of speech' },
-    { id:'en',  name:'English',    unit:'words',     src:'693M words of speech' },
-    { id:'es',  name:'Spanish',    unit:'words',     src:'422M words of speech' },
-    { id:'th',  name:'Thai',       unit:'words',     src:'33M words of WRITING' },
-    { id:'ko',  name:'Korean',     unit:'—',         src:'no usable corpus' },
-    { id:'tl',  name:'Tagalog',    unit:'—',         src:'corpus too small' },
+    { id:'yue', name:'Cantonese',  unit:'words',     src:'120k words of unscripted recorded conversation' },
+    { id:'ko',  name:'Korean',     unit:'morphemes', src:'6.3M words of screen dialogue, analysed' },
+    { id:'vi2', name:'Vietnamese', unit:'syllables', src:'26M words of screen dialogue' },
+    { id:'en',  name:'English',    unit:'words',     src:'693M words of screen dialogue' },
+    { id:'es',  name:'Spanish',    unit:'words',     src:'422M words of screen dialogue' },
+    { id:'zh',  name:'Mandarin',   unit:'words',     src:'78M words of screen dialogue' },
+    { id:'ja',  name:'Japanese',   unit:'—',         src:'subtitle data corrupt — no spoken corpus' },
+    { id:'th',  name:'Thai',       unit:'—',         src:'636k usable tokens — no spoken corpus' },
+    { id:'tl',  name:'Tagalog',    unit:'—',         src:'95k tokens — no spoken corpus' },
   ];
   const here = state.language;
   const rowFor = o => {
@@ -34170,7 +34172,7 @@ function coverageDocHtml(){
     <h4>The ladder for ${lang}</h4>
     <div class="cov-doc-tiers">${tiers.map(t =>
       `<div class="cov-doc-tier"><span>${t.est ? '≈' : ''}${t.pct}%</span><b>${t.words.toLocaleString()}</b><i>${coverageUnitLabel()}s</i></div>`).join('')}</div>
-    <p class="cov-doc-note">${coverageIsDeckAnchored() ? '<b>Scored against this course’s own cards</b>, not an idealised list — so the rungs are what mastering that many cards here is actually worth. ' : ''}${coverageNote()}</p>
+    <p class="cov-doc-note">${coverageNote()}</p>
   </div>
 
   <div class="cov-doc-block">
@@ -34195,9 +34197,10 @@ function coverageDocHtml(){
 
   <div class="cov-doc-block">
     <h4>What each course actually rests on</h4>
-    <p><b>Cantonese and Vietnamese are the strongest.</b> Their curves were scored against this app’s own decks — 2,402 and 2,758 cards — so a rung means "master this many cards and you will recognise this share of real speech". Cantonese also carries a caveat worth repeating: its deck was built from the same 58 conversations it is tested against, and Heaps’ law projects that speech to around 237,000 distinct words at full corpus scale against the 6,324 actually in it. Its whole deck reaches 91.9% of that corpus and no further, which is why 95% is not offered.</p>
-    <p><b>Mandarin, Japanese, English and Spanish</b> are measured on their own large corpora but not yet against a deck, because those courses still have a phrasebook rather than a frequency spine. <b>Thai</b> is measured on writing, so read it as an upper bound. <b>Korean and Tagalog</b> could not be measured at all and say so on the card.</p>
-    <p class="cov-doc-note">Migaku’s rule of thumb — 1,000 words for roughly 80–85% of everyday speech — is what Korean and Tagalog fall back to. It holds up well as a middle: measured here, 1,000 words is 82.5% in English, about 72% in Spanish and about 94% in Vietnamese.</p>
+    <p>Every curve above is the same calculation: take the most common words in a corpus of real speech, and see what share of everything said they account for. Nothing is scored against this app's own decks — those are still being built out, so their coverage would move every time a word was added, and it would measure the deck rather than the language.</p>
+    <p><b>Cantonese is the only unscripted one.</b> HKCanCor is 119,696 words of real Hong Kong people talking to each other. It was scored held-out — ranked on four fifths of the 58 conversations, measured on the fifth it had never seen — which is why it stops at 90%: 95% was out of reach in four folds of five. <b>Korean, Vietnamese, English, Spanish and Mandarin</b> rest on screen dialogue, which is written to be spoken and is the closest large-scale stand-in for conversation.</p>
+    <p><b>Japanese, Thai and Tagalog have no curve</b>, and that is deliberate. Japanese's subtitle data is corrupt in both available versions; Thai's is 43% leaked English with most words cut in half by whitespace splitting; Tagalog's is 95,194 words, far under the size floor. A written corpus exists for Thai and a blended one for Japanese, but the written-to-spoken gap was measured at 3.3× in English and 1.7× in Spanish, so there is no constant that could honestly convert them. Those three carry Migaku's cross-language rule of thumb and say so.</p>
+    <p class="cov-doc-note">That rule of thumb — 1,000 words for roughly 80–85% of everyday speech — holds up well as a middle. Measured independently here, 1,000 words is 82.5% in English, about 72% in Spanish and about 94% in Vietnamese.</p>
   </div>`;
 }
 function closeTool(){ document.getElementById('toolBackdrop').classList.remove('open'); }
