@@ -4921,7 +4921,7 @@
  },
  {
   "from": "lesson_yue_l12_v15",
-  "to": "word_yue_哩樣"
+  "to": "word_yue_呢樣"
  },
  {
   "from": "lesson_yue_l12_v16",
@@ -5885,7 +5885,7 @@
  },
  {
   "from": "lesson_yue_l19_v2",
-  "to": "word_yue_哩度"
+  "to": "word_yue_呢度"
  },
  {
   "from": "lesson_yue_l19_v3",
@@ -5962,6 +5962,10 @@
  {
   "from": "lesson_yue_l1_v3",
   "to": "word_yue_噉"
+ },
+ {
+  "from": "lesson_yue_l1_v4",
+  "to": "lesson_yue_l5_v5"
  },
  {
   "from": "lesson_yue_l1_v4",
@@ -8269,7 +8273,7 @@
  },
  {
   "from": "lesson_yue_l4_v7",
-  "to": "word_yue_哩個"
+  "to": "word_yue_呢個"
  },
  {
   "from": "lesson_yue_l4_v8",
@@ -9050,10 +9054,6 @@
  {
   "from": "lesson_yue_l5_v4",
   "to": "word_yue_咩"
- },
- {
-  "from": "lesson_yue_l5_v5",
-  "to": "word_yue_哩"
  },
  {
   "from": "lesson_yue_l5_v6",
@@ -10301,7 +10301,7 @@
  },
  {
   "from": "lesson_yue_l76_v0",
-  "to": "word_yue_哩排"
+  "to": "word_yue_呢排"
  },
  {
   "from": "lesson_yue_l76_v1",
@@ -10589,7 +10589,7 @@
  },
  {
   "from": "lesson_yue_l7_v1",
-  "to": "word_yue_哩啲"
+  "to": "word_yue_呢啲"
  },
  {
   "from": "lesson_yue_l7_v10",
