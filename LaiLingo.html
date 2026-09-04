@@ -968,13 +968,18 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
 
   .vocab-list-item{background:var(--surface);border-radius:16px;padding:16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;border:1px solid rgba(36,28,19,0.06);}
   .vocab-list-item .vv{font-size:17px;font-weight:800;color:var(--vermillion);margin:0 0 4px;line-height:1.3;}
+  /* The reading goes between the characters and the English everywhere it
+     appears, so the eye always finds it in the same place. */
+  .vocab-list-item .vp{font-size:12px;color:var(--muted);font-family:'IBM Plex Mono',monospace;margin:0 0 4px;line-height:1.35;}
   .vocab-list-item .ve{font-size:12.5px;color:var(--muted);font-style:italic;margin:0;}
   .vocab-list-btns{display:flex;gap:6px;flex-shrink:0;}
 
   .say-it-wrap{margin:auto 0;text-align:center;}
   .say-it-wrap .save-icon{background:var(--surface);border:none;color:var(--rice);width:40px;height:40px;border-radius:10px;font-size:16px;margin-bottom:14px;}
   .say-it-wrap .speak-icon{display:block;margin:0 auto 18px;background:var(--gold);color:var(--ink);border:none;width:44px;height:44px;border-radius:12px;font-size:17px;}
-  .say-it-wrap h2{font-size:26px;font-weight:800;color:var(--vermillion);margin:0 0 10px;line-height:1.3;}
+  .say-it-wrap h2{font-size:26px;font-weight:800;color:var(--vermillion);margin:0 0 6px;line-height:1.3;}
+  .quiz-pron{font-size:13px;color:var(--muted);font-family:'IBM Plex Mono',monospace;margin:-6px 0 12px;text-align:center;line-height:1.35;}
+  .say-it-wrap .pron{font-size:14px;color:var(--muted);font-family:'IBM Plex Mono',monospace;margin:0 0 10px;line-height:1.35;}
   .say-it-wrap .eng{font-size:15px;color:var(--muted);font-style:italic;margin:0 0 30px;}
   .big-mic{width:110px;height:110px;border-radius:50%;background:var(--pink);border:none;color:var(--ink);font-size:38px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;}
   .say-it-wrap .hint{font-size:12px;font-weight:800;letter-spacing:.06em;color:var(--muted);margin:0 0 22px;}
@@ -1050,22 +1055,44 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
   .srs-badge{font-size:10px;font-weight:800;letter-spacing:.05em;padding:3px 8px;border-radius:6px;}
   .srs-badge.new{background:var(--sky);color:var(--ink);}
   .srs-badge.due{background:var(--gold);color:var(--ink);}
-  .swipe-card{background:var(--surface);border-radius:20px;padding:32px 22px;text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;margin-bottom:16px;cursor:pointer;border:1px solid rgba(36,28,19,0.07);overflow-y:auto;}
+  /* Spacing here is the flex `gap` and nothing else. Every <p> on this card was
+     also carrying the browser's default 1em top and bottom margin, which at the
+     38px CJK size meant 38px above and below the characters alone — about 150px
+     of dead space per card once the reading, the pill and the gloss added
+     theirs. That is what pushed the example sentences off the bottom and made
+     you scroll the word itself out of view to reach them.
+     `justify-content:safe center` rather than plain `center`: a centred flex
+     column that overflows puts its first child ABOVE the scroll origin, where
+     it cannot be scrolled back to — measured at -11px, so the top of the word
+     was already being clipped. `safe` falls back to flex-start when it would
+     overflow, which is the behaviour you want in every case. */
+  .swipe-card{background:var(--surface);border-radius:20px;padding:22px 20px;text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;justify-content:safe center;gap:10px;margin-bottom:16px;cursor:pointer;border:1px solid rgba(36,28,19,0.07);overflow-y:auto;}
+  .swipe-card > p{margin:0;}
+  /* The head — characters, reading, and whatever label the mode adds — sticks to
+     the top of the card while the example sentences scroll under it. Reaching
+     the examples used to mean scrolling the word itself out of view, which is
+     the one thing the examples are there to illustrate. The negative top pulls
+     it flush with the card's own padding; the shadow only appears once
+     something has actually scrolled beneath it. */
+  .sc-head{position:sticky;top:-22px;z-index:2;width:100%;display:flex;flex-direction:column;
+    align-items:center;gap:8px;background:var(--surface);padding:22px 0 10px;margin:-22px 0 0;}
+  .sc-head > p{margin:0;}
   .swipe-card .sc-eng{font-size:19px;font-weight:800;line-height:1.35;}
   .swipe-card .sc-viet{font-size:20px;font-weight:800;color:var(--gold);display:none;line-height:1.3;}
   .swipe-card .sc-pron{font-size:12px;color:var(--muted);font-family:'IBM Plex Mono',monospace;display:none;}
   .swipe-card.flipped .sc-eng{display:none;}
   .swipe-card.flipped .sc-viet, .swipe-card.flipped .sc-pron{display:block;}
-  .swipe-card .sc-hint{font-size:11px;color:var(--muted);margin-top:6px;}
-  .sc-notes{display:none;width:100%;text-align:left;border-top:1px solid rgba(36,28,19,0.1);margin-top:14px;padding-top:14px;}
+  .swipe-card .sc-hint{font-size:11px;color:var(--muted);margin-top:2px;}
+  .sc-notes{display:none;width:100%;text-align:left;border-top:1px solid rgba(36,28,19,0.1);margin-top:8px;padding-top:12px;}
   .swipe-card.flipped .sc-notes{display:block;}
-  .sc-note{margin-bottom:14px;cursor:pointer;border-radius:10px;padding:6px 8px;margin-left:-8px;margin-right:-8px;transition:background .1s ease;}
+  .sc-note{margin-bottom:10px;cursor:pointer;border-radius:10px;padding:6px 8px;margin-left:-8px;margin-right:-8px;transition:background .1s ease;}
   .sc-note:active{background:rgba(240,169,59,0.12);}
   .sc-note-row{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
   .sc-note-row .sn-v{flex:1;}
   .sc-note:last-child{margin-bottom:0;}
   .sc-note.italic .sn-v{font-style:italic;}
   .sc-note .sn-v{font-size:13.5px;font-weight:700;color:var(--rice);margin:0 0 3px;line-height:1.4;}
+  .sc-note .sn-p{font-size:11px;color:var(--muted);opacity:.85;margin:0 0 3px;font-family:'IBM Plex Mono',monospace;line-height:1.4;}
   .sc-note .sn-e{font-size:11.5px;color:var(--muted);margin:0;line-height:1.45;}
   .srs-actions{display:flex;gap:8px;}
   .srs-actions.disabled{opacity:.35;pointer-events:none;}
@@ -27434,10 +27461,12 @@ function renderSwipe(){
     }
     cardHtml = `
     <div class="swipe-card ${swipeState.flipped?'flipped':''}" onclick="flipSwipe()">
-      <p class="sc-viet${cjkCls()}" style="display:block;">${wordDisplay(c.word, c.p)}</p>
-      ${(c.p && showRomanisation()) ? `<p class="sc-pron" style="display:block;">${c.p}</p>` : ''}
-      <div class="freq-num-pill" style="background:${TIER_COLOR[c.star]};margin:8px 0;">${rankLabel} most common</div>
-      <p class="sc-eng" style="display:${swipeState.flipped?'block':'none'};">${gloss || '(no gloss yet for this word)'}</p>
+      <div class="sc-head">
+        <p class="sc-viet${cjkCls()}" style="display:block;">${wordDisplay(c.word, c.p)}</p>
+        ${(c.p && showRomanisation()) ? `<p class="sc-pron" style="display:block;">${c.p}</p>` : ''}
+        <div class="freq-num-pill" style="background:${TIER_COLOR[c.star]};">${rankLabel} most common</div>
+        <p class="sc-eng" style="display:${swipeState.flipped?'block':'none'};">${gloss || '(no gloss yet for this word)'}</p>
+      </div>
       ${examples.length ? `
         <div class="sc-notes">
           ${examples.map(ex=>`
@@ -27461,8 +27490,11 @@ function renderSwipe(){
     playAudio(c.srsId, c.v, currentAccent);
     cardHtml = `
     <div class="swipe-card ${swipeState.flipped?'flipped':''}" onclick="flipSwipe()">
-      <p class="sc-viet" style="display:block;">${wrapWords(c.v)}</p>
-      ${showRomanisation() ? `<p class="sc-pron" style="display:${swipeState.flipped?'block':'none'};">${c.p||''}</p>` : ''}
+      <p class="sc-viet${cjkCls()}" style="display:block;">${wrapWords(c.v)}</p>
+      ${/* the characters are on the FRONT of this card, so the reading belongs
+            there with them — hiding it until the flip made the front a
+            character-recognition test, which is not what this mode is. */
+        showRomanisation() ? `<p class="sc-pron" style="display:block;">${c.p||''}</p>` : ''}
       <p class="sc-eng" style="display:${swipeState.flipped?'block':'none'};">${c.e}</p>
       <p class="sc-hint">${swipeState.flipped ? '' : 'Tap to flip'}</p>
     </div>`;
@@ -27478,8 +27510,11 @@ function renderSwipe(){
     cardHtml = `
     <div class="swipe-card ${swipeState.flipped?'flipped':''}" onclick="flipSwipe()">
       <div class="quiz-label">🃏 ${swipeState.lessonTitle||'Lesson words'}</div>
-      <p class="sc-viet" style="display:block;">${c.v}</p>
-      <p class="sc-eng" style="display:${swipeState.flipped?'block':'none'};">${c.e}</p>
+      <div class="sc-head">
+        <p class="sc-viet${cjkCls()}" style="display:block;">${c.v}</p>
+        ${(c.p && showRomanisation()) ? `<p class="sc-pron" style="display:block;">${c.p}</p>` : ''}
+        <p class="sc-eng" style="display:${swipeState.flipped?'block':'none'};">${c.e}</p>
+      </div>
       ${swipeState.flipped && c.ex ? `
         <div class="sc-notes">
           <div class="sc-note" onclick="event.stopPropagation();playAudio('${c.ex.id}', '${c.ex.v.replace(/'/g,"\\'")}', currentAccent)">
@@ -27487,6 +27522,7 @@ function renderSwipe(){
               <p class="sn-v">${wrapWords(c.ex.v)}</p>
               <span class="mini-speak">🔊</span>
             </div>
+            ${(c.ex.p && showRomanisation()) ? `<p class="sn-p">${c.ex.p}</p>` : ''}
             <p class="sn-e">${c.ex.e}</p>
           </div>
         </div>` : ''}
@@ -27585,9 +27621,11 @@ function renderSwipe(){
       </div>` : '';
     cardHtml = `
     <div class="swipe-card ${swipeState.flipped?'flipped':''}" onclick="flipSwipe()">
-      <p class="sc-eng">${c.e}</p>
-      <p class="sc-viet">${wrapWords(c.v)}</p>
-      ${showRomanisation() ? `<p class="sc-pron">${c.p||''}</p>` : ''}
+      <div class="sc-head">
+        <p class="sc-eng">${c.e}</p>
+        <p class="sc-viet${cjkCls()}">${wrapWords(c.v)}</p>
+        ${showRomanisation() ? `<p class="sc-pron">${c.p||''}</p>` : ''}
+      </div>
       ${noteHtml}
       <p class="sc-hint">${swipeState.flipped ? '' : 'Tap to flip'}</p>
     </div>`;
@@ -28635,7 +28673,7 @@ function buildSteps(type, source){
     { kind:'speak', cardIdx: speakIdx1 },
     { kind:'speak', cardIdx: speakIdx2 },
     { kind:'culture', title: blurb2.title, body: blurb2.body },
-    { kind:'quiz', cardIdx: cards.indexOf(quizCard), quiz: buildQuiz(quizCard) },
+    { kind:'quiz', cardIdx: cards.indexOf(quizCard), quiz: buildQuiz(quizCard), pron: quizCard.p || '' },
   ];
   return steps;
 }
@@ -29628,7 +29666,7 @@ function renderStepScreen(){
       const saved = state.savedPhrases.some(p=>p.v===c.v);
       return `
       <div class="vocab-list-item">
-        <div><p class="vv">${wrapWords(c.v)}</p><p class="ve">${c.e}</p></div>
+        <div><p class="vv${cjkCls()}">${wrapWords(c.v)}</p>${(c.p && showRomanisation()) ? `<p class="vp">${c.p}</p>` : ''}<p class="ve">${c.e}</p></div>
         <div class="vocab-list-btns">
           <button class="icon-btn" onclick="speakCard(${i})">🔊</button>
           <button class="icon-btn" onclick="savePhraseAt(${i})">${saved?'✓':'♡'}</button>
@@ -29645,7 +29683,8 @@ function renderStepScreen(){
       <div class="say-it-wrap">
         <button class="save-icon" onclick="savePhraseAt(${step.cardIdx})">${saved?'♥':'♡'}</button>
         <button class="speak-icon" onclick="speakCard(${step.cardIdx})">🔊</button>
-        <h2>${c.v}</h2>
+        <h2${cjkCls()?' class="cjk"':''}>${c.v}</h2>
+        ${(c.p && showRomanisation()) ? `<p class="pron">${c.p}</p>` : ''}
         <p class="eng">"${c.e}"</p>
         <button class="big-mic" onclick="trySpeak()">🎙️</button>
         <p class="hint" id="micResult">HOLD TO SPEAK</p>
@@ -29671,6 +29710,7 @@ function renderStepScreen(){
     body.innerHTML = `
       <div class="quiz-label">ⓘ Pop quiz</div>
       <p class="quiz-q">What does "${wrapWords(q.question)}" mean?<button class="speak-icon-btn" onclick="speakCard(${step.cardIdx})">🔊</button></p>
+      ${(step.pron && showRomanisation()) ? `<p class="quiz-pron">${step.pron}</p>` : ''}
       <div id="quizOptions">
         ${q.options.map((opt,i)=>`<button class="quiz-option" onclick="answerQuiz(${i})">${opt}</button>`).join('')}
       </div>`;
@@ -31569,10 +31609,13 @@ function lessonVocabPool(l){
     const needle = String(v.v||'').toLowerCase();
     const ex = dialogue.find(d => String(d.v||'').toLowerCase().includes(needle)) || null;
     return {
-      v: v.v, e: v.e,
+      // p (and the example's p) are carried so the card can print the jyutping
+      // under the characters. They were dropped here, which is why the Lesson
+      // words deck was the one flashcard mode with no reading on it at all.
+      v: v.v, p: v.p || '', e: v.e,
       srsId: `lvocab_${l.id}_${i}`,
       audioId: `lesson_${l.id}_v${i}`,
-      ex: ex ? { v: ex.v, e: ex.e, id: `lesson_${l.id}_d${dialogue.indexOf(ex)}` } : null,
+      ex: ex ? { v: ex.v, p: ex.p || '', e: ex.e, id: `lesson_${l.id}_d${dialogue.indexOf(ex)}` } : null,
     };
   });
 }
