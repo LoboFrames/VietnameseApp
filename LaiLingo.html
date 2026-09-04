@@ -898,6 +898,32 @@
 .rom-setting-btn{display:block;width:100%;text-align:left;padding:11px 14px;border-radius:12px;
   border:1px solid rgba(36,28,19,0.14);background:var(--surface);font-weight:800;font-size:14px;color:var(--ink);}
 .rom-setting-note{font-size:11.5px;color:var(--muted);margin:6px 2px 0;line-height:1.45;}
+/* This modal is dark (#161616), so these rows use light-on-dark colours
+   explicitly rather than the app's default ink/muted, which are near-black and
+   rendered the Chinese invisible here. Each row stacks — the phrase on its own
+   line, then the reading and the gloss — because a long C1 turn on one line
+   with a reading beside it just runs off the edge. */
+.dd-studied{margin-top:14px;text-align:left;}
+.dd-list-title{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  color:rgba(255,255,255,.45);margin:14px 2px 6px;display:flex;justify-content:space-between;}
+.dd-list{max-height:240px;overflow-y:auto;border:1px solid rgba(255,255,255,.10);border-radius:12px;}
+.dd-item{display:block;width:100%;text-align:left;padding:9px 12px;background:transparent;border:none;
+  border-bottom:1px solid rgba(255,255,255,.07);}
+.dd-item:last-child{border-bottom:none;}
+.dd-item:active{background:rgba(255,255,255,.06);}
+.dd-item-v{display:block;font-weight:700;font-size:14px;color:rgba(255,255,255,.94);line-height:1.35;}
+.dd-item-v.cjk{font-size:16px;}
+.dd-item-p{display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+  color:rgba(255,255,255,.45);line-height:1.4;margin-top:1px;}
+.dd-item-e{display:block;font-size:11.5px;color:rgba(255,255,255,.6);line-height:1.4;margin-top:1px;}
+.dd-item-n{font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(255,255,255,.4);margin-left:6px;}
+.dd-note{font-size:11px;color:rgba(255,255,255,.4);margin:8px 2px 0;}
+/* A day with a card list behind it gets a dot, so walking back through months
+   shows where there is something to open. */
+button.cal-day{font:inherit;cursor:pointer;position:relative;}
+button.cal-day:active{transform:scale(.94);}
+.cal-day.logged::after{content:'';position:absolute;left:50%;bottom:3px;transform:translateX(-50%);
+  width:4px;height:4px;border-radius:50%;background:var(--gold);}
 .flag-pill .fp-icon{font-size:14px;line-height:1;}
 .flag-pill .fp-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:.86;}
 .app-toast{position:fixed;left:50%;bottom:150px;z-index:130;transform:translateX(-50%) translateY(8px);
@@ -20271,7 +20297,7 @@ function findExampleSentences(word, limit){
     });
     activePacks().forEach(pk=>pk.cards.forEach((c,i)=>considerSub(c.v, c.p, c.e, `pack_${pk.id}_${i}`)));
     Object.entries(activeSosPhrases()).forEach(([wid,arr])=>arr.forEach((c,i)=>considerSub(c.v, c.p, c.e, `sos_${wid}_${i}`)));
-    return examples;
+    return byLength(examples);
   }
   LESSONS.forEach(l=>l.cards.forEach((c,i)=>consider(c.v,c.e,`lesson_${l.id}_${i}`)));
   PACKS.forEach(p=>p.cards.forEach((c,i)=>consider(c.v,c.e,`pack_${p.id}_${i}`)));
@@ -20285,7 +20311,19 @@ function findExampleSentences(word, limit){
   Object.entries(SOS_PHRASES).forEach(([worldId,arr])=>arr.forEach((c,i)=>consider(c.v,c.e,`sos_${worldId}_${i}`)));
   CORE_PHRASES.forEach(c=>consider(c.v,c.e,`core_${c.rank}`));
   COMMON_PHRASES.forEach(c=>consider(c.v,c.e,`cphrase_${c.rank}`));
-  return examples;
+  return byLength(examples);
+}
+/* Shortest first. The card plays the word and then chains straight into the
+   first example, and the examples arrive in whatever order the lessons happen
+   to be scanned — which meant a two-line C1 turn could be the first thing you
+   heard after a single-character word. The shortest sentence that uses the word
+   is the one that shows it doing its job with the least around it, so it goes
+   first both on screen and in the audio. Order within the same length is left
+   alone, so it stays stable rather than reshuffling between renders. */
+function byLength(list){
+  return list.map((x,i)=>[x,i])
+    .sort((a,b)=> (String(a[0].v).length - String(b[0].v).length) || (a[1]-b[1]))
+    .map(x=>x[0]);
 }
 // The two hand-built decks carry more than a rank: a category, how hard the
 // word lands, what its pieces literally mean and how it behaves in use. Look
@@ -26132,6 +26170,7 @@ async function loadState(){
 }
 async function saveState(){
   state.lastModified = new Date().toISOString(); // powers the "who's actually newer" check in syncOnSignIn()
+  pruneStudyItems();
   try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
   catch(e){ console.error('save failed — storage may be full or unavailable', e); }
   queueCloudPush();
@@ -27176,7 +27215,16 @@ function renderStudyCalendar(){
     const dateKey = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
     const lvl = calIntensityLevel(daily[dateKey]);
     const isToday = dateKey === todayKey;
-    html += `<div class="cal-day ${lvl?'lvl'+lvl:''} ${isToday?'today':''}">${d}</div>`;
+    /* Every past day is a button. The month arrows already let you walk back
+       as far as you like; the cells being plain divs was what stopped you
+       actually opening one. `logged` marks the days that have a card list
+       behind them, so scrolling back you can see where there is something to
+       look at rather than tapping blindly. Future days stay inert. */
+    const logged = !!studiedOn(dateKey);
+    const cls = `cal-day ${lvl?'lvl'+lvl:''} ${isToday?'today':''} ${logged?'logged':''}`;
+    html += dateKey <= todayKey
+      ? `<button class="${cls}" onclick="openDayDetail('${dateKey}')">${d}</button>`
+      : `<div class="${cls}">${d}</div>`;
   }
   gridEl.innerHTML = html;
 }
@@ -27549,6 +27597,65 @@ if(typeof window !== 'undefined'){
 function getTodayWordCount(){
   if(!state.wordStudyLog || state.wordStudyLog.date !== todayStr()) return 0;
   return state.wordStudyLog.count;
+}
+/* What was studied on a given day, so a date on the calendar can show the
+   actual cards rather than only a minute count.
+
+   Shape: state.studyItems[langNamespace][YYYY-MM-DD][srsId] = times graded.
+   Only the id and a count are stored — the text is looked up at render time
+   from the decks themselves, which keeps this small enough to live in
+   localStorage next to everything else and means an edited gloss shows its new
+   wording rather than a stale copy. Namespaced by language so switching courses
+   does not mix two days together.
+
+   Kept for STUDY_LOG_DAYS days. A year of unbounded per-card logs would be the
+   largest thing in the save file by a wide margin, and nobody is scrolling back
+   further than a season. */
+const STUDY_LOG_DAYS = 200;
+function recordStudiedItem(srsId){
+  if(!srsId) return;
+  const ns = srsNs() || 'vi';
+  if(!state.studyItems) state.studyItems = {};
+  if(!state.studyItems[ns]) state.studyItems[ns] = {};
+  const day = state.studyItems[ns][todayStr()] || (state.studyItems[ns][todayStr()] = {});
+  day[srsId] = (day[srsId] || 0) + 1;
+}
+function pruneStudyItems(){
+  if(!state.studyItems) return;
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - STUDY_LOG_DAYS);
+  const oldest = cutoff.toISOString().slice(0,10);
+  Object.values(state.studyItems).forEach(byDay=>{
+    Object.keys(byDay).forEach(d=>{ if(d < oldest) delete byDay[d]; });
+  });
+}
+/* srsId -> the card it names, for the active course. Built once per language
+   from the same pools the decks are built from, so anything studiable resolves.
+   Ids from another course simply will not be here, which is correct: the day
+   view is per course. */
+let _srsIndex = null, _srsIndexLang = null;
+function srsCardIndex(){
+  if(_srsIndex && _srsIndexLang === state.language) return _srsIndex;
+  const m = new Map();
+  const add = (id, v, e, p, kind) => { if(id && v && !m.has(id)) m.set(id, {v, e:e||'', p:p||'', kind}); };
+  try{
+    wordStudyPool().forEach(w=>add(w.srsId, w.word, activeWordGloss(w.word), w.p, 'word'));
+    buildRankBuckets().forEach(b=>{
+      if(b.kind) wordStudyPool(b).forEach(w=>add(w.srsId, w.word, w.e || activeWordGloss(w.word), w.p, 'word'));
+    });
+    phraseStudyPool().forEach(c=>add(c.srsId, c.v, c.e, c.p, 'phrase'));
+    buildPhraseBuckets().forEach(b=>{
+      if(b.kind) phraseStudyPool(b).forEach(c=>add(c.srsId, c.v, c.e, c.p, 'phrase'));
+    });
+    activePacks().forEach(p=>p.cards.forEach((c,i)=>add(`pack_${p.id}_${i}`, c.v, c.e, c.p, 'phrase')));
+    activeLessons().forEach(l=>lessonVocabPool(l).forEach(c=>add(c.srsId, c.v, c.e, c.p, 'word')));
+  }catch(e){ /* a course with a pool still loading must not break the calendar */ }
+  _srsIndex = m; _srsIndexLang = state.language;
+  return m;
+}
+function studiedOn(dateKey){
+  const ns = srsNs() || 'vi';
+  return (state.studyItems && state.studyItems[ns] && state.studyItems[ns][dateKey]) || null;
 }
 function bumpTodayWordCount(){
   const today = todayStr();
@@ -28715,6 +28822,7 @@ function gradeCard(grade){
     if(grade===1) swipeState.hard++; else if(grade===2) swipeState.good++; else swipeState.easy++;
   }
   state.srs[card.srsId] = s;
+  recordStudiedItem(card.srsId);
   if(swipeState.mode==='mine') _mineKnownCache = null; // grading it makes the target a known word
   if(swipeState.mode==='word' || swipeState.mode==='lvocab'){ bumpTodayWordCount(); registerChallengeWordReview(); }
   else{ bumpTodayPhraseCount(); registerChallengePhraseSpoken(); } // 'phrase' (Core/pack/lesson) and 'cphrase' (Common Phrases) both count toward the phrase goal
@@ -32039,7 +32147,9 @@ function openDayDetail(dateKey){
 
   const seconds = (state.studyTime && state.studyTime.daily && state.studyTime.daily[dateKey]) || 0;
   const timeLabel = seconds > 0 ? formatDuration(seconds) : null;
-  const studiedAtAll = state.studyDates.includes(dateKey) || learnDone || reviewCount>0 || seconds>0;
+  const loggedItems = studiedOn(dateKey);
+  const loggedCount = loggedItems ? Object.keys(loggedItems).length : 0;
+  const studiedAtAll = state.studyDates.includes(dateKey) || learnDone || reviewCount>0 || seconds>0 || loggedCount>0;
 
   let bannerClass, statusText, subText;
   if(secured){
@@ -32050,7 +32160,8 @@ function openDayDetail(dateKey){
     subText = 'A skip token protected this day.';
   } else if(studiedAtAll){
     bannerClass = 'studied'; statusText = 'Some activity';
-    subText = timeLabel ? `${timeLabel} studied` : 'Partial progress this day.';
+    const cardBit = loggedCount ? `${loggedCount} card${loggedCount===1?'':'s'}` : '';
+    subText = [timeLabel ? `${timeLabel} studied` : '', cardBit].filter(Boolean).join(' · ') || 'Partial progress this day.';
   } else {
     bannerClass = 'empty'; statusText = 'No activity';
     subText = 'Nothing recorded for this day.';
@@ -32073,9 +32184,48 @@ function openDayDetail(dateKey){
       <p class="dd-sub">${subText}</p>
     </div>
     ${rowsHtml}
+    ${studiedListHtml(dateKey)}
     <button class="dd-close" onclick="closeDayDetail()">Close</button>
   `;
   document.getElementById('dayDetailBackdrop').classList.add('open');
+}
+/* The actual cards studied on a day, resolved from the ids logged at grading
+   time. Words and phrases are listed separately because they are different
+   kinds of work and the counts on the banner already treat them so. Anything
+   whose id no longer resolves — a card from another course, or content that has
+   since been removed — is counted but not listed, which is honest about the
+   gap rather than inventing a row for it.
+
+   Logging started when this was built, so days before that show the time and
+   the mission rows as they always did and simply have no list. */
+function studiedListHtml(dateKey){
+  const day = studiedOn(dateKey);
+  if(!day) return '';
+  const ids = Object.keys(day);
+  if(!ids.length) return '';
+  const index = srsCardIndex();
+  const words = [], phrases = [];
+  let unresolved = 0;
+  ids.forEach(id=>{
+    const card = index.get(id);
+    if(!card){ unresolved++; return; }
+    (card.kind === 'word' ? words : phrases).push({ ...card, n: day[id] });
+  });
+  const row = c => `
+    <button class="dd-item" onclick="showWordInfo('${String(c.v).replace(/'/g,"\\'")}')">
+      <span class="dd-item-v${cjkCls()}">${c.v}</span>
+      ${(c.p && showRomanisation()) ? `<span class="dd-item-p">${c.p}</span>` : ''}
+      <span class="dd-item-e">${c.e || ''}${c.n > 1 ? `<span class="dd-item-n">×${c.n}</span>` : ''}</span>
+    </button>`;
+  const block = (title, list) => list.length ? `
+    <p class="dd-list-title">${title} <span>${list.length}</span></p>
+    <div class="dd-list">${list.map(row).join('')}</div>` : '';
+  return `
+    <div class="dd-studied">
+      ${block('Words', words)}
+      ${block('Phrases', phrases)}
+      ${unresolved ? `<p class="dd-note">${unresolved} more from another course.</p>` : ''}
+    </div>`;
 }
 function closeDayDetail(){
   document.getElementById('dayDetailBackdrop').classList.remove('open');
