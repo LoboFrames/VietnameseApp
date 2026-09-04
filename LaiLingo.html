@@ -30140,8 +30140,16 @@ function handleChallengeCardClick(){
    Worlds since Chat Boss personas are tied to a world/character, not a
    single generic free-talk mode. */
 let lsnGroupMode = 'day'; // 'day' | 'topic' — which grouping the Lessons tab (accordion + illustrated card list) uses
-let lsnOpenGroups = {}; // { 'day_1': true, 'topic_Survival': false, ... } — collapsed state of lsnLessonList groups; a key defaults to OPEN unless explicitly set to false
-function isLsnGroupOpen(key){ return lsnOpenGroups[key] !== false; }
+// Collapsed state of the lsnLessonList groups, e.g. { 'yue_B2': true }.
+// A key defaults to CLOSED and is only open once it has been tapped. It used to
+// default to open, which meant the Lessons tab loaded with every level expanded
+// — with 126 Cantonese lessons that is a wall of cards you have to scroll past
+// to reach the level you actually want. Closed by default makes the top of the
+// page the list of levels, which is the thing you are choosing between.
+// It is deliberately NOT persisted: reopening the app puts you back at the
+// overview rather than wherever you happened to leave a level expanded.
+let lsnOpenGroups = {};
+function isLsnGroupOpen(key){ return lsnOpenGroups[key] === true; }
 function renderLessonsTab(){
   if(state.language==='vi2'){ renderLessonsTabVi2(); return; }
   if(state.language==='zh'){ renderLessonsTabZh(); return; }
