@@ -20532,6 +20532,32 @@ function lessonVocabAsWordList(){
   return out;
 }
 
+/* Words the course TEACHES that the frequency corpus does not contain, appended
+   to the study deck so they are not invisible.
+
+   The Cantonese corpus list is frozen at the count->=5 spine (1,514 words,
+   ranks 1-1,521). Everything from lesson 86 on comes from below that cutoff —
+   the count-4 and count-3 tiers — and the whole of C1 is discourse machinery
+   that was never chosen by frequency at all. That was 794 words the course
+   taught in lessons but which had no flashcard, no SRS card, and no row in
+   Browse: 揾食 and 執生 were on a lesson page and absent from the deck. It also
+   made the two totals disagree — the Lessons tab counted what is taught (2,376)
+   and the Cards tab counted the corpus (1,514) — which is how it was noticed.
+
+   They get rank 999999, which the existing bucket machinery already renders as
+   its own chip, because inventing a rank for them would be worse: a count-3
+   word and a C1 connective genuinely have no position on this list. */
+function taughtButUnranked(ranked){
+  const seen = new Set(ranked.map(w => w.word));
+  const out = [];
+  activeLessons().forEach(l => (l.vocab||[]).forEach(v => {
+    if(!v.v || seen.has(v.v)) return;
+    seen.add(v.v);
+    out.push({ word: v.v, p: v.p || '', rank: 999999, star: 3 });
+  }));
+  return out;
+}
+
 function buildWordFrequencyList(){
   if(_wordListCache && _wordListCacheLang === state.language) return _wordListCache;
   _wordListCacheLang = state.language;
@@ -20546,6 +20572,7 @@ function buildWordFrequencyList(){
     _wordListCache = FREQ_YUE
       .map(([w, jy], i) => ({ word: w, p: jy, rank: i + 1, star: i < 252 ? 5 : (i < 504 ? 4 : 3) }))
       .filter(w => !YUE_NOISE.has(w.word));
+    _wordListCache = _wordListCache.concat(taughtButUnranked(_wordListCache));
     return _wordListCache;
   }
   if(state.language === 'ja'){
@@ -20556,6 +20583,7 @@ function buildWordFrequencyList(){
       word: w, p: kana, rank: i + 1,
       star: i < 500 ? 5 : (i < 1500 ? 4 : 3)
     }));
+    _wordListCache = _wordListCache.concat(taughtButUnranked(_wordListCache));
     return _wordListCache;
   }
   if(!isVietnameseCourse()){
@@ -26225,7 +26253,9 @@ function buildRankBuckets(){
     const count = list.filter(w=>w.rank>=start && w.rank<=end).length;
     if(count>0) buckets.push({ id:`${start}-${end}`, label:`${start.toLocaleString()}–${end.toLocaleString()}`, min:start, max:end });
   }
-  if(list.some(w=>w.rank===999999)) buckets.push({ id:'unranked', label:'Unranked', min:999999, max:999999 });
+  // Not "Unranked" as in unknown — these are words the course teaches that sit
+  // below the corpus cutoff, or (all of C1) were never chosen by frequency.
+  if(list.some(w=>w.rank===999999)) buckets.push({ id:'unranked', label:'Off the list', min:999999, max:999999 });
   if(slangSource().vocab.length){
     // unshifted in reverse, so the row reads Work, Slang, Swearing, 1-500, ...
     buckets.unshift({ id:'swear', label:'\ud83e\udd2c Swearing', kind:'swear', min:1, max:99999 });
@@ -26530,10 +26560,14 @@ function renderFrequency(){
       // 'Not ranked' reads like a fault, so an off-corpus word says what it IS.
       // w.group is only set on the job pool, w.sev only on slang/swearing —
       // which is what tells them apart once a search has merged the pools.
+      // The last fallback used to be 'Not ranked', which now catches the words
+      // the course teaches from below the corpus cutoff — every count-4, count-3
+      // and C1 word. Those are not unranked in the sense of unknown; they are
+      // deliberately off the list, and the bucket chip says the same thing.
       const rankLabel = w.rank >= 999999
         ? (isWorkWords || (!isOwnList && w.group) ? 'Job word'
            : isTextWords ? 'typed'
-           : (isSlangWords || w.sev) ? (w.sev||'slang') : 'Not ranked')
+           : (isSlangWords || w.sev) ? (w.sev||'slang') : 'Off the list')
         : w.rank.toLocaleString();
       // merged results mix pools, so fall back per entry rather than per list
       const gloss = w.e || activeWordGloss(w.word);
@@ -27248,7 +27282,7 @@ function viewMasteredWords(){
   const mastered = wordStudyPool().filter(w=>isMasteredWord(w.srsId)).sort((a,b)=>a.rank-b.rank);
   document.getElementById('toolTitle').textContent = `Known words (${mastered.length})`;
   document.getElementById('toolBody').innerHTML = mastered.length ? mastered.map(w=>{
-    const gloss = activeWordGloss(w.word);   // same bug as the word card — see there
+    const gloss = w.e || activeWordGloss(w.word);   // deck gloss first — see the word card
     const wEsc = w.word.replace(/'/g,"\\'");
     return `
     <div class="freq-item" onclick="playAudio('${w.srsId}', '${wEsc}', currentAccent)">
@@ -28066,14 +28100,16 @@ function renderSwipe(){
   const iv = previewIntervals(c.srsId);
   let cardHtml;
   if(swipeState.mode==='word'){
-    /* activeWordGloss(), NOT WORD_GLOSS. WORD_GLOSS is the Vietnamese table;
-       every other course keeps its glosses in its own (YUE_GLOSS, JA_GLOSS…)
-       with lesson vocab taking precedence. Reading WORD_GLOSS directly meant
-       every non-Vietnamese word card in the app rendered "(no gloss yet for
-       this word)" — all 1,514 Cantonese words and all 3,000 Japanese ones —
-       while the glosses existed the whole time and the Browse tab showed them
-       correctly. */
-    const gloss = activeWordGloss(c.word);
+    /* The card's OWN gloss first, then activeWordGloss() as the fallback.
+       Both halves of this line were bugs in turn. It started as WORD_GLOSS —
+       the Vietnamese table — so every non-Vietnamese word card rendered "(no
+       gloss yet for this word)". Switching to activeWordGloss() fixed the
+       frequency decks but not the themed ones: Work, Slang and Swearing carry
+       their glosses on the deck entry itself (facilityVocab / slangDeck), and
+       those words are mostly not lesson vocab and not in YUE_GLOSS, so 349
+       cards still came up blank — 186 Work, 60 Slang, 103 Swearing — with the
+       English sitting right there in c.e the whole time. */
+    const gloss = c.e || activeWordGloss(c.word);
     const rankLabel = c.rank>=999999 ? 'Not ranked' : ('#' + c.rank.toLocaleString());
     const examples = swipeState.flipped ? findExampleSentences(c.word, 5) : [];
     // Plays on every card state change — front, and again on flip. On flip, chain
@@ -30966,8 +31002,17 @@ function renderLessonsTabYue(){
   const totalEl = document.getElementById('lsnWordsTotal');
   if(!totalEl) return; // view not in DOM yet, harmless no-op
 
-  const yueWordCount = LESSONS_YUE.reduce((sum,l)=>sum+(l.vocab||[]).length,0)
-    + CONCEPT_LESSONS_YUE.reduce((sum,c)=>sum+(c.blocks||[]).filter(b=>b.type==='vocab').reduce((s,b)=>s+b.words.length,0),0);
+  /* DISTINCT words, and lesson vocab only — so this agrees with the Cards tab
+     instead of contradicting it. Two things were wrong before. It summed
+     (l.vocab||[]).length across lessons, which double-counts the handful of
+     words taught in two places. And it added the concept lessons' vocab, which
+     is not vocabulary to master: 詩/史/試/時/市/事 in yue_c1 is a demonstration
+     of the six tones, and yue_c2's list is particles being explained. Those
+     have no cards and no audio ids, and counting them here inflated the
+     headline by 59 against a study deck that could never contain them. */
+  const yueWordCount = new Set(
+    LESSONS_YUE.flatMap(l => (l.vocab||[]).map(v => v.v).filter(Boolean))
+  ).size;
   const yueDialogueCount = LESSONS_YUE.reduce((sum,l)=>sum+(l.dialogue||[]).length,0);
   const yueGrammarCount = LESSONS_YUE.reduce((sum,l)=>sum+(l.grammar||[]).length,0);
 
