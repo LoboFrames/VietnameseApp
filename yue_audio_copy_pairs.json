@@ -2600,12 +2600,60 @@
   "to": "lesson_yue_l138_d5"
  },
  {
+  "from": "cphrase_yue_608",
+  "to": "lesson_yue_l139_d0"
+ },
+ {
+  "from": "cphrase_yue_609",
+  "to": "lesson_yue_l139_d1"
+ },
+ {
   "from": "cphrase_yue_61",
   "to": "lesson_yue_l16_0"
  },
  {
   "from": "cphrase_yue_61",
   "to": "lesson_yue_l16_d0"
+ },
+ {
+  "from": "cphrase_yue_610",
+  "to": "lesson_yue_l139_d2"
+ },
+ {
+  "from": "cphrase_yue_611",
+  "to": "lesson_yue_l139_d3"
+ },
+ {
+  "from": "cphrase_yue_612",
+  "to": "lesson_yue_l139_d4"
+ },
+ {
+  "from": "cphrase_yue_613",
+  "to": "lesson_yue_l139_d5"
+ },
+ {
+  "from": "cphrase_yue_614",
+  "to": "lesson_yue_l140_d0"
+ },
+ {
+  "from": "cphrase_yue_615",
+  "to": "lesson_yue_l140_d1"
+ },
+ {
+  "from": "cphrase_yue_616",
+  "to": "lesson_yue_l140_d2"
+ },
+ {
+  "from": "cphrase_yue_617",
+  "to": "lesson_yue_l140_d3"
+ },
+ {
+  "from": "cphrase_yue_618",
+  "to": "lesson_yue_l140_d4"
+ },
+ {
+  "from": "cphrase_yue_619",
+  "to": "lesson_yue_l140_d5"
  },
  {
   "from": "cphrase_yue_62",
@@ -2616,12 +2664,64 @@
   "to": "lesson_yue_l16_d1"
  },
  {
+  "from": "cphrase_yue_620",
+  "to": "lesson_yue_l141_d0"
+ },
+ {
+  "from": "cphrase_yue_621",
+  "to": "lesson_yue_l141_d1"
+ },
+ {
+  "from": "cphrase_yue_622",
+  "to": "lesson_yue_l141_d2"
+ },
+ {
+  "from": "cphrase_yue_623",
+  "to": "lesson_yue_l141_d3"
+ },
+ {
+  "from": "cphrase_yue_624",
+  "to": "lesson_yue_l141_d4"
+ },
+ {
+  "from": "cphrase_yue_625",
+  "to": "lesson_yue_l141_d5"
+ },
+ {
+  "from": "cphrase_yue_626",
+  "to": "lesson_yue_l142_d0"
+ },
+ {
+  "from": "cphrase_yue_627",
+  "to": "lesson_yue_l142_d1"
+ },
+ {
+  "from": "cphrase_yue_628",
+  "to": "lesson_yue_l142_d2"
+ },
+ {
+  "from": "cphrase_yue_629",
+  "to": "lesson_yue_l142_10"
+ },
+ {
+  "from": "cphrase_yue_629",
+  "to": "lesson_yue_l142_d3"
+ },
+ {
   "from": "cphrase_yue_63",
   "to": "lesson_yue_l16_2"
  },
  {
   "from": "cphrase_yue_63",
   "to": "lesson_yue_l16_d2"
+ },
+ {
+  "from": "cphrase_yue_630",
+  "to": "lesson_yue_l142_d4"
+ },
+ {
+  "from": "cphrase_yue_631",
+  "to": "lesson_yue_l142_d5"
  },
  {
   "from": "cphrase_yue_64",
@@ -5412,6 +5512,54 @@
   "to": "word_yue_走數"
  },
  {
+  "from": "lesson_yue_l139_v0",
+  "to": "word_yue_火燭"
+ },
+ {
+  "from": "lesson_yue_l139_v1",
+  "to": "word_yue_走火通道"
+ },
+ {
+  "from": "lesson_yue_l139_v10",
+  "to": "word_yue_冷靜"
+ },
+ {
+  "from": "lesson_yue_l139_v11",
+  "to": "word_yue_封鎖"
+ },
+ {
+  "from": "lesson_yue_l139_v2",
+  "to": "word_yue_疏散"
+ },
+ {
+  "from": "lesson_yue_l139_v3",
+  "to": "word_yue_滅火筒"
+ },
+ {
+  "from": "lesson_yue_l139_v4",
+  "to": "word_yue_報警"
+ },
+ {
+  "from": "lesson_yue_l139_v5",
+  "to": "word_yue_消防"
+ },
+ {
+  "from": "lesson_yue_l139_v6",
+  "to": "word_yue_讓開"
+ },
+ {
+  "from": "lesson_yue_l139_v7",
+  "to": "word_yue_總掣"
+ },
+ {
+  "from": "lesson_yue_l139_v8",
+  "to": "word_yue_現場"
+ },
+ {
+  "from": "lesson_yue_l139_v9",
+  "to": "word_yue_意外"
+ },
+ {
   "from": "lesson_yue_l13_v0",
   "to": "word_yue_寫"
  },
@@ -5482,6 +5630,150 @@
  {
   "from": "lesson_yue_l13_v9",
   "to": "word_yue_唔同"
+ },
+ {
+  "from": "lesson_yue_l140_v0",
+  "to": "word_yue_傷者"
+ },
+ {
+  "from": "lesson_yue_l140_v1",
+  "to": "word_yue_傷口"
+ },
+ {
+  "from": "lesson_yue_l140_v10",
+  "to": "word_yue_夾親"
+ },
+ {
+  "from": "lesson_yue_l140_v11",
+  "to": "word_yue_睇實"
+ },
+ {
+  "from": "lesson_yue_l140_v2",
+  "to": "word_yue_流血"
+ },
+ {
+  "from": "lesson_yue_l140_v3",
+  "to": "word_yue_止血"
+ },
+ {
+  "from": "lesson_yue_l140_v4",
+  "to": "word_yue_包紮"
+ },
+ {
+  "from": "lesson_yue_l140_v5",
+  "to": "word_yue_急救"
+ },
+ {
+  "from": "lesson_yue_l140_v6",
+  "to": "word_yue_昏迷"
+ },
+ {
+  "from": "lesson_yue_l140_v7",
+  "to": "word_yue_救護車"
+ },
+ {
+  "from": "lesson_yue_l140_v8",
+  "to": "word_yue_跌親"
+ },
+ {
+  "from": "lesson_yue_l140_v9",
+  "to": "word_yue_撞親"
+ },
+ {
+  "from": "lesson_yue_l141_v0",
+  "to": "word_yue_漏電"
+ },
+ {
+  "from": "lesson_yue_l141_v1",
+  "to": "word_yue_觸電"
+ },
+ {
+  "from": "lesson_yue_l141_v10",
+  "to": "word_yue_頂唔住"
+ },
+ {
+  "from": "lesson_yue_l141_v11",
+  "to": "word_yue_化學品"
+ },
+ {
+  "from": "lesson_yue_l141_v2",
+  "to": "word_yue_跳掣"
+ },
+ {
+  "from": "lesson_yue_l141_v3",
+  "to": "word_yue_短路"
+ },
+ {
+  "from": "lesson_yue_l141_v4",
+  "to": "word_yue_停電"
+ },
+ {
+  "from": "lesson_yue_l141_v5",
+  "to": "word_yue_通風"
+ },
+ {
+  "from": "lesson_yue_l141_v6",
+  "to": "word_yue_漏氣"
+ },
+ {
+  "from": "lesson_yue_l141_v7",
+  "to": "word_yue_手套"
+ },
+ {
+  "from": "lesson_yue_l141_v8",
+  "to": "word_yue_護目鏡"
+ },
+ {
+  "from": "lesson_yue_l141_v9",
+  "to": "word_yue_界親"
+ },
+ {
+  "from": "lesson_yue_l142_v0",
+  "to": "word_yue_事故"
+ },
+ {
+  "from": "lesson_yue_l142_v1",
+  "to": "word_yue_記錄"
+ },
+ {
+  "from": "lesson_yue_l142_v10",
+  "to": "word_yue_介意"
+ },
+ {
+  "from": "lesson_yue_l142_v11",
+  "to": "word_yue_趁"
+ },
+ {
+  "from": "lesson_yue_l142_v2",
+  "to": "word_yue_證人"
+ },
+ {
+  "from": "lesson_yue_l142_v3",
+  "to": "word_yue_口供"
+ },
+ {
+  "from": "lesson_yue_l142_v4",
+  "to": "word_yue_工傷"
+ },
+ {
+  "from": "lesson_yue_l142_v5",
+  "to": "word_yue_賠償"
+ },
+ {
+  "from": "lesson_yue_l142_v6",
+  "to": "word_yue_醫藥費"
+ },
+ {
+  "from": "lesson_yue_l142_v7",
+  "to": "word_yue_疏忽"
+ },
+ {
+  "from": "lesson_yue_l142_v8",
+  "to": "word_yue_承認"
+ },
+ {
+  "from": "lesson_yue_l142_v9",
+  "to": "word_yue_改善"
  },
  {
   "from": "lesson_yue_l14_v0",
