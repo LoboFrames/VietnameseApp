@@ -27037,16 +27037,16 @@ const COVERAGE_EN = [ { pct:82, words:1000 }, { pct:95, words:3000 }, { pct:98, 
 const COVERAGE_TH = [ { pct:42, words:100 }, { pct:78, words:1000 } ];
 
 const COVERAGE_SOURCE = {
-  yue: { kind:'measured', tiers:'yue',
-         note:'Measured on HKCanCor — 119,783 words of RECORDED CONVERSATION in Hong Kong, scored against conversations the word list had never seen. The only one of the nine courses with a real conversational corpus behind it. Stops at 90% because this corpus is too small to measure past it honestly.' },
-  ja:  { kind:'estimated',
-         note:'Spoken estimate. Japanese has no published conversational coverage study — the field lacks an equivalent of Nation’s work — so this uses the spoken curve. For contrast, Migaku’s Japanese NETFLIX SUBTITLES need 1,442 words for 80% and 37,247 for 99%; scripted drama ranges far wider than conversation does, which is why those figures are so much slower.' },
-  es:  { kind:'cited', tiers:'es',
-         note:'Davies’ Corpus del Espanol — 100 million words, with the SPOKEN register counted separately, which is the half used here. The first 1,000 lemmas cover 88% of spoken Spanish against only 76-80% of written; that gap is why this app never quotes a written figure.' },
-  en:  { kind:'cited', tiers:'en',
-         note:'Nation (2006) and the informal-SPOKEN-English studies after it — conversation, not writing. Counted in WORD FAMILIES, run/runs/running/ran as one, which is coarser than the unit used elsewhere in this app, so treat it as the friendly end of the range.' },
-  th:  { kind:'estimated',
-         note:'Spoken estimate. The one published Thai study is WRITTEN — 2.2 million words of news, web articles and forums, whose authors state that spoken frequency data was not available. It puts 1,000 words at 78%; conversation runs higher, which is what this curve reflects.' },
+  yue: { kind:'cited',
+         note:'Spoken figures from Migaku, whose own Japanese count is measured on 110 million words. Cantonese also has its own corpus here — HKCanCor, 119,783 words of recorded Hong Kong conversation — where 43 words cover half the tokens and 355 cover 80%. Those are real but narrow: one set of 58 conversations, and Heaps’ law projects that same speech to about 237,000 distinct words at Migaku’s corpus size. See Coverage curves in Quick tools.' },
+  ja:  { kind:'cited',
+         note:'Migaku’s own Japanese count, measured on the Netflix subtitles — 124,000 distinct words over about 110 million uses: 1,442 words for 80%, 2,688 for 85%, 5,243 for 90%, 12,041 for 95%, 37,247 for 99%. Subtitles are scripted and range wider than conversation, so everyday speech runs a little faster than that.' },
+  es:  { kind:'cited',
+         note:'Spoken figures from Migaku. Davies’ Corpus del Espanol puts 1,000 LEMMAS at 88% of spoken Spanish (against 76-80% of written), but a lemma collapses hablar/hablo/hablas into one item, so it is a coarser unit than the surface words this app counts and is not used as the curve.' },
+  en:  { kind:'cited',
+         note:'Spoken figures from Migaku. Nation (2006) puts the first 1,000 WORD FAMILIES at 81-84% of spoken English and 98% at 6,000-7,000, but a family folds run/runs/running/ran into one item, so it is a coarser unit than this app counts and is not used as the curve.' },
+  th:  { kind:'cited',
+         note:'Spoken figures from Migaku. The one published Thai study is WRITTEN — 2.2 million words of news, web articles and forums, whose authors state spoken frequency data was unavailable — and puts 1,000 words at 78%, close to the 80% used here.' },
 };
 /* An if-chain rather than a lookup table, deliberately. coverageTiers() is
    reached during boot, EARLIER than the other coverage functions, and any
@@ -27060,28 +27060,40 @@ const COVERAGE_SOURCE = {
    is genuinely closed. HKCanCor uses only 2,421 distinct characters across
    157,896 of them, so 499 characters covers 90% held-out, where the word list
    cannot reach 95% at all. Measured the same 5-fold way as the word curve. */
-/* The fallback curve, and the register rule for the whole feature: EVERY
-   percentage in this app is coverage of SPOKEN language. This course teaches
-   how people talk, so a figure counted off newspapers or film scripts would be
-   answering a different question.
+/* THE WORD CURVE, and why it is one curve for every course.
 
-   That rule changed this curve. It used to be anchored at 1,000 words = 80%,
-   which is a subtitle-and-writing figure. The genuinely spoken measurements sit
-   well above it:
+   Verified from Migaku: "The 1,000 most common words in any language account
+   for roughly 80-85% of everyday speech and informal writing", and "the next
+   1,000 words add maybe another 5-7%". Their own measured Japanese Netflix data
+   agrees in shape — 1,442 words for 80%, 2,688 for 85%.
 
-     Cantonese conversation, measured here, held out  ~88% at 1,000
-     Spanish spoken (Davies, Corpus del Espanol)       88% at 1,000
-     English spoken (Nation 2006)                      81-84% at 1,000
+   An earlier version of this curve was anchored on my own HKCanCor measurement
+   and put 80% at 355 words. That measurement is not wrong, but it answers a
+   narrower question than a learner is asking, and two checks show why.
 
-   So spoken conversation reaches roughly 86% at 1,000 words, not 80. The shape
-   below is the measured Cantonese conversational curve shifted about 15% right
-   — Cantonese being the only one of the nine with a real conversational corpus
-   behind it — which puts 1,000 words at 86.8%. It stops at 95% because spoken
-   English and Spanish both reach 94-95% around 3,000 and nothing verifiable
-   goes higher. */
-const COVERAGE_GENERIC = [ { pct:50, words:50 }, { pct:60, words:80 }, { pct:70, words:145 },
-                           { pct:75, words:220 }, { pct:80, words:355 }, { pct:85, words:670 },
-                           { pct:90, words:1610 }, { pct:95, words:4000 } ];
+   1. CORPUS SIZE. Subsampling HKCanCor and scoring held-out, the words needed
+      for 50% barely move (48 → 44 → 44 → 43 → 44 → 44 across 8k to 100k
+      tokens), so 43 really is stable. But the vocabulary itself grows as
+      V = K·N^0.531 — Heaps' law — and projecting HKCanCor to the 110 million
+      tokens Migaku counted gives about 237,000 distinct words against the
+      6,324 actually in it. Cross-validating inside a small corpus removes
+      overfitting to particular words; it cannot conjure the long tail that
+      corpus never contained. Both halves of HKCanCor are the same 58
+      conversations, same era, same topics.
+
+   2. UNIT. Nation counts word FAMILIES (run/runs/running/ran as one) and Davies
+      counts LEMMAS. A thousand lemmas is several thousand surface forms. This
+      app counts surface words, the same unit Migaku count, so 88% at 1,000
+      lemmas was never comparable to anything shown here.
+
+   So: 43 words is half of a casual conversation about everyday things, and that
+   is a real and interesting fact — the Coverage curves tool shows it, scoped.
+   But 1,000 words for 80% is the number to plan against, because it is measured
+   in this app's unit across the range of speech a learner actually meets. It is
+   also the more conservative claim, which is the right way to be wrong. */
+const COVERAGE_GENERIC = [ { pct:50, words:220 }, { pct:60, words:370 }, { pct:70, words:600 },
+                           { pct:80, words:1000 }, { pct:85, words:1800 },
+                           { pct:90, words:3500 }, { pct:95, words:9000 } ];
 const CHAR_YUE = [ { pct:50, words:44 }, { pct:60, words:69 }, { pct:70, words:117 },
                    { pct:80, words:219 }, { pct:85, words:312 }, { pct:90, words:499 },
                    { pct:95, words:896 } ];
@@ -27131,16 +27143,13 @@ function knownCharSet(){
   return s;
 }
 function knownCountForUnit(){ return coverageUnit === 'chars' ? knownCharSet().size : knownWordCount(); }
+/* One word curve for every course. The per-language curves that used to sit
+   here were in three different units — surface words, lemmas, word families —
+   and three different registers, so the same learner effort read as 80% in one
+   course and 50% in another for reasons that were about corpora rather than
+   languages. Each course still carries its own source in the note below. */
 function coverageTiers(){
   if(coverageUnit === 'chars' && courseHasCharacters()) return charTiers();
-  const L = state.language;
-  if(L === 'yue') return COVERAGE_MEASURED_YUE;
-  if(L === 'es')  return COVERAGE_ES;
-  if(L === 'en')  return COVERAGE_EN;
-  // ja and th deliberately fall through to the spoken generic: Migaku's figures
-  // are scripted subtitles and the Thai study is a written corpus. Both are kept
-  // in their notes for contrast, because the gap between them and conversation
-  // is itself worth seeing.
   return COVERAGE_GENERIC;
 }
 function coverageKind(){
@@ -27152,7 +27161,7 @@ function coverageNote(){
   if(coverageUnit === 'chars' && courseHasCharacters()) return charNote();
   const s = COVERAGE_SOURCE[state.language];
   if(s) return s.note;
-  return 'Spoken estimate, give or take a few points. Every figure in this app is coverage of SPEECH, not writing. Anchored on the conversational measurements that do exist — Cantonese and Spoken Spanish both put 1,000 words near 88%, spoken English at 81-84% — so this curve reaches about 87% there. This course has no conversational corpus of its own yet.';
+  return 'Spoken figures from Migaku: the 1,000 most common words in any language account for roughly 80-85% of everyday speech, and the next 1,000 add another 5-7%. Their own Japanese count, measured on 110 million words of subtitles, agrees in shape. Counted in individual words, the same unit this app counts.';
 }
 
 function knownWordCount(){
@@ -33915,11 +33924,14 @@ function coverageDocHtml(){
   <p class="cov-doc-lead">Every percentage in this app is coverage of <b>spoken</b> language — how many of the words in ordinary speech you would recognise. It is not how much you would understand. ${badge}</p>
 
   <div class="cov-doc-block">
-    <h4>Does ${half.words.toLocaleString()} words really cover ${half.pct}% of ${lang}?</h4>
-    <p>${measuredYue
-      ? 'Yes, and it is a counting result rather than an estimate. Across 119,783 words of recorded Hong Kong conversation, the top 43 words are spoken about 60,300 times. That is 50.4% of every word said. There is no modelling in it — you count the words and divide.'
-      : 'As a count of words, yes. The most frequent words in any language are pronouns, particles and copulas, and they repeat constantly, so a few dozen of them account for half of everything said. This course has no conversational corpus of its own, so the exact number is an estimate — but the shape is not in doubt.'}</p>
-    <p>What it does <b>not</b> mean is half the meaning. Here are real lines from this course with everything outside those ${half.words.toLocaleString()} words blanked out:</p>
+    <h4>Where these numbers come from</h4>
+    <p>Migaku, verified: <i>“the 1,000 most common words in any language account for roughly 80–85% of everyday speech”</i>, and the next 1,000 add another 5–7%. Their own Japanese count, measured across 110 million words of subtitles, agrees in shape. This app counts individual words, the same unit they do.</p>
+    ${measuredYue ? `<p><b>Cantonese has a second, narrower measurement.</b> In HKCanCor — 119,783 words of recorded Hong Kong conversation — the top 43 words are spoken about 60,300 times, which is 50.4% of every word said. That is a counting result, not an estimate. But it describes one set of 58 conversations on everyday topics, and Heaps’ law projects that same speech to roughly 237,000 distinct words at Migaku’s corpus size. So 43 is true of a casual chat; ${half.words.toLocaleString()} is the number to plan against for everything you will actually hear.</p>` : ''}
+  </div>
+
+  <div class="cov-doc-block">
+    <h4>${half.pct}% is not ${half.pct}% understood</h4>
+    <p>The most frequent words in any language are pronouns, particles and copulas, and they repeat constantly — which is why so few of them go so far. Here are real lines from this course with everything outside the top ${half.words.toLocaleString()} words blanked out:</p>
     ${lines.length ? `<div class="cov-doc-lines">${lines.map(l => `
       <div class="cov-doc-line">
         <div class="cv-sample${cjkCls()}">${l.html}</div>

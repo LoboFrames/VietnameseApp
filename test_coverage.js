@@ -30,62 +30,80 @@ for(const lang of LANGS){
   ok(cost.every((c, i) => i === 0 || c >= cost[i-1]), `${lang}: each point of coverage costs more than the last`);
 }
 
-section('the measured Cantonese curve is the measured one');
+section('the word curve is Migaku’s, in Migaku’s unit');
 selectLanguage('yue'); setCoverageUnit('words');
 {
-  ok(coverageIsMeasured(), 'Cantonese is flagged measured');
-  ok(/HKCanCor/.test(coverageNote()), 'and names the corpus it was measured on');
-  ok(/119,783/.test(coverageNote()), 'and the token count, so the claim is checkable');
-  /* HELD-OUT figures: ranked on 80% of the conversations and scored on the 20%
-     the list had never seen, five ways round. The first version measured
-     in-sample — ranked and scored on the same text — so every word in the test
-     was guaranteed to be in the list, and the tail came out as fiction: it
-     claimed 95% at 2,112 words when held-out data cannot reach 95% at all from
-     this corpus. If someone re-measures in-sample for a nicer curve, this
-     fails, which is the point. */
-  const want = { 50:43, 60:71, 70:128, 75:192, 80:309, 85:582, 90:1400 };
+  /* This curve was rebuilt after two checks on the earlier HKCanCor-anchored
+     version. Subsampling showed 43-words-for-50% is stable (48/44/44/43/44/44
+     from 8k to 100k tokens) so it is not an artifact — but Heaps' law gives
+     V = K·N^0.531 for that corpus, projecting ~237,000 distinct words at
+     Migaku's 110M-token scale against the 6,324 actually present. Held-out
+     scoring removes overfitting to particular words; it cannot conjure a long
+     tail the corpus never had. And the unit differed: Nation counts word
+     families, Davies counts lemmas, this app counts surface words. */
+  const want = { 50:220, 60:370, 70:600, 80:1000, 85:1800, 90:3500, 95:9000 };
   const got = {};
   coverageTiers().forEach(t => { got[t.pct] = t.words; });
-  ok(JSON.stringify(got) === JSON.stringify(want), 'the tiers are exactly the held-out numbers');
-  ok(got[50] === 43, '43 words is half the word-tokens — true, and not the same as half of speech');
-  ok(!coverageTiers().some(t => t.pct > 90),
-     'the ladder stops at 90% — past that a 120,000-token corpus cannot measure honestly');
-  ok(got[90] / got[80] > 4, 'and the tail is still steep — 90% costs 4x what 80% did');
+  ok(JSON.stringify(got) === JSON.stringify(want), 'the word tiers are the Migaku-anchored ones');
+  ok(Math.round(coverageForWords(1000)) === 80,
+     '1,000 words is 80% — the figure Migaku state and the one this rests on');
+  const at2000 = coverageForWords(2000);
+  ok(at2000 >= 85 && at2000 <= 87,
+     `and 2,000 lands at ${at2000.toFixed(0)}%, matching their "next 1,000 adds 5-7%"`);
+  ok(got[95] / got[80] > 8, 'the tail stays steep — 95% costs nine times what 80% did');
 }
 
-section('every other course says where its number came from');
-for(const lang of LANGS.filter(l => l !== 'yue')){
-  selectLanguage(lang);
-  ok(!coverageIsMeasured(), `${lang}: not flagged measured`);
-  // Japanese is CITED, not estimated — the Netflix figures are real published
-  // counts of Japanese subtitles, so calling them an estimate would be its own
-  // small lie. Everything else is estimated from that shape and says so.
-  const kind = coverageKind();
-  ok(kind === 'cited' || kind === 'estimated', `${lang}: labelled cited or estimated`);
-  if(kind === 'cited') ok(/Migaku|Netflix|Davies|Corpus del|Nation|corpus study/.test(coverageNote()),
-     `${lang}: and names the source`);
-  else ok(/[Aa]pproximate|[Ee]stimate/.test(coverageNote()), `${lang}: and says it is an estimate`);
-  ok(!/measured on/i.test(coverageNote()), `${lang}: and never claims a measurement`);
+section('every course uses the same word curve, in the same unit');
+{
+  /* The per-language curves that used to sit here were in three units and three
+     registers, so identical effort read as 80% in one course and 50% in another
+     for reasons about corpora rather than languages. */
+  selectLanguage('yue'); setCoverageUnit('words');
+  const ref = JSON.stringify(coverageTiers());
+  for(const lang of LANGS){
+    selectLanguage(lang); setCoverageUnit('words');
+    ok(JSON.stringify(coverageTiers()) === ref, `${lang}: same word curve as every other course`);
+  }
+  // but each still names its own source
+  selectLanguage('ja');
+  ok(/Netflix/i.test(coverageNote()), 'Japanese still names its own measured corpus');
+  selectLanguage('yue');
+  ok(/HKCanCor/.test(coverageNote()) && /237,000/.test(coverageNote()),
+     'Cantonese keeps its own measurement and the reason it is not the curve');
+  selectLanguage('es');
+  ok(/LEMMAS/.test(coverageNote()), 'Spanish explains that its figure is in a coarser unit');
+  selectLanguage('en');
+  ok(/WORD FAMILIES/.test(coverageNote()), 'English explains the same for word families');
+  selectLanguage('yue'); setCoverageUnit('words');
 }
-selectLanguage('yue'); setCoverageUnit('words');
-const YUE_TIERS = JSON.stringify(coverageTiers());
-selectLanguage('vi2'); setCoverageUnit('words');
-ok(JSON.stringify(coverageTiers()) !== YUE_TIERS,
-   'an estimated course does not silently reuse the Cantonese measurements');
+
+section('characters stay measured — that inventory really is closed');
+{
+  selectLanguage('yue'); setCoverageUnit('chars');
+  ok(coverageIsMeasured(), 'the Cantonese character curve is still a measurement');
+  /* Characters survive the same Heaps check the words failed: b=0.282 against
+     0.531, and the projection is bounded by reality — about 3,500 characters in
+     the standard list and ~7,000 in everyday use, where the word vocabulary is
+     effectively unbounded. */
+  const t = coverageTiers();
+  ok(t[0].words < 60 && t[t.length-1].words < 1000,
+     'and it climbs far faster than the word curve, as a closed inventory should');
+  selectLanguage('yue'); setCoverageUnit('words');
+}
 
 section('interpolation');
 selectLanguage('yue');
 {
   ok(coverageForWords(0) === 0, 'nothing known is 0%');
   ok(coverageForWords(-5) === 0, 'a negative count does not go negative');
-  ok(coverageForWords(43) === 50, 'landing exactly on a tier gives that tier');
-  ok(coverageForWords(1400) === 90, 'and the top tier too');
-  ok(coverageForWords(999999) === 90, 'past the end it clamps rather than exceeding the list');
+  ok(coverageForWords(220) === 50, 'landing exactly on a tier gives that tier');
+  ok(coverageForWords(9000) === 95, 'and the top tier too');
+  ok(coverageForWords(999999) === 95, 'past the end it clamps rather than exceeding the list');
   let mono = true;
   for(let n = 1; n < 3000; n += 7) if(coverageForWords(n) < coverageForWords(n - 1)) mono = false;
   ok(mono, 'coverage never goes down as you learn more words');
-  ok(coverageForWords(100) > 60 && coverageForWords(100) < 70, '100 words interpolates into the 60s');
-  const nx = nextCoverageTier(43);
+  ok(coverageForWords(500) > 60 && coverageForWords(500) < 70, '500 words interpolates into the 60s');
+  const nx = nextCoverageTier(220);
   ok(nx && nx.pct === 60, 'the next tier after landing on one is the one above it');
   ok(nextCoverageTier(999999) === null, 'past the top there is no next tier');
 }
@@ -119,19 +137,19 @@ selectLanguage('yue');
   });
   const back = document.getElementById('milestoneBackdrop');
 
-  know(42);
+  know(219);
   checkCoverageMilestone();
-  ok(!back.classList.contains('open'), '42 words does not fire the 50% milestone');
+  ok(!back.classList.contains('open'), '219 words does not fire the 50% milestone');
   ok(seenMilestones().length === 0, 'and banks nothing');
 
-  know(43);
+  know(220);
   checkCoverageMilestone();
-  ok(back.classList.contains('open'), '43 words fires it');
+  ok(back.classList.contains('open'), '220 words fires it');
   ok(seenMilestones().join(',') === '50', 'and banks exactly that tier');
   const html = document.getElementById('milestoneBody').innerHTML;
   ok(/50%/.test(html), 'the popup names the percentage');
   ok(/Cantonese/.test(html), 'and the language');
-  ok(/71/.test(html), 'and how many words the next rung needs');
+  ok(/370/.test(html), 'and how many words the next rung needs');
   ok(!/undefined|NaN/.test(html), 'with nothing undefined in it');
 
   back.classList.remove('open');
@@ -140,9 +158,9 @@ selectLanguage('yue');
 
   // jumping several tiers at once banks all of them and announces the highest,
   // so the lower ones cannot ambush you on later cards
-  know(500);
+  know(1000);
   checkCoverageMilestone();
-  ok(seenMilestones().join(',') === '50,60,70,75,80', 'crossing several tiers banks every one');
+  ok(seenMilestones().join(',') === '50,60,70,80', 'crossing several tiers banks every one');
   ok(/80%/.test(document.getElementById('milestoneBody').innerHTML), 'and announces the highest reached');
   back.classList.remove('open');
   checkCoverageMilestone();
@@ -152,7 +170,7 @@ selectLanguage('yue');
   selectLanguage('vi2');
   ok(seenMilestones().length === 0, 'a different course starts with no milestones banked');
   selectLanguage('yue');
-  ok(seenMilestones().length === 5, 'and coming back does not lose the ones you had');
+  ok(seenMilestones().length === 4, 'and coming back does not lose the ones you had');
   state.srs = {}; state.milestones = {};
 }
 
@@ -232,11 +250,12 @@ section('sources — what was verified and what was thrown out');
   ok(!/ICATSD|iuh\.edu/i.test(all), 'the ICATSD proceedings are not cited — they do not contain the study');
   ok(!/GoCantonese/i.test(all), 'GoCantonese is not cited — it states a generic figure, not a measurement');
   selectLanguage('ja');
-  ok(coverageKind() === 'estimated' && /SUBTITLES/.test(coverageNote()),
-     'Japanese uses the spoken estimate and says why its subtitle figures are not used');
+  ok(/Netflix/i.test(coverageNote()) && /110 million/.test(coverageNote()),
+     'Japanese names the corpus its published figures were measured on');
   selectLanguage('yue');
   ok(/119,783/.test(coverageNote()), 'Cantonese states the corpus it was measured on');
-  ok(/never seen|held/.test(coverageNote()), 'and that it was scored held-out');
+  ok(/237,000/.test(coverageNote()),
+     'and the Heaps projection that explains why that measurement is not the curve');
 }
 
 section('the tail stops where the evidence does');
@@ -296,11 +315,11 @@ section('every cited course names a verifiable corpus');
 {
   const want = {
     yue:[/HKCanCor/, /119,783/],
-    ja: [/Migaku/, /SUBTITLES/],
+    ja: [/Migaku/, /Netflix/],
     es: [/Davies/, /Corpus del/, /100 million/],
     en: [/Nation/, /WORD FAMILIES/],
     th: [/2\.2 million/, /WRITTEN/],
-    es: [/Davies/, /SPOKEN/],
+    es: [/Davies/, /LEMMAS/],
   };
   Object.entries(want).forEach(([lang, pats]) => {
     selectLanguage(lang); setCoverageUnit('words');
@@ -309,8 +328,8 @@ section('every cited course names a verifiable corpus');
   });
   // register matters and must be stated where it cuts against the course
   selectLanguage('th');
-  ok(/WRITTEN/.test(coverageNote()) && coverageKind() === 'estimated',
-     'Thai does not use its written study as the curve, and says why');
+  ok(/WRITTEN/.test(coverageNote()) && /78%/.test(coverageNote()),
+     'Thai names its written study and what it found, without using it as the curve');
   selectLanguage('es');
   ok(/76-80% of written|76–80% of written/.test(coverageNote()),
      'Spanish shows the written figure beside the spoken one, so the gap between registers is visible');
@@ -334,11 +353,10 @@ section('no course shows another course’s language or sources');
     if(CJK_COURSES.indexOf(lang) === -1){
       ok(!CJK.test(card), `${lang}: no Chinese characters anywhere on the card`);
     }
-    if(lang !== 'ja'){
-      ok(!/Japanese|Netflix|Migaku/.test(card), `${lang}: does not name Japanese or Migaku`);
-      ok(JSON.stringify(coverageTiers()) !== JSON.stringify(COVERAGE_NETFLIX),
-         `${lang}: does not silently use the Japanese Netflix curve`);
-    }
+    /* Migaku is now the shared source for the word curve, so every course names
+       them — that is the point. What no course may do is claim ANOTHER
+       language's corpus as its own measurement. */
+    if(lang !== 'ja') ok(!/Netflix/.test(card), `${lang}: does not claim the Japanese subtitle corpus`);
     if(lang !== 'yue') ok(!/HKCanCor/.test(card), `${lang}: does not name the Cantonese corpus`);
     if(lang !== 'es')  ok(!/Davies/.test(card), `${lang}: does not name the Spanish corpus`);
     if(lang !== 'th')  ok(!/WRITTEN Thai/.test(card), `${lang}: does not name the Thai corpus`);
@@ -381,14 +399,8 @@ section('every figure is coverage of SPEECH, not writing');
   // the spoken anchor: the three real conversational sources agree near 86-88%
   selectLanguage('vi2'); setCoverageUnit('words');
   const at1000 = coverageForWords(1000);
-  ok(at1000 > 84 && at1000 < 89,
-     `the spoken generic curve puts 1,000 words at ${at1000.toFixed(1)}% — matching conversation, not subtitles`);
-  selectLanguage('yue'); setCoverageUnit('words');
-  const yueAt1000 = coverageForWords(1000);
-  ok(Math.abs(yueAt1000 - at1000) < 4,
-     `and the measured Cantonese curve agrees within a few points (${yueAt1000.toFixed(1)}%)`);
-  selectLanguage('es'); setCoverageUnit('words');
-  ok(Math.abs(coverageForWords(1000) - 88) < 0.01, 'spoken Spanish sits at exactly Davies’ 88%');
+  ok(Math.round(at1000) === 80,
+     `the curve puts 1,000 words at ${at1000.toFixed(0)}% — Migaku's figure, in Migaku's unit`);
   selectLanguage('yue'); setCoverageUnit('words');
 }
 
