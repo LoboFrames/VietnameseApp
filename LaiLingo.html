@@ -889,6 +889,15 @@
 .chat-reply-btn .chat-reply-p{display:block;font-size:11px;opacity:.72;font-family:'IBM Plex Mono',monospace;margin-top:2px;line-height:1.35;}
 .p-line-p{font-size:11.5px;color:var(--muted);font-family:'IBM Plex Mono',monospace;margin:2px 0 0;line-height:1.4;}
 .word-ex-p{font-size:11.5px;color:var(--muted);font-family:'IBM Plex Mono',monospace;margin:2px 0 0;line-height:1.4;}
+/* The per-exercise reveal. Deliberately small and quiet — it is a tool you
+   reach for when stuck, not a thing the eye should land on first. */
+.rom-toggle{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.02em;
+  padding:6px 10px;border-radius:999px;border:1px solid rgba(36,28,19,0.18);
+  background:transparent;color:var(--muted);cursor:pointer;line-height:1;}
+.rom-toggle.on{background:var(--gold);border-color:var(--gold);color:var(--ink);}
+.rom-setting-btn{display:block;width:100%;text-align:left;padding:11px 14px;border-radius:12px;
+  border:1px solid rgba(36,28,19,0.14);background:var(--surface);font-weight:800;font-size:14px;color:var(--ink);}
+.rom-setting-note{font-size:11.5px;color:var(--muted);margin:6px 2px 0;line-height:1.45;}
 .flag-pill .fp-icon{font-size:14px;line-height:1;}
 .flag-pill .fp-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:.86;}
 .app-toast{position:fixed;left:50%;bottom:150px;z-index:130;transform:translateX(-50%) translateY(8px);
@@ -1599,6 +1608,14 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
         <input type="number" id="profileWordGoal" min="1" max="3000" oninput="updateWordGoal(this.value)" />
       </div>
 
+      <div class="profile-field" id="romSettingRow">
+        <label id="romSettingLabel">Show the reading</label>
+        <button class="rom-setting-btn" id="romSettingBtn" onclick="setShowJyutping(state.showJyutping === false)">
+          <span id="romSettingState">On</span>
+        </button>
+        <p class="rom-setting-note" id="romSettingNote"></p>
+      </div>
+
       <p class="section-title">Study time</p>
       <div class="st-stat-row">
         <div class="st-stat"><div class="num" id="stTotalTime">0m</div><div class="lab">Total time</div></div>
@@ -1762,6 +1779,7 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
   <div class="pr-topbar">
     <button class="pr-back" onclick="closePractice()">←</button>
     <div class="pr-progress-track"><div class="pr-progress-fill" id="prProgressFill" style="width:0%;"></div></div>
+    <span data-rom-toggle></span>
     <div class="pr-level-badge" id="prLevelBadge">A1</div>
   </div>
   <p class="pr-title" id="prTitle">Lesson</p>
@@ -1790,6 +1808,7 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
   <div class="step-topbar">
     <button class="step-close" onclick="closeModal()">✕</button>
     <div class="step-progress" id="stepProgress"></div>
+    <span data-rom-toggle></span>
     <div class="step-accent-toggle">
       <button id="accHN" onclick="setAccent('HN')">HN</button>
       <button id="accSG" onclick="setAccent('SG')">SG</button>
@@ -1804,6 +1823,7 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
   <div class="step-topbar">
     <button class="step-close" onclick="closeChat()">✕</button>
     <div style="flex:1;text-align:center;font-weight:800;font-size:13px;" id="chatHeaderTitle"></div>
+    <span data-rom-toggle></span>
     <button class="en-toggle" id="chatEnToggle" onclick="toggleChatEnglish()">EN</button>
   </div>
   <div class="step-body chat-body-flex" id="chatBody"></div>
@@ -1815,6 +1835,7 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
   <div class="step-topbar">
     <button class="step-close" onclick="closeSwipe()">✕</button>
     <div style="flex:1;text-align:center;font-weight:800;font-size:13px;">Swipe Learn<span class="swipe-counter" id="swipeCounter"></span></div>
+    <span data-rom-toggle></span>
     <button class="step-close" onclick="reportAudioIssue()" title="Report wrong audio">🚩</button>
   </div>
   <div class="step-body" id="swipeBody" style="display:flex;flex-direction:column;"></div>
@@ -20551,7 +20572,51 @@ function furiganaHTML(word, reading){
 function wordDisplay(word, reading){
   return furiganaHTML(word, reading) || jaEsc(word);
 }
-function showRomanisation(){ return !isVietnameseCourse() && state.language !== 'ja'; }
+/* Three things decide whether a reading is on screen.
+
+   1. Does the course have one at all. Vietnamese IS the romanisation and
+      Japanese uses furigana over the kanji, so neither has a row to show.
+   2. state.showJyutping — the global switch in Settings. Persisted, on by
+      default.
+   3. In a LEARNING EXERCISE, exerciseRomVisible as well, which starts HIDDEN
+      every time an exercise opens and is revealed by the 、jyut 、 button in
+      its header. Reading a card with the jyutping already under it is not the
+      same exercise as reading it without: the reading is the answer to half
+      the question, and having it there by default means never testing the half
+      it answers. One tap gets it back whenever it is genuinely needed.
+
+   showRomanisation() is the browsing gate — lesson pages, Browse, the word
+   popup — where the reading is reference and should just be there.
+   showExerciseRom() is the studying gate. */
+function courseHasRomanisation(){ return !isVietnameseCourse() && state.language !== 'ja'; }
+function showRomanisation(){ return courseHasRomanisation() && state.showJyutping !== false; }
+let exerciseRomVisible = false;
+function showExerciseRom(){ return showRomanisation() && exerciseRomVisible; }
+function resetExerciseRom(){ exerciseRomVisible = false; }
+function toggleExerciseRom(){
+  exerciseRomVisible = !exerciseRomVisible;
+  if(typeof renderSwipe === 'function' && document.getElementById('swipeOverlay') && document.getElementById('swipeOverlay').classList.contains('open')) renderSwipe();
+  if(typeof renderPracticeGuess === 'function' && document.getElementById('practiceOverlay') && document.getElementById('practiceOverlay').classList.contains('open')) renderPracticeGuess();
+  if(typeof renderChat === 'function' && document.getElementById('chatOverlay') && document.getElementById('chatOverlay').classList.contains('open')) renderChat();
+  if(typeof renderStepScreen === 'function' && activeModal) renderStepScreen();
+  renderRomToggles();
+}
+/* The button lives in each exercise header. It is only rendered when the course
+   HAS a reading and the global switch is on — with the switch off there is
+   nothing to reveal, so offering a reveal would be a lie. */
+function romToggleHtml(){
+  if(!showRomanisation()) return '';
+  return `<button class="rom-toggle ${exerciseRomVisible?'on':''}" onclick="toggleExerciseRom()" title="${exerciseRomVisible?'Hide':'Show'} jyutping">jyut</button>`;
+}
+function renderRomToggles(){
+  document.querySelectorAll('[data-rom-toggle]').forEach(el=>{ el.innerHTML = romToggleHtml(); });
+}
+function setShowJyutping(on){
+  state.showJyutping = !!on;
+  saveState();
+  renderAll();
+  renderRomToggles();
+}
 
 function activeLanguageName(){
   const l = LANGUAGES.find(x=>x.id===state.language);
@@ -25629,6 +25694,11 @@ const CHAT_PERSONAS = {
 /* ========================= STATE ========================= */
 const DEFAULT_STATE = {
   name:'', dailyGoal:10,
+  // Global switch for the reading (jyutping, pinyin) — Settings > Reading.
+  // On by default: it is reference material on a lesson page and should be
+  // there. Inside an exercise it is hidden per-session regardless; see
+  // showExerciseRom().
+  showJyutping:true,
   lastModified:null, // ISO timestamp, stamped on every saveState() — lets sync tell which copy (local vs cloud) is actually newer instead of blindly trusting the cloud
   language:'vi2', // 'vi' | 'vi2' | 'zh' | 'yue' | 'ja' | 'ko' | 'th' | 'tl' | 'en' | 'es' — which LANGUAGES entry is active; switched via the flag picker on Home
   // Vietnamese (New)'s, Mandarin's, Cantonese's, Japanese's, Korean's,
@@ -26557,24 +26627,55 @@ function setCardsMode(mode){
   document.querySelectorAll('#cardsModeToggle .chip').forEach(c=>c.classList.toggle('active', c.dataset.mode===mode));
   renderFlashcardsHub();
 }
-function startActiveStudy(bucketId){
-  if(cardsTabMode==='words') startWordStudy(bucketId);
-  else if(cardsTabMode==='listen') startListenStudy(bucketId);
-  else startPhraseStudy(bucketId);
+/* The tier list hands over the BUCKET IT RENDERED, by index, not a string id.
+
+   It used to pass the id and each start function looked it up again in its own
+   bucket list — and the word list and the phrase list do not use the same ids
+   (1-500 against p1-100). A lookup that missed returned undefined, which every
+   start function then read as "no bucket", which means THE WHOLE DECK. So a
+   mode mismatch did not fail, it silently handed you every word in the course
+   under a chip that said 1–500.
+
+   Passing the rendered bucket removes the round trip and the class of bug with
+   it. The id path is kept for any other caller, but a miss is now a visible
+   error rather than a silent everything. */
+let _hubBuckets = [];
+function startActiveStudy(idx){
+  const bucket = _hubBuckets[idx];
+  if(!bucket){ toast('That deck could not be opened — try again.'); return; }
+  if(cardsTabMode==='words') startWordStudy(bucket);
+  else if(cardsTabMode==='listen') startListenStudy(bucket);
+  else startPhraseStudy(bucket);
+}
+/* Accepts a bucket object (what the hub passes) or an id (older callers).
+   An id that matches nothing is a bug in the caller, not a request for
+   everything, so it returns a bucket that yields an EMPTY deck — which is
+   visible and reportable — rather than the whole course. */
+function resolveBucket(arg, list){
+  if(!arg) return null;
+  if(typeof arg === 'object') return arg;
+  const found = list.find(b => b.id === arg);
+  if(found) return found;
+  console.warn('unknown bucket id:', arg);
+  return { id:'__unknown__', label:'?', min:-1, max:-1 };
 }
 // Straight at the words you have never once seen — lowest rank first, so it
 // stays frequency-ordered rather than random.
 function startUnknownWordsStudy(){
   const pool = wordStudyPool().filter(w=>isUnknownCard(w.srsId)).slice(0, SRS_SESSION_CAP);
   swipeState = { deck: pool, idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'word' };
+  resetExerciseRom();
   document.getElementById('swipeOverlay').classList.add('open');
+  renderRomToggles();
   startStudyTimer(swipeState.mode);
   renderSwipe();
 }
 function startUnknownPhrasesStudy(){
   const pool = phraseStudyPool().filter(p=>isUnknownCard(p.srsId)).slice(0, SRS_SESSION_CAP);
   swipeState = { deck: pool, idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'cphrase' };
+  resetExerciseRom();
   document.getElementById('swipeOverlay').classList.add('open');
+  renderRomToggles();
   startStudyTimer(swipeState.mode);
   renderSwipe();
 }
@@ -26656,6 +26757,7 @@ function renderFlashcardsHub(){
   document.getElementById('wcMasteredPct').textContent = pct + '%';
   document.getElementById('wcProgressFill').style.width = pct + '%';
 
+  _hubBuckets = buckets;
   document.getElementById('wcTierBreakdown').innerHTML = buckets.map(b=>{
     // The work bucket is a different pool, not a rank slice of this one.
     const inBucket = b.kind==='work' ? (isWords ? facilityVocab() : facilityPhrases())
@@ -26665,7 +26767,7 @@ function renderFlashcardsHub(){
     const m = inBucket.filter(w=>isMasteredWord(w.srsId)).length;
     const pct2 = Math.round(m/inBucket.length*100);
     return `
-    <div class="wc-tier-item" onclick="startActiveStudy('${b.id}')">
+    <div class="wc-tier-item" onclick="startActiveStudy(${buckets.indexOf(b)})">
       <div class="wc-tier-head"><span>${b.label}</span><span>${m}/${inBucket.length} ›</span></div>
       <div class="wc-progress-track small"><div class="wc-progress-fill" style="width:${pct2}%"></div></div>
     </div>`;
@@ -26876,7 +26978,25 @@ document.getElementById('freqFilters').addEventListener('click', (e)=>{
   renderFrequency();
 });
 
+function renderRomSetting(){
+  const row = document.getElementById('romSettingRow');
+  if(!row) return;
+  // Vietnamese IS the romanisation and Japanese uses furigana, so for those two
+  // courses there is nothing to switch and the row is hidden rather than shown
+  // doing nothing.
+  if(!courseHasRomanisation()){ row.style.display = 'none'; return; }
+  row.style.display = '';
+  const on = state.showJyutping !== false;
+  const name = state.language === 'zh' ? 'pinyin' : 'jyutping';
+  document.getElementById('romSettingLabel').textContent = 'Show the ' + name;
+  document.getElementById('romSettingState').textContent = on ? 'On' : 'Off';
+  document.getElementById('romSettingBtn').classList.toggle('on', on);
+  document.getElementById('romSettingNote').textContent = on
+    ? 'Shown on lesson pages, in Browse and in the word popup. Inside an exercise it stays hidden until you tap ‘jyut’, so the card still tests you.'
+    : 'Hidden everywhere, including the reveal button inside exercises.';
+}
 function renderProfile(){
+  renderRomSetting();
   document.getElementById('profileName').value = state.name || '';
   document.getElementById('profileGoal').value = state.dailyGoal || 10;
   document.getElementById('profileWordGoal').value = state.wordDailyGoal || 500;
@@ -27224,7 +27344,9 @@ function openChat(worldId, personaIdx){
     { who:'them', v:persona.opener.v, p:persona.opener.p||'', e:persona.opener.e, audioId:`chat_${worldId}_${personaIdx}_opener` }
   ]};
   document.getElementById('chatHeaderTitle').textContent = `${persona.icon} ${persona.name}`;
+  resetExerciseRom();
   document.getElementById('chatOverlay').classList.add('open');
+  renderRomToggles();
   document.getElementById('chatEnToggle').classList.toggle('active', state.chatEnglishVisible);
   startStudyTimer('chat');
   renderChat();
@@ -27256,7 +27378,7 @@ function renderChat(){
       <div class="cm-row">
         <div>
           <div${cjkCls() ? ' class="cjk"' : ''}>${wrapWords(m.v)}</div>
-          ${(m.p && showRomanisation()) ? `<p class="cm-p">${m.p}</p>` : ''}
+          ${(m.p && showExerciseRom()) ? `<p class="cm-p">${m.p}</p>` : ''}
           ${showEnglish ? `<p class="cm-e">${m.e}</p>` : ''}
         </div>
         <button class="cm-speak" onclick="playAudio('${m.audioId}', '${m.v.replace(/'/g,"\\'")}', currentAccent)">🔊</button>
@@ -27269,7 +27391,7 @@ function renderChat(){
   if(!isDone){
     const turn = chatState.persona.turns[chatState.turnIdx];
     footer.innerHTML = turn.youOptions.map((opt,i)=>`
-      <button class="chat-reply-btn" onclick="chooseReply(${i})">${opt.v}${(opt.p && showRomanisation()) ? `<span class="chat-reply-p">${opt.p}</span>` : ''}${showEnglish ? `<span class="chat-reply-e">${opt.e}</span>` : ''}</button>`).join('');
+      <button class="chat-reply-btn" onclick="chooseReply(${i})">${opt.v}${(opt.p && showExerciseRom()) ? `<span class="chat-reply-p">${opt.p}</span>` : ''}${showEnglish ? `<span class="chat-reply-e">${opt.e}</span>` : ''}</button>`).join('');
   } else {
     footer.innerHTML = `<button class="footer-btn" onclick="closeChat()">Done</button>`;
   }
@@ -27448,7 +27570,9 @@ let swipeState = null;
 function startSwipe(){
   const queue = buildSrsQueue(phrasesForWorld(currentWorldId));
   swipeState = { deck: queue, idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'phrase' };
+  resetExerciseRom();
   document.getElementById('swipeOverlay').classList.add('open');
+  renderRomToggles();
   startStudyTimer(swipeState.mode);
   renderSwipe();
 }
@@ -27456,7 +27580,9 @@ function startCoreSwipe(){
   const pool = CORE_PHRASES.map(c=>({...c, srsId:`core_${c.rank}`}));
   const queue = buildSrsQueue(pool);
   swipeState = { deck: queue, idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'phrase' };
+  resetExerciseRom();
   document.getElementById('swipeOverlay').classList.add('open');
+  renderRomToggles();
   startStudyTimer(swipeState.mode);
   renderSwipe();
 }
@@ -27481,7 +27607,7 @@ function wordStudyPool(bucket){
   return list.map(w=>({ word:w.word, p:w.p||'', rank:w.rank, star:w.star, srsId:`word_${srsNs()}${w.word}` }));
 }
 function startWordStudy(bucketId){
-  const bucket = bucketId ? buildRankBuckets().find(b=>b.id===bucketId) : null;
+  const bucket = resolveBucket(bucketId, buildRankBuckets());
   const pool = wordStudyPool(bucket);
   const remaining = Math.max(0, (state.wordDailyGoal||500) - getTodayWordCount());
   // Once today's goal is met, still allow a modest bonus round rather than blocking.
@@ -27490,7 +27616,9 @@ function startWordStudy(bucketId){
   // is learning the most common words first, so no shuffling: lowest rank goes first.
   const queue = buildSrsQueue(pool, false, batchSize, batchSize);
   swipeState = { deck: queue, idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'word' };
+  resetExerciseRom();
   document.getElementById('swipeOverlay').classList.add('open');
+  renderRomToggles();
   startStudyTimer(swipeState.mode);
   renderSwipe();
 }
@@ -27501,13 +27629,17 @@ function startDifficultWordsStudy(){
   const pool = wordStudyPool().filter(w=>isDifficultWord(w.srsId)).slice(0, SRS_SESSION_CAP);
   if(!pool.length){
     swipeState = { deck: [], idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'word' };
-    document.getElementById('swipeOverlay').classList.add('open');
+    resetExerciseRom();
+  document.getElementById('swipeOverlay').classList.add('open');
+  renderRomToggles();
   startStudyTimer(swipeState.mode);
     renderSwipe();
     return;
   }
   swipeState = { deck: pool, idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'word' };
+  resetExerciseRom();
   document.getElementById('swipeOverlay').classList.add('open');
+  renderRomToggles();
   startStudyTimer(swipeState.mode);
   renderSwipe();
 }
@@ -28249,21 +28381,25 @@ function phraseStudyPool(bucket){
   return list.map(p=>({ v:p.v, p:p.p, e:p.e, rank:p.rank, srsId:`cphrase_${p.rank}` }));
 }
 function startPhraseStudy(bucketId){
-  const bucket = bucketId ? buildPhraseBuckets().find(b=>b.id===bucketId) : null;
+  const bucket = resolveBucket(bucketId, buildPhraseBuckets());
   const pool = phraseStudyPool(bucket);
   const remaining = Math.max(0, (state.dailyGoal||10) - getTodayPhraseCount());
   // Once today's goal is met, still allow a modest bonus round rather than blocking.
   const batchSize = remaining > 0 ? remaining : 30;
   const queue = buildSrsQueue(pool, false, batchSize, batchSize);
   swipeState = { deck: queue, idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'cphrase' };
+  resetExerciseRom();
   document.getElementById('swipeOverlay').classList.add('open');
+  renderRomToggles();
   startStudyTimer(swipeState.mode);
   renderSwipe();
 }
 function startDifficultPhrasesStudy(){
   const pool = phraseStudyPool().filter(p=>isDifficultWord(p.srsId)).slice(0, SRS_SESSION_CAP);
   swipeState = { deck: pool, idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'cphrase' };
+  resetExerciseRom();
   document.getElementById('swipeOverlay').classList.add('open');
+  renderRomToggles();
   startStudyTimer(swipeState.mode);
   renderSwipe();
 }
@@ -28281,28 +28417,36 @@ function viewMasteredPhrases(){
 // before revealing the transcript. Grading a card here updates the exact same
 // state.srs[srsId] entry Phrases mode uses, so progress is shared, not separate. ---
 function startListenStudy(bucketId){
-  const bucket = bucketId ? buildPhraseBuckets().find(b=>b.id===bucketId) : null;
+  const bucket = resolveBucket(bucketId, buildPhraseBuckets());
   const pool = phraseStudyPool(bucket);
   const remaining = Math.max(0, (state.dailyGoal||10) - getTodayPhraseCount());
   const batchSize = remaining > 0 ? remaining : 30;
   const queue = buildSrsQueue(pool, false, batchSize, batchSize);
   swipeState = { deck: queue, idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'listen', listenCardIdx:-1, listenOptions:null, listenCorrectIdx:null, listenChosen:null };
+  resetExerciseRom();
   document.getElementById('swipeOverlay').classList.add('open');
+  renderRomToggles();
   startStudyTimer(swipeState.mode);
   renderSwipe();
 }
 function startDifficultListenStudy(){
   const pool = phraseStudyPool().filter(p=>isDifficultWord(p.srsId)).slice(0, SRS_SESSION_CAP);
   swipeState = { deck: pool, idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'listen', listenCardIdx:-1, listenOptions:null, listenCorrectIdx:null, listenChosen:null };
+  resetExerciseRom();
   document.getElementById('swipeOverlay').classList.add('open');
+  renderRomToggles();
   startStudyTimer(swipeState.mode);
   renderSwipe();
 }
 function closeSwipe(){
   stopStudyTimer();
+  // A vocab deck opened as the first half of a lesson hands straight on to the
+  // listening quiz instead of dropping you back on the lesson page.
+  const next = swipeState && swipeState.thenPractice;
   document.getElementById('swipeOverlay').classList.remove('open');
   swipeState = null;
   renderAll();
+  if(next){ lessonVocabReturnTo = null; openPractice(next); return; }
   // A drill opened from a lesson hands the screen back to that lesson.
   if(lessonVocabReturnTo){ const back = lessonVocabReturnTo; lessonVocabReturnTo = null; openLessonDetail(back); }
 }
@@ -28362,7 +28506,7 @@ function renderSwipe(){
     <div class="swipe-card ${swipeState.flipped?'flipped':''}" onclick="flipSwipe()">
       <div class="sc-head">
         <p class="sc-viet${cjkCls()}" style="display:block;">${wordDisplay(c.word, c.p)}</p>
-        ${(c.p && showRomanisation()) ? `<p class="sc-pron" style="display:block;">${c.p}</p>` : ''}
+        ${(c.p && showExerciseRom()) ? `<p class="sc-pron" style="display:block;">${c.p}</p>` : ''}
         <div class="freq-num-pill" style="background:${TIER_COLOR[c.star]};">${rankLabel} most common</div>
         <p class="sc-eng" style="display:${swipeState.flipped?'block':'none'};">${gloss || '(no gloss yet for this word)'}</p>
       </div>
@@ -28374,7 +28518,7 @@ function renderSwipe(){
                 <p class="sn-v">${ex.v}</p>
                 <span class="mini-speak">🔊</span>
               </div>
-              ${(ex.p && showRomanisation()) ? `<p class="sn-p">${ex.p}</p>` : ''}
+              ${(ex.p && showExerciseRom()) ? `<p class="sn-p">${ex.p}</p>` : ''}
               <p class="sn-e">${ex.e}</p>
             </div>`).join('')}
         </div>` : ''}
@@ -28394,7 +28538,7 @@ function renderSwipe(){
       ${/* the characters are on the FRONT of this card, so the reading belongs
             there with them — hiding it until the flip made the front a
             character-recognition test, which is not what this mode is. */
-        showRomanisation() ? `<p class="sc-pron" style="display:block;">${c.p||''}</p>` : ''}
+        showExerciseRom() ? `<p class="sc-pron" style="display:block;">${c.p||''}</p>` : ''}
       <p class="sc-eng" style="display:${swipeState.flipped?'block':'none'};">${c.e}</p>
       <p class="sc-hint">${swipeState.flipped ? '' : 'Tap to flip'}</p>
     </div>`;
@@ -28412,7 +28556,7 @@ function renderSwipe(){
       <div class="quiz-label">🃏 ${swipeState.lessonTitle||'Lesson words'}</div>
       <div class="sc-head">
         <p class="sc-viet${cjkCls()}" style="display:block;">${c.v}</p>
-        ${(c.p && showRomanisation()) ? `<p class="sc-pron" style="display:block;">${c.p}</p>` : ''}
+        ${(c.p && showExerciseRom()) ? `<p class="sc-pron" style="display:block;">${c.p}</p>` : ''}
         <p class="sc-eng" style="display:${swipeState.flipped?'block':'none'};">${c.e}</p>
       </div>
       ${swipeState.flipped && c.ex ? `
@@ -28422,7 +28566,7 @@ function renderSwipe(){
               <p class="sn-v">${wrapWords(c.ex.v)}</p>
               <span class="mini-speak">🔊</span>
             </div>
-            ${(c.ex.p && showRomanisation()) ? `<p class="sn-p">${c.ex.p}</p>` : ''}
+            ${(c.ex.p && showExerciseRom()) ? `<p class="sn-p">${c.ex.p}</p>` : ''}
             <p class="sn-e">${c.ex.e}</p>
           </div>
         </div>` : ''}
@@ -28501,7 +28645,7 @@ function renderSwipe(){
     <div class="swipe-card" style="cursor:default;">
       <div class="quiz-label">🎧 Cold listen</div>
       <p class="sc-viet${cjkCls()}" style="display:block;">${wrapWords(c.v)}</p>
-      ${showRomanisation() ? `<p class="sc-pron" style="display:block;">${c.p||''}</p>` : ''}
+      ${showExerciseRom() ? `<p class="sc-pron" style="display:block;">${c.p||''}</p>` : ''}
       <button class="listen-play-btn" onclick="event.stopPropagation();playAudio('${c.srsId}', '${c.v.replace(/'/g,"\\'")}', currentAccent)">🔊</button>
       <p class="sc-hint" style="margin:0 0 14px;">Tap to hear it again</p>
       <p class="quiz-q" style="justify-content:center;">What does this mean?</p>
@@ -28524,7 +28668,7 @@ function renderSwipe(){
       <div class="sc-head">
         <p class="sc-eng">${c.e}</p>
         <p class="sc-viet${cjkCls()}">${wrapWords(c.v)}</p>
-        ${showRomanisation() ? `<p class="sc-pron">${c.p||''}</p>` : ''}
+        ${showExerciseRom() ? `<p class="sc-pron">${c.p||''}</p>` : ''}
       </div>
       ${noteHtml}
       <p class="sc-hint">${swipeState.flipped ? '' : 'Tap to flip'}</p>
@@ -29617,6 +29761,10 @@ function openLessonDetail(id){
   // and audio all stay visible/playable either way, since those aren't what's
   // being tested. Legacy (non-guess) lessons are unaffected — they never hid
   // anything here and have no guess mechanic to justify starting to now.
+  /* Hides the DIALOGUE translations until the lesson is done — those really are
+     the answers to the listening quiz. It no longer hides the vocab glosses:
+     the lesson now runs its flashcards first, so the words are meant to be
+     known going in. */
   const hideEnglish = isGuessPracticeLesson(l) && !progressBucketFor(l.id).completedLessons.includes(l.id);
 
   const dialogue = l.dialogue || [];
@@ -29637,7 +29785,7 @@ function openLessonDetail(id){
     <button class="ld-vocab-chip" onclick="playAudio('lesson_${l.id}_v${i}','${v.v.replace(/'/g,"\\'")}',currentAccent)">
       <div class="head${cjkCls()}"><span class="play-ico">▶</span> ${wordDisplay(v.v, v.p)}</div>
       ${(v.p && !furiganaHTML(v.v, v.p)) ? `<div class="rom">${v.p}</div>` : ''}
-      <div class="gloss">${hideEnglish ? '🔒 hidden' : v.e}</div>
+      <div class="gloss">${v.e}</div>
     </button>`).join('') : '';
   if(!vocab.length) document.getElementById('ldVocabGrid').innerHTML = `<p class="ld-empty-note">Vocab for this lesson hasn't been added yet.</p>`;
   renderLessonVocabButton(l, hideEnglish);
@@ -29654,10 +29802,33 @@ function closeLessonDetail(){
   document.getElementById('lessonDetailOverlay').classList.remove('open');
   lessonDetailId = null;
 }
+/* Vocabulary first, THEN the listening quiz.
+
+   It used to go straight into Listen & Guess, with the lesson's flashcards
+   LOCKED until the lesson was finished — the reasoning being that the vocab is
+   the answer to the quiz, so handing it over first would give the game away.
+   That is exactly backwards for anyone actually using it: guessing which of
+   three English sentences matches a phrase built from words you have never
+   seen is not a listening exercise, it is a lottery, and losing it teaches
+   nothing.
+
+   So the deck runs first and hands off to the quiz when it finishes. Knowing
+   the words is not the answer to "what did that sentence mean" — it is the
+   equipment you need to have a chance at it. The quiz still tests whether you
+   can HEAR the phrase, which is the part worth testing. This applies to every
+   course, not just Cantonese. */
 function startLessonFromDetail(){
   const id = lessonDetailId;
   document.getElementById('lessonDetailOverlay').classList.remove('open');
-  if(id) openPractice(id);
+  if(!id) return;
+  const l = lessonById(id);
+  if(l && lessonVocabPool(l).length){ startLessonVocabStudy(id, id); return; }
+  openPractice(id);
+}
+function lessonById(id){
+  return [LESSONS, TOPIC_LESSONS, LESSONS_VI2, LESSONS_ZH, LESSONS_YUE, LESSONS_JA,
+          LESSONS_KO, LESSONS_TH, LESSONS_TL, LESSONS_EN, LESSONS_ES]
+    .reduce((hit, arr) => hit || (arr||[]).find(x=>x.id===id), null);
 }
 
 // ========================= PRACTICE (repeat-after-me speaking) =========================
@@ -29714,7 +29885,9 @@ function openPractice(lessonId){
   document.getElementById('prSpeedBtn').style.display = guessMode ? 'none' : '';
   document.getElementById('prHintBtn').style.display = guessMode ? 'none' : '';
   document.getElementById('prNextBtn').style.display = guessMode ? 'none' : '';
+  resetExerciseRom();
   document.getElementById('practiceOverlay').classList.add('open');
+  renderRomToggles();
   renderPractice();
 }
 function closePractice(){
@@ -30443,7 +30616,7 @@ function renderPracticeGuess(){
     <div class="quiz-label">${phaseLabel}</div>
     <div class="pr-target">
       <p class="pr-target-text${cjkCls()}">${line.speaker?`<span class="pr-target-who">${line.speaker}</span>`:''}${wordDisplay(line.v, line.p)}</p>
-      ${(line.p && showRomanisation()) ? `<p class="pr-target-rom">${line.p}</p>` : ''}
+      ${(line.p && showExerciseRom()) ? `<p class="pr-target-rom">${line.p}</p>` : ''}
       <button class="listen-play-btn" onclick="playGuessAudio(${activeIdx})">🔊</button>
       <p class="pr-target-hint">Tap to hear it again</p>
     </div>
@@ -30511,7 +30684,9 @@ function openLessonModal(type, id){
   const source = type==='lesson' ? lessonById(id) : activePacks().find(p=>p.id===id);
   const steps = buildSteps(type, source);
   activeModal = { type, id, img: source.img, icon: source.icon, cards: source.cards, title: source.title, steps, stepIndex: 0, quizAnswered:false };
+  resetExerciseRom();
   document.getElementById('stepOverlay').classList.add('open');
+  renderRomToggles();
   currentAccent = 'SG';
   setAccent('SG');
   startStudyTimer(type);
@@ -30566,7 +30741,7 @@ function renderStepScreen(){
       const saved = state.savedPhrases.some(p=>p.v===c.v);
       return `
       <div class="vocab-list-item">
-        <div><p class="vv${cjkCls()}">${wrapWords(c.v)}</p>${(c.p && showRomanisation()) ? `<p class="vp">${c.p}</p>` : ''}<p class="ve">${c.e}</p></div>
+        <div><p class="vv${cjkCls()}">${wrapWords(c.v)}</p>${(c.p && showExerciseRom()) ? `<p class="vp">${c.p}</p>` : ''}<p class="ve">${c.e}</p></div>
         <div class="vocab-list-btns">
           <button class="icon-btn" onclick="speakCard(${i})">🔊</button>
           <button class="icon-btn" onclick="savePhraseAt(${i})">${saved?'✓':'♡'}</button>
@@ -30584,7 +30759,7 @@ function renderStepScreen(){
         <button class="save-icon" onclick="savePhraseAt(${step.cardIdx})">${saved?'♥':'♡'}</button>
         <button class="speak-icon" onclick="speakCard(${step.cardIdx})">🔊</button>
         <h2${cjkCls()?' class="cjk"':''}>${c.v}</h2>
-        ${(c.p && showRomanisation()) ? `<p class="pron">${c.p}</p>` : ''}
+        ${(c.p && showExerciseRom()) ? `<p class="pron">${c.p}</p>` : ''}
         <p class="eng">"${c.e}"</p>
         <button class="big-mic" onclick="trySpeak()">🎙️</button>
         <p class="hint" id="micResult">HOLD TO SPEAK</p>
@@ -30610,7 +30785,7 @@ function renderStepScreen(){
     body.innerHTML = `
       <div class="quiz-label">ⓘ Pop quiz</div>
       <p class="quiz-q">What does "${wrapWords(q.question)}" mean?<button class="speak-icon-btn" onclick="speakCard(${step.cardIdx})">🔊</button></p>
-      ${(step.pron && showRomanisation()) ? `<p class="quiz-pron">${step.pron}</p>` : ''}
+      ${(step.pron && showExerciseRom()) ? `<p class="quiz-pron">${step.pron}</p>` : ''}
       <div id="quizOptions">
         ${q.options.map((opt,i)=>`<button class="quiz-option" onclick="answerQuiz(${i})">${opt}</button>`).join('')}
       </div>`;
@@ -32456,7 +32631,9 @@ function mineHighlight(card){
 function startMineStudy(){
   const queue = buildSrsQueue(minePool());
   swipeState = { deck: queue, idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'mine' };
+  resetExerciseRom();
   document.getElementById('swipeOverlay').classList.add('open');
+  renderRomToggles();
   startStudyTimer(swipeState.mode);
   renderSwipe();
 }
@@ -32562,7 +32739,7 @@ function lessonVocabStats(l){
   return { total: pool.length, fresh, due, learned: pool.length - fresh };
 }
 
-function startLessonVocabStudy(lessonId){
+function startLessonVocabStudy(lessonId, practiceAfter){
   const id = lessonId || lessonDetailId;
   const l = lessonById(id);
   const pool = lessonVocabPool(l);
@@ -32575,8 +32752,10 @@ function startLessonVocabStudy(lessonId){
     lessonVocabReturnTo = id;
     detail.classList.remove('open');
   }
-  swipeState = { deck: lessonVocabQueue(pool), idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'lvocab', lessonTitle: l.title };
+  swipeState = { deck: lessonVocabQueue(pool), idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'lvocab', lessonTitle: l.title, thenPractice: practiceAfter || null };
+  resetExerciseRom();
   document.getElementById('swipeOverlay').classList.add('open');
+  renderRomToggles();
   startStudyTimer('word'); // it is word study, and should land in the same bucket on the time tracker
   renderSwipe();
 }
@@ -32598,16 +32777,10 @@ function renderLessonVocabButton(l, hideEnglish){
   const stats = lessonVocabStats(l);
   if(!stats.total){ btn.style.display = 'none'; return; }
   btn.style.display = '';
-  // Same reasoning as the hidden glosses on this screen: these lessons are
-  // built around guessing meaning from audio, and a flashcard whose back is the
-  // English would hand over the answers before Practice even starts.
-  if(hideEnglish){
-    btn.classList.add('locked');
-    btn.disabled = true;
-    btn.innerHTML = `<span class="lsb-main">🔒 Flashcards unlock after the lesson</span>
-      <span class="lsb-sub">These ${stats.total} words are the answers to the listening quiz — finish the lesson and they open up as a deck.</span>`;
-    return;
-  }
+  /* No longer locked until the lesson is done. The old note said these words
+     were "the answers to the listening quiz" — but the quiz asks what a whole
+     phrase MEANT, and knowing its words is the equipment for that, not the
+     answer to it. Locking them made the first attempt a guess. */
   btn.classList.remove('locked');
   btn.disabled = false;
   const bits = [];
