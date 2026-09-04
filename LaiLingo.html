@@ -1087,6 +1087,9 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
   .cv-sample.cjk{font-size:24px;line-height:1.8;}
   .cv-known{color:var(--rice);}
   .cv-gap{color:rgba(36,28,19,.30);}
+  .cv-sample-why{margin:0 0 7px;font-size:11.5px;color:var(--muted);line-height:1.5;}
+  .cv-sample-count{margin:4px 0 12px;font-size:11.5px;color:var(--muted);font-weight:700;}
+  .cv-sample-none{margin:0 0 12px;font-size:12.5px;color:var(--muted);line-height:1.6;}
   .cv-sample-e{margin:6px 0 12px;font-size:12.5px;color:var(--muted);line-height:1.5;font-style:italic;}
   .ms-sample{margin:4px 0 2px;text-align:center;}
   /* ---- Coverage milestones ---- */
@@ -27144,20 +27147,33 @@ function maskedSample(){
   const known = knownWordSet();
   // Prefer a line of a useful length, and one that actually has something to
   // hide — an all-known or all-unknown line demonstrates nothing.
-  const cands = pool.filter(p => {
+  /* Two filters, and the length one is NOT optional. The first version made
+     the length check part of the preferred-candidate test and then fell back to
+     `pool[seed % pool.length]` — any sentence at all — whenever nothing
+     qualified. With no words yet at Known nothing ever qualifies, so Cantonese
+     fell through to a fifty-three-word C1 turn rendered as one unbroken bar of
+     blanks. A line nobody can read demonstrates nothing. */
+  const rightSize = p => {
     let seg; try{ seg = segmentTarget(p.v); }catch(e){ return false; }
-    if(seg.length < 5 || seg.length > 12) return false;
+    return seg.length >= 5 && seg.length <= 12;
+  };
+  const sized = pool.filter(rightSize);
+  if(!sized.length) return null;
+  // Of those, prefer one that has something to hide AND something to show —
+  // all-known or all-unknown teaches nothing either.
+  const mixed = sized.filter(p => {
+    const seg = segmentTarget(p.v);
     const hits = seg.filter(t => known.has(t)).length;
     return hits > 0 && hits < seg.length;
   });
-  const src = cands.length ? cands[seed % cands.length] : pool[seed % pool.length];
+  const src = mixed.length ? mixed[seed % mixed.length] : sized[seed % sized.length];
   let seg; try{ seg = segmentTarget(src.v); }catch(e){ seg = [src.v]; }
   const spaced = isSpaceDelimitedCourse();
   const parts = seg.map(t => known.has(t)
     ? `<span class="cv-known">${t}</span>`
     : `<span class="cv-gap">${'▁'.repeat(Math.max(1, Array.from(t).length))}</span>`);
-  return { html: parts.join(spaced ? ' ' : ''), e: src.e,
-           hits: seg.filter(t => known.has(t)).length, total: seg.length };
+  const hits = seg.filter(t => known.has(t)).length;
+  return { html: parts.join(spaced ? ' ' : ''), e: src.e, hits, total: seg.length };
 }
 
 /* ---- the milestone popup ---- */
@@ -27250,9 +27266,14 @@ function renderCoverageCard(){
         <p class="cov-sub">${known.toLocaleString()} known ${unit}${known===1?'':'s'}</p>
       </div>
     </div>
-    ${coverageUnit === 'words' && sample ? `<p class="cov-sample-lead">What that looks like:</p>
-      <div class="cv-sample${cjkCls()}">${sample.html}</div>
-      <p class="cv-sample-e">${sample.e}</p>` : ''}
+    ${coverageUnit === 'words' && sample ? (sample.hits === 0
+      ? `<p class="cov-sample-lead">What that looks like</p>
+         <p class="cv-sample-none">Once you have words at Known, this box shows a real line from the course with everything you have not learned yet blanked out. Nothing is at Known yet, so right now the whole line would be blank — it starts filling in as cards pass 21 days.</p>`
+      : `<p class="cov-sample-lead">What that looks like</p>
+         <p class="cv-sample-why">A real line from the course, with every word you have not learned yet blanked out.</p>
+         <div class="cv-sample${cjkCls()}">${sample.html}</div>
+         <p class="cv-sample-e">${sample.e}</p>
+         <p class="cv-sample-count">${sample.hits} of ${sample.total} words known</p>`) : ''}
     ${next ? `<p class="cov-next"><b>${(next.words - known).toLocaleString()}</b> more ${unit}s gets you to <b>${next.pct}%</b>.</p>`
            : `<p class="cov-next">That is as far as this list can take you.</p>`}
     ${coverageLadderOpen ? `<div class="cov-ladder">${ladder}

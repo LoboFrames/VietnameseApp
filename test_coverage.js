@@ -371,6 +371,7 @@ selectLanguage('yue');
   ok(!!s1.e, 'with the English underneath, so the gap is visible as meaning lost');
   const s2 = maskedSample();
   ok(s1.html === s2.html, 'the same line comes back on the same day rather than reshuffling every repaint');
+  ok(s1.total >= 5 && s1.total <= 12, `the line is a readable length (${s1.total} words)`);
 
   // more known words must mean fewer gaps
   const gaps = h => (h.match(/cv-gap/g) || []).length;
@@ -378,8 +379,39 @@ selectLanguage('yue');
   pool.slice(0, 1400).forEach(w => { state.srs[w.srsId] = { interval:30, ease:2.5, reps:5, lapses:0, due:new Date().toISOString() }; });
   const many = gaps(maskedSample().html);
   ok(many <= few, `learning more words does not add gaps (${few} → ${many})`);
+  /* Reported from the app: on Cantonese with nothing learned, this box showed
+     a single unbroken bar of 53 blanks — because the length filter was only
+     applied to the PREFERRED candidates and the fallback took any sentence at
+     all. A line nobody can read demonstrates nothing. The cap is now
+     unconditional, and a card with no known words says so in words instead of
+     drawing an empty line. */
   state.srs = {};
-  ok(maskedSample() !== null, 'and it still renders with nothing known at all');
+  for(const lang of LANGS){
+    selectLanguage(lang);
+    const s = maskedSample();
+    if(!s){ ok(true, `${lang}: no phrase deck, nothing to sample`); continue; }
+    ok(s.total >= 5 && s.total <= 12,
+       `${lang}: the sample is capped at a readable length even with nothing known (${s.total} words)`);
+    ok(s.hits === 0, `${lang}: and correctly reports nothing known`);
+  }
+  selectLanguage('yue');
+
+  // and the card explains itself rather than printing a blank line
+  coverageLadderOpen = false;
+  renderCoverageCard();
+  const blankCard = document.getElementById('covBody').innerHTML;
+  ok(/Once you have words at Known/.test(blankCard),
+     'with nothing known the card explains the box instead of drawing an all-blank line');
+  ok(!/cv-gap/.test(blankCard), 'and draws no blanks at all in that state');
+
+  const pool2 = wordStudyPool();
+  pool2.slice(0, 400).forEach(w => { state.srs[w.srsId] = { interval:30, ease:2.5, reps:5, lapses:0, due:new Date().toISOString() }; });
+  renderCoverageCard();
+  const liveCard = document.getElementById('covBody').innerHTML;
+  ok(/A real line from the course/.test(liveCard), 'once there are known words the card says what the box IS');
+  ok(/words known/.test(liveCard), 'and how much of that line you have');
+  ok(/cv-gap/.test(liveCard) && /cv-known/.test(liveCard), 'and shows both the gaps and the words');
+  state.srs = {};
 }
 
 console.log(`\n${pass} passed, ${fail} failed`);
