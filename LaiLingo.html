@@ -1088,6 +1088,25 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
   .cv-learning{color:var(--rice);opacity:.52;}
   .cv-known{color:var(--rice);}
   .cv-gap{color:rgba(36,28,19,.30);}
+  .cov-doc-lead{font-size:14px;line-height:1.65;color:var(--muted);margin:0 0 16px;}
+  .cov-doc-lead b{color:var(--rice);}
+  .chip-m,.chip-c,.chip-e{display:inline-block;font-size:9.5px;font-weight:800;letter-spacing:.06em;
+    text-transform:uppercase;padding:2px 6px;border-radius:4px;vertical-align:middle;}
+  .chip-m{background:rgba(31,122,69,.16);color:#1f7a45;}
+  .chip-c,.chip-e{background:rgba(36,28,19,.12);color:var(--muted);}
+  .cov-doc-block{border-top:1px solid rgba(36,28,19,.12);padding-top:14px;margin-top:16px;}
+  .cov-doc-block h4{margin:0 0 8px;font-size:15px;font-weight:800;color:var(--rice);line-height:1.35;}
+  .cov-doc-block p{margin:0 0 10px;font-size:13.5px;line-height:1.65;color:var(--muted);}
+  .cov-doc-block p b{color:var(--rice);}
+  .cov-doc-note{font-size:12px!important;opacity:.9;}
+  .cov-doc-lines{display:flex;flex-direction:column;gap:12px;margin:0 0 12px;}
+  .cov-doc-line{background:rgba(36,28,19,.05);border-radius:10px;padding:10px 12px;}
+  .cov-doc-tiers{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 10px;}
+  .cov-doc-tier{display:flex;align-items:baseline;gap:5px;background:rgba(36,28,19,.06);
+    border-radius:8px;padding:6px 9px;font-size:12px;}
+  .cov-doc-tier span{font-weight:800;color:var(--rice);}
+  .cov-doc-tier b{font-family:'IBM Plex Mono',monospace;color:var(--rice);}
+  .cov-doc-tier i{font-style:normal;color:var(--muted);font-size:11px;}
   .cv-sample-why{margin:0 0 7px;font-size:11.5px;color:var(--muted);line-height:1.5;}
   .cv-sample-count{margin:4px 0 12px;font-size:11.5px;color:var(--muted);font-weight:700;}
   .cv-sample-none{margin:0 0 12px;font-size:12.5px;color:var(--muted);line-height:1.6;}
@@ -1446,6 +1465,9 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
         </button>
         <button class="tool-card" onclick="openTool('culture')" style="text-align:left;color:inherit;border:1px solid rgba(36,28,19,0.06);">
           <div class="tool-icon">🏮</div><h3>Culture tip</h3>
+        </button>
+        <button class="tool-card" onclick="openTool('coverage')" style="text-align:left;color:inherit;border:1px solid rgba(36,28,19,0.06);grid-column:1/-1;">
+          <div class="tool-icon">📈</div><h3>Coverage curves</h3>
         </button>
       </div>
     </section>
@@ -27016,15 +27038,15 @@ const COVERAGE_TH = [ { pct:42, words:100 }, { pct:78, words:1000 } ];
 
 const COVERAGE_SOURCE = {
   yue: { kind:'measured', tiers:'yue',
-         note:'Measured on HKCanCor — 119,783 words of recorded Hong Kong conversation, scored against conversations the word list had never seen. It stops at 90% because this corpus is too small to measure past it honestly.' },
-  ja:  { kind:'cited', tiers:'ja',
-         note:'Migaku’s count of the Japanese Netflix subtitles — 124,000 distinct words over about 110 million uses. The rungs marked ≈ below 80% are extrapolated from the slope of their own figures; Migaku publish nothing under 80%.' },
+         note:'Measured on HKCanCor — 119,783 words of RECORDED CONVERSATION in Hong Kong, scored against conversations the word list had never seen. The only one of the nine courses with a real conversational corpus behind it. Stops at 90% because this corpus is too small to measure past it honestly.' },
+  ja:  { kind:'estimated',
+         note:'Spoken estimate. Japanese has no published conversational coverage study — the field lacks an equivalent of Nation’s work — so this uses the spoken curve. For contrast, Migaku’s Japanese NETFLIX SUBTITLES need 1,442 words for 80% and 37,247 for 99%; scripted drama ranges far wider than conversation does, which is why those figures are so much slower.' },
   es:  { kind:'cited', tiers:'es',
-         note:'Davies’ Corpus del Espanol — 100 million words, spoken register counted separately. The first 1,000 lemmas cover 88% of spoken Spanish but only 76-80% of written.' },
+         note:'Davies’ Corpus del Espanol — 100 million words, with the SPOKEN register counted separately, which is the half used here. The first 1,000 lemmas cover 88% of spoken Spanish against only 76-80% of written; that gap is why this app never quotes a written figure.' },
   en:  { kind:'cited', tiers:'en',
-         note:'Nation (2006) and the informal-spoken-English studies after it. Counted in WORD FAMILIES — run/runs/running/ran as one — which is coarser than the unit used elsewhere in this app, so treat it as the friendly end of the range.' },
-  th:  { kind:'cited', tiers:'th',
-         note:'A published Thai corpus study — 2.2 million words of news, web articles and forums. These are WRITTEN Thai; the authors note spoken frequency data was not available, so conversation will run higher. Only two points are published.' },
+         note:'Nation (2006) and the informal-SPOKEN-English studies after it — conversation, not writing. Counted in WORD FAMILIES, run/runs/running/ran as one, which is coarser than the unit used elsewhere in this app, so treat it as the friendly end of the range.' },
+  th:  { kind:'estimated',
+         note:'Spoken estimate. The one published Thai study is WRITTEN — 2.2 million words of news, web articles and forums, whose authors state that spoken frequency data was not available. It puts 1,000 words at 78%; conversation runs higher, which is what this curve reflects.' },
 };
 /* An if-chain rather than a lookup table, deliberately. coverageTiers() is
    reached during boot, EARLIER than the other coverage functions, and any
@@ -27038,19 +27060,28 @@ const COVERAGE_SOURCE = {
    is genuinely closed. HKCanCor uses only 2,421 distinct characters across
    157,896 of them, so 499 characters covers 90% held-out, where the word list
    cannot reach 95% at all. Measured the same 5-fold way as the word curve. */
-/* The fallback for every course without its own measured or published figures.
-   Anchored on the one number the measured corpora agree on — 1,000 words is
-   roughly 80% of everyday speech, give or take about eight points — and
-   deliberately short in the tail, because that is where every published table
-   stops being able to support itself.
+/* The fallback curve, and the register rule for the whole feature: EVERY
+   percentage in this app is coverage of SPOKEN language. This course teaches
+   how people talk, so a figure counted off newspapers or film scripts would be
+   answering a different question.
 
-   This used to fall back to the Japanese Netflix curve, so a Vietnamese learner
-   was shown Japanese subtitle milestones (1,442 / 2,688 / 5,243) as if they
-   were Vietnamese, under a note that named Japanese out loud. Wrong data,
-   wrongly sourced, and visible on the card. */
-const COVERAGE_GENERIC = [ { pct:50, words:100 }, { pct:60, words:200 }, { pct:70, words:450 },
-                           { pct:80, words:1000 }, { pct:85, words:1800 }, { pct:90, words:3200 },
-                           { pct:95, words:7000 } ];
+   That rule changed this curve. It used to be anchored at 1,000 words = 80%,
+   which is a subtitle-and-writing figure. The genuinely spoken measurements sit
+   well above it:
+
+     Cantonese conversation, measured here, held out  ~88% at 1,000
+     Spanish spoken (Davies, Corpus del Espanol)       88% at 1,000
+     English spoken (Nation 2006)                      81-84% at 1,000
+
+   So spoken conversation reaches roughly 86% at 1,000 words, not 80. The shape
+   below is the measured Cantonese conversational curve shifted about 15% right
+   — Cantonese being the only one of the nine with a real conversational corpus
+   behind it — which puts 1,000 words at 86.8%. It stops at 95% because spoken
+   English and Spanish both reach 94-95% around 3,000 and nothing verifiable
+   goes higher. */
+const COVERAGE_GENERIC = [ { pct:50, words:50 }, { pct:60, words:80 }, { pct:70, words:145 },
+                           { pct:75, words:220 }, { pct:80, words:355 }, { pct:85, words:670 },
+                           { pct:90, words:1610 }, { pct:95, words:4000 } ];
 const CHAR_YUE = [ { pct:50, words:44 }, { pct:60, words:69 }, { pct:70, words:117 },
                    { pct:80, words:219 }, { pct:85, words:312 }, { pct:90, words:499 },
                    { pct:95, words:896 } ];
@@ -27106,8 +27137,10 @@ function coverageTiers(){
   if(L === 'yue') return COVERAGE_MEASURED_YUE;
   if(L === 'es')  return COVERAGE_ES;
   if(L === 'en')  return COVERAGE_EN;
-  if(L === 'th')  return COVERAGE_TH;
-  if(L === 'ja')  return COVERAGE_NETFLIX;
+  // ja and th deliberately fall through to the spoken generic: Migaku's figures
+  // are scripted subtitles and the Thai study is a written corpus. Both are kept
+  // in their notes for contrast, because the gap between them and conversation
+  // is itself worth seeing.
   return COVERAGE_GENERIC;
 }
 function coverageKind(){
@@ -27119,7 +27152,7 @@ function coverageNote(){
   if(coverageUnit === 'chars' && courseHasCharacters()) return charNote();
   const s = COVERAGE_SOURCE[state.language];
   if(s) return s.note;
-  return 'Approximate, give or take about eight points. Anchored on the one figure the measured corpora agree on — 1,000 words is roughly 80% of everyday speech — and stopped early on purpose, because published tables diverge sharply above that. This course has no measured corpus of its own yet.';
+  return 'Spoken estimate, give or take a few points. Every figure in this app is coverage of SPEECH, not writing. Anchored on the conversational measurements that do exist — Cantonese and Spoken Spanish both put 1,000 words near 88%, spoken English at 81-84% — so this curve reaches about 87% there. This course has no conversational corpus of its own yet.';
 }
 
 function knownWordCount(){
@@ -33814,6 +33847,9 @@ function openTool(kind){
       <p class="section-sub" style="margin-top:0;">Rough VND ⇄ USD conversion (≈25,000₫ per $1). Always check a live rate before big purchases.</p>
       <div class="profile-field"><label>US Dollars</label><input type="number" id="usdInput" placeholder="10" oninput="convertCurrency('usd')"></div>
       <div class="profile-field"><label>Vietnamese Đồng</label><input type="number" id="vndInput" placeholder="250000" oninput="convertCurrency('vnd')"></div>`;
+  } else if(kind==='coverage'){
+    document.getElementById('toolTitle').textContent = 'Coverage curves';
+    body.innerHTML = coverageDocHtml();
   } else {
     document.getElementById('toolTitle').textContent = 'Culture tip';
     const tip = CULTURE_TIPS[Math.floor(Math.random()*CULTURE_TIPS.length)];
@@ -33821,6 +33857,91 @@ function openTool(kind){
       <div class="hero-card"><p style="margin:0;font-size:15px;line-height:1.5;">${tip}</p></div>
       <button class="mark-complete-btn" style="background:var(--herb);color:var(--ink);" onclick="openTool('culture')">Show another tip</button>`;
   }
+}
+/* ---- the coverage explainer, built live from the course you are in ----
+
+   Written because the 50% figure is genuinely hard to believe and saying it
+   again does not help. The only thing that does help is doing it in front of
+   the reader: take the top N words of THIS course's own frequency list — the
+   exact N the ladder claims is 50% — and blank everything else out of real
+   sentences from the deck. The claim is arithmetic about token counts, and the
+   demonstration shows what that arithmetic does and does not buy you. */
+function coverageProofLines(topN, count){
+  let words = [], phrases = [];
+  try{ words = wordStudyPool().slice(0, topN).map(w => w.word); }catch(e){}
+  try{ phrases = phraseStudyPool().filter(p => p && p.v && p.e); }catch(e){}
+  if(!words.length || !phrases.length) return [];
+  const set = new Set(words);
+  const spaced = isSpaceDelimitedCourse();
+  /* Walk the deck with a stride rather than taking the first few. The opening
+     entries of every course are phrasebook greetings, which are not
+     representative of anything — the Vietnamese demo was four "nice to meet
+     you" variants until this was added. */
+  const usable = phrases.filter(p => {
+    let seg; try{ seg = segmentTarget(p.v); }catch(e){ return false; }
+    return seg.length >= 5 && seg.length <= 12;
+  });
+  const want = count || 4;
+  const stride = Math.max(1, Math.floor(usable.length / (want * 3)));
+  const walk = [];
+  for(let i = 0; i < usable.length; i += stride) walk.push(usable[i]);
+  const out = [];
+  for(const p of walk){
+    if(out.length >= want) break;
+    const seg = segmentTarget(p.v);
+    const hits = seg.filter(t => set.has(t)).length;
+    if(!hits) continue;
+    out.push({
+      html: seg.map(t => set.has(t)
+        ? `<span class="cv-known">${t}</span>`
+        : `<span class="cv-gap">${'▁'.repeat(Math.max(1, Array.from(t).length))}</span>`).join(spaced ? ' ' : ''),
+      e: p.e, hits, total: seg.length
+    });
+  }
+  return out;
+}
+function coverageDocHtml(){
+  const tiers = coverageTiers();
+  const half = tiers.find(t => t.pct === 50) || tiers[0];
+  const kind = coverageKind();
+  const badge = kind === 'measured' ? '<span class="chip-m">measured</span>'
+              : kind === 'cited' ? '<span class="chip-c">published</span>'
+                                 : '<span class="chip-e">spoken estimate</span>';
+  const lines = coverageProofLines(half.words, 4);
+  const lang = activeLangName();
+  const measuredYue = state.language === 'yue';
+
+  return `
+  <p class="cov-doc-lead">Every percentage in this app is coverage of <b>spoken</b> language — how many of the words in ordinary speech you would recognise. It is not how much you would understand. ${badge}</p>
+
+  <div class="cov-doc-block">
+    <h4>Does ${half.words.toLocaleString()} words really cover ${half.pct}% of ${lang}?</h4>
+    <p>${measuredYue
+      ? 'Yes, and it is a counting result rather than an estimate. Across 119,783 words of recorded Hong Kong conversation, the top 43 words are spoken about 60,300 times. That is 50.4% of every word said. There is no modelling in it — you count the words and divide.'
+      : 'As a count of words, yes. The most frequent words in any language are pronouns, particles and copulas, and they repeat constantly, so a few dozen of them account for half of everything said. This course has no conversational corpus of its own, so the exact number is an estimate — but the shape is not in doubt.'}</p>
+    <p>What it does <b>not</b> mean is half the meaning. Here are real lines from this course with everything outside those ${half.words.toLocaleString()} words blanked out:</p>
+    ${lines.length ? `<div class="cov-doc-lines">${lines.map(l => `
+      <div class="cov-doc-line">
+        <div class="cv-sample${cjkCls()}">${l.html}</div>
+        <p class="cv-sample-e">${l.e}</p>
+        <p class="cv-sample-count">${l.hits} of ${l.total} words</p>
+      </div>`).join('')}</div>`
+      : '<p class="cov-doc-note">Not enough content in this course yet to demonstrate.</p>'}
+    <p>That is the whole point. The half you know is the grammar; the half you do not is every word carrying information. Coverage climbs fast and comprehension does not follow until much later.</p>
+  </div>
+
+  <div class="cov-doc-block">
+    <h4>The ladder for ${lang}</h4>
+    <div class="cov-doc-tiers">${tiers.map(t =>
+      `<div class="cov-doc-tier"><span>${t.est ? '≈' : ''}${t.pct}%</span><b>${t.words.toLocaleString()}</b><i>${coverageUnitLabel()}s</i></div>`).join('')}</div>
+    <p class="cov-doc-note">${coverageNote()}</p>
+  </div>
+
+  <div class="cov-doc-block">
+    <h4>Why the numbers differ between courses</h4>
+    <p>Coverage is a property of the <b>corpus</b>, not of the language. Casual conversation uses a narrow vocabulary and scores high; film subtitles and news range far wider and score much lower for the same effort. Migaku's Japanese Netflix count needs 1,442 words for 80% where conversation needs a few hundred — that gap is register and corpus size, not Japanese being harder.</p>
+    <p class="cov-doc-note">Only Cantonese here rests on a real conversational corpus (HKCanCor). Spanish and English rest on published spoken research. The rest use a spoken curve anchored on those, and say so.</p>
+  </div>`;
 }
 function closeTool(){ document.getElementById('toolBackdrop').classList.remove('open'); }
 function convertCurrency(from){

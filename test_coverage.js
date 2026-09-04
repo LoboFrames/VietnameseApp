@@ -64,7 +64,7 @@ for(const lang of LANGS.filter(l => l !== 'yue')){
   ok(kind === 'cited' || kind === 'estimated', `${lang}: labelled cited or estimated`);
   if(kind === 'cited') ok(/Migaku|Netflix|Davies|Corpus del|Nation|corpus study/.test(coverageNote()),
      `${lang}: and names the source`);
-  else ok(/[Aa]pproximate|[Ee]stimated/.test(coverageNote()), `${lang}: and says approximate`);
+  else ok(/[Aa]pproximate|[Ee]stimate/.test(coverageNote()), `${lang}: and says it is an estimate`);
   ok(!/measured on/i.test(coverageNote()), `${lang}: and never claims a measurement`);
 }
 selectLanguage('yue'); setCoverageUnit('words');
@@ -187,7 +187,9 @@ selectLanguage('yue');
   selectLanguage('ja');
   renderCoverageCard();
   const j = document.getElementById('covBody').innerHTML;
-  ok(/Netflix/.test(j), 'Japanese names the corpus its figure came from');
+  // the ladder is only rendered when the card is expanded; check the note itself
+  ok(/Netflix/i.test(coverageNote()),
+     'Japanese names the subtitle corpus it deliberately does NOT use, for contrast');
   ok(!/HKCanCor/.test(j), 'and does not borrow the Cantonese corpus to look authoritative');
   ok(/21 days/.test(j), 'and both say what counts as a known word');
   ok(/not understanding a sentence/i.test(j), 'and both carry the recognition-is-not-comprehension warning');
@@ -230,8 +232,8 @@ section('sources — what was verified and what was thrown out');
   ok(!/ICATSD|iuh\.edu/i.test(all), 'the ICATSD proceedings are not cited — they do not contain the study');
   ok(!/GoCantonese/i.test(all), 'GoCantonese is not cited — it states a generic figure, not a measurement');
   selectLanguage('ja');
-  ok(/Migaku/.test(coverageNote()) && /110 million|124,000/.test(coverageNote()),
-     'Japanese cites Migaku and the corpus size that makes the claim checkable');
+  ok(coverageKind() === 'estimated' && /SUBTITLES/.test(coverageNote()),
+     'Japanese uses the spoken estimate and says why its subtitle figures are not used');
   selectLanguage('yue');
   ok(/119,783/.test(coverageNote()), 'Cantonese states the corpus it was measured on');
   ok(/never seen|held/.test(coverageNote()), 'and that it was scored held-out');
@@ -294,10 +296,11 @@ section('every cited course names a verifiable corpus');
 {
   const want = {
     yue:[/HKCanCor/, /119,783/],
-    ja: [/Migaku/, /110 million/],
+    ja: [/Migaku/, /SUBTITLES/],
     es: [/Davies/, /Corpus del/, /100 million/],
     en: [/Nation/, /WORD FAMILIES/],
     th: [/2\.2 million/, /WRITTEN/],
+    es: [/Davies/, /SPOKEN/],
   };
   Object.entries(want).forEach(([lang, pats]) => {
     selectLanguage(lang); setCoverageUnit('words');
@@ -306,8 +309,8 @@ section('every cited course names a verifiable corpus');
   });
   // register matters and must be stated where it cuts against the course
   selectLanguage('th');
-  ok(/spoken frequency data was not available|WRITTEN/.test(coverageNote()),
-     'Thai says out loud that its figures are written, not speech — this course teaches speech');
+  ok(/WRITTEN/.test(coverageNote()) && coverageKind() === 'estimated',
+     'Thai does not use its written study as the curve, and says why');
   selectLanguage('es');
   ok(/76-80% of written|76–80% of written/.test(coverageNote()),
      'Spanish shows the written figure beside the spoken one, so the gap between registers is visible');
@@ -356,6 +359,76 @@ for(const lang of LANGS){
     ok(words.every(w => pool.slice(0, 10).some(p => p.word === w)),
        `${lang}: and every one comes from the top of ITS OWN list`);
   }
+}
+
+section('every figure is coverage of SPEECH, not writing');
+{
+  /* The standing rule for the whole app is real spoken register, and the
+     coverage card was breaking it in two places: Japanese ran on Migaku's
+     Netflix SUBTITLES (scripted drama, far wider than conversation) and Thai on
+     a corpus of newspapers and web forums whose own authors said spoken data
+     was unavailable. Both now fall through to the spoken curve and keep their
+     published figures only as contrast. */
+  for(const lang of LANGS){
+    selectLanguage(lang); setCoverageUnit('words');
+    const n = coverageNote();
+    // A note may DISCUSS writing — Spanish contrasts 88% spoken against 76-80%
+    // written, which is the most useful sentence on the card. What it must never
+    // do is present the written number as the course's own curve.
+    const usesWritten = /^[^.]*\bwritten\b/i.test(n) && !/spoken|SPOKEN/.test(n);
+    ok(!usesWritten, `${lang}: never presents a written figure as its own curve`);
+  }
+  // the spoken anchor: the three real conversational sources agree near 86-88%
+  selectLanguage('vi2'); setCoverageUnit('words');
+  const at1000 = coverageForWords(1000);
+  ok(at1000 > 84 && at1000 < 89,
+     `the spoken generic curve puts 1,000 words at ${at1000.toFixed(1)}% — matching conversation, not subtitles`);
+  selectLanguage('yue'); setCoverageUnit('words');
+  const yueAt1000 = coverageForWords(1000);
+  ok(Math.abs(yueAt1000 - at1000) < 4,
+     `and the measured Cantonese curve agrees within a few points (${yueAt1000.toFixed(1)}%)`);
+  selectLanguage('es'); setCoverageUnit('words');
+  ok(Math.abs(coverageForWords(1000) - 88) < 0.01, 'spoken Spanish sits at exactly Davies’ 88%');
+  selectLanguage('yue'); setCoverageUnit('words');
+}
+
+section('the in-app explainer');
+for(const lang of LANGS){
+  selectLanguage(lang); setCoverageUnit('words');
+  let threw = null, html = '';
+  try{ html = coverageDocHtml(); }catch(e){ threw = e.message; }
+  ok(!threw, `${lang}: the Coverage curves tool renders (${threw || 'clean'})`);
+  if(threw) continue;
+  ok(!/undefined|NaN|\[object/.test(html), `${lang}: with nothing undefined in it`);
+  ok(/spoken/i.test(html), `${lang}: states that the figures are about speech`);
+  ok(!/of everyday speech understood|understand this percentage/i.test(html),
+     `${lang}: never claims the percentage is comprehension`);
+  // it must show the course's own ladder, not another's
+  const tiers = coverageTiers();
+  ok(html.indexOf(tiers[tiers.length-1].words.toLocaleString()) !== -1,
+     `${lang}: shows its own top rung`);
+}
+
+section('the proof lines are drawn from across the deck');
+selectLanguage('yue');
+{
+  const t = coverageTiers().find(x => x.pct === 50);
+  const lines = coverageProofLines(t.words, 4);
+  ok(lines.length > 0, 'Cantonese produces demonstration lines');
+  ok(lines.every(l => l.total >= 5 && l.total <= 12), 'every one is a readable length');
+  ok(lines.every(l => l.hits > 0), 'and every one has something showing');
+  /* The first entries of every deck are phrasebook greetings, so taking the
+     first N matches gave four variations on "nice to meet you". A stride walks
+     the whole deck instead. This asserts the spread rather than the wording. */
+  const uniq = new Set(lines.map(l => l.e));
+  ok(uniq.size === lines.length, 'the lines are distinct, not four variants of one greeting');
+  ok(new Set(lines.map(l => l.hits + '/' + l.total)).size > 1,
+     'and they vary in how much is known, which is the point of showing several');
+
+  // the demonstration must actually leave gaps — otherwise it proves nothing
+  ok(lines.some(l => l.hits < l.total), 'at least one line has words blanked out');
+  const worst = Math.min(...lines.map(l => l.hits / l.total));
+  ok(worst < 0.5, `and at least one is mostly blanks (${(worst*100).toFixed(0)}% known)`);
 }
 
 section('the masked demonstration');
