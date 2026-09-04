@@ -1030,6 +1030,46 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
 
   .quiz-label{display:flex;align-items:center;gap:8px;color:var(--vermillion);font-weight:800;font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;margin:6px 0 14px;}
   .quiz-q{font-size:20px;font-weight:800;line-height:1.35;margin:0 0 20px;display:flex;justify-content:space-between;gap:10px;align-items:flex-start;}
+  /* ---- Production ("Speak") ---- */
+  .prod-prompt{font-size:19px;font-weight:800;line-height:1.35;text-align:center;margin:2px 0 16px;color:var(--rice);}
+  .prod-instr{font-size:13px;color:var(--muted);text-align:center;margin:0 0 16px;}
+  .prod-line{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center;width:100%;min-height:56px;
+    border-bottom:2px dashed rgba(36,28,19,0.30);padding:10px 6px 14px;margin:0 0 18px;}
+  .prod-line.empty{align-items:center;}
+  .prod-placeholder{font-size:13px;color:var(--muted);}
+  .prod-slot{background:var(--gold);color:var(--ink);border:none;border-radius:11px;padding:9px 13px;font-size:17px;font-weight:700;line-height:1.25;}
+  .prod-slot.ok{background:#2f9e5f;color:#fff;}
+  .prod-slot.bad{background:#c0392b;color:#fff;}
+  .prod-bank{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;width:100%;margin:0 0 18px;}
+  .prod-tile{background:var(--surface);color:var(--rice);border:2px solid rgba(36,28,19,0.22);border-radius:11px;
+    padding:9px 13px;font-size:17px;font-weight:700;line-height:1.25;}
+  .prod-tile.used{opacity:.22;border-style:dashed;}
+  .prod-tile:disabled{pointer-events:none;}
+  .prod-btns{display:flex;gap:10px;width:100%;margin-bottom:10px;}
+  /* The card is a flex COLUMN, so a bare `flex:2` on a button that is a direct
+     child of it grows to fill the card's spare height — the Reveal button on a
+     Say It card became a 1,200px-tall gold bar. Only stretch inside .prod-btns,
+     which is the row this was written for. */
+  .prod-check{flex:none;align-self:center;min-width:190px;background:var(--gold);color:var(--ink);border:none;border-radius:13px;padding:14px 22px;font-size:15px;font-weight:800;}
+  .prod-btns .prod-check{flex:2;align-self:auto;min-width:0;}
+  .prod-check:disabled{opacity:.35;}
+  .prod-clear{flex:none;background:transparent;color:var(--muted);border:2px solid rgba(36,28,19,0.22);border-radius:13px;padding:14px;font-size:14px;font-weight:700;}
+  .prod-btns .prod-clear{flex:1;}
+  .prod-clear:disabled{opacity:.35;}
+  .prod-give{flex:none;background:none;border:none;color:var(--muted);font-size:13px;text-decoration:underline;padding:6px;}
+  .prod-verdict{font-size:15px;font-weight:800;text-align:center;margin:2px 0 10px;color:var(--rice);}
+  .prod-verdict.good{color:#1f7a45;}
+  .prod-verdict.bad{color:#b3301f;}
+  .prod-answer{font-size:22px;font-weight:800;line-height:1.4;text-align:center;margin:0 0 4px;color:var(--rice);}
+  .prod-mic{flex:none;align-self:center;background:transparent;color:var(--rice);border:2px solid rgba(36,28,19,0.24);border-radius:13px;
+    padding:11px 16px;font-size:14px;font-weight:700;margin:10px 0 4px;}
+  .prod-mic.listening{border-color:var(--gold);color:var(--gold);}
+  .prod-mic-note{font-size:13px;color:var(--muted);text-align:center;margin:6px 0 0;line-height:1.5;}
+  .pm-said{margin:0 0 4px;font-style:italic;}
+  .pm-marked{font-size:21px;font-weight:800;letter-spacing:1px;margin:2px 0;}
+  .pm-ok{color:#1f7a45;}
+  .pm-bad{color:#b3301f;text-decoration:underline;text-decoration-style:wavy;}
+  .pm-score{margin:4px 0 0;font-size:12px;}
   .quiz-option{width:100%;text-align:left;background:var(--surface);border:2px solid rgba(36,28,19,0.22);border-radius:14px;padding:16px 16px;font-size:16px;font-weight:600;line-height:1.4;margin-bottom:12px;color:var(--rice);}
   .quiz-option:active{transform:scale(.985);}
   .quiz-option.correct{background:var(--herb);border-color:#2C6E44;color:#fff;font-weight:800;}
@@ -1408,6 +1448,7 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
           <button class="chip active" data-mode="words" onclick="setCardsMode('words')">Words</button>
           <button class="chip" data-mode="phrases" onclick="setCardsMode('phrases')">Phrases</button>
           <button class="chip" data-mode="listen" onclick="setCardsMode('listen')">🎧 Listen</button>
+          <button class="chip" data-mode="speak" onclick="setCardsMode('speak')">🗣 Speak</button>
         </div>
 
         <div class="wc-hero">
@@ -26847,7 +26888,7 @@ function isDifficultWord(srsId){
 // all is unknown, a card under 21 days is learning, 21+ days is known.
 function isUnknownCard(srsId){ return !state.srs[srsId]; }
 
-let cardsTabMode = 'words'; // 'words' | 'phrases' | 'listen'
+let cardsTabMode = 'words'; // 'words' | 'phrases' | 'listen' | 'speak'
 let cardsSubTab = 'study'; // 'study' | 'browse' | 'mine' — Study opens first.
 function setContentMode(mode){
   state.contentMode = mode;
@@ -26898,6 +26939,7 @@ function startActiveStudy(idx){
   if(!bucket){ toast('That deck could not be opened — try again.'); return; }
   if(cardsTabMode==='words') startWordStudy(bucket);
   else if(cardsTabMode==='listen') startListenStudy(bucket);
+  else if(cardsTabMode==='speak') startSpeakStudy(bucket);
   else startPhraseStudy(bucket);
 }
 /* Accepts a bucket object (what the hub passes) or an id (older callers).
@@ -26938,6 +26980,7 @@ function startActiveUnknownStudy(){
 function startActiveDifficultStudy(){
   if(cardsTabMode==='words') startDifficultWordsStudy();
   else if(cardsTabMode==='listen') startDifficultListenStudy();
+  else if(cardsTabMode==='speak') startDifficultSpeakStudy();
   else startDifficultPhrasesStudy();
 }
 // 'listen' shares the exact same phrase deck/srsId's as 'phrases' — same mastered list either way.
@@ -26945,11 +26988,15 @@ function viewActiveMastered(){ cardsTabMode==='words' ? viewMasteredWords() : vi
 function renderFlashcardsHub(){
   const isWords = cardsTabMode==='words';
   const isListen = cardsTabMode==='listen';
+  const isSpeak = cardsTabMode==='speak';
   const dueEl = document.getElementById('wcDue');
   if(!dueEl) return; // view not in DOM yet on first paint, harmless no-op
   document.querySelectorAll('#contentModeToggle .chip').forEach(c=>c.classList.toggle('active', c.dataset.mode===state.contentMode));
 
-  if(isListen){
+  if(isSpeak){
+    document.getElementById('cardsTabTitle').textContent = 'Speak';
+    document.getElementById('cardsTabSub').textContent = 'The other direction. You get the English and have to produce the phrase — build it from the words, or say it out loud and check yourself. Same deck and same cards as Phrases and Listen, so it all feeds one set of intervals.';
+  } else if(isListen){
     document.getElementById('cardsTabTitle').textContent = 'Listen & guess';
     document.getElementById('cardsTabSub').textContent = 'The exact same phrase deck as Phrases, just played back-first — hear the clip, read the phrase, guess the meaning. Grading still updates the same cards, so this counts toward the same progress either way.';
   } else {
@@ -26958,7 +27005,9 @@ function renderFlashcardsHub(){
       ? 'Spaced repetition through every word in your frequency list — same engine as Swipe Learn, just word-by-word.'
       : 'Spaced repetition through 500 hand-picked everyday phrases — greetings, small talk, daily routine, and more. Hand-curated, not corpus-ranked — there\'s no public dataset of "most common Vietnamese sentences" the way there is for words.';
   }
-  document.getElementById('wcStartSub').textContent = isListen
+  document.getElementById('wcStartSub').textContent = isSpeak
+    ? 'Produce it from the English, check it, then grade yourself Again / Hard / Good / Easy.'
+    : isListen
     ? 'Hear it, read it, guess the meaning, then grade yourself Again / Hard / Good / Easy.'
     : 'Anki-style — grade yourself Again / Hard / Good / Easy.';
   document.getElementById('wcUnknownLabel').textContent = isWords ? 'Unknown words' : 'Unknown phrases';
@@ -26994,7 +27043,7 @@ function renderFlashcardsHub(){
     const remaining = Math.max(0, goal - todayCount);
     document.getElementById('wcDueLabel').textContent = 'Left today';
     dueEl.textContent = remaining;
-    const verb = isListen ? 'Listen to' : 'Study';
+    const verb = isSpeak ? 'Say' : isListen ? 'Listen to' : 'Study';
     document.getElementById('wcStartTitle').textContent = remaining>0
       ? `${verb} ${Math.min(remaining, SRS_SESSION_CAP)} phrases`
       : `Goal reached today! (${todayCount}/${goal}) — study more?`;
@@ -28771,6 +28820,458 @@ function closeSwipe(){
   // A drill opened from a lesson hands the screen back to that lesson.
   if(lessonVocabReturnTo){ const back = lessonVocabReturnTo; lessonVocabReturnTo = null; openLessonDetail(back); }
 }
+/* ========================= PRODUCTION ("Speak") =========================
+   Everything else in this app is RECOGNITION. You are shown the Cantonese and
+   asked what it means, or shown four meanings and asked which. You can pass
+   every exercise in the course without ever having produced a single word.
+
+   That is the gap this closes. Three rungs, picked automatically per card:
+
+     BUILD IT  — the English, and a shuffled bank of the real Cantonese chunks
+                 plus distractors. Tap them into order. Tests word CHOICE and
+                 word ORDER, which is where production actually fails, and it
+                 works with no microphone, no Chinese IME and no network.
+     SAY IT    — for sentences too short to build (under three chunks, where a
+                 bank would be a giveaway). The English alone; say it out loud,
+                 then reveal and grade yourself. This is what an Anki production
+                 card is, and it is honest as long as the reveal comes second.
+     MIC       — offered on top of either rung where the browser really supports
+                 recognition. Diffed CHARACTER BY CHARACTER against the target so
+                 it can say which part came out wrong, rather than "nice, keep
+                 matching the tones!" — which is what the retired repeat-after-me
+                 flow said no matter what you did, and why it was retired.
+
+   The old flow was removed because it never verified anything. Re-enabling it
+   would have restored that. These rungs all verify.
+
+   Grading is the ordinary SRS path: producing a card is scored against the same
+   srsId the Phrases and Listen decks use, so it feeds one set of intervals
+   rather than a parallel universe of progress. */
+
+// Which courses put spaces between words. For the rest the bank has to be
+// segmented, because a Chinese or Thai sentence is one unbroken run.
+function activeLangName(){
+  const l = LANGUAGES.find(x => x.id === state.language);
+  return l ? l.name.replace(' (New)', '') : 'the language';
+}
+function isSpaceDelimitedCourse(){
+  return isVietnameseCourse() || ['en','es','tl','ko'].indexOf(state.language) !== -1;
+}
+
+// Two regexes on purpose. A global regex keeps `lastIndex` between calls, so
+// using one for .test() silently alternates true/false on identical input —
+// which here would drop every other punctuation mark. Global for .replace(),
+// non-global for .test(), and never the other way round.
+const PROD_PUNCT   = /[，。？！、；：…—·「」『』（）()"'“”‘’,.?!;:]/;
+const PROD_PUNCT_G = /[，。？！、；：…—·「」『』（）()"'“”‘’,.?!;:]/g;
+
+/* The segmenter's dictionary is the course's OWN vocabulary — every word it
+   has ever taught, plus the facility, slang and swearing decks. That matters:
+   segmenting 唔好臨急抱佛腳 into 唔好 / 臨急抱佛腳 gives tiles a learner can
+   reason about, where a naive per-character split gives seven tiles that are
+   tedious rather than difficult. Longest match wins, same as the jyutping
+   generator, and anything unmatched falls back to one tile per character. */
+let _prodVocabCache = null, _prodVocabLang = null;
+function productionVocab(){
+  if(_prodVocabLang === state.language && _prodVocabCache) return _prodVocabCache;
+  const set = new Set();
+  let max = 1;
+  const add = w => {
+    if(!w) return;
+    const t = String(w).trim();
+    if(!t || PROD_PUNCT.test(t)) return;
+    set.add(t);
+    if(t.length > max) max = t.length;
+  };
+  try{ activeLessons().forEach(l => (l.vocab||[]).forEach(v => add(v.v))); }catch(e){}
+  // The frequency spine as well as the lessons — 2,400 more words for Cantonese
+  // and 3,000 for Japanese. Without it a sentence made of words the course has
+  // not formally "taught" shatters into single characters, which is a jigsaw
+  // rather than a language test. This is also what makes the segmenter work at
+  // all for a course whose lesson list is thin.
+  try{ wordStudyPool().forEach(w => add(w.word)); }catch(e){}
+  try{ facilityVocab().forEach(w => add(w.word)); }catch(e){}
+  try{ ['slang','swear'].forEach(k => slangDeck(k).forEach(w => add(w.word))); }catch(e){}
+  _prodVocabCache = { set, max: Math.min(max, 8) };
+  _prodVocabLang = state.language;
+  return _prodVocabCache;
+}
+function resetProductionVocab(){ _prodVocabCache = null; _prodVocabLang = null; }
+
+function segmentTarget(text){
+  if(!text) return [];
+  if(isSpaceDelimitedCourse()){
+    return String(text).split(/\s+/)
+      .map(w => w.replace(PROD_PUNCT_G, ''))
+      .filter(Boolean);
+  }
+  const voc = productionVocab();
+  const a = Array.from(String(text));
+  const out = [];
+  let i = 0;
+  while(i < a.length){
+    if(PROD_PUNCT.test(a[i]) || /\s/.test(a[i])){ i++; continue; }
+    let hit = 0;
+    for(let len = Math.min(voc.max, a.length - i); len >= 2; len--){
+      const cand = a.slice(i, i + len).join('');
+      if(PROD_PUNCT.test(cand) || /\s/.test(cand)) continue;   // never span punctuation
+      if(voc.set.has(cand)){ hit = len; break; }
+    }
+    if(hit){ out.push(a.slice(i, i + hit).join('')); i += hit; }
+    else { out.push(a[i]); i++; }
+  }
+  return out;
+}
+
+/* Distractor tiles come from other sentences in the same deck, so they are
+   plausible Cantonese rather than noise.
+
+   Two hazards, both fenced, both tested:
+
+   1. A distractor that DUPLICATES an answer tile. The learner taps the copy,
+      assembles a sentence that reads exactly right, and is marked wrong for a
+      correct answer. Nothing about the screen would explain why. Distractors
+      are therefore filtered against the answer's surface forms, not against
+      the answer's positions.
+   2. Distractors that are all obviously the wrong SIZE. If every real tile is
+      two characters and every distractor is one, the bank solves itself
+      without any Cantonese. They are shuffled first, then stably ordered by
+      how close they are to the median real tile, so they blend in and still
+      vary between sessions. */
+function buildProductionBank(card, pool){
+  const answer = segmentTarget(card.v);
+  const have = new Set(answer);
+  const wanted = answer.length <= 3 ? 2 : (answer.length <= 6 ? 3 : 4);
+
+  const others = [];
+  const seenOther = new Set();
+  (pool || []).forEach(p => {
+    if(!p || !p.v || p.srsId === card.srsId) return;
+    segmentTarget(p.v).forEach(t => {
+      if(have.has(t) || seenOther.has(t)) return;
+      seenOther.add(t);
+      others.push(t);
+    });
+  });
+  for(let i = others.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = others[i]; others[i] = others[j]; others[j] = tmp;
+  }
+  const lens = answer.map(t => t.length).sort((a, b) => a - b);
+  const typical = lens.length ? lens[Math.floor(lens.length / 2)] : 1;
+  others.sort((a, b) => Math.abs(a.length - typical) - Math.abs(b.length - typical));
+
+  const distractors = others.slice(0, wanted);
+  const tiles = answer.concat(distractors);
+  for(let i = tiles.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = tiles[i]; tiles[i] = tiles[j]; tiles[j] = tmp;
+  }
+  return { answer, tiles, distractors };
+}
+
+/* Which rung a card gets. Three ways a bank is the wrong exercise:
+
+   - UNDER THREE TILES it gives the answer away; there is only one order.
+   - OVER NINE TILES it stops being language and becomes a jigsaw. This is
+     mostly the C1 turns, which run 40 to 90 syllables — and Say It is the
+     right exercise for those anyway, because holding a long turn together
+     from memory is the actual C1 skill. Tiles would do that work for you.
+   - ALL SINGLE CHARACTERS past five tiles means the dictionary found no words
+     in this sentence, so the bank would be a character scramble. Cantonese
+     has plenty of real one-character words (我, 係, 唔, 都), so a few singles
+     are fine — a sentence made of nothing else is the segmenter failing.
+
+   Say It handles every one of those cases, which is why it is the fallback
+   rather than skipping the card. */
+const PROD_MAX_TILES = 9;
+function productionRung(card){
+  const seg = segmentTarget(card.v);
+  if(seg.length < 3) return 'say';
+  if(seg.length > PROD_MAX_TILES) return 'say';
+  if(seg.filter(t => t.length > 1).length === 0 && seg.length > 5) return 'say';
+  return 'build';
+}
+
+function prepareProductionCard(){
+  const ps = swipeState;
+  const c = ps.deck[ps.idx];
+  const pool = ps.prodPool || [];
+  ps.prodRung = productionRung(c);
+  if(ps.prodRung === 'build'){
+    const bank = buildProductionBank(c, pool);
+    ps.prodAnswer = bank.answer;
+    ps.prodTiles = bank.tiles;
+  } else {
+    ps.prodAnswer = segmentTarget(c.v);
+    ps.prodTiles = [];
+  }
+  ps.prodPicked = [];
+  ps.prodResult = null;
+  ps.prodFirstBad = -1;
+  ps.prodMic = null;
+  ps.prodCardIdx = ps.idx;
+}
+
+function pickProductionTile(i){
+  const ps = swipeState;
+  if(!ps || ps.prodResult) return;
+  if(ps.prodPicked.indexOf(i) !== -1) return;
+  ps.prodPicked.push(i);
+  renderSwipe();
+}
+function unpickProductionTile(slot){
+  const ps = swipeState;
+  if(!ps || ps.prodResult) return;
+  ps.prodPicked.splice(slot, 1);
+  renderSwipe();
+}
+function clearProduction(){
+  const ps = swipeState;
+  if(!ps || ps.prodResult) return;
+  ps.prodPicked = [];
+  renderSwipe();
+}
+function checkProduction(){
+  const ps = swipeState;
+  if(!ps || ps.prodResult) return;
+  const built = ps.prodPicked.map(i => ps.prodTiles[i]);
+  let bad = -1;
+  for(let i = 0; i < Math.max(built.length, ps.prodAnswer.length); i++){
+    if(built[i] !== ps.prodAnswer[i]){ bad = i; break; }
+  }
+  ps.prodResult = bad === -1 ? 'right' : 'wrong';
+  ps.prodFirstBad = bad;
+  ps.flipped = true;                       // unlocks the SRS row, same gate as a flip
+  const c = ps.deck[ps.idx];
+  playAudio(c.srsId, c.v, currentAccent);
+  renderSwipe();
+}
+// The escape hatch. Reveals the answer and marks the attempt failed, so the
+// obvious grade is Again — showing yourself the answer and then pressing Easy
+// is a thing a person can do, but the app should not make it the default.
+function revealProduction(){
+  const ps = swipeState;
+  if(!ps || ps.prodResult) return;
+  ps.prodResult = 'shown';
+  ps.prodFirstBad = -1;
+  ps.flipped = true;
+  const c = ps.deck[ps.idx];
+  playAudio(c.srsId, c.v, currentAccent);
+  renderSwipe();
+}
+
+/* ---- the mic rung ----
+   Only offered where recognition genuinely works. iOS Safari exposes
+   webkitSpeechRecognition and then never fires the result callback, so feature
+   detection alone reports a mic that does nothing — isIOSDevice() is already in
+   the file for exactly this reason and is reused rather than re-derived. */
+function productionMicSupported(){
+  if(typeof window === 'undefined') return false;
+  if(isIOSDevice()) return false;
+  return !!(window.SpeechRecognition || window.webkitSpeechRecognition);
+}
+// Compare on characters with everything but the script itself removed, so
+// punctuation, spacing and a trailing particle the recogniser dropped do not
+// register as a mispronunciation.
+function prodNormalise(s){
+  return String(s || '').replace(PROD_PUNCT_G, '').replace(/\s+/g, '').toLowerCase();
+}
+function scoreProductionSpeech(said, target){
+  const a = Array.from(prodNormalise(said));
+  const b = Array.from(prodNormalise(target));
+  if(!b.length) return { hits: 0, total: 0, marks: [] };
+  const bag = new Map();
+  a.forEach(ch => bag.set(ch, (bag.get(ch) || 0) + 1));
+  let hits = 0;
+  const marks = b.map(ch => {
+    const n = bag.get(ch) || 0;
+    if(n > 0){ bag.set(ch, n - 1); hits++; return { ch, ok: true }; }
+    return { ch, ok: false };
+  });
+  return { hits, total: b.length, marks };
+}
+function startProductionMic(){
+  const ps = swipeState;
+  if(!ps) return;
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR){ ps.prodMic = { state:'unsupported' }; renderSwipe(); return; }
+  const c = ps.deck[ps.idx];
+  try{
+    if(recognitionInstance){ try{ recognitionInstance.abort(); }catch(e){} }
+    recognitionInstance = new SR();
+    recognitionInstance.lang = TTS_LOCALE[state.language] || 'en-US';
+    let got = false;
+    // Same 6s safety net the practice overlay uses: a mic that listens forever
+    // and never returns is worse than one that says it could not hear you.
+    const stuck = setTimeout(()=>{
+      if(got) return;
+      try{ recognitionInstance.abort(); }catch(e){}
+      if(swipeState === ps){ ps.prodMic = { state:'timeout' }; renderSwipe(); }
+    }, 6000);
+    recognitionInstance.onresult = (e)=>{
+      got = true;
+      clearTimeout(stuck);
+      if(swipeState !== ps) return;
+      const said = e.results[0][0].transcript;
+      ps.prodMic = Object.assign({ state:'done', said }, scoreProductionSpeech(said, c.v));
+      renderSwipe();
+    };
+    recognitionInstance.onerror = ()=>{
+      clearTimeout(stuck);
+      if(swipeState === ps){ ps.prodMic = { state:'error' }; renderSwipe(); }
+    };
+    recognitionInstance.start();
+    ps.prodMic = { state:'listening' };
+    renderSwipe();
+  }catch(e){
+    ps.prodMic = { state:'error' };
+    renderSwipe();
+  }
+}
+
+function prodEsc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function renderProductionCard(c){
+  const ps = swipeState;
+  const done = !!ps.prodResult;
+  const romOk = showExerciseRom();
+
+  const micHtml = productionMicSupported() ? (()=>{
+    const m = ps.prodMic;
+    let note = '';
+    if(m && m.state === 'listening') note = '<p class="prod-mic-note">Listening…</p>';
+    else if(m && m.state === 'timeout') note = '<p class="prod-mic-note">Didn’t hear anything — try again, or carry on without it.</p>';
+    else if(m && m.state === 'error') note = '<p class="prod-mic-note">The mic didn’t start. Carry on without it.</p>';
+    else if(m && m.state === 'done'){
+      const pct = m.total ? Math.round(m.hits / m.total * 100) : 0;
+      const marked = m.marks.map(x => `<span class="${x.ok ? 'pm-ok' : 'pm-bad'}">${prodEsc(x.ch)}</span>`).join('');
+      note = `<div class="prod-mic-note">
+        <p class="pm-said">Heard: “${prodEsc(m.said)}”</p>
+        <p class="pm-marked${cjkCls()}">${marked}</p>
+        <p class="pm-score">${m.hits} of ${m.total} matched${pct >= 80 ? ' — that’ll pass' : (pct >= 50 ? ' — close' : '')}</p>
+      </div>`;
+    }
+    return `<button class="prod-mic ${m && m.state==='listening' ? 'listening' : ''}" onclick="event.stopPropagation();startProductionMic()">🎙 Say it into the mic</button>${note}`;
+  })() : '';
+
+  // ---- SAY IT ----
+  if(ps.prodRung === 'say'){
+    return `
+    <div class="swipe-card" style="cursor:default;">
+      <div class="quiz-label">🗣 Say it</div>
+      <p class="prod-prompt">${prodEsc(c.e)}</p>
+      ${done ? `
+        <p class="sc-viet${cjkCls()}" style="display:block;">${wrapWords(c.v)}</p>
+        ${romOk && c.p ? `<p class="sc-pron" style="display:block;">${prodEsc(c.p)}</p>` : ''}
+        <button class="listen-play-btn" onclick="event.stopPropagation();playAudio('${c.srsId}', '${String(c.v).replace(/'/g,"\\'")}', currentAccent)">🔊</button>
+        ${micHtml}
+        <p class="sc-hint">Say it again with the recording, then grade yourself.</p>
+      ` : `
+        <p class="prod-instr">Say it out loud in ${activeLangName()}, then reveal.</p>
+        <button class="prod-check" onclick="event.stopPropagation();revealProduction()">Reveal</button>
+      `}
+    </div>`;
+  }
+
+  // ---- BUILD IT ----
+  const slots = ps.prodPicked.map((tileIdx, slot) => {
+    let cls = 'prod-slot';
+    if(done){
+      const right = ps.prodTiles[tileIdx] === ps.prodAnswer[slot];
+      cls += right ? ' ok' : ' bad';
+    }
+    return `<button class="${cls}${cjkCls()}" onclick="event.stopPropagation();unpickProductionTile(${slot})">${prodEsc(ps.prodTiles[tileIdx])}</button>`;
+  }).join('');
+
+  const bank = ps.prodTiles.map((t, i) => {
+    const used = ps.prodPicked.indexOf(i) !== -1;
+    return `<button class="prod-tile${cjkCls()} ${used ? 'used' : ''}" ${used || done ? 'disabled' : ''} onclick="event.stopPropagation();pickProductionTile(${i})">${prodEsc(t)}</button>`;
+  }).join('');
+
+  let verdict = '';
+  if(ps.prodResult === 'right'){
+    verdict = `<p class="prod-verdict good">✓ That’s it.</p>`;
+  } else if(ps.prodResult === 'wrong'){
+    const n = ps.prodFirstBad;
+    const where = (n >= 0 && n < ps.prodAnswer.length)
+      ? `<span class="${cjkCls().trim()}">${prodEsc(ps.prodAnswer[n])}</span> comes ${n === 0 ? 'first' : 'in position ' + (n + 1)}.`
+      : 'It ends sooner than that.';
+    verdict = `<p class="prod-verdict bad">Not quite — ${where}</p>
+      <p class="prod-answer${cjkCls()}">${wrapWords(c.v)}</p>
+      ${romOk && c.p ? `<p class="sc-pron" style="display:block;">${prodEsc(c.p)}</p>` : ''}`;
+  } else if(ps.prodResult === 'shown'){
+    verdict = `<p class="prod-verdict">Here it is:</p>
+      <p class="prod-answer${cjkCls()}">${wrapWords(c.v)}</p>
+      ${romOk && c.p ? `<p class="sc-pron" style="display:block;">${prodEsc(c.p)}</p>` : ''}`;
+  }
+
+  return `
+  <div class="swipe-card" style="cursor:default;">
+    <div class="quiz-label">🧱 Build it</div>
+    <p class="prod-prompt">${prodEsc(c.e)}</p>
+    <div class="prod-line ${ps.prodPicked.length ? '' : 'empty'}">${slots || '<span class="prod-placeholder">Tap the words in order</span>'}</div>
+    <div class="prod-bank">${bank}</div>
+    ${done ? verdict : `
+      <div class="prod-btns">
+        <button class="prod-check" ${ps.prodPicked.length ? '' : 'disabled'} onclick="event.stopPropagation();checkProduction()">Check</button>
+        <button class="prod-clear" ${ps.prodPicked.length ? '' : 'disabled'} onclick="event.stopPropagation();clearProduction()">Clear</button>
+      </div>
+      <button class="prod-give" onclick="event.stopPropagation();revealProduction()">I can’t — show me</button>`}
+    ${done ? `
+      <button class="listen-play-btn" onclick="event.stopPropagation();playAudio('${c.srsId}', '${String(c.v).replace(/'/g,"\\'")}', currentAccent)">🔊</button>
+      ${micHtml}` : ''}
+  </div>`;
+}
+
+/* ---- entry points ---- */
+// The deck is the phrase deck, on the same srsIds as Phrases and Listen, so
+// producing a sentence and recognising it feed one set of intervals.
+function startSpeakStudy(bucketId){
+  const bucket = resolveBucket(bucketId, buildPhraseBuckets());
+  const pool = phraseStudyPool(bucket);
+  const remaining = Math.max(0, (state.dailyGoal||10) - getTodayPhraseCount());
+  const batchSize = remaining > 0 ? remaining : 30;
+  const queue = buildSrsQueue(pool, false, batchSize, batchSize);
+  // The bank draws its distractors from the WHOLE phrase deck, not from the
+  // handful of cards in today's queue — a five-card session would otherwise
+  // offer the same four distractors every time.
+  swipeState = { deck: queue, idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'speak', prodPool: phraseStudyPool(), prodCardIdx: -1 };
+  resetExerciseRom();
+  document.getElementById('swipeOverlay').classList.add('open');
+  renderRomToggles();
+  startStudyTimer(swipeState.mode);
+  renderSwipe();
+}
+function startDifficultSpeakStudy(){
+  const pool = phraseStudyPool();
+  const deck = pool.filter(p => isDifficultWord(p.srsId)).slice(0, SRS_SESSION_CAP);
+  swipeState = { deck, idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'speak', prodPool: pool, prodCardIdx: -1 };
+  resetExerciseRom();
+  document.getElementById('swipeOverlay').classList.add('open');
+  renderRomToggles();
+  startStudyTimer(swipeState.mode);
+  renderSwipe();
+}
+// The last step of a lesson: vocab → listen & guess → say it back.
+function startLessonSpeakStudy(lessonId){
+  const l = lessonById(lessonId);
+  if(!l || !(l.dialogue || []).length) return false;
+  const deck = l.dialogue.map((d, i) => ({
+    v: d.v, e: d.e, p: d.p, rank: 999999,
+    srsId: `lesson_${l.id}_${i}`
+  })).filter(x => x.v && x.e);
+  if(!deck.length) return false;
+  swipeState = { deck, idx:0, again:0, hard:0, good:0, easy:0, flipped:false, grading:false, mode:'speak',
+                 prodPool: deck.concat(phraseStudyPool()), prodCardIdx:-1, lessonTitle: l.title };
+  resetExerciseRom();
+  document.getElementById('swipeOverlay').classList.add('open');
+  renderRomToggles();
+  startStudyTimer(swipeState.mode);
+  renderSwipe();
+  return true;
+}
+
 function renderSwipe(){
   const body = document.getElementById('swipeBody');
   // Which card of how many. Blank on the empty and summary screens, where a
@@ -28800,7 +29301,13 @@ function renderSwipe(){
   const badge = isNewCard(c.srsId) ? '<span class="srs-badge new">NEW</span>' : '<span class="srs-badge due">DUE</span>';
   const iv = previewIntervals(c.srsId);
   let cardHtml;
-  if(swipeState.mode==='word'){
+  if(swipeState.mode==='speak'){
+    // Options/tiles are generated once per card, not on every re-render, or
+    // tapping a tile would reshuffle the bank out from under the next tap —
+    // the same guard the listen mode needs, for the same reason.
+    if(swipeState.prodCardIdx !== swipeState.idx) prepareProductionCard();
+    cardHtml = renderProductionCard(c);
+  } else if(swipeState.mode==='word'){
     /* The card's OWN gloss first, then activeWordGloss() as the fallback.
        Both halves of this line were bugs in turn. It started as WORD_GLOSS —
        the Vietnamese table — so every non-Vietnamese word card rendered "(no
@@ -30903,9 +31410,10 @@ function renderPracticeGuess(){
     practiceArea.innerHTML = '';
     doneWrap.innerHTML = `<div class="pr-done-banner">
       <h3>🎉 Lesson complete!</h3>
-      <p>You correctly guessed all ${total} phrase${total===1?'':'s'} from audio alone — once to learn them, once more to confirm.</p>
+      <p>You correctly guessed all ${total} phrase${total===1?'':'s'} from audio alone — once to learn them, once more to confirm. Now the other direction: produce them.</p>
       <div class="pr-done-btns">
-        ${(ps.lesson.vocab||[]).length ? `<button onclick="studyLessonWordsFromPractice()">🃏 Study the ${ps.lesson.vocab.length} words</button>` : ''}
+        <button onclick="speakLessonFromPractice()">🗣 Now say them back</button>
+        ${(ps.lesson.vocab||[]).length ? `<button class="secondary" onclick="studyLessonWordsFromPractice()">🃏 Study the ${ps.lesson.vocab.length} words</button>` : ''}
         <button class="secondary" onclick="finishPractice()">Finish</button>
       </div>
     </div>`;
@@ -33126,6 +33634,18 @@ function startLessonVocabStudy(lessonId, practiceAfter){
 
 // Entry point from the "Lesson complete!" banner — practice is still open
 // underneath, so close it first rather than stacking a third overlay.
+/* The third step of a lesson. Vocab teaches the words, Listen & Guess proves
+   you can pick the line out of three, and this is where you have to produce
+   it — the only one of the three you cannot pass by elimination. */
+function speakLessonFromPractice(){
+  const l = practiceState && practiceState.lesson;
+  if(!l) return;
+  const id = l.id;
+  closePractice();
+  renderAll();
+  lessonVocabReturnTo = id;
+  if(!startLessonSpeakStudy(id)){ lessonVocabReturnTo = null; openLessonDetail(id); }
+}
 function studyLessonWordsFromPractice(){
   const l = practiceState && practiceState.lesson;
   if(!l) return;
