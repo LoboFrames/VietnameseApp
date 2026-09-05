@@ -9840,258 +9840,264 @@ const JLPT_N5_SECTIONS = [
 ];
 
 const LESSONS_JA = [
-  { id:'ja_l1', day:1, section:1, level:'JLPT N5', title:'This, That, and Doing', tag:'First 500', img:'images/ja_lesson_01.jpg',
-    desc:'The words that hold every sentence together — ranks #1-18: する, ある, こと, なる, それ, いる, 思う, 言う.',
-    duration:'6 min',
-    exercises:['Lesson'],
+  { id:'ja_l1', day:1, section:1, level:'JLPT N5', title:'The Sound of Agreeing', tag:'First 500', img:'images/ja_lesson_01.jpg',
+    desc:'What a Japanese conversation is actually made of — ranks #1-18: うん, だ, の, か, ね, は, が, って.',
+    duration:'6 min', exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'それ、何？', p:'それ、なに？', e:'What’s that?'},
-      {speaker:'B', v:'これ？私が作ったやつ。', p:'これ？わたしがつくったやつ。', e:'This? Something I made.'},
-      {speaker:'A', v:'そう。いいと思うよ。', p:'そう。いいとおもうよ。', e:'Huh. I think it’s good.'},
-      {speaker:'B', v:'でも、まだ終わってないんだ。', p:'でも、まだおわってないんだ。', e:'It’s not finished yet, though.'},
+      { speaker:'A', v:'何食べてんの？', p:'なにたべてんの？', e:'What are you eating?' },
+      { speaker:'B', v:'うん？これ？パンだよ。', p:'うん？これ？パンだよ。', e:'Hm? This? It\'s bread.' },
+      { speaker:'A', v:'そっか。おいしいの？', p:'そっか。おいしいの？', e:'Ah. Is it any good?' },
+      { speaker:'B', v:'うん、まあまあだね。', p:'うん、まあまあだね。', e:'Yeah, it\'s alright.' },
     ],
     vocab:[
-      {v:'する', p:'する', e:'to do; to carry out'},
-      {v:'ある', p:'ある', e:'to be, to exist (things)'},
-      {v:'こと', p:'こと', e:'a thing, a matter (abstract)'},
-      {v:'なる', p:'なる', e:'to become, to turn into'},
-      {v:'それ', p:'それ', e:'that (near you)'},
-      {v:'いる', p:'いる', e:'to be, to exist (people, animals)'},
-      {v:'思う', p:'おもう', e:'to think, to reckon'},
-      {v:'この', p:'この', e:'this — before a noun'},
-      {v:'でも', p:'でも', e:'but, though'},
-      {v:'その', p:'その', e:'that — before a noun'},
-      {v:'言う', p:'いう', e:'to say, to tell'},
-      {v:'ない', p:'ない', e:'not there; there isn’t any'},
-      {v:'そう', p:'そう', e:'that way; is that so'},
-      {v:'私', p:'わたし', e:'I, me'},
-      {v:'これ', p:'これ', e:'this (near me)'},
-      {v:'見る', p:'みる', e:'to see, to watch, to look at'},
-      {v:'だけ', p:'だけ', e:'only, just'},
-      {v:'くる', p:'くる', e:'to come'},
+      { v:'うん', p:'うん', e:'yeah; uh-huh; mm (agreeing)' },
+      { v:'だ', p:'だ', e:'is; are (plain copula)' },
+      { v:'の', p:'の', e:'\'s; of (links two nouns); softens a question' },
+      { v:'か', p:'か', e:'question marker; or' },
+      { v:'ね', p:'ね', e:'right?; isn\'t it? (seeks agreement)' },
+      { v:'た', p:'た', e:'past-tense ending: did; was' },
+      { v:'で', p:'で', e:'at; in; by means of' },
+      { v:'て', p:'て', e:'and then; -ing (links verbs)' },
+      { v:'そう', p:'そう', e:'that way; is that so' },
+      { v:'と', p:'と', e:'with; and; if' },
+      { v:'が', p:'が', e:'marks the subject; but' },
+      { v:'は', p:'は', e:'as for; marks the topic' },
+      { v:'も', p:'も', e:'too; also; even' },
+      { v:'に', p:'に', e:'to; at; in; for' },
+      { v:'よ', p:'よ', e:'you know; I\'m telling you' },
+      { v:'てる', p:'てる', e:'-ing; is doing (short for ている)' },
+      { v:'何', p:'なに', e:'what' },
+      { v:'って', p:'って', e:'said; called (quoting)' },
     ],
     grammar:[
-      {title:'ある and いる — two ways of existing', body:'Japanese splits "there is" by whether the thing can move itself. 犬がいる (there’s a dog), 本がある (there’s a book). Get it backwards and you have made your friend into furniture. The line is animacy, not life: a plant takes ある, a robot in a film usually takes いる. Both go negative irregularly — ない and いない, not あらない.'},
-      {title:'こと — turning a verb into a thing', body:'Stick こと after a plain verb and it becomes a noun: 食べること (eating), 言ったこと (what was said). This is how Japanese builds "the fact that…" without a relative pronoun. In speech の often replaces it — 見るの好き (I like watching) — and の is the more casual of the two, which is why you will hear it far more among friends.'},
-      {title:'これ / それ / あれ — the ko-so-a set', body:'これ is near me, それ is near you, あれ is near neither of us. The same three-way split runs through この/その/あの (before a noun), ここ/そこ/あそこ (places), and こう/そう/ああ (like this / like that). Learn the pattern once and four sets come free. English only has two — this and that — which is why learners overuse それ.'},
+      { title:'だ, です, and saying neither',
+        body:'Japanese has three registers for "is", and one of them is silence. だ is the plain copula — 猫だ (it\'s a cat). です is the polite one. And in fast speech between friends the copula often just drops: 猫？ / うん、猫。 Dropping it is not lazy, it is the default among people who are close, and adding だ to a question (猫だ？) sounds odd — questions between friends usually end bare or with の.' },
+      { title:'は and が — the topic and the subject',
+        body:'は says "as for this, here is what I want to tell you." が says "this one, specifically, is the one." 私は行く means I\'m going (whatever anyone else does); 私が行く means I\'m the one going. The rule of thumb that survives contact with real speech: new information takes が, information already on the table takes は. And in casual speech both are dropped constantly — 行く？ carries no subject at all and nobody is confused.' },
+      { title:'ね and よ — the two ends of a sentence',
+        body:'ね hands the sentence to the other person: 暑いね (hot, isn\'t it) invites agreement. よ pushes it at them: 暑いよ tells them something they did not know. Get them backwards and you sound either presumptuous or pushy. They also stack — 暑いよね is "it\'s hot, right?", telling and asking at once, and it is one of the most common endings in spoken Japanese.' },
     ],
     cards:[
-      {v:'それ、私が言ったことだよ。', p:'それ、わたしがいったことだよ。', e:'That’s what I said.'},
-      {v:'この店、いいと思う。', p:'このみせ、いいとおもう。', e:'I reckon this place is good.'},
-      {v:'見るだけ。買わないよ。', p:'みるだけ。かわないよ。', e:'Just looking. I’m not buying.'},
-      {v:'誰もいない。まだ来てないんだ。', p:'だれもいない。まだきてないんだ。', e:'Nobody’s here. They haven’t come yet.'},
+      { v:'今日は暑いね。', p:'きょうはあついね。', e:'Hot today, isn\'t it.' },
+      { v:'それ、私のだよ。', p:'それ、わたしのだよ。', e:'That one\'s mine.' },
+      { v:'もう食べてる。', p:'もうたべてる。', e:'I\'m already eating.' },
+      { v:'何？聞こえなかった。', p:'なに？きこえなかった。', e:'What? I didn\'t catch that.' },
     ] },
-
-  { id:'ja_l2', day:2, section:1, level:'JLPT N5', title:'Coming and Going', tag:'First 500', img:'images/ja_lesson_02.jpg',
-    desc:'Movement, and who does a favour for whom — ranks #19-36: くれる, やる, 行く, しまう, 自分, 知る, 聞く, 出る.',
-    duration:'6 min',
-    exercises:['Lesson'],
+  { id:'ja_l2', day:2, section:1, level:'JLPT N5', title:'Polite, and Then Not', tag:'First 500', img:'images/ja_lesson_02.jpg',
+    desc:'The polite endings, and the words for yes, no and hang on — ranks #19-36: です, ます, ない, いい, から, もう.',
+    duration:'6 min', exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'今どこ？', p:'いまどこ？', e:'Where are you?'},
-      {speaker:'B', v:'もう出たよ。駅まで行く。', p:'もうでたよ。えきまでいく。', e:'Already left. Heading to the station.'},
-      {speaker:'A', v:'あの人も来るって聞いたけど。', p:'あのひともくるってきいたけど。', e:'I heard that guy’s coming too.'},
-      {speaker:'B', v:'知らない。自分で聞いてよ。', p:'しらない。じぶんできいてよ。', e:'No idea. Ask him yourself.'},
+      { speaker:'A', v:'すみません、これ、ありますか？', p:'すみません、これ、ありますか？', e:'Excuse me, do you have this?' },
+      { speaker:'B', v:'あっ、はい。ありますよ。', p:'あっ、はい。ありますよ。', e:'Oh — yes, we do.' },
+      { speaker:'A', v:'じゃあ、それをください。', p:'じゃあ、それをください。', e:'I\'ll take it, then.' },
+      { speaker:'B', v:'あの、これはもうないんですけど。', p:'あの、これはもうないんですけど。', e:'Um, we\'re actually out of that one.' },
     ],
     vocab:[
-      {v:'くれる', p:'くれる', e:'to give (to me or mine)'},
-      {v:'やる', p:'やる', e:'to do (casual); to give (downward)'},
-      {v:'まで', p:'まで', e:'as far as, until'},
-      {v:'もの', p:'もの', e:'a thing (physical)'},
-      {v:'行く', p:'いく', e:'to go'},
-      {v:'そんな', p:'そんな', e:'that sort of'},
-      {v:'あの', p:'あの', e:'that over there — before a noun'},
-      {v:'しまう', p:'しまう', e:'to finish; to do something regrettable'},
-      {v:'人', p:'ひと', e:'a person'},
-      {v:'ここ', p:'ここ', e:'here'},
-      {v:'お', p:'お', e:'polite prefix — お茶, お金'},
-      {v:'自分', p:'じぶん', e:'oneself, myself'},
-      {v:'知る', p:'しる', e:'to know, to find out'},
-      {v:'今', p:'いま', e:'now'},
-      {v:'聞く', p:'きく', e:'to hear; to listen; to ask'},
-      {v:'何', p:'なに', e:'what'},
-      {v:'前', p:'まえ', e:'in front; before'},
-      {v:'出る', p:'でる', e:'to leave, to go out, to come out'},
+      { v:'です', p:'です', e:'is; are (polite)' },
+      { v:'言う', p:'いう', e:'to say, to tell' },
+      { v:'から', p:'から', e:'from; because; since' },
+      { v:'ない', p:'ない', e:'not there; there isn’t any' },
+      { v:'する', p:'する', e:'to do; to carry out' },
+      { v:'ああ', p:'ああ', e:'ah; like that' },
+      { v:'あっ', p:'あっ', e:'oh! — sudden realisation' },
+      { v:'はい', p:'はい', e:'yes; here you go; right' },
+      { v:'あの', p:'あの', e:'that over there — before a noun' },
+      { v:'いい', p:'いい', e:'good; fine; OK — よい is the written form' },
+      { v:'けれど', p:'けれど', e:'but; though' },
+      { v:'な', p:'な', e:'huh; I tell you (soft ending)' },
+      { v:'それ', p:'それ', e:'that (near you)' },
+      { v:'ある', p:'ある', e:'to be, to exist (things)' },
+      { v:'を', p:'を', e:'marks the object' },
+      { v:'ます', p:'ます', e:'polite verb ending' },
+      { v:'もう', p:'もう', e:'already; anymore; soon' },
+      { v:'これ', p:'これ', e:'this (near me)' },
     ],
     grammar:[
-      {title:'くれる — a favour aimed at me', body:'Japanese marks which way a favour travels. くれる means someone gave TO me or to my side: 友達が教えてくれた (a friend taught me). あげる is me giving outward, もらう is me receiving. Using あげる where くれる belongs makes you sound like you are narrating someone else’s life. 貸してくれる？ is the everyday way to ask to borrow something.'},
-      {title:'しまう — and the った contraction', body:'Two senses that share one word: finishing something off (食べてしまう, eat it all), and doing something you did not mean to (忘れてしまった, I went and forgot). Context decides, and the regret sense is far commoner. In casual speech it contracts hard: 〜てしまった becomes 〜ちゃった — 忘れちゃった. That contraction is what you will actually hear.'},
-      {title:'知る vs 分かる — knowing and getting it', body:'知る is holding a fact: 知ってる (I know it). 分かる is it making sense to you: 分かる (I get it). "I don’t know" is 知らない — never 知ってない, which is one of the most recognisable learner errors. And 分からない is softer than 知らない, which can land as curt if you snap it.'},
+      { title:'です and ます — the polite layer, and when to drop it',
+        body:'です attaches to nouns and adjectives, ます to verbs: 学生です, 行きます. Together they are the register you use with strangers, shopkeepers, and anyone senior to you. This course teaches plain form first because that is what you will hear, but plain form to a stranger reads as rude — not casual, rude. The safe move is to start polite with anyone new and let them drop it first.' },
+      { title:'ない — the negative you will hear most',
+        body:'ない is both the adjective "there isn\'t any" and the plain negative ending on every verb: 行かない, 食べない, 分からない. It conjugates like an い-adjective, which is why the past is なかった and not ないだった. In speech it contracts hard — 分からない becomes 分かんない, 行かなければ becomes 行かなきゃ — and those contractions are the normal form among friends, not sloppy exceptions.' },
+      { title:'けれど / けど — the softest word in Japanese',
+        body:'けれど means "but", and けど is its everyday form. What makes it worth a note is that Japanese uses it to end sentences that have no "but" in them: ちょっと聞きたいんですけど… trails off deliberately, leaving the request unsaid so the other person can offer. Ending on けど is not an unfinished thought; it is politeness doing its job.' },
     ],
     cards:[
-      {v:'ちょっと聞いてくれる？', p:'ちょっときいてくれる？', e:'Can you listen a sec?'},
-      {v:'財布、家に忘れちゃった。', p:'さいふ、いえにわすれちゃった。', e:'I went and left my wallet at home.'},
-      {v:'そんなこと知らないよ。', p:'そんなことしらないよ。', e:'I don’t know anything about that.'},
-      {v:'駅の前まで行くね。', p:'えきのまえまでいくね。', e:'I’ll go as far as the front of the station.'},
+      { v:'これ、いいですね。', p:'これ、いいですね。', e:'This is nice.' },
+      { v:'もう時間ないよ。', p:'もうじかんないよ。', e:'There\'s no time left.' },
+      { v:'疲れたから、帰る。', p:'つかれたから、かえる。', e:'I\'m tired, so I\'m going home.' },
+      { v:'あの、ちょっといいですか。', p:'あの、ちょっといいですか。', e:'Um, do you have a second?' },
     ] },
-
-  { id:'ja_l3', day:3, section:1, level:'JLPT N5', title:'Hang On a Sec', tag:'First 500', img:'images/ja_lesson_03.jpg',
-    desc:'Waiting, asking, and being able to — ranks #37-54: 考える, ちょっと, できる, 待つ, ところ, 持つ, 声, もらう.',
-    duration:'6 min',
-    exercises:['Lesson'],
+  { id:'ja_l3', day:3, section:1, level:'JLPT N5', title:'Going, Coming, Doing', tag:'First 500', img:'images/ja_lesson_03.jpg',
+    desc:'The verbs behind every plan, and the noises around them — ranks #37-54: 行く, くる, やる, 思う, なる, ちょっと.',
+    duration:'6 min', exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'ちょっと待って。まだ考えてる。', p:'ちょっとまって。まだかんがえてる。', e:'Hang on. I’m still thinking.'},
-      {speaker:'B', v:'どうする？時間ないよ。', p:'どうする？じかんないよ。', e:'What are you doing? There’s no time.'},
-      {speaker:'A', v:'そこで待っててもらえる？', p:'そこでまっててもらえる？', e:'Could you wait over there for me?'},
-      {speaker:'B', v:'また？こんなの毎回だな。', p:'また？こんなのまいかいだな。', e:'Again? It’s like this every time.'},
+      { speaker:'A', v:'明日、行く？', p:'あした、いく？', e:'You going tomorrow?' },
+      { speaker:'B', v:'えっ、明日だっけ？', p:'えっ、あしただっけ？', e:'Huh — is it tomorrow?' },
+      { speaker:'A', v:'そう。一緒に行こうと思ってさ。', p:'そう。いっしょにいこうとおもってさ。', e:'Yeah. I was thinking we\'d go together.' },
+      { speaker:'B', v:'いや、ちょっと無理かも。', p:'いや、ちょっとむりかも。', e:'Ah, that might not work for me.' },
     ],
     vocab:[
-      {v:'中', p:'なか', e:'inside; among'},
-      {v:'顔', p:'かお', e:'face'},
-      {v:'また', p:'また', e:'again'},
-      {v:'考える', p:'かんがえる', e:'to think over, to consider'},
-      {v:'どう', p:'どう', e:'how, in what way'},
-      {v:'ため', p:'ため', e:'for the sake of; because of'},
-      {v:'まだ', p:'まだ', e:'still; not yet'},
-      {v:'ちょっと', p:'ちょっと', e:'a bit; hang on'},
-      {v:'できる', p:'できる', e:'to be able to; to be finished'},
-      {v:'話', p:'はなし', e:'a talk, a story'},
-      {v:'そこ', p:'そこ', e:'there (near you)'},
-      {v:'待つ', p:'まつ', e:'to wait'},
-      {v:'ところ', p:'ところ', e:'a place; the point where'},
-      {v:'たち', p:'たち', e:'plural suffix — 私たち'},
-      {v:'こんな', p:'こんな', e:'this sort of'},
-      {v:'持つ', p:'もつ', e:'to hold, to carry, to have'},
-      {v:'声', p:'こえ', e:'a voice'},
-      {v:'もらう', p:'もらう', e:'to receive; to get someone to do'},
+      { v:'行く', p:'いく', e:'to go' },
+      { v:'さ', p:'さ', e:'you know (casual ending)' },
+      { v:'まあ', p:'まあ', e:'well…; sort of' },
+      { v:'やる', p:'やる', e:'to do (casual); to give (downward)' },
+      { v:'思う', p:'おもう', e:'to think, to reckon' },
+      { v:'なる', p:'なる', e:'to become, to turn into' },
+      { v:'くる', p:'くる', e:'to come' },
+      { v:'ちょっと', p:'ちょっと', e:'a bit; hang on' },
+      { v:'いや', p:'いや', e:'no; nah; ugh' },
+      { v:'こと', p:'こと', e:'a thing, a matter (abstract)' },
+      { v:'えっ', p:'えっ', e:'eh? — surprise' },
+      { v:'一', p:'いち', e:'one' },
+      { v:'ちゃう', p:'ちゃう', e:'ends up doing; does by mistake (short for てしまう)' },
+      { v:'あれ', p:'あれ', e:'that over there' },
+      { v:'みたい', p:'みたい', e:'seems like; like a' },
+      { v:'その', p:'その', e:'that — before a noun' },
+      { v:'こう', p:'こう', e:'like this' },
+      { v:'つう', p:'つう', e:'called; like (casual っていう)' },
     ],
     grammar:[
-      {title:'思う vs 考える — two kinds of thinking', body:'思う is an opinion or a feeling: いいと思う (I think it’s good). 考える is deliberate mental work: よく考える (think it over carefully). You cannot 考える that something is nice; you 思う it. A rough test — if English would accept "reckon", it is 思う; if it would accept "work out", it is 考える.'},
-      {title:'ちょっと — the most useful word in Japanese', body:'Literally "a little", and it does four jobs. A quantity: ちょっと待って (wait a sec). A softener: ちょっと高い (a bit pricey, meaning too pricey). Getting attention: ちょっと、すみません. And a refusal on its own — ちょっと… with a trailing pause is a clear no, and is far more common than はっきり断ること. Learning to hear that fourth use saves a lot of confusion.'},
-      {title:'てもらう — getting someone to do something', body:'待ってもらう is "have someone wait for me". The favour flows toward the speaker, like くれる, but もらう puts the receiver in the subject slot: 私が友達に待ってもらった. As a request it becomes 〜てもらえる？ (could you…?), which is softer than the plain imperative and is what you will use constantly. The polite step up is 〜ていただけますか.'},
+      { title:'行く and くる — direction is measured from where you stand',
+        body:'English says "I\'ll come to your place"; Japanese says 行く, because you are moving away from where you are. くる is only ever movement toward the speaker. This runs into the て-form too: 持っていく is taking it with you, 持ってくる is bringing it back here. Say 持ってくる when you mean to take something away and you have told your friend you will be returning.' },
+      { title:'ちゃう — you did it, and you probably shouldn\'t have',
+        body:'ちゃう is the spoken contraction of てしまう. It marks an action as complete, and usually as regrettable: 食べちゃった (I ate it — all of it, oops), 忘れちゃった (I forgot). Not every use is regret — 早く終わっちゃおう is "let\'s just get it finished" — but the flavour of "and that\'s that" is always there. じゃう is the same ending after voiced sounds: 飲んじゃった.' },
+      { title:'と思う — how Japanese says "I reckon"',
+        body:'Put a plain-form clause in front of と思う and you have an opinion: いいと思う (I think it\'s good), 行くと思う (I think they\'ll go). The clause stays plain even when the ending is polite — いいと思います, never いいですと思います. For intention rather than opinion, the volitional goes in front: 行こうと思ってる, "I\'m thinking of going", which is softer and far more common than a flat 行く.' },
     ],
     cards:[
-      {v:'ちょっと考えさせて。', p:'ちょっとかんがえさせて。', e:'Let me think about it for a sec.'},
-      {v:'その話、また今度ね。', p:'そのはなし、またこんどね。', e:'That story — another time, yeah?'},
-      {v:'荷物、持ってもらえる？', p:'にもつ、もってもらえる？', e:'Could you carry the bag for me?'},
-      {v:'声が大きいところが好き。', p:'こえがおおきいところがすき。', e:'I like that she’s got a loud voice.'},
+      { v:'もう行くね。', p:'もういくね。', e:'I\'m off.' },
+      { v:'それ、やっちゃった。', p:'それ、やっちゃった。', e:'Yeah — I went and did that.' },
+      { v:'いいと思うよ。', p:'いいとおもうよ。', e:'I reckon it\'s fine.' },
+      { v:'雨になるみたい。', p:'あめになるみたい。', e:'Looks like it\'s going to rain.' },
     ] },
-
-  { id:'ja_l4', day:4, section:1, level:'JLPT N5', title:'Really, Though', tag:'First 500', img:'images/ja_lesson_04.jpg',
-    desc:'Telling truth from hearsay — ranks #55-72: 見える, 本当, 今日, 言葉, らしい, ただ, 違う, 使う.',
-    duration:'6 min',
-    exercises:['Lesson'],
+  { id:'ja_l4', day:4, section:1, level:'JLPT N5', title:'Wait, Really?', tag:'First 500', img:'images/ja_lesson_04.jpg',
+    desc:'Reacting out loud, and the words for who and when — ranks #55-72: すごい, わかる, 本当, どう, 人, 今.',
+    duration:'6 min', exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'今日、あの人来ないらしいよ。', p:'きょう、あのひとこないらしいよ。', e:'Apparently he’s not coming today.'},
-      {speaker:'B', v:'本当？誰から聞いた？', p:'ほんとう？だれからきいた？', e:'Really? Who’d you hear that from?'},
-      {speaker:'A', v:'ただの噂だけどね。', p:'ただのうわさだけどね。', e:'It’s only a rumour, mind.'},
-      {speaker:'B', v:'それ、違う人の話じゃない？', p:'それ、ちがうひとのはなしじゃない？', e:'Isn’t that about someone else?'},
+      { speaker:'A', v:'見て、これ。', p:'みて、これ。', e:'Look at this.' },
+      { speaker:'B', v:'えっ、すごいじゃん。', p:'えっ、すごいじゃん。', e:'Whoa — that\'s amazing.' },
+      { speaker:'A', v:'でしょ？二時間かかったの。', p:'でしょ？にじかんかかったの。', e:'Right? It took me two hours.' },
+      { speaker:'B', v:'本当？へえ、わかんないもんだね。', p:'ほんとう？へえ、わかんないもんだね。', e:'Really? Huh — you\'d never know.' },
     ],
     vocab:[
-      {v:'入る', p:'はいる', e:'to enter, to go in'},
-      {v:'手', p:'て', e:'hand; arm'},
-      {v:'見える', p:'みえる', e:'to be visible; to look like'},
-      {v:'方', p:'ほう', e:'direction; the ... one'},
-      {v:'目', p:'め', e:'eye'},
-      {v:'男', p:'おとこ', e:'a man'},
-      {v:'本当', p:'ほんとう', e:'true; really'},
-      {v:'あなた', p:'あなた', e:'you — used less than you think'},
-      {v:'今日', p:'きょう', e:'today'},
-      {v:'ほど', p:'ほど', e:'to the extent of; about'},
-      {v:'言葉', p:'ことば', e:'a word; language'},
-      {v:'らしい', p:'らしい', e:'apparently; seems (from hearsay)'},
-      {v:'など', p:'など', e:'and so on, and the like'},
-      {v:'ただ', p:'ただ', e:'only, merely; free of charge'},
-      {v:'違う', p:'ちがう', e:'to differ; that’s wrong'},
-      {v:'使う', p:'つかう', e:'to use'},
-      {v:'少し', p:'すこし', e:'a little, a few'},
-      {v:'時', p:'とき', e:'time; when'},
+      { v:'すごい', p:'すごい', e:'amazing; terrible' },
+      { v:'人', p:'ひと', e:'a person' },
+      { v:'時', p:'とき', e:'time; when' },
+      { v:'いる', p:'いる', e:'to be, to exist (people, animals)' },
+      { v:'わかる', p:'わかる', e:'to understand, to get it' },
+      { v:'ええ', p:'ええ', e:'yes (soft); huh?' },
+      { v:'見る', p:'みる', e:'to see, to watch, to look at' },
+      { v:'私', p:'わたし', e:'I, me' },
+      { v:'本当', p:'ほんとう', e:'true; really' },
+      { v:'今', p:'いま', e:'now' },
+      { v:'ふん', p:'ふん', e:'hmm; uh-huh; hmph' },
+      { v:'どう', p:'どう', e:'how, in what way' },
+      { v:'くらい', p:'くらい', e:'about; roughly; to the extent of' },
+      { v:'二', p:'に', e:'two' },
+      { v:'じゃん', p:'じゃん', e:'ta-dah!; ta-da!; voilà!' },
+      { v:'この', p:'この', e:'this — before a noun' },
+      { v:'やはり', p:'やはり', e:'as expected — formal やっぱり' },
+      { v:'ん', p:'ん', e:'mm; uh (short for の)' },
     ],
     grammar:[
-      {title:'らしい vs みたい vs っぽい', body:'All three mean roughly "seems", and they differ by where the guess comes from. らしい is hearsay — you were told: 来ないらしい. みたい is your own impression from what you can see: 疲れてるみたい. っぽい is a loose resemblance, often not literal: 子供っぽい (childish). Using らしい for something you saw yourself sounds oddly distant, as if you are reporting on your own life.'},
-      {title:'違う — the everyday "no"', body:'違う is a VERB — it means "to differ", so it conjugates: 違った, 違わない. Japanese uses it where English uses "no, that’s not it": 違う違う、こっち. Answering a factual correction with いいえ sounds textbook-stiff; 違う is what people actually say. Note the past 違った means "it turned out to be different", not "it was wrong of me".'},
-      {title:'見る vs 見える vs 見られる', body:'見る is you actively looking. 見える is it being visible to you without effort — 山が見える (you can see the mountain). 見られる is potential: you are ABLE to watch it, permission or circumstances allowing — 今日は試合が見られる. Learners reach for 見られる when they want 見える, which turns "I can see the sea" into "I am permitted to view the sea".'},
+      { title:'じゃん — the agreement tag you will only ever hear',
+        body:'じゃん is spoken Japanese\'s "right?" — a contraction of じゃない, used to state something you expect the listener to agree with: いいじゃん (that\'s good, right?), 言ったじゃん (I told you, didn\'t I). It is casual to the point of being rude with anyone senior, it almost never appears in writing, and it is everywhere in real conversation. でしょ is the slightly softer version of the same move.' },
+      { title:'わかる is not "to understand"',
+        body:'わかる describes something becoming clear to you, so the thing understood is the SUBJECT, not the object: 日本語がわかる, not 日本語をわかる. That is why it pairs with が. In speech it contracts to わかんない for the negative — 分からない → 分かんない — and a bare わかった is the standard "got it". わかる also softens: よく分からない is the polite way to disagree without saying no.' },
+      { title:'The ん that hides in every casual sentence',
+        body:'なんで来ないの？ / 今日は行かないんだ。 That ん (or の) turns a statement into an explanation — it says "here is the reason, or the situation behind this." Leave it out and you get a bare fact; put it in and you are filling the other person in. Overuse sounds like you are constantly justifying yourself; leaving it out where it belongs sounds blunt. Listen for where natives put it.' },
     ],
     cards:[
-      {v:'今日は少し早く出る。', p:'きょうはすこしはやくでる。', e:'I’m leaving a bit early today.'},
-      {v:'ここから海が見えるよ。', p:'ここからうみがみえるよ。', e:'You can see the sea from here.'},
-      {v:'それ、本当に使うの？', p:'それ、ほんとうにつかうの？', e:'Are you actually going to use that?'},
-      {v:'言葉が出てこない。', p:'ことばがでてこない。', e:'The words won’t come out.'},
+      { v:'今、どこにいるの？', p:'いま、どこにいるの？', e:'Where are you right now?' },
+      { v:'すごい人だね。', p:'すごいひとだね。', e:'What a crowd.' },
+      { v:'どのくらいかかる？', p:'どのくらいかかる？', e:'How long will it take?' },
+      { v:'あ、わかった。', p:'あ、わかった。', e:'Ah — got it.' },
     ] },
-
-  { id:'ja_l5', day:5, section:1, level:'JLPT N5', title:'Round at His Place', tag:'First 500', img:'images/ja_lesson_05.jpg',
-    desc:'Houses, rooms and the reason things are how they are — ranks #73-90: 家, 同じ, 出す, 悪い, 時間, 部屋, わけ, 作る.',
-    duration:'6 min',
-    exercises:['Lesson'],
+  { id:'ja_l5', day:5, section:1, level:'JLPT N5', title:'This Way, That Spot', tag:'First 500', img:'images/ja_lesson_05.jpg',
+    desc:'Places, directions, and the feel of a thing — ranks #73-90: ところ, ここ, そこ, 方, 感じ, 食べる.',
+    duration:'6 min', exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'彼の家、行ったことある？', p:'かれのいえ、いったことある？', e:'Have you been to his place?'},
-      {speaker:'B', v:'ある。部屋がすごく上まで片付いてた。', p:'ある。へやがすごくうえまでかたづいてた。', e:'Yeah. The room was tidy right up to the ceiling.'},
-      {speaker:'A', v:'同じ人とは思えないな。', p:'おなじひととはおもえないな。', e:'Doesn’t seem like the same bloke.'},
-      {speaker:'B', v:'時間があったわけじゃないと思うけど。', p:'じかんがあったわけじゃないとおもうけど。', e:'It’s not that he had time, I reckon.'},
+      { speaker:'A', v:'ここでいい？', p:'ここでいい？', e:'Is here alright?' },
+      { speaker:'B', v:'うーん、そこの方がいいかも。', p:'うーん、そこのほうがいいかも。', e:'Hmm — over there might be better.' },
+      { speaker:'A', v:'えーと、じゃあ後で決めよう。', p:'えーと、じゃああとできめよう。', e:'Uh, let\'s decide later then.' },
+      { speaker:'B', v:'だね。とりあえず何か食べたい。', p:'だね。とりあえずなにかたべたい。', e:'Right. I just want to eat something.' },
     ],
     vocab:[
-      {v:'家', p:'いえ', e:'a house, home'},
-      {v:'あれ', p:'あれ', e:'that over there'},
-      {v:'彼', p:'かれ', e:'he; boyfriend'},
-      {v:'いい', p:'いい', e:'good; fine; OK — よい is the written form'},
-      {v:'人間', p:'にんげん', e:'a human being'},
-      {v:'同じ', p:'おなじ', e:'the same'},
-      {v:'上', p:'うえ', e:'above, on top of'},
-      {v:'よく', p:'よく', e:'well; often'},
-      {v:'よう', p:'よう', e:'appearance; way of doing'},
-      {v:'出す', p:'だす', e:'to take out, to put out, to send'},
-      {v:'どこ', p:'どこ', e:'where'},
-      {v:'悪い', p:'わるい', e:'bad; my bad, sorry'},
-      {v:'時間', p:'じかん', e:'time; an hour'},
-      {v:'部屋', p:'へや', e:'a room'},
-      {v:'わけ', p:'わけ', e:'reason; it’s not that…'},
-      {v:'おく', p:'おく', e:'to put; to do in advance'},
-      {v:'作る', p:'つくる', e:'to make'},
-      {v:'まま', p:'まま', e:'as it is, unchanged'},
+      { v:'方', p:'ほう', e:'direction; the ... one' },
+      { v:'へえ', p:'へえ', e:'oh, yes?; really?' },
+      { v:'違う', p:'ちがう', e:'to differ; that’s wrong' },
+      { v:'ところ', p:'ところ', e:'a place; the point where' },
+      { v:'れる', p:'れる', e:'passive/potential ending: is done; can do' },
+      { v:'食べる', p:'たべる', e:'to eat' },
+      { v:'ば', p:'ば', e:'if; when' },
+      { v:'そんな', p:'そんな', e:'that sort of' },
+      { v:'ここ', p:'ここ', e:'here' },
+      { v:'し', p:'し', e:'and (listing reasons)' },
+      { v:'後', p:'ご', e:'after — as in 後で' },
+      { v:'十', p:'じゅう', e:'ten; ten years of age' },
+      { v:'感じ', p:'かんじ', e:'a feeling, an impression' },
+      { v:'だけ', p:'だけ', e:'only, just' },
+      { v:'えーと', p:'えーと', e:'um; er; let me see' },
+      { v:'三', p:'さん', e:'three' },
+      { v:'そこ', p:'そこ', e:'there (near you)' },
+      { v:'たい', p:'たい', e:'want to (verb ending)' },
     ],
     grammar:[
-      {title:'いい and よい — one word, two shapes', body:'They are the same adjective. よい is the older, more formal form; いい is what people say. The catch is that いい does not conjugate — you cannot say いくない. Every inflected form falls back to よい: よくない (not good), よかった (that’s good / that was lucky), よくなる (get better). So you say いい but よかった, and that irregularity trips up nearly everyone.'},
-      {title:'わけじゃない — setting the record straight', body:'わけ is the reason or the logic of something. わけじゃない denies a conclusion someone might be drawing: 嫌いなわけじゃない (it’s not that I dislike it). It is softer than a flat 違う because it corrects the inference rather than the person. Compare はず (it ought to be) and つもり (I intend to) — the same slot, different jobs.'},
-      {title:'ておく — doing it in advance', body:'買っておく is buying something now so it is ready later. The point is preparation, not just completion. In speech it contracts to 〜とく: 買っとく, 言っとく, やっとく — and the contracted form is the normal one among friends. 言っておく carries a faint warning, like "I’m telling you now so you can’t say you weren’t told".'},
+      { title:'〜たい — wanting to do it yourself',
+        body:'Drop the ます from a verb and add たい: 食べたい, 行きたい, 見たい. It conjugates as an い-adjective — 食べたくない, 食べたかった. Two catches. It only works for your own desire; saying 食べたい about someone else is a claim about their inner state, so Japanese uses 食べたがってる instead. And the object can take が as well as を — 水が飲みたい is as natural as 水を飲みたい.' },
+      { title:'方 — the word that makes a comparison',
+        body:'AのほうがBより〜 is the comparison frame: こっちの方がいい (this one\'s better). In speech the より half is usually dropped, because the thing being compared against is obvious. 方 also softens advice — 行った方がいい (you\'d be better off going) is the standard way to suggest something without ordering it, and the past tense in 行った is fixed there; 行く方がいい sounds off.' },
+      { title:'し — stacking up reasons without finishing',
+        body:'し lists reasons and leaves the conclusion hanging: 高いし、遠いし… (it\'s expensive, and it\'s far, and…). The unspoken ending is the point — you never have to say "so let\'s not". One し on its own is even more common in speech, tacked onto a single reason with an implied "and there\'s more where that came from": 疲れたし。 It is one of the most natural-sounding endings you can learn.' },
     ],
     cards:[
-      {v:'悪い、時間なかった。', p:'わるい、じかんなかった。', e:'My bad — I didn’t have time.'},
-      {v:'部屋、そのままにしといて。', p:'へや、そのままにしといて。', e:'Leave the room as it is.'},
-      {v:'これ、家で作ったんだ。', p:'これ、いえでつくったんだ。', e:'I made this at home.'},
-      {v:'ゴミ、もう出した？', p:'ゴミ、もうだした？', e:'Have you put the rubbish out yet?'},
+      { v:'そんな感じ。', p:'そんなかんじ。', e:'Something like that.' },
+      { v:'三時じゃなくて十時だよ。', p:'さんじじゃなくてじゅうじだよ。', e:'It\'s ten, not three.' },
+      { v:'これだけでいい。', p:'これだけでいい。', e:'This much is fine.' },
+      { v:'違うところに置いた。', p:'ちがうところにおいた。', e:'I put it somewhere else.' },
     ] },
-
-  { id:'ja_l6', day:6, section:1, level:'JLPT N5', title:'See You Later', tag:'First 500', img:'images/ja_lesson_06.jpg',
-    desc:'Meeting up and heading home — ranks #91-108: 早い, 呼ぶ, 話す, 会う, 一緒に, 好き, 帰る, みんな.',
-    duration:'6 min',
-    exercises:['Lesson'],
+  { id:'ja_l6', day:6, section:1, level:'JLPT N5', title:'In, Out, and Probably', tag:'First 500', img:'images/ja_lesson_06.jpg',
+    desc:'Getting in and out of things, and hedging while you do — ranks #91-108: できる, 出る, 入る, 多分, 結構, みんな.',
+    duration:'6 min', exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'みんなで一緒に帰る？', p:'みんなでいっしょにかえる？', e:'Shall we all head back together?'},
-      {speaker:'B', v:'いいね。でも今日は早いんだ。', p:'いいね。でもきょうははやいんだ。', e:'Sounds good. But I’m off early today.'},
-      {speaker:'A', v:'じゃあ、また今度会おう。', p:'じゃあ、またこんどあおう。', e:'Right — let’s meet up another time then.'},
-      {speaker:'B', v:'うん。着いたら呼んで。', p:'うん。ついたらよんで。', e:'Yeah. Give me a shout when you get there.'},
+      { speaker:'A', v:'もう出る？', p:'もうでる？', e:'Heading out already?' },
+      { speaker:'B', v:'んー、多分あと十分くらい。', p:'んー、たぶんあとじゅっぷんくらい。', e:'Mm — maybe another ten minutes.' },
+      { speaker:'A', v:'みんな、もう前に入ってるよ。', p:'みんな、もうまえにはいってるよ。', e:'Everyone\'s gone in ahead already.' },
+      { speaker:'B', v:'まじで。じゃあ急ぐわ。', p:'まじで。じゃあいそぐわ。', e:'Seriously. I\'ll hurry, then.' },
     ],
     vocab:[
-      {v:'早い', p:'はやい', e:'early; quick'},
-      {v:'感じる', p:'かんじる', e:'to feel, to sense'},
-      {v:'呼ぶ', p:'よぶ', e:'to call, to call out to'},
-      {v:'話す', p:'はなす', e:'to speak, to talk'},
-      {v:'何か', p:'なにか', e:'something; somehow'},
-      {v:'死ぬ', p:'しぬ', e:'to die'},
-      {v:'姿', p:'すがた', e:'figure, appearance'},
-      {v:'頭', p:'あたま', e:'head'},
-      {v:'強い', p:'つよい', e:'strong'},
-      {v:'こう', p:'こう', e:'like this'},
-      {v:'いつも', p:'いつも', e:'always, as usual'},
-      {v:'会う', p:'あう', e:'to meet, to see (a person)'},
-      {v:'ばかり', p:'ばかり', e:'nothing but; only just'},
-      {v:'一緒に', p:'いっしょに', e:'together'},
-      {v:'好き', p:'すき', e:'liked, favourite'},
-      {v:'相手', p:'あいて', e:'the other person, a partner'},
-      {v:'帰る', p:'かえる', e:'to go home, to return'},
-      {v:'みんな', p:'みんな', e:'everyone'},
+      { v:'できる', p:'できる', e:'to be able to; to be finished' },
+      { v:'俺', p:'おれ', e:'I, me — men, casual' },
+      { v:'け', p:'け', e:'was it? (checking a memory)' },
+      { v:'ず', p:'ず', e:'without doing; not doing' },
+      { v:'出る', p:'でる', e:'to leave, to go out, to come out' },
+      { v:'多分', p:'たぶん', e:'perhaps; probably; generous' },
+      { v:'入る', p:'はいる', e:'to enter, to go in' },
+      { v:'もの', p:'もの', e:'a thing (physical)' },
+      { v:'みんな', p:'みんな', e:'everyone' },
+      { v:'やつ', p:'やつ', e:'a bloke; a thing — rough' },
+      { v:'まで', p:'まで', e:'as far as, until' },
+      { v:'前', p:'まえ', e:'in front; before' },
+      { v:'んー', p:'んー', e:'hmm; well… (thinking)' },
+      { v:'ほら', p:'ほら', e:'look; see; there you go' },
+      { v:'や', p:'や', e:'and; or (listing)' },
+      { v:'結構', p:'けっこう', e:'quite; no thanks' },
+      { v:'年', p:'ねん', e:'a year' },
+      { v:'おいしい', p:'おいしい', e:'delicious; tasty; sweet' },
     ],
     grammar:[
-      {title:'帰る vs 戻る — going back', body:'帰る is returning to where you belong — home, your country, your hometown. 戻る is returning to any old place you were before: 席に戻る (go back to your seat). Saying 会社に帰る implies you live at the office, which is a joke people do make. The noun 帰り means the trip home: 帰りに寄る (drop in on the way back).'},
-      {title:'ばかり — nothing but, and only just', body:'Two senses worth keeping apart. Quantity: 遊んでばかり (does nothing but mess about) — mildly critical. Time: 着いたばかり (only just arrived), attached to a past verb. In speech it flattens to ばっか or ばっかり: 肉ばっかり食べてる. Which sense applies is decided by whether the verb before it is in past form.'},
-      {title:'Let’s — the volitional, and how to say it casually', body:'帰ろう, 会おう, 食べよう — that final う is "let’s". It is already casual, so 一緒に帰ろう is what you say to friends; the polite version is 帰りましょう. Add か to soften it into a real question: 帰ろうか (shall we head off?). And 〜ようと思う means you intend to: 帰ろうと思う (I’m thinking of heading home).'},
+      { title:'できる — able to, and also finished',
+        body:'できる covers two things English keeps apart: ability (日本語ができる, I can speak Japanese) and completion (できた！, it\'s done / it worked). Both take が for the thing involved. It is also the potential form of する, which is why "can do" is not するられる but simply できる. When someone hands you food and says できたよ, they mean it\'s ready, not that they are capable of it.' },
+      { title:'俺, 僕, 私 — picking a word for "I" is picking a stance',
+        body:'俺 is blunt and male, fine among friends and rough with anyone senior. 僕 is male and softer, common with younger men and in polite-but-not-formal settings. 私 is neutral and used by everyone in formal contexts, and by women in all of them. うち appears in Kansai and among younger women. There is no neutral default — every choice says something about you and about the person you are talking to. The safest move at work is 私.' },
+      { title:'結構 — the word that says yes and no',
+        body:'結構 as an adverb means "quite, fairly": 結構おいしい (pretty good, actually), and it carries a note of surprise — better than expected. But 結構です on its own is a polite refusal: offered a bag at a shop, 結構です means no thank you. Same word, opposite jobs, and the difference is entirely whether it is modifying something or standing alone.' },
     ],
     cards:[
-      {v:'また今度、一緒に行こう。', p:'またこんど、いっしょにいこう。', e:'Let’s go together another time.'},
-      {v:'頭が痛いから、もう帰る。', p:'あたまがいたいから、もうかえる。', e:'I’ve got a headache, so I’m off home.'},
-      {v:'いつもこうなんだよ。', p:'いつもこうなんだよ。', e:'It’s always like this.'},
-      {v:'着いたばかりで、まだ何も見てない。', p:'ついたばかりで、まだなにもみてない。', e:'I’ve only just got here — haven’t seen anything yet.'},
+      { v:'これ、結構おいしいね。', p:'これ、けっこうおいしいね。', e:'This is pretty good, actually.' },
+      { v:'五時までにできる？', p:'ごじまでにできる？', e:'Can you get it done by five?' },
+      { v:'あのやつ、名前なんだっけ。', p:'あのやつ、なまえなんだっけ。', e:'That guy — what\'s his name again.' },
+      { v:'ほら、言ったでしょ。', p:'ほら、いったでしょ。', e:'See? I told you.' },
     ] },
-
   { id:'ja_l7', day:7, section:1, level:'JLPT N5', title:'Keep At It', tag:'First 500', img:'images/ja_lesson_07.jpg',
     desc:'Work, effort and what you mean to do — ranks #109-126: 食べる, 場所, もっと, あげる, 仕事, 必要, 続ける, つもり.',
     duration:'6 min',
@@ -20781,7 +20787,7 @@ function showWordInfo(word){
         <button class="wk-btn known ${k==='known'?'on':''}" onclick="setWordInfoKnowledge('known')"><span class="ic">●</span>Known</button>
       </div>
       <p class="wk-note">${
-        k==='known' ? 'Counted as known everywhere, and out of your study rotation.'
+        k==='known' ? 'Known means you catch it when you HEAR it. Reading the character is a separate skill and this mark does not claim it. Counted everywhere, and out of your study rotation.'
         : k==='learning' ? 'On a card and in rotation. It turns Known on its own once it survives 21 days.'
         : 'No card yet. Marking it New again clears any progress on it.'
       }</p>`; })()}
@@ -20928,7 +20934,7 @@ const JA_GLOSS = {'する':'to do; to carry out; to perform','ある':'to be; to
       honorific prefix, 杉 (すぎ) is not 過ぎ, 蕎麦 (そば) is not 側.
 
    4,964 distinct spellings. Space-delimited; no headword contains a space. */
-const JA_RANK_ORDER = 'うん だ の か ね た で て そう と が は も に よ てる 何 って です 言う から ない する ああ あっ はい あの いい けれど な それ ある を ます もう これ 行く さ まあ やる 思う なる くる ちょっと いや こと えっ 一 ちゃう あれ みたい その こう つう すごい 人 時 いる わかる ええ 見る 私 本当 今 ふん どう くらい 二 じゃん この やはり ん 方 へえ 違う ところ れる 食べる ば そんな ここ し 後 十 感じ だけ えーと 三 そこ たい できる 俺 け ず 出る 多分 入る もの みんな やつ まで 前 んー ほら や 結構 年 おいしい どこ 全然 もらう 家 話 たり 取る 大丈夫 使う 様 持つ 日 知る こちら 入れる わけ 書く 作る 自分 四 五 ダメ くれる まだ はあ 買う 飲む 聞く 回 月 先生 えー あまり また わ 時間 二十 なるほど 円 気 今日 とく おお 中 全部 別 出す あそこ 普通 よく 誰 しれる てく ありがとう しか 確か いつ 帰る こんな 子 好き いっぱい 六 一番 分 られる 一緒 くださる 待つ 八 嫌 僕 考える 同じ すむ 上 あげる おく ちゃんと ずっと 九 多い いただく 母 止める ごめん 面白い 百 ござる 七 高い 絶対 一人 早い 万 大変 いろいろ 風 辺 変わる より つく やばい 学校 一応 うまい 乗る 最初 どちら つける 終わる らしい 下 なんか 子供 会 昔 せる 悪い 怖い 大きい 仕事 ただ 可愛い めちゃ 結局 かかる 例えば もっと 内 さっき 意味 いろんな 金 小さい 切る 三十 次 お前 最近 他 父 あー ながら すぐ 覚える 見える 二人 かける 大体 すぎる なんて ママ ほしい 今度 無理 おっ どうぞ マジ オーケー この間 昨日 まま ばあちゃん 綺麗 いずれ 会う 最後 逆 ご飯 まず 安い あら 難しい 朝 車 もし 願う 手 読む 五十 向こう 痛い 会社 歩く そちら 写真 食う パパ 友達 とりあえず 名前 売る しまう 目 きっと 先 寝る よいしょ 長い なさる あなた 今年 顔 頑張る 頃 関係 間 番 語 度 楽しい 変 忘れる ううん 茶 ほう 水 明日 うわ ため 大学 話す 問題 しゃべる 教える 上がる 因る 取れる ちょうど 強い 四十 必要 送る バス 頭 嘘 パン 高校 半 場合 電話 死ぬ あちら もちろん なくなる なかなか 六十 びっくり 店 うんと 千 頼む 去年 さも 時代 受ける 少ない 形 仕様 合う 近い 味 やん 辛い 少し 彼 ばかり 変える 色 若い 言葉 あんな 大事 へ 夜 おかしい 決まる ビール 動く 駅 どんどん 基本 決める 失礼 いくら 気持ち 酒 呼ぶ 意外 部 空く 親 わあ 初めて 面倒 場所 部屋 肉 見せる 体 奥 始める 落ちる 爺 甘い 回る 授業 開ける 要する 今回 以上 残る 勉強 いえ こそ 足 もともと 声 研究 よし 外 新しい 客 料理 戻る 忙しい 階 とる 住む 特に お腹 人間 ずつ 二千 どんな どの 押す 兄 実 機 わりと 野菜 遊ぶ ほとんど 調べる まったく 寒い 通る 楽 さすが へん 暑い 姉 座る 着る 走る 音 八十 でかい 働く 電車 借りる イメージ 選ぶ 元気 困る 山 バカ 半分 増える 通り 五百 危ない 市 横 伯父 たまに 引く 結婚 偉い 打つ 男 たって だんだん 七十 吸う 生きる 格好 連絡 飛ぶ こいつ 本 かしら だいぶ たら 休み 幾 隣 生 箇月 代 嬉しい ホテル 夏 数 泊まる 世界 以外 たくさん 英語 テレビ 怒る 立つ 重い キロ 実際 払う ひどい ぞ 感 疲れる 九十 あいつ 二百 周り 止まる 渡す 週間 カメラ 捨てる 点 いたす うう 委員 立てる 後ろ 毎日 説明 起きる ライン 女の子 洗う うー 開く 生活 部分 メール 左 似る 側 右 昼 終わり 広い 確認 おりる 道 探す 中学 感ずる 旅行 真ん中 クラス 焼く 遅い 時期 週 口 ワイン 丸 全員 嫌い 急 木 個人 本人 始まる 式 張る 笑う はず 要 ねん 病院 近く ゼロ なし ほぼ 途中 伯母 区 うるさい 社会 台 足りる 歌う ワン 遠い きつい かわいそう 熱い ページ 簡単 降る マン 先輩 かなり 塩 君 菓子 あたり ほど たつ 花 必ず 程度 うち 学生 あり 歌 関する 音楽 ゆっくり 休む 会話 匂い 大人 来年 連れる 情報 状態 いらっしゃる 予定 年間 紹介 得る グループ とにかく 勝つ 野球 パソコン 着く 練習 間違える 大好き 県 素晴らしい 絵 会議 全体 聞こえる 値段 国語 完全 映画 濃い 裏 貸す 雨 ゲーム 帰り 息子 チーズ 五千 参加 抜く 公園 カレー ボール 女 女子 字 集まる 魚 アイス 両方 椅子 興味 味噌 売れる 泊 混む 風呂 そして 彼女 コース ネット 杯 データ 懸命 犬 させる サラダ たまたま 場 平気 弁当 班 返す センチ 古い 雪 コーヒー 力 回す 家族 しっかり 紙 自体 自転 鳥 レベル 毎年 上手 勝手 厳しい 対する 当たる 状況 量 まずい 固い 素敵 三百 可能 歯 資料 元 切れる 合わせる 気づく 猫 つながる イベント 乗せる 分ける 準備 相手 表 伸びる 勿体 有名 ちび 娘 普段 最終 温泉 名 慣れる 日曜 用意 粉 落とす 吐く 種類 首 事務 割 実家 短い トイレ 流れ 白 白い 皿 試験 パス 不思議 なぜ 教室 狭い 直す 午前 温かい 豆腐 適当 十分 意識 携帯 消す 細い バイト ラーメン 並ぶ 企画 心配 薄い 青 地 ぜ カード 内容 利く せっかく 旦那 違い 一生 続ける 記憶 飛行 セット タバコ そもそも 赤 運転 チーム 感覚 減る ものすごい てらっしゃる キャンプ チェック トマト 当日 担当 砂糖 線 質問 重 上る 優しい 教育 おい 文字 触る 醤油 卵 二三 人数 土曜 女性 川 海 生徒 組 など 亡くなる 思い出す 汚い 詰まる 饂飩 ぱっ 席 生まれる 経験 プラス よろしく つもり 邪魔 バター 国 明く 軽い 随分 ちょい クリーム 結果 進む 報告 振る 方向 汁 町 めちゃくちゃ 雰囲気 ああん タイプ メートル それぞれ 抜ける 月曜 相談 細かい 代わり 保育 喜ぶ 大きな 島 漢字 日程 理由 いきなり ポイント マンション 小学 当たり前 撮影 火 申し訳 余裕 午後 卒業 よろしい 対応 スーパー 主人 動物 暇 薬 相当 営業 自由 負ける おー 交ぜる 学年 専門 弟 わざわざ 手前 油 海外 牛乳 社長 調査 離れる 仲 受験 向く 泣く 黒 い ギリギリ すべて 反対 むしろ 意見 毎回 片付ける 管理 食事 倍 年齢 日間 此方側 疲れ 発表 石 べし ケーキ 一般 下げる 地域 寄る 押さえる ぜひ 残念 見つける 食 テスト 久しい 予算 段階 運動 ジュース センター 寿司 微妙 本真 越える オイル 下がる 作業 医者 掃除 曲がる 胡瓜 袋 計算 辞書 ちょうだい さあ どうせ タイミング 作品 桜 痩せる まとめる 自然 そろそろ 分かれる 履く 荷物 誕生 とても パーセント 四百 差 我々 映る 神社 黒い スマホ 三千 予約 伸ばす 懐かしい まあまあ ブック 余る 健康 印刷 年度 珍しい 男の子 試合 外す 太る 指導 ありがたい 流れる 種 続く 緑 アップ ハイ ホーム 互い 反応 地元 戻す なり ファン 豆 距離 風邪 餡 馳走 ずれる スポーツ メーン 低い 差す 焼酎 移動 茄子 鼻 オレンジ ギョーザ ピザ おっしゃる 保険 出でる 残す 流行る 眠い フェース 下ろす 大した さらに 湯 間に合う 順番 ふう パターン ピンク 号 合宿 新聞 登録 皮 親父 調子 ユー 地区 塵 届く 幹線 最悪 流す 箸 胡麻 行動 金曜 ガス 九百 伝える 入院 土日 土産 妹 自己 赤い グラム コピー 悲しい いわゆる 機械 癖 雲 食べ物 ばあ ゼミ プロ 例 動かす 動画 塗る 挨拶 文化 生地 田舎 男子 番号 病気 足す 辞典 アロマ 余計 外国 嫁 幼稚 御洒落 来週 看護 締める はっきり サイズ 券 心 楽しむ 空揚げ ビル 体育 冬 広報 手伝う 時々 しばらく 段 まっすぐ 箱 葱 部活 配る 間違う 駐車 つつ タイム チケット ポテト 仕方ない そいつ 冷凍 いかが 教員 更新 検索 直る 空港 通す いしょ はる クラブ スプーン 兄弟 北 御覧 若干 落ち着く 蝦 鳴る アンケート ツアー 下手 含める 因み 夕方 失敗 ご 楽しみ 橋 生姜 目的 肩 一瞬 付き合う 多少 放題 買い物 赤ちゃん 逃げる 過去 おいしょ めでたい ルール 了解 会場 引っ張る 弾く 拭く 穴 苦手 通う 遅れる くっつく カット コンビニ スケジュール バナナ 三角 前回 勧める 弱い 知り合い 米 耳 運営 カラオケ サイト スキー ビデオ フリー メンバー ライブ 夏休み 嵌まる 平日 恥ずかしい 指 教科 方法 最高 爪 理解 納豆 育てる 都 靴 さす 当然 役員 消える 申し込む 集める メニュー 早め 水曜 測る やっと 瞬間 鋏 青い こだわる 八百 冷たい 出かける 息 悩む せい 正直 話題 さえ しょっちゅう エレベーター チョコ 中身 人気 割る 工場 怪我 木曜 漫画 烏賊 組む 葉っぱ 虫 飽きる カフェ テント テーマ ノー こんにちは 商品 地下 寂しい 期間 秋 移る 空 かぶる 言語 飯 黄色 人生 はじめ 前日 吊る 天気 年寄り 当時 得意 柔らかい 比べる 版 めちゃめちゃ 髪の毛 まさか タクシー ほっと 世代 件 利用 あちらこちら 時点 暗い 曲 活動 特別 縫う 設定 調整 遠く 電気 オーブン カー ゴム サッカー シャツ テーブル マイク ヨーガ レストラン 世の中 代表 具合 同級 就職 整理 正月 求める 端っこ 苦労 評価 誘う コップ 一日 乗っける 体験 作り 修学 加減 施設 映像 まさに 焼ける 腹 企業 地図 間違い つい ゴルフ 中央 事業 固まる 書類 案内 歴史 男性 立場 給料 腰 計画 スタート 一気 仲間 便利 受かる 大根 安心 家庭 役所 後半 なるべく 手術 林檎 煎餅 率 やる気 鍋 べい ツー ラジオ 事故 交換 価値 単純 塾 尻 御握り 教授 東 検討 たまる 発行 眼鏡 臭い 角 迎える 飛ばす オープン シーン チョコレート トップ パック よほど 先週 冷蔵 判断 学期 正しい 温める 盆 答え 選択 限り 飲み会 があ きちんと もっ回 カラー サークル セッション ソース ランチ 世話 人参 文章 温度 痒い 磨く 脳 蕎麦 観光 豚 面 高二 ダンス 丁目 七百 介護 会長 六百 具体 割れる 南 数字 洗濯 瓶 真面目 社員 起こす スペース デザイン ワークショップ 任せる 寺 己 患者 拾う 挟む 昼間 構う 生まれ 監督 羊 講習 順 あん すら イエイ チューブ バランス 今週 動き 化粧 土地 広げる 投げる 残り 片付け 環境 編集 習う アイ カップ 以降 信ずる 向かう 喉 壊す 大会 天皇 宇宙 展示 幸せ 役 まくる 検査 認める 踏む 進める 非常 高三 ねた アルコール シート スタッフ ランド ロック 五六 仕方 会計 公務 増やす 思い 明るい 残業 緊張 縁 つなぐ 美術 茹でる 講座 雑誌 とんでも ぴっ ライス レモン 仲良く 出し 助かる 叩く 図書 地震 壁 学ぶ 布団 おかげ 想像 すでに 時計 条件 渡る 無料 現代 癌 芋 酔う 電子 飼う もふもふ クリスマス シリーズ フード ペット 今月 光 免許 入り口 土 定期 潰れる 研修 突然 責任 重たい 静か 飲み物 ほっ アボカド グラス コーラ ハム 休憩 半年 墓 夢 断る 次回 無駄 現場 神 科学 職員 職場 迷う 進路 はっ グリーン タオル 一言 中止 位置 全国 動詞 原稿 我慢 戦争 服 正解 祭り 空気 考え 道路 酔っ払う 香り きゃあ ウーロン ゴールデン ストレス ニュース ハウス フォーン プール ポスター 住所 倒れる 効果 印象 反省 大蒜 守る 対 技術 折る 教材 春 生える くそ 蓋 血 記録 詳しい 関わる バック 中心 会員 助ける 勢い 向ける 喧嘩 建物 性格 期待 棒 泳ぐ 町会 画面 縦 胡椒 自動 販売 起こる 金額 限る がんがん カバー クラシック スープ セブン ティッシュ ピアノ ミニ いったん 不安 与える 事件 出身 受け付け 地方 垂れ 希望 常 後輩 恐ろしい わざと 散歩 早く 母親 気分 火曜 炭酸 熱 突き込む 自身 つまり 返事 通知 階段 ばーん シー スイート バーベキュー マスク ミリ 乾燥 兎 咲く 局 機会 泡 畏まる 落っこちる 蜜柑 見つかる 重要 集中 集合 項目 ばらばら アウト キッチン ペン ロー 一遍 出張 壊れる 天麩羅 夫婦 実習 年金 庭 成長 数える 注意 混ざる 溶ける 玉 終了 総合 羨ましい 蜘蛛 講師 足る 都市 酢 飾る 髪 おっと しょっぱい イン ケア ハーブ バージョン ブランド ボトル マップ ラッキー 乾く 乾杯 予想 保護 勤める 古典 同時 噛む 実験 年末 当てる 影響 文句 机 梅 決定 注文 満足 焚く 立派 竹の子 総会 証明 資格 追加 運ぶ 部長 銀行 せめて ちょこちょこ ばれる オリンピック オン キャベツ システム ショップ ドラマ バー パスタ パンダ 事前 会派 似合う 制限 協力 外れる 夜中 大量 季節 宿題 平和 星 暮らす 機材 生む 目指す 糸 繋がり 自宅 茶碗 蜂蜜 行う 記念 許可 車両 農家 預かる 麺 黄色い だあ インタビュー シーズン スイッチ テニス ドレッシング パーティー ボーイ ワード 丁寧 公開 初 募集 参考 坂 安定 宣伝 弄る 所得 案 氷 深い 狙う 畑 答える 範囲 西 議長 連休 選手 零 高一 高速 ぐるぐる サンキュー スタンプ スピード ターン ビジネス フル 一時 四千 引っかかる 文 なくす 現地 やたら 笑い 背 腕 船 許す 霰 ぴい アート コーパス シフト ショック スクール ドア ノート フォーク ポケモン 中一 中三 乗り換える 入学 半端 危険 右手 存在 学習 巨人 巻 店長 引っ越す 折れる 揃う 揺れる 染める 理系 目標 着物 箇所 絵本 草 菌 蟹 触れる 関連 ＷｉＦｉ こら ざっくり ソフト ドリンク ドーム パワー ボウリング 一部 三四 交通 今後 何十 依頼 便 写る 前半 嘗める 好み 宿 年取る 敷く 梅酒 次第 正面 殺す 涼しい 秒 筋肉 缶 美容 航空 苺 蛍 街道 表現 記事 近所 食材 高級 鯵 ばりばり アパート サービス バッグ プロレス マイ 体操 免疫 単位 右側 否定 店舗 打ち合わせ 抹茶 摘み 本気 機能 決算 炭 煮る 盛り上がる 石鹸 絞る 角度 試す 認知 課税 都合 野郎 録音 あい ちょこっと キャンセル タッチ ナッツ ベッド ベース メモ 七千 並べる 丸い 会館 候補 努力 単語 回転 団体 埋まる 孫 怪しい 扱い 指定 提案 栄養 物件 番組 直前 精神 背中 能力 見出し 酸っぱい 阿呆 顎 鶏 うえ ほい ほれ アクセス アニメ ウイーク バイク プラン プリント プレゼント 人形 体調 体重 凝る 古文 周 噂 四五 回り 外部 天才 小さな 巻く 帽子 広がる あるいは 手伝い 方言 松 沸く 滑る 煉瓦 玄関 瘤 直接 緩い 職 苦しい 親子 語彙 課題 謎 賞 道具 金持ち 長生き 電池 鬼 鰻 かあ やった アルバイト オリエンテーション スーツ ドッグ フルーツ ベスト ホール マイナス 一切 交渉 なになに 信号 入力 処理 助手 包む 収める 受講 たいてい いかに 完成 工事 布 年賀 揃える 放る あえて 木の芽 枕 枠 汗 治療 申請 知識 社 稼ぐ 繰り返す 花火 賢い やり取り 鉛筆 開催 ちまう アイアン オフ オリーブ ケース サポート チキン トラック ヨーグルト いちいち 一昨日 以下 優先 光る 包丁 太い 姫 居酒屋 序で 必修 放す 数学 明太 まだまだ 森 様子 法人 生産 納得 経営 者 育つ 西瓜 いけメン うお アプリ オーダー キャンパス サワー バンド フライパン ラボ リーダー いまいち 共有 分析 削る ひたすら 合唱 図 固定 契約 必死 惚ける 感想 抱っこ 文法 最低 材料 栗 洋服 物語 発酵 神宮 科目 舞台 蛙 褒める 覚え 議会 議題 貝 身 追いかける 長男 限定 食品 駅前 そこそこ ドキドキ はーん んふ アンド ガラス ザ ズボン タイトル チャンス ハンバーグ ビニール プロジェクト リスト 予備 今朝 伝わる 伺う 体制 入試 吹く 呼吸 坪 おとなしい 寄付 左側 おそらく 毎週 焼き肉 理科 知恵 神経 税金 窓 章 紅茶 紐 結論 郵便 ぐう しんどい すっきり ふ フッ わお キー シャンプー スカウト ティー ハンド レンジ 一定 事項 人口 仮 よそ 卓球 単に 和 売り上げ 年代 役割 御八つ おたく 応援 所長 指示 捏 本物 来月 業務 汚れる 現在 紅葉 素人 自信 警察 通ずる 遣らす 電源 革命 鳩 えい ばっ ふふん オーガニック コート サンプル ジム ドライ パー パーク ブラック ライオン リアル レンタカー 一昨年 くだる 今更 仕組み 以来 利益 受け取る 向こう側 変更 対象 床 往復 捕まえる さんざん 敬語 構成 比較 水泳 渋滞 無理やり 燃える 牛 牡蠣 画像 発見 諦める 越す 踊る 返信 遊び 食堂 髭 鮪 くっ のみ はん やら わん イレブン インターネット カロリー クーラー ジェル テン テープ ピッチャー ブロッコリー 一体 六千 共通 出会う 厚い 台風 回収 変化 守備 安全 家賃 小麦 師長 搬入 救急 景色 本来 柔道 棚 浮く 海苔 玉葱 用事 翌日 胃 膝 芯 蛸 行き 詰める 隠れる 骨 高齢 さっぱり てん とんとん アピール グレー コンサート コーナー サーカス ジャンプ スリー ニュー ベビー マヨネーズ メーカー レンタル 中二 乗っかる 体力 使用 優秀 先ほど 冷える 形式 彼氏 従兄弟 扱う 提供 提出 未来 村 校長 案外 極端 水分 減らす 潰す 濡れる 焼き鳥 発信 発想 目線 給食 羊羹 腫れる 違和 重なる 釘 鏡 開発 黙る たがる とこ祭 ふざける ぽん エネルギー エリア オール キムチ キャッチャー ジャム タブレット タワー チップ ハード ファイル フォロー ペース ボランティア ラブ 九千 付き合い 分野 制服 協議 原因 参る 含む 器用 回忌 基準 嬢 審査 寮 平均 延長 担任 捏ねる かく 晩 業者 楽器 点数 父親 現状 疑問 真似 確定 確実 稲 算数 絡む 繋げる 肌 膨らむ 芸術 もしくは 見学 認識 過ごす 鍵 隠す 面接 ＳＮＳ いいえ おしっこ しゅっ ぼろぼろ ややこしい サンド スタイル スター ストップ ツリー テンション バット ブログ ブロック ヘルメット ボックス マーク リニューアル レンズ 乗り 交代 仕舞い 価格 修行 偶然 分類 きっかけ 刺し身 剥がす 同い年 埃 たいして 思いつく 料金 旅 日常 毎月 滝 激しい 理想 発言 禁止 空豆 素材 組合 芸能 苦い 葡萄 論文 輪 閉じる 零す 靴下 ＣＤ あは くるくる すう ずらす そっくり とも ばたばた ぱあ むずい アカウント ギャラリー グッズ コメント ショート ストーリー パフォーマンス メロン ラン レバー ワーク 一覧 下手糞 何色 保健 充電 児童 八千 出発 分厚い 切符 刺激 前提 取り上げる 召し上がる 合 商売 問い合わせ マシ 学会 山葵 工夫 おはよう 徹底 思い切り 慌てる つかむ 攻める 旧 朝日 民間 用 看板 約束 紫 蚊 螺子 血圧 観察 語る 課 調理 負担 軟らかい 退く 鉄 開拓 餌 あさって ちら やがる アップル イコール ウイスキー カレンダー ゴーヤー シェア ズーム デザート トーク ナイス ブルーベリー プログラム ボス マーボー メレンゲ 一二 事情 他人 儲かる 共 冗談 別れる 前後 医療 協会 国立 外人 常勤 年表 幹事 得 急ぐ 感動 手書き 抱える 持ち上げる 期限 本番 本社 気合い 溶かす 焦る 現実 発展 移す 線路 編む 職業 覗く 評判 財布 趣味 迷惑 進化 釣り 鞄 高原 ＣＭ がっつり すっかり ぽんぽん むかつく もしもし イエス イラストレーター クッキー クリア シフォン テキスト ドラム バニラ パンツ フライ ブルー プレゼン ボタン ラスト 冒頭 初日 勝ち 半日 収録 坊 基礎 嫌う 対策 寿司屋 将来 展開 平仮名 店員 引き継ぐ 御袋 惜しい 成果 採用 放送 日日 柄 ようやく 炒める 現れる 目立つ 真剣 福祉 紺 経由 脇 脱ぐ 製作 親戚 試し 話し合う 運 馬 き げろ どーん へい もったり キング コミュニケーション サイダー ショー シール スカイ トレーナー ナビ ミルク モデル ロール 上下 中間 乾かす 交流 係 出席 制度 剥く 名刺 味見 地球 埋める 大切 大師 市場 感謝 戦う 手作り 手間 打ち明ける 掘る 操作 政治 斜め 方面 昆布 此の頃 注ぐ 活用 点滴 班長 生かす 留学 畳む 白子 経済 締まる 老人 耐える 脂 血管 要素 見本 請求 議論 限界 電波 鯛 ちょろちょろ アイディア キャラ キャラクター コード センス タコス デパート デー ナイフ ハッピー パッド ファースト ブラン ホワイト メッセージ モン 一人一人 久々 住宅 何曜 倒す 共同 効率 国際 垂れる 外側 太陽 学園 封筒 座 強制 想定 所属 手紙 散らし 明らか 無視 現金 理事 痛む 着替える 統一 自慢 蕎麦屋 表示 議事 豪華 転ぶ 進捗 都立 鉱石 雇う 雑 音声 飲み 鼠 うい うざい おなら がち ちん のんびり ひい ぶつかる アドレス アンダー アーチスト エアコン ゲット コンセプト コースター コーラス ゴー パクチー ピース フィールド ポップ ミリメートル モニター 上司 二十歳 人事 個別 冷やす 南口 収入 台詞 合計 同期 命 団 姿 専用 山の手 広告 成功 日記 最中 末 波 派手 溜める 用例 ほぼほぼ 直 私立 納品 荒れる 親指 設営 資源 質 近づく 選挙 重ねる 鍛える 集団 順調 あくまで 騒ぐ 驚く 鮭 麹 いざ ぎり ぐっ こだわり さようなら ばんばん エクセル オーナー オーバー カボチャ グランド ジェット ストーブ チェーン チャレンジ チャーハン バンク ヒット ファッション ファミリー フォー メタル 中毒 乗り換え 予防 人物 以前 作家 具 分量 列 初心 判子 劇 収まる 合格 多め 太極 委託 完璧 定規 小啄木鳥 川蝉 幅 底 待ち 思い出 打ち上げ 改めて 方針 本屋 果物 歩 滅多 烏 独り暮らし 玩具 盛り 知事 竹 終電 締め 臨時 補助 設計 論 貴重 買い出し 資金 軍 銀杏 額 きっちり きゅっ ごちゃごちゃ すっ だらだら ははは びびる ぴったり ふわふわ キングダム コントロール コーチ シューマイ シルバー シンプル ステージ ストレッチ ゼリー ナンバー バイ パーマ ファミレス ボウル ラッテ レコーダー 主婦 仲良し 何百 修正 傷 元年 冷や 出店 受賞 味付け 商店 地味 実践 宿泊 年中 引っ繰り返す 引退 心理 心臓 感情 持ち帰る 捕まる 捕らえる 支える 早速 明ける 書籍 業体 模様 毛 活躍 消費 渋い 演奏 漬け物 むちゃくちゃ 熊 片手 礼 積む 空ける 突く 組織 まとまる 習字 茗荷 虫歯 衛生 裏返し 親しい 話しかける 貢献 転勤 追う 通常 進行 遠慮 避ける 都会 金属 騙す 鴨 麦 どころ ばっちり ぱりぱり ぱんぱん まめ わあい ガイド スタンス ステーキ スパゲッティ セロリ ターバン デジタル トンネル ドーナツ パイ パンチ ピーマン ファイブ マッサージ マット マート ラウンド ランク ランタン リハビリ ルーム レクチャー レシピ レスラー 不足 両手 両親 中途 主 事故る 以内 伊達巻 傾向 先月 入場 出口 出版 勝負 台所 嗽 夕焼け 夕飯 定年 家元 導入 岩牡蠣 嵐 常温 幹部 後期 御数 折 挑戦 握る 教師 明解 枚数 植物 機関 武道 決まり 照明 物理 特殊 狡い 皮膚 着 社福 系 納会 経費 統計 纏め 美 胡桃 苔 見かける 規模 解決 言い訳 詐欺 贅沢 軽 通勤 録画 黒豆 いてて がっ きもい くう くっ付ける じっと じゃ ちょろ ぱらぱら ぱーん ひえ アレルギー エントリー ガソリン クレーム コロッケ サポーター サンチュ シャワー センチメートル ダブル トウバンジャン ハート ハーフ ビーカー ファイア フロア プディング モチベーション ライフ リズム リラックス リング レッスン ワールド 一千 不便 付け 修了 兄貴 出会い 制作 博士 取り替える 唯一 四角 夢中 太鼓 姿勢 宅 小 少年 履歴 年少 御負け 成績 我 把握 投手 探検 敵 敷地 新人 新鮮 旗 晴れる 最新 次男 毛布 温い しかし こなす 猪口 猿 玄米 王 生協 申し込み 発音 睦み 確率 祝い 税 端 籠 背負う 苛々 苛める 若手 若者 葉書 血液 表紙 装飾 製品 講演 退職 遺伝 鍬形 門 雉 雑貨 零れる 需要 飲食 魅力 鳴く 齣 あざっす しい すりすり ださい ぴん アイドル アルバム ウィンナ ウインドー ウェブ エアー オブ カウント ゴールド サイド チヂミ チーフ パジャマ パスポート パプリカ ポジション メタファー メーク ライター ライト リットル リボン 一家 下敷き 今時 何時頃 保存 内側 冷める 出来上がる 前期 労働 取材 合流 吹奏 固まり 国旗 大勢 大統領 存ずる 届ける 崩れる 市民 常識 引っ掛ける 御輿 愛 成人 手当て 打撃 招待 推薦 摘む 教わる 方式 日々 本日 柚子 標準 気味 液体 添加 漢文 片仮名 特徴 理論 男女 発泡 発生 発達 糖 素直 緊急 肘 花見 茶色 裏側 記者 話し合い 説 謝る 農業 追いつく 逆上がり 週末 都内 鑢 震災 飲み屋 飴 ＡＩ あっさり あーと うろうろ おおい があん きり しゅう にゃんこ イタリアン カルチャー キャプテン グッド ココナッツ コール スタジオ ダイレクト ディスる デジモン トリミング ドライバー バザー ピン プライド ベテラン マンゴー モンスター レタス レフェリー ロボット 下駄 二元 交差 何千 信頼 傘 公立 勘 かえって 場面 墨 大騒ぎ 天井 始まり 実績 少々 就活 局長 左利き 左手 弓道 引き継ぎ 引っ繰り返る 弟子 従う 念仏 思考 恋 愚痴 戦い 打ち込む さて 損する 断層 もはや 本格 板 桃 植える 気持ちい 永遠 沈む 流行 消毒 点検 焦げる 片方 牛蒡 独特 球 異常 症状 盛る 真っ白 祝日 積極 せいぜい 精油 素 総務 縮む 腸 至る 苛め 茶色い 萌やし 葬式 西口 視察 触り 認定 身長 辛口 通信 連続 遅番 部署 集まり 雌 順位 馴染む 鳥肉 鶺鴒 麒麟 齧る うあ おら かりかり ころころ じゃんけん ちょいちょい つるつる ぱちん ぽい よっこいしょ イラスト カテゴリー キッド コンピューター サイン シングル ジャンル スクラップ ステップ センサー ソファー トラブル ドット ナチュラル パステル ビュッフェ ペンギン マネージャー ミックス ロード 一方 世紀 人差し 倉庫 内部 冷房 分解 前髪 半袖 卒論 卵焼き 取り 取り入れる 名字 型 壺 天然 奇跡 学長 なおかつ 屋根 峠 巻き 干す 徐々 復活 意図 戦後 才能 捌く 数の子 文学 文科 旅館 日付け 明け 暴れる 書店 最大 朝御飯 朝礼 朝食 期末 札 枝 桁 梅干し 検品 機嫌 浮き輪 浴衣 溢れる 特集 甘える 発掘 知らせ 競技 細胞 綿 締め切り 編 縄文 育児 自主 蔵 衝撃 衣装 表す 要求 見知り 規制 講読 赤字 途端 通学 遊園 鉄板 閉店 隊長 集会 集計 青空 預ける 領収 食欲 ＤＶＤ うんち お好み焼き ぎゃあ すき焼き ちっ ちゃり どれ どん ひょっと ぶわー ほお やれ よっ アニマル イオン インフルエンザ エンター オムライス かつ カーブ ガード キャリア クリック クレープ グラフ ゴール ジャガ芋 スルー セーブ ソング ダウン ダブる ノンアルコール ハードル バスケ ブレンド ブレーキ ブーム プライベート プレッシャー ペーパー ボード マックス マフラー モカ モール ラップ レジ ローリング 一通り 上級 下町 主義 乗り物 云々 交じる 任す 信用 内臓 冷静 出勤 出産 刊行 初期 区民 取得 受け入れる 右足 周年 唐辛子 喫茶 固める 変換 大豆 天守 夫 好き嫌い 宗教 実質 宴会 尊敬 小屋 少なめ 平ら 年明け 年長 弁護 引き 忘年 戸 手入れ 手洗い 手続き 手袋 技 抜き 採点 支援 放射 教会 新た 新年 暖房 月報 枯れる 校正 株 樽 欠席 歓迎 殴る 気温 浮かぶ 炭水 片栗粉 狐 独立 独身 狸 生き物 百均 目玉 相撲 知り合う 確保 糠 組み合わせ 継続 網 美しい 羽根 胸 腐る 花粉 茎 葉 薪 藁 虎 行事 解散 訓練 試作 課長 議員 豚骨 費用 跡 込み 通し ついに 配給 針 雄 響く 餡こ 魔女 黒子 ありゃ ぐちゃぐちゃ ごろごろ しゃかしゃか ばん ぴよぴよ もつ アーマー インク インスタント イースト ウルトラ エピソード オーロラ クレー グローバル コア サマー サラリーマン サンドイッチ スタジアム スタンド スピーカー スポット スマート ゾーン ダック デビュー パンフ パンフレット フェス フェルト ヘア ベランダ マスター ミーティング メモる ユニホーム ラベル ルート レイアウト ログ ワイナリー 七八 丈夫 予熱 事実 人工 付属 仮名 会見 伝説 どこどこ 作戦 優勝 儲ける ともかく 入れ物 入稿 公演 分担 別々 勘違い 南無阿弥陀仏 印 双子 取り込む 口コミ 可愛らしい 図鑑 圧倒 夜御飯 大臣 学科 定番 実施 寝かす 寿命 尻尾 屋台 差し上げる 庶民 徴収 意地 我が儘 折り紙 押し 振り 挽き肉 捌け 掲載 攻撃 教養 新規 既読 暮らし 朝飯 杖 東南 枝豆 桜ん坊 業界 概念 武器 水澄まし 池 まして 法律 泡立てる 涙 火事 焼き蕎麦 狂う 理工 甘み 産業 異動 療法 砂 空間 立ち上げる 竹炭 糖尿 紫蘇 組み立てる 結ぶ 花屋 菜 蓮根 蝉 裏表 複雑 解ける 計量 誠実 豊か 貧しい 路線 踵 転がる 連携 避難 鉄道 関節 陸上 隙間 風景 鶴 鷺 あはは ういーん おっかない からすみ がたがた がらがら ざあ しつこい でぶ とっぽい どうこう どろどろ ぱちんこ ぼーん もこもこ やや わくわく アドバイス エンジン エンド オリジナル オーケストラ カッター カーテン ギター ギャル クオリティー コラボ シア ジャケット スクリーン ストレート ストーン スライド タピオカ ダメージ ツイスト ディベート トリッパ ドンマイ バイキング バドミントン バレエ パート ピクルス フェスティバル プラスチック ベル ベンチャー ペア マリーナ メダル リフレクソロジー リード レポート 一歩 世間 中継ぎ 人前 休日 ただし 倣う 備品 先端 入道 全面 冬休み 処分 割り引き 創発 加工 動作 危機 却下 卵白 厚揚げ 厳密 反則 反射 取り皿 合わす 味わう 和室 喋り 器 回数 地獄 執行 基地 墓参り 外食 大盛り 定着 寄せる 小説 年上 引っ越し 待ち合わせ 後悔 御襁褓 応用 悔しい 手元 払い戻し 抽選 損 撤収 支店 救う 整える 文庫 日差し 日焼け 映す 昨年 朝市 ほんの 東名 柿 梟 正式 歪む 民家 気楽 河童 注射 深夜 港 灯油 点てる 無事 無言 燃やす 物販 犯人 用語 留年 痛める 発注 登場 白墨 祝う 糊 線香 縛る 繊維 繰り返し 翻訳 老眼 自殺 行かす 表情 複数 視点 設置 講評 警備 負け 蹴る 軽トラ 退かす 連合 進学 遠足 選定 配布 酸化 関心 電動 頼る 鯖 鱈子 ＰＤＦ えへへ がつがつ ぎゅっ ぐる しゃっ しゅっしゅ そっと たる ぴり ふらふら ぶす ぼうっと ぼちぼち よっしゃ アクセント アプローチ アーモンド インパクト ウォーター エッセンス エース オート クイズ クッション クミン ジンジャー スケボー セント タン ドキュメンタリー ハロー バトル パウダー パッケージ ヒント ブラウン ベイ ベルト マシン ミス ラグビー リハ レア ワンチャン 中古 中旬 まるで 今頃 仕付け なにしろ 余分 保つ 個性 傍聴 入り込む 凍る 凹む 初級 削除 割合 収納 台本 吸収 四角い 園長 外来 天狗 婿 子育て 家具 小六 工業 左足 座席 弱る 張り付ける 役職 待たす 意思 抗癌 括弧 捩る 探る 握り 撤営 擦れ違う 支部 文明 文系 日帰り 日頃 書き順 月例 木材 本数 染み 根っ子 根元 桶 楽ちん 構造 欅 歌手 永住 洒落る 涎 炙る 物価 物置 物質 特定 犯罪 猪 甥っ子 申し上げる 白黒 盛り合わせ 眺める 移住 竹輪 筆 筋 粒 紛争 細石石 経理 継ぐ 総菜 職人 肉球 肯定 脂肪 腹筋 自ら 舌 蛋白 表面 裁縫 複合 視力 訂正 訪問 証券 調節 豚カツ 責める 走り回る 輪っか たどり着く 透明 運用 道場 遣らかす 配信 配置 銀 隊 面談 風味 餅 高め 黄身 黴菌 ＩＴ ＰＣ ＹＣＡＭ いかれる いー えい鰭 がりがり けん さび ははあ ぴりぴり ぶう ぶつぶつ べたべた ぺら ほほほ り アスファルト アヒージョ インフル ウイルス オー カルボナーラ ガパオ ガーリー クリニック クレジット コスト ゴージャス サニー サロン シナモン シャッター タグ チェックポイント チー竹 ディスコ ナツメグ ノン ハワイアン バイオリン バリエーション ビック ブレーク プリンター プレミアム プレー ベリー ボーナス ポンド マクロビ マニュアル ミキサー ヤンキー リサイクル リレー ロゴ 一斉 上品 上着 不良 まるまる 二三十 人科 代理 会費 保証 修理 倅 充実 先行 全身 八幡 公平 出出し 分間 利き目 とうとう 剣 加える 勇気 勝 勤務 千切り 卍 卒園 友 受け 受け付ける 古道 右利き 同僚 向き 喜び 国民 型紙 城 塵箱 売り 夏場 大振り 大腸 天神 奨学 嫌らしい 守り 寅 崩す 工作 工学 床屋 建築 弁 引き出し 強烈 当て 当番 影 役者 徒歩 従業 得点 急須 悪 所外 投票 抵抗 拠点 持ち込む 振り回す 接待 接続 揉める 撒く 改革 放課 教案 そうそう 春休み 昼御飯 時給 晴れ 本店 果たして 権利 欄 次元 止む 気まずい 水道 油揚げ 泊まり 泊める 洗面 温まる 満々 溝 漏れる 無茶 熱中 牛丼 なお 理 痛み 痛風 発送 盆踊り 監査 確かめる 稲荷 立ち上がる 笹身 筆記 簿記 こもる 素数 索引 終える 終点 緑茶 練る 縫い包み おる 義務 肥満 脚本 膾 自腹 茹で卵 蒸し焼き 蛍烏賊 行 街 表記 被害 補聴 観点 角煮 解く 説得 説教 譲る 豆乳 貧乏 貴様 賃貸 資本 転ける 農協 農薬 近場 重視 銭湯 雇用 雛 青年 食らう 饅頭 骨董 ＢＫ ＣＣ あるある えいさあ ぐわー けち げっぷ さっ さっさと しゅっしゅっ しょぼい すかすか たっぷり つっ どっちみち ばき ぴかぴか ふわ ほな ぼこぼこ もちもち やあ ゆとり アシスタント アドベンチャー アメリカン アレンジ ウォーマー エコ エコノミー エモい オンリー カリキュラム ガーデン キウイ クーポン グラタン コンマ サーティー シティー シャンパン シューズ ショコラ スイング スナック セミナー セルフ チャンネル トライアスロン トレーニング トースト ネオ ノウハウ バッター パイナップル パセリ ビッグ ビーフ フィードバック フレンチ ブリンク ベンチ マナー マーベル モルト ラザーニャ ラック レシート レース レール ロス ワンタン 一任 万歳 上水 不満 並び 中とろ 主催 仏像 代打 なんぼ 何事 作用 俳優 先発 再現 冠位 出番 刺繍 半数 半纏 協賛 単なる 原則 可 可愛子 告白 和える 和歌 品 問屋 四十雀 回復 団子 塩麹 売り場 夜勤 大きめ 大型 大家 大昔 好く 学歴 学芸 容量 小遣い 尽くす 左右 平米 年始 張り替える 彫刻 後々 循環 恐竜 意義 愚痴る 愛する 態度 戦力 所内 手帳 抱く 抽象 持ち物 持て成す 指さす 接する 接客 換金 支払い 政府 ゆえ 日持ち 早朝 明確 昼飯 普及 曖昧 服装 木耳 木芽 杉 林間 根性 棘 棟 楽天 欅坂 止め 歯磨き 殻 水着 水黽 汚す 決断 沢庵 沸かす 法 法事 消化 混乱 渉外 濃いめ 火力 熱々 爽やか 珪素 球団 用紙 畳 登校 白菜 百舌 皇后 ますます 目高 眉毛 真上 秘密 稚児 稽古 窓口 笑顔 系統 納入 細工 絵画 続き 缶詰め 育ち 芥子 苦情 英雄 茶道 茸 見逃す 覚める 設備 訴える 評論 詳細 だれだれ 豚肉 貯金 賞味 迫力 通訳 通過 速度 連中 週刊 達成 部門 酔い 開始 階級 難易 雷 電線 頭皮 風呂敷 食器 鳥皮 鳴らす 麺汁 麻痺 黒船 ＰＴＡ あちち おし きらきら げっと ごりごり ざこい しも じもティー たげる ついつい はは ぶらぶら ぶら下げる べろ ぽーん む もてる わし アット アニキン インターナショナル ウエルカム オノマトペ オファー オフィス カクタス カリフラワー キャッチ クラウド グリセリン コック コンタクト ゴースト サブレー サボる サン サングラス シックス ショーロンポー シロップ シード ジャスト ジャンボリー ジュニア スカート スクショ スナイパー スパークリング スフレ スプレー スポンジ ソックス ソーダ ターゲット ダイエット ダウンロード ダズラー テラス でも ネットワーク ハンドル ハンバーガー バースデー パネル ヒーター ビザ ピーナッツ フィルム フェリー フォーム フラッシュ フラワー プレ プレールーム ホワット ボクシー ボディー ポリシー マリネ ミッドナイト ミュージック ムーチョ ラリー リスク レディー レーン ロケ ロープ 一括 七味 三振 不動 不明 世 中高 丸める まるきり 主観 あらかじめ 五黄 井戸 人材 仕上げる 体質 作成 全力 公民 六七 かねる 内科 内緒 分科 切り替え 別荘 別途 前倒し 動産 化学 半島 参道 ただいま 向かい 味醂 和風 咳 品物 問 問い 問う 喜寿 四季 団地 囲む 塔 外科 外野 大地震 失う 女房 好評 妻 始発 威嚇 定時 家紋 家鴨 対話 対面 将軍 小指 山寺 市内 常連 年配 式部 当初 待機 微塵 怠い 恐怖 悩み 悪口 意気 憧れる 我が家 手数 持ち歩く 指先 指摘 振り返る 接触 措置 掬う 揚げ 擤む 整備 斜面 新卒 時速 暗記 曜日 書 有料 本部 染め 染料 栽培 植木 検定 きょくりょく 樽ハイ 正確 毎朝 毒 民族 気質 気遣い 水筒 決して 浄水 浅い 海賊 深読み 満たす 演出 潜る 濃厚 爪切り 牛肉 独自 獅子 王子 現象 甘め 甘酢 産地 田圃 異性 発売 発症 直近 県立 眠たい 眠る 禁煙 禿げる 糧 系列 純粋 素麺 細長い 絶望 義理 背景 芽 若布 菠薐 落ち 蕪 蛇 装う 補佐 要望 見直す 見積もり 詞 買い取る 路地 身体 軟式 転職 軸 退院 送り 逆転 連結 遅刻 遡る はるか 部品 野外 開店 陛下 陶器 際 雪掻き';
+const JA_RANK_ORDER = 'うん だ の か ね た で て そう と が は も に よ てる 何 って です 言う から ない する ああ あっ はい あの いい けれど な それ ある を ます もう これ 行く さ まあ やる 思う なる くる ちょっと いや こと えっ 一 ちゃう あれ みたい その こう つう すごい 人 時 いる わかる ええ 見る 私 本当 今 ふん どう くらい 二 じゃん この やはり ん 方 へえ 違う ところ れる 食べる ば そんな ここ し 後 十 感じ だけ えーと 三 そこ たい できる 俺 け ず 出る 多分 入る もの みんな やつ まで 前 んー ほら や 結構 年 おいしい どこ 全然 もらう 家 話 たり 取る 大丈夫 使う 様 持つ 日 知る こちら 入れる わけ 書く 作る 自分 四 五 ダメ くれる まだ はあ 買う 飲む 聞く 回 月 先生 えー あまり また わ 時間 二十 なるほど 円 気 今日 とく おお 中 全部 別 出す あそこ 普通 よく 誰 しれる てく ありがとう しか 確か いつ 帰る こんな 子 好き いっぱい 六 一番 分 られる 一緒 くださる 待つ 八 嫌 僕 考える 同じ すむ 上 あげる おく ちゃんと ずっと 九 多い いただく 母 止める ごめん 面白い 百 ござる 七 高い 絶対 一人 早い 万 大変 いろいろ 風 辺 変わる より つく やばい 学校 一応 うまい 乗る 最初 どちら つける 終わる らしい 下 なんか 子供 会 昔 せる 悪い 怖い 大きい 仕事 ただ 可愛い めちゃ 結局 かかる 例えば もっと 内 さっき 意味 いろんな 金 小さい 切る 三十 次 お前 最近 他 父 あー ながら すぐ 覚える 見える 二人 かける 大体 すぎる なんて ママ ほしい 今度 無理 おっ どうぞ マジ オーケー この間 昨日 まま ばあちゃん 綺麗 いずれ 会う 最後 逆 ご飯 まず 安い あら 難しい 朝 車 もし 願う 手 読む 五十 向こう 痛い 会社 歩く そちら 写真 食う パパ 友達 とりあえず 名前 売る しまう 目 きっと 先 寝る よいしょ 長い なさる あなた 今年 顔 頑張る 頃 関係 間 番 語 度 楽しい 変 忘れる ううん 茶 ほう 水 明日 うわ ため 大学 話す 問題 しゃべる 教える 上がる 因る 取れる ちょうど 強い 四十 必要 送る バス 頭 嘘 パン 高校 半 場合 電話 死ぬ あちら もちろん なくなる なかなか 六十 びっくり 店 うんと 千 頼む 去年 さも 時代 受ける 少ない 形 仕様 合う 近い 味 やん 辛い 少し 彼 ばかり 変える 色 若い 言葉 あんな 大事 へ 夜 おかしい 決まる ビール 動く 駅 どんどん 基本 決める 失礼 いくら 気持ち 酒 呼ぶ 意外 部 空く 親 わあ 初めて 面倒 場所 部屋 肉 見せる 体 奥 始める 落ちる 爺 甘い 回る 授業 開ける 要する 今回 以上 残る 勉強 いえ こそ 足 もともと 声 研究 よし 外 新しい 客 料理 戻る 忙しい 階 とる 住む 特に お腹 人間 ずつ 二千 どんな どの 押す 兄 実 機 わりと 野菜 遊ぶ ほとんど 調べる まったく 寒い 通る 楽 さすが へん 暑い 姉 座る 着る 走る 音 八十 でかい 働く 電車 借りる イメージ 選ぶ 元気 困る 山 バカ 半分 増える 通り 五百 危ない 市 横 伯父 たまに 引く 結婚 偉い 打つ 男 たって だんだん 七十 吸う 生きる 格好 連絡 飛ぶ こいつ 本 かしら だいぶ たら 休み 幾 隣 生 ヶ月 代 嬉しい ホテル 夏 数 泊まる 世界 以外 たくさん 英語 テレビ 怒る 立つ 重い キロ 実際 払う ひどい ぞ 感 疲れる 九十 あいつ 二百 周り 止まる 渡す 週間 カメラ 捨てる 点 いたす うう 委員 立てる 後ろ 毎日 説明 起きる ライン 女の子 洗う うー 開く 生活 部分 メール 左 似る 側 右 昼 終わり 広い 確認 おりる 道 探す 中学 感じる 旅行 真ん中 クラス 焼く 遅い 時期 週 口 ワイン 丸 全員 嫌い 急 木 個人 本人 始まる 式 張る 笑う はず 要 ねん 病院 近く ゼロ なし ほぼ 途中 伯母 区 うるさい 社会 台 足りる 歌う ワン 遠い きつい かわいそう 熱い ページ 簡単 降る マン 先輩 かなり 塩 君 菓子 あたり ほど たつ 花 必ず 程度 うち 学生 あり 歌 関する 音楽 ゆっくり 休む 会話 匂い 大人 来年 連れる 情報 状態 いらっしゃる 予定 年間 紹介 得る グループ とにかく 勝つ 野球 パソコン 着く 練習 間違える 大好き 県 素晴らしい 絵 会議 全体 聞こえる 値段 国語 完全 映画 濃い 裏 貸す 雨 ゲーム 帰り 息子 チーズ 五千 参加 抜く 公園 カレー ボール 女 女子 字 集まる 魚 アイス 両方 椅子 興味 味噌 売れる 泊 混む 風呂 そして 彼女 コース ネット 杯 データ 懸命 犬 させる サラダ たまたま 場 平気 弁当 班 返す センチ 古い 雪 コーヒー 力 回す 家族 しっかり 紙 自体 自転 鳥 レベル 毎年 上手 勝手 厳しい 対する 当たる 状況 量 まずい 硬い 素敵 三百 可能 歯 資料 元 切れる 合わせる 気づく 猫 つながる イベント 乗せる 分ける 準備 相手 表 伸びる 勿体 有名 ちび 娘 普段 最終 温泉 名 慣れる 日曜 用意 粉 落とす 吐く 種類 首 事務 割 実家 短い トイレ 流れ 白 白い 皿 試験 パス 不思議 なぜ 教室 狭い 直す 午前 温かい 豆腐 適当 十分 意識 携帯 消す 細い バイト ラーメン 並ぶ 企画 心配 薄い 青 地 ぜ カード 内容 利く せっかく 旦那 違い 一生 続ける 記憶 飛行 セット タバコ そもそも 赤 運転 チーム 感覚 減る ものすごい てらっしゃる キャンプ チェック トマト 当日 担当 砂糖 線 質問 重 上る 優しい 教育 おい 文字 触る 醤油 卵 二三 人数 土曜 女性 川 海 生徒 組 など 亡くなる 思い出す 汚い 詰まる 饂飩 ぱっ 席 生まれる 経験 プラス よろしく つもり 邪魔 バター 国 明く 軽い 随分 ちょい クリーム 結果 進む 報告 振る 方向 汁 町 めちゃくちゃ 雰囲気 ああん タイプ メートル それぞれ 抜ける 月曜 相談 細かい 代わり 保育 喜ぶ 大きな 島 漢字 日程 理由 いきなり ポイント マンション 小学 当たり前 撮影 火 申し訳 余裕 午後 卒業 よろしい 対応 スーパー 主人 動物 暇 薬 相当 営業 自由 負ける おー 交ぜる 学年 専門 弟 わざわざ 手前 油 海外 牛乳 社長 調査 離れる 仲 受験 向く 泣く 黒 い ギリギリ すべて 反対 むしろ 意見 毎回 片付ける 管理 食事 倍 年齢 日間 此方側 疲れ 発表 石 べし ケーキ 一般 下げる 地域 寄る 押さえる ぜひ 残念 見つける 食 テスト 久しい 予算 段階 運動 ジュース センター 寿司 微妙 本真 越える オイル 下がる 作業 医者 掃除 曲がる 胡瓜 袋 計算 辞書 ちょうだい さあ どうせ タイミング 作品 桜 痩せる まとめる 自然 そろそろ 分かれる 履く 荷物 誕生 とても パーセント 四百 差 我々 映る 神社 黒い スマホ 三千 予約 伸ばす 懐かしい まあまあ ブック 余る 健康 印刷 年度 珍しい 男の子 試合 外す 太る 指導 ありがたい 流れる 種 続く 緑 アップ ハイ ホーム 互い 反応 地元 戻す なり ファン 豆 距離 風邪 餡 馳走 ずれる スポーツ メーン 低い 差す 焼酎 移動 茄子 鼻 オレンジ ギョーザ ピザ おっしゃる 保険 出でる 残す 流行る 眠い フェース 下ろす 大した さらに 湯 間に合う 順番 ふう パターン ピンク 号 合宿 新聞 登録 皮 親父 調子 ユー 地区 塵 届く 幹線 最悪 流す 箸 胡麻 行動 金曜 ガス 九百 伝える 入院 土日 土産 妹 自己 赤い グラム コピー 悲しい いわゆる 機械 癖 雲 食べ物 ばあ ゼミ プロ 例 動かす 動画 塗る 挨拶 文化 生地 田舎 男子 番号 病気 足す 辞典 アロマ 余計 外国 嫁 幼稚 御洒落 来週 看護 締める はっきり サイズ 券 心 楽しむ 空揚げ ビル 体育 冬 広報 手伝う 時々 しばらく 段 まっすぐ 箱 葱 部活 配る 間違う 駐車 つつ タイム チケット ポテト 仕方ない そいつ 冷凍 いかが 教員 更新 検索 直る 空港 通す いしょ はる クラブ スプーン 兄弟 北 御覧 若干 落ち着く 蝦 鳴る アンケート ツアー 下手 含める 因み 夕方 失敗 ご 楽しみ 橋 生姜 目的 肩 一瞬 付き合う 多少 放題 買い物 赤ちゃん 逃げる 過去 おいしょ めでたい ルール 了解 会場 引っ張る 弾く 拭く 穴 苦手 通う 遅れる くっつく カット コンビニ スケジュール バナナ 三角 前回 勧める 弱い 知り合い 米 耳 運営 カラオケ サイト スキー ビデオ フリー メンバー ライブ 夏休み 嵌まる 平日 恥ずかしい 指 教科 方法 最高 爪 理解 納豆 育てる 都 靴 さす 当然 役員 消える 申し込む 集める メニュー 早め 水曜 測る やっと 瞬間 鋏 青い こだわる 八百 冷たい 出かける 息 悩む せい 正直 話題 さえ しょっちゅう エレベーター チョコ 中身 人気 割る 工場 怪我 木曜 漫画 烏賊 組む 葉っぱ 虫 飽きる カフェ テント テーマ ノー こんにちは 商品 地下 寂しい 期間 秋 移る 空 かぶる 言語 飯 黄色 人生 はじめ 前日 吊る 天気 年寄り 当時 得意 柔らかい 比べる 版 めちゃめちゃ 髪の毛 まさか タクシー ほっと 世代 件 利用 あちらこちら 時点 暗い 曲 活動 特別 縫う 設定 調整 遠く 電気 オーブン カー ゴム サッカー シャツ テーブル マイク ヨーガ レストラン 世の中 代表 具合 同級 就職 整理 正月 求める 端っこ 苦労 評価 誘う コップ 一日 乗っける 体験 作り 修学 加減 施設 映像 まさに 焼ける 腹 企業 地図 間違い つい ゴルフ 中央 事業 固まる 書類 案内 歴史 男性 立場 給料 腰 計画 スタート 一気 仲間 便利 受かる 大根 安心 家庭 役所 後半 なるべく 手術 林檎 煎餅 率 やる気 鍋 べい ツー ラジオ 事故 交換 価値 単純 塾 尻 御握り 教授 東 検討 たまる 発行 眼鏡 臭い 角 迎える 飛ばす オープン シーン チョコレート トップ パック よほど 先週 冷蔵 判断 学期 正しい 温める 盆 答え 選択 限り 飲み会 があ きちんと もっ回 カラー サークル セッション ソース ランチ 世話 人参 文章 温度 痒い 磨く 脳 蕎麦 観光 豚 面 高二 ダンス 丁目 七百 介護 会長 六百 具体 割れる 南 数字 洗濯 瓶 真面目 社員 起こす スペース デザイン ワークショップ 任せる 寺 己 患者 拾う 挟む 昼間 構う 生まれ 監督 羊 講習 順 あん すら イエイ チューブ バランス 今週 動き 化粧 土地 広げる 投げる 残り 片付け 環境 編集 習う アイ カップ 以降 信ずる 向かう 喉 壊す 大会 天皇 宇宙 展示 幸せ 役 まくる 検査 認める 踏む 進める 非常 高三 ねた アルコール シート スタッフ ランド ロック 五六 仕方 会計 公務 増やす 思い 明るい 残業 緊張 縁 つなぐ 美術 茹でる 講座 雑誌 とんでも ぴっ ライス レモン 仲良く 出し 助かる 叩く 図書 地震 壁 学ぶ 布団 おかげ 想像 すでに 時計 条件 渡る 無料 現代 癌 芋 酔う 電子 飼う もふもふ クリスマス シリーズ フード ペット 今月 光 免許 入り口 土 定期 潰れる 研修 突然 責任 重たい 静か 飲み物 ほっ アボカド グラス コーラ ハム 休憩 半年 墓 夢 断る 次回 無駄 現場 神 科学 職員 職場 迷う 進路 はっ グリーン タオル 一言 中止 位置 全国 動詞 原稿 我慢 戦争 服 正解 祭り 空気 考え 道路 酔っ払う 香り きゃあ ウーロン ゴールデン ストレス ニュース ハウス フォーン プール ポスター 住所 倒れる 効果 印象 反省 大蒜 守る 対 技術 折る 教材 春 生える くそ 蓋 血 記録 詳しい 関わる バック 中心 会員 助ける 勢い 向ける 喧嘩 建物 性格 期待 棒 泳ぐ 町会 画面 縦 胡椒 自動 販売 起こる 金額 限る がんがん カバー クラシック スープ セブン ティッシュ ピアノ ミニ いったん 不安 与える 事件 出身 受け付け 地方 垂れ 希望 常 後輩 恐ろしい わざと 散歩 早く 母親 気分 火曜 炭酸 熱 突き込む 自身 つまり 返事 通知 階段 ばーん シー スイート バーベキュー マスク ミリ 乾燥 兎 咲く 局 機会 泡 畏まる 落っこちる 蜜柑 見つかる 重要 集中 集合 項目 ばらばら アウト キッチン ペン ロー 一遍 出張 壊れる 天麩羅 夫婦 実習 年金 庭 成長 数える 注意 混ざる 溶ける 玉 終了 総合 羨ましい 蜘蛛 講師 足る 都市 酢 飾る 髪 おっと しょっぱい イン ケア ハーブ バージョン ブランド ボトル マップ ラッキー 乾く 乾杯 予想 保護 勤める 古典 同時 噛む 実験 年末 当てる 影響 文句 机 梅 決定 注文 満足 焚く 立派 竹の子 総会 証明 資格 追加 運ぶ 部長 銀行 せめて ちょこちょこ ばれる オリンピック オン キャベツ システム ショップ ドラマ バー パスタ パンダ 事前 会派 似合う 制限 協力 外れる 夜中 大量 季節 宿題 平和 星 暮らす 機材 生む 目指す 糸 繋がり 自宅 茶碗 蜂蜜 行う 記念 許可 車両 農家 預かる 麺 黄色い だあ インタビュー シーズン スイッチ テニス ドレッシング パーティー ボーイ ワード 丁寧 公開 初 募集 参考 坂 安定 宣伝 弄る 所得 案 氷 深い 狙う 畑 答える 範囲 西 議長 連休 選手 零 高一 高速 ぐるぐる サンキュー スタンプ スピード ターン ビジネス フル 一時 四千 引っかかる 文 なくす 現地 やたら 笑い 背 腕 船 許す 霰 ぴい アート コーパス シフト ショック スクール ドア ノート フォーク ポケモン 中一 中三 乗り換える 入学 半端 危険 右手 存在 学習 巨人 巻 店長 引っ越す 折れる 揃う 揺れる 染める 理系 目標 着物 箇所 絵本 草 菌 蟹 触れる 関連 ＷｉＦｉ こら ざっくり ソフト ドリンク ドーム パワー ボウリング 一部 三四 交通 今後 何十 依頼 便 写る 前半 嘗める 好み 宿 年取る 敷く 梅酒 次第 正面 殺す 涼しい 秒 筋肉 缶 美容 航空 苺 蛍 街道 表現 記事 近所 食材 高級 鯵 ばりばり アパート サービス バッグ プロレス マイ 体操 免疫 単位 右側 否定 店舗 打ち合わせ 抹茶 摘み 本気 機能 決算 炭 煮る 盛り上がる 石鹸 絞る 角度 試す 認知 課税 都合 野郎 録音 あい ちょこっと キャンセル タッチ ナッツ ベッド ベース メモ 七千 並べる 丸い 会館 候補 努力 単語 回転 団体 埋まる 孫 怪しい 扱い 指定 提案 栄養 物件 番組 直前 精神 背中 能力 見出し 酸っぱい 阿呆 顎 鶏 うえ ほい ほれ アクセス アニメ ウイーク バイク プラン プリント プレゼント 人形 体調 体重 凝る 古文 周 噂 四五 回り 外部 天才 小さな 巻く 帽子 広がる あるいは 手伝い 方言 松 沸く 滑る 煉瓦 玄関 瘤 直接 緩い 職 苦しい 親子 語彙 課題 謎 賞 道具 金持ち 長生き 電池 鬼 鰻 かあ やった アルバイト オリエンテーション スーツ ドッグ フルーツ ベスト ホール マイナス 一切 交渉 なになに 信号 入力 処理 助手 包む 収める 受講 たいてい いかに 完成 工事 布 年賀 揃える 放る あえて 木の芽 枕 枠 汗 治療 申請 知識 社 稼ぐ 繰り返す 花火 賢い やり取り 鉛筆 開催 ちまう アイアン オフ オリーブ ケース サポート チキン トラック ヨーグルト いちいち 一昨日 以下 優先 光る 包丁 太い 姫 居酒屋 序で 必修 放す 数学 明太 まだまだ 森 様子 法人 生産 納得 経営 者 育つ 西瓜 いけメン うお アプリ オーダー キャンパス サワー バンド フライパン ラボ リーダー いまいち 共有 分析 削る ひたすら 合唱 図 固定 契約 必死 惚ける 感想 抱っこ 文法 最低 材料 栗 洋服 物語 発酵 神宮 科目 舞台 蛙 褒める 覚え 議会 議題 貝 身 追いかける 長男 限定 食品 駅前 そこそこ ドキドキ はーん んふ アンド ガラス ザ ズボン タイトル チャンス ハンバーグ ビニール プロジェクト リスト 予備 今朝 伝わる 伺う 体制 入試 吹く 呼吸 坪 おとなしい 寄付 左側 おそらく 毎週 焼き肉 理科 知恵 神経 税金 窓 章 紅茶 紐 結論 郵便 ぐう しんどい すっきり ふ フッ わお キー シャンプー スカウト ティー ハンド レンジ 一定 事項 人口 仮 よそ 卓球 単に 和 売り上げ 年代 役割 御八つ おたく 応援 所長 指示 捏 本物 来月 業務 汚れる 現在 紅葉 素人 自信 警察 通ずる 遣らす 電源 革命 鳩 えい ばっ ふふん オーガニック コート サンプル ジム ドライ パー パーク ブラック ライオン リアル レンタカー 一昨年 くだる 今更 仕組み 以来 利益 受け取る 向こう側 変更 対象 床 往復 捕まえる さんざん 敬語 構成 比較 水泳 渋滞 無理やり 燃える 牛 牡蠣 画像 発見 諦める 越す 踊る 返信 遊び 食堂 髭 鮪 くっ のみ はん やら わん イレブン インターネット カロリー クーラー ジェル テン テープ ピッチャー ブロッコリー 一体 六千 共通 出会う 厚い 台風 回収 変化 守備 安全 家賃 小麦 師長 搬入 救急 景色 本来 柔道 棚 浮く 海苔 玉葱 用事 翌日 胃 膝 芯 蛸 行き 詰める 隠れる 骨 高齢 さっぱり てん とんとん アピール グレー コンサート コーナー サーカス ジャンプ スリー ニュー ベビー マヨネーズ メーカー レンタル 中二 乗っかる 体力 使用 優秀 先ほど 冷える 形式 彼氏 従兄弟 扱う 提供 提出 未来 村 校長 案外 極端 水分 減らす 潰す 濡れる 焼き鳥 発信 発想 目線 給食 羊羹 腫れる 違和 重なる 釘 鏡 開発 黙る たがる とこ祭 ふざける ぽん エネルギー エリア オール キムチ キャッチャー ジャム タブレット タワー チップ ハード ファイル フォロー ペース ボランティア ラブ 九千 付き合い 分野 制服 協議 原因 参る 含む 器用 回忌 基準 嬢 審査 寮 平均 延長 担任 捏ねる かく 晩 業者 楽器 点数 父親 現状 疑問 真似 確定 確実 稲 算数 絡む 繋げる 肌 膨らむ 芸術 もしくは 見学 認識 過ごす 鍵 隠す 面接 ＳＮＳ いいえ おしっこ しゅっ ぼろぼろ ややこしい サンド スタイル スター ストップ ツリー テンション バット ブログ ブロック ヘルメット ボックス マーク リニューアル レンズ 乗り 交代 仕舞い 価格 修行 偶然 分類 きっかけ 刺し身 剥がす 同い年 埃 たいして 思いつく 料金 旅 日常 毎月 滝 激しい 理想 発言 禁止 空豆 素材 組合 芸能 苦い 葡萄 論文 輪 閉じる 零す 靴下 ＣＤ あは くるくる すう ずらす そっくり とも ばたばた ぱあ むずい アカウント ギャラリー グッズ コメント ショート ストーリー パフォーマンス メロン ラン レバー ワーク 一覧 下手糞 何色 保健 充電 児童 八千 出発 分厚い 切符 刺激 前提 取り上げる 召し上がる 合 商売 問い合わせ マシ 学会 山葵 工夫 おはよう 徹底 思い切り 慌てる つかむ 攻める 旧 朝日 民間 用 看板 約束 紫 蚊 螺子 血圧 観察 語る 課 調理 負担 軟らかい 退く 鉄 開拓 餌 あさって ちら やがる アップル イコール ウイスキー カレンダー ゴーヤー シェア ズーム デザート トーク ナイス ブルーベリー プログラム ボス マーボー メレンゲ 一二 事情 他人 儲かる 共 冗談 別れる 前後 医療 協会 国立 外人 常勤 年表 幹事 得 急ぐ 感動 手書き 抱える 持ち上げる 期限 本番 本社 気合い 溶かす 焦る 現実 発展 移す 線路 編む 職業 覗く 評判 財布 趣味 迷惑 進化 釣り 鞄 高原 ＣＭ がっつり すっかり ぽんぽん むかつく もしもし イエス イラストレーター クッキー クリア シフォン テキスト ドラム バニラ パンツ フライ ブルー プレゼン ボタン ラスト 冒頭 初日 勝ち 半日 収録 坊 基礎 嫌う 対策 寿司屋 将来 展開 平仮名 店員 引き継ぐ 御袋 惜しい 成果 採用 放送 日日 柄 ようやく 炒める 現れる 目立つ 真剣 福祉 紺 経由 脇 脱ぐ 製作 親戚 試し 話し合う 運 馬 き げろ どーん へい もったり キング コミュニケーション サイダー ショー シール スカイ トレーナー ナビ ミルク モデル ロール 上下 中間 乾かす 交流 係 出席 制度 剥く 名刺 味見 地球 埋める 大切 大師 市場 感謝 戦う 手作り 手間 打ち明ける 掘る 操作 政治 斜め 方面 昆布 此の頃 注ぐ 活用 点滴 班長 生かす 留学 畳む 白子 経済 締まる 老人 耐える 脂 血管 要素 見本 請求 議論 限界 電波 鯛 ちょろちょろ アイディア キャラ キャラクター コード センス タコス デパート デー ナイフ ハッピー パッド ファースト ブラン ホワイト メッセージ モン 一人一人 久々 住宅 何曜 倒す 共同 効率 国際 垂れる 外側 太陽 学園 封筒 座 強制 想定 所属 手紙 散らし 明らか 無視 現金 理事 痛む 着替える 統一 自慢 蕎麦屋 表示 議事 豪華 転ぶ 進捗 都立 鉱石 雇う 雑 音声 飲み 鼠 うい うざい おなら がち ちん のんびり ひい ぶつかる アドレス アンダー アーチスト エアコン ゲット コンセプト コースター コーラス ゴー パクチー ピース フィールド ポップ ミリメートル モニター 上司 二十歳 人事 個別 冷やす 南口 収入 台詞 合計 同期 命 団 姿 専用 山の手 広告 成功 日記 最中 末 波 派手 溜める 用例 ほぼほぼ 直 私立 納品 荒れる 親指 設営 資源 質 近づく 選挙 重ねる 鍛える 集団 順調 あくまで 騒ぐ 驚く 鮭 麹 いざ ぎり ぐっ こだわり さようなら ばんばん エクセル オーナー オーバー カボチャ グランド ジェット ストーブ チェーン チャレンジ チャーハン バンク ヒット ファッション ファミリー フォー メタル 中毒 乗り換え 予防 人物 以前 作家 具 分量 列 初心 判子 劇 収まる 合格 多め 太極 委託 完璧 定規 小啄木鳥 川蝉 幅 底 待ち 思い出 打ち上げ 改めて 方針 本屋 果物 歩 滅多 烏 独り暮らし 玩具 盛り 知事 竹 終電 締め 臨時 補助 設計 論 貴重 買い出し 資金 軍 銀杏 額 きっちり きゅっ ごちゃごちゃ すっ だらだら ははは びびる ぴったり ふわふわ キングダム コントロール コーチ シューマイ シルバー シンプル ステージ ストレッチ ゼリー ナンバー バイ パーマ ファミレス ボウル ラッテ レコーダー 主婦 仲良し 何百 修正 傷 元年 冷や 出店 受賞 味付け 商店 地味 実践 宿泊 年中 引っ繰り返す 引退 心理 心臓 感情 持ち帰る 捕まる 捕らえる 支える 早速 明ける 書籍 業体 模様 毛 活躍 消費 渋い 演奏 漬け物 むちゃくちゃ 熊 片手 礼 積む 空ける 突く 組織 まとまる 習字 茗荷 虫歯 衛生 裏返し 親しい 話しかける 貢献 転勤 追う 通常 進行 遠慮 避ける 都会 金属 騙す 鴨 麦 どころ ばっちり ぱりぱり ぱんぱん まめ わあい ガイド スタンス ステーキ スパゲッティ セロリ ターバン デジタル トンネル ドーナツ パイ パンチ ピーマン ファイブ マッサージ マット マート ラウンド ランク ランタン リハビリ ルーム レクチャー レシピ レスラー 不足 両手 両親 中途 主 事故る 以内 伊達巻 傾向 先月 入場 出口 出版 勝負 台所 嗽 夕焼け 夕飯 定年 家元 導入 岩牡蠣 嵐 常温 幹部 後期 御数 折 挑戦 握る 教師 明解 枚数 植物 機関 武道 決まり 照明 物理 特殊 狡い 皮膚 着 社福 系 納会 経費 統計 纏め 美 胡桃 苔 見かける 規模 解決 言い訳 詐欺 贅沢 軽 通勤 録画 黒豆 いてて がっ きもい くう くっ付ける じっと じゃ ちょろ ぱらぱら ぱーん ひえ アレルギー エントリー ガソリン クレーム コロッケ サポーター サンチュ シャワー センチメートル ダブル トウバンジャン ハート ハーフ ビーカー ファイア フロア プディング モチベーション ライフ リズム リラックス リング レッスン ワールド 一千 不便 付け 修了 兄貴 出会い 制作 博士 取り替える 唯一 四角 夢中 太鼓 姿勢 宅 小 少年 履歴 年少 御負け 成績 我 把握 投手 探検 敵 敷地 新人 新鮮 旗 晴れる 最新 次男 毛布 温い しかし こなす 猪口 猿 玄米 王 生協 申し込み 発音 睦み 確率 祝い 税 端 籠 背負う 苛々 苛める 若手 若者 葉書 血液 表紙 装飾 製品 講演 退職 遺伝 鍬形 門 雉 雑貨 零れる 需要 飲食 魅力 鳴く 齣 あざっす しい すりすり ださい ぴん アイドル アルバム ウィンナ ウインドー ウェブ エアー オブ カウント ゴールド サイド チヂミ チーフ パジャマ パスポート パプリカ ポジション メタファー メーク ライター ライト リットル リボン 一家 下敷き 今時 何時頃 保存 内側 冷める 出来上がる 前期 労働 取材 合流 吹奏 固まり 国旗 大勢 大統領 存ずる 届ける 崩れる 市民 常識 引っ掛ける 御輿 愛 成人 手当て 打撃 招待 推薦 摘む 教わる 方式 日々 本日 柚子 標準 気味 液体 添加 漢文 片仮名 特徴 理論 男女 発泡 発生 発達 糖 素直 緊急 肘 花見 茶色 裏側 記者 話し合い 説 謝る 農業 追いつく 逆上がり 週末 都内 鑢 震災 飲み屋 飴 ＡＩ あっさり あーと うろうろ おおい があん きり しゅう にゃんこ イタリアン カルチャー キャプテン グッド ココナッツ コール スタジオ ダイレクト ディスる デジモン トリミング ドライバー バザー ピン プライド ベテラン マンゴー モンスター レタス レフェリー ロボット 下駄 二元 交差 何千 信頼 傘 公立 勘 かえって 場面 墨 大騒ぎ 天井 始まり 実績 少々 就活 局長 左利き 左手 弓道 引き継ぎ 引っ繰り返る 弟子 従う 念仏 思考 恋 愚痴 戦い 打ち込む さて 損する 断層 もはや 本格 板 桃 植える 気持ちい 永遠 沈む 流行 消毒 点検 焦げる 片方 牛蒡 独特 球 異常 症状 盛る 真っ白 祝日 積極 せいぜい 精油 素 総務 縮む 腸 至る 苛め 茶色い 萌やし 葬式 西口 視察 触り 認定 身長 辛口 通信 連続 遅番 部署 集まり 雌 順位 馴染む 鳥肉 鶺鴒 麒麟 齧る うあ おら かりかり ころころ じゃんけん ちょいちょい つるつる ぱちん ぽい よっこいしょ イラスト カテゴリー キッド コンピューター サイン シングル ジャンル スクラップ ステップ センサー ソファー トラブル ドット ナチュラル パステル ビュッフェ ペンギン マネージャー ミックス ロード 一方 世紀 人差し 倉庫 内部 冷房 分解 前髪 半袖 卒論 卵焼き 取り 取り入れる 名字 型 壺 天然 奇跡 学長 なおかつ 屋根 峠 巻き 干す 徐々 復活 意図 戦後 才能 捌く 数の子 文学 文科 旅館 日付け 明け 暴れる 書店 最大 朝御飯 朝礼 朝食 期末 札 枝 桁 梅干し 検品 機嫌 浮き輪 浴衣 溢れる 特集 甘える 発掘 知らせ 競技 細胞 綿 締め切り 編 縄文 育児 自主 蔵 衝撃 衣装 表す 要求 見知り 規制 講読 赤字 途端 通学 遊園 鉄板 閉店 隊長 集会 集計 青空 預ける 領収 食欲 ＤＶＤ うんち お好み焼き ぎゃあ すき焼き ちっ ちゃり どれ どん ひょっと ぶわー ほお やれ よっ アニマル イオン インフルエンザ エンター オムライス かつ カーブ ガード キャリア クリック クレープ グラフ ゴール ジャガ芋 スルー セーブ ソング ダウン ダブる ノンアルコール ハードル バスケ ブレンド ブレーキ ブーム プライベート プレッシャー ペーパー ボード マックス マフラー モカ モール ラップ レジ ローリング 一通り 上級 下町 主義 乗り物 云々 交じる 任す 信用 内臓 冷静 出勤 出産 刊行 初期 区民 取得 受け入れる 右足 周年 唐辛子 喫茶 固める 変換 大豆 天守 夫 好き嫌い 宗教 実質 宴会 尊敬 小屋 少なめ 平ら 年明け 年長 弁護 引き 忘年 戸 手入れ 手洗い 手続き 手袋 技 抜き 採点 支援 放射 教会 新た 新年 暖房 月報 枯れる 校正 株 樽 欠席 歓迎 殴る 気温 浮かぶ 炭水 片栗粉 狐 独立 独身 狸 生き物 百均 目玉 相撲 知り合う 確保 糠 組み合わせ 継続 網 美しい 羽根 胸 腐る 花粉 茎 葉 薪 藁 虎 行事 解散 訓練 試作 課長 議員 豚骨 費用 跡 込み 通し ついに 配給 針 雄 響く 餡こ 魔女 黒子 ありゃ ぐちゃぐちゃ ごろごろ しゃかしゃか ばん ぴよぴよ もつ アーマー インク インスタント イースト ウルトラ エピソード オーロラ クレー グローバル コア サマー サラリーマン サンドイッチ スタジアム スタンド スピーカー スポット スマート ゾーン ダック デビュー パンフ パンフレット フェス フェルト ヘア ベランダ マスター ミーティング メモる ユニホーム ラベル ルート レイアウト ログ ワイナリー 七八 丈夫 予熱 事実 人工 付属 仮名 会見 伝説 どこどこ 作戦 優勝 儲ける ともかく 入れ物 入稿 公演 分担 別々 勘違い 南無阿弥陀仏 印 双子 取り込む 口コミ 可愛らしい 図鑑 圧倒 夜御飯 大臣 学科 定番 実施 寝かす 寿命 尻尾 屋台 差し上げる 庶民 徴収 意地 我が儘 折り紙 押し 振り 挽き肉 捌け 掲載 攻撃 教養 新規 既読 暮らし 朝飯 杖 東南 枝豆 桜ん坊 業界 概念 武器 水澄まし 池 まして 法律 泡立てる 涙 火事 焼き蕎麦 狂う 理工 甘み 産業 異動 療法 砂 空間 立ち上げる 竹炭 糖尿 紫蘇 組み立てる 結ぶ 花屋 菜 蓮根 蝉 裏表 複雑 解ける 計量 誠実 豊か 貧しい 路線 踵 転がる 連携 避難 鉄道 関節 陸上 隙間 風景 鶴 鷺 あはは ういーん おっかない からすみ がたがた がらがら ざあ しつこい でぶ とっぽい どうこう どろどろ ぱちんこ ぼーん もこもこ やや わくわく アドバイス エンジン エンド オリジナル オーケストラ カッター カーテン ギター ギャル クオリティー コラボ シア ジャケット スクリーン ストレート ストーン スライド タピオカ ダメージ ツイスト ディベート トリッパ ドンマイ バイキング バドミントン バレエ パート ピクルス フェスティバル プラスチック ベル ベンチャー ペア マリーナ メダル リフレクソロジー リード レポート 一歩 世間 中継ぎ 人前 休日 ただし 倣う 備品 先端 入道 全面 冬休み 処分 割り引き 創発 加工 動作 危機 却下 卵白 厚揚げ 厳密 反則 反射 取り皿 合わす 味わう 和室 喋り 器 回数 地獄 執行 基地 墓参り 外食 大盛り 定着 寄せる 小説 年上 引っ越し 待ち合わせ 後悔 御襁褓 応用 悔しい 手元 払い戻し 抽選 損 撤収 支店 救う 整える 文庫 日差し 日焼け 映す 昨年 朝市 ほんの 東名 柿 梟 正式 歪む 民家 気楽 河童 注射 深夜 港 灯油 点てる 無事 無言 燃やす 物販 犯人 用語 留年 痛める 発注 登場 白墨 祝う 糊 線香 縛る 繊維 繰り返し 翻訳 老眼 自殺 行かす 表情 複数 視点 設置 講評 警備 負け 蹴る 軽トラ 退かす 連合 進学 遠足 選定 配布 酸化 関心 電動 頼る 鯖 鱈子 ＰＤＦ えへへ がつがつ ぎゅっ ぐる しゃっ しゅっしゅ そっと たる ぴり ふらふら ぶす ぼうっと ぼちぼち よっしゃ アクセント アプローチ アーモンド インパクト ウォーター エッセンス エース オート クイズ クッション クミン ジンジャー スケボー セント タン ドキュメンタリー ハロー バトル パウダー パッケージ ヒント ブラウン ベイ ベルト マシン ミス ラグビー リハ レア ワンチャン 中古 中旬 まるで 今頃 仕付け なにしろ 余分 保つ 個性 傍聴 入り込む 凍る 凹む 初級 削除 割合 収納 台本 吸収 四角い 園長 外来 天狗 婿 子育て 家具 小六 工業 左足 座席 弱る 張り付ける 役職 待たす 意思 抗癌 括弧 捩る 探る 握り 撤営 擦れ違う 支部 文明 文系 日帰り 日頃 書き順 月例 木材 本数 染み 根っ子 根元 桶 楽ちん 構造 欅 歌手 永住 洒落る 涎 炙る 物価 物置 物質 特定 犯罪 猪 甥っ子 申し上げる 白黒 盛り合わせ 眺める 移住 竹輪 筆 筋 粒 紛争 細石石 経理 継ぐ 総菜 職人 肉球 肯定 脂肪 腹筋 自ら 舌 蛋白 表面 裁縫 複合 視力 訂正 訪問 証券 調節 豚カツ 責める 走り回る 輪っか たどり着く 透明 運用 道場 遣らかす 配信 配置 銀 隊 面談 風味 餅 高め 黄身 黴菌 ＩＴ ＰＣ ＹＣＡＭ いかれる いー えい鰭 がりがり けん さび ははあ ぴりぴり ぶう ぶつぶつ べたべた ぺら ほほほ り アスファルト アヒージョ インフル ウイルス オー カルボナーラ ガパオ ガーリー クリニック クレジット コスト ゴージャス サニー サロン シナモン シャッター タグ チェックポイント チー竹 ディスコ ナツメグ ノン ハワイアン バイオリン バリエーション ビック ブレーク プリンター プレミアム プレー ベリー ボーナス ポンド マクロビ マニュアル ミキサー ヤンキー リサイクル リレー ロゴ 一斉 上品 上着 不良 まるまる 二三十 人科 代理 会費 保証 修理 倅 充実 先行 全身 八幡 公平 出出し 分間 利き目 とうとう 剣 加える 勇気 勝 勤務 千切り 卍 卒園 友 受け 受け付ける 古道 右利き 同僚 向き 喜び 国民 型紙 城 塵箱 売り 夏場 大振り 大腸 天神 奨学 嫌らしい 守り 寅 崩す 工作 工学 床屋 建築 弁 引き出し 強烈 当て 当番 影 役者 徒歩 従業 得点 急須 悪 所外 投票 抵抗 拠点 持ち込む 振り回す 接待 接続 揉める 撒く 改革 放課 教案 そうそう 春休み 昼御飯 時給 晴れ 本店 果たして 権利 欄 次元 止む 気まずい 水道 油揚げ 泊まり 泊める 洗面 温まる 満々 溝 漏れる 無茶 熱中 牛丼 なお 理 痛み 痛風 発送 盆踊り 監査 確かめる 稲荷 立ち上がる 笹身 筆記 簿記 こもる 素数 索引 終える 終点 緑茶 練る 縫い包み おる 義務 肥満 脚本 膾 自腹 茹で卵 蒸し焼き 蛍烏賊 行 街 表記 被害 補聴 観点 角煮 解く 説得 説教 譲る 豆乳 貧乏 貴様 賃貸 資本 転ける 農協 農薬 近場 重視 銭湯 雇用 雛 青年 食らう 饅頭 骨董 ＢＫ ＣＣ あるある えいさあ ぐわー けち げっぷ さっ さっさと しゅっしゅっ しょぼい すかすか たっぷり つっ どっちみち ばき ぴかぴか ふわ ほな ぼこぼこ もちもち やあ ゆとり アシスタント アドベンチャー アメリカン アレンジ ウォーマー エコ エコノミー エモい オンリー カリキュラム ガーデン キウイ クーポン グラタン コンマ サーティー シティー シャンパン シューズ ショコラ スイング スナック セミナー セルフ チャンネル トライアスロン トレーニング トースト ネオ ノウハウ バッター パイナップル パセリ ビッグ ビーフ フィードバック フレンチ ブリンク ベンチ マナー マーベル モルト ラザーニャ ラック レシート レース レール ロス ワンタン 一任 万歳 上水 不満 並び 中とろ 主催 仏像 代打 なんぼ 何事 作用 俳優 先発 再現 冠位 出番 刺繍 半数 半纏 協賛 単なる 原則 可 可愛子 告白 和える 和歌 品 問屋 四十雀 回復 団子 塩麹 売り場 夜勤 大きめ 大型 大家 大昔 好く 学歴 学芸 容量 小遣い 尽くす 左右 平米 年始 張り替える 彫刻 後々 循環 恐竜 意義 愚痴る 愛する 態度 戦力 所内 手帳 抱く 抽象 持ち物 持て成す 指さす 接する 接客 換金 支払い 政府 ゆえ 日持ち 早朝 明確 昼飯 普及 曖昧 服装 木耳 木芽 杉 林間 根性 棘 棟 楽天 欅坂 止め 歯磨き 殻 水着 水黽 汚す 決断 沢庵 沸かす 法 法事 消化 混乱 渉外 濃いめ 火力 熱々 爽やか 珪素 球団 用紙 畳 登校 白菜 百舌 皇后 ますます 目高 眉毛 真上 秘密 稚児 稽古 窓口 笑顔 系統 納入 細工 絵画 続き 缶詰め 育ち 芥子 苦情 英雄 茶道 茸 見逃す 覚める 設備 訴える 評論 詳細 だれだれ 豚肉 貯金 賞味 迫力 通訳 通過 速度 連中 週刊 達成 部門 酔い 開始 階級 難易 雷 電線 頭皮 風呂敷 食器 鳥皮 鳴らす 麺汁 麻痺 黒船 ＰＴＡ あちち おし きらきら げっと ごりごり ざこい しも じもティー たげる ついつい はは ぶらぶら ぶら下げる べろ ぽーん む もてる わし アット アニキン インターナショナル ウエルカム オノマトペ オファー オフィス カクタス カリフラワー キャッチ クラウド グリセリン コック コンタクト ゴースト サブレー サボる サン サングラス シックス ショーロンポー シロップ シード ジャスト ジャンボリー ジュニア スカート スクショ スナイパー スパークリング スフレ スプレー スポンジ ソックス ソーダ ターゲット ダイエット ダウンロード ダズラー テラス でも ネットワーク ハンドル ハンバーガー バースデー パネル ヒーター ビザ ピーナッツ フィルム フェリー フォーム フラッシュ フラワー プレ プレールーム ホワット ボクシー ボディー ポリシー マリネ ミッドナイト ミュージック ムーチョ ラリー リスク レディー レーン ロケ ロープ 一括 七味 三振 不動 不明 世 中高 丸める まるきり 主観 あらかじめ 五黄 井戸 人材 仕上げる 体質 作成 全力 公民 六七 かねる 内科 内緒 分科 切り替え 別荘 別途 前倒し 動産 化学 半島 参道 ただいま 向かい 味醂 和風 咳 品物 問 問い 問う 喜寿 四季 団地 囲む 塔 外科 外野 大地震 失う 女房 好評 妻 始発 威嚇 定時 家紋 家鴨 対話 対面 将軍 小指 山寺 市内 常連 年配 式部 当初 待機 微塵 怠い 恐怖 悩み 悪口 意気 憧れる 我が家 手数 持ち歩く 指先 指摘 振り返る 接触 措置 掬う 揚げ 擤む 整備 斜面 新卒 時速 暗記 曜日 書 有料 本部 染め 染料 栽培 植木 検定 きょくりょく 樽ハイ 正確 毎朝 毒 民族 気質 気遣い 水筒 決して 浄水 浅い 海賊 深読み 満たす 演出 潜る 濃厚 爪切り 牛肉 独自 獅子 王子 現象 甘め 甘酢 産地 田圃 異性 発売 発症 直近 県立 眠たい 眠る 禁煙 禿げる 糧 系列 純粋 素麺 細長い 絶望 義理 背景 芽 若布 菠薐 落ち 蕪 蛇 装う 補佐 要望 見直す 見積もり 詞 買い取る 路地 身体 軟式 転職 軸 退院 送り 逆転 連結 遅刻 遡る はるか 部品 野外 開店 陛下 陶器 際 雪掻き';
 let _jaRankMapCache = null;
 function jaRankMap(){
   if(_jaRankMapCache) return _jaRankMapCache;
@@ -20940,14 +20946,24 @@ function jaRankMap(){
 /* One lemma, one card. よい and いい are the same word; CEJC ranks it 29th and
    spoken Japanese writes it いい, so the card carries いい. */
 const JA_MERGE = { 'よい': 'いい' };
+/* CEJC counts SHORT UNITS, so it splits compounds the way Vietnamese whitespace
+   splits words. 自転 is not a word — it only ever appears inside 自転車; the same
+   goes for 懸命 (一生懸命), 勿体 (もったいない), 委員 (委員会), 飛行 (飛行機), and
+   the bare 幾 behind 幾つ and 幾ら. Teaching the fragment would be teaching a
+   piece of a word, so the fragment is retired and the real word it belongs to
+   inherits its rank. Same fix, and the same reasoning, as the Vietnamese
+   bound-syllable retirement. */
+const JA_BOUND = new Set(['幾','要','ワン','マン','委員','懸命','自転','勿体','飛行']);
+const JA_COMPOUND_RANK = { '委員会':'委員', '一生懸命':'懸命', '自転車':'自転',
+                           'もったいない':'勿体', '飛行機':'飛行' };
 /* The 95 commonest words in recorded Japanese conversation that the old
    media-corpus list simply did not contain — every case particle, the copula,
    the polite ending, and the fillers. They were taught inside grammar lessons
    and had no card, which meant the deck could report a coverage percentage it
    was not actually teaching toward: は, が, を, に, の alone are about a fifth
    of everything said. Rank comes from JA_RANK_ORDER like every other card. */
-const JA_EXTRA = [['うん','うん'],['だ','だ'],['の','の'],['か','か'],['ね','ね'],['た','た'],['で','で'],['て','て'],['と','と'],['が','が'],['は','は'],['も','も'],['に','に'],['よ','よ'],['てる','てる'],['って','って'],['です','です'],['から','から'],['はい','はい'],['いい','いい'],['けれど','けれど'],['な','な'],['を','を'],['ます','ます'],['もう','もう'],['さ','さ'],['いや','いや'],['ちゃう','ちゃう'],['つう','つう'],['ふん','ふん'],['くらい','くらい'],['ん','ん'],['れる','れる'],['ば','ば'],['し','し'],['えーと','えーと'],['たい','たい'],['け','け'],['ず','ず'],['んー','んー'],['ほら','ほら'],['や','や'],['たり','たり'],['えー','えー'],['わ','わ'],['とく','とく'],['おお','おお'],['てく','てく'],['しか','しか'],['られる','られる'],['辺','へん'],['より','より'],['やばい','やばい'],['なんか','なんか'],['せる','せる'],['めちゃ','めちゃ'],['父','ちち'],['あー','あー'],['ながら','ながら'],['なんて','なんて'],['おっ','おっ'],['オーケー','オーケー'],['ばあちゃん','ばあちゃん'],['あら','あら'],['そちら','そちら'],['よいしょ','よいしょ'],['語','ご'],['茶','ちゃ'],['ほう','ほう'],['うわ','うわ'],['因る','よる'],['バス','バス'],['あちら','あちら'],['六十','ろくじゅう'],['うんと','うんと'],['さも','さも'],['仕様','しよう'],['やん','やん'],['あんな','あんな'],['へ','へ'],['ビール','ビール'],['爺','じい'],['要する','ようする'],['いえ','いえ'],['こそ','こそ'],['階','かい'],['二千','にせん'],['わりと','わりと'],['へん','へん'],['八十','はちじゅう'],['でかい','でかい'],['五百','ごひゃく'],['伯父','おじ'],['たって','たって'],['七十','しちじゅう']];
-const JA_EXTRA_GLOSS = {'うん':'yeah; uh-huh; mm (agreeing)','だ':'is; are (plain copula)','の':'\'s; of (links two nouns); softens a question','か':'question marker; or','ね':'right?; isn\'t it? (seeks agreement)','た':'past-tense ending: did; was','で':'at; in; by means of','て':'and then; -ing (links verbs)','と':'with; and; if','が':'marks the subject; but','は':'as for; marks the topic','も':'too; also; even','に':'to; at; in; for','よ':'you know; I\'m telling you','てる':'-ing; is doing (short for ている)','って':'said; called (quoting)','です':'is; are (polite)','から':'from; because; since','はい':'yes; here you go; right','いい':'good; fine; OK','けれど':'but; though','な':'huh; I tell you (soft ending)','を':'marks the object','ます':'polite verb ending','もう':'already; anymore; soon','さ':'you know (casual ending)','いや':'no; nah; ugh','ちゃう':'ends up doing; does by mistake (short for てしまう)','つう':'called; like (casual っていう)','ふん':'hmm; uh-huh; hmph','くらい':'about; roughly; to the extent of','ん':'mm; uh (short for の)','れる':'passive/potential ending: is done; can do','ば':'if; when','し':'and (listing reasons)','えーと':'um; er; let me see','たい':'want to (verb ending)','け':'was it? (checking a memory)','ず':'without doing; not doing','んー':'hmm; well… (thinking)','ほら':'look; see; there you go','や':'and; or (listing)','たり':'doing things like; and so on','えー':'uh; er; whaat?','わ':'you know (soft ending)','とく':'do in advance (short for ておく)','おお':'oh; whoa','てく':'go on doing (short for ていく)','しか':'only; nothing but (with a negative)','られる':'passive/potential/honorific ending','辺':'area; around here; vicinity','より':'than; from','やばい':'risky; awful — or awesome (slang)','なんか':'like; sort of; something','せる':'make someone do; let someone do','めちゃ':'super; really (casual)','父':'father (my own)','あー':'ah; uhh','ながら':'while doing','なんて':'things like; how (dismissive or surprised)','おっ':'oh! (noticing something)','オーケー':'OK; all right','ばあちゃん':'grandma; old lady','あら':'oh! (mild surprise, softer)','そちら':'that way; over there; you (polite)','よいしょ':'heave-ho (said when lifting or sitting)','語':'language; word (suffix: 日本語)','茶':'tea','ほう':'oh? huh (impressed)','うわ':'whoa; ugh','因る':'to depend on; to be due to','バス':'bus','あちら':'that way over there; he/she (polite)','六十':'sixty','うんと':'a lot; way more','さも':'as if; just as though','仕様':'way of doing; spec','やん':'isn\'t it? right? (Kansai)','あんな':'that kind of; like that','へ':'to; toward','ビール':'beer','爺':'old man; grandpa','要する':'to require; to need','いえ':'no; not at all','こそ':'precisely; it is … that','階':'floor; storey (counter)','二千':'two thousand','わりと':'fairly; relatively','へん':'not (Kansai negative: 行かへん)','八十':'eighty','でかい':'huge; massive (casual)','五百':'five hundred','伯父':'uncle','たって':'even if; even though','七十':'seventy'};
+const JA_EXTRA = [['うん','うん'],['だ','だ'],['の','の'],['か','か'],['ね','ね'],['た','た'],['で','で'],['て','て'],['と','と'],['が','が'],['は','は'],['も','も'],['に','に'],['よ','よ'],['てる','てる'],['って','って'],['です','です'],['から','から'],['はい','はい'],['いい','いい'],['けれど','けれど'],['な','な'],['を','を'],['ます','ます'],['もう','もう'],['さ','さ'],['いや','いや'],['ちゃう','ちゃう'],['つう','つう'],['ふん','ふん'],['くらい','くらい'],['ん','ん'],['れる','れる'],['ば','ば'],['し','し'],['えーと','えーと'],['たい','たい'],['け','け'],['ず','ず'],['んー','んー'],['ほら','ほら'],['や','や'],['たり','たり'],['えー','えー'],['わ','わ'],['とく','とく'],['おお','おお'],['てく','てく'],['しか','しか'],['られる','られる'],['辺','へん'],['より','より'],['やばい','やばい'],['なんか','なんか'],['せる','せる'],['めちゃ','めちゃ'],['父','ちち'],['あー','あー'],['ながら','ながら'],['なんて','なんて'],['おっ','おっ'],['オーケー','オーケー'],['ばあちゃん','ばあちゃん'],['あら','あら'],['そちら','そちら'],['よいしょ','よいしょ'],['語','ご'],['茶','ちゃ'],['ほう','ほう'],['うわ','うわ'],['因る','よる'],['バス','バス'],['あちら','あちら'],['六十','ろくじゅう'],['うんと','うんと'],['さも','さも'],['仕様','しよう'],['やん','やん'],['あんな','あんな'],['へ','へ'],['ビール','ビール'],['爺','じい'],['要する','ようする'],['いえ','いえ'],['こそ','こそ'],['階','かい'],['二千','にせん'],['わりと','わりと'],['へん','へん'],['八十','はちじゅう'],['でかい','でかい'],['五百','ごひゃく'],['伯父','おじ'],['たって','たって'],['七十','しちじゅう'],['かしら','かしら'],['たら','たら'],['ヶ月','かげつ'],['ぞ','ぞ'],['九十','きゅうじゅう'],['二百','にひゃく'],['週間','しゅうかん'],['うう','うう'],['委員会','いいんかい'],['ライン','ライン'],['うー','うー'],['中学','ちゅうがく'],['週','しゅう'],['ワイン','ワイン'],['ねん','ねん'],['伯母','おば'],['区','く'],['塩','しお'],['菓子','かし'],['野球','やきゅう'],['パソコン','パソコン'],['県','けん'],['値段','ねだん'],['国語','こくご'],['チーズ','チーズ'],['五千','ごせん'],['カレー','カレー'],['ボール','ボール'],['アイス','アイス'],['味噌','みそ'],['泊','はく'],['混む','こむ'],['そして','そして'],['コース','コース'],['杯','はい'],['させる','させる'],['サラダ','サラダ'],['弁当','べんとう'],['班','はん'],['センチ','センチ'],['自転車','じてんしゃ'],['三百','さんびゃく'],['ちび','ちび'],['温泉','おんせん'],['日曜','にちよう'],['粉','こな'],['事務','じむ'],['パス','パス'],['豆腐','とうふ'],['ラーメン','ラーメン'],['企画','きかく'],['ぜ','ぜ'],['飛行機','ひこうき']];
+const JA_EXTRA_GLOSS = {'うん':'yeah; uh-huh; mm (agreeing)','だ':'is; are (plain copula)','の':'\'s; of (links two nouns); softens a question','か':'question marker; or','ね':'right?; isn\'t it? (seeks agreement)','た':'past-tense ending: did; was','で':'at; in; by means of','て':'and then; -ing (links verbs)','と':'with; and; if','が':'marks the subject; but','は':'as for; marks the topic','も':'too; also; even','に':'to; at; in; for','よ':'you know; I\'m telling you','てる':'-ing; is doing (short for ている)','って':'said; called (quoting)','です':'is; are (polite)','から':'from; because; since','はい':'yes; here you go; right','いい':'good; fine; OK','けれど':'but; though','な':'huh; I tell you (soft ending)','を':'marks the object','ます':'polite verb ending','もう':'already; anymore; soon','さ':'you know (casual ending)','いや':'no; nah; ugh','ちゃう':'ends up doing; does by mistake (short for てしまう)','つう':'called; like (casual っていう)','ふん':'hmm; uh-huh; hmph','くらい':'about; roughly; to the extent of','ん':'mm; uh (short for の)','れる':'passive/potential ending: is done; can do','ば':'if; when','し':'and (listing reasons)','えーと':'um; er; let me see','たい':'want to (verb ending)','け':'was it? (checking a memory)','ず':'without doing; not doing','んー':'hmm; well… (thinking)','ほら':'look; see; there you go','や':'and; or (listing)','たり':'doing things like; and so on','えー':'uh; er; whaat?','わ':'you know (soft ending)','とく':'do in advance (short for ておく)','おお':'oh; whoa','てく':'go on doing (short for ていく)','しか':'only; nothing but (with a negative)','られる':'passive/potential/honorific ending','辺':'area; around here; vicinity','より':'than; from','やばい':'risky; awful — or awesome (slang)','なんか':'like; sort of; something','せる':'make someone do; let someone do','めちゃ':'super; really (casual)','父':'father (my own)','あー':'ah; uhh','ながら':'while doing','なんて':'things like; how (dismissive or surprised)','おっ':'oh! (noticing something)','オーケー':'OK; all right','ばあちゃん':'grandma; old lady','あら':'oh! (mild surprise, softer)','そちら':'that way; over there; you (polite)','よいしょ':'heave-ho (said when lifting or sitting)','語':'language; word (suffix: 日本語)','茶':'tea','ほう':'oh? huh (impressed)','うわ':'whoa; ugh','因る':'to depend on; to be due to','バス':'bus','あちら':'that way over there; he/she (polite)','六十':'sixty','うんと':'a lot; way more','さも':'as if; just as though','仕様':'way of doing; spec','やん':'isn\'t it? right? (Kansai)','あんな':'that kind of; like that','へ':'to; toward','ビール':'beer','爺':'old man; grandpa','要する':'to require; to need','いえ':'no; not at all','こそ':'precisely; it is … that','階':'floor; storey (counter)','二千':'two thousand','わりと':'fairly; relatively','へん':'not (Kansai negative: 行かへん)','八十':'eighty','でかい':'huge; massive (casual)','五百':'five hundred','伯父':'uncle','たって':'even if; even though','七十':'seventy','かしら':'I wonder (soft, often feminine)','たら':'if; once; how about','ヶ月':'months (counter)','ぞ':'I\'m telling you (blunt, male ending)','九十':'ninety','二百':'two hundred','週間':'weeks (counter)','うう':'uhh; mmm (hesitating)','委員会':'committee','ライン':'line; LINE (the messaging app)','うー':'uhh (thinking out loud)','中学':'middle school','週':'week','ワイン':'wine','ねん':'…you know (Kansai sentence ending)','伯母':'aunt','区':'ward; city district','塩':'salt','菓子':'sweets; snacks (usually お菓子)','野球':'baseball','パソコン':'computer; PC','県':'prefecture','値段':'price','国語':'Japanese class; national language','チーズ':'cheese','五千':'five thousand','カレー':'curry','ボール':'ball','アイス':'ice cream; iced (drink)','味噌':'miso','泊':'nights (counter for a stay)','混む':'to get crowded','そして':'and then; and so','コース':'course; route; set menu','杯':'cups; glasses (counter)','させる':'to make someone do; to let someone do','サラダ':'salad','弁当':'bento; packed lunch','班':'group; team (at school or work)','センチ':'centimetre','自転車':'bicycle','三百':'three hundred','ちび':'little one; shorty','温泉':'hot spring; onsen','日曜':'Sunday','粉':'powder; flour','事務':'office work; admin','パス':'a pass; to pass on something','豆腐':'tofu','ラーメン':'ramen','企画':'a plan; a project','ぜ':'you know (blunt, male ending)','飛行機':'aeroplane'};
 
 // JLPT level per word, from the list Lobo supplied (stephenmk's Yomitan deck).
 // A TAG, not the course structure: the lessons run in frequency order.
@@ -21319,6 +21335,17 @@ function activeWordGloss(word){
 // Vietnamese keeps bare ids; every other course is prefixed so two languages
 // can never fight over the same card in the shared state.srs store.
 function srsNs(){ return isVietnameseCourse() ? '' : state.language + '_'; }
+/* THE id a word's study card lives under. wordStudyPool() builds exactly this,
+   and every count on the app reads the SRS through it, so anything that marks a
+   word Known has to build the id the same way or the mark lands on a card
+   nothing is looking at.
+
+   That was a real bug: markWordKnowledge() wrote 'word_' + word with no
+   namespace, so marking 係 Known in Cantonese wrote word_係 while the Known
+   count read word_yue_係. The mark stuck in the popup (which reads the Mine
+   bucket) and the count never moved. Vietnamese hid it for months, because
+   srsNs() is empty there and the two ids happen to agree. */
+function wordSrsId(word){ return 'word_' + srsNs() + word; }
 // Words a non-Vietnamese course teaches, in the order it teaches them.
 function lessonVocabAsWordList(){
   const seen = new Set(), out = [];
@@ -21422,9 +21449,11 @@ function buildWordFrequencyList(){
     const pool = [];
     const push = (w, kana) => {
       const word = JA_MERGE[w] || w;
-      if(seen.has(word)) return;
+      if(seen.has(word) || JA_BOUND.has(word)) return;
       seen.add(word);
-      pool.push({ word: word, p: JA_MERGE[w] ? word : kana, rank: rk.get(word) || 999999 });
+      const part = JA_COMPOUND_RANK[word];
+      pool.push({ word: word, p: JA_MERGE[w] ? word : kana,
+                  rank: rk.get(word) || (part ? rk.get(part) : 0) || 999999 });
     };
     FREQ_JA.forEach(([w, kana]) => push(w, kana));
     JA_EXTRA.forEach(([w, kana]) => push(w, kana));
@@ -26599,6 +26628,7 @@ const DEFAULT_STATE = {
   tutorMode:'guided', // 'guided' | 'immersion' — practice screen tutor voice style
   tutorModeChosen:false, // shows the picker once, before the first practice session
   srs:{}, // srsId -> {interval, ease, reps, due, lapses}
+  srsNsMigrated:{}, // language -> true once its legacy un-namespaced word cards have been moved across
   chatEnglishVisible:false,
   wordDailyGoal:500, wordStudyLog:{ date:null, count:0 }, // resets automatically each new calendar day
   phraseStudyLog:{ date:null, count:0 }, // resets automatically each new calendar day — dailyGoal (above) is the phrase goal
@@ -26989,6 +27019,9 @@ async function loadState(){
       if(state.contentMode === 'new') state.contentMode = 'classic';
     }
   }catch(e){ /* no saved state yet, or storage unavailable (e.g. private browsing) */ }
+  // Safe here and nowhere earlier: loadState() is called from the very bottom of
+  // the file, so every top-level constant the word list needs already exists.
+  migrateWordSrsNamespace();
   renderAll();
   initSync();
   checkOfflineDownloadStatus();
@@ -27206,11 +27239,32 @@ function openLanguagePicker(){
 function closeLanguagePicker(){
   document.getElementById('languagePickerBackdrop').classList.remove('open');
 }
+/* Marks made before wordSrsId() existed were written to the un-namespaced id,
+   so they are sitting in state.srs where nothing reads them. Walk this course's
+   deck once and move any legacy card onto the id the course actually reads.
+   Runs once per language and then records that it has; it never overwrites a
+   card that already exists under the right id. */
+function migrateWordSrsNamespace(){
+  const ns = srsNs();
+  if(!ns) return;                       // Vietnamese never had the mismatch
+  state.srsNsMigrated = state.srsNsMigrated || {};
+  if(state.srsNsMigrated[state.language]) return;
+  let moved = 0;
+  try{
+    buildWordFrequencyList().forEach(w => {
+      const legacy = 'word_' + w.word, current = 'word_' + ns + w.word;
+      if(state.srs[legacy] && !state.srs[current]){ state.srs[current] = state.srs[legacy]; moved++; }
+    });
+  }catch(e){ return; }                  // a course whose deck will not build gets left alone
+  state.srsNsMigrated[state.language] = true;
+  if(moved) _mineKnownCache = null;
+}
 function selectLanguage(id){
   if(!visibleLanguages().some(l=>l.id===id)) return;
   state.language = id;
   _wordListCache = null;      // Cards/Words is per-language now
   _freqChipsBuilt = false;    // rank buckets differ per language
+  migrateWordSrsNamespace();
   saveState();
   closeLanguagePicker();
   renderAll();
@@ -30537,7 +30591,7 @@ function renderSwipe(){
               <p class="sn-e">${ex.e}</p>
             </div>`).join('')}
         </div>` : ''}
-      <button class="sc-know" onclick="event.stopPropagation();knowThisCard()">✓ I already know this</button>
+      <button class="sc-know" onclick="event.stopPropagation();knowThisCard()">✓ I know this by ear</button>
       <p class="sc-hint">${swipeState.flipped ? '' : 'Tap to flip'}</p>
     </div>`;
   } else if(swipeState.mode==='cphrase'){
@@ -35339,7 +35393,7 @@ function setWordKnowledge(word, stateName){
    action, so it takes the study history with it. */
 function markWordKnowledge(word, stateName){
   setWordKnowledge(word, stateName);
-  const id = 'word_' + mineNorm(word);
+  const id = wordSrsId(word);
   if(stateName === 'unknown'){
     delete state.srs[id];
   } else if(stateName === 'known'){
@@ -35372,8 +35426,12 @@ function setWordInfoKnowledge(stateName){
   renderFrequency();
   renderMine();
 }
-// From a word flashcard: "I already know this" — mark it and move on without
-// pretending a grade happened.
+/* From a word flashcard: "I know this by ear" — mark it and move on without
+   pretending a grade happened.
+
+   The wording is deliberate. In a course about speech, Known means you catch
+   the word when you hear it; whether you can read 係 off the page is a
+   different skill and this button does not claim it. */
 function knowThisCard(){
   const c = swipeState && swipeState.deck[swipeState.idx];
   if(!c || !c.word) return;

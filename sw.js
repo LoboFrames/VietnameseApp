@@ -6,7 +6,7 @@
 // app-shell cache gets cleared and the new version is fetched fresh. Audio
 // files don't need this treatment the same way — once a phrase's audio
 // exists, it doesn't change, so the audio cache persists across versions.
-const CACHE_VERSION = 'v45';
+const CACHE_VERSION = 'v46';
 const APP_SHELL_CACHE = `vietlearn-shell-${CACHE_VERSION}`;
 const AUDIO_CACHE = 'vietlearn-audio'; // no version suffix — persists across app updates
 
