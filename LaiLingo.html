@@ -27174,9 +27174,9 @@ function switchView(v){
    800x340 canvas with the horizon at y=250 and water below it; bars are
    [x, width, height-above-horizon]. */
 const HERO_ART = {
-  vi:  { loc:'Mũi Né Sand Dunes',            sky:['#0e2338','#4a6a80','#efb069'], sun:'#ffe0ae', far:'#2c4256', city:'#16232e', water:'#1d3648',
+  vi:  { loc:'Vietnam',            sky:['#0e2338','#4a6a80','#efb069'], sun:'#ffe0ae', far:'#2c4256', city:'#16232e', water:'#1d3648',
          ridge:'0,250 80,208 180,238 300,200 420,246 540,216 660,248 800,224 800,250', bars:[], mark:'palm' },
-  zh:  { loc:'The Bund, Shanghai',           sky:['#141026','#5a2140','#e8703f'], sun:'#ffcf8a', far:'#2a1c30', city:'#150f1c', water:'#241428',
+  zh:  { loc:'Chongqing, China',           sky:['#141026','#5a2140','#e8703f'], sun:'#ffcf8a', far:'#2a1c30', city:'#150f1c', water:'#241428',
          ridge:'0,250 120,232 260,246 420,228 600,244 800,234 800,250',
          bars:[[60,30,120],[96,22,196],[124,34,148],[300,26,168],[334,20,236],[360,30,140],[400,36,110],[560,24,152],[590,32,206],[628,22,132],[700,30,178],[736,24,120],[766,30,96]], mark:'pearl' },
   yue: { loc:'Victoria Harbour, Hong Kong',  sky:['#08192e','#175064','#e5a15a'], sun:'#ffe2b0', far:'#17435a', city:'#0a1a24', water:'#0e2b3c',
@@ -27194,9 +27194,9 @@ const HERO_ART = {
   tl:  { loc:'Manila Bay, Philippines',      sky:['#16182f','#7a3a4a','#f4a55c'], sun:'#ffd9a0', far:'#2e2138', city:'#171020', water:'#26192c',
          ridge:'0,250 120,238 260,246 420,236 580,246 720,238 800,244 800,250',
          bars:[[430,20,40],[456,16,58],[478,24,44],[510,14,66],[530,22,38]], mark:'banca' },
-  en:  { loc:'San Francisco, USA',           sky:['#0c1b30','#37536e','#e39a6a'], sun:'#ffe3bb', far:'#1d3145', city:'#0f1e2a', water:'#153044',
+  en:  { loc:'California, USA',           sky:['#0c1b30','#37536e','#e39a6a'], sun:'#ffe3bb', far:'#1d3145', city:'#0f1e2a', water:'#153044',
          ridge:'0,250 120,224 260,242 420,220 600,240 800,226 800,250', bars:[], mark:'bridge' },
-  es:  { loc:'Barcelona, Spain',             sky:['#1a1226','#7c3245','#f2b45c'], sun:'#ffe6ab', far:'#331f34', city:'#1a1120', water:'#2a1a2c',
+  es:  { loc:'Mexico City, Mexico',             sky:['#1a1226','#7c3245','#f2b45c'], sun:'#ffe6ab', far:'#331f34', city:'#1a1120', water:'#2a1a2c',
          ridge:'0,250 150,240 330,247 520,238 700,247 800,241 800,250',
          bars:[[40,30,58],[76,22,76],[104,28,52],[690,26,64],[722,20,84],[748,30,56]], mark:'sagrada' },
 };
@@ -27296,13 +27296,29 @@ function heroArtDataUri(langId){
 // Photo first, drawn art second. The <img> used to hide itself on error, which
 // is sticky — once hidden it stayed hidden after a language switch — so the
 // handler now swaps the source instead, and display is reset on every render.
+const HERO_PHOTO = {
+  vi:  'images/Vietnam_vietnamese.png',
+  vi2: 'images/Vietnam_vietnamese.png',
+  yue: 'images/hong_kong_cantonese.png',
+  ja:  'images/tokyo_japanese.png',
+  zh:  'images/chongqing_mandarin.png',
+  ko:  'images/seoul_korean.png',
+  th:  'images/bangkok_thai.png',
+  en:  'images/california_english.png',
+  es:  'images/mexico_city_spanish.png',
+};
 function applyHomeHero(langId){
   const img = document.getElementById('homeHeroImg');
   const loc = document.getElementById('homeHeroLoc');
   const art = HERO_ART[langId] || HERO_ART.vi;
   if(loc) loc.textContent = art.loc;
   if(!img) return;
-  const photo = (langId==='vi'||langId==='vi2') ? 'images/home-hero.jpg' : `images/home-hero-${langId}.jpg`;
+  /* The photographs Lobo supplied, named after the place rather than the
+     language code. Listed rather than derived, because 'chongqing_mandarin' is
+     not something a rule would produce from 'zh'. Anything absent — Tagalog —
+     still falls through to home-hero-<lang>.jpg and then to the drawn scene. */
+  const photo = HERO_PHOTO[langId] || ((langId==='vi'||langId==='vi2')
+    ? 'images/home-hero.jpg' : `images/home-hero-${langId}.jpg`);
   const fallback = heroArtDataUri(langId);
   img.style.display = 'block';
   img.onerror = function(){ if(this.src !== fallback){ this.src = fallback; } };
@@ -33817,7 +33833,7 @@ function renderLessonsTabYue(){
       ${lessonImgTag(l.img)}
       <div class="shade"></div>
       <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
-      <div class="tag">${l.tag}</div>
+      <div class="tag">${lessonBand(l)}</div>
       <div class="day">CANTONESE ${levelNum}</div>
       <div class="title">${l.title}</div>
     </button>`;
@@ -33845,9 +33861,10 @@ function renderLessonsTabYue(){
     const doneCount = levelLessons.filter(l=>state.yue.completedLessons.includes(l.id)).length;
     const sections = CANTONESE_SECTIONS_BY_LEVEL[lv.num] || [];
     const sectionsHtml = sections.map(sec=>{
-      const cardsHtml = levelLessons.filter(l=>l.section===sec.id).map(l=>yueLessonCardHtml(l, lv.num)).join('')
+      const inSec = levelLessons.filter(l=>l.section===sec.id);
+      const cardsHtml = inSec.map(l=>yueLessonCardHtml(l, lv.num)).join('')
         + `<div class="lsn-lesson-card locked" style="display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:800;font-size:13px;text-align:center;padding:12px;">🔒 More Cantonese ${lv.num} lessons coming soon</div>`;
-      return `<p class="lsn-section-label" style="font-weight:800;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:10px 2px;">${sec.roman} · ${sec.title}</p>
+      return `<p class="lsn-section-label" style="font-weight:800;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:10px 2px;">${sec.roman} · ${sectionBandTitle(inSec) || sec.title}</p>
         <div class="lsn-group-cards">${cardsHtml}</div>`;
     }).join('');
     return `<div class="lsn-group ${isOpen?'open':''}" id="lsnGroup_${key}">
@@ -33897,7 +33914,7 @@ function renderLessonsTabVi2(){
       ${lessonImgTag(l.img)}
       <div class="shade"></div>
       <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
-      <div class="tag">${l.tag}</div>
+      <div class="tag">${lessonBand(l)}</div>
       <div class="day">VIETNAMESE (NEW) ${levelNum}</div>
       <div class="title">${l.title}</div>
     </button>`;
@@ -33925,9 +33942,10 @@ function renderLessonsTabVi2(){
     const doneCount = levelLessons.filter(l=>state.vi2.completedLessons.includes(l.id)).length;
     const sections = VI2_SECTIONS_BY_LEVEL[lv.num] || [];
     const sectionsHtml = sections.map(sec=>{
-      const cardsHtml = levelLessons.filter(l=>l.section===sec.id).map(l=>vi2LessonCardHtml(l, lv.num)).join('')
+      const inSec = levelLessons.filter(l=>l.section===sec.id);
+      const cardsHtml = inSec.map(l=>vi2LessonCardHtml(l, lv.num)).join('')
         + `<div class="lsn-lesson-card locked" style="display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:800;font-size:13px;text-align:center;padding:12px;">🔒 More Vietnamese (New) ${lv.num} lessons coming soon</div>`;
-      return `<p class="lsn-section-label" style="font-weight:800;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:10px 2px;">${sec.roman} · ${sec.title}</p>
+      return `<p class="lsn-section-label" style="font-weight:800;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:10px 2px;">${sec.roman} · ${sectionBandTitle(inSec) || sec.title}</p>
         <div class="lsn-group-cards">${cardsHtml}</div>`;
     }).join('');
     return `<div class="lsn-group ${isOpen?'open':''}" id="lsnGroup_${key}">
@@ -33972,6 +33990,65 @@ function lessonImgTag(src){
     ? `if(this.dataset.tried){this.style.display='none';}else{this.dataset.tried=1;this.src='${alt}';}`
     : `this.style.display='none';`;
   return `<img src="${src}" alt="" onerror="${onerr}">`;
+}
+/* ---- frequency bands as the section label ----
+
+   Japanese labelled its lesson sections by the frequency band they cover
+   ("First 500"); Cantonese and Vietnamese labelled theirs by theme ("Survival
+   Basics", "Everyday Life"). Both courses are built in frequency order
+   underneath — Cantonese lesson medians run 10, 30, 48, 69, 89 and climb to
+   about 3,000 — so the themed names were describing an ordering the course
+   does not actually use, and there was no way to see where a lesson sat in the
+   list. The band is computed from the lessons themselves, so it stays true as
+   lessons are re-cut rather than being a label someone has to remember to
+   update.
+
+   The names are the milestone names from the Conversation Coverage reference
+   in Quick tools, so the section heading, the coverage ladder and the Cards
+   tab all divide the language the same way. */
+const FREQ_BANDS = [
+  { max:500,   title:'First 500' },
+  { max:1000,  title:'Foundation 1,000' },
+  { max:1500,  title:'Core 1,500' },
+  { max:2000,  title:'Early Conversational 2,000' },
+  { max:3000,  title:'Conversational 3,000' },
+  { max:5000,  title:'Independent 5,000' },
+];
+function bandForRank(r){
+  if(!r || r >= 999999) return 'Off the list';
+  const b = FREQ_BANDS.find(x => r <= x.max);
+  return b ? b.title : 'Beyond 5,000';
+}
+let _lessonBandRanks = null, _lessonBandLang = null;
+function lessonBandRank(l){
+  if(_lessonBandLang !== state.language){ _lessonBandRanks = new Map(); _lessonBandLang = state.language; }
+  if(_lessonBandRanks.has(l.id)) return _lessonBandRanks.get(l.id);
+  let rk = null;
+  try{
+    const map = new Map(buildWordFrequencyList().map(w => [w.word, w.rank]));
+    const rs = (l.vocab || []).map(v => map.get(v.v)).filter(r => r && r !== 999999).sort((a,b) => a - b);
+    // The MEDIAN, not the lowest: one very common word revised inside a late
+    // lesson should not drag the whole lesson back into "First 500".
+    rk = rs.length ? rs[Math.floor(rs.length / 2)] : null;
+  }catch(e){}
+  _lessonBandRanks.set(l.id, rk);
+  return rk;
+}
+function lessonBand(l){ return bandForRank(lessonBandRank(l)); }
+/* A section spans whatever its lessons span. One band gets named; a section
+   straddling two gets both, because pretending otherwise would be the same
+   sort of tidy-looking lie the themed names were. */
+function sectionBandTitle(lessons){
+  // Ordered by the band's own position, not by the order the lessons happen to
+  // sit in — otherwise a section reads "Core 1,500 to Foundation 1,000", which
+  // is backwards and looks like a bug even when the content is right.
+  const order = FREQ_BANDS.map(b => b.title).concat(['Beyond 5,000', 'Off the list']);
+  const seen = new Set();
+  (lessons || []).forEach(l => { const b = lessonBand(l); if(b) seen.add(b); });
+  const bands = order.filter(b => seen.has(b));
+  if(!bands.length) return '';
+  if(bands.length === 1) return bands[0];
+  return bands[0] + ' \u2013 ' + bands[bands.length - 1];
 }
 function setLessonWordStats(lessonWords){
   const el = document.getElementById('lsnWordsTotal');
