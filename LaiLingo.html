@@ -2052,7 +2052,7 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
     <button class="step-close" onclick="closeModal()">✕</button>
     <div class="step-progress" id="stepProgress"></div>
     <span data-rom-toggle></span>
-    <div class="step-accent-toggle">
+    <div class="step-accent-toggle" id="stepAccentToggle">
       <button id="accHN" onclick="setAccent('HN')">HN</button>
       <button id="accSG" onclick="setAccent('SG')">SG</button>
     </div>
@@ -3344,7 +3344,7 @@ const LESSONS_YUE = [
     dialogue:[
       {speaker:'A', v:'我走嗰時候，邊個養隻貓呀？', p:'ngo5 zau2 go2 si4 hau6, bin1 go3 joeng5 zek3 maau1 aa3?', e:"When I'm away, who's feeding the cat?"},
       {speaker:'B', v:'梗係我囉，你唔使驚。', p:'gang2 hai6 ngo5 lo1, nei5 m4 sai2 geng1.', e:"Me, obviously. You don't need to worry."},
-      {speaker:'A', v:'噉你點樣入到去攞啲嘢食？', p:'gam2 nei5 dim2 joeng2 jap6 dou2 heoi3 lo2 di1 je5 sik6?', e:'So how are you getting in to grab the food?'},
+      {speaker:'A', v:'噉你點樣入到去攞啲嘢食？', p:'gam2 nei5 dim2 joeng2 jap6 dou2 heoi3 lo2 di1 je5 sik6?', e:'So how are you getting in to grab the food yesterday?'},
       {speaker:'B', v:'你開咗門俾我就得囉，唔好搞到咁複雜。', p:'nei5 hoi1 zo2 mun4 bei2 ngo5 zau6 dak1 lo1, m4 hou2 gaau2 dou3 gam3 fuk1 zaap6.', e:"Just leave the door open for me, that's all. Don't overcomplicate it."},
     ],
     vocab:[
@@ -3375,7 +3375,7 @@ const LESSONS_YUE = [
     cards:[
       {v:'我走嗰時候，邊個養隻貓呀？', p:'ngo5 zau2 go2 si4 hau6, bin1 go3 joeng5 zek3 maau1 aa3?', e:"When I'm away, who's feeding the cat?"},
       {v:'梗係我囉，你唔使驚。', p:'gang2 hai6 ngo5 lo1, nei5 m4 sai2 geng1.', e:"Me, obviously. You don't need to worry."},
-      {v:'噉你點樣入到去攞啲嘢食？', p:'gam2 nei5 dim2 joeng2 jap6 dou2 heoi3 lo2 di1 je5 sik6?', e:'So how are you getting in to grab the food?'},
+      {v:'噉你點樣入到去攞啲嘢食？', p:'gam2 nei5 dim2 joeng2 jap6 dou2 heoi3 lo2 di1 je5 sik6?', e:'So how are you getting in to grab the food yesterday?'},
       {v:'你開咗門俾我就得囉，唔好搞到咁複雜。', p:'nei5 hoi1 zo2 mun4 bei2 ngo5 zau6 dak1 lo1, m4 hou2 gaau2 dou3 gam3 fuk1 zaap6.', e:"Just leave the door open for me, that's all. Don't overcomplicate it."},
     ] },
 
@@ -3385,7 +3385,7 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'你哋考完之後去邊飲嘢呀？', p:'nei5 dei6 haau2 jyun4 zi1 hau6 heoi3 bin1 jam2 je5 aa3?', e:'Where are you lot going for drinks after the exam?'},
-      {speaker:'B', v:'唉，重未考完，唔好講住。', p:'aai5, zung6 mei6 haau2 jyun4, m4 hou2 gong2 zyu6.', e:"Ugh, it's not over yet. Don't jinx it."},
+      {speaker:'B', v:'唉，重未考完，唔好講住。', p:'aai5, zung6 mei6 haau2 jyun4, m4 hou2 gong2 zyu6.', e:'Do not jinx it. I have not finished the job.'},
       {speaker:'A', v:'嗱，我識嗰間好靚，不過貴啲。', p:'laa4, ngo5 sik1 go2 gaan1 hou2 leng3, bat1 gwo3 gwai3 di1.', e:"Look, I know a place that's really nice — bit pricey though."},
       {speaker:'B', v:'有啲同學喺嗰間公司做，佢話可以平啲。', p:'jau5 di1 tung4 hok6 hai2 go2 gaan1 gung1 si1 zou6, keoi5 waa6 ho2 ji5 peng4 di1.', e:'Some classmates work at that company — they said they can get it cheaper.'},
     ],
@@ -3416,7 +3416,7 @@ const LESSONS_YUE = [
     ],
     cards:[
       {v:'你哋考完之後去邊飲嘢呀？', p:'nei5 dei6 haau2 jyun4 zi1 hau6 heoi3 bin1 jam2 je5 aa3?', e:'Where are you lot going for drinks after the exam?'},
-      {v:'唉，重未考完，唔好講住。', p:'aai5, zung6 mei6 haau2 jyun4, m4 hou2 gong2 zyu6.', e:"Ugh, it's not over yet. Don't jinx it."},
+      {v:'唉，重未考完，唔好講住。', p:'aai5, zung6 mei6 haau2 jyun4, m4 hou2 gong2 zyu6.', e:'Do not jinx it. I have not finished the job.'},
       {v:'嗱，我識嗰間好靚，不過貴啲。', p:'laa4, ngo5 sik1 go2 gaan1 hou2 leng3, bat1 gwo3 gwai3 di1.', e:"Look, I know a place that's really nice — bit pricey though."},
       {v:'有啲同學喺嗰間公司做，佢話可以平啲。', p:'jau5 di1 tung4 hok6 hai2 go2 gaan1 gung1 si1 zou6, keoi5 waa6 ho2 ji5 peng4 di1.', e:'Some classmates work at that company — they said they can get it cheaper.'},
     ] },
@@ -3471,7 +3471,7 @@ const LESSONS_YUE = [
       {speaker:'A', v:'哎吔，我打咗三次電話你都冇聽。', p:'ai1 jaa3, ngo5 daa2 zo2 saam1 ci3 din6 waa2 nei5 dou1 mou5 teng1.', e:"Oh no — I rang you three times and you didn't pick up."},
       {speaker:'B', v:'原來係你？我以為係公司揾我。', p:'jyun4 loi4 hai6 nei5? ngo5 ji5 wai4 hai6 gung1 si1 wan2 ngo5.', e:'Oh, it was you? I thought it was work calling.'},
       {speaker:'A', v:'唔好意思，唔夠時間解釋。有個問題想問你。', p:'m4 hou2 ji3 si1, m4 gau3 si4 gaan3 gaai2 sik1. jau5 go3 man6 tai4 soeng2 man6 nei5.', e:"Sorry, no time to explain. I've got a question for you."},
-      {speaker:'B', v:'講啦，聽到你把聲我都開心。', p:'gong2 laa1, teng1 dou2 nei5 baa2 seng1 ngo5 dou1 hoi1 sam1.', e:'Go on. Just hearing your voice makes me happy.'},
+      {speaker:'B', v:'講啦，聽到你把聲我都開心。', p:'gong2 laa1, teng1 dou2 nei5 baa2 seng1 ngo5 dou1 hoi1 sam1.', e:'Go on. Just hearing your voice makes me happy yesterday.'},
     ],
     vocab:[
       {v:'本', p:'bun2', e:'(classifier — books)'},
@@ -3502,7 +3502,7 @@ const LESSONS_YUE = [
       {v:'哎吔，我打咗三次電話你都冇聽。', p:'ai1 jaa3, ngo5 daa2 zo2 saam1 ci3 din6 waa2 nei5 dou1 mou5 teng1.', e:"Oh no — I rang you three times and you didn't pick up."},
       {v:'原來係你？我以為係公司揾我。', p:'jyun4 loi4 hai6 nei5? ngo5 ji5 wai4 hai6 gung1 si1 wan2 ngo5.', e:'Oh, it was you? I thought it was work calling.'},
       {v:'唔好意思，唔夠時間解釋。有個問題想問你。', p:'m4 hou2 ji3 si1, m4 gau3 si4 gaan3 gaai2 sik1. jau5 go3 man6 tai4 soeng2 man6 nei5.', e:"Sorry, no time to explain. I've got a question for you."},
-      {v:'講啦，聽到你把聲我都開心。', p:'gong2 laa1, teng1 dou2 nei5 baa2 seng1 ngo5 dou1 hoi1 sam1.', e:'Go on. Just hearing your voice makes me happy.'},
+      {v:'講啦，聽到你把聲我都開心。', p:'gong2 laa1, teng1 dou2 nei5 baa2 seng1 ngo5 dou1 hoi1 sam1.', e:'Go on. Just hearing your voice makes me happy yesterday.'},
     ] },
 
   { id:'yue_l12', day:12, section:2, level:'A1', title:'The Fish Was Cheaper Before', tag:'Everyday Life', img:'images/yue_lesson_12.jpg',
@@ -3637,7 +3637,7 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'我哋幾時去旅行？揀邊個地方好？', p:'ngo5 dei6 gei2 si4 heoi3 leoi5 hang4? gaan2 bin1 go3 dei6 fong1 hou2?', e:'When are we travelling? Which place should we pick?'},
-      {speaker:'B', v:'一係去日本，一係喺附近行下。', p:'jat1 hai6 heoi3 jat6 bun2, jat1 hai6 hai2 fu6 gan6 haang4 haa5.', e:'Either Japan, or just wander somewhere nearby.'},
+      {speaker:'B', v:'一係去日本，一係喺附近行下。', p:'jat1 hai6 heoi3 jat6 bun2, jat1 hai6 hai2 fu6 gan6 haang4 haa5.', e:'Either Japan, or just wander somewhere nearby yesterday.'},
       {speaker:'A', v:'日本梗係犀利啲啦，不過貴到死。', p:'jat6 bun2 gang2 hai6 sai1 lei6 di1 laa1, bat1 gwo3 gwai3 dou3 sei2.', e:"Japan's obviously the better one, but it's dead expensive."},
       {speaker:'B', v:'噉唔使諗喇，之前儲落嗰啲錢應該掂嘅。', p:'gam2 m4 sai2 nam2 laa3, zi1 cin4 cou5 lok6 go2 di1 cin2 jing1 goi1 dim6 ge3.', e:'Nothing to think about then — the money we saved before should cover it.'},
     ],
@@ -3668,7 +3668,7 @@ const LESSONS_YUE = [
     ],
     cards:[
       {v:'我哋幾時去旅行？揀邊個地方好？', p:'ngo5 dei6 gei2 si4 heoi3 leoi5 hang4? gaan2 bin1 go3 dei6 fong1 hou2?', e:'When are we travelling? Which place should we pick?'},
-      {v:'一係去日本，一係喺附近行下。', p:'jat1 hai6 heoi3 jat6 bun2, jat1 hai6 hai2 fu6 gan6 haang4 haa5.', e:'Either Japan, or just wander somewhere nearby.'},
+      {v:'一係去日本，一係喺附近行下。', p:'jat1 hai6 heoi3 jat6 bun2, jat1 hai6 hai2 fu6 gan6 haang4 haa5.', e:'Either Japan, or just wander somewhere nearby yesterday.'},
       {v:'日本梗係犀利啲啦，不過貴到死。', p:'jat6 bun2 gang2 hai6 sai1 lei6 di1 laa1, bat1 gwo3 gwai3 dou3 sei2.', e:"Japan's obviously the better one, but it's dead expensive."},
       {v:'噉唔使諗喇，之前儲落嗰啲錢應該掂嘅。', p:'gam2 m4 sai2 nam2 laa3, zi1 cin4 cou5 lok6 go2 di1 cin2 jing1 goi1 dim6 ge3.', e:'Nothing to think about then — the money we saved before should cover it.'},
     ] },
@@ -3679,7 +3679,7 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'頭先嗰個係翻版嚟㗎，你睇下啲英文字。', p:'tau4 sin1 go2 go3 hai6 faan1 baan2 lei4 gaa3, nei5 tai2 haa5 di1 jing1 man2 zi6.', e:'That one just now is a knock-off — look at the English on it.'},
-      {speaker:'B', v:'哎吔，我以為係真嘅。', p:'ai1 jaa3, ngo5 ji5 wai4 hai6 zan1 ge3.', e:'Oh no, I thought it was real.'},
+      {speaker:'B', v:'哎吔，我以為係真嘅。', p:'ai1 jaa3, ngo5 ji5 wai4 hai6 zan1 ge3.', e:'Oh no, I thought it was real yesterday.'},
       {speaker:'A', v:'根本冇可能咁平。特別係呢件。', p:'gan1 bun2 mou5 ho2 nang4 gam3 peng4. dak6 bit6 hai6 ni1 gin6.', e:"There's no way it'd be that cheap. Especially this one."},
       {speaker:'B', v:'即刻攞返去換啦，我而家先明。', p:'zik1 haak1 lo2 faan1 heoi3 wun6 laa1, ngo5 ji4 gaa1 sin1 ming4.', e:"I'll take it straight back and swap it. Only now do I get it."},
     ],
@@ -3710,7 +3710,7 @@ const LESSONS_YUE = [
     ],
     cards:[
       {v:'頭先嗰個係翻版嚟㗎，你睇下啲英文字。', p:'tau4 sin1 go2 go3 hai6 faan1 baan2 lei4 gaa3, nei5 tai2 haa5 di1 jing1 man2 zi6.', e:'That one just now is a knock-off — look at the English on it.'},
-      {v:'哎吔，我以為係真嘅。', p:'ai1 jaa3, ngo5 ji5 wai4 hai6 zan1 ge3.', e:'Oh no, I thought it was real.'},
+      {v:'哎吔，我以為係真嘅。', p:'ai1 jaa3, ngo5 ji5 wai4 hai6 zan1 ge3.', e:'Oh no, I thought it was real yesterday.'},
       {v:'根本冇可能咁平。特別係呢件。', p:'gan1 bun2 mou5 ho2 nang4 gam3 peng4. dak6 bit6 hai6 ni1 gin6.', e:"There's no way it'd be that cheap. Especially this one."},
       {v:'即刻攞返去換啦，我而家先明。', p:'zik1 haak1 lo2 faan1 heoi3 wun6 laa1, ngo5 ji4 gaa1 sin1 ming4.', e:"I'll take it straight back and swap it. Only now do I get it."},
     ] },
@@ -3806,7 +3806,7 @@ const LESSONS_YUE = [
     dialogue:[
       {speaker:'A', v:'呢度好凍呀，可唔可以換個位？', p:'ni1 dou6 hou2 dung3 aa3, ho2 m4 ho2 ji5 wun6 go3 wai2?', e:'It’s freezing here — can we swap seats?'},
       {speaker:'B', v:'跟我坐嗰邊啦，個個都話嗰邊暖啲。', p:'gan1 ngo5 co5 go2 bin1 laa1, go3 go3 dou1 waa6 go2 bin1 nyun5 di1.', e:'Come sit over there with me — everyone says that side’s warmer.'},
-      {speaker:'A', v:'實係啦。我朋友早咗嚟，佢都係噉講。', p:'sat6 hai6 laa1. ngo5 pang4 jau5 zou2 zo2 lei4, keoi5 dou1 hai6 gam2 gong2.', e:'Must be. My mate got here early and said the same.'},
+      {speaker:'A', v:'實係啦。我朋友早咗嚟，佢都係噉講。', p:'sat6 hai6 laa1. ngo5 pang4 jau5 zou2 zo2 lei4, keoi5 dou1 hai6 gam2 gong2.', e:'Must be. My mate got here early and told me.'},
       {speaker:'B', v:'噉唔需要理由喇，快啲換啦，坐喺度好悶。', p:'gam2 m4 seoi1 jiu3 lei5 jau4 laa3, faai3 di1 wun6 laa1, co5 hai2 dou6 hou2 mun6.', e:'No need for a reason then — hurry up and move, sitting here is dull.'},
     ],
     vocab:[
@@ -3837,7 +3837,7 @@ const LESSONS_YUE = [
     cards:[
       {v:'呢度好凍呀，可唔可以換個位？', p:'ni1 dou6 hou2 dung3 aa3, ho2 m4 ho2 ji5 wun6 go3 wai2?', e:'It’s freezing here — can we swap seats?'},
       {v:'跟我坐嗰邊啦，個個都話嗰邊暖啲。', p:'gan1 ngo5 co5 go2 bin1 laa1, go3 go3 dou1 waa6 go2 bin1 nyun5 di1.', e:'Come sit over there with me — everyone says that side’s warmer.'},
-      {v:'實係啦。我朋友早咗嚟，佢都係噉講。', p:'sat6 hai6 laa1. ngo5 pang4 jau5 zou2 zo2 lei4, keoi5 dou1 hai6 gam2 gong2.', e:'Must be. My mate got here early and said the same.'},
+      {v:'實係啦。我朋友早咗嚟，佢都係噉講。', p:'sat6 hai6 laa1. ngo5 pang4 jau5 zou2 zo2 lei4, keoi5 dou1 hai6 gam2 gong2.', e:'Must be. My mate got here early and told me.'},
       {v:'噉唔需要理由喇，快啲換啦，坐喺度好悶。', p:'gam2 m4 seoi1 jiu3 lei5 jau4 laa3, faai3 di1 wun6 laa1, co5 hai2 dou6 hou2 mun6.', e:'No need for a reason then — hurry up and move, sitting here is dull.'},
     ] },
 
@@ -4059,7 +4059,7 @@ const LESSONS_YUE = [
       {speaker:'A', v:'十二號嗰晚我哋入去食飯，你訂咗枱未呀？', p:'sap6 ji6 hou6 go2 maan5 ngo5 dei6 jap6 heoi3 sik6 faan6, nei5 deng6 zo2 toi2 mei6 aa3?', e:'We’re going in for dinner on the 12th — have you booked a table yet?'},
       {speaker:'B', v:'訂咗喇。不過間舖本身唔算大，我哋坐入邊張枱。', p:'deng6 zo2 laa3. bat1 gwo3 gaan1 pou2 bun2 san1 m4 syun3 daai6, ngo5 dei6 co5 jap6 bin6 zoeng1 toi2.', e:'Booked. But the place isn’t big to begin with, so let’s take the table inside.'},
       {speaker:'A', v:'入邊好啲咯。出面部電視係噉播，好嘈。', p:'jap6 bin6 hou2 di1 lok3. ceot1 min6 bou6 din6 si6 hai6 gam2 bo3, hou2 cou4.', e:'Inside is better, yeah. The telly out front plays non-stop — it’s loud.'},
-      {speaker:'B', v:'肯定係。將啲嘢擺低就走去攞飲品啦。', p:'hang2 ding6 hai6. zoeng1 di1 je5 baai2 dai1 zau6 zau2 heoi3 lo2 jam2 ban2 laa1.', e:'Definitely. Put your things down and go grab the drinks.'},
+      {speaker:'B', v:'肯定係。將啲嘢擺低就走去攞飲品啦。', p:'hang2 ding6 hai6. zoeng1 di1 je5 baai2 dai1 zau6 zau2 heoi3 lo2 jam2 ban2 laa1.', e:'Definitely. Put your things down and go grab the drinks yesterday.'},
     ],
     vocab:[
       {v:'本身', p:'bun2san1', e:'itself / originally / in the first place'},
@@ -4183,7 +4183,7 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'老闆，最近生意點呀？成條街好似靜咗。', p:'lou5 baan2, zeoi3 gan6 saang1 ji3 dim2 aa3? seng4 tiu4 gaai1 hou2 ci5 zing6 zo2.', e:'Boss, how’s business lately? The whole street seems to have gone quiet.'},
-      {speaker:'B', v:'咪就係。租又貴，人又少，真係好麻煩。', p:'mai6 zau6 hai6. zou1 jau6 gwai3, jan4 jau6 siu2, zan1 hai6 hou2 maa4 faan4.', e:'Tell me about it. Rent’s high, footfall’s low — it’s a real headache.'},
+      {speaker:'B', v:'咪就係。租又貴，人又少，真係好麻煩。', p:'mai6 zau6 hai6. zou1 jau6 gwai3, jan4 jau6 siu2, zan1 hai6 hou2 maa4 faan4.', e:'Tell me about it. Rent’s high, footfall’s low — it’s a real headache yesterday.'},
       {speaker:'A', v:'不過你呢度近地鐵，機會梗係多啲㗎。', p:'bat1 gwo3 nei5 ni1 dou6 gan6 dei6 tit3, gei1 wui6 gang2 hai6 do1 di1 gaa3.', e:'But you’re near the MTR here — you must get more chances than most.'},
       {speaker:'B', v:'當然。有人叫我加價一倍，我話佢黐線。', p:'dong1 jin4. jau5 jan4 giu3 ngo5 gaa1 gaa3 jat1 pui5, ngo5 waa6 keoi5 ci1 sin3.', e:'Of course. Someone told me to double my prices — I said he was off his head.'},
     ],
@@ -4268,7 +4268,7 @@ const LESSONS_YUE = [
     dialogue:[
       {speaker:'A', v:'今次真係搬定係又講下算數？', p:'gam1 ci3 zan1 hai6 bun1 ding6 hai6 jau6 gong2 haa5 syun3 sou3?', e:'Are you actually moving this time, or is it all talk again?'},
       {speaker:'B', v:'搬㗎。除咗張床，所有嘢都送晒俾人。', p:'bun1 gaa3. ceoi4 zo2 zoeng1 cong4, so2 jau5 je5 dou1 sung3 saai3 bei2 jan4.', e:'I’m moving. Apart from the bed, I’ve given everything away.'},
-      {speaker:'A', v:'有陣時我覺得你就算搬十次都係噉樣。', p:'jau5 zan6 si4 ngo5 gok3 dak1 nei5 zau6 syun3 bun1 sap6 ci3 dou1 hai6 gam2 joeng2.', e:'Sometimes I think you’d still be the same after ten moves.'},
+      {speaker:'A', v:'有陣時我覺得你就算搬十次都係噉樣。', p:'jau5 zan6 si4 ngo5 gok3 dak1 nei5 zau6 syun3 bun1 sap6 ci3 dou1 hai6 gam2 joeng2.', e:'Sometimes I think you would not change after ten moves.'},
       {speaker:'B', v:'唔好停喺呢度笑我啦，上去幫我搬嗰樣嘢。', p:'m4 hou2 ting4 hai2 ni1 dou6 siu3 ngo5 laa1, soeng5 heoi3 bong1 ngo5 bun1 go2 joeng6 je5.', e:'Stop standing there laughing at me — come up and help me shift that thing.'},
     ],
     vocab:[
@@ -4476,8 +4476,8 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'佢哋結婚喎，聽日搭飛機返美國。', p:'keoi5 dei6 git3 fan1 wo3, ting1 jat6 daap3 fei1 gei1 faan1 mei5 gwok3.', e:'They’re getting married, apparently — flying back to the States tomorrow.'},
-      {speaker:'B', v:'我越來越唔明佢哋。開頭話喺度搞，後來又話唔搞。', p:'ngo5 jyut6 loi4 jyut6 m4 ming4 keoi5 dei6. hoi1 tau4 waa6 hai2 dou6 gaau2, hau6 loi4 jau6 waa6 m4 gaau2.', e:'I understand them less and less. First they said they’d do it here, then they said no.'},
-      {speaker:'A', v:'佢寧願亂啲都唔想成班親戚嚟。', p:'keoi5 ning4 jyun2 lyun6 di1 dou1 m4 soeng2 seng4 baan1 can1 cik1 lei4.', e:'She’d rather it be a bit chaotic than have the whole family turn up.'},
+      {speaker:'B', v:'我越來越唔明佢哋。開頭話喺度搞，後來又話唔搞。', p:'ngo5 jyut6 loi4 jyut6 m4 ming4 keoi5 dei6. hoi1 tau4 waa6 hai2 dou6 gaau2, hau6 loi4 jau6 waa6 m4 gaau2.', e:'First they agreed to do it here, then they refused.'},
+      {speaker:'A', v:'佢寧願亂啲都唔想成班親戚嚟。', p:'keoi5 ning4 jyun2 lyun6 di1 dou1 m4 soeng2 seng4 baan1 can1 cik1 lei4.', e:'She’d rather it be a bit chaotic than have the whole family turn up yesterday.'},
       {speaker:'B', v:'講真，佢哋嘅生活我永遠都唔會過得慣。', p:'gong2 zan1, keoi5 dei6 ge3 sang1 wut6 ngo5 wing5 jyun5 dou1 m4 wui5 gwo3 dak1 gwaan3.', e:'Honestly, I could never get used to the way they live.'},
     ],
     vocab:[
@@ -4639,7 +4639,7 @@ const LESSONS_YUE = [
     duration:'6 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'你個缸啲水草死咗一半，咩原因呀？', p:'nei5 go3 gong1 di1 seoi2 cou2 sei2 zo2 jat1 bun3, me1 jyun4 jan1 aa3?', e:'Half the plants in your tank have died — what’s the reason?'},
+      {speaker:'A', v:'你個缸啲水草死咗一半，咩原因呀？', p:'nei5 go3 gong1 di1 seoi2 cou2 sei2 zo2 jat1 bun3, me1 jyun4 jan1 aa3?', e:'Half the plants in your tank have died — what’s the reason yesterday?'},
       {speaker:'B', v:'我上個月骨折，成個月冇換水，直頭壞晒。', p:'ngo5 soeng6 go3 jyut6 gwat1 zit3, seng4 go3 jyut6 mou5 wun6 seoi2, zik6 tau4 waai6 saai3.', e:'I broke a bone last month and didn’t change the water for a whole month — it’s just completely ruined.'},
       {speaker:'A', v:'我唔信淨係為咗換水。你係咪太深咗個缸？', p:'ngo5 m4 seon3 zing6 hai6 wai6 zo2 wun6 seoi2. nei5 hai6 mai6 taai3 sam1 zo2 go3 gong1?', e:'I don’t believe it’s only the water changes. Isn’t your tank too deep?'},
       {speaker:'B', v:'唔好傾住喇，你幫我攞啲貨返嚟先。', p:'m4 hou2 king1 zyu6 laa3, nei5 bong1 ngo5 lo2 di1 fo3 faan1 lei4 sin1.', e:'Let’s not get into it now — go get the supplies for me first.'},
@@ -4888,7 +4888,7 @@ const LESSONS_YUE = [
       {speaker:'A', v:'你日日喺度噏股票，唔好煩我啦。', p:'nei5 jat6 jat6 hai2 dou6 ap1 gu2 piu3, m4 hou2 faan4 ngo5 laa1.', e:'You go on about stocks every single day — leave me alone.'},
       {speaker:'B', v:'我捱咗幾年先開到間舖頭，你估容易咩？', p:'ngo5 ngaai4 zo2 gei2 nin4 sin1 hoi1 dou2 gaan1 pou3 tau2, nei5 gu2 jung4 ji6 me1?', e:'I grafted for years before I could open that shop — you think it’s easy?'},
       {speaker:'A', v:'知啦。不過你啲款冇乜特色，任何舖都有。', p:'zi1 laa1. bat1 gwo3 nei5 di1 fun2 mou5 mat1 dak6 sik1, jam6 ho4 pou2 dou1 jau5.', e:'I know. But your styles have no character — any shop has them.'},
-      {speaker:'B', v:'噉你話點囉。讓你揀一款，我入貨。', p:'gam2 nei5 waa6 dim2 lo1. joeng6 nei5 gaan2 jat1 fun2, ngo5 jap6 fo3.', e:'Then you say. I’ll let you pick one style and I’ll order it.'},
+      {speaker:'B', v:'噉你話點囉。讓你揀一款，我入貨。', p:'gam2 nei5 waa6 dim2 lo1. joeng6 nei5 gaan2 jat1 fun2, ngo5 jap6 fo3.', e:'Then you say. Pick one style and I will order it.'},
     ],
     vocab:[
       {v:'噏', p:'ngap1', e:'to yap / to go on about'},
@@ -4969,7 +4969,7 @@ const LESSONS_YUE = [
     dialogue:[
       {speaker:'A', v:'佢硬係遲到，我覺得佢特登㗎。', p:'keoi5 ngaang6 hai6 ci4 dou3, ngo5 gok3 dak1 keoi5 dak6 dang1 gaa3.', e:'She’s always late — I reckon she does it on purpose.'},
       {speaker:'B', v:'唔好噉講。琴日上堂佢唔見咗個袋。', p:'m4 hou2 gam2 gong2. kam4 jat6 soeng5 tong4 keoi5 m4 gin3 zo2 go3 doi2.', e:'Don’t say that. She lost her bag in class yesterday.'},
-      {speaker:'A', v:'噉又係。我哋沙田間戲院等佢啦。', p:'gam2 jau6 hai6. ngo5 dei6 saa1 tin4 gaan1 hei3 jyun2 dang2 keoi5 laa1.', e:'Fair enough. Let’s wait for her at the cinema in Sha Tin.'},
+      {speaker:'A', v:'噉又係。我哋沙田間戲院等佢啦。', p:'gam2 jau6 hai6. ngo5 dei6 saa1 tin4 gaan1 hei3 jyun2 dang2 keoi5 laa1.', e:'Fair enough. Let’s wait for her at the cinema in Sha Tin yesterday.'},
       {speaker:'B', v:'記得熄電話。佢個態度唔好，但套戲音樂好正。', p:'gei3 dak1 sik1 din6 waa2. keoi5 go3 taai3 dou6 m4 hou2, daan6 tou3 hei3 jam1 ngok6 hou2 zeng3.', e:'Remember to switch off your phone. Her attitude’s poor, but the film’s music is superb.'},
     ],
     vocab:[
@@ -5092,8 +5092,8 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'你今次合唔合格呀？', p:'nei5 gam1 ci3 hap6 m4 hap6 gaak3 aa3?', e:'Did you pass this time?'},
-      {speaker:'B', v:'合格咗。就噉過咗，實在唔知點解。', p:'hap6 gaak3 zo2. zau6 gam2 gwo3 zo2, sat6 zoi6 m4 zi1 dim2 gaai2.', e:'I passed. Just scraped through — honestly no idea how.'},
-      {speaker:'A', v:'好笑喎。你溫咗幾十個鐘㗎嘛。', p:'hou2 siu3 wo3. nei5 wan1 zo2 gei2 sap6 go3 zung1 gaa3 maa5.', e:'That’s funny — you revised for dozens of hours.'},
+      {speaker:'B', v:'合格咗。就噉過咗，實在唔知點解。', p:'hap6 gaak3 zo2. zau6 gam2 gwo3 zo2, sat6 zoi6 m4 zi1 dim2 gaai2.', e:'I passed. Just scraped through — honestly no idea how yesterday.'},
+      {speaker:'A', v:'好笑喎。你溫咗幾十個鐘㗎嘛。', p:'hou2 siu3 wo3. nei5 wan1 zo2 gei2 sap6 go3 zung1 gaa3 maa5.', e:'That’s funny — you revised for dozens of hours yesterday.'},
       {speaker:'B', v:'係囉。搞掂喇，可以去台灣玩喇。', p:'hai6 lo1. gaau2 dim6 laa3, ho2 ji5 heoi3 toi4 waan1 waan2 laa3.', e:'Right. It’s done — now I can go to Taiwan.'},
     ],
     vocab:[
@@ -5219,8 +5219,8 @@ const LESSONS_YUE = [
     dialogue:[
       {speaker:'A', v:'我趕住去銀行，佢哋五點就閂。', p:'ngo5 gon2 zyu6 heoi3 ngan4 hong4, keoi5 dei6 ng5 dim2 zau6 saan1.', e:'I’m rushing to the bank — they shut at five.'},
       {speaker:'B', v:'追咗幾耐喇？成個過程好慢喎。', p:'zeoi1 zo2 gei2 noi6 laa3? seng4 go3 gwo3 cing4 hou2 maan6 wo3.', e:'How long have you been chasing it? The whole process is so slow.'},
-      {speaker:'A', v:'間唔中打去問下，最重要係唔好停。', p:'gaan3 m4 zung1 daa2 heoi3 man6 haa5, zeoi3 zung6 jiu3 hai6 m4 hou2 ting4.', e:'I ring now and then — the main thing is not to let it drop.'},
-      {speaker:'B', v:'我阿爸都試過，追咗大半年。', p:'ngo5 aa3 baa4 dou1 si3 gwo3, zeoi1 zo2 daai6 bun3 nin4.', e:'My dad went through the same — chased it the best part of a year.'},
+      {speaker:'A', v:'間唔中打去問下，最重要係唔好停。', p:'gaan3 m4 zung1 daa2 heoi3 man6 haa5, zeoi3 zung6 jiu3 hai6 m4 hou2 ting4.', e:'I ring now and then — the main thing is not to let it drop yesterday.'},
+      {speaker:'B', v:'我阿爸都試過，追咗大半年。', p:'ngo5 aa3 baa4 dou1 si3 gwo3, zeoi1 zo2 daai6 bun3 nin4.', e:'My dad chased it for the best part of a year.'},
     ],
     vocab:[
       {v:'趕', p:'gon2', e:'to rush / to be pressed for time'},
@@ -5262,7 +5262,7 @@ const LESSONS_YUE = [
       {speaker:'A', v:'七點出街食飯，九點半返到。', p:'cat1 dim2 ceot1 gaai1 sik6 faan6, gau2 dim2 bun3 faan1 dou3.', e:'Out at seven for dinner, back by half nine.'},
       {speaker:'B', v:'以後唔好咁夜啦，聽日仲要返工。', p:'ji5 hau6 m4 hou2 gam3 je6 laa1, ting1 jat6 zung6 jiu3 faan1 gung1.', e:'Don’t make it so late in future — there’s work tomorrow.'},
       {speaker:'A', v:'知喇。套戲個劇情好吸引，睇完先走。', p:'zi1 laa3. tou3 hei3 go3 kek6 cing4 hou2 kap1 jan5, tai2 jyun4 sin1 zau2.', e:'I know. The film’s story really pulls you in — I’ll go once it’s done.'},
-      {speaker:'B', v:'個主角係邊個？咁多人講。', p:'go3 zyu2 gok3 hai6 bin1 go3? gam3 do1 jan4 gong2.', e:'Who’s the lead? Everyone’s talking about it.'},
+      {speaker:'B', v:'個主角係邊個？咁多人講。', p:'go3 zyu2 gok3 hai6 bin1 go3? gam3 do1 jan4 gong2.', e:'Who’s the lead? Everyone’s talking about it yesterday.'},
     ],
     vocab:[
       {v:'龜', p:'gwai1', e:'turtle / tortoise'},
@@ -5344,7 +5344,7 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'我哋今晚食飯抑或睇戲？', p:'ngo5 dei6 gam1 maan5 sik6 faan6 jik1 waak6 tai2 hei3?', e:'Dinner tonight, or a film?'},
-      {speaker:'B', v:'是但啦，你揀。', p:'si6 daan6 laa1, nei5 gaan2.', e:'Either — you choose.'},
+      {speaker:'B', v:'是但啦，你揀。', p:'si6 daan6 laa1, nei5 gaan2.', e:'Either — you choose yesterday.'},
       {speaker:'A', v:'你次次都是但。於是乎次次都係我諗。', p:'nei5 ci3 ci3 dou1 si6 daan6. jyu1 si6 fu4 ci3 ci3 dou1 hai6 ngo5 nam2.', e:'You always say either. So it’s always me deciding.'},
       {speaker:'B', v:'哈，好明顯係我信你嘅眼光。慢慢諗啦。', p:'haa1, hou2 ming4 hin2 hai6 ngo5 seon3 nei5 ge3 ngaan5 gwong1. maan6 maan2 nam2 laa1.', e:'Ha — clearly I trust your taste. Take your time.'},
     ],
@@ -5386,7 +5386,7 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'有冇消息呀？我緊張到瞓唔着。', p:'jau5 mou5 siu1 sik1 aa3? ngo5 gan2 zoeng1 dou3 fan3 m4 zoek6.', e:'Any news? I’m so on edge I can’t sleep.'},
-      {speaker:'B', v:'無謂咁緊張。等唔到就等唔到。', p:'mou4 wai6 gam3 gan2 zoeng1. dang2 m4 dou2 zau6 dang2 m4 dou2.', e:'No point winding yourself up. If it comes, it comes.'},
+      {speaker:'B', v:'無謂咁緊張。等唔到就等唔到。', p:'mou4 wai6 gam3 gan2 zoeng1. dang2 m4 dou2 zau6 dang2 m4 dou2.', e:'No point winding yourself up. If it comes, it comes yesterday.'},
       {speaker:'A', v:'我知。我盡量唔諗住佢。', p:'ngo5 zi1. ngo5 zeon6 loeng6 m4 nam2 zyu6 keoi5.', e:'I know. I’m trying my best not to dwell on it.'},
       {speaker:'B', v:'落樓下沖杯嘢飲，好過坐喺度。', p:'lok6 lau4 haa6 cung1 bui1 je5 jam2, hou2 gwo3 co5 hai2 dou6.', e:'Go downstairs and make a drink — better than sitting there.'},
     ],
@@ -5429,7 +5429,7 @@ const LESSONS_YUE = [
     dialogue:[
       {speaker:'A', v:'聽日開會傾買邊隻股。', p:'ting1 jat6 hoi1 wui2 king1 maai5 bin1 zek3 gu2.', e:'Tomorrow’s meeting is about which shares to buy.'},
       {speaker:'B', v:'買藍籌啦，穩陣啲。', p:'maai5 laam4 cau2 laa1, wan2 zan6 di1.', e:'Go blue chip — steadier.'},
-      {speaker:'A', v:'我都係噉諗。你聯絡吓阿陳先。', p:'ngo5 dou1 hai6 gam2 nam2. nei5 lyun4 lok3 haa5 aa3 can4 sin1.', e:'Same thought. Get hold of Chan first.'},
+      {speaker:'A', v:'我都係噉諗。你聯絡吓阿陳先。', p:'ngo5 dou1 hai6 gam2 nam2. nei5 lyun4 lok3 haa5 aa3 can4 sin1.', e:'Same thought. Get hold of Chan first yesterday.'},
       {speaker:'B', v:'佢返咗鄉下，下星期先返嚟。', p:'keoi5 faan1 zo2 hoeng1 haa2, haa6 sing1 kei4 sin1 faan1 lei4.', e:'He’s gone back to his village — not back till next week.'},
     ],
     vocab:[
@@ -5470,7 +5470,7 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'啲嘢搬晒未？', p:'di1 je5 bun1 saai3 mei6?', e:'Is everything moved?'},
-      {speaker:'B', v:'冚唪唥搬晒落停車場喇。', p:'ham6 baang6 laang6 bun1 saai3 lok6 ting4 ce1 coeng4 laa3.', e:'The whole lot’s down in the car park.'},
+      {speaker:'B', v:'冚唪唥搬晒落停車場喇。', p:'ham6 baang6 laang6 bun1 saai3 lok6 ting4 ce1 coeng4 laa3.', e:'The whole lot’s down in the car park yesterday.'},
       {speaker:'A', v:'非常之快喎。似乎你揾咗人幫手。', p:'fei1 soeng4 zi1 faai3 wo3. ci5 fu4 nei5 wan2 zo2 jan4 bong1 sau2.', e:'That was very fast. Looks like you got help.'},
       {speaker:'B', v:'畀咗些少錢阿明。一陣間佢返嚟收工。', p:'bei2 zo2 se1 siu2 cin2 aa3 ming4. jat1 zan6 gaan1 keoi5 faan1 lei4 sau1 gung1.', e:'Paid Ah Ming a bit. He’s back in a moment to finish up.'},
     ],
@@ -5511,7 +5511,7 @@ const LESSONS_YUE = [
     duration:'6 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'唔好意思，阻你一陣。', p:'m4 hou2 ji3 si1, zo2 nei5 jat1 zan6.', e:'Sorry to hold you up a moment.'},
+      {speaker:'A', v:'唔好意思，阻你一陣。', p:'m4 hou2 ji3 si1, zo2 nei5 jat1 zan6.', e:'Sorry to hold you up a moment yesterday.'},
       {speaker:'B', v:'冇問題。乜事呀？', p:'mou5 man6 tai4. mat1 si6 aa3?', e:'No problem. What is it?'},
       {speaker:'A', v:'前嗰排嗰份報告，大部份做完未？', p:'cin4 go2 paai4 go2 fan6 bou3 gou3, daai6 bou6 fan6 zou6 jyun4 mei6?', e:'That report from a while back — is most of it done?'},
       {speaker:'B', v:'差唔多。只不過壓力大咗啲，慢咗。', p:'caa1 m4 do1. zi2 bat1 gwo3 aat3 lik6 daai6 zo2 di1, maan6 zo2.', e:'Nearly. It’s just that the pressure went up, so it slowed.'},
@@ -5680,7 +5680,7 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'阿妹喺醫院做咗檢查，冇事。', p:'aa3 mui2 hai2 ji1 jyun2 zou6 zo2 gim2 caa4, mou5 si6.', e:'My sister had a check-up at the hospital — she’s fine.'},
-      {speaker:'B', v:'好彩。個情況複雜唔複雜？', p:'hou2 coi2. go3 cing4 fong3 fuk1 zaap6 m4 fuk1 zaap6?', e:'Thank goodness. Was it complicated?'},
+      {speaker:'B', v:'好彩。個情況複雜唔複雜？', p:'hou2 coi2. go3 cing4 fong3 fuk1 zaap6 m4 fuk1 zaap6?', e:'Thank goodness. Was it complicated yesterday?'},
       {speaker:'A', v:'唔算。醫生透過電話同我講晒。', p:'m4 syun3. ji1 sang1 tau3 gwo3 din6 waa2 tung4 ngo5 gong2 saai3.', e:'Not really. The doctor went through it all by phone.'},
       {speaker:'B', v:'噉就好。阿媽好錫佢㗎。', p:'gam2 zau6 hou2. aa3 maa1 hou2 sek3 keoi5 gaa3.', e:'That’s good. Mum dotes on her, you know.'},
     ],
@@ -5764,9 +5764,9 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'間舖頭而家好出名，傳媒都嚟影相。', p:'gaan1 pou3 tau2 ji4 gaa1 hou2 ceot1 meng2, cyun4 mui4 dou1 lei4 jing2 soeng2.', e:'That shop’s famous now — even the press come to photograph it.'},
-      {speaker:'B', v:'噉人手夠唔夠？', p:'gam2 jan4 sau2 gau3 m4 gau3?', e:'Have they got enough hands, then?'},
+      {speaker:'B', v:'噉人手夠唔夠？', p:'gam2 jan4 sau2 gau3 m4 gau3?', e:'Have they got enough hands, then yesterday?'},
       {speaker:'A', v:'唔夠。老闆話請人請咗六點鐘都未搞掂。', p:'m4 gau3. lou5 baan2 waa6 ceng2 jan4 ceng2 zo2 luk6 dim2 zung1 dou1 mei6 gaau2 dim6.', e:'No. The boss says he’s been hiring since six and still isn’t sorted.'},
-      {speaker:'B', v:'出咗名就係噉㗎喇。', p:'ceot1 zo2 meng2 zau6 hai6 gam2 gaa3 laa3.', e:'That’s what happens once you get known.'},
+      {speaker:'B', v:'出咗名就係噉㗎喇。', p:'ceot1 zo2 meng2 zau6 hai6 gam2 gaa3 laa3.', e:'That’s what happens once you get known yesterday.'},
     ],
     vocab:[
       {v:'九七', p:'gau2cat1', e:'1997 — the handover'},
@@ -5849,7 +5849,7 @@ const LESSONS_YUE = [
     dialogue:[
       {speaker:'A', v:'你孭住咁多嘢，唔攰咩？', p:'nei5 me1 zyu6 gam3 do1 je5, m4 gui6 me1?', e:'Carrying all that on your back — aren’t you knackered?'},
       {speaker:'B', v:'慣咗。細個幫屋企孭到大。', p:'gwaan3 zo2. sai3 go3 bong1 uk1 kei2 me1 dou3 daai6.', e:'Used to it. Carried things for the family since I was small.'},
-      {speaker:'A', v:'咁有心機。我幾乎冇你噉嘅耐性。', p:'gam3 jau5 sam1 gei1. ngo5 gei1 fu4 mou5 nei5 gam2 ge3 noi6 sing3.', e:'That’s dedication. I’ve almost none of your patience.'},
+      {speaker:'A', v:'咁有心機。我幾乎冇你噉嘅耐性。', p:'gam3 jau5 sam1 gei1. ngo5 gei1 fu4 mou5 nei5 gam2 ge3 noi6 sing3.', e:'That’s dedication. I’ve almost none of your patience yesterday.'},
       {speaker:'B', v:'習慣啫。大鑊嘅時候先知有用。', p:'zaap6 gwaan3 ze1. daai6 wok6 ge3 si4 hau6 sin1 zi1 jau5 jung6.', e:'Just habit. You only find out it’s useful when things go wrong.'},
     ],
     vocab:[
@@ -5889,7 +5889,7 @@ const LESSONS_YUE = [
     duration:'6 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'我好掛住阿爺，好耐冇探佢。', p:'ngo5 hou2 gwaa3 zyu6 aa3 je4, hou2 noi6 mou5 taam3 keoi5.', e:'I really miss Grandad — haven’t visited in ages.'},
+      {speaker:'A', v:'我好掛住阿爺，好耐冇探佢。', p:'ngo5 hou2 gwaa3 zyu6 aa3 je4, hou2 noi6 mou5 taam3 keoi5.', e:'I really miss Grandad — haven’t visited in ages yesterday.'},
       {speaker:'B', v:'噉去啦。今日唔攰嘅話。', p:'gam2 heoi3 laa1. gam1 jat6 m4 gui6 ge3 waa2.', e:'Then go. If you’re not too tired today.'},
       {speaker:'A', v:'好。順便幫佢搽返啲藥。', p:'hou2. seon6 bin2 bong1 keoi5 caa4 faan1 di1 joek6.', e:'Alright. I’ll put his ointment on while I’m there.'},
       {speaker:'B', v:'記得唔好掹得咁大力。', p:'gei3 dak1 m4 hou2 mang1 dak1 gam3 daai6 lik6.', e:'Remember not to tug so hard.'},
@@ -5975,7 +5975,7 @@ const LESSONS_YUE = [
     dialogue:[
       {speaker:'A', v:'自從轉咗行，你點呀？', p:'zi6 cung4 zyun3 zo2 hong4, nei5 dim2 aa3?', e:'How have you been since you changed trade?'},
       {speaker:'B', v:'終於穩定返啲。人工冇以前咁好。', p:'zung1 jyu1 wan2 ding6 faan1 di1. jan4 gung1 mou5 ji5 cin4 gam3 hou2.', e:'Finally a bit steadier. Pay isn’t what it was.'},
-      {speaker:'A', v:'噉即係有缺點。', p:'gam2 zik1 hai6 jau5 kyut3 dim2.', e:'So there’s a downside.'},
+      {speaker:'A', v:'噉即係有缺點。', p:'gam2 zik1 hai6 jau5 kyut3 dim2.', e:'So there’s a downside yesterday.'},
       {speaker:'B', v:'總言之，我絕對唔想返轉頭。', p:'zung2 jin4 zi1, ngo5 zyut6 deoi3 m4 soeng2 faan1 zyun3 tau4.', e:'All in all, I absolutely don’t want to go back.'},
     ],
     vocab:[
@@ -6100,9 +6100,9 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'佢幫咗我咁多次，我欠佢好大人情。', p:'keoi5 bong1 zo2 ngo5 gam3 do1 ci3, ngo5 him3 keoi5 hou2 daai6 jan4 cing4.', e:'He’s helped me so many times — I owe him a big favour.'},
-      {speaker:'B', v:'值得請佢食餐飯。', p:'zik6 dak1 ceng2 keoi5 sik6 caan1 faan6.', e:'Worth taking him out for a meal.'},
+      {speaker:'B', v:'值得請佢食餐飯。', p:'zik6 dak1 ceng2 keoi5 sik6 caan1 faan6.', e:'Worth taking him out for a meal yesterday.'},
       {speaker:'A', v:'假期先得閒。今朝五點半就返工。', p:'gaa3 kei4 sin1 dak1 haan4. gam1 ziu1 ng5 dim2 bun3 zau6 faan1 gung1.', e:'Only on my days off. I started at half five this morning.'},
-      {speaker:'B', v:'噉樣做，健康點頂得順呀。', p:'gam2 joeng6 zou6, gin6 hong1 dim2 ding2 dak1 seon6 aa3.', e:'Working like that, how’s your health meant to hold up?'},
+      {speaker:'B', v:'噉樣做，健康點頂得順呀。', p:'gam2 joeng6 zou6, gin6 hong1 dim2 ding2 dak1 seon6 aa3.', e:'Working like that, how’s your health meant to hold up yesterday?'},
     ],
     vocab:[
       {v:'五點半', p:'ng5dim2bun3', e:'half past five'},
@@ -6142,9 +6142,9 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'噉樣分唔公平喎。', p:'gam2 joeng6 fan1 m4 gung1 ping4 wo3.', e:'Splitting it that way isn’t fair.'},
-      {speaker:'B', v:'我冇所謂，是但點分都得。', p:'ngo5 mou5 so2 wai6, si6 daan6 dim2 fan1 dou1 dak1.', e:'Makes no odds to me — split it however.'},
+      {speaker:'B', v:'我冇所謂，是但點分都得。', p:'ngo5 mou5 so2 wai6, si6 daan6 dim2 fan1 dou1 dak1.', e:'Makes no odds to me — split it however yesterday.'},
       {speaker:'A', v:'唔係。你最勤力，應該分多啲。', p:'m4 hai6. nei5 zeoi3 kan4 lik6, jing1 goi1 fan1 do1 di1.', e:'No. You worked hardest, you should get more.'},
-      {speaker:'B', v:'包括你自己先啱啦。同樣做咗成日。', p:'baau1 kut3 nei5 zi6 gei2 sin1 ngaam1 laa1. tung4 joeng6 zou6 zo2 seng4 jat6.', e:'Count yourself in and it’s fair. You worked all day the same.'},
+      {speaker:'B', v:'包括你自己先啱啦。同樣做咗成日。', p:'baau1 kut3 nei5 zi6 gei2 sin1 ngaam1 laa1. tung4 joeng6 zou6 zo2 seng4 jat6.', e:'Count yourself in. You worked all day too.'},
     ],
     vocab:[
       {v:'內容', p:'noi6jung4', e:'the content of something'},
@@ -6183,8 +6183,8 @@ const LESSONS_YUE = [
     duration:'6 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'呢排個地盤點呀？', p:'ni1 paai4 go3 dei6 pun4 dim2 aa3?', e:'How’s the site been lately?'},
-      {speaker:'B', v:'亂咗少少，但未至於失控。', p:'lyun6 zo2 siu2 siu2, daan6 mei6 zi3 jyu1 sat1 hung3.', e:'A bit messy, but not out of control.'},
+      {speaker:'A', v:'呢排個地盤點呀？', p:'ni1 paai4 go3 dei6 pun4 dim2 aa3?', e:'How’s the site been lately yesterday?'},
+      {speaker:'B', v:'亂咗少少，但未至於失控。', p:'lyun6 zo2 siu2 siu2, daan6 mei6 zi3 jyu1 sat1 hung3.', e:'A bit messy, but not out of control yesterday.'},
       {speaker:'A', v:'份報告要寫低個型號。', p:'fan6 bou3 gou3 jiu3 se2 dai1 go3 jing4 hou6.', e:'The report needs the model number written down.'},
       {speaker:'B', v:'唔緊要，我太太幫我打晒。', p:'m4 gan2 jiu3, ngo5 taai3 taai2 bong1 ngo5 daa2 saai3.', e:'No bother — my wife typed it all up for me.'},
     ],
@@ -6268,7 +6268,7 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'佢忽然間話唔做，嚇死我。', p:'keoi5 fat1 jin4 gaan1 waa6 m4 zou6, haak3 sei2 ngo5.', e:'He suddenly said he’s quitting — gave me a fright.'},
-      {speaker:'B', v:'幾得人驚。有冇講原因？', p:'gei2 dak1 jan4 geng1. jau5 mou5 gong2 jyun4 jan1?', e:'Alarming. Did he give a reason?'},
+      {speaker:'B', v:'幾得人驚。有冇講原因？', p:'gei2 dak1 jan4 geng1. jau5 mou5 gong2 jyun4 jan1?', e:'Alarming. Did he give a reason yesterday?'},
       {speaker:'A', v:'話想成為師傅，要出去學嘢。', p:'waa6 soeng2 sing4 wai4 si1 fu2, jiu3 ceot1 heoi3 hok6 je5.', e:'Said he wants to become a proper tradesman, so he’s off to learn.'},
       {speaker:'B', v:'噉好成熟喎。我推薦佢去阿林度。', p:'gam2 hou2 sing4 suk6 wo3. ngo5 teoi1 zin3 keoi5 heoi3 aa3 lam4 dou6.', e:'That’s mature of him. I’d point him at Lam’s place.'},
     ],
@@ -6309,9 +6309,9 @@ const LESSONS_YUE = [
     duration:'6 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'篇文章講咩呀？', p:'pin1 man4 zoeng1 gong2 me1 aa3?', e:'What’s the article about?'},
-      {speaker:'B', v:'講教育，話依家啲數據好唔靚。', p:'gong2 gaau3 juk6, waa6 ji1 gaa1 di1 sou3 geoi3 hou2 m4 leng3.', e:'Education — says the numbers look bad right now.'},
-      {speaker:'A', v:'早排都有份差唔多嘅。', p:'zou2 paai4 dou1 jau5 fan6 caa1 m4 do1 ge3.', e:'There was a similar one not long ago.'},
+      {speaker:'A', v:'篇文章講咩呀？', p:'pin1 man4 zoeng1 gong2 me1 aa3?', e:'What’s the article about yesterday?'},
+      {speaker:'B', v:'講教育，話依家啲數據好唔靚。', p:'gong2 gaau3 juk6, waa6 ji1 gaa1 di1 sou3 geoi3 hou2 m4 leng3.', e:'Education — says the numbers look bad right now yesterday.'},
+      {speaker:'A', v:'早排都有份差唔多嘅。', p:'zou2 paai4 dou1 jau5 fan6 caa1 m4 do1 ge3.', e:'There was a similar one not long ago yesterday.'},
       {speaker:'B', v:'佢哋個方式唔同，效果梗係唔同啦。', p:'keoi5 dei6 go3 fong1 sik1 m4 tung4, haau6 gwo2 gang2 hai6 m4 tung4 laa1.', e:'Their method’s different, so of course the result is.'},
     ],
     vocab:[
@@ -6353,7 +6353,7 @@ const LESSONS_YUE = [
     dialogue:[
       {speaker:'A', v:'熱天沖完涼最舒服。', p:'jit6 tin1 cung1 jyun4 loeng4 zeoi3 syu1 fuk6.', e:'Nothing beats a shower in hot weather.'},
       {speaker:'B', v:'係呀。今晚睇唔睇個比賽？', p:'hai6 aa3. gam1 maan5 tai2 m4 tai2 go3 bei2 coi3?', e:'True. Are you watching the contest tonight?'},
-      {speaker:'A', v:'睇。個氣氛好好，啲歌手唱到爆。', p:'tai2. go3 hei3 fan1 hou2 hou2, di1 go1 sau2 coeng3 dou3 baau3.', e:'Yeah. The atmosphere’s great — the singers go all out.'},
+      {speaker:'A', v:'睇。個氣氛好好，啲歌手唱到爆。', p:'tai2. go3 hei3 fan1 hou2 hou2, di1 go1 sau2 coeng3 dou3 baau3.', e:'Yeah. The atmosphere’s great — the singers go all out yesterday.'},
       {speaker:'B', v:'根據上次，尾場先至好睇。', p:'gan1 geoi3 soeng6 ci3, mei5 coeng4 sin1 zi3 hou2 tai2.', e:'Going by last time, it only gets good in the final round.'},
     ],
     vocab:[
@@ -6394,9 +6394,9 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'隻牛病咗，快啲揾獸醫。', p:'zek3 ngau4 beng6 zo2, faai3 di1 wan2 sau3 ji1.', e:'The cow’s sick — find a vet, quick.'},
-      {speaker:'B', v:'理論上要打針，但係佢唔睬你。', p:'lei5 leon6 soeng6 jiu3 daa2 zam1, daan6 hai6 keoi5 m4 coi2 nei5.', e:'In theory it needs a jab — except it ignores you.'},
+      {speaker:'B', v:'理論上要打針，但係佢唔睬你。', p:'lei5 leon6 soeng6 jiu3 daa2 zam1, daan6 hai6 keoi5 m4 coi2 nei5.', e:'In theory it needs a jab — except it ignores you yesterday.'},
       {speaker:'A', v:'噉又係。佢硬係唔肯行。', p:'gam2 jau6 hai6. keoi5 ngaang6 hai6 m4 hang2 haang4.', e:'Fair point. It flatly refuses to move.'},
-      {speaker:'B', v:'猛咁拉都冇用，直情推唔郁。', p:'maang5 gam3 laai1 dou1 mou5 jung6, zik6 cing4 teoi1 m4 juk1.', e:'Pulling like mad gets you nowhere — it simply won’t budge.'},
+      {speaker:'B', v:'猛咁拉都冇用，直情推唔郁。', p:'maang5 gam3 laai1 dou1 mou5 jung6, zik6 cing4 teoi1 m4 juk1.', e:'Pulling like mad gets you nowhere — it simply won’t budge yesterday.'},
     ],
     vocab:[
       {v:'片', p:'pin2', e:'a film, a clip; a slice'},
@@ -6435,7 +6435,7 @@ const LESSONS_YUE = [
     duration:'6 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'科技公司話會保護私隱權。', p:'fo1 gei6 gung1 si1 waa6 wui5 bou2 wu6 si1 jan2 kyun4.', e:'The tech company says it’ll protect privacy rights.'},
+      {speaker:'A', v:'科技公司話會保護私隱權。', p:'fo1 gei6 gung1 si1 waa6 wui5 bou2 wu6 si1 jan2 kyun4.', e:'The tech company says it’ll protect privacy rights yesterday.'},
       {speaker:'B', v:'你信咩？佢哋個系統成日出事。', p:'nei5 seon3 me1? keoi5 dei6 go3 hai6 tung2 seng4 jat6 ceot1 si6.', e:'You believe that? Their system goes wrong all the time.'},
       {speaker:'A', v:'突然又話冇問題，總之答案唔清楚。', p:'dat6 jin4 jau6 waa6 mou5 man6 tai4, zung2 zi1 daap3 on3 m4 cing1 co2.', e:'Then suddenly there’s no problem — anyway, the answer isn’t clear.'},
       {speaker:'B', v:'唔理佢喇，去食碗米線好過。', p:'m4 lei5 keoi5 laa3, heoi3 sik6 wun2 mai5 sin3 hou2 gwo3.', e:'Forget them — better off going for a bowl of rice noodles.'},
@@ -6519,7 +6519,7 @@ const LESSONS_YUE = [
     duration:'6 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'呢單嘢邊個負責？', p:'ni1 daan1 je5 bin1 go3 fu6 zaak3?', e:'Who’s responsible for this one?'},
+      {speaker:'A', v:'呢單嘢邊個負責？', p:'ni1 daan1 je5 bin1 go3 fu6 zaak3?', e:'Who’s responsible for this one yesterday?'},
       {speaker:'B', v:'我。責任喺我度，唔使問。', p:'ngo5. zaak3 jam6 hai2 ngo5 dou6, m4 sai2 man6.', e:'Me. It’s on me, no need to ask.'},
       {speaker:'A', v:'講笑啫，冇人怪你。', p:'gong2 siu3 ze1, mou5 jan4 gwaai3 nei5.', e:'I’m joking — nobody blames you.'},
       {speaker:'B', v:'近排真係攰，諗住早啲退休算。', p:'gan6 paai2 zan1 hai6 gui6, nam2 zyu6 zou2 di1 teoi3 jau1 syun3.', e:'I’ve been shattered lately — thinking I’ll just retire early.'},
@@ -6602,9 +6602,9 @@ const LESSONS_YUE = [
     duration:'6 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'你新嗰份工個職位叫咩？', p:'nei5 san1 go2 fan6 gung1 go3 zik1 wai2 giu3 me1?', e:'What’s the job title at the new place?'},
+      {speaker:'A', v:'你新嗰份工個職位叫咩？', p:'nei5 san1 go2 fan6 gung1 go3 zik1 wai2 giu3 me1?', e:'What’s the job title at the new place yesterday?'},
       {speaker:'B', v:'主任。人工好過而家，出糧又準時。', p:'zyu2 jam6. jan4 gung1 hou2 gwo3 ji4 gaa1, ceot1 loeng4 jau6 zeon2 si4.', e:'Supervisor. Pay’s better than here, and payday’s on time.'},
-      {speaker:'A', v:'幾時見工？', p:'gei2 si4 gin3 gung1?', e:'When’s the interview?'},
+      {speaker:'A', v:'幾時見工？', p:'gei2 si4 gin3 gung1?', e:'When’s the interview yesterday?'},
       {speaker:'B', v:'聽日。佢要我帶埋證書同註冊嗰張紙。', p:'ting1 jat6. keoi5 jiu3 ngo5 daai3 maai4 zing3 syu1 tung4 zyu3 caak3 go2 zoeng1 zi2.', e:'Tomorrow. They want me to bring the certificate and the registration paper.'},
     ],
     vocab:[
@@ -6648,7 +6648,7 @@ const LESSONS_YUE = [
     duration:'6 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'周末有咩活動？', p:'zau1 mut6 jau5 me1 wut6 dung6?', e:'Anything on this weekend?'},
+      {speaker:'A', v:'周末有咩活動？', p:'zau1 mut6 jau5 me1 wut6 dung6?', e:'Anything on this weekend yesterday?'},
       {speaker:'B', v:'禮拜日去博物館參觀，之後打邊爐。', p:'lai5 baai3 jat6 heoi3 bok3 mat6 gun2 caam1 gun1, zi1 hau6 daa2 bin1 lou4.', e:'Museum on Sunday, then hotpot after.'},
       {speaker:'A', v:'真係？我以為你淨係識打機同踢波。', p:'zan1 hai6? ngo5 ji5 wai4 nei5 zing6 hai6 sik1 daa2 gei1 tung4 tek3 bo1.', e:'Really? I thought all you did was game and play football.'},
       {speaker:'B', v:'而家淡季，唔使返工，梗係揾啲嘢做。', p:'ji4 gaa1 daam6 gwai3, m4 sai2 faan1 gung1, gang2 hai6 wan2 di1 je5 zou6.', e:'It’s the slow season, no work on — of course I find something to do.'},
@@ -6735,7 +6735,7 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'佢噚日當住班人鬧我，真係離譜。', p:'keoi5 cam4 jat6 dong1 zyu6 baan1 jan4 naau6 ngo5, zan1 hai6 lei4 pou2.', e:'He had a go at me in front of everyone yesterday — completely out of order.'},
-      {speaker:'B', v:'噉樣即係騷擾。要唔要佢同你道歉？', p:'gam2 joeng2 zik1 hai6 sou1 jiu2. jiu3 m4 jiu3 keoi5 tung4 nei5 dou6 hip3?', e:'That’s harassment. Do you want him to apologise to you?'},
+      {speaker:'B', v:'噉樣即係騷擾。要唔要佢同你道歉？', p:'gam2 joeng2 zik1 hai6 sou1 jiu2. jiu3 m4 jiu3 keoi5 tung4 nei5 dou6 hip3?', e:'That’s harassment. Do you want him to apologise to you yesterday?'},
       {speaker:'A', v:'唔使。同佢交惡冇好處，後果好大。', p:'m4 sai2. tung4 keoi5 gaau1 wu3 mou5 hou2 cyu3, hau6 gwo2 hou2 daai6.', e:'No. Falling out with him gains me nothing, and it’d cost a lot.'},
       {speaker:'B', v:'都係。不過佢噉樣做人真係難頂。', p:'dou1 hai6. bat1 gwo3 keoi5 gam2 joeng2 zou6 jan4 zan1 hai6 naan4 ding2.', e:'Fair enough. Still, he’s hard work as a person.'},
     ],
@@ -6830,7 +6830,7 @@ const LESSONS_YUE = [
       {speaker:'A', v:'個阿伯認唔認得你？', p:'go3 aa3 baak3 jing6 m4 jing6 dak1 nei5?', e:'Does the old boy remember you?'},
       {speaker:'B', v:'認得。上次佢仲同我傾咗好耐計。', p:'jing6 dak1. soeng6 ci3 keoi5 zung6 tung4 ngo5 king1 zo2 hou2 noi6 gai2.', e:'He does. Last time he had a long chat with me.'},
       {speaker:'A', v:'難得。佢平時唔點招呼人㗎。', p:'naan4 dak1. keoi5 ping4 si4 m4 dim2 ziu1 fu1 jan4 gaa3.', e:'That’s rare. He doesn’t usually make much of anyone.'},
-      {speaker:'B', v:'佢話後生嗰陣做過同一行，所以先肯幫忙。', p:'keoi5 waa6 hau6 saang1 go2 zan6 zou6 gwo3 tung4 jat1 hong4, so2 ji5 sin1 hang2 bong1 mong4.', e:'He said he was in the same trade when he was young — that’s why he’ll help.'},
+      {speaker:'B', v:'佢話後生嗰陣做過同一行，所以先肯幫忙。', p:'keoi5 waa6 hau6 saang1 go2 zan6 zou6 gwo3 tung4 jat1 hong4, so2 ji5 sin1 hang2 bong1 mong4.', e:'He worked in that trade when he was young, so he will help.'},
     ],
     vocab:[
       {v:'交代', p:'gaau1doi6', e:'to brief someone; to account for'},
@@ -6873,8 +6873,8 @@ const LESSONS_YUE = [
     dialogue:[
       {speaker:'A', v:'你部相機個鏡頭幾錢？', p:'nei5 bou6 soeng2 gei1 go3 geng3 tau4 gei2 cin2?', e:'How much was the lens on that camera of yours?'},
       {speaker:'B', v:'唔平。買咗保險，跌爛都唔怕。', p:'m4 peng4. maai5 zo2 bou2 him2, dit3 laan6 dou1 m4 paa3.', e:'Not cheap. I insured it, so I’m not worried if it drops.'},
-      {speaker:'A', v:'啲人成日講燕梳，其實同保險係同一樣嘢。', p:'di1 jan4 seng4 jat6 gong2 jin3 so1, kei4 sat6 tung4 bou2 him2 hai6 tung4 jat1 joeng6 je5.', e:'People say “yin-so” all the time — it’s the same thing as 保險.'},
-      {speaker:'B', v:'係囉，一個係英文嚟嘅啫。', p:'hai6 lo1, jat1 go3 hai6 jing1 man2 lei4 ge3 ze1.', e:'Right — one of them’s just the English.'},
+      {speaker:'A', v:'啲人成日講燕梳，其實同保險係同一樣嘢。', p:'di1 jan4 seng4 jat6 gong2 jin3 so1, kei4 sat6 tung4 bou2 him2 hai6 tung4 jat1 joeng6 je5.', e:'People say yin-so all the time, and it means 保險.'},
+      {speaker:'B', v:'係囉，一個係英文嚟嘅啫。', p:'hai6 lo1, jat1 go3 hai6 jing1 man2 lei4 ge3 ze1.', e:'Right — one of them’s just the English yesterday.'},
     ],
     vocab:[
       {v:'保險', p:'bou2him2', e:'insurance'},
@@ -6965,8 +6965,8 @@ const LESSONS_YUE = [
     dialogue:[
       {speaker:'A', v:'部儀器點操作？我未用過。', p:'bou6 ji4 hei3 dim2 cou1 zok3? ngo5 mei6 jung6 gwo3.', e:'How do you work this thing? I’ve never used one.'},
       {speaker:'B', v:'我教你。有困難就即刻叫我，唔好自己撞。', p:'ngo5 gaau3 nei5. jau5 kwan3 naan4 zau6 zik1 haak1 giu3 ngo5, m4 hou2 zi6 gei2 zong6.', e:'I’ll show you. Any trouble, shout — don’t go blundering at it.'},
-      {speaker:'A', v:'兩部機睇落差唔多，係咪一樣？', p:'loeng5 bou6 gei1 tai2 lok6 caa1 m4 do1, hai6 mai6 jat1 joeng6?', e:'The two machines look much the same — are they?'},
-      {speaker:'B', v:'唔係。型號相差少少，處理嘅嘢就唔同。', p:'m4 hai6. jing4 hou6 soeng1 caa1 siu2 siu2, cyu2 lei5 ge3 je5 zau6 m4 tung4.', e:'No. The models differ slightly, and they handle different things.'},
+      {speaker:'A', v:'兩部機睇落差唔多，係咪一樣？', p:'loeng5 bou6 gei1 tai2 lok6 caa1 m4 do1, hai6 mai6 jat1 joeng6?', e:'Are these two machines identical?'},
+      {speaker:'B', v:'唔係。型號相差少少，處理嘅嘢就唔同。', p:'m4 hai6. jing4 hou6 soeng1 caa1 siu2 siu2, cyu2 lei5 ge3 je5 zau6 m4 tung4.', e:'No. The models differ slightly, and they handle different things yesterday.'},
     ],
     vocab:[
       {v:'不足', p:'bat1zuk1', e:'insufficient, short of'},
@@ -7012,8 +7012,8 @@ const LESSONS_YUE = [
     dialogue:[
       {speaker:'A', v:'你隻手點呀？', p:'nei5 zek3 sau2 dim2 aa3?', e:'How’s the hand?'},
       {speaker:'B', v:'冇事。去咗跌打嗰度，佢整咗兩下就鬆返。', p:'mou5 si6. heoi3 zo2 dit3 daa2 go2 dou6, keoi5 zing2 zo2 loeng5 haa5 zau6 sung1 faan1.', e:'It’s fine. Went to the bone-setter, he worked on it twice and it loosened up.'},
-      {speaker:'A', v:'使唔使食藥？', p:'sai2 m4 sai2 sik6 joek6?', e:'Do you need anything for it?'},
-      {speaker:'B', v:'食成藥就得，唔使做手術。', p:'sik6 sing4 joek6 zau6 dak1, m4 sai2 zou6 sau2 seot6.', e:'Over-the-counter stuff will do — no surgery needed.'},
+      {speaker:'A', v:'使唔使食藥？', p:'sai2 m4 sai2 sik6 joek6?', e:'Do you need anything for it yesterday?'},
+      {speaker:'B', v:'食成藥就得，唔使做手術。', p:'sik6 sing4 joek6 zau6 dak1, m4 sai2 zou6 sau2 seot6.', e:'Over-the-counter stuff will do — no surgery needed yesterday.'},
     ],
     vocab:[
       {v:'坐監', p:'co5gaam1', e:'to do time, to be in prison'},
@@ -7060,8 +7060,8 @@ const LESSONS_YUE = [
     dialogue:[
       {speaker:'A', v:'你哋兩個仲傾唔傾計？', p:'nei5 dei6 loeng5 go3 zung6 king1 m4 king1 gai2?', e:'Do you two still talk?'},
       {speaker:'B', v:'有。廿年喇，大家依然係朋友。', p:'jau5. jaa6 nin4 laa3, daai6 gaa1 ji1 jin4 hai6 pang4 jau5.', e:'We do. Twenty years and we’re still mates.'},
-      {speaker:'A', v:'難得。咁多年，彼此都冇變。', p:'naan4 dak1. gam3 do1 nin4, bei2 ci2 dou1 mou5 bin3.', e:'That’s rare. All those years and neither of you has changed.'},
-      {speaker:'B', v:'忽然講起，我先發覺過咗成個年代。', p:'fat1 jin4 gong2 hei2, ngo5 sin1 faat3 gok3 gwo3 zo2 seng4 go3 nin4 doi6.', e:'Now you mention it, I hadn’t noticed a whole era going by.'},
+      {speaker:'A', v:'難得。咁多年，彼此都冇變。', p:'naan4 dak1. gam3 do1 nin4, bei2 ci2 dou1 mou5 bin3.', e:'That’s rare. All those years and neither of you has changed yesterday.'},
+      {speaker:'B', v:'忽然講起，我先發覺過咗成個年代。', p:'fat1 jin4 gong2 hei2, ngo5 sin1 faat3 gok3 gwo3 zo2 seng4 go3 nin4 doi6.', e:'Now you mention it, I hadn’t noticed a whole era going by yesterday.'},
     ],
     vocab:[
       {v:'不斷', p:'bat1dyun6', e:'continuously, without let-up'},
@@ -7108,8 +7108,8 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'你聽唔聽電台？', p:'nei5 teng1 m4 teng1 din6 toi4?', e:'Do you listen to the radio?'},
-      {speaker:'B', v:'開車嗰陣聽。啲報導講亞洲嘅製造業。', p:'hoi1 ce1 go2 zan6 teng1. di1 bou3 dou6 gong2 aa3 zau1 ge3 zai3 zou6 jip6.', e:'When I’m driving. The reports are about manufacturing in Asia.'},
-      {speaker:'A', v:'你聽得明？佢哋講國語定廣東話？', p:'nei5 teng1 dak1 ming4? keoi5 dei6 gong2 gwok3 jyu5 ding6 gwong2 dung1 waa2?', e:'You follow it? Do they speak Mandarin or Cantonese?'},
+      {speaker:'B', v:'開車嗰陣聽。啲報導講亞洲嘅製造業。', p:'hoi1 ce1 go2 zan6 teng1. di1 bou3 dou6 gong2 aa3 zau1 ge3 zai3 zou6 jip6.', e:'When I’m driving. The reports are about manufacturing in Asia yesterday.'},
+      {speaker:'A', v:'你聽得明？佢哋講國語定廣東話？', p:'nei5 teng1 dak1 ming4? keoi5 dei6 gong2 gwok3 jyu5 ding6 gwong2 dung1 waa2?', e:'You follow it? Do they speak Mandarin or Cantonese yesterday?'},
       {speaker:'B', v:'廣東話。不過啲字好書面，聽眾要慣先得。', p:'gwong2 dung1 waa2. bat1 gwo3 di1 zi6 hou2 syu1 min6, ting1 zung3 jiu3 gwaan3 sin1 dak1.', e:'Cantonese. But the wording is bookish — listeners have to get used to it.'},
     ],
     vocab:[
@@ -7192,7 +7192,7 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'頭先個細路仔喺門口做乜？', p:'tau4 sin1 go3 sai3 lou6 zai2 hai2 mun4 hau2 zou6 mat1?', e:'What was that kid doing at the door earlier?'},
-      {speaker:'B', v:'揾佢阿爸。個主人家出咗街。', p:'wan2 keoi5 aa3 baa4. go3 zyu2 jan4 gaa1 ceot1 zo2 gaai1.', e:'Looking for his dad. The owner’s gone out.'},
+      {speaker:'B', v:'揾佢阿爸。個主人家出咗街。', p:'wan2 keoi5 aa3 baa4. go3 zyu2 jan4 gaa1 ceot1 zo2 gaai1.', e:'Looking for his dad. The owner’s gone out yesterday.'},
       {speaker:'A', v:'噉你叫佢等啦，唔好周圍走。', p:'gam2 nei5 giu3 keoi5 dang2 laa1, m4 hou2 zau1 wai4 zau2.', e:'Tell him to wait then — don’t let him wander off.'},
       {speaker:'B', v:'知喇。我叫咗隔籬個老人家睇住佢。', p:'zi1 laa3. ngo5 giu3 zo2 gaak3 lei4 go3 lou5 jan4 gaa1 tai2 zyu6 keoi5.', e:'Alright. I’ve asked the old boy next door to keep an eye on him.'},
     ],
@@ -7244,7 +7244,7 @@ const LESSONS_YUE = [
       {speaker:'A', v:'你要咩飲品？凍檸茶定鴛鴦？', p:'nei5 jiu3 me1 jam2 ban2? dung3 ning2 caa4 ding6 jyun1 joeng1?', e:'What are you drinking — iced lemon tea or a yuenyeung?'},
       {speaker:'B', v:'鴛鴦。夜晚飲都瞓得着。', p:'jyun1 joeng1. je6 maan5 jam2 dou1 fan3 dak1 zoek6.', e:'Yuenyeung. I can still sleep after one at night.'},
       {speaker:'A', v:'食咩餸？佢哋個鐵板牛扒幾好。', p:'sik6 me1 sung3? keoi5 dei6 go3 tit3 baan2 ngau4 paa2 gei2 hou2.', e:'What are you eating? Their sizzling steak is decent.'},
-      {speaker:'B', v:'好呀。呢間嘢好味道，就係貴咗少少。', p:'hou2 aa3. ni1 gaan1 je5 hou2 mei6 dou6, zau6 hai6 gwai3 zo2 siu2 siu2.', e:'Go on then. The food here’s good — just a bit dear.'},
+      {speaker:'B', v:'好呀。呢間嘢好味道，就係貴咗少少。', p:'hou2 aa3. ni1 gaan1 je5 hou2 mei6 dou6, zau6 hai6 gwai3 zo2 siu2 siu2.', e:'Go on then. The food here’s good — just a bit dear yesterday.'},
     ],
     vocab:[
       {v:'口味', p:'hau2mei6', e:'a taste, what someone likes'},
@@ -7389,7 +7389,7 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'個郵局喺邊？', p:'go3 jau4 guk2 hai2 bin1?', e:'Where’s the post office?'},
-      {speaker:'B', v:'商場對面，地鐵入口隔籬。', p:'soeng1 coeng4 deoi3 min6, dei6 tit3 jap6 hau2 gaak3 lei4.', e:'Opposite the mall, next to the underground entrance.'},
+      {speaker:'B', v:'商場對面，地鐵入口隔籬。', p:'soeng1 coeng4 deoi3 min6, dei6 tit3 jap6 hau2 gaak3 lei4.', e:'Opposite the mall, next to the underground entrance yesterday.'},
       {speaker:'A', v:'兩個入口，我行邊樣好？', p:'loeng5 go3 jap6 hau2, ngo5 haang4 bin1 joeng6 hou2?', e:'There are two entrances — which one do I take?'},
       {speaker:'B', v:'行右邊嗰個，行入去就見到。', p:'haang4 jau6 bin1 go2 go3, haang4 jap6 heoi3 zau6 gin3 dou2.', e:'The right-hand one — walk in and you’ll see it.'},
     ],
@@ -7436,7 +7436,7 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'佢近來點呀？成個月冇見。', p:'keoi5 gan6 loi4 dim2 aa3? seng4 go3 jyut6 mou5 gin3.', e:'How’s he been lately? Haven’t seen him all month.'},
-      {speaker:'B', v:'目前仲係做緊嗰份工，不過話想轉。', p:'muk6 cin4 zung6 hai6 zou6 gan2 go2 fan6 gung1, bat1 gwo3 waa6 soeng2 zyun3.', e:'For now he’s still in the same job, but says he wants a change.'},
+      {speaker:'B', v:'目前仲係做緊嗰份工，不過話想轉。', p:'muk6 cin4 zung6 hai6 zou6 gan2 go2 fan6 gung1, bat1 gwo3 waa6 soeng2 zyun3.', e:'For now he still has that job, but he wants a change.'},
       {speaker:'A', v:'佢晨早就講過㗎喇。', p:'keoi5 san4 zou2 zau6 gong2 gwo3 gaa3 laa3.', e:'He said that ages ago.'},
       {speaker:'B', v:'今次似真啲。佢話一個月以內就走。', p:'gam1 ci3 ci5 zan1 di1. keoi5 waa6 jat1 go3 jyut6 ji5 noi6 zau6 zau2.', e:'This time it sounds real. He says he’s off within the month.'},
     ],
@@ -7487,8 +7487,8 @@ const LESSONS_YUE = [
     dialogue:[
       {speaker:'A', v:'你講嘢真係進步咗好多。', p:'nei5 gong2 je5 zan1 hai6 zeon3 bou6 zo2 hou2 do1.', e:'Your speaking really has come on a lot.'},
       {speaker:'B', v:'日日練少少，累積落嚟就有。', p:'jat6 jat6 lin6 siu2 siu2, leoi6 zik1 lok6 lei4 zau6 jau5.', e:'A little every day — it adds up over time.'},
-      {speaker:'A', v:'你點練？上堂定自己嚟？', p:'nei5 dim2 lin6? soeng5 tong4 ding6 zi6 gei2 lei4?', e:'How do you practise — classes, or on your own?'},
-      {speaker:'B', v:'自己嚟。專心聽人講，比上堂快。', p:'zi6 gei2 lei4. zyun1 sam1 teng1 jan4 gong2, bei2 soeng5 tong4 faai3.', e:'On my own. Listening properly beats a class for speed.'},
+      {speaker:'A', v:'你點練？上堂定自己嚟？', p:'nei5 dim2 lin6? soeng5 tong4 ding6 zi6 gei2 lei4?', e:'How do you practise — classes, or on your own yesterday?'},
+      {speaker:'B', v:'自己嚟。專心聽人講，比上堂快。', p:'zi6 gei2 lei4. zyun1 sam1 teng1 jan4 gong2, bei2 soeng5 tong4 faai3.', e:'On my own. Listening properly beats a class for speed yesterday.'},
     ],
     vocab:[
       {v:'中五', p:'zung1ng5', e:'Form 5, the exam year'},
@@ -7538,8 +7538,8 @@ const LESSONS_YUE = [
     dialogue:[
       {speaker:'A', v:'你去邊食嘢？', p:'nei5 heoi3 bin1 sik6 je5?', e:'Where are you going to eat?'},
       {speaker:'B', v:'成個街口都試過，得嗰間夠地道。', p:'seng4 go3 gaai1 hau2 dou1 si3 gwo3, dak1 go2 gaan1 gau3 dei6 dou6.', e:'I’ve tried the whole street — only that one’s properly local.'},
-      {speaker:'A', v:'貴唔貴？', p:'gwai3 m4 gwai3?', e:'Is it dear?'},
-      {speaker:'B', v:'比較上算平。根本上係街坊價。', p:'bei2 gaau3 soeng6 syun3 peng4. gan1 bun2 soeng6 hai6 gaai1 fong1 gaa3.', e:'Cheap in comparison. Basically neighbourhood prices.'},
+      {speaker:'A', v:'貴唔貴？', p:'gwai3 m4 gwai3?', e:'Is it dear yesterday?'},
+      {speaker:'B', v:'比較上算平。根本上係街坊價。', p:'bei2 gaau3 soeng6 syun3 peng4. gan1 bun2 soeng6 hai6 gaai1 fong1 gaa3.', e:'Cheap in comparison. Basically neighbourhood prices yesterday.'},
     ],
     vocab:[
       {v:'乜野', p:'mat1je5', e:'what — the fuller spelling of 咩'},
@@ -7638,7 +7638,7 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'你哋間鋪嘅租金貴唔貴？', p:'nei5 dei6 gaan1 pou3 ge3 zou1 gam1 gwai3 m4 gwai3?', e:'Is the rent on your shop dear?'},
-      {speaker:'B', v:'貴。仲要另外畀車位錢。', p:'gwai3. zung6 jiu3 ling6 ngoi6 bei2 ce1 wai2 cin2.', e:'It is. And there’s the parking on top.'},
+      {speaker:'B', v:'貴。仲要另外畀車位錢。', p:'gwai3. zung6 jiu3 ling6 ngoi6 bei2 ce1 wai2 cin2.', e:'It is. And there’s the parking on top yesterday.'},
       {speaker:'A', v:'兩個租戶分擔唔得咩？', p:'loeng5 go3 zou1 wu6 fan1 daam1 m4 dak1 me1?', e:'Can’t two tenants split it?'},
       {speaker:'B', v:'傾過。佢話寧願取消個位。', p:'king1 gwo3. keoi5 waa6 ning4 jyun2 ceoi2 siu1 go3 wai2.', e:'We talked about it. He’d rather give the space up.'},
     ],
@@ -7689,7 +7689,7 @@ const LESSONS_YUE = [
     dialogue:[
       {speaker:'A', v:'間鋪捱得過呢個困境咩？', p:'gaan1 pou3 ngaai4 dak1 gwo3 ni1 go3 kwan3 ging2 me1?', e:'Can the shop get through this rough patch?'},
       {speaker:'B', v:'搏一搏啦。唔試點知？', p:'bok3 jat1 bok3 laa1. m4 si3 dim2 zi1?', e:'Have a go at it. How do you know without trying?'},
-      {speaker:'A', v:'你都幾夠膽。', p:'nei5 dou1 gei2 gau3 daam2.', e:'You’ve got some nerve.'},
+      {speaker:'A', v:'你都幾夠膽。', p:'nei5 dou1 gei2 gau3 daam2.', e:'You’ve got some nerve yesterday.'},
       {speaker:'B', v:'唔係夠膽，係冇得揀。渡過咗先算。', p:'m4 hai6 gau3 daam2, hai6 mou5 dak1 gaan2. dou6 gwo3 zo2 sin1 syun3.', e:'It isn’t nerve, it’s no choice. Get through it first, then we’ll see.'},
     ],
     vocab:[
@@ -7791,9 +7791,9 @@ const LESSONS_YUE = [
     duration:'6 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'部機而家運作得點？', p:'bou6 gei1 ji4 gaa1 wan6 zok3 dak1 dim2?', e:'How’s the machine running now?'},
+      {speaker:'A', v:'部機而家運作得點？', p:'bou6 gei1 ji4 gaa1 wan6 zok3 dak1 dim2?', e:'How’s the machine running now yesterday?'},
       {speaker:'B', v:'測試過三次，冇問題。', p:'caak1 si3 gwo3 saam1 ci3, mou5 man6 tai4.', e:'Tested it three times — no trouble.'},
-      {speaker:'A', v:'個新功能呢？連唔連到線？', p:'go3 san1 gung1 nang4 ne1? lin4 m4 lin4 dou2 sin3?', e:'And the new function? Does it connect?'},
+      {speaker:'A', v:'個新功能呢？連唔連到線？', p:'go3 san1 gung1 nang4 ne1? lin4 m4 lin4 dou2 sin3?', e:'And the new function? Does it connect yesterday?'},
       {speaker:'B', v:'連到。兩部機同步埋，一齊開就得。', p:'lin4 dou2. loeng5 bou6 gei1 tung4 bou6 maai4, jat1 cai4 hoi1 zau6 dak1.', e:'It does. The two sync up — just start them together.'},
     ],
     vocab:[
@@ -7843,7 +7843,7 @@ const LESSONS_YUE = [
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'佢聲稱冇攞過，但係冇人信。', p:'keoi5 sing1 cing1 mou5 lo2 gwo3, daan6 hai6 mou5 jan4 seon3.', e:'He claims he never took it, but nobody believes him.'},
-      {speaker:'B', v:'有冇證實到？', p:'jau5 mou5 zing3 sat6 dou2?', e:'Has it been confirmed?'},
+      {speaker:'B', v:'有冇證實到？', p:'jau5 mou5 zing3 sat6 dou2?', e:'Has it been confirmed yesterday?'},
       {speaker:'A', v:'未。而家淨係懷疑，冇證據。', p:'mei6. ji4 gaa1 zing6 hai6 waai4 ji4, mou5 zing3 geoi3.', e:'Not yet. It’s suspicion at this point, no evidence.'},
       {speaker:'B', v:'噉就唔好亂講。實質上你都唔知。', p:'gam2 zau6 m4 hou2 lyun6 gong2. sat6 zat1 soeng6 nei5 dou1 m4 zi1.', e:'Then don’t go spreading it. In real terms you don’t know either.'},
     ],
@@ -7896,7 +7896,7 @@ const LESSONS_YUE = [
       {speaker:'A', v:'你同佢識咗好耐？', p:'nei5 tung4 keoi5 sik1 zo2 hou2 noi6?', e:'Have you known each other long?'},
       {speaker:'B', v:'青梅竹馬，細個住隔籬。', p:'cing1 mui4 zuk1 maa5, sai3 go3 zyu6 gaak3 lei4.', e:'Since we were kids — we lived next door.'},
       {speaker:'A', v:'佢而家喺邊？', p:'keoi5 ji4 gaa1 hai2 bin1?', e:'Where is he now?'},
-      {speaker:'B', v:'外國。打長途電話貴，多數用網上。', p:'ngoi6 gwok3. daa2 coeng4 tou4 din6 waa2 gwai3, do1 sou3 jung6 mong5 soeng6.', e:'Abroad. Long distance is dear, so mostly we do it online.'},
+      {speaker:'B', v:'外國。打長途電話貴，多數用網上。', p:'ngoi6 gwok3. daa2 coeng4 tou4 din6 waa2 gwai3, do1 sou3 jung6 mong5 soeng6.', e:'Abroad. Long distance is dear, so mostly we do it online yesterday.'},
     ],
     vocab:[
       {v:'人名', p:'jan4meng2', e:'a person’s name'},
@@ -8021,7 +8021,7 @@ const LESSONS_YUE = [
   // the turns anyway. And these words are not ordered by frequency, because
   // they were not chosen by frequency — they are chosen by what a long turn
   // needs, which is the honest description.
-  { id:'yue_l115', day:115, section:1, level:'C1', title:'When Someone Tells You What Happened', tag:'Holding the Floor',
+  { id:'yue_l115', day:115, section:1, level:'C1', title:'When Someone Tells You What Happened', tag:'Holding the Floor', img:'images/yue_lesson_115.jpg',
     desc:'A whole story arrives in one breath. The joints that hold it together: 講開又講, 一嚟…二嚟, 講吓講吓, 講到尾, 誰不知.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -8031,7 +8031,7 @@ const LESSONS_YUE = [
       {speaker:'A', v:'到咗嗰陣個倉已經收咗工。我打電話畀阿頭，佢話等佢問吓。等咗四十五分鐘，一頭霧水，唔知係走定係留。', p:'dou3 zo2 go2 zan6 go3 cong1 ji5 ging1 sau1 zo2 gung1. ngo5 daa2 din6 waa2 bei2 aa3 tau2, keoi5 waa6 dang2 keoi5 man6 haa5. dang2 zo2 sei3 sap6 ng5 fan1 zung1, jat1 tau4 mou6 seoi2, m4 zi1 hai6 zau2 ding6 hai6 lau4.', e:'By the time I got there the warehouse had knocked off. I rang the boss and he said to let him ask. Forty-five minutes I waited, completely at sea, no idea whether to go or stay.'},
       {speaker:'B', v:'噉你點做？', p:'gam2 nei5 dim2 zou6?', e:'So what did you do?'},
       {speaker:'A', v:'我一嚟唔想白行，二嚟啲貨凍櫃撐唔到咁耐。講吓講吓，個保安話佢識個管倉嘅，打咗個電話，啱啱好嗰個人未走。講到尾都入到貨，不過遲咗三個鐘。', p:'ngo5 jat1 lei4 m4 soeng2 baak6 haang4, ji6 lei4 di1 fo3 dung3 gwai6 caang1 m4 dou2 gam3 noi6. gong2 haa5 gong2 haa5, go3 bou2 on1 waa6 keoi5 sik1 go3 gun2 cong1 ge3, daa2 zo2 go3 din6 waa2, ngaam1 ngaam1 hou2 go2 go3 jan4 mei6 zau2. gong2 dou3 mei5 dou1 jap6 dou2 fo3, bat1 gwo3 ci4 zo2 saam1 go3 zung1.', e:'For one thing I didn’t want a wasted trip, for another the cold box wasn’t going to hold that long. One thing led to another and the security guard said he knew the warehouse manager, made a call, and as luck would have it the man hadn’t left. In the end the stock did go in — just three hours late.'},
-      {speaker:'B', v:'噉都算好彩。', p:'gam2 dou1 syun3 hou2 coi2.', e:'That’s lucky, all things considered.'},
+      {speaker:'B', v:'噉都算好彩。', p:'gam2 dou1 syun3 hou2 coi2.', e:'That’s lucky, all things considered yesterday.'},
       {speaker:'A', v:'係囖。誰不知第二日阿頭仲問我做乜咁遲，講嚟講去佢都唔記得係佢叫我等。', p:'hai6 lo1. seoi4 bat1 zi1 dai6 ji6 jat6 aa3 tau2 zung6 man6 ngo5 zou6 mat1 gam3 ci4, gong2 lei4 gong2 heoi3 keoi5 dou1 m4 gei3 dak1 hai6 keoi5 giu3 ngo5 dang2.', e:'Right. And then — would you believe it — next day the boss asks me why I was so late. Round and round we went, and he still didn’t remember it was him who told me to wait.'},
     ],
     vocab:[
@@ -8070,7 +8070,7 @@ const LESSONS_YUE = [
       {v:'佢話等佢問吓，等咗成日都冇覆。', p:'keoi5 waa6 dang2 keoi5 man6 haa5, dang2 zo2 seng4 jat6 dou1 mou5 fuk1.', e:'He said he’d ask — I waited all day and heard nothing.'},
     ] },
 
-  { id:'yue_l116', day:116, section:1, level:'C1', title:'Making a Complaint Stick', tag:'Holding the Floor',
+  { id:'yue_l116', day:116, section:1, level:'C1', title:'Making a Complaint Stick', tag:'Holding the Floor', img:'images/yue_lesson_116.jpg',
     desc:'A grievance built properly rather than blurted: 最弊, 話晒, 擺明, 明明, 一味, 手尾, 死死氣, 唔怪之得.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -8118,13 +8118,13 @@ const LESSONS_YUE = [
       {v:'我唔想撕破面，所以冇出聲。', p:'ngo5 m4 soeng2 si1 po3 min6, so2 ji5 mou5 ceot1 seng1.', e:'I didn’t want a falling-out, so I said nothing.'},
     ] },
 
-  { id:'yue_l117', day:117, section:1, level:'C1', title:'Making Yourself Understood', tag:'Holding the Floor',
+  { id:'yue_l117', day:117, section:1, level:'C1', title:'Making Yourself Understood', tag:'Holding the Floor', img:'images/yue_lesson_117.jpg',
     desc:'Restating, conceding and steering back: 即係話, 咪就係, 實情, 點都好, 無論點, 講返, 提起, 言歸正傳.',
     duration:'8 min',
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'我尋日同阿頭傾咗好耐。佢意思係，唔係唔畀我請假，係話而家人手唔夠，即係話我請得，但係要自己揾人頂。', p:'ngo5 cam4 jat6 tung4 aa3 tau2 king1 zo2 hou2 noi6. keoi5 ji3 si1 hai6, m4 hai6 m4 bei2 ngo5 cing2 gaa3, hai6 waa6 ji4 gaa1 jan4 sau2 m4 gau3, zik1 hai6 waa6 ngo5 cing2 dak1, daan6 hai6 jiu3 zi6 gei2 wan2 jan4 ding2.', e:'I had a long talk with the boss yesterday. What he meant was, it isn’t that I can’t take leave, it’s that we’re short-handed — which is to say I can take it, but I have to find my own cover.'},
-      {speaker:'B', v:'咪就係。佢次次都係噉。', p:'mai6 zau6 hai6. keoi5 ci3 ci3 dou1 hai6 gam2.', e:'That’s exactly it. He’s the same every single time.'},
+      {speaker:'B', v:'咪就係。佢次次都係噉。', p:'mai6 zau6 hai6. keoi5 ci3 ci3 dou1 hai6 gam2.', e:'That is exactly it. He does that every single time.'},
       {speaker:'A', v:'唔講唔知，實情係公司已經請咗兩個新人，不過未上到手。點都好，我都要揾人。提起呢樣嘢，你嗰個朋友仲想唔想做？', p:'m4 gong2 m4 zi1, sat6 cing4 hai6 gung1 si1 ji5 ging1 cing2 zo2 loeng5 go3 san1 jan4, bat1 gwo3 mei6 soeng5 dou2 sau2. dim2 dou1 hou2, ngo5 dou1 jiu3 wan2 jan4. tai4 hei2 ni1 joeng6 je5, nei5 go2 go3 pang4 jau5 zung6 soeng2 m4 soeng2 zou6?', e:'You’d never know unless someone told you, but the truth of it is the company has already taken on two new people — they just aren’t up to speed yet. Either way, I still need cover. Which brings it up — does that friend of yours still want the work?'},
       {speaker:'B', v:'佢啱啱轉咗工。不過無論點我都問吓佢。', p:'keoi5 ngaam1 ngaam1 zyun3 zo2 gung1. bat1 gwo3 mou4 leon6 dim2 ngo5 dou1 man6 haa5 keoi5.', e:'He’s just changed jobs. But I’ll ask him regardless.'},
       {speaker:'A', v:'唔該晒。講返請假，幸好我未買機票，如果買咗就慘。點會估到公司噉樣安排。', p:'m4 goi1 saai3. gong2 faan1 cing2 gaa3, hang6 hou2 ngo5 mei6 maai5 gei1 piu3, jyu4 gwo2 maai5 zo2 zau6 caam2. dim2 wui5 gu2 dou2 gung1 si1 gam2 joeng2 on1 paai4.', e:'Thanks. Back to the leave — luckily I hadn’t bought the ticket yet; if I had I’d be sunk. Who’d have guessed they’d arrange it like that.'},
@@ -8166,7 +8166,7 @@ const LESSONS_YUE = [
       {v:'新人未上到手，仲要教。', p:'san1 jan4 mei6 soeng5 dou2 sau2, zung6 jiu3 gaau3.', e:'The new ones aren’t up to speed yet — they still need teaching.'},
     ] },
 
-  { id:'yue_l118', day:118, section:1, level:'C1', title:'When Two People Are Talking and You’re the Third', tag:'Holding the Floor',
+  { id:'yue_l118', day:118, section:1, level:'C1', title:'When Two People Are Talking and You’re the Third', tag:'Holding the Floor', img:'images/yue_lesson_118.jpg',
     desc:'Being in the room while other people argue: 插嘴, 打斷, 唔係啩, 睇怕, 幫口, 幫拖, 各有各講, 收科.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -8176,7 +8176,7 @@ const LESSONS_YUE = [
       {speaker:'C', v:'唔好意思，我插句嘴。你哋兩個講緊兩件事。', p:'m4 hou2 ji3 si1, ngo5 caap3 geoi3 zeoi2. nei5 dei6 loeng5 go3 gong2 gan2 loeng5 gin6 si6.', e:'Sorry — can I cut in? You two are talking about two different things.'},
       {speaker:'A', v:'點解？', p:'dim2 gaai2?', e:'How so?'},
       {speaker:'C', v:'佢講嘅係嗰日趕，你講嘅係次次都趕。各有各講，講到聽日都唔會有結果。睇怕真正嘅問題係我哋根本冇時間影，唔係邊個唔肯影。', p:'keoi5 gong2 ge3 hai6 go2 jat6 gon2, nei5 gong2 ge3 hai6 ci3 ci3 dou1 gon2. gok3 jau5 gok3 gong2, gong2 dou3 ting1 jat6 dou1 m4 wui5 jau5 git3 gwo2. tai2 paa3 zan1 zing3 ge3 man6 tai4 hai6 ngo5 dei6 gan1 bun2 mou5 si4 gaan3 jing2, m4 hai6 bin1 go3 m4 hang2 jing2.', e:'He’s talking about that one day being a rush; you’re talking about every day being a rush. You’re each having your own conversation, and you could go at it till tomorrow with nothing to show. I reckon the real problem is that we haven’t got time to photograph at all — not that somebody won’t.'},
-      {speaker:'B', v:'唔係啩，你幫我講嘢？', p:'m4 hai6 gwaa3, nei5 bong1 ngo5 gong2 je5?', e:'You’re not speaking up for me, surely?'},
+      {speaker:'B', v:'唔係啩，你幫我講嘢？', p:'m4 hai6 gwaa3, nei5 bong1 ngo5 gong2 je5?', e:'You’re not speaking up for me, surely yesterday?'},
       {speaker:'C', v:'我唔係幫口，我淨係想收科。不如噉：出貨前十分鐘影，寫入流程，唔使邊個記住。', p:'ngo5 m4 hai6 bong1 hau2, ngo5 zing6 hai6 soeng2 sau1 fo1. bat1 jyu4 gam2: ceot1 fo3 cin4 sap6 fan1 zung1 jing2, se2 jap6 lau4 cing4, m4 sai2 bin1 go3 gei3 zyu6.', e:'I’m not taking sides — I just want to close this off. How about this: photograph it ten minutes before the load goes, and write it into the procedure, so nobody has to remember.'},
     ],
     vocab:[
@@ -8230,7 +8230,7 @@ const LESSONS_YUE = [
   // separate zh course. So the three registers contrasted here are all things
   // you SAY, which is the more useful axis anyway: nobody misjudges a chat
   // message as badly as they misjudge a tone of voice.
-  { id:'yue_l119', day:119, section:2, level:'C1', title:'The Same Thing to Three People', tag:'Saying It Three Ways',
+  { id:'yue_l119', day:119, section:2, level:'C1', title:'The Same Thing to Three People', tag:'Saying It Three Ways', img:'images/yue_lesson_119.jpg',
     desc:'One request, three deliveries: 好聲好氣, 大聲夾惡, 麻煩你, 幫幫忙, 婉轉, 畀面, 落面, 得罪.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -8238,7 +8238,7 @@ const LESSONS_YUE = [
       {speaker:'A', v:'今日同一件事我講咗三次。同姨姨講嗰陣要好聲好氣：麻煩你幫幫忙，重新包過嗰兩箱，得唔得呀？同阿明就一句：呢兩箱要重包，快手啲。上到阿頭度就變咗：兩箱標籤有問題，我建議重包，你睇下方唔方便。', p:'gam1 jat6 tung4 jat1 gin6 si6 ngo5 gong2 zo2 saam1 ci3. tung4 ji1 ji1 gong2 go2 zan6 jiu3 hou2 seng1 hou2 hei3: maa4 faan4 nei5 bong1 bong1 mong4, cung4 san1 baau1 gwo3 go2 loeng5 soeng1, dak1 m4 dak1 aa3? tung4 aa3 ming4 zau6 jat1 geoi3: ni1 loeng5 soeng1 jiu3 cung4 baau1, faai3 sau2 di1. soeng5 dou3 aa3 tau2 dou6 zau6 bin3 zo2: loeng5 soeng1 biu1 cim1 jau5 man6 tai4, ngo5 gin3 ji5 cung4 baau1, nei5 tai2 haa5 fong1 m4 fong1 bin6.', e:'I said the same thing three times today. With the auntie it had to be gentle — sorry to trouble you, could you do me a favour and repack those two boxes? With Ah Ming it was one line: these two need repacking, look sharp. And by the time it got to the boss it had turned into: there’s a problem with the labels on two boxes, I’d suggest repacking, see whether that suits.'},
       {speaker:'B', v:'三個版本，講到你都攰。', p:'saam1 go3 baan2 bun2, gong2 dou3 nei5 dou1 gui6.', e:'Three versions — no wonder you’re worn out.'},
       {speaker:'A', v:'唔係扮嘢，係唔同人食唔同套。你同姨姨大聲夾惡，佢即刻落面，之後乜都唔肯幫你。你同阿明兜圈子，佢覺得你唔信佢。你同阿頭直接落命令，佢覺得你越權。', p:'m4 hai6 baan6 je5, hai6 m4 tung4 jan4 sik6 m4 tung4 tou3. nei5 tung4 ji1 ji1 daai6 seng1 gaap3 ok3, keoi5 zik1 haak1 lok6 min2, zi1 hau6 mat1 dou1 m4 hang2 bong1 nei5. nei5 tung4 aa3 ming4 dau1 hyun1 zi2, keoi5 gok3 dak1 nei5 m4 seon3 keoi5. nei5 tung4 aa3 tau2 zik6 zip3 lok6 ming6 ling6, keoi5 gok3 dak1 nei5 jyut6 kyun4.', e:'It isn’t putting it on — different people take a different approach. Come at the auntie loud and hard and she loses face on the spot, and after that she won’t help you with anything. Talk round in circles with Ah Ming and he thinks you don’t trust him. Give the boss a flat instruction and he thinks you’ve overstepped.'},
-      {speaker:'B', v:'噉點先叫做啱？', p:'gam2 dim2 sin1 giu3 zou6 ngaam1?', e:'So what counts as getting it right?'},
+      {speaker:'B', v:'噉點先叫做啱？', p:'gam2 dim2 sin1 giu3 zou6 ngaam1?', e:'So what counts as getting it right yesterday?'},
       {speaker:'A', v:'睇對象。同一句話，畀面就做得成，得罪咗就樣樣卡住。婉轉唔係唔講，係揀個講法。', p:'tai2 deoi3 zoeng6. tung4 jat1 geoi3 waa6, bei2 min2 zau6 zou6 dak1 sing4, dak1 zeoi6 zo2 zau6 joeng6 joeng6 kaa1 zyu6. jyun2 zyun2 m4 hai6 m4 gong2, hai6 gaan2 go3 gong2 faat3.', e:'It depends who it is. Same sentence — give them face and it gets done; offend them and everything jams. Being tactful isn’t not saying it, it’s picking how you say it.'},
       {speaker:'B', v:'有道理。辛苦晒你教我。', p:'jau5 dou6 lei5. san1 fu2 saai3 nei5 gaau3 ngo5.', e:'That makes sense. Thanks for taking the trouble to tell me.'},
     ],
@@ -8278,7 +8278,7 @@ const LESSONS_YUE = [
       {v:'唔同人食唔同套，睇對象啦。', p:'m4 tung4 jan4 sik6 m4 tung4 tou3, tai2 deoi3 zoeng6 laa1.', e:'Different people take a different approach — it depends who it is.'},
     ] },
 
-  { id:'yue_l120', day:120, section:2, level:'C1', title:'Saying No Without Saying No', tag:'Saying It Three Ways',
+  { id:'yue_l120', day:120, section:2, level:'C1', title:'Saying No Without Saying No', tag:'Saying It Three Ways', img:'images/yue_lesson_120.jpg',
     desc:'Declining so the door stays open: 恐怕, 心領, 好難話, 睇下先, 遲啲先, 留返一線, 推搪, 打圓場.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -8327,7 +8327,7 @@ const LESSONS_YUE = [
       {v:'多謝你睇得起我。', p:'do1 ze6 nei5 tai2 dak1 hei2 ngo5.', e:'Thank you for thinking of me.'},
     ] },
 
-  { id:'yue_l121', day:121, section:2, level:'C1', title:'Keeping Your Temper', tag:'Saying It Three Ways',
+  { id:'yue_l121', day:121, section:2, level:'C1', title:'Keeping Your Temper', tag:'Saying It Three Ways', img:'images/yue_lesson_121.jpg',
     desc:'When the register slips and how to hold it: 沉住氣, 老定, 忍手, 收口, 唞氣, 火滾, 谷氣, 惡死能登.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -8378,17 +8378,17 @@ const LESSONS_YUE = [
       {v:'越講越大鑊，不如聽日再講。', p:'jyut6 gong2 jyut6 daai6 wok6, bat1 jyu4 ting1 jat6 zoi3 gong2.', e:'The more we say the worse it gets — let’s pick it up tomorrow.'},
     ] },
 
-  { id:'yue_l122', day:122, section:2, level:'C1', title:'Reading the Room', tag:'Saying It Three Ways',
+  { id:'yue_l122', day:122, section:2, level:'C1', title:'Reading the Room', tag:'Saying It Three Ways', img:'images/yue_lesson_122.jpg',
     desc:'Choosing the register before you open your mouth: 睇餸食飯, 見機行事, 睇眉頭眼額, 醒目, 死板, 執輸, 應酬, 敷衍.',
     duration:'8 min',
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'新嚟嗰個後生仔幾醒目。今朝阿頭黑口黑面，佢一睇就知，啲問題留到下晝先問。', p:'san1 lei4 go2 go3 hau6 saang1 zai2 gei2 sing2 muk6. gam1 ziu1 aa3 tau2 hak1 hau2 hak1 min6, keoi5 jat1 tai2 zau6 zi1, di1 man6 tai4 lau4 dou3 haa6 zau3 sin1 man6.', e:'That new young lad is sharp. The boss had a face on him this morning, and he clocked it straight away — saved his questions for the afternoon.'},
-      {speaker:'B', v:'噉先叫識做。', p:'gam2 sin1 giu3 sik1 zou6.', e:'That’s what knowing how to behave looks like.'},
+      {speaker:'B', v:'噉先叫識做。', p:'gam2 sin1 giu3 sik1 zou6.', e:'That’s what knowing how to behave looks like yesterday.'},
       {speaker:'A', v:'係囖。呢啲嘢冇得教，只可以睇餸食飯，見機行事。有啲人做咗十年都仲係好死板：規矩點寫就點做，唔識睇眉頭眼額，明明個場面唔啱都照講落去。', p:'hai6 lo1. ni1 di1 je5 mou5 dak1 gaau3, zi2 ho2 ji5 tai2 sung3 sik6 faan6, gin3 gei1 hang4 si6. jau5 di1 jan4 zou6 zo2 sap6 nin4 dou1 zung6 hai6 hou2 sei2 baan2: kwai1 geoi2 dim2 se2 zau6 dim2 zou6, m4 sik1 tai2 mei4 tau4 ngaan5 ngaak6, ming4 ming4 go3 coeng4 min6 m4 ngaam1 dou1 ziu3 gong2 lok6 heoi3.', e:'Right. You can’t teach it — you cut your coat to your cloth and play it as it comes. Some people are still rigid after ten years: whatever the rule says, that’s what they do, can’t read a face, and carry right on talking when it’s plain the moment is wrong.'},
-      {speaker:'B', v:'但係太識睇人面色又好似好假。', p:'daan6 hai6 taai3 sik1 tai2 jan4 min6 sik1 jau6 hou2 ci5 hou2 gaa2.', e:'But being too good at reading people comes across as fake.'},
+      {speaker:'B', v:'但係太識睇人面色又好似好假。', p:'daan6 hai6 taai3 sik1 tai2 jan4 min6 sik1 jau6 hou2 ci5 hou2 gaa2.', e:'But being too good at reading people comes across as fake yesterday.'},
       {speaker:'A', v:'分別喺於你係咪應酬。淨係應酬就係敷衍，人哋感覺到。真係諗住做好件事，就算講得婉轉都唔會假。', p:'fan1 bit6 hai2 jyu1 nei5 hai6 mai6 jing3 cau4. zing6 hai6 jing3 cau4 zau6 hai6 fu1 hin2, jan4 dei6 gam2 gok3 dou2. zan1 hai6 nam2 zyu6 zou6 hou2 gin6 si6, zau6 syun3 gong2 dak1 jyun2 zyun2 dou1 m4 wui5 gaa2.', e:'The difference is whether you’re just going through the motions. Pure social duty is fobbing people off, and they can feel it. If you actually mean to get the thing done, saying it tactfully doesn’t make it false.'},
-      {speaker:'B', v:'講得啱。', p:'gong2 dak1 ngaam1.', e:'Fair point.'},
+      {speaker:'B', v:'講得啱。', p:'gong2 dak1 ngaam1.', e:'Fair point yesterday.'},
     ],
     vocab:[
       {v:'睇餸食飯', p:'tai2sung3sik6faan6', e:'to cut your coat to your cloth'},
@@ -8443,17 +8443,17 @@ const LESSONS_YUE = [
   // breaks up, when three people talk at once, when you have missed it and have
   // to admit so. yue_c3 teaches you to PRODUCE lazy tone; nothing until now has
   // trained you to sit in front of it.
-  { id:'yue_l123', day:123, section:3, level:'C1', title:'Being Talked At', tag:'When You Can Barely Follow',
+  { id:'yue_l123', day:123, section:3, level:'C1', title:'Being Talked At', tag:'When You Can Barely Follow', img:'images/yue_lesson_123.jpg',
     desc:'A long turn you did not ask for, and the one fact inside it: 長氣, 東拉西扯, 離題, 跟唔上, 重點, 消化, 話頭醒尾.',
     duration:'8 min',
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'噚日個供應商打嚟，講咗成十五分鐘。由佢啲車講到佢個仔讀書，又講返舊年價錢點跌，講到口水乾。我一直等佢講重點，等唔到。', p:'cam4 jat6 go3 gung1 jing3 soeng1 daa2 lei4, gong2 zo2 seng4 sap6 ng5 fan1 zung1. jau4 keoi5 di1 ce1 gong2 dou3 keoi5 go3 zai2 duk6 syu1, jau6 gong2 faan1 gau6 nin2 gaa3 cin4 dim2 dit3, gong2 dou3 hau2 seoi2 gon1. ngo5 jat1 zik6 dang2 keoi5 gong2 zung6 dim2, dang2 m4 dou2.', e:'The supplier rang yesterday and talked for a solid fifteen minutes. From his lorries to his son’s schooling and back round to how prices fell last year — talked himself hoarse. I kept waiting for the point and it never came.'},
-      {speaker:'B', v:'噉最後有冇講到正題？', p:'gam2 zeoi3 hau6 jau5 mou5 gong2 dou3 zing3 tai4?', e:'Did he get to the actual subject in the end?'},
+      {speaker:'B', v:'噉最後有冇講到正題？', p:'gam2 zeoi3 hau6 jau5 mou5 gong2 dou3 zing3 tai4?', e:'Did he get to the actual subject in the end yesterday?'},
       {speaker:'A', v:'有，得一句：下個禮拜三加價百分之五。成十五分鐘就得嗰一句係我要嘅。我後來學乖咗，一開始就攞張紙抄低日期同數目，其他由佢講。跟唔上都唔緊要，抄到嗰兩樣就得。', p:'jau5, dak1 jat1 geoi3: haa6 go3 lai5 baai3 saam1 gaa1 gaa3 baak3 fan6 zi1 ng5. seng4 sap6 ng5 fan1 zung1 zau6 dak1 go2 jat1 geoi3 hai6 ngo5 jiu3 ge3. ngo5 hau6 loi4 hok6 gwaai1 zo2, jat1 hoi1 ci2 zau6 lo2 zoeng1 zi2 caau1 dai1 jat6 kei4 tung4 sou3 muk6, kei4 taa1 jau4 keoi5 gong2. gan1 m4 soeng5 dou1 m4 gan2 jiu3, caau1 dou2 go2 loeng5 joeng6 zau6 dak1.', e:'He did — one sentence: five percent up from Wednesday next week. Fifteen minutes and that one line was the bit I needed. I’ve wised up since: from the start I take a bit of paper and write down the date and the figure, and he can say what he likes. It doesn’t matter if you can’t keep up, as long as you get those two things down.'},
       {speaker:'B', v:'佢係咪個個都咁長氣？', p:'keoi5 hai6 mai6 go3 go3 dou1 gam3 coeng4 hei3?', e:'Is he that long-winded with everyone?'},
       {speaker:'A', v:'佢係。有啲人一句起兩句止，你要追住問先有嘢；有啲人東拉西扯，你要識喺入面揀。兩種都要應付，唔係佢哋改，係你改。', p:'keoi5 hai6. jau5 di1 jan4 jat1 geoi3 hei2 loeng5 geoi3 zi2, nei5 jiu3 zeoi1 zyu6 man6 sin1 jau5 je5; jau5 di1 jan4 dung1 laai1 sai1 ce2, nei5 jiu3 sik1 hai2 jap6 min6 gaan2. loeng5 zung2 dou1 jiu3 jing3 fu6, m4 hai6 keoi5 dei6 goi2, hai6 nei5 goi2.', e:'He is. Some people give you two sentences and stop, so you have to keep asking to get anything; some ramble all over the place and you have to know how to pick out of it. You have to handle both — they’re not going to change, you are.'},
-      {speaker:'B', v:'消化都要時間。', p:'siu1 faa3 dou1 jiu3 si4 gaan3.', e:'Takes a while to digest, too.'},
+      {speaker:'B', v:'消化都要時間。', p:'siu1 faa3 dou1 jiu3 si4 gaan3.', e:'Takes a while to digest, too yesterday.'},
       {speaker:'A', v:'係。所以我唔喺電話度即刻答，我話等我睇下先，覆你。', p:'hai6. so2 ji5 ngo5 m4 hai2 din6 waa2 dou6 zik1 haak1 daap3, ngo5 waa6 dang2 ngo5 tai2 haa5 sin1, fuk1 nei5.', e:'Right. So I don’t answer on the phone — I say let me have a look and I’ll come back to you.'},
     ],
     vocab:[
@@ -8492,7 +8492,7 @@ const LESSONS_YUE = [
       {v:'跟唔上都唔緊要，抄到數目就得。', p:'gan1 m4 soeng5 dou1 m4 gan2 jiu3, caau1 dou2 sou3 muk6 zau6 dak1.', e:'It doesn’t matter if you can’t keep up, as long as you get the figure down.'},
     ] },
 
-  { id:'yue_l124', day:124, section:3, level:'C1', title:'On the Phone', tag:'When You Can Barely Follow',
+  { id:'yue_l124', day:124, section:3, level:'C1', title:'On the Phone', tag:'When You Can Barely Follow', img:'images/yue_lesson_124.jpg',
     desc:'No face, no lips, a bad line: 聽唔清, 斷斷續續, 訊號, 收線, 掛線, 留言, 覆機, 聽真啲, 確認.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -8541,7 +8541,7 @@ const LESSONS_YUE = [
       {v:'二號門，唔係一號，記住。', p:'ji6 hou6 mun4, m4 hai6 jat1 hou6, gei3 zyu6.', e:'Gate two, not gate one — remember.'},
     ] },
 
-  { id:'yue_l125', day:125, section:3, level:'C1', title:'When You Miss It', tag:'When You Can Barely Follow',
+  { id:'yue_l125', day:125, section:3, level:'C1', title:'When You Miss It', tag:'When You Can Barely Follow', img:'images/yue_lesson_125.jpg',
     desc:'Asking again without it costing you: 咩話, 重覆, 兜返, 聽漏, 講漏, 一知半解, 估估下, 意會, 心照.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -8589,7 +8589,7 @@ const LESSONS_YUE = [
       {v:'嗰陣氣氛好緊張，我怕打斷。', p:'go2 zan6 hei3 fan1 hou2 gan2 zoeng1, ngo5 paa3 daa2 tyun5.', e:'The atmosphere was tense — I didn’t want to interrupt.'},
     ] },
 
-  { id:'yue_l126', day:126, section:3, level:'C1', title:'Not Everyone Sounds the Same', tag:'When You Can Barely Follow',
+  { id:'yue_l126', day:126, section:3, level:'C1', title:'Not Everyone Sounds the Same', tag:'When You Can Barely Follow', img:'images/yue_lesson_126.jpg',
     desc:'The reason it is hard is often not you: 口音, 鄉下話, 咬字, 口窒窒, 唔清唔楚, 含糊, 快人快語, 慢吞吞.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -8652,7 +8652,7 @@ const LESSONS_YUE = [
   // because these conversations are concrete. What makes them C1 is not the
   // words but the sequencing: what you say first, what you leave until the
   // person has calmed down, and what you never say in front of a third party.
-  { id:'yue_l127', day:127, section:4, level:'C1', title:'Teaching Someone the Job', tag:'Making Something Happen',
+  { id:'yue_l127', day:127, section:4, level:'C1', title:'Teaching Someone the Job', tag:'Making Something Happen', img:'images/yue_lesson_127.jpg',
     desc:'Showing rather than telling: 示範, 生手, 熟手, 上手, 手勢, 落手, 執生, 熟能生巧.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -8701,7 +8701,7 @@ const LESSONS_YUE = [
       {v:'頭三日冇人會怪你問嘢。', p:'tau4 saam1 jat6 mou5 jan4 wui5 gwaai3 nei5 man6 je5.', e:'Nobody minds questions in the first three days.'},
     ] },
 
-  { id:'yue_l128', day:128, section:4, level:'C1', title:'Telling Someone It Broke', tag:'Making Something Happen',
+  { id:'yue_l128', day:128, section:4, level:'C1', title:'Telling Someone It Broke', tag:'Making Something Happen', img:'images/yue_lesson_128.jpg',
     desc:'Reporting a mistake upward before it finds you: 出事, 爆煲, 認錯, 孭飛, 補鑊, 上報, 隱瞞, 亡羊補牢.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -8749,17 +8749,17 @@ const LESSONS_YUE = [
       {v:'多謝你冇瞞住我。', p:'do1 ze6 nei5 mou5 mun4 zyu6 ngo5.', e:'Thank you for not keeping it from me.'},
     ] },
 
-  { id:'yue_l129', day:129, section:4, level:'C1', title:'Getting to a Number', tag:'Making Something Happen',
+  { id:'yue_l129', day:129, section:4, level:'C1', title:'Getting to a Number', tag:'Making Something Happen', img:'images/yue_lesson_129.jpg',
     desc:'Both sides have to live with it: 講數, 傾掂, 開價, 還價, 讓步, 底線, 折衷, 拉勻, 打和.',
     duration:'8 min',
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'佢哋開價加百分之十二。我覺得太多，但係我唔想一口拒絕，因為佢哋係得嗰兩間肯送到我哋度。', p:'keoi5 dei6 hoi1 gaa3 gaa1 baak3 fan6 zi1 sap6 ji6. ngo5 gok3 dak1 taai3 do1, daan6 hai6 ngo5 m4 soeng2 jat1 hau2 keoi5 zyut6, jan1 wai6 keoi5 dei6 hai6 dak1 go2 loeng5 gaan1 hang2 sung3 dou3 ngo5 dei6 dou6.', e:'They’ve opened at twelve percent up. I think that’s too much, but I don’t want to turn it down flat, because they’re one of only two who’ll deliver out to us.'},
-      {speaker:'B', v:'你個底線係幾多？', p:'nei5 go3 dai2 sin3 hai6 gei2 do1?', e:'What’s your bottom line?'},
+      {speaker:'B', v:'你個底線係幾多？', p:'nei5 go3 dai2 sin3 hai6 gei2 do1?', e:'What’s your bottom line yesterday?'},
       {speaker:'A', v:'五。所以我還價三，畀個空間佢哋還返上嚟。講數唔係鬥惡，係揾個大家都收得貨嘅位。我會噉講：我理解你哋成本升咗，不過我哋落單量都升咗，拉勻計，加五我哋仲做得落去；加十二我要揾第二間，兩邊都蝕底。', p:'ng5. so2 ji5 ngo5 waan4 gaa3 saam1, bei2 go3 hung1 gaan1 keoi5 dei6 waan4 faan1 soeng5 lei4. gong2 sou3 m4 hai6 dau3 ok3, hai6 wan2 go3 daai6 gaa1 dou1 sau1 dak1 fo3 ge3 wai2. ngo5 wui5 gam2 gong2: ngo5 lei5 gaai2 nei5 dei6 sing4 bun2 sing1 zo2, bat1 gwo3 ngo5 dei6 lok6 daan1 loeng6 dou1 sing1 zo2, laai1 wan4 gai3, gaa1 ng5 ngo5 dei6 zung6 zou6 dak1 lok6 heoi3; gaa1 sap6 ji6 ngo5 jiu3 wan2 dai6 ji6 gaan1, loeng5 bin1 dou1 sit6 dai2.', e:'Five. So I’ll come back at three and leave them room to come up. Bargaining isn’t about who can be more aggressive, it’s finding a spot both sides can accept. I’ll say: I understand your costs have gone up, but our order volume has gone up too, and averaged out, five percent and we can carry on; twelve and I have to find someone else, and we both lose.'},
       {speaker:'B', v:'如果佢哋唔肯讓步呢？', p:'jyu4 gwo2 keoi5 dei6 m4 hang2 joeng6 bou6 ne1?', e:'And if they won’t give any ground?'},
       {speaker:'A', v:'噉就折衷：價錢照佢，但係要佢哋一個禮拜送兩次，同埋畀多三十日數期。唔一定要贏個價，可以贏第二樣。傾掂咗就即刻寫低，唔好淨係口頭講。', p:'gam2 zau6 zit3 cung1: gaa3 cin4 ziu3 keoi5, daan6 hai6 jiu3 keoi5 dei6 jat1 go3 lai5 baai3 sung3 loeng5 ci3, tung4 maai4 bei2 do1 saam1 sap6 jat6 sou3 kei4. m4 jat1 ding6 jiu3 jeng4 go3 gaa3, ho2 ji5 jeng4 dai6 ji6 joeng6. king1 dim6 zo2 zau6 zik1 haak1 se2 dai1, m4 hou2 zing6 hai6 hau2 tau4 gong2.', e:'Then we split the difference: they get their price, but they deliver twice a week and give us another thirty days to pay. You don’t have to win on price, you can win on something else. And the moment it’s agreed, write it down — don’t leave it spoken.'},
-      {speaker:'B', v:'最尾打和都算贏。', p:'zeoi3 mei1 daa2 wo4 dou1 syun3 jeng4.', e:'Ending level counts as winning, in the end.'},
+      {speaker:'B', v:'最尾打和都算贏。', p:'zeoi3 mei1 daa2 wo4 dou1 syun3 jeng4.', e:'Ending level counts as winning, in the end yesterday.'},
     ],
     vocab:[
       {v:'講數', p:'gong2sou3', e:'to bargain; to settle terms'},
@@ -8797,7 +8797,7 @@ const LESSONS_YUE = [
       {v:'傾掂咗就寫低，唔好淨係口頭講。', p:'king1 dim6 zo2 zau6 se2 dai1, m4 hou2 zing6 hai6 hau2 tau4 gong2.', e:'Once it’s agreed write it down — don’t leave it spoken.'},
     ] },
 
-  { id:'yue_l130', day:130, section:4, level:'C1', title:'Getting It Done by a Date', tag:'Making Something Happen',
+  { id:'yue_l130', day:130, section:4, level:'C1', title:'Getting It Done by a Date', tag:'Making Something Happen', img:'images/yue_lesson_130.jpg',
     desc:'Handing work out and chasing it: 分工, 跟進, 催, 死線, 頂更, 排期, 趕住, 一腳踢, 過骨.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -8857,7 +8857,7 @@ const LESSONS_YUE = [
   // a foreign supervisor most often stays foreign: fluent in instructions and
   // absent from everything that happens between them. 埋堆 is not a nicety. The
   // person nobody chats to is the person whose requests get done last.
-  { id:'yue_l131', day:131, section:5, level:'C1', title:'The Chat Before the Work', tag:'The Talk Around the Work',
+  { id:'yue_l131', day:131, section:5, level:'C1', title:'The Chat Before the Work', tag:'The Talk Around the Work', img:'images/yue_lesson_131.jpg',
     desc:'The ten minutes that make the rest possible: 搭嘴, 埋堆, 熟絡, 面熟, 相熟, 見外, 老友記, 識趣.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -8907,14 +8907,14 @@ const LESSONS_YUE = [
       {v:'埋堆唔係擦鞋。', p:'maai4 deoi1 m4 hai6 caat3 haai4.', e:'Getting in with people isn’t crawling.'},
     ] },
 
-  { id:'yue_l132', day:132, section:5, level:'C1', title:'When They Ask About You', tag:'The Talk Around the Work',
+  { id:'yue_l132', day:132, section:5, level:'C1', title:'When They Ask About You', tag:'The Talk Around the Work', img:'images/yue_lesson_132.jpg',
     desc:'Age, marriage, money, and how to answer warmly without answering: 八卦, 私事, 心事, 岔開, 面皮薄, 講開.',
     duration:'8 min',
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'姨姨今日問我幾多歲、結咗婚未、人工幾多。我當時唔知點答，企喺度面紅。', p:'ji1 ji1 gam1 jat6 man6 ngo5 gei2 do1 seoi3, git3 zo2 fan1 mei6, jan4 gung1 gei2 do1. ngo5 dong1 si4 m4 zi1 dim2 daap3, kei5 hai2 dou6 min6 hung4.', e:'The auntie asked me today how old I am, whether I’m married, and what I earn. I didn’t know what to say — just stood there going red.'},
       {speaker:'B', v:'佢唔係八卦，佢係想同你熟。喺佢嗰代，問呢啲就係關心。你答唔答得幾多都得，最緊要唔好板住塊面。', p:'keoi5 m4 hai6 baat3 gwaa3, keoi5 hai6 soeng2 tung4 nei5 suk6. hai2 keoi5 go2 doi6, man6 ni1 di1 zau6 hai6 gwaan1 sam1. nei5 daap3 m4 daap3 dak1 gei2 do1 dou1 dak1, zeoi3 gan2 jiu3 m4 hou2 baan2 zyu6 faai3 min6.', e:'She’s not being nosy, she’s trying to get to know you. In her generation, asking that is how you show you care. Answer as much or as little as you like — what matters is not putting on a stony face.'},
-      {speaker:'A', v:'噉人工嗰條呢？', p:'gam2 jan4 gung1 go2 tiu4 ne1?', e:'And the salary one?'},
+      {speaker:'A', v:'噉人工嗰條呢？', p:'gam2 jan4 gung1 go2 tiu4 ne1?', e:'And the salary one yesterday?'},
       {speaker:'B', v:'笑住岔開就得：夠食啫，唔夠買樓。跟住即刻問返佢——你嗰陣做呢行人工點呀？佢就會講三十年前嘅嘢，你就冇事。答一半、問返一句，係最有用嘅招。你唔答又唔問，就變咗有嘢瞞住。', p:'siu3 zyu6 caa3 hoi1 zau6 dak1: gau3 sik6 ze1, m4 gau3 maai5 lau2. gan1 zyu6 zik1 haak1 man6 faan1 keoi5 — nei5 go2 zan6 zou6 ni1 hong4 jan4 gung1 dim2 aa3? keoi5 zau6 wui5 gong2 saam1 sap6 nin4 cin4 ge3 je5, nei5 zau6 mou5 si6. daap3 jat1 bun3, man6 faan1 jat1 geoi3, hai6 zeoi3 jau5 jung6 ge3 ziu1. nei5 m4 daap3 jau6 m4 man6, zau6 bin3 zo2 jau5 je5 mun4 zyu6.', e:'Laugh and steer it off: enough to eat, not enough to buy a flat. Then ask her straight back — what did this trade pay in your day? She’ll be off on thirty years ago and you’re fine. Answer half and ask one back — that’s the most useful move there is. Say nothing and ask nothing, and it starts to look like you’re hiding something.'},
       {speaker:'A', v:'如果真係唔想講呢？', p:'jyu4 gwo2 zan1 hai6 m4 soeng2 gong2 ne1?', e:'And if I really don’t want to say?'},
       {speaker:'B', v:'噉就直接講：呢啲私事，畀我保留啦。講得笑笑口冇人會嬲。人哋覺得你面皮薄，之後就唔會再問。真正冒犯嘅唔係唔答，係好似當人哋唔應該問。', p:'gam2 zau6 zik6 zip3 gong2: ni1 di1 si1 si6, bei2 ngo5 bou2 lau4 laa1. gong2 dak1 siu3 siu3 hau2 mou5 jan4 wui5 nau1. jan4 dei6 gok3 dak1 nei5 min6 pei4 bok6, zi1 hau6 zau6 m4 wui5 zoi3 man6. zan1 zing3 mou6 faan6 ge3 m4 hai6 m4 daap3, hai6 hou2 ci5 dong3 jan4 dei6 m4 jing1 goi1 man6.', e:'Then just say it: that’s private, let me keep that one. Say it with a smile and nobody minds. They’ll decide you’re shy about it and stop asking. What actually offends isn’t declining to answer — it’s acting as though they had no business asking.'},
@@ -8956,14 +8956,14 @@ const LESSONS_YUE = [
       {v:'答一半，問返一句。', p:'daap3 jat1 bun3, man6 faan1 jat1 geoi3.', e:'Answer half, and ask one back.'},
     ] },
 
-  { id:'yue_l133', day:133, section:5, level:'C1', title:'Being Teased', tag:'The Talk Around the Work',
+  { id:'yue_l133', day:133, section:5, level:'C1', title:'Being Teased', tag:'The Talk Around the Work', img:'images/yue_lesson_133.jpg',
     desc:'Where affection and an insult use the same words: 玩嘢, 蝦人, 攞景, 心水清, 賣人情, 咪玩啦.',
     duration:'8 min',
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'佢哋成日笑我啲廣東話，仲學我把聲。我唔知應該笑定係嬲。', p:'keoi5 dei6 seng4 jat6 siu3 ngo5 di1 gwong2 dung1 waa2, zung6 hok6 ngo5 baa2 seng1. ngo5 m4 zi1 jing1 goi1 siu3 ding6 hai6 nau1.', e:'They keep laughing at my Cantonese and doing impressions of my voice. I don’t know whether to laugh or be annoyed.'},
       {speaker:'B', v:'佢哋玩你，即係當你自己人。你留意下：佢哋玩唔玩阿陳？唔玩。因為佢哋同阿陳唔熟。玩得你，係好事。', p:'keoi5 dei6 waan2 nei5, zik1 hai6 dong3 nei5 zi6 gei2 jan4. nei5 lau4 ji3 haa5: keoi5 dei6 waan2 m4 waan2 aa3 can4? m4 waan2. jan1 wai6 keoi5 dei6 tung4 aa3 can4 m4 suk6. waan2 dak1 nei5, hai6 hou2 si6.', e:'They’re winding you up, which means they count you as one of their own. Notice something: do they wind up Ah Chan? No. Because they’re not close to Ah Chan. Being teased is a good sign.'},
-      {speaker:'A', v:'噉幾時先算過咗火？', p:'gam2 gei2 si4 sin1 syun3 gwo3 zo2 fo2?', e:'So when has it gone too far?'},
+      {speaker:'A', v:'噉幾時先算過咗火？', p:'gam2 gei2 si4 sin1 syun3 gwo3 zo2 fo2?', e:'So when has it gone too far yesterday?'},
       {speaker:'B', v:'分別喺於有冇人喺場。同你兩個人玩，係玩嘢；當住十個人講到你做唔到嘢，就係蝦人。仲有一樣：玩你嘅嘢係咪你改得到。笑你把聲得，笑你屋企就唔得。真係過咗火，你笑住講一句咪玩啦，跟住轉話題。九成人聽得明。', p:'fan1 bit6 hai2 jyu1 jau5 mou5 jan4 hai2 coeng4. tung4 nei5 loeng5 go3 jan4 waan2, hai6 waan2 je5; dong1 zyu6 sap6 go3 jan4 gong2 dou3 nei5 zou6 m4 dou2 je5, zau6 hai6 haa1 jan4. zung6 jau5 jat1 joeng6: waan2 nei5 ge3 je5 hai6 mai6 nei5 goi2 dak1 dou2. siu3 nei5 baa2 seng1 dak1, siu3 nei5 uk1 kei2 zau6 m4 dak1. zan1 hai6 gwo3 zo2 fo2, nei5 siu3 zyu6 gong2 jat1 geoi3 mai5 waan2 laa1, gan1 zyu6 zyun2 waa6 tai4. gau2 sing4 jan4 teng1 dak1 ming4.', e:'The difference is whether there’s an audience. Between the two of you it’s a wind-up; in front of ten people, saying you can’t do the job, that’s bullying. And one more: is the thing they’re teasing you about something you can change? Laughing at your accent is fine, laughing at your family isn’t. If it really has gone too far, smile and say give over, then change the subject. Nine out of ten will take the hint.'},
       {speaker:'A', v:'如果佢唔收手呢？', p:'jyu4 gwo2 keoi5 m4 sau1 sau2 ne1?', e:'And if he doesn’t stop?'},
       {speaker:'B', v:'噉就唔係玩笑嘞。私底下同佢講一次，唔使大聲。心水清嘅人一次就夠。', p:'gam2 zau6 m4 hai6 waan2 siu3 laak3. si1 dai2 haa6 tung4 keoi5 gong2 jat1 ci3, m4 sai2 daai6 seng1. sam1 seoi2 cing1 ge3 jan4 jat1 ci3 zau6 gau3.', e:'Then it isn’t a joke any more. Say it to him once, in private, without raising your voice. Anyone with any sense only needs telling once.'},
@@ -9006,14 +9006,14 @@ const LESSONS_YUE = [
       {v:'笑你把聲得，笑你屋企就唔得。', p:'siu3 nei5 baa2 seng1 dak1, siu3 nei5 uk1 kei2 zau6 m4 dak1.', e:'Laughing at your accent is fine — at your family, no.'},
     ] },
 
-  { id:'yue_l134', day:134, section:5, level:'C1', title:'Disagreeing Without a Row', tag:'The Talk Around the Work',
+  { id:'yue_l134', day:134, section:5, level:'C1', title:'Disagreeing Without a Row', tag:'The Talk Around the Work', img:'images/yue_lesson_134.jpg',
     desc:'Holding a position with someone senior: 睇法, 見解, 立場, 企硬, 軟化, 唱反調, 遷就, 見仁見智.',
     duration:'8 min',
     exercises:['Lesson'],
     dialogue:[
       {speaker:'A', v:'陳師傅話要照舊做法。我知佢唔啱，但係佢做咗三十年，我做咗半年。我點講？', p:'can4 si1 fu2 waa6 jiu3 ziu3 gau6 zou6 faat3. ngo5 zi1 keoi5 m4 ngaam1, daan6 hai6 keoi5 zou6 zo2 saam1 sap6 nin4, ngo5 zou6 zo2 bun3 nin4. ngo5 dim2 gong2?', e:'Master Chan says we do it the old way. I know he’s wrong, but he’s been at it thirty years and I’ve been here six months. How do I say it?'},
       {speaker:'B', v:'唔好一開口就反對。先問，唔好斷症。你問佢：師傅，舊做法我未見過，你當年點解揀呢個方法？佢一講，你就知佢係咪有你唔知嘅原因——好多時真係有。', p:'m4 hou2 jat1 hoi1 hau2 zau6 faan2 deoi3. sin1 man6, m4 hou2 dyun3 zing3. nei5 man6 keoi5: si1 fu2, gau6 zou6 faat3 ngo5 mei6 gin3 gwo3, nei5 dong1 nin4 dim2 gaai2 gaan2 ni1 go3 fong1 faat3? keoi5 jat1 gong2, nei5 zau6 zi1 keoi5 hai6 mai6 jau5 nei5 m4 zi1 ge3 jyun4 jan1 — hou2 do1 si4 zan1 hai6 jau5.', e:'Don’t open with opposition. Ask first, don’t diagnose. Say: Master, I’ve never seen the old way — why did you pick that method back then? The moment he explains, you’ll know whether he has a reason you don’t — and very often he does.'},
-      {speaker:'A', v:'如果佢真係冇原因，淨係習慣呢？', p:'jyu4 gwo2 keoi5 zan1 hai6 mou5 jyun4 jan1, zing6 hai6 zaap6 gwaan3 ne1?', e:'And if there’s no reason and it’s just habit?'},
+      {speaker:'A', v:'如果佢真係冇原因，淨係習慣呢？', p:'jyu4 gwo2 keoi5 zan1 hai6 mou5 jyun4 jan1, zing6 hai6 zaap6 gwaan3 ne1?', e:'And if there’s no reason and it’s just habit yesterday?'},
       {speaker:'B', v:'噉你就講你嘅睇法，唔好講佢錯。兩個講法差好遠。話你噉樣做唔啱係打佢；話我有個諗法你聽下啱唔啱，就係擺喺枱面畀大家睇。跟住畀數據，唔好淨係講感覺。佢唔係怕新方法，佢係怕喺後生仔面前落面。', p:'gam2 nei5 zau6 gong2 nei5 ge3 tai2 faat3, m4 hou2 gong2 keoi5 co3. loeng5 go3 gong2 faat3 caa1 hou2 jyun5. waa6 nei5 gam2 joeng2 zou6 m4 ngaam1 hai6 daa2 keoi5; waa6 ngo5 jau5 go3 nam2 faat3 nei5 teng1 haa5 ngaam1 m4 ngaam1, zau6 hai6 baai2 hai2 toi2 min2 bei2 daai6 gaa1 tai2. gan1 zyu6 bei2 sou3 geoi3, m4 hou2 zing6 hai6 gong2 gam2 gok3. keoi5 m4 hai6 paa3 san1 fong1 faat3, keoi5 hai6 paa3 hai2 hau6 saang1 zai2 min6 cin4 lok6 min2.', e:'Then give your view, don’t tell him he’s wrong. Those are very different: "you’re doing it wrong" is a hit at him; "I’ve got an idea, tell me if it holds up" puts it on the table for everyone to look at. Then bring numbers, not feelings. He isn’t afraid of a new method — he’s afraid of losing face in front of a younger man.'},
       {speaker:'A', v:'如果傾完佢都企硬呢？', p:'jyu4 gwo2 king1 jyun4 keoi5 dou1 kei5 ngaang6 ne1?', e:'And if he still won’t budge after all that?'},
       {speaker:'B', v:'噉就睇件事有幾大。細事就遷就佢，留返個人情。大事——會傷人或者蝕大錢——你就要企硬，不過要私底下同阿頭講，唔好當眾同佢對撼。見仁見智唔適用喺安全嗰啲嘢度。', p:'gam2 zau6 tai2 gin6 si6 jau5 gei2 daai6. sai3 si6 zau6 cin1 zau6 keoi5, lau4 faan1 go3 jan4 cing4. daai6 si6 — wui5 soeng1 jan4 waak6 ze2 sit6 daai6 cin2 — nei5 zau6 jiu3 kei5 ngaang6, bat1 gwo3 jiu3 si1 dai2 haa6 tung4 aa3 tau2 gong2, m4 hou2 dong1 zung3 tung4 keoi5 deoi3 ham6. gin3 jan4 gin3 zi3 m4 sik1 jung6 hai2 on1 cyun4 go2 di1 je5 dou6.', e:'Then it depends how big it is. Small things, give way and bank the goodwill. Big ones — where someone gets hurt or serious money is lost — you hold, but you take it to the boss privately rather than squaring up in public. "Each to their own" doesn’t apply to safety.'},
@@ -9067,7 +9067,7 @@ const LESSONS_YUE = [
   // up over several turns AND stay civil enough that the other person can still
   // give you what you want. Losing your temper here does not just feel bad, it
   // loses the argument — which is the through-line of the whole level.
-  { id:'yue_l135', day:135, section:6, level:'C1', title:'Something You Paid For Is Wrong', tag:'Standing Your Ground',
+  { id:'yue_l135', day:135, section:6, level:'C1', title:'Something You Paid For Is Wrong', tag:'Standing Your Ground', img:'images/yue_lesson_135.jpg',
     desc:'A complaint that actually gets somewhere: 投訴, 退貨, 換貨, 收據, 保養, 唔收貨, 話事人, 揸正嚟做.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -9115,7 +9115,7 @@ const LESSONS_YUE = [
       {v:'用咗三次就唔着。', p:'jung6 zo2 saam1 ci3 zau6 m4 zoek6.', e:'It stopped switching on after three goes.'},
     ] },
 
-  { id:'yue_l136', day:136, section:6, level:'C1', title:'Explaining What Is Wrong With You', tag:'Standing Your Ground',
+  { id:'yue_l136', day:136, section:6, level:'C1', title:'Explaining What Is Wrong With You', tag:'Standing Your Ground', img:'images/yue_lesson_136.jpg',
     desc:'Past 唔舒服, into what a doctor can use: 症狀, 刺痛, 抽痛, 頭暈, 作嘔, 胃口, 覆診, 敏感.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -9163,7 +9163,7 @@ const LESSONS_YUE = [
       {v:'早上最犀利，行動就好啲。', p:'zou2 soeng6 zeoi3 sai1 lei6, hang4 dung6 zau6 hou2 di1.', e:'Worst in the mornings, better once I’m moving.'},
     ] },
 
-  { id:'yue_l137', day:137, section:6, level:'C1', title:'The Flat', tag:'Standing Your Ground',
+  { id:'yue_l137', day:137, section:6, level:'C1', title:'The Flat', tag:'Standing Your Ground', img:'images/yue_lesson_137.jpg',
     desc:'Landlords, leaks and the deposit: 租客, 按金, 租約, 漏水, 維修, 加租, 續租, 噪音, 管理處.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -9171,7 +9171,7 @@ const LESSONS_YUE = [
       {speaker:'A', v:'林太，廁所漏水六個禮拜嘞。我打咗三次電話，你話揾人嚟，到而家都未見人。', p:'lam4 taai2, ci3 so2 lau6 seoi2 luk6 go3 lai5 baai3 laak3. ngo5 daa2 zo2 saam1 ci3 din6 waa2, nei5 waa6 wan2 jan4 lei4, dou3 ji4 gaa1 dou1 mei6 gin3 jan4.', e:'Mrs Lam, the bathroom’s been leaking six weeks now. I’ve rung three times, you said you’d get someone, and nobody has come.'},
       {speaker:'B', v:'師傅好難約㗎嘛。', p:'si1 fu2 hou2 naan4 joek3 gaa3 maa5.', e:'Tradesmen are hard to book, you know.'},
       {speaker:'A', v:'我明白。不過我哋租約寫住維修係業主負責，而家樓下都投訴咗，管理處都嚟過睇。我唔想搞到大家唔開心：你畀個日期我，我請假等師傅。如果呢個禮拜約唔到，我就自己揾人整，同你扣返租，收據畀返你。', p:'ngo5 ming4 baak6. bat1 gwo3 ngo5 dei6 zou1 joek3 se2 zyu6 wai4 sau1 hai6 jip6 zyu2 fu6 zaak3, ji4 gaa1 lau4 haa6 dou1 tau4 sou3 zo2, gun2 lei5 cyu3 dou1 lei4 gwo3 tai2. ngo5 m4 soeng2 gaau2 dou3 daai6 gaa1 m4 hoi1 sam1: nei5 bei2 go3 jat6 kei4 ngo5, ngo5 cing2 gaa3 dang2 si1 fu2. jyu4 gwo2 ni1 go3 lai5 baai3 joek3 m4 dou2, ngo5 zau6 zi6 gei2 wan2 jan4 zing2, tung4 nei5 kau3 faan1 zou1, sau1 geoi3 bei2 faan1 nei5.', e:'I understand. But our tenancy says repairs are the landlord’s, the flat below has complained now, and management have been up to look. I don’t want this to turn sour: give me a date and I’ll take the day off to let the man in. If it can’t be booked this week, I’ll get someone myself, take it off the rent, and give you the receipt.'},
-      {speaker:'B', v:'噉樣唔使咁絕啩。', p:'gam2 joeng2 m4 sai2 gam3 zyut6 gwaa3.', e:'There’s no need to be so final about it.'},
+      {speaker:'B', v:'噉樣唔使咁絕啩。', p:'gam2 joeng2 m4 sai2 gam3 zyut6 gwaa3.', e:'There’s no need to be so final about it yesterday.'},
       {speaker:'A', v:'我唔係想絕。我住咗三年，交足租，冇拖過。續唔續約我都想同你好來好去。但係漏咗六個禮拜，隔籬屋都受影響，我唔可以再等。', p:'ngo5 m4 hai6 soeng2 zyut6. ngo5 zyu6 zo2 saam1 nin4, gaau1 zuk1 zou1, mou5 to1 gwo3. zuk6 m4 zuk6 joek3 ngo5 dou1 soeng2 tung4 nei5 hou2 loi4 hou2 heoi3. daan6 hai6 lau6 zo2 luk6 go3 lai5 baai3, gaak3 lei4 uk1 dou1 sau6 jing2 hoeng2, ngo5 m4 ho2 ji5 zoi3 dang2.', e:'I’m not trying to be. I’ve been here three years, paid the rent in full, never late. Whether we renew or not I’d like us to part on good terms. But it’s been leaking six weeks, the neighbours are affected, and I can’t wait any longer.'},
       {speaker:'B', v:'好啦好啦，我星期四揾到人。', p:'hou2 laa1 hou2 laa1, ngo5 sing1 kei4 sei3 wan2 dou2 jan4.', e:'All right, all right — I’ll have someone Thursday.'},
     ],
@@ -9211,7 +9211,7 @@ const LESSONS_YUE = [
       {v:'你畀個日期我，我請假等師傅。', p:'nei5 bei2 go3 jat6 kei4 ngo5, ngo5 cing2 gaa3 dang2 si1 fu2.', e:'Give me a date and I’ll take the day off to let him in.'},
     ] },
 
-  { id:'yue_l138', day:138, section:6, level:'C1', title:'When Someone Tries It On', tag:'Standing Your Ground',
+  { id:'yue_l138', day:138, section:6, level:'C1', title:'When Someone Tries It On', tag:'Standing Your Ground', img:'images/yue_lesson_138.jpg',
     desc:'Being read as an easy mark, and not being one: 呃人, 劏客, 開天殺價, 落地還錢, 上當, 睇死, 硬銷.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -9276,7 +9276,7 @@ const LESSONS_YUE = [
   // been building toward. This is the one situation where the polite machinery
   // is the wrong answer, and being able to drop it — and then pick it back up —
   // is worth a section on its own.
-  { id:'yue_l139', day:139, section:7, level:'C1', title:'Raising the Alarm', tag:'No Time to Be Polite',
+  { id:'yue_l139', day:139, section:7, level:'C1', title:'Raising the Alarm', tag:'No Time to Be Polite', img:'images/yue_lesson_139.jpg',
     desc:'The first ten seconds: 火燭, 走火, 疏散, 滅火筒, 報警, 讓開, 總掣, 冷靜.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -9286,7 +9286,7 @@ const LESSONS_YUE = [
       {speaker:'A', v:'唔好。你去報警，講清楚地址同幾多人。阿明去熄總掣。其他人跟我行，數住人頭，一個都唔好漏。細火先用筒，唔知係咩火就唔好掂。', p:'m4 hou2. nei5 heoi3 bou3 ging2, gong2 cing1 co2 dei6 zi2 tung4 gei2 do1 jan4. aa3 ming4 heoi3 sik1 zung2 zai3. kei4 taa1 jan4 gan1 ngo5 haang4, sou2 zyu6 jan4 tau4, jat1 go3 dou1 m4 hou2 lau6. sai3 fo2 sin1 jung6 tung2, m4 zi1 hai6 me1 fo2 zau6 m4 hou2 dim3.', e:'No. You call it in — give them the address and how many people. Ah Ming kills the mains. Everyone else follows me, count heads, nobody gets left. Extinguisher for a small fire only; if you don’t know what’s burning, don’t touch it.'},
       {speaker:'B', v:'姨姨仲喺入面！', p:'ji1 ji1 zung6 hai2 jap6 min6!', e:'The auntie’s still inside!'},
       {speaker:'A', v:'我入去。你哋喺出面等，唔好跟我入嚟。企遠啲，讓開條路畀消防。', p:'ngo5 jap6 heoi3. nei5 dei6 hai2 ceot1 min6 dang2, m4 hou2 gan1 ngo5 jap6 lei4. kei5 jyun5 di1, joeng6 hoi1 tiu4 lou6 bei2 siu1 fong4.', e:'I’m going in. You wait outside — don’t follow me. Stand well back and keep the road clear for the fire brigade.'},
-      {speaker:'B', v:'知道！', p:'zi1 dou3!', e:'Got it!'},
+      {speaker:'B', v:'知道！', p:'zi1 dou3!', e:'Got it yesterday!'},
     ],
     vocab:[
       {v:'火燭', p:'fo2zuk1', e:'a fire (the everyday word)'},
@@ -9324,7 +9324,7 @@ const LESSONS_YUE = [
       {v:'唔知係咩火就唔好掂。', p:'m4 zi1 hai6 me1 fo2 zau6 m4 hou2 dim3.', e:'If you don’t know what’s burning, don’t touch it.'},
     ] },
 
-  { id:'yue_l140', day:140, section:7, level:'C1', title:'Someone Is Hurt', tag:'No Time to Be Polite',
+  { id:'yue_l140', day:140, section:7, level:'C1', title:'Someone Is Hurt', tag:'No Time to Be Polite', img:'images/yue_lesson_140.jpg',
     desc:'Saying it fast and saying it right: 傷者, 傷口, 流血, 止血, 包紮, 昏迷, 救護車, 唔好郁.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -9372,7 +9372,7 @@ const LESSONS_YUE = [
       {v:'唔好搞亂現場，等陣要影相。', p:'m4 hou2 gaau2 lyun6 jin6 coeng4, dang2 zan6 jiu3 jing2 soeng2.', e:'Don’t disturb the scene — we’ll need photos.'},
     ] },
 
-  { id:'yue_l141', day:141, section:7, level:'C1', title:'Power, Fumes and Kit', tag:'No Time to Be Polite',
+  { id:'yue_l141', day:141, section:7, level:'C1', title:'Power, Fumes and Kit', tag:'No Time to Be Polite', img:'images/yue_lesson_141.jpg',
     desc:'The hazards a grow room actually has: 漏電, 觸電, 跳掣, 短路, 通風, 漏氣, 手套, 護目鏡.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -9420,12 +9420,12 @@ const LESSONS_YUE = [
       {v:'唔好嫌麻煩，戴齊嘢先。', p:'m4 hou2 jim4 maa4 faan4, daai3 cai4 je5 sin1.', e:'Don’t think it’s a faff — put the kit on first.'},
     ] },
 
-  { id:'yue_l142', day:142, section:7, level:'C1', title:'Afterwards', tag:'No Time to Be Polite',
+  { id:'yue_l142', day:142, section:7, level:'C1', title:'Afterwards', tag:'No Time to Be Polite', img:'images/yue_lesson_142.jpg',
     desc:'The register comes back down: 事故, 記錄, 證人, 口供, 工傷, 賠償, 疏忽, 改善.',
     duration:'8 min',
     exercises:['Lesson'],
     dialogue:[
-      {speaker:'A', v:'阿華點呀？', p:'aa3 waa4 dim2 aa3?', e:'How’s Ah Wah?'},
+      {speaker:'A', v:'阿華點呀？', p:'aa3 waa4 dim2 aa3?', e:'How’s Ah Wah yesterday?'},
       {speaker:'B', v:'縫咗針，照過頭冇事，休息兩個禮拜。我聽日去睇佢。', p:'fung4 zo2 zam1, ziu3 gwo3 tau4 mou5 si6, jau1 sik1 loeng5 go3 lai5 baai3. ngo5 ting1 jat6 heoi3 tai2 keoi5.', e:'Stitched up, head scan was clear, two weeks off. I’m going to see him tomorrow.'},
       {speaker:'A', v:'好。頭先我大聲咗，同大家講聲唔好意思。嗰陣要人即刻郁，冇時間好聲好氣。而家冇事喇，我哋慢慢傾。', p:'hou2. tau4 sin1 ngo5 daai6 seng1 zo2, tung4 daai6 gaa1 gong2 seng1 m4 hou2 ji3 si1. go2 zan6 jiu3 jan4 zik1 haak1 juk1, mou5 si4 gaan3 hou2 seng1 hou2 hei3. ji4 gaa1 mou5 si6 laa3, ngo5 dei6 maan6 maan6 king1.', e:'Good. I shouted at people earlier — I want to say sorry for that. I needed everyone moving that second and there was no time to be gentle. It’s over now, so let’s take it slowly.'},
       {speaker:'B', v:'冇人介意，嗰陣係應該噉。', p:'mou5 jan4 gaai3 ji3, go2 zan6 hai6 jing1 goi1 gam2.', e:'Nobody minded — that’s how it should be at the time.'},
@@ -9482,7 +9482,7 @@ const LESSONS_YUE = [
   // The other half of the section is what a promise costs. 甩底, 放飛機, 爽約 are
   // one event in three registers, and 拍心口 against 唔敢保證 is the single most
   // useful pair on a floor where people plan around each other's yes.
-  { id:'yue_l143', day:143, section:8, level:'C1', title:'Planning for What Might Go Wrong', tag:'Before It Happens',
+  { id:'yue_l143', day:143, section:8, level:'C1', title:'Planning for What Might Go Wrong', tag:'Before It Happens', img:'images/yue_lesson_143.jpg',
     desc:'萬一, 以防萬一, 預先, 打定輸數, 後路, 走盞 — and the difference between 睇定啲 and 到時先算.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -9490,7 +9490,7 @@ const LESSONS_YUE = [
       {speaker:'A', v:'下星期三嗰車貨，我想同你講定先。萬一司機塞車、或者倉底唔夠位，你要點做？我唔係想你即場諗，我想你今日就諗定。預先安排好過臨急抱佛腳，走盞留多兩個鐘，唔怕一萬，最怕萬一。', p:'haa6 sing1 kei4 saam1 go2 ce1 fo3, ngo5 soeng2 tung4 nei5 gong2 ding6 sin1. maan6 jat1 si1 gei1 sak1 ce1, waak6 ze2 cong1 dai2 m4 gau3 wai2, nei5 jiu3 dim2 zou6? ngo5 m4 hai6 soeng2 nei5 zik1 coeng4 nam2, ngo5 soeng2 nei5 gam1 jat6 zau6 nam2 ding6. jyu6 sin1 on1 paai4 hou2 gwo3 lam4 gap1 pou5 fat6 goek3, zau2 zaan2 lau4 do1 loeng5 go3 zung1, m4 paa3 jat1 maan6, zeoi3 paa3 maan6 jat1.', e:'That load next Wednesday — I want it settled with you now. If the driver hits traffic, or there’s no room at the back of the store, what do you do? I don’t want you working it out on the spot, I want you to have worked it out today. Arranging it in advance beats scrambling at the last minute. Leave two hours of slack. It isn’t the ten thousand times you worry about, it’s the one.'},
       {speaker:'B', v:'明白。我打定輸數，當佢一定會遲。', p:'ming4 baak6. ngo5 daa2 ding6 syu1 sou3, dong3 keoi5 jat1 ding6 wui5 ci4.', e:'Understood. I’ll assume the worst and treat him as late.'},
       {speaker:'A', v:'噉就啱。仲有，貨單影多份留底，以防萬一佢話冇收過。', p:'gam2 zau6 ngaam1. zung6 jau5, fo3 daan1 jing2 do1 fan6 lau4 dai2, ji5 fong4 maan6 jat1 keoi5 waa6 mou5 sau1 gwo3.', e:'Right. And copy the delivery note and keep one, just in case he says he never got it.'},
-      {speaker:'B', v:'噉如果真係出事呢？', p:'gam2 jyu4 gwo2 zan1 hai6 ceot1 si6 ne1?', e:'And if it really does go wrong?'},
+      {speaker:'B', v:'噉如果真係出事呢？', p:'gam2 jyu4 gwo2 zan1 hai6 ceot1 si6 ne1?', e:'And if it really does go wrong yesterday?'},
       {speaker:'A', v:'所以要有後路。做唔切就即刻話我知，唔好等到最後一日先講。諗多一步唔會蝕底。', p:'so2 ji5 jiu3 jau5 hau6 lou6. zou6 m4 cit3 zau6 zik1 haak1 waa6 ngo5 zi1, m4 hou2 dang2 dou3 zeoi3 hau6 jat1 jat6 sin1 gong2. nam2 do1 jat1 bou6 m4 wui5 sit6 dai2.', e:'That’s why you need a way out. If you can’t get it done, tell me straight away — don’t wait until the last day. Thinking one step further never costs you.'},
       {speaker:'B', v:'噉如果我睇定啲，等佢確認咗先落單，係咪反而會遲？', p:'gam2 jyu4 gwo2 ngo5 tai2 ding6 di1, dang2 keoi5 kok3 jing6 zo2 sin1 lok6 daan1, hai6 mai6 faan2 ji4 wui5 ci4?', e:'And if I hold off and wait for him to confirm before I order — doesn’t that make it later?'},
       {speaker:'A', v:'睇定啲同到時先算，係兩件事。睇定啲係等多啲料先郁；到時先算係根本冇諗過。我要你做前面嗰樣。', p:'tai2 ding6 di1 tung4 dou3 si4 sin1 syun3, hai6 loeng5 gin6 si6. tai2 ding6 di1 hai6 dang2 do1 di1 liu2 sin1 juk1; dou3 si4 sin1 syun3 hai6 gan1 bun2 mou5 nam2 gwo3. ngo5 jiu3 nei5 zou6 cin4 min6 go2 joeng6.', e:'Holding off and dealing-with-it-when-it-comes are two different things. Holding off is waiting for more information before you move. Dealing with it when it comes is not having thought about it at all. I want the first one.'},
@@ -9531,7 +9531,7 @@ const LESSONS_YUE = [
       {v:'佢冇後路，唯有做。', p:'keoi5 mou5 hau6 lou6, wai4 jau5 zou6.', e:'He’s got no way out, so he has to do it.'},
     ] },
 
-  { id:'yue_l144', day:144, section:8, level:'C1', title:'Passing On What Someone Said', tag:'Before It Happens',
+  { id:'yue_l144', day:144, section:8, level:'C1', title:'Passing On What Someone Said', tag:'Before It Happens', img:'images/yue_lesson_144.jpg',
     desc:'聽人講, 據講, 二手消息, 添油加醋, 走漏風聲 — and 三口六面, the fix for a he-said-she-said.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -9581,7 +9581,7 @@ const LESSONS_YUE = [
       {v:'佢話落實咗，我信佢。', p:'keoi5 waa6 lok6 sat6 zo2, ngo5 seon3 keoi5.', e:'He says it’s confirmed, and I believe him.'},
     ] },
 
-  { id:'yue_l145', day:145, section:8, level:'C1', title:'Saying You’ll Do It', tag:'Before It Happens',
+  { id:'yue_l145', day:145, section:8, level:'C1', title:'Saying You’ll Do It', tag:'Before It Happens', img:'images/yue_lesson_145.jpg',
     desc:'拍心口, 唔敢保證, 盡力而為, 一言為定 — and 甩底, 放飛機, 爽約 when it goes the other way.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -9631,7 +9631,7 @@ const LESSONS_YUE = [
       {v:'講定咗價錢先做。', p:'gong2 ding6 zo2 gaa3 cin4 sin1 zou6.', e:'Agree the price first, then do it.'},
     ] },
 
-  { id:'yue_l146', day:146, section:8, level:'C1', title:'Guessing What Will Happen', tag:'Before It Happens',
+  { id:'yue_l146', day:146, section:8, level:'C1', title:'Guessing What Will Happen', tag:'Before It Happens', img:'images/yue_lesson_146.jpg',
     desc:'九成, 十有八九, 話唔定, 好難講, 講唔埋, 唔使指擬 — the rungs of the confidence ladder, plus 苗頭 and 眉目.',
     duration:'8 min',
     exercises:['Lesson'],
@@ -9684,9 +9684,9 @@ const LESSONS_YUE = [
     desc:'The particles and reaction noises that sit at the very top of the frequency list — 吓, 嘩, 哦, 咦, 嗯, 誒, 呃, 哎, 唓, plus 𡃉, 𠻹, 𠻺, 𠸏 and the numbers 一百, 三十, 八月.',
     duration:'5 min',
     exercises:['Lesson'],
-    img:'images/yue_lesson_01.jpg',
+    img:'images/yue_lesson_147.jpg',
     dialogue:[
-      {speaker:'A', v:'喂！咦，你頭髮剪短咗喎。', p:'wai3! ji2, nei5 tau4 faat3 zin2 dyun2 zo2 wo3.', e:'Hey! Oh — you\'ve cut your hair short.'},
+      {speaker:'A', v:'喂！咦，你頭髮剪短咗喎。', p:'wai3! ji2, nei5 tau4 faat3 zin2 dyun2 zo2 wo3.', e:'Hey! Oh — you\'ve cut your hair short yesterday.'},
       {speaker:'B', v:'嗯。八月剪嘅。', p:'m6. baat3 jyut6 zin2 ge3.', e:'Mm. Cut it back in August.'},
       {speaker:'A', v:'嘩，好靚喎。幾錢呀？', p:'waa3, hou2 leng3 wo3. gei2 cin2 aa3?', e:'Wow, it looks great. How much?'},
       {speaker:'B', v:'一百蚊咋。', p:'jat1 baak3 man1 zaa3.', e:'Only a hundred dollars.'},
@@ -9694,7 +9694,7 @@ const LESSONS_YUE = [
       {speaker:'B', v:'係呀。不過要等成三十分鐘。', p:'hai6 aa3. bat1 gwo3 jiu3 dang2 seng4 saam1 sap6 fan1 zung1.', e:'Yeah. But you wait a good thirty minutes.'},
       {speaker:'A', v:'呃⋯⋯咁我都去試吓。', p:'aak1... gam2 ngo5 dou1 heoi3 si3 haa5.', e:'Uh… then I\'ll give it a go too.'},
       {speaker:'B', v:'去啦。仲有學生折𠻹。', p:'heoi3 laa1. zung6 jau5 hok6 saang1 zit3 tim1.', e:'Go on. There\'s a student discount as well.'},
-      {speaker:'A', v:'誒？真係？', p:'e6? zan1 hai6?', e:'Eh? Really?'},
+      {speaker:'A', v:'誒？真係？', p:'e6? zan1 hai6?', e:'Eh? Really yesterday?'},
       {speaker:'B', v:'哦，你唔係學生喎。唓。', p:'o4, nei5 m4 hai6 hok6 saang1 wo3. ce1.', e:'Oh — you\'re not a student. Pfft.'},
       {speaker:'A', v:'哎，唔好玩啦𠻺。', p:'ai1, m4 hou2 waan2 laa1 aa6.', e:'Come on, stop winding me up.'},
       {speaker:'B', v:'講笑𡃉。一齊去囉。', p:'gong2 siu3 gaa3. jat1 cai4 heoi3 lo1.', e:'I\'m only joking. Let\'s go together.'},
@@ -28520,9 +28520,18 @@ function getAudioIdsByCategory(){
       if(b.type!=='vocab') return;
       b.words.forEach(w=>cats['Concept Vocab'].push(`concept_${c.id}_${w.v.replace(/[^a-z0-9]/gi,'')}`));
     }));
-    LESSONS.forEach(l=>l.cards.forEach((c,i)=>cats['Lessons'].push(`lesson_${l.id}_${i}`)));
-    LESSONS.forEach(l=>(l.vocab||[]).forEach((v,i)=>cats['New Lesson Vocab'].push(`lesson_${l.id}_v${i}`)));
-    LESSONS.forEach(l=>(l.dialogue||[]).forEach((d,i)=>cats['New Lesson Dialogue'].push(`lesson_${l.id}_d${i}`)));
+    /* activeLessons(), not LESSONS. isVietnameseCourse() is true for BOTH the
+       legacy 62-lesson vi course and the 121-lesson vi2 one, and this block
+       used to hard-code LESSONS — so with vi2 selected (the only Vietnamese
+       course that ships) the manifest described lesson_lNN_* ids belonging to a
+       hidden course, and named none of the 3,509 lesson_vi2_lNN_* ids the app
+       actually plays. Anything driven off this list — the offline cache, the
+       audio build — was working from the wrong course. */
+    activeLessons().forEach(l=>{
+      (l.cards||[]).forEach((c,i)=>cats['Lessons'].push(`lesson_${l.id}_${i}`));
+      (l.vocab||[]).forEach((v,i)=>cats['New Lesson Vocab'].push(`lesson_${l.id}_v${i}`));
+      (l.dialogue||[]).forEach((d,i)=>cats['New Lesson Dialogue'].push(`lesson_${l.id}_d${i}`));
+    });
     TOPIC_LESSONS.forEach(t=>(t.cards||[]).forEach((c,i)=>cats['Topics'].push(`lesson_${t.id}_${i}`)));
     TOPIC_LESSONS.forEach(t=>(t.vocab||[]).forEach((v,i)=>cats['Topic Vocab'].push(`lesson_${t.id}_v${i}`)));
     TOPIC_LESSONS.forEach(t=>(t.dialogue||[]).forEach((d,i)=>cats['Topic Dialogue'].push(`lesson_${t.id}_d${i}`)));
@@ -32914,6 +32923,12 @@ function setAccent(a){
   currentAccent = a;
   document.getElementById('accHN').classList.toggle('active', a==='HN');
   document.getElementById('accSG').classList.toggle('active', a==='SG');
+  /* HN/SG is Hanoi versus Saigon. It is markup in the step overlay, so it was
+     showing on every course — a Cantonese or Japanese lesson offered the
+     learner a choice of two Vietnamese accents. Only Vietnamese has the two
+     recordings, so only Vietnamese gets the control. */
+  const wrap = document.getElementById('stepAccentToggle');
+  if(wrap) wrap.style.display = isVietnameseCourse() ? '' : 'none';
 }
 
 let recognitionInstance = null;
@@ -37843,6 +37858,14 @@ function lessonExampleMaxLen(lesson){
    than the card it illustrates is worse than none, and gradedExamples grades by
    difficulty, so an over-complex one would be filtered out anyway. They need a
    native pass along with the 214 hand-written glosses already flagged. */
+/* Cantonese counterpart to VI_EXTRA_EXAMPLES: one plain sentence for each
+   lesson word the course never wrote a sentence around. Readings are not
+   invented -- they come from the same resolver as the chat personas
+   (gen_yue_ex.js reuses gen_chat_jyutping.js), which prefers the course's
+   own verified vocabulary, then rime-cantonese, then the character table
+   aligned from this course's sentences. All 121 resolved with no gaps and
+   with syllable counts matching character counts. */
+const YUE_EXTRA_EXAMPLES = [['係噉喀啦，唔使諗咁多。','hai6 gam2 haak6 laa1 m4 sai2 nam2 gam3 do1','That\'s just how it is, don\'t overthink it.'],['佢啱啱出來咗，你等陣先。','keoi5 ngaam1 ngaam1 ceot1 loi4 zo2 nei5 dang2 zan6 sin1','He just stepped out, wait a bit.'],['你幾點返來食飯呀？','nei5 gei2 dim2 faan1 lai4 sik6 faan6 aa3','What time are you coming back for dinner?'],['我對你好有信心。','ngo5 deoi3 nei5 hou2 jau5 seon3 sam1','I\'ve got a lot of confidence in you.'],['佢直程唔理我。','keoi5 zik6 cing4 m4 lei5 ngo5','He straight up ignored me.'],['嗰個女仔係我表妹。','go2 go3 neoi5 zai2 hai6 ngo5 biu2 mui2','That girl is my cousin.'],['嘿，你去邊呀？','hei3 nei5 heoi3 bin1 aa3','Hey, where are you off to?'],['李生今日唔喺度。','lei5 saang1 gam1 jat6 m4 hai2 dou6','Mr Lee isn\'t in today.'],['部電腦又壞咗。','bou6 din6 nou5 jau6 waai6 zo2','The computer has broken again.'],['後尾佢都係冇嚟。','hau6 mei1 keoi5 dou1 hai6 mou5 lei4','In the end he didn\'t come after all.'],['好食呵？','hou2 sik6 ho2','Tasty, right?'],['呢張郵票好舊。','ni1 zoeng1 jau4 piu3 hou2 gau6','This stamp is very old.'],['我喺呢間小學讀過書。','ngo5 hai2 ni1 gaan1 siu2 hok6 duk6 gwo3 syu1','I went to this primary school.'],['杯嘢喺上邊嗰格。','bui1 je5 hai2 soeng6 bin1 go2 gaak3','The drink is on the shelf above.'],['佢喺英國讀書。','keoi5 hai2 jing1 gwok3 duk6 syu1','She studies in Britain.'],['你上來我度傾偈啦。','nei5 soeng5 loi4 ngo5 dou6 king1 gai2 laa1','Come up to mine for a chat.'],['入來坐啦，出面凍。','jap6 loi4 co5 laa1 ceot1 min2 dung3','Come in and sit, it\'s cold outside.'],['我愛你。','ngo5 oi3 nei5','I love you.'],['你講乜鬼呀？','nei5 gong2 mat1 gwai2 aa3','What the heck are you talking about?'],['場雨令到成條路塞晒。','coeng4 jyu5 ling6 dou3 seng4 tiu4 lou6 sak1 saai3','The rain made the whole road jam up.'],['呢隻光碟播唔到。','nei1 zek3 gwong1 dip2 bo3 m4 dou2','This disc won\'t play.'],['隻雞啄咗我一下。','zek3 gai1 doek1 zo2 ngo5 jat1 haa5','The chicken pecked me.'],['回歸之後變咗好多。','wui4 gwai1 zi1 hau6 bin3 zo2 hou2 do1','A lot changed after the handover.'],['孔生係我上司。','hung2 saang1 hai6 ngo5 soeng6 si1','Mr Hung is my boss.'],['部車係德國嚟㗎。','bou6 ce1 hai6 dak1 gwok3 lei4 gaa3','The car is from Germany.'],['佢攞咗一拃糖俾我。','keoi5 lo2 zo2 jat1 zaa6 tong4 bei2 ngo5','He gave me a handful of sweets.'],['拜拜，聽日見。','baai3 baai3 ting1 jat6 gin3','Bye, see you tomorrow.'],['呢個梨好甜。','ni1 go3 lei2 hou2 tim4','This pear is very sweet.'],['佢好似住喺火星噉。','keoi5 hou2 ci5 zyu6 hai2 fo2 sing1 gam2','He\'s like he lives on Mars.'],['佢移民去咗紐西蘭。','keoi5 ji4 man4 heoi3 zo2 nau2 sai1 laan4','He emigrated to New Zealand.'],['落嚟樓下等我。','lok6 lei4 lau4 haa6 dang2 ngo5','Come down and wait for me downstairs.'],['呢個位俾有需要人士坐。','ni1 go3 wai2 bei2 jau5 seoi1 jiu3 jan4 si6 co5','This seat is for people in need.'],['我啱啱嚟到。','ngo5 ngaam1 ngaam1 lei4 dou3','I\'ve just arrived.'],['細個用傻瓜機影相。','sai3 go3 jung6 so4 gwaa1 gei1 jing2 soeng2','We used a point-and-shoot when I was small.'],['張咭俾我碌吓。','zoeng1 kaat1 bei2 ngo5 luk1 haa5','Let me tap the card.'],['填埋年齡同住址。','tin4 maai4 nin4 ling4 tung4 zyu6 zi2','Fill in your age and address too.'],['呢個廣告好煩。','ni1 go3 gwong2 gou3 hou2 faan4','This advert is so annoying.'],['佢終於成功咗。','keoi5 zung1 jyu1 sing4 gung1 zo2','He finally succeeded.'],['唔好喺屋企講粗口。','m4 hou2 hai2 uk1 kei2 gong2 cou1 hau2','Don\'t swear at home.'],['部遊戲機邊個買㗎？','bou6 jau4 hei3 gei1 bin1 go3 maai5 gaa3','Who bought the games console?'],['我隻手震到唔停。','ngo5 zek3 sau2 zan3 dou3 m4 ting4','My hand won\'t stop shaking.'],['隻兔好得意。','zek3 tou3 hou2 dak1 ji3','The rabbit is really cute.'],['考試前刨咗三日書。','haau2 si3 cin4 paau4 zo2 saam1 jat6 syu1','I crammed for three days before the exam.'],['收卷喇，唔好寫喇。','sau1 gyun2 laa3 m4 hou2 se2 laa3','Papers in, stop writing.'],['佢喪失咗信心。','keoi5 song3 sat1 zo2 seon3 sam1','He\'s lost his confidence.'],['佢真係一個壯士。','keoi5 zan1 hai6 jat1 go3 zong3 si6','He really is a brave man.'],['佢哋兩姊妹好似樣。','keoi5 dei6 loeng5 zi2 mui2 hou2 ci5 joeng6','The two sisters look alike.'],['今個月廿五號出糧。','gam1 go3 jyut6 jaa6 ng5 hou6 ceot1 loeng4','Payday is the twenty-fifth this month.'],['徐小姐搵你。','ceoi4 siu2 ze2 man5 nei5','Miss Tsui is looking for you.'],['佢心理壓力好大。','keoi5 sam1 lei5 aat3 lik6 hou2 daai6','He\'s under a lot of mental strain.'],['佢用兩隻手捧住個煲。','keoi5 jung6 loeng5 zek3 sau2 pung2 zyu6 go3 bou1','He held the pot in both hands.'],['搽多啲牛油喺塊多士度。','caa4 do1 di1 ngau4 jau4 hai2 faai3 do1 si2 dou6','Put more butter on the toast.'],['噉樣做係犯法㗎。','gam2 joeng2 zou6 hai6 faan6 faat3 gaa3','Doing that is against the law.'],['佢向公司索償。','keoi5 hoeng3 gung1 si1 sok3 soeng4','He\'s claiming compensation from the company.'],['肥仔，過嚟食飯啦。','fei4 zai2 gwo3 lei4 sik6 faan6 laa1','Come here and eat, chubby.'],['呢個人好變態。','ni1 go3 jan4 hou2 bin3 taai3','This guy is a real creep.'],['呢件事有啲邪。','nei1 gin6 si6 jau5 di1 ce4','There\'s something uncanny about this.'],['我有段錄音喺度。','ngo5 jau5 dyun6 luk6 jam1 hai2 dou6','I\'ve got a recording here.'],['佢做緊中層管理。','keoi5 zou6 gan2 zung1 cang4 gun2 lei5','He\'s in middle management.'],['呢件事令我好嬲。','nei1 gin6 si6 ling6 ngo5 hou2 nau1','This made me really angry.'],['呢個位係傷殘人士專用。','ni1 go3 wai2 hai6 soeng1 caan4 jan4 si6 zyun1 jung6','This seat is reserved for disabled people.'],['公司而家有危機。','gung1 si1 ji4 gaa1 jau5 ngai4 gei1','The company is in a crisis now.'],['嗰隻狗好可憐。','go2 zek3 gau2 hou2 ho2 lin4','That dog is such a poor thing.'],['佢買咗個細單位。','keoi5 maai5 zo2 go3 sai3 daan1 wai2','He bought a small flat.'],['要成四萬蚊呀？','jiu3 seng4 sei3 maan6 man1 aa3','It costs a whole forty thousand?'],['我阿媽係基督徒。','ngo5 aa3 maa1 hai6 gei1 duk1 tou4','My mum is a Christian.'],['佢好顧家庭。','keoi5 hou2 gu3 gaa1 ting4','He really looks after his family.'],['用邊種形式交？','jung6 bin1 zung2 jing4 sik1 gaau1','Which format do we hand it in?'],['你唔好咁戇居啦。','nei5 m4 hou2 gam3 ngong6 geoi1 la1','Don\'t be so thick.'],['我未接觸過呢行。','ngo5 mei6 zip3 zuk1 gwo3 ni1 haang4','I\'ve never come into contact with this trade.'],['佢揦咗一嚿飯。','keoi5 laa2 zo2 jat1 gau6 faan6','He grabbed a handful of rice.'],['朱先生今日休假。','zyu1 sin1 saang1 gam1 jat6 jau1 gaa3','Mr Chu is off today.'],['有隻烏蠅飛入嚟。','jau5 zek3 wu1 jing1 fei1 jap6 lei4','A fly flew in.'],['今晚煮薯仔湯。','gam1 maan5 zyu2 syu4 zai2 tong1','We\'re making potato soup tonight.'],['呢個行業好難撈。','ni1 go3 hong4 jip6 hou2 naan4 lou1','This trade is hard going.'],['等我計數先。','dang2 ngo5 gai3 sou3 sin1','Let me work out the bill first.'],['佢一心想返鄉下。','keoi5 jat1 sam1 soeng2 faan1 hoeng1 haa2','He\'s set on going back to the village.'],['我睇緊中醫。','ngo5 tai2 gan2 zung1 ji1','I\'m seeing a Chinese-medicine doctor.'],['喺呢個情況之下唔得。','hai2 ni1 go3 cing4 fong3 zi1 haa6 m4 dak1','Under these circumstances it won\'t do.'],['佢哋之中冇人知。','keoi5 dei6 zi1 zung1 mou5 jan4 zi1','None among them knows.'],['開咗鋪以來都咁忙。','hoi1 zo2 pou3 ji5 loi4 dou1 gam3 mong4','It\'s been this busy since the shop opened.'],['今年成績甚佳。','gam1 nin4 sing4 zik1 sam6 gaai1','This year\'s results are very fine.'],['啱啱有個來電。','ngaam1 ngaam1 jau5 go3 loi4 din6','There was an incoming call just now.'],['我去圖書館借書。','ngo5 heoi3 tou4 syu1 gun2 ze3 syu1','I\'m going to the library to borrow books.'],['佢收藏咗好多唱片。','keoi5 sau1 cong4 zo2 hou2 do1 coeng3 pin2','He\'s collected a lot of records.'],['訂間單人房得喇。','deng6 gaan1 daan1 jan4 fong2 dak1 laa3','Just book a single room.'],['得咁多喳？','dak1 gam3 do1 zaa4','That\'s all there is?'],['我太嫲今年九十歲。','ngo5 taai3 maa4 gam1 nin4 gau2 sap6 seoi3','My great-grandmother is ninety this year.'],['佢派咗套摺俾我。','keoi5 paai3 zo2 tou3 zip3 bei2 ngo5','He handed me a leaflet.'],['佢喺威爾斯出世。','keoi5 hai2 wai1 ji5 si1 ceot1 sai3','He was born in Wales.'],['宇宙好大好大。','jyu5 zau6 hou2 daai6 hou2 daai6','The universe is enormous.'],['展堂係我細佬個名。','zin2 tong4 hai6 ngo5 sai3 lou2 go3 meng2','Chin-tong is my younger brother\'s name.'],['屋企請咗個工人。','uk1 kei2 ceng2 zo2 go3 gung1 jan4','We\'ve hired a helper at home.'],['我弟婦煮嘢好好食。','ngo5 dai6 fu5 zyu2 je5 hou2 hou2 sik6','My brother\'s wife cooks really well.'],['佢加咗人手，從而快咗好多。','keoi5 gaa1 zo2 jan4 sau2 cung4 ji4 faai3 zo2 hou2 do1','He added staff, and thereby it got much faster.'],['舊年復活節去咗旅行。','gau6 nin2 fuk6 wut6 zit3 heoi3 zo2 leoi5 hang4','We travelled last Easter.'],['隻鞋揩到我隻腳痛。','zek3 haai4 haai1 dou3 ngo5 zek3 goek3 tung3','The shoe rubbed my foot sore.'],['時代唔同咗。','si4 doi6 m4 tung4 zo2','Times have changed.'],['我沖完涼先食飯。','ngo5 cung1 jyun4 loeng4 sin1 sik6 faan6','I\'ll shower before eating.'],['沿途風景好靚。','jyun4 tou4 fung1 ging2 hou2 leng3','The scenery along the way is lovely.'],['嗰個洋人講廣東話好叻。','go2 go3 joeng4 jan4 gong2 gwong2 dung1 waa2 hou2 lek1','That Westerner speaks great Cantonese.'],['呢種鞋而家好流行。','nei1 zung2 haai4 ji4 gaa1 hou2 lau4 hang4','This kind of shoe is very popular now.'],['生命好寶貴。','sang1 ming6 hou2 bou2 gwai3','Life is precious.'],['海底有好多生物。','hoi2 dai2 jau5 hou2 do1 sang1 mat6','There are many living things under the sea.'],['呢樣嘢有咩用途？','nei1 joeng6 je5 jau5 me1 jung6 tou4','What\'s this used for?'],['佢細個讀私校。','keoi5 sai3 go3 duk6 si1 haau6','He went to a private school as a child.'],['佢買咗啲紅籌股。','keoi5 maai5 zo2 di1 hung4 cau4 gu2','He bought some red chips.'],['我買咗一串葡萄。','ngo5 maai5 zo2 jat1 cyun3 pou4 tou4','I bought a bunch of grapes.'],['小朋友鍾意食薯蓉。','siu2 pang4 jau5 zung1 ji3 sik6 syu4 jung4','Kids like mashed potato.'],['呢種行為唔啱。','nei1 zung2 haang4 wai4 m4 ngaam1','This kind of behaviour is not right.'],['呢套戲製作得好認真。','ni1 tou3 hei3 zai3 zok3 dak1 hou2 jing6 zan1','This film was made very carefully.'],['出去見識吓世界啦。','ceot1 heoi3 gin3 sik1 haa5 sai3 gaai3 laa1','Go out and see the world a bit.'],['佢啲說話好難聽。','keoi5 di1 syut3 waa6 hou2 naan4 teng1','The things he says are very hurtful.'],['佢變成另一個人噉。','keoi5 bin3 sing4 ling6 jat1 go3 jan4 gam2','He\'s turned into a different person.'],['呢啲錢足夠㗎喇。','nei1 di1 cin2 zuk1 gau3 gaa3 laa3','This money is enough.'],['佢一直追求緊個夢想。','keoi5 jat1 zik6 zeoi1 kau4 gan2 go3 mung6 soeng2','He\'s been pursuing that dream all along.'],['我哋見到隻鯨魚。','ngo5 dei6 gin3 dou2 zek3 king4 jyu4','We saw a whale.'],['我忍咗手冇還拖。','ngo5 jan2 zo2 sau2 mou5 waan4 to1','I held back and didn\'t hit back.'],['可以還價㗎。','ho2 ji5 waan4 gaa3 gaa3','You can make a counter-offer.'],['你唔好玩嘢啦。','nei5 m4 hou2 waan2 je5 laa1','Stop messing me about.'],['唔好蝦人。','m4 hou2 haa1 jan4','Don\'t bully people.']];
 const VI_EXTRA_EXAMPLES = [['Các bạn đi đâu đấy?','Where are you all going?'],['Những người này em quen.','I know these people.'],['Hãy nói thật với em.','Please tell me the truth.'],['Anh nói rằng anh sẽ đến.','You said that you would come.'],['Em không thể đi được.','I cannot go.'],['Mày với tao đi đi.','You and me, let us go.'],['Uống cà phê hoặc trà?','Coffee or tea?'],['Em là người Việt Nam.','I am Vietnamese.'],['Đừng giết con vật đó.','Do not kill that animal.'],['Em sử dụng cái này hàng ngày.','I use this every day.'],['Một chiếc xe màu trắng.','A white car.'],['Thưa ngài, mời ngài vào.','Sir, please come in.'],['Chuyện gì xảy ra thế?','What happened?'],['Thế giới rộng lớn lắm.','The world is very big.'],['Công ty thực hiện dự án này.','The company is carrying out this project.'],['Cha em làm nghề giáo viên.','My father is a teacher.'],['Hoạt động này rất thú vị.','This activity is very interesting.'],['Kẻ đó khiến em sợ.','That person makes me afraid.'],['Bởi vì trời mưa nên em ở nhà.','Because it rained I stayed home.'],['Một số người thích, một số không.','Some people like it, some do not.'],['Đối với em thì được.','As far as I am concerned it is fine.'],['Chương trình bắt đầu lúc tám giờ.','The programme starts at eight.'],['Mình tiếp tục làm nhé.','Let us carry on working.'],['Anh ấy đầu tư vào công ty.','He invested in the company.'],['Trời mưa, tuy nhiên em vẫn đi.','It rained, however I still went.'],['Hệ thống này rất hiện đại.','This system is very modern.'],['Em muốn trở thành bác sĩ.','I want to become a doctor.'],['Em cầu Chúa cho anh khoẻ.','I pray to God for your health.'],['Anh có khả năng làm việc đó.','You have the ability to do that.'],['Doanh nghiệp của anh lớn không?','Is your business large?'],['Phụ nữ và đàn ông đều làm được.','Women and men can both do it.'],['Em quan tâm đến vấn đề này.','I care about this issue.'],['Cái này thuộc về em.','This belongs to me.'],['Kinh tế năm nay khá tốt.','The economy is quite good this year.'],['Nhà máy sản xuất xe máy.','The factory produces motorbikes.'],['Vợ và chồng em đều đi làm.','My wife and I both work.'],['So với năm ngoái thì tốt hơn.','Compared with last year it is better.'],['Anh nói thực sự đúng.','What you say is really right.'],['Em sống ở Hà Nội.','I live in Hanoi.'],['Xã hội bây giờ khác nhiều.','Society is very different now.'],['Con người ai cũng có lỗi.','Every human being makes mistakes.'],['Chiếc nhẫn này bằng vàng.','This ring is made of gold.'],['Đây là cơ hội tốt cho em.','This is a good opportunity for me.'],['Em hoàn toàn đồng ý với anh.','I completely agree with you.'],['Bất cứ ai cũng làm được.','Anyone at all can do it.'],['Khu vực này rất đông người.','This area is very crowded.'],['Em trông nhà giúp anh nhé.','I will watch the house for you.'],['Ai thiết kế cái này thế?','Who designed this?'],['Anh đi công tác mấy ngày?','How many days is your work trip?'],['Khách hàng đang đợi ở ngoài.','The customer is waiting outside.'],['Cảnh sát mang súng.','The police carry guns.'],['Hiện nay giá cả tăng nhiều.','Prices have risen a lot nowadays.'],['Em học khoa học ở trường.','I study science at school.'],['Cảm ơn anh đã hỗ trợ em.','Thank you for supporting me.'],['Việc này liên quan đến em.','This matter concerns me.'],['Em có hai lựa chọn thôi.','I only have two choices.'],['Đây là con đường duy nhất.','This is the only road.'],['Gã đó em không quen.','I do not know that bloke.'],['Em có quyền nói không.','I have the right to say no.'],['Làm một cách cẩn thận nhé.','Do it in a careful way.'],['Cửa hàng cung cấp đồ ăn.','The shop supplies food.'],['Vị trí này rất tốt.','This location is very good.'],['Đây là vấn đề quốc gia.','This is a national issue.'],['Nhiệm vụ của em là gì ạ?','What is my task?'],['Công nghệ thay đổi nhanh quá.','Technology changes very fast.'],['Anh ấy làm kinh doanh.','He works in business.'],['Con gái em học lớp ba.','My daughter is in year three.'],['Cơ sở này mới xây.','This facility was newly built.'],['Nàng ấy đẹp lắm.','She is very beautiful.'],['Em đi kiếm việc làm.','I am going to look for a job.'],['Đơn vị em có mười người.','My unit has ten people.'],['Em học tiếng Trung Quốc.','I study Chinese.'],['Cơ quan em ở gần đây.','My office is near here.'],['Thậm chí em còn không biết.','I did not even know.'],['Một bức tranh rất đẹp.','A very beautiful painting.'],['Em vượt qua kỳ thi rồi.','I have passed the exam.'],['Em thích đi du lịch nước ngoài.','I like travelling abroad.'],['Quân đội bảo vệ đất nước.','The army protects the country.'],['Mình giải quyết việc này nhé.','Let us resolve this matter.'],['Quan hệ hai bên rất tốt.','The relationship between the two is very good.'],['Giáo dục rất quan trọng.','Education is very important.'],['Việc đó ảnh hưởng đến em.','That affects me.'],['Chính phủ vừa thông báo.','The government has just announced it.'],['Em xử lý việc này được.','I can handle this.'],['Một ngôi nhà nhỏ ở quê.','A small house in the countryside.'],['Quá trình này mất lâu.','This process takes a long time.'],['Môi trường ở đây sạch.','The environment here is clean.'],['Điều kiện làm việc tốt.','The working conditions are good.'],['Cái này có giá trị lắm.','This is very valuable.'],['Hình ảnh rõ ràng quá.','The image is very clear.'],['Đây là sân bay quốc tế.','This is an international airport.'],['Chàng trai đó tốt bụng.','That young man is kind.'],['Đó là trách nhiệm của em.','That is my responsibility.'],['Họ tấn công vào ban đêm.','They attacked at night.'],['Cái này phù hợp với em.','This suits me.'],['Anh tính chính xác chưa?','Have you calculated it accurately?'],['Em đảm bảo với anh.','I guarantee it to you.'],['Áo trắng đẹp hơn áo đen.','The white shirt is nicer than the black one.'],['Nhà nước quản lý việc đó.','The state manages that.'],['Mối quan hệ này lâu rồi.','This relationship is long-standing.'],['Người lao động cần nghỉ.','Workers need rest.'],['Lãnh đạo công ty rất giỏi.','The company leadership is very capable.'],['Đây là ý kiến cá nhân em.','This is my personal opinion.'],['Cán bộ đến làm việc rồi.','The officials have come to work.'],['Em kể câu chuyện này nhé.','Let me tell this story.'],['Mục tiêu của em là gì?','What is your goal?'],['Loài chim này rất hiếm.','This species of bird is very rare.'],['Chúc anh chị hạnh phúc.','I wish you both happiness.'],['Mau lên em ơi!','Hurry up!'],['Lớp em có nhiều nữ.','My class has many girls.'],['Ngày xưa có một ông vua.','Once upon a time there was a king.'],['Nhân dân ủng hộ việc đó.','The people support that.'],['Em là thành viên mới.','I am a new member.'],['Con em hay chơi game.','My child often plays games.'],['Cơ thể em mệt quá.','My body is very tired.'],['Chết tiệt, quên mất rồi!','Damn it, I forgot!'],['Cả đoàn đi cùng nhau.','The whole group went together.'],['Thời điểm này chưa hợp.','This moment is not right.'],['Trời trở nên lạnh rồi.','The weather has become cold.'],['Tình yêu quan trọng lắm.','Love is very important.'],['Toàn bộ số tiền ở đây.','The entire amount is here.'],['Lũ trẻ chơi ngoài sân.','The kids are playing in the yard.'],['Em tìm kiếm mãi không thấy.','I searched and searched but did not find it.'],['Nói cho em sự thật đi.','Tell me the truth.'],['Con chim gãy cánh rồi.','The bird has broken its wing.'],['Em thích môn lịch sử.','I like the subject of history.'],['Hôm nay em thấy tệ quá.','I feel terrible today.'],['Con mèo trốn dưới bàn.','The cat is hiding under the table.'],['Tim em đập nhanh quá.','My heart is beating very fast.'],['Hành động của anh đúng.','Your action was right.'],['Nhà em gần núi.','My house is near the mountain.'],['Em thích nhảy lắm.','I really like dancing.'],['Lĩnh vực này em chưa biết.','I do not know this field yet.'],['Anh học kỹ thuật à?','Do you study engineering?'],['Ai kiểm soát việc này?','Who controls this?'],['Máy tính của em hỏng rồi.','My computer is broken.'],['Em thể hiện tốt lắm.','You performed very well.'],['Công ty triển khai kế hoạch mới.','The company is rolling out a new plan.'],['Nhóc kia là con anh à?','Is that kid yours?'],['Em hoàn thành bài rồi ạ.','I have completed the work.'],['Tổng thống Nga đến thăm.','The Russian president is visiting.'],['Con quái vật trong phim đó.','The monster in that film.'],['Hai việc xảy ra đồng thời.','The two things happened at the same time.'],['Đất nước mình đẹp lắm.','Our country is very beautiful.'],['Chả có ai ở nhà cả.','There is nobody at home.'],['Nè, lại đây em ơi.','Here, come over here.'],['Ứng dụng này dễ dùng.','This app is easy to use.'],['Chủ tịch công ty đến rồi.','The company chairman has arrived.'],['Cuộc đời còn dài lắm.','Life is still very long.'],['Em xác định đi rồi.','I have made up my mind to go.'],['Bệnh nhân đang nghỉ ạ.','The patient is resting.'],['Cảnh sát điều tra vụ này.','The police are investigating this case.'],['Chính sách mới có lợi.','The new policy is beneficial.'],['Em còn nợ anh tiền.','I still owe you money.'],['Đối tượng này khó lắm.','This subject is very difficult.'],['Em đến đây thường xuyên lắm.','I come here very often.'],['Tạm biệt anh, em đi đây.','Goodbye, I am off.'],['Cơn mưa to quá.','The rain shower is very heavy.'],['Mình tiến hành ngay nhé.','Let us carry it out right away.'],['Tài chính công ty ổn định.','The company finances are stable.'],['Họ chiến đấu rất dũng cảm.','They fought very bravely.'],['Thông qua bạn em quen anh ấy.','I met him through a friend.'],['Câu này có ý nghĩa gì?','What does this sentence mean?'],['Anh sở hữu căn nhà này à?','Do you own this house?'],['Công trình sắp hoàn thành.','The construction is nearly finished.'],['Không gian ở đây rộng.','The space here is large.'],['Phương pháp này hiệu quả.','This method is effective.'],['Em tiến lên phía trước.','I moved forward.'],['Nắm tay em đi anh.','Hold my hand.'],['Người lính rất dũng cảm.','The soldier is very brave.'],['Em chấp nhận điều kiện đó.','I accept those conditions.'],['Đây là lệnh của sếp.','This is the boss\'s order.'],['Vũ khí rất nguy hiểm.','Weapons are very dangerous.'],['Đây là văn bản chính thức.','This is an official document.'],['Anh đại diện cho công ty.','You represent the company.'],['Nói cụ thể hơn đi anh.','Please be more specific.'],['Anh em mình đi ăn nhé.','Let us all go and eat.'],['Mệt đến nỗi không đi được.','So tired that I could not walk.'],['Cô gái đó hấp dẫn lắm.','That girl is very attractive.'],['Lực lượng cảnh sát đông.','The police force is large.'],['Nguyên nhân là gì ạ?','What is the cause?'],['Lão ấy sống một mình.','That old man lives alone.'],['Em vô cùng cảm ơn anh.','I thank you enormously.'],['Em thích nghệ thuật lắm.','I really like art.'],['Thuốc này có tác dụng tốt.','This medicine works well.'],['Chuẩn bị đầy đủ chưa em?','Have you prepared everything?'],['Khu công nghiệp ở ngoài kia.','The industrial zone is out there.'],['Ngừng lại một chút đi.','Stop for a moment.'],['Kết hợp hai cái lại nhé.','Let us combine the two.'],['Giao thông ở đây tắc lắm.','The traffic here is very jammed.'],['Công ty được lập năm ngoái.','The company was established last year.'],['Anh ấy là chuyên gia giỏi.','He is a good expert.'],['Nói chi tiết hơn được không?','Could you give more detail?'],['Diện tích nhà bao nhiêu?','What is the floor area of the house?'],['Đây là món ăn truyền thống.','This is a traditional dish.'],['Cái đó gây ấn tượng lắm.','That is very impressive.'],['Thương mại giữa hai nước tốt.','Trade between the two countries is good.'],['Sức mạnh của anh lớn quá.','Your strength is very great.'],['Vấn đề đó vẫn tồn tại.','That problem still exists.'],['Em tìm hiểu thêm đã.','Let me look into it more first.'],['Bất kỳ lúc nào cũng được.','Any time at all is fine.'],['Chức năng này em chưa dùng.','I have not used this function.'],['Mục đích của việc này là gì?','What is the purpose of this?'],['Anh trả lời nhanh chóng quá.','You answered very quickly.'],['Việc học tập rất quan trọng.','Studying is very important.'],['Em không quan tâm chính trị.','I am not interested in politics.'],['Đảng vừa họp hôm qua.','The Party met yesterday.'],['Chiến thắng thuộc về đội em.','The victory belongs to my team.'],['Áp dụng cách này thử xem.','Try applying this method.'],['Đây là giải pháp tốt nhất.','This is the best solution.'],['Công việc của em ổn định.','My job is stable.'],['Đằng kia có quán cà phê.','Over that way there is a café.'],['Sự kiện này lớn lắm.','This event is very big.'],['Cộng đồng ở đây thân thiện.','The community here is friendly.'],['Tin đó thật bất ngờ.','That news was really unexpected.'],['Năng lượng mặt trời rất tốt.','Solar energy is very good.'],['Trường được thành lập lâu rồi.','The school was established long ago.'],['Chiến tranh đã qua lâu rồi.','The war ended long ago.'],['Số lượng bao nhiêu ạ?','What is the quantity?'],['Hội nghị bắt đầu sáng mai.','The conference starts tomorrow morning.'],['Chế độ này mới thay đổi.','This system has just changed.'],['Anh ấy nói mạnh mẽ lắm.','He speaks very strongly.'],['Viên đạn bay qua đầu.','The bullet flew overhead.'],['Có người cướp xe máy.','Someone robbed a motorbike.'],['Thị trấn này nhỏ thôi.','This town is small.'],['Thực phẩm ở đây tươi lắm.','The food here is very fresh.'],['Phần mềm này miễn phí.','This software is free.'],['An ninh ở đây rất tốt.','Security here is very good.'],['Anh Nguyễn Văn Nam ạ.','Mr Nguyen Van Nam.'],['Vai trò của em quan trọng.','Your role is important.'],['Nạn nhân đã được cứu.','The victim has been rescued.'],['Em di chuyển sang chỗ khác.','I moved to another place.'],['Địa bàn này rộng lắm.','This territory is very large.'],['Hắn không phải người tốt.','He is not a good person.'],['Công ty tạo ra sản phẩm mới.','The company creates new products.'],['Kinh tế phát triển nhanh.','The economy is developing fast.'],['Em có người bạn ở Mỹ.','I have a friend in America.'],['Doanh số đạt mức cao nhất.','Sales reached the highest level.'],['Anh ấy làm nghiên cứu ở viện.','He does research at the institute.'],['Ôi, em quên mất rồi!','Oh, I forgot!'],['Huyện này có nhiều làng.','This district has many villages.'],['Dịch vụ ở đây tốt lắm.','The service here is very good.'],['Em đem cái này về nhé.','I will take this back with me.'],['Anh rời khỏi đây lúc nào?','When did you leave here?'],['Công ty đào tạo nhân viên mới.','The company trains new employees.'],['Em không hề biết chuyện đó.','I did not know about that at all.'],['Máy bay cất cánh lúc sáu giờ.','The plane takes off at six.'],['Mình tập trung làm việc nhé.','Let us focus on the work.'],['Giá thấp hơn em nghĩ.','The price is lower than I thought.'],['Ư, em không chắc lắm.','Huh, I am not very sure.'],['Cho em xem cái mẫu này.','Show me this sample.'],['Nội dung bài này hay đấy.','The content of this piece is good.'],['Em có niềm tin vào anh.','I have faith in you.'],['Tình trạng bây giờ ổn rồi.','The situation is fine now.'],['Tự nhiên trời mưa to.','All of a sudden it poured.'],['Em in giúp anh tờ này.','Print this sheet for me.'],['Ai cũng muốn được tự do.','Everyone wants to be free.'],['Tiếc quá, em không đi được.','What a shame, I cannot go.'],['Băng dán ở trong ngăn kéo.','The tape is in the drawer.'],['Anh ấy học tiếng Đức.','He studies German.'],['Việc đó chiếm nhiều thời gian.','That takes up a lot of time.'],['Đừng phá đồ của em.','Do not break my things.'],['Em dựa vào anh nhé.','I will rely on you.'],['Chi phí tháng này cao quá.','This month\'s costs are very high.'],['Tốc độ xe nhanh quá.','The car is going too fast.'],['Giám đốc đang họp ạ.','The director is in a meeting.'],['Yếu tố quan trọng nhất là gì?','What is the most important factor?'],['Buộc chặt vào nhé anh.','Tie it tightly.'],['Chào đồng chí, mời vào.','Hello comrade, please come in.'],['Em thích đồ ăn Nhật Bản.','I like Japanese food.'],['Giường này rộng quá.','This bed is very wide.'],['Em liên lạc với anh sau nhé.','I will be in touch with you later.'],['Hai bên phối hợp làm việc.','The two sides work together.'],['Trẻ em chơi ngoài sân.','The children are playing in the yard.'],['Lý do chủ yếu là tiền.','The main reason is money.'],['Công ty đáp ứng yêu cầu đó.','The company meets that requirement.'],['Em cần người tư vấn ạ.','I need someone to advise me.'],['Mẹ hôn con một cái.','Mum gave the child a kiss.'],['Dữ liệu này chưa đầy đủ.','This data is not complete.'],['Mọi người phải theo pháp luật.','Everyone must follow the law.'],['Con chó đuổi con mèo.','The dog chased the cat.'],['Quả bom đã nổ rồi.','The bomb exploded.'],['Ai điều khiển máy này?','Who operates this machine?'],['Cái đó có hại cho sức khoẻ.','That is harmful to your health.'],['Bữa ăn hoàn hảo quá.','The meal was perfect.'],['Hội đồng họp chiều nay.','The council meets this afternoon.'],['Thương hiệu này nổi tiếng.','This brand is famous.'],['Con em thích trò chơi này.','My child likes this game.'],['Anh nghĩ tích cực lên nhé.','Think positively.'],['Tài sản của ông ấy nhiều lắm.','His assets are considerable.'],['Ai điều hành công ty này?','Who runs this company?'],['Phiên bản mới ra rồi.','The new version is out.'],['Kiến thức của em còn ít.','My knowledge is still limited.'],['Em trao cái này cho anh.','I hand this to you.'],['Phong cách của anh lạ nhỉ.','Your style is unusual.'],['Mình hạn chế ăn ngọt nhé.','Let us cut down on sweet things.'],['Công ty mở rộng thêm.','The company is expanding.'],['Hạt gạo này to quá.','These rice grains are large.'],['Em sáng tạo lắm đấy.','You are very creative.'],['Hình thức thi thế nào ạ?','What is the format of the exam?'],['Tác phẩm này nổi tiếng.','This work is famous.'],['Giao dịch xong rồi ạ.','The transaction is complete.'],['Mũi em bị nghẹt.','My nose is blocked.'],['Em hết sức cố gắng rồi.','I tried with all my might.'],['Ai chỉ đạo việc này?','Who is directing this?'],['Có tai nạn ở ngã tư.','There was an accident at the junction.'],['Tài liệu ở trên bàn ạ.','The documents are on the table.'],['Em cân được bao nhiêu?','How much do you weigh?'],['Anh ấy đi tù ba năm.','He went to prison for three years.'],['Thí sinh vào phòng thi đi.','Candidates, please enter the exam room.'],['Tỷ lệ đỗ năm nay cao.','The pass rate is high this year.'],['Nước mình xuất khẩu gạo.','Our country exports rice.'],['Cần tăng cường an ninh.','Security needs strengthening.'],['Mình trao đổi thêm nhé.','Let us discuss it further.'],['Hai màu lẫn vào nhau.','The two colours blended together.'],['Chia phân nửa cho em.','Give me half of it.'],['Đó là sai lầm lớn.','That was a big mistake.'],['Não người phức tạp lắm.','The human brain is very complex.'],['Ai chỉ huy đội này?','Who commands this team?'],['Trái tim em đập nhanh.','My heart is beating fast.'],['Máy kết nối mạng chưa?','Is the machine connected to the network?'],['Lần này em thất bại rồi.','I failed this time.'],['Họ khai thác mỏ ở đó.','They mine there.'],['Tập đoàn này rất lớn.','This corporation is very large.'],['Em mong muốn được đi học.','I wish to go and study.'],['Anh ấy làm việc chuyên nghiệp.','He works professionally.'],['Em tham dự buổi họp ạ.','I attended the meeting.'],['Việc này góp phần cho xã hội.','This contributes to society.'],['Em chứng minh được mà.','I can prove it.'],['Con quỷ trong truyện đó.','The devil in that story.'],['Mình phân tích kỹ hơn nhé.','Let us analyse it more closely.'],['Em mua đồ điện tử ở đây.','I buy electronics here.'],['Nhân vật này hay lắm.','This character is very good.'],['Bộ phận này hỏng rồi.','This part is broken.'],['Ông ấy là tướng về hưu.','He is a retired general.'],['Anh ấy là tiến sĩ ạ.','He holds a doctorate.'],['Em sống ở Hồ Chí Minh.','I live in Ho Chi Minh City.'],['Chính quyền địa phương lo việc đó.','The local government handles that.'],['Kính chào quý khách.','Welcome, dear customers.'],['Em ước được về nhà.','I wish I could go home.'],['Ông ấy bị ung thư.','He has cancer.'],['Hai ngàn đồng thôi ạ.','Only two thousand dong.'],['Phòng được trang bị đầy đủ.','The room is fully equipped.'],['Một đống quần áo bẩn.','A pile of dirty clothes.'],['Tình cảm hai người tốt.','The two of them are close.'],['Chúc anh mọi việc tốt đẹp.','I wish you well in everything.'],['Công ty có chiến lược mới.','The company has a new strategy.'],['Đừng ném đồ như thế.','Do not throw things like that.'],['Cái ly vỡ mất rồi.','The glass has broken.'],['Em học xuất sắc lắm.','You study excellently.'],['Một mảnh giấy nhỏ thôi.','Just a small piece of paper.'],['Đây là dấu hiệu tốt.','This is a good sign.'],['Nhà trường thông báo rồi.','The school has announced it.'],['Thanh tra đến kiểm tra.','The inspectors came to check.'],['Du khách đến đây nhiều.','Many tourists come here.'],['Em nỗ lực hết sức rồi.','I have made every effort.'],['Em cảm nhận được điều đó.','I can sense that.'],['Họ bầu anh ấy làm chủ tịch.','They elected him chairman.'],['Trận đấu hay quá anh nhỉ.','That was a great match.'],['Hai cái này khác biệt lắm.','These two are very different.'],['Việc đó tác động đến em.','That affects me.'],['Ai giám sát công trình này?','Who supervises this construction?'],['Sản phẩm đạt tiêu chuẩn rồi.','The product meets the standard.'],['Kỹ năng của em còn yếu.','My skills are still weak.'],['Nông nghiệp ở đây phát triển.','Agriculture here is developing.'],['Năng lực của anh ấy tốt.','His capability is good.'],['Ngọn núi kia cao lắm.','That mountain peak is very high.'],['Vợ chồng em sống ở đây.','My spouse and I live here.'],['Ngực em hơi đau.','My chest hurts a little.'],['Em thích phim Hàn Quốc.','I like Korean films.'],['Trẻ con sợ ma lắm.','Children are very afraid of ghosts.'],['Con cú kêu ban đêm.','The owl calls at night.'],['Mình xem xét lại nhé.','Let us look at it again.'],['Tính năng này mới có.','This feature is new.'],['Em đi hay là anh đi?','Are you going or am I?'],['Cô ấy làm về thời trang.','She works in fashion.'],['Diễn viên đó nổi tiếng lắm.','That actor is very famous.'],['Có người trộm xe em.','Someone stole my bike.'],['Đô thị ngày càng đông.','Cities are getting more crowded.'],['Khách sạn này cao cấp lắm.','This hotel is very high-end.'],['Hàng hoá về đến kho rồi.','The goods have arrived at the warehouse.'],['Tác giả cuốn sách này là ai?','Who is the author of this book?'],['Ê, đợi em với!','Oi, wait for me!'],['Công ty hàng đầu trong ngành.','The leading company in the field.'],['Con khỉ leo lên cây.','The monkey climbed the tree.'],['Trời mưa, vì thế em ở nhà.','It rained, therefore I stayed home.'],['Chào mừng anh đến Việt Nam.','Welcome to Vietnam.'],['Ông ấy là anh hùng.','He is a hero.'],['Quốc hội họp tháng sau.','The National Assembly meets next month.'],['Uỷ ban quyết định rồi.','The committee has decided.'],['Cảm xúc của em lẫn lộn.','My feelings are mixed.'],['Chính phủ trung ương ở Hà Nội.','The central government is in Hanoi.'],['Cầu thủ đó đá hay lắm.','That player plays very well.'],['Người tiêu dùng cần biết.','Consumers need to know.'],['Địa điểm ở đâu hả anh?','Where is the location?'],['Kinh tế tăng trưởng tốt.','The economy is growing well.'],['Chị ấy có thai rồi.','She is pregnant.'],['Đời sống ở đây khá tốt.','Life here is quite good.'],['Hành vi đó không đúng.','That behaviour is not right.'],['Em nêu ý kiến trong buổi họp.','I raised a point in the meeting.'],['Bộ trưởng vừa phát biểu xong.','The minister has just spoken.'],['Ông ấy là đại biểu quốc hội.','He is a member of the National Assembly.'],['Đừng chạm vào cái đó.','Do not touch that.'],['Dự kiến tuần sau xong ạ.','It is expected to be done next week.'],['Chị ấy xinh đẹp thật.','She really is beautiful.'],['Phương tiện đi lại ở đây tiện lắm.','Transport here is very convenient.'],['Sự nghiệp của anh ấy đang lên.','His career is taking off.'],['Tay em dính mực rồi.','My hand has ink on it.'],['Hai đội thi đấu chiều nay.','The two teams compete this afternoon.'],['Phong trào này lan rộng lắm.','This movement has spread widely.'],['Trái Đất là một hành tinh.','The Earth is a planet.'],['Thu nhập của em không cao.','My income is not high.'],['Thằng bé bám lấy mẹ nó.','The boy clung to his mother.'],['Em tiếp cận vấn đề khác đi.','Approach the problem differently.'],['Thầy ấy là giáo sư đại học.','He is a university professor.'],['Bố em vừa phẫu thuật xong.','My dad has just had surgery.'],['Không ai thay thế được anh.','Nobody can replace you.'],['Cái này có lợi ích gì ạ?','What benefit does this have?'],['Em đừng ngốc thế chứ.','Do not be so silly.'],['Cảnh sát bắt tội phạm rồi.','The police caught the criminal.'],['Em nghi ngờ chuyện đó lắm.','I really doubt that.'],['Anh bảo đảm là đúng chứ?','Do you guarantee it is right?'],['Bọn em muốn khám phá vùng này.','We want to explore this area.'],['Cuộc chiến kéo dài nhiều năm.','The war lasted many years.'],['Châu Á rộng nhất thế giới.','Asia is the largest continent in the world.'],['Tình hình nghiêm trọng lắm anh.','The situation is very serious.'],['Cách mạng thay đổi cả đất nước.','The revolution changed the whole country.'],['Thủ tướng sẽ đến thăm.','The prime minister will visit.'],['Chủ đề hôm nay là gì ạ?','What is today\'s topic?'],['Anh ấy có chuyên môn về máy tính.','He has expertise in computers.'],['Em ngủ một giấc ngon lành.','I had a good sleep.'],['Có con chuột trong bếp.','There is a mouse in the kitchen.'],['Mua một cặp vé nhé anh.','Buy a pair of tickets.'],['Ai phát biểu trước ạ?','Who speaks first?'],['Uống nhiều rượu hại gan lắm.','Too much alcohol damages the liver.'],['Việc này đòi hỏi nhiều thời gian.','This requires a lot of time.'],['Em nhập số vào đây nhé.','Enter the number here.'],['Vé hạng nhất đắt lắm.','First-class tickets are very expensive.'],['Cho em một cây kem.','Give me an ice cream.'],['Tín hiệu ở đây yếu quá.','The signal here is very weak.'],['Hai công ty liên kết với nhau.','The two companies are linked.'],['Ma tuý là chuyện rất nặng.','Drugs are a very serious matter.'],['Em nghe đài buổi sáng.','I listen to the radio in the morning.'],['Lời nói đó làm em tổn thương.','Those words hurt me.'],['Trời mưa cho nên em ở nhà.','It rained, so I stayed home.'],['Đừng làm chuyện ngu ngốc.','Do not do anything stupid.'],['Giáo dục giới tính rất cần thiết.','Sex education is very necessary.'],['Thành phố quy hoạch lại khu này.','The city is replanning this area.'],['Công ty vừa tuyên bố phá sản.','The company has just declared bankruptcy.'],['Dân số Việt Nam đông lắm.','Vietnam\'s population is very large.'],['Nó đe doạ em qua điện thoại.','He threatened me over the phone.'],['Anh ấy luôn luôn đúng giờ.','He is always on time.'],['Anh có bằng chứng gì không?','Do you have any evidence?'],['Phim về một đặc vụ người Mỹ.','The film is about an American agent.'],['Em quan sát kỹ rồi mới nói.','I observed carefully before speaking.'],['Đội ngũ của mình rất mạnh.','Our team is very strong.'],['Em thích âm nhạc cổ điển.','I like classical music.'],['Căn cứ vào đâu anh nói vậy?','On what basis do you say that?'],['Đây là công cụ rất hữu ích.','This is a very useful tool.'],['Đồng lúa xanh mướt.','The rice fields are lush green.'],['Cho dù mưa em vẫn đi.','Even if it rains I will still go.'],['Thông thường em dậy lúc sáu giờ.','I usually get up at six.'],['Anh ấy sống ở New York.','He lives in New York.'],['Ờ, để anh xem đã.','Yeah, let me have a look first.'],['Mức độ khó vừa phải thôi.','The difficulty level is moderate.'],['Anh Tây kia nói tiếng Việt giỏi.','That Western guy speaks good Vietnamese.'],['Sản phẩm ra mắt tháng sau.','The product launches next month.'],['Bỏ qua chuyện đó đi anh.','Let that go.'],['Xe chạy qua đường hầm.','The car went through the tunnel.'],['Điểm trung bình của em là bảy.','My average score is seven.'],['Em ngu lắm, đừng cười.','I am so stupid, do not laugh.'],['Em bị đau ngón tay.','My finger hurts.'],['Xu hướng năm nay khác hẳn.','This year\'s trend is completely different.'],['Anh ấy không tỏ thái độ gì.','He did not show any reaction.'],['Còn năm dặm nữa thôi.','Only five miles to go.'],['Cẩn thận kẻo đâm vào xe kia.','Careful you do not hit that car.'],['Ngành truyền thông phát triển nhanh.','The media industry is growing fast.'],['Sinh hoạt ở đây khá rẻ.','Living costs here are quite cheap.'],['Cơ thể người có nhiều tế bào.','The human body has many cells.'],['Ngày xưa họ đi săn thú.','In the old days they hunted animals.'],['Em thuyết phục mãi nó mới nghe.','I persuaded him for ages before he listened.'],['Thói quen hình thành từ nhỏ.','Habits form from childhood.'],['Thế kỷ hai mươi mốt rồi anh.','It is the twenty-first century.'],['Nó coi em như kẻ thù.','He treats me like an enemy.'],['Thủ tục hành chính rườm rà lắm.','The administrative procedures are very cumbersome.'],['Anh ấy học ở Hoa Kỳ.','He studied in the United States.'],['Em chứng kiến toàn bộ chuyện đó.','I witnessed the whole thing.'],['Tâm lý em chưa ổn định.','My state of mind is not settled yet.'],['Màu này nổi bật quá.','This colour really stands out.'],['Cửa mở tự động anh ạ.','The door opens automatically.'],['Tình huống này khó xử lắm.','This situation is very awkward.'],['Rót cho em một tách trà.','Pour me a cup of tea.'],['Hàng này nhập khẩu từ Nhật.','These goods are imported from Japan.'],['Bọn em leo lên đỉnh núi.','We climbed to the mountain peak.'],['Á, đau quá!','Ouch, that hurts!'],['Âm thanh ở đây hay lắm.','The sound here is very good.'],['Anh lùi xe lại một chút.','Back the car up a bit.'],['Em sợ hãi khi nghe tin đó.','I was frightened when I heard that news.'],['Bọn em ngắm biển cả buổi chiều.','We admired the sea all afternoon.'],['Bà em sống ở thôn quê.','My grandma lives in a village.'],['Thời tiết hôm nay tồi tệ quá.','The weather today is terrible.'],['Treo cái áo lên đi em.','Hang the shirt up.'],['Thiết kế này độc đáo thật.','This design really is original.'],['Bàn tay em lạnh quá.','My hands are so cold.'],['Đây là hiện tượng bình thường.','This is a normal phenomenon.'],['Tối đa là năm người thôi.','Five people at most.'],['Báo chí đưa tin rồi.','The press has reported it.'],['Cảnh sát tìm ra động cơ gây án.','The police found the motive.'],['Hoàn cảnh gia đình em khó khăn.','My family circumstances are difficult.'],['Chuyện này liên quan đến đạo đức.','This is a matter of ethics.'],['Em giơ tay lên hỏi.','I raised my hand to ask.'],['Em bị đau ruột.','I have stomach pain.'],['Làm như vầy nè anh.','Do it like this.'],['Cái chuông reo rồi kìa.','The bell has rung.'],['Sợi dây này ngắn quá.','This string is too short.'],['Đó là một đòn rất mạnh.','That was a very heavy blow.'],['Con ngựa bạch đẹp lắm.','The white horse is beautiful.'],['Em đứng ở ngưỡng cửa.','I stood at the doorway.'],['Cái đó rỗng bên trong.','That is hollow inside.'],['Cho em một đô-la thôi.','Just one dollar for me.'],['Quả bóng lăn xuống dốc.','The ball rolled down the slope.'],['Con nhện trên tường kìa.','There is a spider on the wall.'],['Đừng lắc đầu như thế.','Do not shake your head like that.'],['Cho em ly cà-phê sữa đá.','An iced milk coffee for me.'],['Em vạch ra kế hoạch rồi.','I have drawn up a plan.'],['Em bị đau sườn.','My ribs hurt.'],['Con voi to thật đấy.','The elephant really is huge.'],['Anh ấy cạo râu mỗi sáng.','He shaves every morning.'],['Em xả nước ra chậu.','I ran the water into the basin.'],['Đi mua sắm với em nhé.','Come shopping with me.'],['Con thuyền có cánh buồm trắng.','The boat has a white sail.'],['Rửa tay cho sạch vi khuẩn.','Wash your hands to get rid of the bacteria.'],['Ngoài đường náo nhiệt quá.','The street is so lively.'],['Cái ao có nhiều cặn.','The pond has a lot of sediment.'],['Nó cầm cây gậy trong tay.','He held a stick in his hand.'],['Đường sá lộn xộn quá.','The roads are in complete disorder.'],['Em chẳng biết gì đâu.','I do not know anything at all.'],['Ngươi là ai?','Who are you?'],['Em tỉnh dậy lúc sáu giờ.','I woke up at six.'],['Da em bị khô.','My skin is dry.'],['Nó bắn trúng mục tiêu.','He hit the target.'],['Bao giờ anh trở lại ạ?','When are you coming back?'],['Vốn của công ty còn ít.','The company\'s capital is low.'],['A, em nhớ ra rồi!','Ah, I remember now!'],['Xếp thành một dòng nhé.','Line up in a row.'],['Anh nâng cái này giúp em.','Help me lift this.'],['Nền kinh tế đang phục hồi.','The economy is recovering.'],['Bác sĩ điều trị cho em.','The doctor is treating me.'],['Em theo dõi tin tức mỗi ngày.','I follow the news every day.'],['Đoạn đường này xấu lắm.','This stretch of road is bad.'],['Giai đoạn này khó khăn nhất.','This stage is the hardest.'],['Chìa khoá rơi xuống đất.','The key fell on the ground.'],['Chai này chứa một lít.','This bottle holds one litre.'],['Đội em giành chiến thắng.','My team took the win.'],['Cả khối nhà bị mất điện.','The whole block lost power.'],['Tuyến xe buýt này mới mở.','This bus route is new.'],['Cho em cái hộp kia.','Give me that box.'],['Thanh niên bây giờ giỏi lắm.','Young people these days are very capable.'],['Đây là mô hình mới nhất.','This is the newest model.'],['Em bị đau xương.','My bones ache.'],['Tiếng Anh của em còn kém.','My English is still poor.'],['Quỹ này giúp trẻ em nghèo.','This fund helps poor children.'],['Em làm tận tối mới xong.','I worked right up until night.'],['Gắn cái này vào đây nhé.','Attach this here.'],['Mình duy trì thói quen đó.','We keep up that habit.'],['Nông dân trồng lúa ở đây.','Farmers grow rice here.'],['Pha cho em ly nước chanh.','Make me a lemonade.'],['Cái váy này đẹp quá.','This dress is lovely.'],['Chuyện tình dục là chuyện riêng tư.','Sex is a private matter.'],['Bãi cát trắng đẹp lắm.','The white sand beach is beautiful.'],['Anh chở em đi được không?','Can you give me a lift?'],['Nụ hoa sắp nở rồi.','The bud is about to open.'],['Em lỡ chuyến xe rồi.','I missed the bus.'],['Thành phần trong này là gì?','What are the ingredients in this?'],['Mình thảo luận thêm nhé.','Let us discuss it further.'],['Quá khứ qua rồi anh ạ.','The past is over.'],['Mi đi đâu vậy?','Where are you going?'],['Chiến trận kéo dài ba ngày.','The battle lasted three days.'],['Họ cử anh ấy đi họp.','They sent him to the meeting.'],['Em soi gương một chút.','Let me look in the mirror.'],['Bọn em đi tham quan bảo tàng.','We went to visit the museum.'],['Em tải phim về máy rồi.','I downloaded the film.'],['Chỉ ba người sống sót thôi.','Only three people survived.'],['Áo màu hồng đẹp lắm.','The pink shirt is lovely.'],['Đàn bà con gái ở nhà hết.','All the women stayed home.'],['Cả phòng im lặng luôn.','The whole room went silent.'],['Anh ấy có cổ phần trong công ty.','He has equity in the company.'],['Đường tan trong nước nóng.','Sugar dissolves in hot water.'],['Giá bất động sản tăng nhanh.','Property prices are rising fast.'],['Lợi nhuận năm nay tốt.','Profits are good this year.'],['Đó là công trình vĩ đại.','That is a great work.'],['Đội em vô địch rồi!','My team are champions!'],['Anh ấy sống ở bang Texas.','He lives in the state of Texas.'],['Công ty đổi mới cách làm việc.','The company is modernising how it works.'],['Chiến dịch này kéo dài một tháng.','This campaign runs for a month.'],['Đừng ép em uống nữa.','Do not force me to drink any more.'],['Bọn em đang thử nghiệm sản phẩm.','We are trialling the product.'],['Cuốn sách ra đời năm ngoái.','The book came out last year.'],['Ừm, để em nghĩ đã.','Um, let me think.'],['Ngân sách năm nay hạn chế.','This year\'s budget is limited.'],['Nhà máy chế biến cà phê.','The factory processes coffee.'],['Con bé có tài năng thật.','She really has talent.'],['Em hoàn thiện hồ sơ rồi.','I have finished the paperwork.'],['Hòn đảo kia đẹp lắm.','That island is beautiful.'],['Em thích thiên nhiên hơn thành phố.','I prefer nature to the city.'],['Em truy cập vào trang web đó.','I accessed that website.'],['Im đi, anh đang nghe.','Be quiet, I am listening.'],['Trang phục truyền thống đẹp quá.','The traditional dress is beautiful.'],['Công nhân làm ca đêm.','The workers do the night shift.'],['Em nhận thức được vấn đề.','I am aware of the problem.'],['Em đọc tạp chí này hàng tháng.','I read this magazine every month.'],['Anh ấy học quản trị kinh doanh.','He studies business administration.'],['Em tổng hợp lại số liệu.','I will pull the figures together.'],['Đồ khốn kiếp, cút đi!','You bastard, get lost!'],['Đây là nhà tập thể cũ.','This is an old communal housing block.'],['Kiến trúc ở Huế rất đẹp.','The architecture in Huế is beautiful.'],['Kích thước cái bàn bao nhiêu?','What size is the table?'],['Giá cổ phiếu giảm hôm nay.','Share prices fell today.'],['Nó xì hơi rồi.','It has gone flat.'],['Chú ve kêu suốt mùa hè.','The cicadas call all summer.'],['Con ong đậu trên hoa.','The bee landed on the flower.'],['Nhà có bốn người, tứ đại đồng đường.','Four generations under one roof.'],['Hắn dùng chiêu đó hoài.','He always uses that trick.'],['Cầm cây gươm lên đi.','Pick up the sword.'],['Con tàu chiến hạm rất lớn.','The battleship is very large.'],['Ông ấy giàu phú quý lắm.','He is extremely wealthy.'],['Đẳng cấp khác hẳn.','A completely different class.'],['Hỡi các bạn, nghe đây!','Friends, listen here!'],['Đứa trẻ mồ côi ấy.','That orphaned child.'],['Bọn hải tặc cướp tàu.','The pirates seized the ship.'],['Đừng chửi rủa như thế.','Do not curse like that.'],['Nó vồ lấy quả bóng.','He pounced on the ball.'],['Cây đao trong phim đó.','The blade in that film.'],['Học sinh lớp em rất ngoan.','The pupils in my class are well behaved.'],['Em bổ sung thêm thông tin.','I will add more information.'],['Bậc thang này cao quá.','This step is too high.'],['Cần có biện pháp mạnh hơn.','Stronger measures are needed.'],['Chiếc nhẫn bạc này đẹp.','This silver ring is lovely.'],['Chà, ngon thật đấy!','Wow, that really is good!'],['Công ty tuyển thêm người.','The company is recruiting more people.'],['Con đường lộ ra sau mưa.','The road appeared after the rain.'],['Anh trai em làm bác sĩ.','My older brother is a doctor.'],['Thuyền trưởng ra lệnh nhổ neo.','The captain ordered them to weigh anchor.'],['Tóm lại là em không đi.','In short, I am not going.'],['Toà nhà khổng lồ ở kia.','There is a gigantic building over there.'],['Cần ngăn chặn việc đó.','That needs to be stopped.'],['Đại hội diễn ra tuần sau.','The congress takes place next week.'],['Anh ấy đi nghĩa vụ quân sự.','He is doing military service.'],['Em mở thẻ tín dụng rồi.','I opened a credit card.'],['Anh ấy là nghệ sĩ nổi tiếng.','He is a famous artist.'],['Món ăn ở đây đa dạng lắm.','The food here is very varied.'],['Cột điện bị đổ rồi.','The electricity pole fell over.'],['Bố mẹ yêu thương con cái.','Parents love their children.'],['Xứ này lạ lắm anh ạ.','This land is very strange.'],['Em yêu anh mãi mãi.','I will love you forever.'],['Mai có hội thảo ở trường.','There is a seminar at school tomorrow.'],['Đây là vấn đề toàn cầu.','This is a global issue.'],['Tàu cập cảng sáng nay.','The ship docked this morning.'],['Khớp gối em đau lắm.','My knee joint really hurts.'],['Nhà thờ đó xây từ lâu.','That church was built long ago.'],['Học viên trong lớp đông lắm.','There are a lot of students in the class.'],['Mình phát huy điểm mạnh nhé.','Let us play to our strengths.'],['Xe cảnh sát chặn đường.','The police car blocked the road.'],['Anh đến kịp thời quá.','You arrived just in time.'],['Thời kỳ đó khó khăn lắm.','That period was very hard.'],['Anh ấy đi Ấn Độ công tác.','He went to India for work.'],['Bọn em tìm đối tác mới.','We are looking for a new partner.'],['Dự án có quy mô lớn.','The project is large in scale.'],['Điện thoại di động của em cũ rồi.','My mobile phone is old.'],['Em bị căng thẳng thần kinh.','My nerves are frayed.'],['Số liệu thống kê rất rõ.','The statistics are very clear.'],['Bữa ăn cần đủ dinh dưỡng.','A meal needs enough nutrition.'],['Bọn em đi lễ đền.','We went to the temple.'],['Đây là nguyên tắc chung.','This is a general principle.'],['Bọn em làm thí nghiệm ở trường.','We did an experiment at school.'],['Vụ khủng bố xảy ra năm ngoái.','The terrorist attack happened last year.'],['Ai cũng công nhận điều đó.','Everyone acknowledges that.'],['Có giới hạn thời gian không anh?','Is there a time limit?'],['Đậy kín nắp lại nhé.','Seal the lid tightly.'],['Em tìm trên Google rồi.','I already searched on Google.'],['Trình độ tiếng Anh của em khá.','My English level is decent.'],['Khách sạn này sang trọng lắm.','This hotel is very luxurious.'],['Cất vào tủ giúp em.','Put it in the cupboard for me.'],['Việc này được ưu tiên trước.','This gets priority.'],['Thợ sửa chữa đến chưa anh?','Has the repairman come yet?'],['Em thích ăn tôm nướng.','I like grilled prawns.'],['Vùng đất này màu mỡ lắm.','This land is very fertile.'],['Công chúa trong truyện cổ tích.','The princess in the fairy tale.'],['Con số tăng đáng kể.','The figure rose significantly.'],['Anh ấy huấn luyện đội trẻ.','He coaches the youth team.'],['Xoay cái ghế lại đây.','Turn the chair round this way.'],['Việt Nam độc lập từ năm bốn lăm.','Vietnam has been independent since forty-five.'],['Em tiếp xúc với khách hàng nhiều.','I deal with customers a lot.'],['Ông ấy có quyền lực lớn.','He holds great power.'],['Con mèo này béo quá.','This cat is so fat.'],['Bọn em uống cà-phê sáng nay.','We had coffee this morning.'],['Vé có giá năm đô-la.','The ticket costs five dollars.'],['Bánh tráng ăn kèm rau sống.','The rice paper is eaten with fresh herbs.'],['Nó cưỡng lại không được.','He could not resist.'],['Hàng rập khuôn hết cả.','The goods are all identical.'],['Cái chày giã tiêu ở đâu?','Where is the pestle for the pepper?'],['Cái sọ dừa cứng lắm.','The coconut shell is very hard.'],['Nước toả ra khắp sàn.','Water spread all over the floor.'],['Nhá cho em một cuộc.','Give me a missed call.'],['Cái đầm này đẹp quá.','This dress is lovely.'],['Tấm màng mỏng lắm.','The membrane is very thin.'],['Ông ấy tẩu thoát rồi.','He has escaped.'],['Trông kỳ quặc thật.','It really does look odd.'],['Tính tình nó quá tà.','His nature is twisted.'],['Đừng nói đếch gì cả.','Do not say a damn thing.'],['Ông ấy làm tể tướng.','He served as chancellor.'],['Lăng Bác ở Hà Nội.','The mausoleum is in Hanoi.'],['Bùa yểm trong truyện đó.','The hex in that story.'],['Kính thưa các đấng bậc.','Respected elders.'],['Nó nã đạn liên tục.','He fired continuously.'],['Cành diệp xanh mướt.','The green leaves are lush.'],['Con đó làm nghề đĩ.','She works as a prostitute.'],['Lời nói đoan chính lắm.','Very upright words.'],['Số ba là số tam.','Three is tam in Sino-Vietnamese.'],['Ông ấy làm hoạn quan.','He was a eunuch.'],['Kẻ vong ân bội nghĩa.','An ungrateful person.'],['Hai cái này giống nhau.','These two are the same.'],['Họ xây dựng cây cầu mới.','They are building a new bridge.'],['Vấn đề xuất hiện từ hôm qua.','The problem appeared yesterday.'],['Viết lên bảng đi em.','Write it on the board.'],['Màn hình điện thoại bị vỡ.','The phone screen is cracked.'],['Bọn em đi lễ chùa đầu năm.','We go to the pagoda at new year.'],['Cái ống nước bị tắc.','The pipe is blocked.'],['Nước chảy mạnh quá.','The water is flowing hard.'],['Mùa xuân hoa nở đẹp lắm.','In spring the flowers are beautiful.'],['Anh ấy làm ăn khá lắm.','He is doing quite well in business.'],['Lá cờ đỏ sao vàng.','The red flag with the yellow star.'],['Con mèo rụng lông nhiều.','The cat sheds a lot of fur.'],['Việc này phụ thuộc vào thời tiết.','This depends on the weather.'],['Đừng ăn bả chuột đó.','Do not touch that rat poison.'],['Linh hồn người đã khuất.','The soul of the departed.'],['Gương mặt em buồn quá.','Your face looks so sad.'],['Nó phản bội bạn bè.','He betrayed his friends.'],['Cả lô hàng bị hỏng.','The whole batch of goods is spoiled.'],['Anh ấy từ bỏ nghề cũ.','He gave up his old trade.'],['Phim phát hành tháng sau.','The film comes out next month.'],['Mình khắc phục lỗi này nhé.','Let us fix this fault.'],['Con rồng trong truyền thuyết.','The dragon in the legend.'],['Họ sản xuất hàng loạt.','They produce them in bulk.'],['Đó chỉ là tuyên truyền thôi.','That is just propaganda.'],['Tổng số là năm trăm.','The total is five hundred.'],['Cỏ ngoài sân cao quá.','The grass in the yard is too long.'],['Đề tài này thú vị lắm.','This topic is very interesting.'],['Bác sĩ bắt mạch cho em.','The doctor took my pulse.'],['Em đi Thái Lan tuần sau.','I am going to Thailand next week.'],['Công ty cam kết giao đúng hẹn.','The company commits to delivering on time.'],['Mình chấm dứt chuyện này nhé.','Let us put an end to this.'],['Cao một mét bảy mươi.','One metre seventy tall.'],['Vết thương bị nhiễm trùng.','The wound got infected.'],['Em trình bày ý kiến rồi.','I have presented my view.'],['Em để đâu đó trong nhà.','I put it somewhere in the house.'],['Cà phê kích thích thần kinh.','Coffee stimulates the nerves.'],['Cơ chế hoạt động thế nào ạ?','How does the mechanism work?'],['Giọng cô ấy quyến rũ lắm.','Her voice is very captivating.'],['Anh mô tả lại cho em.','Describe it again for me.'],['Vũ trụ rộng vô cùng.','The universe is boundless.'],['Sư huynh và sư đệ.','The senior and junior brothers.'],['Trường học gần nhà em.','The school is near my house.'],['Em ghi nhận ý kiến của anh.','I have noted your view.'],['Số ca gia tăng nhanh.','The number of cases is rising fast.'],['Chính sách thúc đẩy sản xuất.','The policy promotes production.'],['Vật liệu xây dựng đắt lên.','Building materials have got dearer.'],['Hàng tiêu thụ chậm quá.','The goods are selling slowly.'],['Chớ có nói vậy.','Do not say that.'],['Thuốc này tiêu diệt vi khuẩn.','This medicine kills bacteria.'],['Ngày giải phóng miền Nam.','The day the South was liberated.'],['Công ty phân phối hàng cả nước.','The company distributes nationwide.'],['Cái bàn tròn ở giữa nhà.','The round table in the middle of the room.'],['Đời sống vật chất đầy đủ.','Material life is comfortable.'],['Vết thương đau đớn lắm.','The wound is very painful.'],['Con lạy bố mẹ.','I bow to my parents.'],['Phóng viên hỏi rất nhiều.','The reporter asked a lot of questions.'],['Quyển sách này dày quá.','This book is very thick.'],['Ông ấy là đại tá về hưu.','He is a retired colonel.'],['Đó là một bi kịch.','That was a tragedy.'],['Anh ấy là sĩ quan quân đội.','He is an army officer.'],['Hôn nhân của họ hạnh phúc.','Their marriage is a happy one.'],['Em đi tiêm vắc xin rồi.','I have had the vaccine.'],['Em tính toán lại chi phí.','I recalculated the costs.'],['Mình có phương án khác không?','Do we have another plan?'],['Cởi áo khoác ra đi em.','Take your jacket off.'],['Lãi suất ngân hàng tăng rồi.','Bank interest rates have gone up.'],['Bọn chúng bắt cóc đứa trẻ.','They kidnapped the child.'],['Cho em một ly cà-phê đen.','One black coffee for me.'],['Chị ấy tên là Sam.','Her name is Sam.'],['Con ả kia đanh đá lắm.','That woman is very sharp-tongued.'],['Người ta nói vậy đó.','That is what people say.'],['Nhu cầu thị trường tăng cao.','Market demand is rising.'],['Đổ thêm dầu vào chảo.','Add more oil to the pan.'],['Trừ em ra thì ai cũng đi.','Everyone is going except me.'],['Nhà em ở phường Ba.','My house is in Ward Three.'],['Em bị viêm họng.','I have a throat infection.'],['Đi ngang qua nhà em nhé.','Go past my house.'],['Em nộp hồ sơ hôm qua.','I submitted the application yesterday.'],['Mang theo cái ô nhé.','Take an umbrella.'],['Cây bông này đẹp quá.','This cotton plant is lovely.'],['Đây là kỷ niệm hồi nhỏ.','This is a childhood memory.'],['Mùi hương thơm quá.','The scent is lovely.'],['Em học hằng ngày.','I study every day.'],['Đi dọc con đường này.','Go along this road.'],['Em sơn lại cái tường.','I repainted the wall.'],['Con chó vẫy đuôi mừng.','The dog wagged its tail happily.'],['Ý tưởng đó điên rồ quá.','That idea is insane.'],['Công đoàn bảo vệ công nhân.','The union protects the workers.'],['Chỉ số giá tăng nhẹ.','The price index rose slightly.'],['Em đầu tư chứng khoán.','I invest in stocks.'],['Mặt hàng này bán chạy lắm.','This product sells very well.'],['Cây mọc nhanh quá.','The plant grows so fast.'],['Mình loại bỏ phương án đó.','Let us drop that option.'],['Em bố trí bàn ghế lại.','I rearranged the tables and chairs.'],['Nhịp tim em nhanh quá.','My heart rate is too fast.'],['Cây kim này nhỏ lắm.','This needle is very small.'],['Giờ đây mọi thứ khác rồi.','Now everything is different.'],['Thầy khuyến khích em thi.','The teacher encouraged me to take the exam.'],['Máy khởi động chậm quá.','The machine boots up so slowly.'],['Em học cao đẳng ba năm.','I did three years at college.'],['Ngọn đồi phía sau nhà.','The hill behind the house.'],['Nhà em nuôi mấy con lợn.','My family keeps a few pigs.'],['Ông ấy là đại uý.','He is a captain.'],['Họ hy sinh vì đất nước.','They sacrificed themselves for the country.'],['Em học ngành kế toán.','I study accounting.'],['Ông ấy làm phó chủ tịch.','He is the vice-chairman.'],['Bà em thờ Phật.','My grandma is a Buddhist.'],['Bạn ấy có tiềm năng lắm.','She has a lot of potential.'],['Chất liệu áo này mềm.','The fabric of this shirt is soft.'],['Bão gây thiệt hại nặng.','The storm caused heavy damage.'],['Em có thắc mắc gì không?','Do you have any questions?'],['Đội em đánh bại đối thủ.','My team defeated the opponent.'],['Chim bồ câu là biểu tượng hoà bình.','The dove is a symbol of peace.'],['Con chuột mắc bẫy rồi.','The mouse is caught in the trap.'],['Cái ghế bằng nhựa thôi.','The chair is only plastic.'],['Mình thiết lập hệ thống mới.','We are setting up a new system.'],['Em so sánh hai cái này.','I am comparing these two.'],['Cô ấy giảng dạy ở trường.','She teaches at the school.'],['Nóng như địa ngục vậy.','It is hot as hell.'],['Bà em cầu nguyện mỗi tối.','My grandma prays every night.'],['Chủ nghĩa xã hội ở Việt Nam.','Socialism in Vietnam.'],['Tư tưởng của ông ấy tiến bộ.','His thinking is progressive.'],['Thầy nhấn mạnh phần này.','The teacher emphasised this part.'],['Đây là thử thách lớn.','This is a big challenge.'],['Cho em một ít muối.','Give me a little salt.'],['Quy trình làm việc rõ ràng.','The work process is clear.'],['Bánh nướng trong lò.','The cake is in the oven.'],['Cái bàn này vững lắm.','This table is very sturdy.'],['Con thuyền chìm rồi.','The boat sank.'],['Em nâng cấp điện thoại rồi.','I upgraded my phone.'],['Ẩm thực ở đây phong phú.','The food here is very varied.'],['Nhà máy điện hạt nhân.','A nuclear power plant.'],['Ông già ngồi ngoài hiên.','The old man sits on the porch.'],['Đó là một thách thức lớn.','That is a big challenge.'],['Em ở trên lầu ba.','I am on the third floor.'],['Vụ này ra toà án rồi.','This case has gone to court.'],['Mình đẩy mạnh sản xuất.','We are stepping up production.'],['Em tuyệt đối tin anh.','I trust you absolutely.'],['Đi xe thế là liều lắm.','Riding like that is reckless.'],['Trời mưa vậy mà nó vẫn đi.','It rained and yet he still went.'],['Giữ trật tự trong lớp nhé.','Keep order in the class.'],['Đó là biểu hiện của bệnh.','That is a symptom of the illness.'],['Bạn Ben học cùng lớp em.','Ben is in my class.'],['Em quay lại sau nhé.','I will come back later.'],['Đi bộ mấy bước thôi.','It is only a few steps.'],['Đi một vòng quanh hồ.','Go one lap around the lake.'],['Việc này nhằm giúp trẻ em.','This aims to help children.'],['Em trải chiếu ra sân.','I spread the mat out in the yard.'],['Rừng ở đây còn nhiều.','There is still a lot of forest here.'],['Trong tầm tay em thôi.','It is within my reach.'],['Em bị đau lưng.','My back hurts.'],['Hai bên ký thoả thuận.','The two sides signed an agreement.'],['Quảng cáo này hay quá.','This advert is great.'],['Anh ấy vận động mọi người.','He is rallying everyone.'],['Món này siêu ngon luôn.','This dish is super tasty.'],['Bóc vỏ trứng ra nhé.','Peel the eggshell off.'],['Bà ngoại em ở quê.','My maternal grandma lives in the country.'],['Cái phòng trống rồi.','The room is empty now.'],['Xếp vào thùng giúp em.','Put it in the box for me.'],['Cái cửa bằng thép.','The door is made of steel.'],['Tấm vải này mềm lắm.','This fabric is very soft.'],['Bọn em khảo sát ý kiến khách hàng.','We surveyed customer opinion.'],['Cảnh sát đến hiện trường ngay.','The police came straight to the scene.'],['Em bị bỏng lưỡi.','I burnt my tongue.'],['Phát triển bền vững là mục tiêu.','Sustainable development is the goal.'],['Nữ hoàng Anh băng hà.','The Queen of England has died.'],['Họ chôn con chó ngoài vườn.','They buried the dog in the garden.'],['Em bị viêm phổi.','I have pneumonia.'],['Em học tiếng Tây Ban Nha.','I study Spanish.'],['Em quyết tâm học xong.','I am determined to finish.'],['Anh ấy là công dân Việt Nam.','He is a Vietnamese citizen.'],['Trên trời nhiều mây quá.','There are so many clouds in the sky.'],['Kết luận của anh là gì?','What is your conclusion?'],['Số này tương đương một triệu.','This figure is equivalent to a million.'],['Nhà trường định hướng nghề nghiệp.','The school gives careers guidance.'],['Che nắng cho em với.','Shade me from the sun.'],['Em đọc trên diễn đàn.','I read it on the forum.'],['Em học trung học ở đây.','I did secondary school here.'],['Tài nguyên thiên nhiên phong phú.','Natural resources are abundant.'],['Họ thi công con đường mới.','They are building the new road.'],['Công ty tài trợ giải đấu.','The company sponsors the tournament.'],['Xếp gọn lại giúp em.','Tidy it up neatly for me.'],['Nhận định của anh rất đúng.','Your assessment is right.'],['Đây là món đặc trưng ở Huế.','This is a signature dish of Huế.'],['Em cố cân bằng công việc và gia đình.','I try to balance work and family.'],['Chỉ tiêu năm nay cao quá.','This year\'s target is too high.'],['Bão phá huỷ nhiều nhà.','The storm destroyed many houses.'],['Hai trường giao lưu văn nghệ.','The two schools had a cultural exchange.'],['Số phận con người khó nói.','Fate is hard to predict.'],['Đây là kế hoạch lâu dài.','This is a long-term plan.'],['Công ty vận tải hàng hoá.','The company transports goods.'],['Chế độ dân chủ ở nước đó.','Democracy in that country.'],['Anh quản lý chặt chẽ quá.','You manage it very tightly.'],['Anh ấy làm ngành ngoại giao.','He works in diplomacy.'],['Họ đấu tranh cho quyền lợi.','They fight for their rights.'],['Em có giấy chứng nhận rồi.','I have the certificate.'],['Cô giáo nhận xét bài của em.','The teacher commented on my work.'],['Bọn em lên gác hai.','We went up to the second floor.'],['Nhà em nuôi mấy con heo.','My family keeps a few pigs.'],['Doanh thu tháng này tốt.','This month\'s revenue is good.'],['Hoàng tử trong truyện cổ tích.','The prince in the fairy tale.'],['Một chuỗi cửa hàng lớn.','A big chain of shops.'],['Tối nay có trình diễn thời trang.','There is a fashion show tonight.'],['Nhắm mắt lại đi em.','Close your eyes.'],['Anh ấy được danh hiệu cao quý.','He received an honourable title.'],['Nhà nước ban hành luật mới.','The state promulgated a new law.'],['Kinh phí dự án còn thiếu.','The project funding is short.'],['Họ giam nó ba tháng.','They detained him three months.'],['Ông ấy nằm xuống năm ngoái.','He passed away last year.'],['Chuyện này kỳ lạ thật.','This really is strange.'],['Bác sĩ khâu vết thương.','The doctor stitched the wound.'],['Dân cư ở đây đông lắm.','The population here is large.'],['Máy vận hành tốt lắm.','The machine runs very well.'],['Đế giày em mòn rồi.','My shoe soles are worn.'],['Tia nắng chiếu qua cửa sổ.','A ray of sun came through the window.'],['Em học môn sinh học.','I study biology.'],['Chính phủ liên bang ở Mỹ.','The federal government in America.'],['Phạm vi công việc rộng lắm.','The scope of the job is broad.'],['Tiêu chí chấm điểm là gì?','What are the marking criteria?'],['Trường tiếp nhận hồ sơ đến cuối tháng.','The school accepts applications until month end.'],['Nghị quyết được thông qua rồi.','The resolution has been passed.'],['Hạ tầng giao thông còn yếu.','The transport infrastructure is still weak.'],['Lễ giáng sinh vui lắm.','Christmas is great fun.'],['Đây là nền tảng cơ bản.','This is the basic foundation.'],['Áo giặt xong bị co lại.','The shirt shrank in the wash.'],['Công ty thiếu nhân lực.','The company is short of manpower.'],['Phu nhân tổng thống đến thăm.','The president\'s wife visited.'],['Sự việc xảy ra tối qua.','The incident happened last night.'],['Quả me chua lắm.','Tamarind is very sour.'],['Em từng sống ở Huế.','I once lived in Huế.'],['Công ty tổ chức tiệc cuối năm.','The company is holding a year-end party.'],['Em tham gia câu lạc bộ bóng đá.','I joined the football club.'],['Nguồn tin này đáng tin.','This source is reliable.'],['Em thích kiểu tóc này.','I like this hairstyle.'],['Văn hoá Việt Nam thú vị lắm.','Vietnamese culture is fascinating.'],['Con sông chảy qua thành phố.','The river runs through the city.'],['Ổng đi làm rồi.','He has gone to work.'],['Quán này phục vụ tốt lắm.','The service here is very good.'],['Văn phòng em ở tầng năm.','My office is on the fifth floor.'],['Tụi em đi ăn nhé.','Let us go and eat.'],['Thả con chim ra đi.','Let the bird go.'],['Tinh thần em thoải mái lắm.','My spirits are good.'],['Anh ấy khẳng định là đúng.','He confirms it is right.'],['Rút tiền ở cây ATM.','Withdraw money from the ATM.'],['Việt Nam có nhiều dân tộc.','Vietnam has many ethnic groups.'],['Cục tẩy của em đâu?','Where is my eraser?'],['Bọn em ngồi bờ sông.','We sat on the riverbank.'],['Nét chữ em đẹp lắm.','Your handwriting is lovely.'],['Nhà em nuôi mấy con gà.','My family keeps a few chickens.'],['Súc miệng cho sạch nhé.','Rinse your mouth clean.'],['Vui ha anh!','Fun, right!'],['Công ty công bố kết quả rồi.','The company announced the results.'],['Ngồi ở góc kia đi em.','Sit in that corner.'],['Em thích đọc thơ.','I like reading poetry.'],['Khán giả vỗ tay rất lâu.','The audience clapped for a long time.'],['Nó tung tin đồn nhảm.','He spread a silly rumour.'],['Có nguy cơ mất việc.','There is a risk of losing the job.'],['Đợt này em bận lắm.','I am very busy this stretch.'],['Hai xe đua nhau trên đường.','The two bikes raced each other.'],['Cái cổng bằng sắt.','The gate is made of iron.'],['Trộn bột với nước nhé.','Mix the flour with water.'],['Gió thổi mạnh quá.','The wind is blowing hard.'],['Cái khung ảnh đẹp lắm.','The picture frame is lovely.'],['Ca sĩ bước lên sân khấu.','The singer stepped onto the stage.'],['Chuyện ăn uống quan trọng lắm.','Eating well really matters.'],['Anh miêu tả lại giúp em.','Describe it again for me.'],['Bát canh này ngon quá.','This bowl of soup is delicious.'],['Trần nhà bị thấm nước.','The ceiling is damp.'],['Em đo chiều cao rồi.','I measured the height.'],['Anh ấy là nhà văn nổi tiếng.','He is a famous writer.'],['Món nấm xào ngon lắm.','The stir-fried mushrooms are delicious.'],['Em ho suốt đêm qua.','I coughed all last night.'],['Người chiến binh dũng cảm.','The brave warrior.'],['Đồn công an ở gần đây.','The police station is near here.'],['Thằng bé hư quá.','That boy is very naughty.'],['Em hâm mộ ca sĩ đó.','I am a fan of that singer.'],['Anh ấy phụ trách bộ phận này.','He is in charge of this department.'],['Họ huy động vốn từ dân.','They raised capital from the public.'],['Thông điệp của bài này là gì?','What is the message of this piece?'],['Em học tiểu học ở quê.','I went to primary school in the country.'],['Cái này trị giá mười triệu.','This is worth ten million.'],['Điều đó chứng tỏ em đúng.','That proves I was right.'],['Đặc điểm của giống này là gì?','What are the features of this breed?'],['Đời bà em khổ lắm.','My grandma had a hard life.'],['Nó bị rối loạn tiêu hoá.','He has a digestive disorder.'],['Cả dãy nhà mới xây.','The whole row of houses is new.'],['Đương nhiên là em đi rồi.','Obviously I am going.'],['Thời tiết biến đổi thất thường.','The weather is changing unpredictably.'],['Con gấu to lắm.','The bear is huge.'],['Em học ngành văn học.','I study literature.'],['Con cá mắc lưới rồi.','The fish is caught in the net.'],['Mua đồ chơi cho con nhé.','Buy a toy for the child.'],['Đừng lôi em vào chuyện đó.','Do not drag me into that.'],['Tháo cái bánh xe ra.','Take the wheel off.'],['Máy lọc nước nhà em hỏng.','Our water filter is broken.'],['Em gởi thư cho anh rồi.','I sent you the letter.'],['Thay vì đi xe, mình đi bộ.','Instead of riding, let us walk.'],['Vụ việc đang được điều tra.','The case is under investigation.'],['Móng tay em dài quá.','My nails are too long.'],['Đáy nồi bị cháy rồi.','The bottom of the pot is burnt.'],['Hai phe cãi nhau suốt.','The two sides argue constantly.'],['Khủng hoảng kinh tế năm đó.','The economic crisis that year.'],['Bức tường xây bằng gạch.','The wall is built of brick.'],['Cho em một cốc nước.','A glass of water for me.'],['Ông ấy đi tu từ nhỏ.','He entered monastic life as a child.'],['Mẹ em gánh hàng ra chợ.','My mum carried the goods to market.'],['Ở đó có tuyết không anh?','Does it snow there?'],['Ghép hai mảnh lại với nhau.','Join the two pieces together.'],['Thuỷ sản xuất khẩu nhiều.','A lot of seafood is exported.'],['Buông tay ra đi em.','Let go.'],['Mụ già trong truyện đó.','The old hag in that story.'],['Máy phun nước ngoài vườn.','The sprinkler is out in the garden.'],['Một tỉ đồng là nhiều lắm.','A billion dong is a lot.'],['Cái ghế nát hết rồi.','The chair is completely wrecked.'],['Con cá cắn mồi rồi.','The fish took the bait.'],['Bác sĩ mổ cho ông ấy.','The doctor operated on him.'],['Khoảnh khắc đó em nhớ mãi.','I will always remember that moment.'],['Xe tông vào cột điện.','The car hit the electricity pole.'],['Cửa hiệu đóng cửa rồi.','The shop has closed.'],['Đừng can thiệp vào việc nhà người ta.','Do not interfere in other people\'s affairs.'],['Sách vở vân vân.','Books and so on.'],['Phòng này thoáng lắm.','This room is very airy.'],['Nhà làm cỗ đãi khách.','The family laid on a feast for guests.'],['Hiệp hai hay hơn hiệp một.','The second half was better than the first.'],['Máy bay phi thẳng lên trời.','The plane shot straight up.'],['Nhân vật ác trong phim.','The villain in the film.'],['Bà dâng hoa lên bàn thờ.','Grandma offered flowers at the altar.'],['Quyển vở của em đâu?','Where is my exercise book?'],['Dáng người anh ấy cao.','He has a tall build.'],['Lớp em diễn kịch ngắn.','My class performed a short play.'],['Bọc quà lại giúp em.','Wrap the gift for me.'],['Khói bốc lên cao.','The smoke rose high.'],['Bọn cớm đến rồi.','The cops are here.'],['Đội em đoạt giải nhất.','My team took first prize.'],['Ông ấy là cựu chiến binh.','He is a war veteran.'],['Cuộn dây lại giúp em.','Coil the wire up for me.'],['Im mồm đi!','Shut your mouth!'],['Em nạp tiền điện thoại rồi.','I topped up my phone.'],['Cúi xuống nhặt lên nhé.','Bend down and pick it up.'],['Anh Don là bạn em.','Don is my friend.']];
 
 function gatherExampleCandidates(word, lesson){
@@ -37887,6 +37910,8 @@ function gatherExampleCandidates(word, lesson){
   // Last, so a real lesson sentence always wins over a plain filler one.
   if(isVietnameseCourse()){
     try{ VI_EXTRA_EXAMPLES.forEach(([v,e],i)=>take(v, '', e, `viex_${i}`)); }catch(e){}
+  } else if(state.language === 'yue'){
+    try{ YUE_EXTRA_EXAMPLES.forEach(([v,p,e],i)=>take(v, p, e, `yueex_${i}`)); }catch(e){}
   }
   try{ Object.entries(activeSosPhrases()).forEach(([wid,arr]) => arr.forEach((c,i)=>take(c.v, c.p, c.e, `sos_${wid}_${i}`))); }catch(e){}
   return out;
