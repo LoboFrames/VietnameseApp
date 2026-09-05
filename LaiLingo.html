@@ -28529,6 +28529,25 @@ function startActiveDifficultStudy(){
 }
 // 'listen' shares the exact same phrase deck/srsId's as 'phrases' — same mastered list either way.
 function viewActiveMastered(){ cardsTabMode==='words' ? viewMasteredWords() : viewMasteredPhrases(); }
+/* The Cards tab lists more than one deck, so its headline has to count more
+   than one deck.
+
+   It counted wordStudyPool() with no bucket — the ranked frequency deck alone.
+   So marking two characters Known left "Known words" reading 0 while the 漢
+   Characters row underneath said 2/1,964, and the same held for any Work,
+   Slang, Swearing or Texting card that is not also in the ranked deck. The
+   number a learner actually reads was describing a subset of the screen it sits
+   on. Union of every bucket the tab offers, deduped by card id. */
+function hubStatPool(){
+  const seen = new Set(), out = [];
+  const add = list => (list || []).forEach(c => {
+    if(!c || !c.srsId || seen.has(c.srsId)) return;
+    seen.add(c.srsId); out.push(c);
+  });
+  add(wordStudyPool());
+  buildRankBuckets().forEach(b => { if(b.kind) add(wordStudyPool(b)); });
+  return out;
+}
 function renderFlashcardsHub(){
   const isWords = cardsTabMode==='words';
   const isListen = cardsTabMode==='listen';
@@ -28554,9 +28573,13 @@ function renderFlashcardsHub(){
     : isListen
     ? 'Hear it, read it, guess the meaning, then grade yourself Again / Hard / Good / Easy.'
     : 'Anki-style — grade yourself Again / Hard / Good / Easy.';
-  document.getElementById('wcUnknownLabel').textContent = isWords ? 'Unknown words' : 'Unknown phrases';
-  document.getElementById('wcDifficultLabel').textContent = isWords ? 'Difficult words' : 'Difficult phrases';
-  document.getElementById('wcMasteredLabel').textContent = isWords ? 'Known words' : 'Known phrases';
+  /* "cards", not "words": in words mode these now count the whole tab — the
+     frequency deck plus Characters, Work, Slang, Swearing and Texting — and a
+     character is not a word. The home card's coverage figures stay word-only,
+     because there characters are a separate unit with their own ladder. */
+  document.getElementById('wcUnknownLabel').textContent = isWords ? 'Unknown cards' : 'Unknown phrases';
+  document.getElementById('wcDifficultLabel').textContent = isWords ? 'Difficult cards' : 'Difficult phrases';
+  document.getElementById('wcMasteredLabel').textContent = isWords ? 'Known cards' : 'Known phrases';
   document.getElementById('wcBreakdownTitle').textContent = isWords ? 'Progress by frequency' : 'Progress by phrase set';
   document.getElementById('wcBreakdownSub').textContent = isWords
     ? "How far you've gotten through each tier of common words."
@@ -28566,7 +28589,7 @@ function renderFlashcardsHub(){
   // 'phrases' (same srsId's), just through a different practice screen, per
   // the "feed the same SRS deck" design. So it reads pool/buckets/goal exactly
   // like 'phrases' below; only the start button's session type differs.
-  const pool = isWords ? wordStudyPool() : phraseStudyPool();
+  const pool = isWords ? hubStatPool() : phraseStudyPool();
   const buckets = isWords ? buildRankBuckets() : buildPhraseBuckets();
   const newCount = pool.filter(w=>isNewCard(w.srsId)).length;
   const mastered = pool.filter(w=>isMasteredWord(w.srsId)).length;
@@ -28619,9 +28642,14 @@ function renderFlashcardsHub(){
        counted slangVocab() (both halves) against a row that opens only the safe
        half. Routing through wordStudyPool/phraseStudyPool means the count is by
        construction the deck the row opens when you tap it. */
+    /* A banded row is a slice of the RANKED deck, not of the tab-wide pool the
+       headline counts. Filtering the union here let Work and Slang cards whose
+       rank happens to fall inside a band inflate that band's row past its own
+       width — the 1-100 row reporting more than a hundred. */
+    const bandPool = isWords ? wordStudyPool() : pool;
     const inBucket = b.kind
       ? (isWords ? wordStudyPool(b) : phraseStudyPool(b))
-      : pool.filter(w=> b.id==='unranked' ? w.rank===999999 : (w.rank>=b.min && w.rank<=b.max));
+      : bandPool.filter(w=> b.id==='unranked' ? w.rank===999999 : (w.rank>=b.min && w.rank<=b.max));
     if(!inBucket.length) return '';
     const m = inBucket.filter(w=>isMasteredWord(w.srsId)).length;
     const pct2 = Math.round(m/inBucket.length*100);
