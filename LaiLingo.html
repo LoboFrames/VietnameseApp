@@ -1212,6 +1212,7 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
   .quiz-option.correct:disabled,.quiz-option.wrong:disabled{opacity:1;}
 
   .footer-btn{width:100%;background:var(--vermillion);color:var(--rice);border:none;padding:16px;border-radius:14px;font-weight:800;font-size:14px;letter-spacing:.04em;}
+  .lsn-stat-deck{opacity:.72;}
   .footer-skip{display:block;margin:0 auto;background:none;border:none;color:var(--gold);font-size:12.5px;font-weight:700;text-decoration:underline;}
   /* Browse's "show another hundred" — quieter than a footer action, since it is
      a step through a list rather than the end of a task. */
@@ -1549,9 +1550,10 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
 
       <div class="lsn-stat-card">
         <p class="lsn-stat-title" id="lsnStatTitle">Learn Vietnamese <span>🇻🇳</span></p>
-        <div class="lsn-stat-big"><span id="lsnWordsTotal">0</span><span class="lsn-stat-unit">words to master</span></div>
+        <div class="lsn-stat-big"><span id="lsnWordsTotal">0</span><span class="lsn-stat-unit">words in these lessons</span></div>
         <p class="lsn-stat-line"><b id="lsnDialogueTotal">0</b> dialogues · <b id="lsnPhraseTotal">0</b> phrases</p>
         <p class="lsn-stat-line"><b id="lsnGrammarTotal">0</b> grammar notes</p>
+        <p class="lsn-stat-line lsn-stat-deck"><b id="lsnDeckTotal">0</b> cards in your study deck, the lessons included</p>
       </div>
 
       <button class="lsn-free-talk" onclick="switchView('worlds')">
@@ -33550,7 +33552,7 @@ function renderLessonsTab(){
   const nextLesson = LESSONS.find(l=>!state.completedLessons.includes(l.id));
   document.getElementById('lsnReminderTitle').textContent = nextLesson ? nextLesson.title : 'Review a completed lesson';
 
-  totalEl.textContent = wordStudyPool().length;
+  setLessonWordStats(LESSONS.reduce((sum,l)=>sum+(l.vocab||l.cards||[]).length,0));
   document.getElementById('lsnDialogueTotal').textContent = LESSONS.length;
   document.getElementById('lsnPhraseTotal').textContent = phraseStudyPool().length;
   // Real count of grammar notes actually authored across the 62 lessons —
@@ -33589,7 +33591,7 @@ function renderLessonsTab(){
         if(isCurrent) firstIncompleteFound = true;
         const badge = done ? `<div class="check">✓</div>` : `<div class="play">▶</div>`;
         let html = `<button class="lsn-lesson-card ${isCurrent?'current':''}" onclick="openLessonDetail('${l.id}')">
-          <img src="${l.img}" alt="" onerror="this.style.display='none';">
+          ${lessonImgTag(l.img)}
           <div class="shade"></div>
           ${badge}
           <div class="tag">${l.tag}</div>
@@ -33611,7 +33613,7 @@ function renderLessonsTab(){
             </button>`;
           } else {
             html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
-              <img src="${c.img}" alt="" onerror="this.style.display='none';">
+              ${lessonImgTag(c.img)}
               <div class="shade"></div>
               <div class="title">${c.title}</div>
             </button>`;
@@ -33658,7 +33660,7 @@ function renderLessonsTabZh(){
 
   const nextZhLesson = LESSONS_ZH.find(l=>!state.zh.completedLessons.includes(l.id));
   document.getElementById('lsnReminderTitle').textContent = nextZhLesson ? nextZhLesson.title : 'Review a completed lesson';
-  totalEl.textContent = zhWordCount;
+  setLessonWordStats(zhWordCount);
   document.getElementById('lsnDialogueTotal').textContent = zhDialogueCount;
   document.getElementById('lsnPhraseTotal').textContent = zhDialogueCount;
   document.getElementById('lsnGrammarTotal').textContent = zhGrammarCount;
@@ -33669,7 +33671,7 @@ function renderLessonsTabZh(){
   const zhLessonCardHtml = (l)=>{
     const done = state.zh.completedLessons.includes(l.id);
     let html = `<button class="lsn-lesson-card" onclick="openLessonDetail('${l.id}')">
-      <img src="${l.img}" alt="" onerror="this.style.display='none';">
+      ${lessonImgTag(l.img)}
       <div class="shade"></div>
       <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
       <div class="tag">${l.tag}</div>
@@ -33679,7 +33681,7 @@ function renderLessonsTabZh(){
     CONCEPT_LESSONS_ZH.filter(c=>c.afterDay===l.day).forEach(c=>{
       const cDone = state.zh.completedConcepts.includes(c.id);
       html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
-        <img src="${c.img}" alt="" onerror="this.style.display='none';">
+        ${lessonImgTag(c.img)}
         <div class="shade"></div>
         <div class="title">${c.title}</div>
       </button>`;
@@ -33739,7 +33741,7 @@ function renderLessonsTabYue(){
 
   const nextYueLesson = LESSONS_YUE.find(l=>!state.yue.completedLessons.includes(l.id));
   document.getElementById('lsnReminderTitle').textContent = nextYueLesson ? nextYueLesson.title : 'Review a completed lesson';
-  totalEl.textContent = yueWordCount;
+  setLessonWordStats(yueWordCount);
   document.getElementById('lsnDialogueTotal').textContent = yueDialogueCount;
   document.getElementById('lsnPhraseTotal').textContent = yueDialogueCount;
   document.getElementById('lsnGrammarTotal').textContent = yueGrammarCount;
@@ -33756,7 +33758,7 @@ function renderLessonsTabYue(){
   const yueLessonCardHtml = (l, levelNum)=>{
     const done = state.yue.completedLessons.includes(l.id);
     let html = `<button class="lsn-lesson-card" onclick="openLessonDetail('${l.id}')">
-      <img src="${l.img}" alt="" onerror="this.style.display='none';">
+      ${lessonImgTag(l.img)}
       <div class="shade"></div>
       <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
       <div class="tag">${l.tag}</div>
@@ -33766,7 +33768,7 @@ function renderLessonsTabYue(){
     CONCEPT_LESSONS_YUE.filter(c=>c.afterDay===l.day).forEach(c=>{
       const cDone = state.yue.completedConcepts.includes(c.id);
       html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
-        <img src="${c.img}" alt="" onerror="this.style.display='none';">
+        ${lessonImgTag(c.img)}
         <div class="shade"></div>
         <div class="title">${c.title}</div>
       </button>`;
@@ -33820,7 +33822,7 @@ function renderLessonsTabVi2(){
 
   const nextVi2Lesson = LESSONS_VI2.find(l=>!state.vi2.completedLessons.includes(l.id));
   document.getElementById('lsnReminderTitle').textContent = nextVi2Lesson ? nextVi2Lesson.title : 'Review a completed lesson';
-  totalEl.textContent = vi2WordCount;
+  setLessonWordStats(vi2WordCount);
   document.getElementById('lsnDialogueTotal').textContent = vi2DialogueCount;
   document.getElementById('lsnPhraseTotal').textContent = vi2DialogueCount;
   document.getElementById('lsnGrammarTotal').textContent = vi2GrammarCount;
@@ -33836,7 +33838,7 @@ function renderLessonsTabVi2(){
   const vi2LessonCardHtml = (l, levelNum)=>{
     const done = state.vi2.completedLessons.includes(l.id);
     let html = `<button class="lsn-lesson-card" onclick="openLessonDetail('${l.id}')">
-      <img src="${l.img}" alt="" onerror="this.style.display='none';">
+      ${lessonImgTag(l.img)}
       <div class="shade"></div>
       <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
       <div class="tag">${l.tag}</div>
@@ -33846,7 +33848,7 @@ function renderLessonsTabVi2(){
     CONCEPT_LESSONS_VI2.filter(c=>c.afterDay===l.day).forEach(c=>{
       const cDone = state.vi2.completedConcepts.includes(c.id);
       html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
-        <img src="${c.img}" alt="" onerror="this.style.display='none';">
+        ${lessonImgTag(c.img)}
         <div class="shade"></div>
         <div class="title">${c.title}</div>
       </button>`;
@@ -33889,6 +33891,46 @@ function renderLessonsTabVi2(){
 // label (no level name, no stat breakdown — only a target dialogue count),
 // unlike Mandarin's locked HSK rows which do show a name — matched here
 // deliberately rather than unified, since that's what the source data shows.
+/* Two numbers that look like they disagree, and used to.
+
+   The big number here counts the words the LESSONS teach. The Cards tab counts
+   the whole study deck, which is the frequency list plus everything the lessons
+   add — for Japanese that is 773 against 3,147. Labelled "words to master" the
+   small one read as the finish line, which made the Cards tab look wrong.
+   So the label says what it counts and the deck total sits underneath it. */
+/* Lesson art, with a fallback chain instead of a single guess.
+
+   The 62 real lesson photographs in images/ are named lesson_07.jpg — they were
+   shot for the retired Vietnamese course. The live course asks for
+   vi2_lesson_07.jpg, so every one of them was sitting on disk unused while the
+   card rendered blank. Try the course's own name, then the legacy name, then
+   give up quietly. Costs one failed request per missing file and restores
+   sixty-two photographs that were already there. */
+function lessonImgTag(src){
+  /* ONLY vi2. The legacy photographs are of Vietnam, so letting a Cantonese or
+     Japanese lesson fall back to them would put the wrong country on the card —
+     a worse failure than a blank one. */
+  const str = String(src||'');
+  const alt = /^images\/vi2_lesson_/.test(str) ? str.replace('images/vi2_lesson_', 'images/lesson_') : '';
+  const onerr = alt
+    ? `if(this.dataset.tried){this.style.display='none';}else{this.dataset.tried=1;this.src='${alt}';}`
+    : `this.style.display='none';`;
+  return `<img src="${src}" alt="" onerror="${onerr}">`;
+}
+function setLessonWordStats(lessonWords){
+  const el = document.getElementById('lsnWordsTotal');
+  if(el) el.textContent = Number(lessonWords).toLocaleString();
+  const deck = document.getElementById('lsnDeckTotal');
+  if(deck){
+    let n = 0;
+    try{ n = wordStudyPool().length; }catch(e){}
+    deck.textContent = n.toLocaleString();
+    // Hidden when the deck is not actually bigger, so a stub course does not
+    // show the same figure twice.
+    const row = deck.parentElement || deck.parentNode;
+    if(row && row.style) row.style.display = n > lessonWords ? '' : 'none';
+  }
+}
 function renderLessonsTabJa(){
   const totalEl = document.getElementById('lsnWordsTotal');
   if(!totalEl) return; // view not in DOM yet, harmless no-op
@@ -33900,7 +33942,7 @@ function renderLessonsTabJa(){
 
   const nextJaLesson = LESSONS_JA.find(l=>!state.ja.completedLessons.includes(l.id));
   document.getElementById('lsnReminderTitle').textContent = nextJaLesson ? nextJaLesson.title : 'Review a completed lesson';
-  totalEl.textContent = jaWordCount;
+  setLessonWordStats(jaWordCount);
   document.getElementById('lsnDialogueTotal').textContent = jaDialogueCount;
   document.getElementById('lsnPhraseTotal').textContent = jaDialogueCount;
   document.getElementById('lsnGrammarTotal').textContent = jaGrammarCount;
@@ -33911,7 +33953,7 @@ function renderLessonsTabJa(){
   const jaLessonCardHtml = (l)=>{
     const done = state.ja.completedLessons.includes(l.id);
     let html = `<button class="lsn-lesson-card" onclick="openLessonDetail('${l.id}')">
-      <img src="${l.img}" alt="" onerror="this.style.display='none';">
+      ${lessonImgTag(l.img)}
       <div class="shade"></div>
       <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
       <div class="tag">${l.tag}</div>
@@ -33921,7 +33963,7 @@ function renderLessonsTabJa(){
     CONCEPT_LESSONS_JA.filter(c=>c.afterDay===l.day).forEach(c=>{
       const cDone = state.ja.completedConcepts.includes(c.id);
       html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
-        <img src="${c.img}" alt="" onerror="this.style.display='none';">
+        ${lessonImgTag(c.img)}
         <div class="shade"></div>
         <div class="title">${c.title}</div>
       </button>`;
@@ -33971,7 +34013,7 @@ function renderLessonsTabKo(){
 
   const nextKoLesson = LESSONS_KO.find(l=>!state.ko.completedLessons.includes(l.id));
   document.getElementById('lsnReminderTitle').textContent = nextKoLesson ? nextKoLesson.title : 'Review a completed lesson';
-  totalEl.textContent = koWordCount;
+  setLessonWordStats(koWordCount);
   document.getElementById('lsnDialogueTotal').textContent = koDialogueCount;
   document.getElementById('lsnPhraseTotal').textContent = koDialogueCount;
   document.getElementById('lsnGrammarTotal').textContent = koGrammarCount;
@@ -33982,7 +34024,7 @@ function renderLessonsTabKo(){
   const koLessonCardHtml = (l)=>{
     const done = state.ko.completedLessons.includes(l.id);
     let html = `<button class="lsn-lesson-card" onclick="openLessonDetail('${l.id}')">
-      <img src="${l.img}" alt="" onerror="this.style.display='none';">
+      ${lessonImgTag(l.img)}
       <div class="shade"></div>
       <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
       <div class="tag">${l.tag}</div>
@@ -33992,7 +34034,7 @@ function renderLessonsTabKo(){
     CONCEPT_LESSONS_KO.filter(c=>c.afterDay===l.day).forEach(c=>{
       const cDone = state.ko.completedConcepts.includes(c.id);
       html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
-        <img src="${c.img}" alt="" onerror="this.style.display='none';">
+        ${lessonImgTag(c.img)}
         <div class="shade"></div>
         <div class="title">${c.title}</div>
       </button>`;
@@ -34044,7 +34086,7 @@ function renderLessonsTabTh(){
 
   const nextThLesson = LESSONS_TH.find(l=>!state.th.completedLessons.includes(l.id));
   document.getElementById('lsnReminderTitle').textContent = nextThLesson ? nextThLesson.title : 'Review a completed lesson';
-  totalEl.textContent = thWordCount;
+  setLessonWordStats(thWordCount);
   document.getElementById('lsnDialogueTotal').textContent = thDialogueCount;
   document.getElementById('lsnPhraseTotal').textContent = thDialogueCount;
   document.getElementById('lsnGrammarTotal').textContent = thGrammarCount;
@@ -34055,7 +34097,7 @@ function renderLessonsTabTh(){
   const thLessonCardHtml = (l)=>{
     const done = state.th.completedLessons.includes(l.id);
     let html = `<button class="lsn-lesson-card" onclick="openLessonDetail('${l.id}')">
-      <img src="${l.img}" alt="" onerror="this.style.display='none';">
+      ${lessonImgTag(l.img)}
       <div class="shade"></div>
       <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
       <div class="tag">${l.tag}</div>
@@ -34065,7 +34107,7 @@ function renderLessonsTabTh(){
     CONCEPT_LESSONS_TH.filter(c=>c.afterDay===l.day).forEach(c=>{
       const cDone = state.th.completedConcepts.includes(c.id);
       html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
-        <img src="${c.img}" alt="" onerror="this.style.display='none';">
+        ${lessonImgTag(c.img)}
         <div class="shade"></div>
         <div class="title">${c.title}</div>
       </button>`;
@@ -34116,7 +34158,7 @@ function renderLessonsTabTl(){
 
   const nextTlLesson = LESSONS_TL.find(l=>!state.tl.completedLessons.includes(l.id));
   document.getElementById('lsnReminderTitle').textContent = nextTlLesson ? nextTlLesson.title : 'Review a completed lesson';
-  totalEl.textContent = tlWordCount;
+  setLessonWordStats(tlWordCount);
   document.getElementById('lsnDialogueTotal').textContent = tlDialogueCount;
   document.getElementById('lsnPhraseTotal').textContent = tlDialogueCount;
   document.getElementById('lsnGrammarTotal').textContent = tlGrammarCount;
@@ -34127,7 +34169,7 @@ function renderLessonsTabTl(){
   const tlLessonCardHtml = (l)=>{
     const done = state.tl.completedLessons.includes(l.id);
     let html = `<button class="lsn-lesson-card" onclick="openLessonDetail('${l.id}')">
-      <img src="${l.img}" alt="" onerror="this.style.display='none';">
+      ${lessonImgTag(l.img)}
       <div class="shade"></div>
       <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
       <div class="tag">${l.tag}</div>
@@ -34137,7 +34179,7 @@ function renderLessonsTabTl(){
     CONCEPT_LESSONS_TL.filter(c=>c.afterDay===l.day).forEach(c=>{
       const cDone = state.tl.completedConcepts.includes(c.id);
       html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
-        <img src="${c.img}" alt="" onerror="this.style.display='none';">
+        ${lessonImgTag(c.img)}
         <div class="shade"></div>
         <div class="title">${c.title}</div>
       </button>`;
@@ -34186,7 +34228,7 @@ function renderLessonsTabEn(){
 
   const nextEnLesson = LESSONS_EN.find(l=>!state.en.completedLessons.includes(l.id));
   document.getElementById('lsnReminderTitle').textContent = nextEnLesson ? nextEnLesson.title : 'Review a completed lesson';
-  totalEl.textContent = enWordCount;
+  setLessonWordStats(enWordCount);
   document.getElementById('lsnDialogueTotal').textContent = enDialogueCount;
   document.getElementById('lsnPhraseTotal').textContent = enDialogueCount;
   document.getElementById('lsnGrammarTotal').textContent = enGrammarCount;
@@ -34197,7 +34239,7 @@ function renderLessonsTabEn(){
   const enLessonCardHtml = (l)=>{
     const done = state.en.completedLessons.includes(l.id);
     let html = `<button class="lsn-lesson-card" onclick="openLessonDetail('${l.id}')">
-      <img src="${l.img}" alt="" onerror="this.style.display='none';">
+      ${lessonImgTag(l.img)}
       <div class="shade"></div>
       <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
       <div class="tag">${l.tag}</div>
@@ -34207,7 +34249,7 @@ function renderLessonsTabEn(){
     CONCEPT_LESSONS_EN.filter(c=>c.afterDay===l.day).forEach(c=>{
       const cDone = state.en.completedConcepts.includes(c.id);
       html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
-        <img src="${c.img}" alt="" onerror="this.style.display='none';">
+        ${lessonImgTag(c.img)}
         <div class="shade"></div>
         <div class="title">${c.title}</div>
       </button>`;
@@ -34256,7 +34298,7 @@ function renderLessonsTabEs(){
 
   const nextEsLesson = LESSONS_ES.find(l=>!state.es.completedLessons.includes(l.id));
   document.getElementById('lsnReminderTitle').textContent = nextEsLesson ? nextEsLesson.title : 'Review a completed lesson';
-  totalEl.textContent = esWordCount;
+  setLessonWordStats(esWordCount);
   document.getElementById('lsnDialogueTotal').textContent = esDialogueCount;
   document.getElementById('lsnPhraseTotal').textContent = esDialogueCount;
   document.getElementById('lsnGrammarTotal').textContent = esGrammarCount;
@@ -34267,7 +34309,7 @@ function renderLessonsTabEs(){
   const esLessonCardHtml = (l)=>{
     const done = state.es.completedLessons.includes(l.id);
     let html = `<button class="lsn-lesson-card" onclick="openLessonDetail('${l.id}')">
-      <img src="${l.img}" alt="" onerror="this.style.display='none';">
+      ${lessonImgTag(l.img)}
       <div class="shade"></div>
       <div class="${done?'check':'play'}">${done?'✓':'▶'}</div>
       <div class="tag">${l.tag}</div>
@@ -34277,7 +34319,7 @@ function renderLessonsTabEs(){
     CONCEPT_LESSONS_ES.filter(c=>c.afterDay===l.day).forEach(c=>{
       const cDone = state.es.completedConcepts.includes(c.id);
       html += `<button class="lsn-concept-card ${cDone?'done':''}" onclick="openConceptDetail('${c.id}')">
-        <img src="${c.img}" alt="" onerror="this.style.display='none';">
+        ${lessonImgTag(c.img)}
         <div class="shade"></div>
         <div class="title">${c.title}</div>
       </button>`;

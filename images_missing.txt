@@ -1,0 +1,275 @@
+# LaiLingo — image files the app looks for and cannot find
+#
+# Drop these into the images/ folder next to LaiLingo.html and they appear with
+# no code change. Anything still missing falls back to the drawn SVG scene, so
+# nothing breaks if you only fill some of them.
+#
+# The 62 lesson_NN.jpg photos already in the folder were shot for the retired
+# Vietnamese course. The live course now falls back to them, so vi2 lessons 1-62
+# already show real photographs; only 63-121 are listed below.
+#
+# Sources that are free to use commercially: unsplash.com, pexels.com, and
+# Wikimedia Commons (check each file's licence — most are CC BY or public domain).
+
+## Home hero — the big photo behind the home screen. Landscape, roughly 800x500.
+## This is the one that makes a course feel like a place.
+images/home-hero-en.jpg      # USA — San Francisco
+images/home-hero-es.jpg      # Spain — Barcelona
+images/home-hero-ja.jpg      # Japan — Tokyo at street level, or Fuji
+images/home-hero-ko.jpg      # South Korea — Seoul
+images/home-hero-th.jpg      # Thailand — Bangkok
+images/home-hero-tl.jpg      # Philippines — Manila Bay
+images/home-hero-yue.jpg     # Hong Kong — Victoria Harbour, a wet market, a tram
+images/home-hero-zh.jpg      # Mainland China — the Bund, Shanghai
+
+## Lesson cards — the thumbnail on each lesson tile. Landscape, roughly 640x400.
+## These are decorative; the drawn fallback is fine if you never fill them.
+
+# en
+images/en_lesson_01.jpg
+
+# es
+images/es_lesson_01.jpg
+
+# ja
+images/ja_lesson_01.jpg
+images/ja_lesson_02.jpg
+images/ja_lesson_03.jpg
+images/ja_lesson_04.jpg
+images/ja_lesson_05.jpg
+images/ja_lesson_06.jpg
+images/ja_lesson_07.jpg
+images/ja_lesson_08.jpg
+images/ja_lesson_09.jpg
+images/ja_lesson_10.jpg
+images/ja_lesson_11.jpg
+images/ja_lesson_12.jpg
+images/ja_lesson_13.jpg
+images/ja_lesson_14.jpg
+images/ja_lesson_15.jpg
+images/ja_lesson_16.jpg
+images/ja_lesson_17.jpg
+images/ja_lesson_18.jpg
+images/ja_lesson_19.jpg
+images/ja_lesson_20.jpg
+images/ja_lesson_21.jpg
+images/ja_lesson_22.jpg
+images/ja_lesson_23.jpg
+images/ja_lesson_24.jpg
+images/ja_lesson_25.jpg
+images/ja_lesson_26.jpg
+images/ja_lesson_27.jpg
+images/ja_lesson_28.jpg
+images/ja_lesson_29.jpg
+images/ja_lesson_30.jpg
+images/ja_lesson_31.jpg
+images/ja_lesson_32.jpg
+images/ja_lesson_33.jpg
+images/ja_lesson_34.jpg
+images/ja_lesson_35.jpg
+images/ja_lesson_36.jpg
+images/ja_lesson_37.jpg
+images/ja_lesson_38.jpg
+images/ja_lesson_39.jpg
+images/ja_lesson_40.jpg
+images/ja_lesson_41.jpg
+images/ja_lesson_42.jpg
+
+# ko
+images/ko_lesson_01.jpg
+
+# th
+images/th_lesson_01.jpg
+
+# tl
+images/tl_lesson_01.jpg
+
+# vi2
+images/vi2_lesson_100.jpg
+images/vi2_lesson_101.jpg
+images/vi2_lesson_102.jpg
+images/vi2_lesson_103.jpg
+images/vi2_lesson_104.jpg
+images/vi2_lesson_105.jpg
+images/vi2_lesson_106.jpg
+images/vi2_lesson_107.jpg
+images/vi2_lesson_108.jpg
+images/vi2_lesson_109.jpg
+images/vi2_lesson_110.jpg
+images/vi2_lesson_111.jpg
+images/vi2_lesson_112.jpg
+images/vi2_lesson_113.jpg
+images/vi2_lesson_114.jpg
+images/vi2_lesson_115.jpg
+images/vi2_lesson_116.jpg
+images/vi2_lesson_117.jpg
+images/vi2_lesson_118.jpg
+images/vi2_lesson_119.jpg
+images/vi2_lesson_120.jpg
+images/vi2_lesson_121.jpg
+images/vi2_lesson_63.jpg
+images/vi2_lesson_64.jpg
+images/vi2_lesson_65.jpg
+images/vi2_lesson_66.jpg
+images/vi2_lesson_67.jpg
+images/vi2_lesson_68.jpg
+images/vi2_lesson_69.jpg
+images/vi2_lesson_70.jpg
+images/vi2_lesson_71.jpg
+images/vi2_lesson_72.jpg
+images/vi2_lesson_73.jpg
+images/vi2_lesson_74.jpg
+images/vi2_lesson_75.jpg
+images/vi2_lesson_76.jpg
+images/vi2_lesson_77.jpg
+images/vi2_lesson_78.jpg
+images/vi2_lesson_79.jpg
+images/vi2_lesson_80.jpg
+images/vi2_lesson_81.jpg
+images/vi2_lesson_82.jpg
+images/vi2_lesson_83.jpg
+images/vi2_lesson_84.jpg
+images/vi2_lesson_85.jpg
+images/vi2_lesson_86.jpg
+images/vi2_lesson_87.jpg
+images/vi2_lesson_88.jpg
+images/vi2_lesson_89.jpg
+images/vi2_lesson_90.jpg
+images/vi2_lesson_91.jpg
+images/vi2_lesson_92.jpg
+images/vi2_lesson_93.jpg
+images/vi2_lesson_94.jpg
+images/vi2_lesson_95.jpg
+images/vi2_lesson_96.jpg
+images/vi2_lesson_97.jpg
+images/vi2_lesson_98.jpg
+images/vi2_lesson_99.jpg
+
+# yue
+images/yue_lesson_01.jpg
+images/yue_lesson_02.jpg
+images/yue_lesson_03.jpg
+images/yue_lesson_04.jpg
+images/yue_lesson_05.jpg
+images/yue_lesson_06.jpg
+images/yue_lesson_07.jpg
+images/yue_lesson_08.jpg
+images/yue_lesson_09.jpg
+images/yue_lesson_10.jpg
+images/yue_lesson_100.jpg
+images/yue_lesson_101.jpg
+images/yue_lesson_102.jpg
+images/yue_lesson_103.jpg
+images/yue_lesson_104.jpg
+images/yue_lesson_105.jpg
+images/yue_lesson_106.jpg
+images/yue_lesson_107.jpg
+images/yue_lesson_108.jpg
+images/yue_lesson_109.jpg
+images/yue_lesson_11.jpg
+images/yue_lesson_110.jpg
+images/yue_lesson_111.jpg
+images/yue_lesson_112.jpg
+images/yue_lesson_113.jpg
+images/yue_lesson_114.jpg
+images/yue_lesson_12.jpg
+images/yue_lesson_13.jpg
+images/yue_lesson_14.jpg
+images/yue_lesson_15.jpg
+images/yue_lesson_16.jpg
+images/yue_lesson_17.jpg
+images/yue_lesson_18.jpg
+images/yue_lesson_19.jpg
+images/yue_lesson_20.jpg
+images/yue_lesson_21.jpg
+images/yue_lesson_22.jpg
+images/yue_lesson_23.jpg
+images/yue_lesson_24.jpg
+images/yue_lesson_25.jpg
+images/yue_lesson_26.jpg
+images/yue_lesson_27.jpg
+images/yue_lesson_28.jpg
+images/yue_lesson_29.jpg
+images/yue_lesson_30.jpg
+images/yue_lesson_31.jpg
+images/yue_lesson_32.jpg
+images/yue_lesson_33.jpg
+images/yue_lesson_34.jpg
+images/yue_lesson_35.jpg
+images/yue_lesson_36.jpg
+images/yue_lesson_37.jpg
+images/yue_lesson_38.jpg
+images/yue_lesson_39.jpg
+images/yue_lesson_40.jpg
+images/yue_lesson_41.jpg
+images/yue_lesson_42.jpg
+images/yue_lesson_43.jpg
+images/yue_lesson_44.jpg
+images/yue_lesson_45.jpg
+images/yue_lesson_46.jpg
+images/yue_lesson_47.jpg
+images/yue_lesson_48.jpg
+images/yue_lesson_49.jpg
+images/yue_lesson_50.jpg
+images/yue_lesson_51.jpg
+images/yue_lesson_52.jpg
+images/yue_lesson_53.jpg
+images/yue_lesson_54.jpg
+images/yue_lesson_55.jpg
+images/yue_lesson_56.jpg
+images/yue_lesson_57.jpg
+images/yue_lesson_58.jpg
+images/yue_lesson_59.jpg
+images/yue_lesson_60.jpg
+images/yue_lesson_61.jpg
+images/yue_lesson_62.jpg
+images/yue_lesson_63.jpg
+images/yue_lesson_64.jpg
+images/yue_lesson_65.jpg
+images/yue_lesson_66.jpg
+images/yue_lesson_67.jpg
+images/yue_lesson_68.jpg
+images/yue_lesson_69.jpg
+images/yue_lesson_70.jpg
+images/yue_lesson_71.jpg
+images/yue_lesson_72.jpg
+images/yue_lesson_73.jpg
+images/yue_lesson_74.jpg
+images/yue_lesson_75.jpg
+images/yue_lesson_76.jpg
+images/yue_lesson_77.jpg
+images/yue_lesson_78.jpg
+images/yue_lesson_79.jpg
+images/yue_lesson_80.jpg
+images/yue_lesson_81.jpg
+images/yue_lesson_82.jpg
+images/yue_lesson_83.jpg
+images/yue_lesson_84.jpg
+images/yue_lesson_85.jpg
+images/yue_lesson_86.jpg
+images/yue_lesson_87.jpg
+images/yue_lesson_88.jpg
+images/yue_lesson_89.jpg
+images/yue_lesson_90.jpg
+images/yue_lesson_91.jpg
+images/yue_lesson_92.jpg
+images/yue_lesson_93.jpg
+images/yue_lesson_94.jpg
+images/yue_lesson_95.jpg
+images/yue_lesson_96.jpg
+images/yue_lesson_97.jpg
+images/yue_lesson_98.jpg
+images/yue_lesson_99.jpg
+
+# zh
+images/zh_lesson_01.jpg
+images/zh_lesson_02.jpg
+images/zh_lesson_03.jpg
+images/zh_lesson_04.jpg
+images/zh_lesson_05.jpg
+images/zh_lesson_06.jpg
+images/zh_lesson_07.jpg
+images/zh_lesson_08.jpg
+images/zh_lesson_09.jpg
+images/zh_lesson_10.jpg
+images/zh_lesson_11.jpg
