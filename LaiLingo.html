@@ -306,8 +306,23 @@
   .danger-btn{width:100%;background:var(--vermillion-dim);color:var(--rice);border:none;padding:13px;border-radius:12px;font-weight:700;font-size:13.5px;margin-top:10px;}
 
   /* ===== Home redesign (Victor-AI-style hero) ===== */
-  .home-hero{position:relative;overflow:hidden;height:340px;margin:-18px -18px 16px;width:calc(100% + 36px);background:linear-gradient(160deg,#1a2f4a,#0d1420);}
-  .home-hero img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;}
+  /* The photographs are PORTRAIT — 9:16, phone-shaped — and this box was a
+     340px-tall landscape banner. object-fit:cover on a 1.15:1 box showing a
+     0.56:1 image threw away most of the picture top and bottom, which is why
+     every course looked cropped. The box is taller and nearer the images' own
+     shape now, and the image is CONTAINED rather than cropped, so the whole
+     photograph is always visible. A blurred, over-scaled copy of the same
+     image fills whatever is left at the sides, which beats letterbox bars and
+     costs no extra download — it is the same file the browser already has. */
+  /* The -18px top pulls the hero under the page padding so it bleeds to the
+     screen edge. With object-fit:cover that cost nothing; with contain it was
+     eating the top 18px of the photograph. Padding-top gives it back to the
+     foreground image while the blurred backdrop, positioned inset:0, still
+     bleeds all the way up. */
+  .home-hero{position:relative;overflow:hidden;box-sizing:border-box;padding-top:18px;aspect-ratio:3/4;max-height:66vh;min-height:320px;margin:-18px -18px 16px;width:calc(100% + 36px);background:linear-gradient(160deg,#1a2f4a,#0d1420);}
+  .home-hero img{display:block;width:100%;height:100%;}
+  .home-hero-bg{position:absolute;inset:0;object-fit:cover;object-position:center;filter:blur(26px) saturate(1.15);transform:scale(1.18);}
+  #homeHeroImg{position:relative;object-fit:contain;object-position:center;z-index:1;}
   .home-hero-shade{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.12) 40%, rgba(0,0,0,0.78) 100%);}
   .home-hero-loc{position:absolute;top:14px;left:16px;color:#fff;font-weight:700;font-size:13px;text-shadow:0 1px 4px rgba(0,0,0,.6);z-index:2;max-width:65%;}
   .home-flag-badge{position:absolute;top:12px;right:12px;z-index:2;width:60px;height:60px;border-radius:50%;background:var(--vermillion);display:flex;align-items:center;justify-content:center;font-size:44px;line-height:1;box-shadow:0 3px 12px rgba(0,0,0,.45);border:2px solid rgba(255,255,255,.35);padding:0;overflow:hidden;}
@@ -1399,6 +1414,7 @@ ruby rt{font-size:.5em;font-weight:600;color:var(--muted);letter-spacing:.02em;o
 
       <!-- HERO -->
       <div class="home-hero" id="homeHero">
+        <img id="homeHeroBg" class="home-hero-bg" src="images/home-hero.jpg" alt="" aria-hidden="true">
         <img id="homeHeroImg" src="images/home-hero.jpg" alt="">
         <div class="home-hero-shade"></div>
         <div class="home-hero-loc" id="homeHeroLoc">Mũi Né Sand Dunes</div>
@@ -27597,9 +27613,18 @@ function applyHomeHero(langId){
   const photo = HERO_PHOTO[langId] || ((langId==='vi'||langId==='vi2')
     ? 'images/home-hero.jpg' : `images/home-hero-${langId}.jpg`);
   const fallback = heroArtDataUri(langId);
+  const bg = document.getElementById('homeHeroBg');
   img.style.display = 'block';
   img.onerror = function(){ if(this.src !== fallback){ this.src = fallback; } };
   img.src = photo;
+  /* The blurred backdrop is the SAME file, so it is already in cache by the
+     time it renders. It follows the foreground into the fallback too, or a
+     course with no photograph would show a drawn scene floating on the last
+     course's photo. */
+  if(bg){
+    bg.onerror = function(){ if(this.src !== fallback){ this.src = fallback; } };
+    bg.src = photo;
+  }
 }
 
 function renderLanguageChrome(){
