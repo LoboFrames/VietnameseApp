@@ -1,49 +1,35 @@
 # Generating LaiLingo audio with Anki + HyperTTS
 
-The app looks its audio up by **id**: `lesson_vi2_l73_d0` plays
-`audio/male/lesson_vi2_l73_d0.mp3`. HyperTTS names what it generates after a
-hash of the text, `hypertts-<hash>.mp3`, so there is one extra step at the end
-to put the files where the app expects them. That is the only awkward part.
+Same five columns as `AllViet_MASTER.csv`, so this drops into the pipeline you
+already use.
 
-## 1. Import
-
-`LaiLingo_vi_anki.txt` — 2,375 notes, tab-separated, five columns:
-
-| Column | | |
+| File | Rows | Destination folder |
 |---|---|---|
-| **ID** | the app's audio id | field 1 on purpose |
-| **Vietnamese** | what gets spoken | HyperTTS source |
-| **English** | the gloss | reference only |
-| **Audio** | empty | HyperTTS target |
-| **Why** | `missing` or `drifted` | see below |
+| `LaiLingo_vi_rerecord.csv` | 2,375 | `audio/male/` |
+| `LaiLingo_yue_rerecord.csv` | 3,335 | `audio/yue/` |
 
-In Anki: **File → Import**, pick the file. The header lines set the separator,
-turn HTML off and name the columns, so the import screen should already be
-right; you only need to confirm the note type has four or five fields and that
-the columns map in order.
+```
+ID,Vietnamese_Text,English_Text,Vietnamese_Female_Sound,Vietnamese_Male_Sound
+lesson_vi2_l1_4,Một người thôi.,Just the one person.,,
+lesson_vi2_l3_4,Bạn nói gì cơ?,"Sorry, what did you say?",,
+```
 
-**Make a note type with the fields in this order first** — `ID`, `Vietnamese`,
-`English`, `Audio`, `Why` — and call it `LaiLingo Audio`, which is what the file
-asks for. If it does not exist Anki ignores the request and lets you pick.
+The two sound columns are empty — they are the targets HyperTTS generates the
+female and male voices into. Fields containing a comma are quoted; nothing else
+needs escaping.
 
-The ID is field 1 deliberately. Anki treats the first field as a note's identity
-and merges notes that share it; the same Vietnamese sentence appears under
-several ids, so putting the text first would collapse those notes and lose ids.
+## The steps
 
-## 2. Generate
-
-HyperTTS → **Collection Audio**, source field `Vietnamese`, target field
-`Audio`, pick your voice, Apply To Notes.
-
-2,375 notes contain 2,365 distinct sentences, so that is roughly how many clips
-it will actually make — identical text gets one file that several notes share.
-
-## 3. Export
-
-**File → Export → Notes in Plain Text**, with the ID and Audio columns included.
-The Audio column will now hold `[sound:hypertts-….mp3]`.
-
-## 4. Put the files where the app looks
+1. **Import.** File → Import. Map the five columns in order. The ID must land in
+   field 1: Anki treats the first field as a note's identity and merges notes
+   that share it, and the same Vietnamese sentence appears under several ids, so
+   any other order collapses notes and loses ids. All 2,375 ids are unique.
+2. **Generate.** HyperTTS → Collection Audio. Source field `Vietnamese_Text`,
+   target `Vietnamese_Female_Sound`; run it again for the male voice into
+   `Vietnamese_Male_Sound`.
+3. **Export.** File → Export → Notes in Plain Text, with the ID and sound
+   columns included.
+4. **Put the files where the app looks.**
 
 ```
 node rename_hypertts.js <export.txt> \
@@ -51,14 +37,14 @@ node rename_hypertts.js <export.txt> \
   audio/male
 ```
 
-It copies each generated file to `audio/male/<id>.mp3`. Files are **copied, not
-moved**, so the Anki collection is untouched, and one source file can land under
-several ids where sentences repeat. Add `--dry-run` to see what it would do,
-`--force` to overwrite files already there.
+HyperTTS names what it generates `hypertts-<hash>.mp3`; the app looks audio up
+by id, so this last step copies each file to `audio/male/<id>.mp3`. It **copies,
+never moves**, so the Anki collection is untouched, and one source file can land
+under several ids where sentences repeat. `--dry-run` shows what it would do,
+`--force` overwrites what is already there. It prints anything it could not
+place and why.
 
-It prints anything it could not place, and why.
-
-## What is in this batch, and what is not
+## What is in this batch
 
 2,375 rows: **1,709 missing** (no mp3 on disk) and **666 drifted**.
 
@@ -74,32 +60,27 @@ already correct, because vocab order comes from `vi_lesson_plan.json` and never
 moved. Re-recording them would be wasted work.
 
 By id prefix: 1,105 `word`, 756 `lesson`, 186 `slang`, 150 `textp`, 103
-`slangp`, 75 `text`.
+`slangp`, 75 `text`. 2,365 of the 2,375 sentences are distinct, so that is
+roughly how many clips HyperTTS will actually make per voice.
 
 ## Two things to know before you start
 
-**The voice will not match the existing recordings.** Roughly 6,900 Vietnamese
-clips are already correct and were made elsewhere. Anything HyperTTS generates
-sits alongside them, so unless you pick a close match the course will switch
-voices mid-lesson. Regenerating everything in one voice avoids that, at the cost
-of a much larger run — `build_rerecord.js` will produce that list if you want
-it.
+**The voice will not match the recordings that already exist.** About 6,900
+Vietnamese clips are already correct and were made elsewhere. Anything generated
+now sits alongside them, so unless the voice is close the course will switch
+voices mid-lesson. Regenerating everything in one voice avoids that at the cost
+of a much larger run.
 
 **More lessons are coming.** Vietnamese teaches 2,162 of the ChatGPT list's
 5,000 words; closing that gap adds roughly 181 lessons, each bringing new audio
 ids. This batch is still worth doing — the 1,105 word clips and everything under
-`slang`/`text` are stable — but expect a second, smaller run for the new
-lessons.
+`slang`/`text` are stable — but expect a second run for the new lessons.
 
-## Rebuilding these files
+## Rebuilding
 
 ```
-node build_rerecord.js                      # → LaiLingo_vi_rerecord.csv, LaiLingo_yue_rerecord.csv
-node build_anki.js LaiLingo_vi_rerecord.csv LaiLingo_vi_anki.txt "LaiLingo Vietnamese Audio"
+node build_rerecord.js
 ```
 
-After a successful run, `build_rerecord.js` should report nothing left to
-record. That is the check that it landed.
-
-Cantonese has its own list, `LaiLingo_yue_rerecord.csv`, 3,335 rows, all
-missing. Same workflow, `audio/yue` as the destination.
+Writes both CSVs. After a successful audio run it should report nothing left to
+record; that is the check that it landed.
