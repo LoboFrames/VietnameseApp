@@ -35625,13 +35625,29 @@ function renderLessonsTabVi2(){
    give up quietly. Costs one failed request per missing file and restores
    sixty-two photographs that were already there. */
 function lessonImgTag(src){
-  /* ONLY vi2. The legacy photographs are of Vietnam, so letting a Cantonese or
-     Japanese lesson fall back to them would put the wrong country on the card —
-     a worse failure than a blank one. */
+  /* Lesson art is tried in order and the first file that loads wins; if none
+     do, the image hides rather than showing a broken icon.
+
+       1. the path on the lesson itself      images/yue_lesson_05.jpg
+       2. the same name under images/Lessons/  — that subfolder is where the
+          artwork now lives, and looking in both means moving files between
+          the two never blanks the cards
+       3. for vi2 ONLY, the legacy numbered photograph, in either place
+
+     Step 3 is Vietnamese-only on purpose: those photographs are of Vietnam, so
+     letting a Cantonese or Japanese lesson fall back to them would put the
+     wrong country on the card, which is worse than a blank one. */
   const str = String(src||'');
-  const alt = /^images\/vi2_lesson_/.test(str) ? str.replace('images/vi2_lesson_', 'images/lesson_') : '';
-  const onerr = alt
-    ? `if(this.dataset.tried){this.style.display='none';}else{this.dataset.tried=1;this.src='${alt}';}`
+  const base = str.replace(/^images\//, '');
+  const chain = [];
+  if(base) chain.push('images/Lessons/' + base);
+  if(/^images\/vi2_lesson_/.test(str)){
+    const legacy = base.replace('vi2_lesson_', 'lesson_');
+    chain.push('images/Lessons/' + legacy, 'images/' + legacy);
+  }
+  const steps = JSON.stringify(chain).replace(/"/g, '&quot;');
+  const onerr = chain.length
+    ? `var c=${steps};var i=+(this.dataset.step||0);if(i>=c.length){this.style.display='none';}else{this.dataset.step=i+1;this.dataset.tried=1;this.src=c[i];}`
     : `this.style.display='none';`;
   return `<img src="${src}" alt="" onerror="${onerr}">`;
 }
